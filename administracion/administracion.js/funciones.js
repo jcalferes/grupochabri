@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    $("#tablaProductos").load("consultarProducto.php");
-        
-        
-    
-    
+    $("#prr").click(function() {
+        alert("prr");
+    });
+
 });
 

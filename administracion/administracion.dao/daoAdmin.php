@@ -1,10 +1,13 @@
 <?php
 
+include '../daoconexion/daoConeccion.php';
+include '../../Productos.php';
+
 class daoAdmin {
 
     function mostrarTabla() {
-        include '../administracion.clases/productos.php';
-//        $productos = new productos();
+
+        $prr = new Productos();
 //        $cn = new coneccion();
 //        $sql = "SELECT *\n"
 //                . "FROM productos p\n"
@@ -12,12 +15,9 @@ class daoAdmin {
 //                . "INNER JOIN marcas m ON m.idMarca = p.idMarca\n"
 //                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor LIMIT 0, 30 ";
 //        $datos = mysql_query($sql, $cn->Conectarse());
-        $productos->listaPrecios;
-        $tarifa = $productos->listaPrecios->getTarifa();
+        $prr->listaPrecios;
+        $tarifa = $prr->listaPrecios->getTarifa();
         echo $tarifa;
     }
 
 }
-
-
-
