@@ -1,5 +1,8 @@
 <?php
 
+include './listaPrecios.php';
+include './marcas.php';
+include './proveedores.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,12 +15,21 @@
  * @author Angel Solis
  */
 class productos {
+
     private $idProducto;
     private $producto;
     private $idMarca;
-    private $proveedor;
     private $idListaPrecios;
-    
+    var $proveedor;
+    var $listaPrecios;
+    var $marcas;
+
+    function __construct() {
+        $this->proveedor = new proveedores();
+        $this->listaPrecios = new listaPrecios();
+        $this->marcas = new marcas();
+    }
+
     public function getIdProducto() {
         return $this->idProducto;
     }
@@ -63,5 +75,4 @@ class productos {
 //    private $Unidad;
 //    private $Descripcion;
 //    private $tasaIva;
-
 }
