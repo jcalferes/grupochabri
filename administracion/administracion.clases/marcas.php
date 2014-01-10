@@ -12,6 +12,24 @@
  * @author Angel Solis
  */
 class marcas {
+
     private $idMarca;
     private $marca;
+
+    public function getIdMarca() {
+        return $this->idMarca;
+    }
+
+    public function getMarca() {
+        return $this->marca;
+    }
+
+    public function setIdMarca($idMarca) {
+        $this->idMarca = $idMarca;
+    }
+
+    public function setMarca($marca) {
+        $this->marca= $marca;
+    }
+
 }

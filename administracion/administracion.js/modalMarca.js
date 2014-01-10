@@ -2,12 +2,14 @@ $(document).ready(function() {
     $("#btnguardar").click(function() {
         var nombre = $("#txtnombremarca").val();
         if (nombre == "") {
-            alertify.log("No paso");
+            alertify.error("El campo no puede estar vacio");
             return false;
         }
         else {
-            alertify.success("Paso");
-            return false;
+            var info = "nombre=" + nombre;
+            $.get('guardaMarca.php', info, function() {
+                alertify.success("Marca agregada correctamente");
+            });
         }
     });
 });
