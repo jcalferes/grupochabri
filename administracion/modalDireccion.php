@@ -2,7 +2,7 @@
 <html lang="es">
     <body>
         <!-- Modal -->
-        <div class="modal fade" id="mdlDireccion" tabindex="-1" data-focus-on="input:first" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -33,7 +33,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="btnguardar" type="button" class="btn btn-primary" value="Guardar"/>
+                                <input id="btnguardardireccion" type="button" class="btn btn-primary" value="Guardar"/>
                             </div>
                     </form>
                 </div><!-- /.modal-content -->

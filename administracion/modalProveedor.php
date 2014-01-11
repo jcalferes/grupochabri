@@ -46,7 +46,6 @@
                                     <option value="mercedes">Mercedes</option>
                                     <option value="audi">Audi</option>
                                 </select>
-                                <button id="btnnuevadireccion" class="btn btn-default" type="button">Nueva direccion</button>
                                 <button id="muestramdldireccion" class="btn btn-default" type="button" data-toggle="modal" data-target="#mdlDireccion">Nueva direccion</button>
                             </div>
                             <div class="form-group">
@@ -63,7 +62,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input id="btncancelar" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="btnguardar" type="button" class="btn btn-primary" value="Guardar"/>
+                                <input id="btnguardarproveedor" type="button" class="btn btn-primary" value="Guardar"/>
                             </div>
                     </form>
                 </div><!-- /.modal-content -->
@@ -75,7 +74,7 @@
         <script src="../bootstrap/js/bootstrap-modalmanager.js"></script>
         <script src="../bootstrap/js/bootstrap-modal.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="administracion.js/modalProveedor.js"></script>   
+        <script src="administracion.js/modalProveedor.js"></script>  
     </body>
 </html>
 <?php

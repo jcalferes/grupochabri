@@ -2,7 +2,7 @@ $(document).ready(function() {
     $(function() {
         $('#txtpostal').validCampoFranz('0123456789');
     });
-    $("#btnguardar").click(function() {
+    $("#btnguardardireccion").click(function() {
         var calle = $("#txtcalle").val();
         var numeroexterior = $("#txtnumeroexterior").val();
         var numerointerior = $("#txtnumerointerior").val();
