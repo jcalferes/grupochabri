@@ -38,4 +38,12 @@ class dao {
         $cn->cerrarBd();
     }
 
+    function guardarDireccion(direccion $t) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, codigoPostal, colonia )VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getPostal() . "','" . $t->getColonia() . "')";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
 }
