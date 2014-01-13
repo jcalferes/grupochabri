@@ -15,6 +15,8 @@
         <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
         <!-- CSS personalizados -->
         <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
+
+
     </head>
     <body>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +66,7 @@
                     <div class="row">
                         <input href="#mdlMarca" data-toggle="modal" type="button" class="btn btn-primary" value="Nueva Marca">
                     </div>
-                    <button id="muestramdlproducto" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdlProducto" style="display: none"></button>
+                    <!--<button id="muestramdlproducto" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdlProducto"></button>-->
                     <div class="modal fade" id="mdlProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -75,6 +77,8 @@
                     </div>
                     <!--========================================================-->
                 </div>
+
+
                 <div class="panel-footer">
                     <!--                    Aqui los botones o similares-->
 
