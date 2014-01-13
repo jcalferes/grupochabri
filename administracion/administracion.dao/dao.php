@@ -14,6 +14,26 @@ class dao {
 
         return $datos;
     }
+    
+    function consultarListaPrecios() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM listaprecios";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+    
+     function consultarProveedores() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM proveedores";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
 
     function consultarMarcas() {
         include '../daoconexion/daoConeccion.php';

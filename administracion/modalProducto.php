@@ -15,7 +15,7 @@
         <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
     </head>
     <body>
-        <!-- Button trigger modal -->
+        
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
             Launch demo modal
         </button>
@@ -33,9 +33,32 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
                             </div>
+                            
+                            <div class="form-group" id="marca">
+                                 <select id="selectMarca">
+                                     <option value="0"> seleccione una marca</option>
+                                         
+                                     
+                                     
+                                 </select>
+                            </div>
+                            
+                             <div class="form-group">
+                                <select id="selectProveedor">
+                                     <option>
+                                         
+                                     </option>
+                                     
+                                 </select>
+                            </div>
+                            
                             <div class="form-group">
-                                <label>Email</label>
-                                <input  id="txtemail" type="text" class="form-control" required="">
+                                <select id="selectListaPrecios" class="jojo">
+                                     <option>
+                                         
+                                     </option>
+                                     
+                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Mensage</label>
@@ -44,7 +67,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                            <input type="submit" class="btn btn-primary" value="Guardar"/>
+                            <input type="submit" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                         </div>
                     </form>
                 </div><!-- /.modal-content -->
@@ -52,6 +75,7 @@
         </div><!-- /.modal -->
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
+        <script type="text/javascript" src="administracion.js/modalProducto.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
