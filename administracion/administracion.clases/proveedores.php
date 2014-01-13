@@ -12,50 +12,51 @@
  * @author Angel Solis
  */
 class proveedores {
-   private $nombre;
-   private $idDireccion;
-   private $rfc;
-   private $diasCredito;
-   private $descuento;
-   public function getNombre() {
-       return $this->nombre;
-   }
 
-   public function getIdDireccion() {
-       return $this->idDireccion;
-   }
+    private $nombre;
+    private $idDireccion;
+    private $rfc;
+    private $diasCredito;
+    private $descuento;
 
-   public function getRfc() {
-       return $this->rfc;
-   }
+    public function getNombre() {
+        return $this->nombre;
+    }
 
-   public function getDiasCredito() {
-       return $this->diasCredito;
-   }
+    public function getIdDireccion() {
+        return $this->idDireccion;
+    }
 
-   public function getDescuento() {
-       return $this->descuento;
-   }
+    public function getRfc() {
+        return $this->rfc;
+    }
 
-   public function setNombre($nombre) {
-       $this->nombre = $nombre;
-   }
+    public function getDiasCredito() {
+        return $this->diasCredito;
+    }
 
-   public function setIdDireccion($idDireccion) {
-       $this->idDireccion = $idDireccion;
-   }
+    public function getDescuento() {
+        return $this->descuento;
+    }
 
-   public function setRfc($rfc) {
-       $this->rfc = $rfc;
-   }
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
 
-   public function setDiasCredito($diasCredito) {
-       $this->diasCredito = $diasCredito;
-   }
+    public function setIdDireccion($idDireccion) {
+        $this->idDireccion = $idDireccion;
+    }
 
-   public function setDescuento($descuento) {
-       $this->descuento = $descuento;
-   }
+    public function setRfc($rfc) {
+        $this->rfc = $rfc;
+    }
 
+    public function setDiasCredito($diasCredito) {
+        $this->diasCredito = $diasCredito;
+    }
+
+    public function setDescuento($descuento) {
+        $this->descuento = $descuento;
+    }
 
 }

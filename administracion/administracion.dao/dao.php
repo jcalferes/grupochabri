@@ -39,9 +39,24 @@ class dao {
     }
 
     function guardarDireccion(direccion $t) {
+//        session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, codigoPostal, colonia )VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getPostal() . "','" . $t->getColonia() . "')";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, codigoPostal, colonia )VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getPostal() . "','" . $t->getColonia() . "');";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query($sql, $cn->Conectarse());
+        $dato = mysql_query($sql2, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs["ID"];
+        }
+        $_SESSION['iddireccion'] = $id;
+        $cn->cerrarBd();
+    }
+
+    function guardarProveedor(proveedores $t) {
+//        include '../daoconexion/daoConeccion.php'; Esta comentado por que ya se incluyo en guardarDireccion
+        $cn = new coneccion();
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento)VALUES ('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }

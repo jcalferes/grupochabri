@@ -13,12 +13,10 @@ $(document).ready(function() {
             return false;
         }
         else {
-            alertify.success("entre");
             var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&postal=" + postal + "&colonia=" + colonia;
             $.get('guardaDireccion.php', info, function() {
                 alertify.success("Direccion agregada correctamente");
             });
-            alertify.success("sali");
         }
     });
 });

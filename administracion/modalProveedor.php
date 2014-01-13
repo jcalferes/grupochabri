@@ -1,3 +1,6 @@
+<?php
+include '../daoconexion/daoConeccion.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -35,17 +38,10 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Nombre:</label>
-
-                                <input type="text" class="form-control" id="txtnombre" placeholder="Ingrese el nombre del proveedor">
+                                <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
                             </div>
                             <div class="form-group">
                                 <label>Direccion:</label>
-                                <select>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
                                 <button id="muestramdldireccion" class="btn btn-default" type="button" data-toggle="modal" data-target="#mdlDireccion">Nueva direccion</button>
                             </div>
                             <div class="form-group">
@@ -74,7 +70,7 @@
         <script src="../bootstrap/js/bootstrap-modalmanager.js"></script>
         <script src="../bootstrap/js/bootstrap-modal.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="administracion.js/modalProveedor.js"></script>  
+        <script src="administracion.js/modalProveedor.js"></script>
     </body>
 </html>
 <?php
