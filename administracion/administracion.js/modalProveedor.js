@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#selectMarca").load("mostrarDireccion.php");
     $(function() {
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
         $('#txtdiascredito').validCampoFranz('0123456789');

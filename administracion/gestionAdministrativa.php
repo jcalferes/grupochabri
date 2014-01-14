@@ -11,6 +11,7 @@
         <!-- CSS -->
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap-modal.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
         <!-- CSS personalizados -->
@@ -65,6 +66,8 @@
                     <!--                    Aqui todo el contenido de la pagina-->
                     <div class="row">
                         <input href="#mdlMarca" data-toggle="modal" type="button" class="btn btn-primary" value="Nueva Marca">
+                        <input href="#myModal" data-toggle="modal" type="button" class="btn btn-primary" value="Nuevo Producto">
+                        <input href="#mdlProveedor" data-toggle="modal" type="button" class="btn btn-primary" value="Nuevo Proveedor">
                     </div>
                     <!--<button id="muestramdlproducto" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdlProducto"></button>-->
                     <div class="modal fade" id="mdlProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -89,11 +92,14 @@
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../bootstrap/js/bootstrap-modalmanager.js"></script>
+        <script src="../bootstrap/js/bootstrap-modal.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
     </body>
 </html>
 <?php
 include './modalMarca.php';
-include './modalDireccion.php';
+include './modalProveedor.php';
+include './modalProducto.php';
 ?>
 

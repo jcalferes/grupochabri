@@ -8,6 +8,7 @@ $(document).ready(function() {
         else {
             var info = "nombre=" + nombre;
             $.get('guardaMarca.php', info, function() {
+                $('#selectMarca').load('mostarMarcas.php')
                 alertify.success("Marca agregada correctamente");
             });
         }

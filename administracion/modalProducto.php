@@ -15,7 +15,7 @@
         <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
     </head>
     <body>
-        
+
         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
             Launch demo modal
         </button>
@@ -33,33 +33,31 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
                             </div>
-                            
+
                             <div class="form-group" id="marca">
-                                 <select id="selectMarca">
-                                     <option value="0"> seleccione una marca</option>
-                                         
-                                     
-                                     
-                                 </select>
-                                <a id="agregarMarca" href="#" onclick="clickio()">agregar nueva marca</a>
+                                <select id="selectMarca">
+                                    <option value="0"> seleccione una marca</option>
+
+                                </select>
+                                <input href="#mdlMarca" data-toggle="modal" type="button" class="btn btn-primary" value="Agregar Marca">
                             </div>
-                            
-                             <div class="form-group">
+
+                            <div class="form-group">
                                 <select id="selectProveedor">
-                                     <option>
-                                         
-                                     </option>
-                                     
-                                 </select>
+                                    <option>
+
+                                    </option>
+
+                                </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <select id="selectListaPrecios" class="jojo">
-                                     <option>
-                                         
-                                     </option>
-                                     
-                                 </select>
+                                    <option>
+
+                                    </option>
+
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Mensage</label>
@@ -71,13 +69,13 @@
                             <input type="submit" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                         </div>
                     </form>
-                    
+
                     <form id="probando">
-                         <div class="form-group">
-                                <input type="text" class="form-control" id="txtdsad" placeholder="Agregar Marca" required>
-                            </div>
-                         <div class="modal-footer">
-                             <input type="button"  value="Cancelar" id="cancelar"/>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtdsad" placeholder="Agregar Marca" required>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button"  value="Cancelar" id="cancelar"/>
                             <input type="submit" id="guardarDato"/>
                         </div>
                     </form>
