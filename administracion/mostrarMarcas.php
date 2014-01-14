@@ -1,6 +1,4 @@
 <?php
-
-echo"algo";
 include './administracion.dao/dao.php';
 $dao = new dao();
 $datos = $dao->consultarMarcas();

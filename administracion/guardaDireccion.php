@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include './administracion.dao/dao.php';
 include './administracion.clases/direccion.php';
 $direccion = new direccion();
 $direccion->setCalle($_GET["calle"]);

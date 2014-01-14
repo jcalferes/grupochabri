@@ -17,6 +17,7 @@ if ($_SESSION["controlDireccion"] == 1) {
     $id = $_SESSION['iddireccion'];
     $proveedor->setIdDireccion($id);
     $dao->guardarProveedor($proveedor);
+    unset($_SESSION["controlDireccion"]);
 } else {
     echo 1;
 }

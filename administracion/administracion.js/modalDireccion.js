@@ -19,6 +19,12 @@ $(document).ready(function() {
             });
         }
     });
+    $("#canceloDireccion").click(function() {
+        $("#ejecutaMdlProveedor").trigger("click");
+    });
+    $("#btnguardardireccion").click(function() {
+        $("#ejecutaMdlProveedor").trigger("click");
+    });
 });
 
 

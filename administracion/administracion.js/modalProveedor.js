@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    $("#selectMarca").load("mostrarDireccion.php");
-    $(function() {
-        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
-        $('#txtdiascredito').validCampoFranz('0123456789');
-        $('#txtdescuento').validCampoFranz('0123456789');
-    });
+//    $("#selectMarca").load("mostrarDireccion.php");
+//    $(function() {
+//        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
+//        $('#txtdiascredito').validCampoFranz('0123456789');
+//        $('#txtdescuento').validCampoFranz('0123456789');
+//    });
     $("#btnguardarproveedor").click(function() {
         var nombre = $("#txtnombreproveedor").val();
         var rfc = $("#txtrfc").val();
@@ -23,6 +23,7 @@ $(document).ready(function() {
                     alertify.error("No guardaste una direccion");
                     return false;
                 } else {
+                    $('#selectProveedor').load('mostrarProveedores.php');
                     alertify.success("Proveedor agregado correctamente");
                     return false;
                 }

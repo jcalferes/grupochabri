@@ -14,7 +14,7 @@ class dao {
 
         return $datos;
     }
-    
+
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -24,8 +24,8 @@ class dao {
 
         return $datos;
     }
-    
-     function consultarProveedores() {
+
+    function consultarProveedores() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM proveedores";

@@ -32,16 +32,15 @@
                                 <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
                             </div>
                             <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="btnguardardireccion" type="button" class="btn btn-primary" value="Guardar"/>
+                                <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                                <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                             </div>
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!-- JSCRIPT -->
-        <script src="../utilerias/validCampoFranz.js"></script>
-        <script src="administracion.js/modalDireccion.js"></script>
+        
     </body>
 </html>
 

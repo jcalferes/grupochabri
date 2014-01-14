@@ -60,9 +60,6 @@
                 <div class="panel-body">
                     <!--                    Aqui todo el contenido de la pagina-->
 
-                    <select>
-                        <option></option>
-                    </select>
                     <!--========================================================-->
                 </div>
                 <div class="panel-footer">

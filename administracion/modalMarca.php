@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
     <!-- Modal -->
     <div class="modal fade" id="mdlMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -16,14 +17,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                        <input id="btnguardar" type="button" class="btn btn-primary" value="Guardar"/>
+                        <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                        <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" data-dismiss="modal"/>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!-- JSCRIPT -->
-    <script src="administracion.js/modalMarca.js"></script>   
+    <!--<script src="administracion.js/modalMarca.js"></script>-->   
 </html>
 

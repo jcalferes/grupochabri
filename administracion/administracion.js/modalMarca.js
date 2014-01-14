@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $("#btnguardar").click(function() {
+//    alert('Entre a JSMarca');
+    $("#btnguardarMarca").click(function() {
         var nombre = $("#txtnombremarca").val();
         if (nombre == "") {
             alertify.error("El campo no puede estar vacio");
@@ -8,9 +9,21 @@ $(document).ready(function() {
         else {
             var info = "nombre=" + nombre;
             $.get('guardaMarca.php', info, function() {
-                $('#selectMarca').load('mostarMarcas.php')
+                try {
+                    $("#selectMarca").load("mostrarMarcas.php");
+                }
+                catch (e) {
+                    alert();
+                }
+                $('#selectMarca').load('mostarMarcas.php');
                 alertify.success("Marca agregada correctamente");
             });
         }
+    });
+    $("#canceloMarca").click(function() {
+        $("#ejecutaMdlProducto").trigger("click");
+    });
+    $("#btnguardarMarca").click(function() {
+        $("#ejecutaMdlProducto").trigger("click");
     });
 });
