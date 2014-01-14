@@ -1,6 +1,8 @@
 <?php
 
-echo ' <form>
+echo '<script type="text/javascript" src="administracion.js/modalProducto.js"></script>
+    
+    <form>
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
@@ -52,3 +54,5 @@ echo ' <form>
     
     
   <a href="#" id="close-modal">Close modal</a>';
+
+

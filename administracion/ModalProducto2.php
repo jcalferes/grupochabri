@@ -79,7 +79,7 @@
 <script src='../bootstrap/js/jquery.js'></script>
 
 <script src="administracion.js/llamarModal.js"></script>
-<script type="text/javascript" src="administracion.js/modalProducto.js"></script>
+<!--<script type="text/javascript" src="administracion.js/modalProducto.js"></script>-->
 </body>
 
 </html>
