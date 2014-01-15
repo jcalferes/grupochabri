@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="panel panel-default ">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Gestion Administrativa</h3>
                 </div>
@@ -65,38 +65,20 @@
                     <div id="wizard">
                         <h2>First Step</h2>
                         <section>
-                            <div id="wizard2">
-                                <h2>First Step</h2>
-                                <section>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
-                                        sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
-                                        Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
-                                </section>
-                                <h2>Second Step</h2>
-                                <section>
-                                    <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-                                        In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-                                        dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-                                        In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-                                        Donec non pulvinar urna. Aliquam id velit lacus.</p>
-                                </section>
+                            <div id="mostrarWizards">
+                                <?php
+                                include './mostrarWizarProducto.php';
+                                ?>
                             </div>
                         </section>
-                        <h2>Second Step</h2>
+                        <h2>First Step</h2>
                         <section>
-                            <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-                                In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-                                dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-                                In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-                                Donec non pulvinar urna. Aliquam id velit lacus.</p>
+                            <p>KAHDKJASSHDKAJHDKAJSHDASKJDHASKJDHASKJ</p>
                         </section>
                     </div>
                     <!--========================================================-->
                 </div>
                 <div class="panel-footer">
-
                     <!--                    Aqui los botones o similares-->
                     <!--========================================================-->
                 </div>
@@ -106,10 +88,8 @@
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
+        <script src="../administracion/administracion.js/wizardjs.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="../jsteps/js/jquery.steps.taps.js"></script>
+        <script src="../administracion/administracion.js/modalProducto.js"></script>
     </body>
 </html>
-<?php
-?>
-
