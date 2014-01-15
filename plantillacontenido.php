@@ -11,11 +11,10 @@
         <!-- CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-        <!-- CSS personalizados -->
-        <link href="bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
+       
     </head>
     <body>
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

@@ -14,11 +14,9 @@
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
-        <!-- CSS personalizados -->
-        <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
     </head>
     <body>
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -63,8 +61,8 @@
                 </div>
                 <div class="panel-body text-center">
                     <!--                    Aqui todo el contenido de la pagina-->
-                    <button id="" class="btn btn-primary" onclick="entroMarca()"> marca </button>
-                    <button id="" class="btn btn-primary" onclick="entroProducto()"> producto </button>
+                    <input id="" type="button" class="btn btn-primary" onclick="entroMarca()" value="Marca"/>
+                    <input id="" type="button" class="btn btn-primary" onclick="entroProducto()" value="Producto"/>
                     <div id="mostrar">
                     </div>
                     <!--========================================================-->
