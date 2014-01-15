@@ -1,6 +1,6 @@
 <?php
 
-class direccion {
+class Direccion {
 
     private $calle;
     private $numeroexterior;
