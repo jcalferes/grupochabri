@@ -67,9 +67,11 @@
                     <div id="wizard">
                         <h2>First Step</h2>
                         <section>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
-                                sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
-                                Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
+                            <div id="mostrarWizards">
+                        
+                                <input type="submit" id="algo"/>
+                                
+                    </div>
                         </section>
                         <h2>Second Step</h2>
                         <section>
@@ -84,7 +86,7 @@
                     <!--========================================================-->
                 </div>
                 <div class="panel-footer">
-
+                   
                     <!--                    Aqui los botones o similares-->
                     <!--========================================================-->
                 </div>
@@ -94,22 +96,11 @@
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
+        <script src="../administracion/administracion.js/wizardjs.js"></script>
+       
         <script src="../alertify/lib/alertify.min.js"></script>
         <script>
-            $(function()
-            {
-                $("#wizard").steps({
-                    headerTag: "h2",
-                    bodyTag: "section",
-                    transitionEffect: "none",
-                    enableFinishButton: false,
-                    enablePagination: false,
-                    enableAllSteps: true,
-                    titleTemplate: "#title#",
-                    cssClass: "tabcontrol"
-                });
-            });
-        </script>
+           
     </body>
 </html>
 <?php
