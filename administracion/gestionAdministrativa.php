@@ -47,7 +47,7 @@
                             </ul>
                         </li>
                     </ul>
-                    
+
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
@@ -63,22 +63,9 @@
                 </div>
                 <div class="panel-body text-center">
                     <!--                    Aqui todo el contenido de la pagina-->
-                    <div id="wizard">
-                        <h2>First Step</h2>
-                        <section>
-                            <div id="consulta">
-                                
-                            </div>
-                        </section>
-                        <h2>First Step</h2>
-                        <section>
-                            <div id="mostrarWizards">
-                                <?php
-                                include './mostrarWizarProducto.php';
-                                ?>
-                            </div>
-                            
-                        </section>
+                    <button id="" class="btn btn-primary" onclick="entroMarca()"> marca </button>
+                    <button id="" class="btn btn-primary" onclick="entroProducto()"> producto </button>
+                    <div id="mostrar">
                     </div>
                     <!--========================================================-->
                 </div>
@@ -92,9 +79,7 @@
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
-   
-        
         <script src="../alertify/lib/alertify.min.js"></script>
-       
+        <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>

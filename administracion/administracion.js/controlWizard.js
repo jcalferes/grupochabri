@@ -9,14 +9,4 @@ $(function() {
         titleTemplate: "#title#",
         cssClass: "tabcontrol"
     });
-    
-    
-    
 });
-
-$(document).ready(function(){
-     
-    $("#consulta").load("consultarProducto.php");
-     $("#algo").hide();
-    
-}); 
