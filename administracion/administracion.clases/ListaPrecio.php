@@ -12,32 +12,33 @@
  * @author Angel Solis
  */
 class ListaPrecio {
- private $idListaPrecios;
- private $Tarifa;
- private $costos;
- public function getIdListaPrecios() {
-     return $this->idListaPrecios;
- }
 
- public function getTarifa() {
-     return $this->Tarifa;
- }
+    private $idListaPrecios;
+    private $Tarifa;
+    private $costos;
 
- public function getCostos() {
-     return $this->costos;
- }
+    public function getIdListaPrecios() {
+        return $this->idListaPrecios;
+    }
 
- public function setIdListaPrecios($idListaPrecios) {
-     $this->idListaPrecios = $idListaPrecios;
- }
+    public function getTarifa() {
+        return $this->Tarifa;
+    }
 
- public function setTarifa($Tarifa) {
-     $this->Tarifa = $Tarifa;
- }
+    public function getCostos() {
+        return $this->costos;
+    }
 
- public function setCostos($costos) {
-     $this->costos = $costos;
- }
+    public function setIdListaPrecios($idListaPrecios) {
+        $this->idListaPrecios = $idListaPrecios;
+    }
 
+    public function setTarifa($Tarifa) {
+        $this->Tarifa = $Tarifa;
+    }
+
+    public function setCostos($costos) {
+        $this->costos = $costos;
+    }
 
 }

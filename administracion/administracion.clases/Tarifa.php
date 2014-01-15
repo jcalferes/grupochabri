@@ -12,8 +12,10 @@
  * @author Angel Solis
  */
 class Tarifa {
+
     private $idTarifa;
     private $tarifa;
+
     public function getIdTarifa() {
         return $this->idTarifa;
     }
@@ -29,6 +31,5 @@ class Tarifa {
     public function setTarifa($tarifa) {
         $this->tarifa = $tarifa;
     }
-
 
 }

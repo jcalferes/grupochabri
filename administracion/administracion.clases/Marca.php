@@ -29,7 +29,7 @@ class Marca {
     }
 
     public function setMarca($marca) {
-        $this->marca= $marca;
+        $this->marca = $marca;
     }
 
 }
