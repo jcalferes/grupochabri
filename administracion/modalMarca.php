@@ -18,7 +18,7 @@
                     </div>
                     <div class="modal-footer">
                         <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                        <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" data-dismiss="modal"/>
+                        <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar"/>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

@@ -13,6 +13,7 @@
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
+        <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <!-- CSS personalizados -->
         <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
 
@@ -63,9 +64,22 @@
                 </div>
                 <div class="panel-body text-center">
                     <!--                    Aqui todo el contenido de la pagina-->
-                    <div class="row">
-                        <input id="ejecutaMdlProducto" href="#mdlProducto" data-toggle="modal" type="button" class="btn btn-primary" value="Nuevo Producto">
-                        <input id="ejecutaMdlProveedor" href="#mdlProveedor" data-toggle="modal" type="button" class="btn btn-primary" value="Nuevo Proveedor">
+                    <div id="wizard">
+                        <h2>First Step</h2>
+                        <section>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
+                                sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
+                                Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
+                        </section>
+                        <h2>Second Step</h2>
+                        <section>
+                            <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
+                                In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
+                                dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
+                                In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
+                                Donec non pulvinar urna. Aliquam id velit lacus.</p>
+                        </section>
                     </div>
                     <!--========================================================-->
                 </div>
@@ -79,18 +93,25 @@
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script type="text/javascript" src="administracion.js/modalProveedor.js"></script>
-        <script type="text/javascript" src="administracion.js/modalProducto.js"></script>
-        <script type="text/javascript" src="administracion.js/modalMarca.js"></script>
-        <script src="../utilerias/validCampoFranz.js"></script>
-        <script src="administracion.js/modalDireccion.js"></script>
+        <script>
+            $(function()
+            {
+                $("#wizard").steps({
+                    headerTag: "h2",
+                    bodyTag: "section",
+                    transitionEffect: "none",
+                    enableFinishButton: false,
+                    enablePagination: false,
+                    enableAllSteps: true,
+                    titleTemplate: "#title#",
+                    cssClass: "tabcontrol"
+                });
+            });
+        </script>
     </body>
 </html>
 <?php
-include './modalMarca.php';
-include './modalProveedor.php';
-include './modalProducto.php';
-include './modalDireccion.php';
 ?>
 

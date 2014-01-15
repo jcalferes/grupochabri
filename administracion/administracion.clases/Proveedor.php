@@ -11,7 +11,7 @@
  *
  * @author Angel Solis
  */
-class proveedores {
+class Proveedor {
 
     private $nombre;
     private $idDireccion;

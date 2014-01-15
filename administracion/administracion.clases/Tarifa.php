@@ -11,7 +11,7 @@
  *
  * @author Angel Solis
  */
-class tarifas {
+class Tarifa {
     private $idTarifa;
     private $tarifa;
     public function getIdTarifa() {

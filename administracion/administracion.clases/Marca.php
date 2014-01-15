@@ -11,7 +11,7 @@
  *
  * @author Angel Solis
  */
-class marcas {
+class Marca {
 
     private $idMarca;
     private $marca;

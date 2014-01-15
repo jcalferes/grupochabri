@@ -30,6 +30,12 @@ $(document).ready(function() {
             });
         }
     });
+    $("#btncanceloProvedor").click(function() {
+        $("#ejecutaMdlProducto").trigger("click");
+    });
+    $("#btnguardarproveedor").click(function() {
+        $("#ejecutaMdlProducto").trigger("click");
+    });
 });
 
 

@@ -11,7 +11,7 @@
  *
  * @author Angel Solis
  */
-class listaPrecios {
+class ListaPrecio {
  private $idListaPrecios;
  private $Tarifa;
  private $costos;
