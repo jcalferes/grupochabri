@@ -50,8 +50,9 @@ class dao {
         return $codificado;
     }
 
-    function guardarMarca(marcas $t) {
-        include '../daoconexion/daoConeccion.php';
+    function guardarMarca(Marca $t) {
+        echo 'llego';
+       include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
         mysql_query($sql, $cn->Conectarse());

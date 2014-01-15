@@ -63,23 +63,20 @@
                 </div>
                 <div class="panel-body text-center">
                     <!--                    Aqui todo el contenido de la pagina-->
-                    <div id="wizard">
-                        <h2>First Step</h2>
-                        <section>
-                            <div id="consulta">
-                                
-                            </div>
-                        </section>
-                        <h2>First Step</h2>
-                        <section>
-                            <div id="mostrarWizards">
-                                <?php
-                                include './mostrarWizarProducto.php';
-                                ?>
-                            </div>
-                            
-                        </section>
+                    <button id="marca" onclick="entroMarca()"> marca </button>
+                     <button id="marca" onclick="entroProducto()"> producto </button>
+                    
+                    <div id="mostrar">
+                    
+                    
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <!--========================================================-->
                 </div>
                 <div class="panel-footer">
@@ -92,9 +89,9 @@
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
-   
+        
         
         <script src="../alertify/lib/alertify.min.js"></script>
-       
+        <script src="../administracion/administracion.js/mientras.js"></script>
     </body>
 </html>

@@ -20,10 +20,10 @@ $(document).ready(function() {
             });
         }
     });
-    $("#canceloMarca").click(function() {
-        $("#ejecutaMdlProducto").trigger("click");
-    });
-    $("#btnguardarMarca").click(function() {
-        $("#ejecutaMdlProducto").trigger("click");
-    });
+//    $("#canceloMarca").click(function() {
+//        $("#ejecutaMdlProducto").trigger("click");
+//    });
+//    $("#btnguardarMarca").click(function() {
+//        $("#ejecutaMdlProducto").trigger("click");
+//    });
 });
