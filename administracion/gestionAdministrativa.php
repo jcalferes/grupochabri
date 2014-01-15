@@ -16,8 +16,6 @@
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <!-- CSS personalizados -->
         <link href="../bootstrap/css/misestilos/estilonavbar.css" rel="stylesheet">
-
-
     </head>
     <body>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,9 +65,23 @@
                     <div id="wizard">
                         <h2>First Step</h2>
                         <section>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
-                                sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
-                                Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
+                            <div id="wizard2">
+                                <h2>First Step</h2>
+                                <section>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
+                                        sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
+                                        Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
+                                </section>
+                                <h2>Second Step</h2>
+                                <section>
+                                    <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
+                                        In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
+                                        dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
+                                        In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                        Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
+                                        Donec non pulvinar urna. Aliquam id velit lacus.</p>
+                                </section>
+                            </div>
                         </section>
                         <h2>Second Step</h2>
                         <section>
@@ -95,21 +107,7 @@
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script>
-            $(function()
-            {
-                $("#wizard").steps({
-                    headerTag: "h2",
-                    bodyTag: "section",
-                    transitionEffect: "none",
-                    enableFinishButton: false,
-                    enablePagination: false,
-                    enableAllSteps: true,
-                    titleTemplate: "#title#",
-                    cssClass: "tabcontrol"
-                });
-            });
-        </script>
+        <script src="../jsteps/js/jquery.steps.taps.js"></script>
     </body>
 </html>
 <?php
