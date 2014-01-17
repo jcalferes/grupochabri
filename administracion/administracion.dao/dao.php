@@ -1,8 +1,12 @@
 <?php
 
 class dao {
-
-    function consultaProducto() {
+    
+    function guardarProducto(){
+        
+        
+    }
+                function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.producto, pr.nombre, m.marca, l.costos, p.idProductos \n"

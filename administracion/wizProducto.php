@@ -16,6 +16,10 @@
                         <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
                     </div>
                     <div class="form-group">
+                        <label>Codigo Producto</label>
+                        <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" required>
+                    </div>
+                    <div class="form-group">
                         <label>Marca:</label><br>
                         <select id="selectMarca" style="width: 100%; height: 35px">
                         </select>
@@ -31,7 +35,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                       
                         <input type="submit" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                     </div>
                 </form>
