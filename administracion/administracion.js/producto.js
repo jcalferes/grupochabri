@@ -13,7 +13,7 @@ $(document).ready(function() {
         var codigoProducto= $("txtCodigoProducto");
          var info = "producto=" + nombreProducto + "&marca="  + marca + "&proveedor=" + proveedor + "&listaPrecios=" + listaPrecios + "&codigoProducto=" + codigoProducto;
         alert("algo");  
-        $.get('guardaMarca.php', info, function() {
+        $.get('guardarProducto.php', info, function() {
                 alertify.success("Marca agregada correctamente");
                 return false;
             });

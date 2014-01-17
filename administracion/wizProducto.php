@@ -12,7 +12,7 @@
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto</h2>
             <section>
-                <form style="margin: 0% 25% 0% 25%">
+                <form style="margin: 0% 25% 0% 25%" id="formulario">
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
