@@ -2,8 +2,12 @@
 
 class dao {
     
-    function guardarProducto(){
-        
+    function guardarProducto(Producto $p){
+         include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES ('" . $p->getIdProducto() . "','" . $p->getIdMarca(). "','" . $p->getIdProveedor(). "','" . $p->getIdListaPrecios(). "', '" . $p->getCodigoProducto(). "')";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
         
     }
                 function consultaProducto() {

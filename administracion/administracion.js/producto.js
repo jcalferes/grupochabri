@@ -11,7 +11,7 @@ $(document).ready(function() {
         var proveedor= $("selectProveedor");
         var listaPrecios= $("selectListaPrecios");
         var codigoProducto= $("txtCodigoProducto");
-         var info = "txtNombreProducto=" + nombreProducto + "&marca="  + marca + "proveedor=" + proveedor + "listaPrecios=" + listaPrecios + "codigoProducto=" + codigoProducto;
+         var info = "producto=" + nombreProducto + "&marca="  + marca + "&proveedor=" + proveedor + "&listaPrecios=" + listaPrecios + "&codigoProducto=" + codigoProducto;
         alert("algo");  
         $.get('guardaMarca.php', info, function() {
                 alertify.success("Marca agregada correctamente");
