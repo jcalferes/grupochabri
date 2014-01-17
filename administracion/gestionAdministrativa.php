@@ -45,7 +45,6 @@
                             </ul>
                         </li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
@@ -77,7 +76,6 @@
                 </div>
             </div>
         </div> <!-- /container -->
-
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
