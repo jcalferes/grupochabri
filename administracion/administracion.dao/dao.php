@@ -1,8 +1,16 @@
 <?php
 
 class dao {
-
-    function consultaProducto() {
+    
+    function guardarProducto(Producto $p){
+         include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES ('" . $p->getIdProducto() . "','" . $p->getIdMarca(). "','" . $p->getIdProveedor(). "','" . $p->getIdListaPrecios(). "', '" . $p->getCodigoProducto(). "')";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+        
+    }
+                function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.producto, pr.nombre, m.marca, l.costos, p.idProductos \n"
