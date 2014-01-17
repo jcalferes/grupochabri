@@ -1,10 +1,9 @@
 $(document).ready(function() {
-//    $("#selectMarca").load("mostrarDireccion.php");
-//    $(function() {
-//        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
-//        $('#txtdiascredito').validCampoFranz('0123456789');
-//        $('#txtdescuento').validCampoFranz('0123456789');
-//    });
+    $(function() {
+        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
+        $('#txtdiascredito').validCampoFranz('0123456789');
+        $('#txtdescuento').validCampoFranz('0123456789');
+    });
     $("#btnguardarproveedor").click(function() {
         var nombre = $("#txtnombreproveedor").val();
         var rfc = $("#txtrfc").val();
@@ -18,23 +17,21 @@ $(document).ready(function() {
             var info = "nombre=" + nombre + "&rfc=" + rfc + "&diascredito=" + diascredito + "&descuento=" + descuento;
             $.get('guardaProveedor.php', info, function(respuesta) {
                 var info = respuesta;
+                if (info == 2)
+                {
+                    alertify.error("RFC no valido");
+                    return false;
+                }
                 if (info == 1)
                 {
-                    alertify.error("No guardaste una direccion");
+                    alertify.error("No agregaste una direccion");
                     return false;
                 } else {
-                    $('#selectProveedor').load('mostrarProveedores.php');
                     alertify.success("Proveedor agregado correctamente");
                     return false;
                 }
             });
         }
-    });
-    $("#btncanceloProvedor").click(function() {
-        $("#ejecutaMdlProducto").trigger("click");
-    });
-    $("#btnguardarproveedor").click(function() {
-        $("#ejecutaMdlProducto").trigger("click");
     });
 });
 

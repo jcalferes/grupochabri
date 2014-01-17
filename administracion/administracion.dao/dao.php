@@ -58,8 +58,8 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarDireccion(direccion $t) {
-//        session_start();
+    function guardarDireccion(Direccion $t) {
+        session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, codigoPostal, colonia )VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getPostal() . "','" . $t->getColonia() . "');";
@@ -73,8 +73,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarProveedor(proveedores $t) {
-//        include '../daoconexion/daoConeccion.php'; Esta comentado por que ya se incluyo en guardarDireccion
+    function guardarProveedor(Proveedor $t) {
         $cn = new coneccion();
         $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento)VALUES ('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "');";
         mysql_query($sql, $cn->Conectarse());

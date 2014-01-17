@@ -1,8 +1,15 @@
 function entroMarca() {
-    $("#mostrar").show("slow");
+
     $("#mostrar").load("wizMarca.php");
+    $("#mostrar").show("slow");
 }
 function entroProducto() {
-    $("#mostrar").show("slow");
+
     $("#mostrar").load("wizProducto.php");
+    $("#mostrar").show("slow");
+}
+function entroProveedor() {
+
+    $("#mostrar").load("wizProveedor.php");
+    $("#mostrar").show("slow");
 }

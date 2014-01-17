@@ -59,10 +59,14 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Gestion Administrativa</h3>
                 </div>
-                <div class="panel-body text-center">
+                <div class="panel-body">
                     <!--                    Aqui todo el contenido de la pagina-->
-                    <input id="" type="button" class="btn btn-primary" onclick="entroMarca()" value="Marca"/>
-                    <input id="" type="button" class="btn btn-primary" onclick="entroProducto()" value="Producto"/>
+                    <div class="row text-center">
+                        <input id="" type="button" class="btn btn-primary" onclick="entroMarca()" value="&numsp;&numsp;&numsp;Marcas&numsp;&numsp;&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroProducto()" value="&numsp;Productos&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroProveedor()" value="&numsp;Proveedores&numsp;"/>
+                    </div>
+                    <hr>
                     <div id="mostrar">
                     </div>
                     <!--========================================================-->
@@ -73,6 +77,7 @@
                 </div>
             </div>
         </div> <!-- /container -->
+
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>

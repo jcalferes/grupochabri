@@ -3,18 +3,18 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2>First Step</h2>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de marcas</h2>
             <section>
             </section>
-            <h2>First Step</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva marca</h2>
             <section>
-                <form>
+                <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de la marca:</label>
                         <input type="text" class="form-control" id="txtnombremarca" placeholder="Ingrese el nombre de la nueva marca">
                     </div>
                     <hr>
-                    <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                    <!--<input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar"/>
                 </form>
             </section>

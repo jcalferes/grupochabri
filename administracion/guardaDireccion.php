@@ -1,9 +1,8 @@
 <?php
 
 session_start();
-include './administracion.dao/dao.php';
-include './administracion.clases/direccion.php';
-$direccion = new direccion();
+include './administracion.clases/Direccion.php';
+$direccion = new Direccion();
 $direccion->setCalle($_GET["calle"]);
 $direccion->setNumeroexterior($_GET["numeroexterior"]);
 $direccion->setNumerointerior($_GET["numerointerior"]);
