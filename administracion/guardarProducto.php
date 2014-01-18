@@ -1,5 +1,6 @@
 <?php
 
+include './administracion.dao/dao.php';
 include './administracion.clases/Producto.php';
 $producto = new Producto();
 $dao = new dao();
@@ -12,3 +13,4 @@ $producto->setCodigoProducto($_GET["codigoProducto"]);
 $producto->setIdListaPrecios($_GET["listaPrecios"]);
 
 $dao->guardarProducto($producto);
+?>

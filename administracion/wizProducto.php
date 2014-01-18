@@ -5,10 +5,8 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
             <section>
-                
-                    <div id="consultaProducto" style="margin-left: 5%">
-                    </div>
-               
+                <div id="consultaProducto" style="margin-left: 5%">
+                </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto</h2>
             <section>
@@ -36,10 +34,7 @@
                         <select id="selectListaPrecios" style="width: 100%; height: 35px">
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <!--<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
-                        <input type="submit" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
-                    </div>
+                    <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                 </form>
             </section>
         </div>

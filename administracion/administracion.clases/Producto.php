@@ -12,12 +12,14 @@
  * @author Angel Solis
  */
 class Producto {
+
     private $idProducto;
     private $producto;
     private $idMarca;
     private $idProveedor;
     private $idListaPrecios;
     private $codigoProducto;
+
     public function getIdProducto() {
         return $this->idProducto;
     }
@@ -65,6 +67,5 @@ class Producto {
     public function setCodigoProducto($codigoProducto) {
         $this->codigoProducto = $codigoProducto;
     }
-
 
 }

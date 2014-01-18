@@ -13,3 +13,9 @@ function entroProveedor() {
     $("#mostrar").load("wizProveedor.php");
     $("#mostrar").show("slow");
 }
+
+function entroListaPrecio() {
+
+    $("#mostrar").load("wizListaPrecio.php");
+    $("#mostrar").show("slow");
+}

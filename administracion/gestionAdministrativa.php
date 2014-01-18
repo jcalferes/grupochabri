@@ -64,6 +64,7 @@
                         <input id="" type="button" class="btn btn-primary" onclick="entroMarca()" value="&numsp;&numsp;&numsp;Marcas&numsp;&numsp;&numsp;"/>
                         <input id="" type="button" class="btn btn-primary" onclick="entroProducto()" value="&numsp;Productos&numsp;"/>
                         <input id="" type="button" class="btn btn-primary" onclick="entroProveedor()" value="&numsp;Proveedores&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio()()" value="Listas de Precios"/>
                     </div>
                     <hr>
                     <div id="mostrar">
