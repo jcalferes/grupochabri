@@ -14,6 +14,8 @@
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
+        <link href="../bootstrap/css/misestilos/global.css" rel="stylesheet">
+
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">

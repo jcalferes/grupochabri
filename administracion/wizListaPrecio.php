@@ -1,5 +1,4 @@
 <?php ?>
-<?php ?>
 <!DOCTYPE html>
 <html lang="es">
     <body>
@@ -12,10 +11,10 @@
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de lista de precios:</label>
-                        <input type="text" class="form-control" id="txtnombrelista" placeholder="Ingrese el nombre de la nieva lista de precios">
+                        <input type="text" class="form-control" id="txtnombrelista" placeholder="Ingrese el nombre de la nueva lista de precios">
                     </div>
                     <hr>
-                    <input id="btnguardarLista" type="button" class="btn btn-primary"  value="Guardar"/>
+                    <input id="btnguardarLista" type="button" class="btn btn-primary" accesskey="ENTER" value="Guardar"/>
                 </form>
             </section>
         </div>

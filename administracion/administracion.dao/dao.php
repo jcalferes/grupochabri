@@ -9,6 +9,7 @@ class dao {
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
+
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -84,6 +85,24 @@ class dao {
         $cn = new coneccion();
         $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento)VALUES ('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "');";
         mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
+    function guardarListaPrecio(ListaPrecio $t) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+//        try {
+        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
+        $vl = mysql_query($sql, $cn->Conectarse());
+        if ($vl === false) {
+            $control = 0;
+        } else {
+            $control = 1;
+        }
+//        } catch (Exception $e) {
+//            $mens = "Error al insertar: " . $e;
+//        }
+        return $control;
         $cn->cerrarBd();
     }
 

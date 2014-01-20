@@ -7,8 +7,6 @@ and open the template in the editor.
     Created on : 9/01/2014, 11:12:14 AM
     Author     : Joel
 */
-
-body {
-    min-height: 2000px;
-    padding-top: 70px;
+input[type='text']{
+    text-transform:uppercase;
 }

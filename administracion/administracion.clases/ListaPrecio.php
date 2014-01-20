@@ -14,31 +14,22 @@
 class ListaPrecio {
 
     private $idListaPrecios;
-    private $Tarifa;
-    private $costos;
+    private $NombreListaPrecio;
+  
 
     public function getIdListaPrecios() {
         return $this->idListaPrecios;
     }
-
-    public function getTarifa() {
-        return $this->Tarifa;
-    }
-
-    public function getCostos() {
-        return $this->costos;
-    }
-
+    
     public function setIdListaPrecios($idListaPrecios) {
         $this->idListaPrecios = $idListaPrecios;
     }
-
-    public function setTarifa($Tarifa) {
-        $this->Tarifa = $Tarifa;
+    
+    public function getNombreListaPrecio() {
+        return $this->NombreListaPrecio;
     }
 
-    public function setCostos($costos) {
-        $this->costos = $costos;
+    public function setNombreListaPrecio($NombreListaPrecio) {
+        $this->NombreListaPrecio = $NombreListaPrecio;
     }
-
 }
