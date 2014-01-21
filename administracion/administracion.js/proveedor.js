@@ -5,6 +5,16 @@ $(document).ready(function() {
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdescuento').validCampoFranz('0123456789');
     });
+
+    $("#btncanceloProvedor").click(function() {
+        $("#txtnombreproveedor").val("");
+        $("#txtrfc").val("");
+        $("#txtdiascredito").val("");
+        $("#txtdescuento").val("");
+        $("#formulario").show("slow");
+        $("#mostrarDivProveedor").hide("slow");
+
+    });
     $("#btnguardarproveedor").click(function() {
         var nombre = $("#txtnombreproveedor").val();
         var rfc = $("#txtrfc").val();
@@ -28,8 +38,13 @@ $(document).ready(function() {
                     alertify.error("No agregaste una direccion");
                     return false;
                 } else {
+                     $("#selectProveedor").load("mostrarProveedores.php");
+                    $("#mostrarDivProveedor").hide("slow");
+                    $("#formulario").show("slow");
                     alertify.success("Proveedor agregado correctamente");
                     return false;
+                    
+                    
                 }
             });
         }

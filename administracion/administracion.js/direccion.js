@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    
     $(function() {
         $('#txtpostal').validCampoFranz('0123456789');
     });
@@ -16,6 +17,7 @@ $(document).ready(function() {
             var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&postal=" + postal + "&colonia=" + colonia;
             $.get('guardaDireccion.php', info, function() {
                 alertify.success("Direccion agregada correctamente");
+                
             });
         }
     });
