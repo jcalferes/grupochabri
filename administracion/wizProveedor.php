@@ -47,20 +47,20 @@
                     <form>
                         <div class="modal-body">
                             <div class="form-group">
+                                <label>Codigo Postal:</label>
+                                <input id="txtpostal" type="number" class="form-control" style="width: 30%" maxlength="15" placeholder="Ingrese el codigo postal">
+                            </div>
+                            <div class="form-group">
                                 <label>Calle:</label>
                                 <input type="text" class="form-control" id="txtcalle" placeholder="Ingrese el numero de calle">
                             </div>
                             <div class="form-group">
                                 <label>Numero Exterior:</label>
-                                <input type="text" class="form-control" id="txtnumeroexterior" placeholder="Ingrese el numero exterior">
+                                <input type="text" class="form-control" id="txtnumeroexterior" style="width: 30%" maxlength="15" placeholder="Ingrese el numero exterior">
                             </div>
                             <div class="form-group">
                                 <label>Numero Interior:</label>
-                                <input type="text" class="form-control" id="txtnumerointerior" placeholder="Ingrese el numero interior">
-                            </div>
-                            <div class="form-group">
-                                <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control"  placeholder="Ingrese el codigo postal">
+                                <input type="text" class="form-control" id="txtnumerointerior" style="width: 30%" maxlength="15" placeholder="Ingrese el numero interior">
                             </div>
                             <div class="form-group">
                                 <label>Colonia:</label>
