@@ -10,7 +10,7 @@
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section>
-                <form style="margin: 0% 25% 0% 25%">
+                <form name="formProveedor" style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">

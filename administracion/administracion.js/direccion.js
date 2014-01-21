@@ -8,7 +8,7 @@ $(document).ready(function() {
         var numerointerior = $("#txtnumerointerior").val();
         var postal = $("#txtpostal").val();
         var colonia = $("#txtcolonia").val();
-        if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" || colonia == "") {
+        if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" || colonia == "" || /^\s+$/.test(calle) || /^\s+$/.test(numeroexterior) || /^\s+$/.test(numerointerior) || /^\s+$/.test(postal) || /^\s+$/.test(colonia)) {
             alertify.error("Todos los campos son obligatorios");
             return false;
         }
@@ -18,12 +18,6 @@ $(document).ready(function() {
                 alertify.success("Direccion agregada correctamente");
             });
         }
-    });
-    $("#canceloDireccion").click(function() {
-        $("#ejecutaMdlProveedor").trigger("click");
-    });
-    $("#btnguardardireccion").click(function() {
-        $("#ejecutaMdlProveedor").trigger("click");
     });
 });
 

@@ -1,7 +1,9 @@
 $(document).ready(function() {
     $("#btnguardarMarca").click(function() {
         var nombre = $("#txtnombremarca").val();
-        if (nombre == "") {
+        if (nombre == "" || /^\s+$/.test(nombre)) {
+            $("#txtnombremarca").val("");
+            $("#txtnombremarca").focus();
             alertify.error("El campo no puede estar vacio");
             return false;
         }
