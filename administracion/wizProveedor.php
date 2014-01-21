@@ -47,23 +47,31 @@
                     <form>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control" style="width: 30%" maxlength="15" placeholder="Ingrese el codigo postal">
-                            </div>
-                            <div class="form-group">
                                 <label>Calle:</label>
                                 <input type="text" class="form-control" id="txtcalle" placeholder="Ingrese el numero de calle">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-lg-6">
                                 <label>Numero Exterior:</label>
-                                <input type="text" class="form-control" id="txtnumeroexterior" style="width: 30%" maxlength="15" placeholder="Ingrese el numero exterior">
+                                <input type="text" class="form-control" id="txtnumeroexterior"  maxlength="15" placeholder="Ingrese el numero exterior">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-lg-6">
                                 <label>Numero Interior:</label>
-                                <input type="text" class="form-control" id="txtnumerointerior" style="width: 30%" maxlength="15" placeholder="Ingrese el numero interior">
+                                <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
                             </div>
                             <div class="form-group">
+                                <label>Codigo Postal:</label>
+                                <input id="txtpostal" type="number" class="form-control"  maxlength="15" placeholder="Ingrese el codigo postal">
+                            </div>
+                            <div class="form-group ">
                                 <label>Colonia:</label>
+                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                            </div>
+                            <div class="form-group">
+                                <label>Ciudad:</label>
+                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado:</label>
                                 <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
                             </div>
                             <div class="modal-footer">

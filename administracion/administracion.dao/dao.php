@@ -5,7 +5,7 @@ class dao {
     function guardarProducto(Producto $p) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES ('" . $p->getIdProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "','" . $p->getIdListaPrecios() . "', '" . $p->getCodigoProducto() . "')";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES (UPPER('" . $p->getIdProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "','" . $p->getIdListaPrecios() . "', '" . $p->getCodigoProducto() . "'))";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -61,7 +61,7 @@ class dao {
     function guardarMarca(Marca $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
+        $sql = "INSERT INTO marcas(marca)VALUES (UPPER('" . $t->getMarca() . "'))";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
