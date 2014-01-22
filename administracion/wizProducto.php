@@ -14,11 +14,11 @@
                     <div id="formulario"> 
                         <div class="form-group"  >
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
+                            <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" >
                         </div>
                         <div class="form-group">
                             <label>Codigo Producto</label>
-                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" required>
+                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
                         </div>
                         <div class="form-group">
                             <label>Marca:</label><br>
@@ -37,19 +37,20 @@
                                                 <select id="selectListaPrecios" style="width: 100%; height: 35px">
                                                 </select>
                                             </div>-->
-                        <input type="button" class="btn btn-primary" value="Next" id="siguiente"/>
+                        <input type="button" class="btn btn-primary" value="Next" id="guardarDatos"/>
                     </div>
+                    
                     <div id="checarListas">
-                       
-                        
-                        
+                        <select id="selectTarifa" style="width: 90%; height: 35px">
+                            
+                            </select>                                       
 
                     </div>
-                    <div id="textos">
+<!--                    <div id="textos">
                         <input type="number" placeholder="Tarifa" class="form-control" /> <br/>
                         <input type="submit" value="atras" class="btn btn-primary" id="anterior"/></br>
                         <input type="submit" value="guardar" class="btn btn-primary" id="guardarDatos"/>
-                        </div>
+                        </div>-->
                     <div id="mostrarDivProveedor">
                         <div class="modal-body">
                             <div class="form-group">
@@ -58,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Direccion:</label>
-                                <button id="muestramdldireccion" class="btn btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion">Nueva direccion</button>
+                                <button id="muestramdldireccion" class="btn btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion">+</button>
                             </div>
                             <div class="form-group">
                                 <label>RFC:</label>

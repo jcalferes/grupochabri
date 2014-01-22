@@ -5,9 +5,17 @@ class dao {
     function guardarProducto(Producto $p) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES (UPPER('" . $p->getIdProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "','" . $p->getIdListaPrecios() . "', '" . $p->getCodigoProducto() . "'))";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto)VALUES (UPPER('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "'))";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query($sql, $cn->Conectarse());
+         $dato = mysql_query($sql2, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs[0];
+        }
+        
+          $_SESSION['idProducto'] = $id;
         $cn->cerrarBd();
+       
     }
 
     function consultaProducto() {
@@ -19,6 +27,9 @@ class dao {
                 . "INNER JOIN marcas m ON m.idMarca = p.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor LIMIT 0, 30 ";
         $datos = mysql_query($sql, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs[1];
+        }
 
         return $datos;
     }
