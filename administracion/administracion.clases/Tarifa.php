@@ -15,7 +15,26 @@ class Tarifa {
 
     private $idTarifa;
     private $tarifa;
+    private $idProducto;
+    private $idListaPrecio;
+    
+    public function getIdProducto() {
+        return $this->idProducto;
+    }
 
+    public function getIdListaPrecio() {
+        return $this->idListaPrecio;
+    }
+
+    public function setIdProducto($idProducto) {
+        $this->idProducto = $idProducto;
+    }
+
+    public function setIdListaPrecio($idListaPrecio) {
+        $this->idListaPrecio = $idListaPrecio;
+    }
+
+    
     public function getIdTarifa() {
         return $this->idTarifa;
     }
