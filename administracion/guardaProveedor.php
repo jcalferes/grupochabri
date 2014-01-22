@@ -13,17 +13,20 @@ $rfc = $_GET["rfc"];
 //} else {
 if ($_SESSION["controlDireccion"] == 1) {
     $direccion = $_SESSION['objdireccion'];
-    $dao->guardarDireccion($direccion);
-    $proveedor->setNombre($_GET["nombre"]);
-    $proveedor->setRfc($rfc);
-    $proveedor->setDiasCredito($_GET["diascredito"]);
-    $proveedor->setDescuento($_GET["descuento"]);
-    $id = $_SESSION['iddireccion'];
-    $proveedor->setIdDireccion($id);
-    $dao->guardarProveedor($proveedor);
-    unset($_SESSION["controlDireccion"]);
+    $x = $dao->guardarDireccion($direccion);
+    if ($x == true) {
+        $proveedor->setNombre($_GET["nombre"]);
+        $proveedor->setRfc($rfc);
+        $proveedor->setDiasCredito($_GET["diascredito"]);
+        $proveedor->setDescuento($_GET["descuento"]);
+        $id = $_SESSION['iddireccion'];
+        $proveedor->setIdDireccion($id);
+        $dao->guardarProveedor($proveedor);
+        unset($_SESSION["controlDireccion"]);
+    } else {
+        echo 3;
+    }
 } else {
     echo 1;
 }
-//}
 ?>

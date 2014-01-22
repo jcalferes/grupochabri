@@ -32,6 +32,11 @@ $(document).ready(function() {
                     alertify.error("RFC no valido");
                     return false;
                 }
+                if (info == 3)
+                {
+                    alertify.error("Error al gurdar direccion");
+                    return false;
+                }
                 if (info == 1)
                 {
                     alertify.error("No agregaste una direccion");

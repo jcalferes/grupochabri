@@ -58,9 +58,13 @@
                                 <label>Numero Interior:</label>
                                 <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
                             </div>
+                            <div class="form-group ">
+                                <label>Cruzamientos:</label>
+                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzameintos">
+                            </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control"  maxlength="15" onchange="verficaPostal()" placeholder="Ingrese el codigo postal">
+                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%">
                             </div>
                             <div class="form-group ">
                                 <label>Colonia:</label>
@@ -79,6 +83,7 @@
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                             </div>
+                        </div>
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
