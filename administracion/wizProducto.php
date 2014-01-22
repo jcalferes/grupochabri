@@ -14,11 +14,15 @@
                     <div id="formulario"> 
                         <div class="form-group"  >
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" required>
+                            <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" >
                         </div>
                         <div class="form-group">
                             <label>Codigo Producto</label>
-                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" required>
+                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
+                        </div>
+                         <div class="form-group">
+                            <label>Costo Producto</label>
+                            <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
                         </div>
                         <div class="form-group">
                             <label>Marca:</label><br>
@@ -37,46 +41,44 @@
                                                 <select id="selectListaPrecios" style="width: 100%; height: 35px">
                                                 </select>
                                             </div>-->
-                        <input type="button" class="btn btn-primary" value="Next" id="siguiente"/>
+                        <input type="button" class="btn btn-primary" value="Next" id="guardarDatos"/>
                     </div>
+                    
                     <div id="checarListas">
-                       
-                        
-                        
-
+                        <select id="selectTarifa" style="width: 90%; height: 35px">
+                            
+                            </select>                                       
+                        <input type="number" id="txtTarifa"/>
+                        <input type="button" id="btnTarifa" value="Aceptar"/>
                     </div>
-                    <div id="textos">
+<!--                    <div id="textos">
                         <input type="number" placeholder="Tarifa" class="form-control" /> <br/>
                         <input type="submit" value="atras" class="btn btn-primary" id="anterior"/></br>
                         <input type="submit" value="guardar" class="btn btn-primary" id="guardarDatos"/>
-                        </div>
+                        </div>-->
                     <div id="mostrarDivProveedor">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nombre:</label>
-                                <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
-                            </div>
-                            <div class="form-group">
-                                <label>Direccion:</label>
-                                <button id="muestramdldireccion" class="btn btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion">Nueva direccion</button>
-                            </div>
-                            <div class="form-group">
-                                <label>RFC:</label>
-                                <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
-                            </div>
-                            <div class="form-group">
-                                <label>Dias de credito:</label>
-                                <input id="txtdiascredito" type="number" class="form-control"  placeholder="Ingrese los dias de credito">
-                            </div>
-                            <div class="form-group">
-                                <label>Descuento:</label>
-                                <input id="txtdescuento" type="number" class="form-control"  placeholder="Ingrese el descuento">
-                            </div>
-                            <div class="modal-footer">
-                                <input id="btncanceloProvedor" type="button"  value="Cancelar"/>
-                                <input id="btnguardarproveedor" type="button" value="Guardar"/>
-                            </div>
-                        </div>
+                        <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label>Direccion:</label>
+                        <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
+                    </div>
+                    <div class="form-group">
+                        <label>RFC:</label>
+                        <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label>Dias de credito:</label>
+                        <input id="txtdiascredito" type="number" class="form-control"  placeholder="Ingrese los dias de credito">
+                    </div>
+                    <div class="form-group">
+                        <label>Descuento:</label>
+                        <input id="txtdescuento" type="number" class="form-control"  placeholder="Ingrese el descuento">
+                    </div>
+                        <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
+                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     </div>  
 
                 </form>

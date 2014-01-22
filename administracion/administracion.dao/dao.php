@@ -2,23 +2,67 @@
 
 class dao {
 
-    function guardarProducto(Producto $p) {
+    function guardarTarifa(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, idLustaPrecios, codigoProducto)VALUES (UPPER('" . $p->getIdProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "','" . $p->getIdListaPrecios() . "', '" . $p->getCodigoProducto() . "'))";
-        mysql_query($sql, $cn->Conectarse());
+        $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio)VALUES('" . $t->getIdProducto() . "','" . $t->getTarifa() . "','" . $t->getIdListaPrecio() . "')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+         $cn->cerrarBd();
+    }
+
+    function guardarProducto(Producto $p, Costo $c) {
+        session_start();
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SET AUTOCOMMIT=0;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "BEGIN;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $id = mysql_insert_id();
+        $sql = "INSERT INTO costos(costo, idProducto)VALUES('" . $c->getCosto() . "','" . mysql_insert_id() . "' )";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        if ($resultado) {
+            echo 'OK';
+            echo '';
+            $sql = "COMMIT";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+        } else {
+            echo 'MAL';
+            echo '
+';
+            echo 'SE EJECUTA EL ROOLBACK';
+            echo '
+';
+
+            $sql = "ROLLBACK;";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+        }
+
+        $_SESSION['idProducto'] = $id;
         $cn->cerrarBd();
     }
 
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, pr.nombre, m.marca, l.costos, p.idProductos \n"
-                . "FROM productos p\n"
-                . "INNER JOIN listaprecios l ON p.idListaPrecios = l.idListaPrecios\n"
-                . "INNER JOIN marcas m ON m.idMarca = p.idMarca\n"
-                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor LIMIT 0, 30 ";
+       $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
+    . "FROM productos p\n"
+    . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+    . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+    . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
+    . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
+    . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio LIMIT 0, 30 ";
         $datos = mysql_query($sql, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs[1];
+        }
 
         return $datos;
     }

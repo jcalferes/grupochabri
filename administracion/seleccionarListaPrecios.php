@@ -6,7 +6,7 @@ $dao = new dao();
 $consulta=$dao->consultarListaPrecios(); 
 
 while ($rs = mysql_fetch_array($consulta)) {
-   echo'<label><input type="radio" value='.$rs[1].' name="listaPrecios" class=""/>'.$rs[1].'</label> ';
+   echo'<label><input type="radio" value='.$rs[0].' name="listaPrecios" class=""/>'.$rs[1].'</label> ';
            
 }
 //echo '<br/><input type="number" placeholder="Costo" class="form-control" /> <br/>
