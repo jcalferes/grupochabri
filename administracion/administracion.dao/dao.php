@@ -70,7 +70,7 @@ class dao {
         session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, codigoPostal, colonia )VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getPostal() . "','" . $t->getColonia() . "');";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getIdPostal() . "');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -104,6 +104,14 @@ class dao {
 //        }
         return $control;
         $cn->cerrarBd();
+    }
+
+    function obtieneDireccion($t) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT idcpostales, cp, asenta, estado, ciudad FROM cpostales WHERE cp = $t";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
 }

@@ -60,19 +60,20 @@
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control"  maxlength="15" placeholder="Ingrese el codigo postal">
+                                <input id="txtpostal" type="number" class="form-control"  maxlength="15" onchange="verficaPostal()" placeholder="Ingrese el codigo postal">
                             </div>
                             <div class="form-group ">
                                 <label>Colonia:</label>
-                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <select id="selectColonia" style="width: 100%; height: 35px">
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Ciudad:</label>
-                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <input id="txtciudad" type="text" class="form-control"  placeholder="Ingrese la colonia">
                             </div>
                             <div class="form-group">
                                 <label>Estado:</label>
-                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <input id="txtestado" type="text" class="form-control"  placeholder="Ingrese la colonia">
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>

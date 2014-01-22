@@ -5,8 +5,10 @@ class Direccion {
     private $calle;
     private $numeroexterior;
     private $numerointerior;
-    private $postal;
-    private $colonia;
+    private $idpostal;
+
+//    private $postal;
+//    private $colonia;
 
     public function getCalle() {
         return $this->calle;
@@ -32,20 +34,27 @@ class Direccion {
         $this->numerointerior = $numerointerior;
     }
 
-    public function getPostal() {
-        return $this->postal;
+    public function getIdPostal() {
+        return $this->idpostal;
     }
 
-    public function setPostal($postal) {
-        $this->postal = $postal;
+    public function setIdPostal($idpostal) {
+        $this->idpostal = $idpostal;
     }
 
-    public function getColonia() {
-        return $this->colonia;
-    }
-
-    public function setColonia($colonia) {
-        $this->colonia = $colonia;
-    }
-
+//    public function getPostal() {
+//        return $this->postal;
+//    }
+//
+//    public function setPostal($postal) {
+//        $this->postal = $postal;
+//    }
+//
+//    public function getColonia() {
+//        return $this->colonia;
+//    }
+//
+//    public function setColonia($colonia) {
+//        $this->colonia = $colonia;
+//    }
 }
