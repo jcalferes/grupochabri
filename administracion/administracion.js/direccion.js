@@ -1,4 +1,6 @@
 function verficaPostal() {
+    $("#txtestado").val("");
+    $("#txtciudad").val("");
     $("#selectColonia").removeAttr("disabled", "disabled");
     var postal = $("#txtpostal").val();
     if (postal == "" || /^\s+$/.test(postal)) {
