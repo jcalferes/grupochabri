@@ -159,6 +159,16 @@ class dao {
         return $datos;
     }
 
+    function obtenerEntradas() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "select * from productos p 
+            inner join  entradas e 
+            on e.codigoProducto = p.codigoProducto";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
 }
 
 ?>

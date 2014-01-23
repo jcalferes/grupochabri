@@ -19,3 +19,9 @@ function entroListaPrecio() {
     $("#mostrar").load("wizListaPrecio.php");
     $("#mostrar").show("slow");
 }
+
+function entroEntradasProductos() {
+    $("#mostrar").load("wizEntradaProducto.php");
+    $("#mostrar").show("slow");
+
+}

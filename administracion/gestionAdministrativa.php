@@ -61,10 +61,11 @@
                 <div class="panel-body">
                     <!--                    Aqui todo el contenido de la pagina-->
                     <div class="row text-center">
-                        <input id="" type="button" class="btn btn-primary" onclick="entroMarca()" value="&numsp;&numsp;&numsp;Marcas&numsp;&numsp;&numsp;"/>
-                        <input id="" type="button" class="btn btn-primary" onclick="entroProducto()" value="&numsp;Productos&numsp;"/>
-                        <input id="" type="button" class="btn btn-primary" onclick="entroProveedor()" value="&numsp;Proveedores&numsp;"/>
-                        <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio()()" value="Listas de Precios"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroMarca();" value="&numsp;&numsp;&numsp;Marcas&numsp;&numsp;&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroProducto();" value="&numsp;Productos&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroProveedor();" value="&numsp;Proveedores&numsp;"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio();" value="Listas de Precios"/>
+                        <input id="" type="button" class="btn btn-primary" onclick="entroEntradasProductos();" value="Entradas de Productos"/>
                     </div>
                     <hr>
                     <div id="mostrar">
