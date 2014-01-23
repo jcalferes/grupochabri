@@ -148,7 +148,6 @@ class dao {
     function guardarListaPrecio(ListaPrecio $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-//        try {
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
         if ($vl === false) {
@@ -156,11 +155,8 @@ class dao {
         } else {
             $control = 1;
         }
-//        } catch (Exception $e) {
-//            $mens = "Error al insertar: " . $e;
-//        }
-        return $control;
         $cn->cerrarBd();
+        return $control;
     }
 
     function obtieneDireccion($t) {
