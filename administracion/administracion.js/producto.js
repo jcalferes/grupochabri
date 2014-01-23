@@ -5,6 +5,7 @@ function  editar() {
 
 }
 $(document).ready(function() {
+     
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php");
      $("#selectTarifa").load("consultarTarifas.php");

@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-group ">
                                 <label>Cruzamientos:</label>
-                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzameintos">
+                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzamientos">
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>

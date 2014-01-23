@@ -120,7 +120,7 @@ class dao {
     function guardarMarca(Marca $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO marcas(marca)VALUES (UPPER('" . $t->getMarca() . "'))";
+        $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -129,7 +129,7 @@ class dao {
         session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getIdPostal() . "');";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getIdPostal() . "');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -151,19 +151,15 @@ class dao {
     function guardarListaPrecio(ListaPrecio $t) {
        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-//        try {
-        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES (UPPER('" . $t->getNombreListaPrecio() . "'))";
+        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
         if ($vl === false) {
             $control = 0;
         } else {
             $control = 1;
         }
-//        } catch (Exception $e) {
-//            $mens = "Error al insertar: " . $e;
-//        }
-        return $control;
         $cn->cerrarBd();
+        return $control;
     }
 
     function obtieneDireccion($t) {
