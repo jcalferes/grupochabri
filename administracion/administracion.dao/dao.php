@@ -5,14 +5,14 @@ class dao {
     function consultaTarifas(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-            $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
                 . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
                 . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio "
-                    . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
+                . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
     }
 
     function guardarTarifa(Tarifa $t) {
@@ -117,7 +117,7 @@ class dao {
     function guardarMarca(Marca $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO marcas(marca)VALUES (UPPER('" . $t->getMarca() . "'))";
+        $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -126,7 +126,7 @@ class dao {
         session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getIdPostal() . "');";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getIdPostal() . "');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -149,7 +149,7 @@ class dao {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 //        try {
-        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES (UPPER('" . $t->getNombreListaPrecio() . "'))";
+        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
         if ($vl === false) {
             $control = 0;

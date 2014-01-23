@@ -5,10 +5,8 @@ class Direccion {
     private $calle;
     private $numeroexterior;
     private $numerointerior;
+    private $cruzamientos;
     private $idpostal;
-
-//    private $postal;
-//    private $colonia;
 
     public function getCalle() {
         return $this->calle;
@@ -34,6 +32,14 @@ class Direccion {
         $this->numerointerior = $numerointerior;
     }
 
+    public function getCruzamientos() {
+        return $this->cruzamientos;
+    }
+
+    public function setCruzamientos($cruzamientos) {
+        $this->cruzamientos = $cruzamientos;
+    }
+
     public function getIdPostal() {
         return $this->idpostal;
     }
@@ -42,19 +48,4 @@ class Direccion {
         $this->idpostal = $idpostal;
     }
 
-//    public function getPostal() {
-//        return $this->postal;
-//    }
-//
-//    public function setPostal($postal) {
-//        $this->postal = $postal;
-//    }
-//
-//    public function getColonia() {
-//        return $this->colonia;
-//    }
-//
-//    public function setColonia($colonia) {
-//        $this->colonia = $colonia;
-//    }
 }

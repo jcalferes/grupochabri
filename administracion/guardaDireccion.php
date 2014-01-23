@@ -6,6 +6,7 @@ $direccion = new Direccion();
 $direccion->setCalle($_GET["calle"]);
 $direccion->setNumeroexterior($_GET["numeroexterior"]);
 $direccion->setNumerointerior($_GET["numerointerior"]);
+$direccion->setCruzamientos($_GET["cruzamientos"]);
 $direccion->setIdPostal($_GET["idcpostales"]);
 $_SESSION['objdireccion'] = $direccion;
 $_SESSION['controlDireccion'] = 1;

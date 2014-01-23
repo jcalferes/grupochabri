@@ -1,10 +1,7 @@
 function verficaPostal() {
     $("#selectColonia").removeAttr("disabled", "disabled");
-//    $("#txtciudad").removeAttr("disabled", "disabled");
-//    $("#txtestado").removeAttr("disabled", "disabled");
     var postal = $("#txtpostal").val();
     if (postal == "" || /^\s+$/.test(postal)) {
-        alertify.error("ERROR");
     }
     else {
         var info = "postal=" + postal;
@@ -21,11 +18,6 @@ function verficaPostal() {
                 contenido += "</select>";
                 return contenido;
             });
-//            for (var i in dataJson) {
-////          alert(dataJson[i].idcpostales + " _ " + dataJson[i].cp + " _ " + dataJson[i].asenta + " _ " + dataJson[i].estado + " _ " + dataJson[i].ciudad);
-//                $("#txtciudad").val(dataJson[i].ciudad);
-//                $("#txtestado").val(dataJson[i].estado);
-//            }
         });
     }
 }
@@ -42,18 +34,26 @@ $(document).ready(function() {
         var calle = $("#txtcalle").val();
         var numeroexterior = $("#txtnumeroexterior").val();
         var numerointerior = $("#txtnumerointerior").val();
+        var cruzamientos = $("#txtcruzamientos").val();
         var postal = $("#txtpostal").val();
         var idcpostales = $("#selectColonia").val();
+        var estado = $("#txtestado").val();
 
-        if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" || idcpostales == "" || /^\s+$/.test(calle) || /^\s+$/.test(numeroexterior) || /^\s+$/.test(numerointerior) || /^\s+$/.test(postal) || /^\s+$/.test(idcpostales)) {
+        if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" || idcpostales == "" || cruzamientos == "" || /^\s+$/.test(calle) || /^\s+$/.test(numeroexterior) || /^\s+$/.test(numerointerior) || /^\s+$/.test(postal) || /^\s+$/.test(idcpostales) || /^\s+$/.test(cruzamientos)) {
             alertify.error("Todos los campos son obligatorios");
             return false;
         }
         else {
-            var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&idcpostales=" + idcpostales;
-            $.get('guardaDireccion.php', info, function() {
-                alertify.success("Direccion agregada correctamente");
-            });
+            if (estado == "" || /^\s+$/.test(estado)) {
+                alertify.error("CP invalido");
+                return false;
+            } else {
+                var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&cruzamientos=" + cruzamientos + "&idcpostales=" + idcpostales;
+                $.get('guardaDireccion.php', info, function() {
+                    alertify.success("Direccion agregada correctamente");
+                    return false;
+                });
+            }
         }
     });
 });
