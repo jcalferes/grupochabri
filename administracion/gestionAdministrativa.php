@@ -68,16 +68,16 @@
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de Productos</a></li>
                     </ul>
-                    <!--<div class="row text-center">-->
-                    <!--                    <div class="btn-group">
-                                            <input id="" type="button" class="btn btn-primary" onclick="entroMarca();" value="Marcas"/>
-                                            <input id="" type="button" class="btn btn-primary" onclick="entroProducto();" value="Productos"/>
-                                            <input id="" type="button" class="btn btn-primary" onclick="entroProveedor();" value="Proveedores"/>
-                                            <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio();" value="Listas de Precios"/>
-                                            <input id="" type="button" class="btn btn-primary" onclick="entroEntradasProductos();" value="Entradas de Productos"/>
-                                        </div>-->
-                    <!--</div>-->
-                    <!--                    <hr>-->
+                    <!--                    <div class="row text-center">
+                                            <div class="btn-group">
+                                                <input id="" type="button" class="btn btn-primary" onclick="entroMarca();" value="Marcas"/>
+                                                <input id="" type="button" class="btn btn-primary" onclick="entroProducto();" value="Productos"/>
+                                                <input id="" type="button" class="btn btn-primary" onclick="entroProveedor();" value="Proveedores"/>
+                                                <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio();" value="Listas de Precios"/>
+                                                <input id="" type="button" class="btn btn-primary" onclick="entroEntradasProductos();" value="Entradas de Productos"/>
+                                            </div>
+                                        </div>
+                                        <hr>-->
                     <div id="mostrar">
                     </div>
                     <!--========================================================-->
