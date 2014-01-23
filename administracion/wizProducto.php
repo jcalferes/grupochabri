@@ -116,7 +116,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -129,27 +129,44 @@
                                 <label>Calle:</label>
                                 <input type="text" class="form-control" id="txtcalle" placeholder="Ingrese el numero de calle">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-lg-6">
                                 <label>Numero Exterior:</label>
-                                <input type="text" class="form-control" id="txtnumeroexterior" placeholder="Ingrese el numero exterior">
+                                <input type="text" class="form-control" id="txtnumeroexterior"  maxlength="15" placeholder="Ingrese el numero exterior">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-lg-6">
                                 <label>Numero Interior:</label>
-                                <input type="text" class="form-control" id="txtnumerointerior" placeholder="Ingrese el numero interior">
+                                <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
+                            </div>
+                            <div class="form-group ">
+                                <label>Cruzamientos:</label>
+                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzameintos">
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control"  placeholder="Ingrese el codigo postal">
+                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%">
+                            </div>
+                            <div class="form-group ">
+                                <label>Colonia:</label>
+                                <select id="selectColonia" style="width: 100%; height: 35px">
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Colonia:</label>
-                                <input id="txtcolonia" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <label>Ciudad:</label>
+                                <input id="txtciudad" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                            </div>
+                            <div class="form-group">
+                                <label>Estado:</label>
+                                <input id="txtestado" type="text" class="form-control"  placeholder="Ingrese la colonia">
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                             </div>
-
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
 
                             <script src="../administracion/administracion.js/controlWizard.js"></script>

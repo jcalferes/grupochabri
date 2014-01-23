@@ -5,14 +5,17 @@ class dao {
     function consultaTarifas(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-            $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
                 . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
                 . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio "
-                    . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
+                . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        return $resultado;
+        $cn->cerrarBd();
     }
 
     function guardarTarifa(Tarifa $t) {
@@ -146,7 +149,7 @@ class dao {
     }
 
     function guardarListaPrecio(ListaPrecio $t) {
-        include '../daoconexion/daoConeccion.php';
+       include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 //        try {
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES (UPPER('" . $t->getNombreListaPrecio() . "'))";
