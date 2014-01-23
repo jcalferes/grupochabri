@@ -13,6 +13,9 @@ class dao {
                 . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
                 . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio "
                 . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        return $resultado;
+        $cn->cerrarBd();
     }
 
     function guardarTarifa(Tarifa $t) {
@@ -146,7 +149,7 @@ class dao {
     }
 
     function guardarListaPrecio(ListaPrecio $t) {
-        include '../daoconexion/daoConeccion.php';
+       include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());

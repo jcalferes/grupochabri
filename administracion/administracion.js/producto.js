@@ -5,6 +5,7 @@ function  editar() {
 
 }
 $(document).ready(function() {
+     
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php");
      $("#selectTarifa").load("consultarTarifas.php");
@@ -38,12 +39,14 @@ $(document).ready(function() {
     
     $("#selectTarifa").change(function(){
         var Tarifa = $("#selectTarifa").val();
+       
         $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
     }) ;
     
     $("#btnTarifa").click(function(){
         var Tarifa = $("#txtTarifa").val();
         var selectTarifa = $("#selectTarifa").val();
+        
         var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
         $.get('guardarTarifa.php', info, function() {
             
