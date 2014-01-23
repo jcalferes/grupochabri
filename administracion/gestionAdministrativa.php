@@ -32,18 +32,18 @@
                         <li class=""><a href="#">Inicio</a></li>
                         <li><a href="#about">Acerca de</a></li>
                         <li><a href="#contact">Contacto</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Otro link</a></li>
-                                <li><a href="#">Algun link</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Titulo de la seccion</li>
-                                <li><a href="#">Un link</a></li>
-                                <li><a href="#">Otro link</a></li>
-                            </ul>
-                        </li>
+                        <!--                        <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Link</a></li>
+                                                        <li><a href="#">Otro link</a></li>
+                                                        <li><a href="#">Algun link</a></li>
+                                                        <li class="divider"></li>
+                                                        <li class="dropdown-header">Titulo de la seccion</li>
+                                                        <li><a href="#">Un link</a></li>
+                                                        <li><a href="#">Otro link</a></li>
+                                                    </ul>
+                                                </li>-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
