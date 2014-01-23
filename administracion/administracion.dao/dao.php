@@ -5,6 +5,10 @@ class dao {
     function consultaTarifas(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
+//        $sql = "SELECT *\n"
+//    . "FROM productos p\n"
+//    . "Right Join tarifas t ON t.idProducto = p.idProducto\n"
+//    . "Right Join listaPrecios l ON l.idListaPrecio = t.idListaPrecio LIMIT 0, 30 ";
         $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
