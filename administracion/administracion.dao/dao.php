@@ -2,6 +2,19 @@
 
 class dao {
 
+    function consultaTarifas(Tarifa $t) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+            $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
+                . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
+                . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio "
+                    . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
+    }
+
     function guardarTarifa(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -52,13 +65,12 @@ class dao {
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
-                . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
-                . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio LIMIT 0, 30 ";
+                . "INNER JOIN costos c ON c.idProducto = p.idProducto LIMIT 0, 30 ";
+
         $datos = mysql_query($sql, $cn->Conectarse());
         while ($rs = mysql_fetch_array($dato)) {
             $id = $rs[1];

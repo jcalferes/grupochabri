@@ -44,13 +44,7 @@
                         <input type="button" class="btn btn-primary" value="Next" id="guardarDatos"/>
                     </div>
                     
-                    <div id="checarListas">
-                        <select id="selectTarifa" style="width: 90%; height: 35px">
-                            
-                            </select>                                       
-                        <input type="number" id="txtTarifa"/>
-                        <input type="button" id="btnTarifa" value="Aceptar"/>
-                    </div>
+                   
 <!--                    <div id="textos">
                         <input type="number" placeholder="Tarifa" class="form-control" /> <br/>
                         <input type="submit" value="atras" class="btn btn-primary" id="anterior"/></br>
@@ -83,8 +77,19 @@
 
                 </form>
             </section>
+            
+             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
+        <section>
+            <div id="consultaTarifas" style="margin-left: 5%">
+                 <select id="selectTarifa" style="width: 90%; height: 35px">
+                            </select>
+                <div id="tablaTarifas" style="margin-left: 5%">
+                    
+                </div>
+                </div>
+        </section>
         </div>
-
+        
 
 
 
