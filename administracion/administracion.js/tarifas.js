@@ -1,26 +1,27 @@
 function quitarEspacion(cadena) {
-                var palabra = cadena.replace(/\s/g, "%20");
-                return palabra;
-            }
+    var palabra = cadena.replace(/\s/g, "%20");
+    return palabra;
+}
 
 $(document).ready(function() {
 //    $("#ListaProcductos").change(function() {
     $("#selectTarifa").hide();
-   $("#selectTarifa").load("consultarTarifas.php");
-
+//    $("#selectTarifa").load("consultarTarifas.php");
+    
     $("#producto").load("obtenerProductos.php");
 
     $("#Buscar").click(function() {
-    var producto =     quitarEspacion($("#ProductoLista").val());
+        var producto = quitarEspacion($("#ProductoLista").val());
+        alert(producto);
 //     var producto =   $("#ProductoLista").val();
-     
-  $('#tablaTarifas').load("consultarTarifas.php?producto="+ producto, function(status){
-            if (status==0){
+
+        $('#selectTarifa').load("consultarTarifas.php?producto=" + producto, function(status) {
+            if (status == 0) {
                 alertify.error("No existe ese producto");
-            }else{
+            } else {
                 alertify.success("Loading");
             }
-  });
+        });
     });
 //    });
 
