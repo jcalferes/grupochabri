@@ -5,6 +5,8 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de marcas</h2>
             <section>
+                <div id="consultaMarca" style="margin-left: 5%">
+                </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva marca</h2>
             <section>

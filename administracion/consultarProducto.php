@@ -3,7 +3,7 @@
 include './administracion.dao/dao.php';
 $dao = new dao();
 $datos = $dao->consultaProducto($cn);
-echo"<input type = 'button' id='eliminar' value='Eliminar'/> <div class='table-responsive'><table class='table table-hover'><th>Null</th><th>Producto</th><th>Proveedor</th><th>Marca</th><th>Costo</th><th>listaPrecio</th><th>Tarifa</th>";
+echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Editar</th><th>Producto</th><th>Proveedor</th><th>Marca</th><th>Costo</th><th>listaPrecio</th><th>Tarifa</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
     echo"<tr><td><input type='checkbox' id='eliminar' onclick='eliminar()'> <a id='editar' onclick='editar()'>Editar</a> </td>";
     echo"<td >$rs[0]</td>";
@@ -13,5 +13,5 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td>$rs[4]</td>";
     echo"<td>$rs[5]</td></tr>";
 }
-echo"</table></div>";
+echo"</tbody></table></div>";
 
