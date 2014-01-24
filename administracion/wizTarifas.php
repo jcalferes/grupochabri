@@ -5,16 +5,9 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Precio Venta Producto</h2>
             <section>
-                <div class="input-append" style="float: left; margin-left: 40px">
-                    <input  list="valor" id="ProductoLista"/>
-                    <datalist  id="valor">
-                        <option id="producto"></option>
-                    </datalist>
-                    <input type="submit" class="btn btn-primary" value="AgregarTarifa" id="Buscar"/>
-                </div>
                 <div id="consultaTarifas" style="margin-left: 5%">
-                    <select id="selectTarifa" style="width: 90%; height: 35px">
-                    </select>
+<!--                    <select id="selectTarifa" style="width: 90%; height: 35px">
+                    </select>-->
                     <div id="tablaTarifas" style="margin-left: 5%">
 
                     </div>
@@ -29,6 +22,7 @@
                         <div id="tablaTarifas" style="margin-left: 5%">
 
                         </div>
+                        <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlTarifas" value="+"/>
 
 
                 </form>
@@ -37,11 +31,50 @@
 
         </div>
 
+        <div class="modal fade" id="mdlTarifas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Precios Venta</h4>
+                        <param id="idProducto"> 
+                        <param id="nombreProducto">
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Lista de Precio:</label>
+                               <select id="mostrarTarifas" style="width: 90%; height: 35px">
+                        </select>
+                        </div>
+<!--                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Costo:</label>
+                                <input type="text" class="form-control" id="txtCosto" placeholder="Ingrese el costo">
+                            </div>
+                        </div>-->
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tarifa:</label>
+                                <input type="text" class="form-control" id="txtTarifa" placeholder="Ingrese la tarifa">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            <input id="btnguardarTarifa" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" />
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
 
 
 
 
+
+
+        <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>   
         <script src="../administracion/administracion.js/tarifas.js"></script>
