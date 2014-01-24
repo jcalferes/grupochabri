@@ -2,6 +2,18 @@
 
 class dao {
 
+    function VerificarProducto($producto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql= "SELECT * FROM productos WHERE producto = '$producto'";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+         if(mysql_affected_rows() == 0){
+             return 0;
+         }else{
+             return 1;
+         }
+    }
+
     function consultaTarifas(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -72,7 +84,7 @@ class dao {
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.idProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
@@ -153,7 +165,7 @@ class dao {
     }
 
     function guardarListaPrecio(ListaPrecio $t) {
-       include '../daoconexion/daoConeccion.php';
+        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
