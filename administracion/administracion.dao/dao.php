@@ -86,6 +86,16 @@ class dao {
         return $datos;
     }
 
+    function consultaMarca() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT marca FROM marcas";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs[1];
+        }
+    }
+
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -153,7 +163,7 @@ class dao {
     }
 
     function guardarListaPrecio(ListaPrecio $t) {
-       include '../daoconexion/daoConeccion.php';
+        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
