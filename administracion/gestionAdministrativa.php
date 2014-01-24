@@ -44,6 +44,7 @@
                                                         <li><a href="#">Otro link</a></li>
                                                     </ul>
                                                 </li>-->
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
@@ -67,6 +68,7 @@
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de Productos</a></li>
+                        <li id="5" class=""><a onclick="entroTarifas();">Precio Venta Producto</a></li>
                     </ul>
                     <!--                    <div class="row text-center">
                                             <div class="btn-group">
@@ -78,6 +80,7 @@
                                             </div>
                                         </div>
                                         <hr>-->
+                    
                     <div id="mostrar">
                     </div>
                     <!--========================================================-->

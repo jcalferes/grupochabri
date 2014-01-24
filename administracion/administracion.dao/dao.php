@@ -1,6 +1,43 @@
 <?php
 
 class dao {
+     function consultarCosto( $idProducto) {
+//        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql ="SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.idProducto WHERE p.idProducto = $idProducto ";
+        $resultado = mysql_query($sql, $cn->Conectarse());        
+         while ($rs = mysql_fetch_array($resultado)) {
+            $costo = $rs["costo"];
+        }
+        return $costo;
+       
+    }
+
+
+    function consultarTarifa($listaProducto, $idProducto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. idProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto"; 
+        $resultado2 = mysql_query($sql2, $cn->Conectarse());
+         while ($rs = mysql_fetch_array($resultado2)) {
+            $tarifa = $rs["tarifa"];
+        }
+        
+        return $tarifa;
+       
+    }
+
+    function VerificarProducto($producto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE producto = '$producto'";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        if (mysql_affected_rows() == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
     function consultaTarifas(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
@@ -72,7 +109,7 @@ class dao {
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.idProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
