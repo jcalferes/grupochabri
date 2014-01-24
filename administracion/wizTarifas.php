@@ -31,7 +31,7 @@
 
         </div>
 
-        <div class="modal fade" id="mdlTarifas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mdlTarifas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            <input id="canceloTarifa" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                             <input id="btnguardarTarifa" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" />
                         </div>
                     </form>

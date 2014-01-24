@@ -57,6 +57,12 @@ $("#btnguardarTarifa").click(function(){
         });
     }
 });
+
+$("#canceloTarifa").click(function(){
+    $("#txtTarifa").val("");
+   $("#idProducto").val("");
+  $("#mostrarTarifas").val(0);
+});
     $("#Buscar").click(function() {
         var producto = quitarEspacion($("#ProductoLista").val());
         alert(producto);
