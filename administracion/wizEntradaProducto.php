@@ -4,7 +4,7 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Entradas</h2>
-            <section>
+            <section class="scrollSection">
                 <div class="col-lg-3" style="margin-left: 3%">
                     <label>Codigo del Producto</label>
                     <input class="form-control" 

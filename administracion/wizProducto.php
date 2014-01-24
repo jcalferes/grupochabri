@@ -4,12 +4,12 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
-            <section>
+            <section class="scrollSection">
                 <div id="consultaProducto" style="margin-left: 5%">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto</h2>
-            <section>
+            <section class="scrollSection">
                 <form style="margin: 0% 25% 0% 25%">
                     <div id="formulario"> 
                         <div class="form-group"  >
@@ -77,9 +77,8 @@
 
                 </form>
             </section>
-
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
-            <section>
+            <section class="scrollSection">
                 <div id="consultaTarifas" style="margin-left: 5%">
                     <select id="selectTarifa" style="width: 90%; height: 35px">
                     </select>
@@ -89,10 +88,6 @@
                 </div>
             </section>
         </div>
-
-
-
-
         <div class="modal fade" id="mdlMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -115,7 +110,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -167,8 +161,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
-
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/producto.js"></script>
