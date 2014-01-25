@@ -1,30 +1,28 @@
 <?php
 
 class dao {
-     function consultarCosto( $idProducto) {
+
+    function consultarCosto($idProducto) {
 //        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql ="SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.idProducto WHERE p.idProducto = $idProducto ";
-        $resultado = mysql_query($sql, $cn->Conectarse());        
-         while ($rs = mysql_fetch_array($resultado)) {
+        $sql = "SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.idProducto WHERE p.idProducto = $idProducto ";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($resultado)) {
             $costo = $rs["costo"];
         }
         return $costo;
-       
     }
-
 
     function consultarTarifa($listaProducto, $idProducto) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. idProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto"; 
+        $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. idProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto";
         $resultado2 = mysql_query($sql2, $cn->Conectarse());
-         while ($rs = mysql_fetch_array($resultado2)) {
+        while ($rs = mysql_fetch_array($resultado2)) {
             $tarifa = $rs["tarifa"];
         }
-        
+
         return $tarifa;
-       
     }
 
     function VerificarProducto($producto) {
@@ -219,6 +217,19 @@ class dao {
             on e.codigoProducto = p.codigoProducto";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
+    }
+
+    function obtenerInformacionProducto($codigoProducto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.producto, pr.nombre, m.marca FROM productos p
+               inner join proveedores pr
+               on p.idProveedor = pr.idProveedor
+               inner join marcas m
+               on m.idMarca = p.idMarca
+               WHERE codigoProducto='$codigoProducto'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
     }
 
 }
