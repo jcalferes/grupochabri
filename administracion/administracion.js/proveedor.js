@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#consultaProveedor").load("consultarProveedor.php");
     $(function() {
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
         $('#txtdiascredito').validCampoFranz('0123456789');
@@ -42,9 +43,7 @@ $(document).ready(function() {
                     alertify.error("No agregaste una direccion");
                     return false;
                 } else {
-                    $("#selectProveedor").load("mostrarProveedores.php");
-                    $("#mostrarDivProveedor").hide("slow");
-                    $("#formulario").show("slow");
+                    $("#consultaProveedor").load("consultarProveedor.php");
                     alertify.success("Proveedor agregado correctamente");
                     return false;
 

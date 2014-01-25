@@ -4,10 +4,12 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Listas</h2>
-            <section>
+            <section class="scrollSection">
+                <div id="consultaListaPrecio">
+                </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva lista</h2>
-            <section>
+            <section class="scrollSection">
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de lista de precios:</label>

@@ -121,6 +121,30 @@ class dao {
         return $datos;
     }
 
+    function consultaMarca() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM marcas";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function consultaProveedor() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM proveedores";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+    
+    function consultaListaPrecio() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM listaprecios";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
