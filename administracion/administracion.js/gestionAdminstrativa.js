@@ -5,7 +5,7 @@ function entroMarca() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#6").removeClass("active");
-    $("#mostrar").load("wizMarca.php");
+    $("#mostrar").load("./marca/wizMarca.php");
 
 }
 function entroProducto() {
