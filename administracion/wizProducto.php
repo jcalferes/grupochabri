@@ -41,7 +41,7 @@
                                                 <select id="selectListaPrecios" style="width: 100%; height: 35px">
                                                 </select>
                                             </div>-->
-                        <input type="button" class="btn btn-primary" value="Next" id="guardarDatos"/>
+                        <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                     </div>
 
 

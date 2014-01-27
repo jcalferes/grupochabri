@@ -3,7 +3,6 @@
 $xml = new SimpleXMLElement("test.xml", null, true);
 $namespaces = $xml->getDocNamespaces();
 
-
 if (array_key_exists('cfdi', $namespaces)) {
     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Concepto') as $Emisor) {
         echo "yo leo con cfdi<br />";

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#consultaMarca").load("./marca/consultarMarca.php");
+    $("#consultaMarca").load("consultarMarca.php");
     $("#btnguardarMarca").click(function() {
         var nombre = $("#txtnombremarca").val();
         if (nombre == "" || /^\s+$/.test(nombre)) {
@@ -12,7 +12,7 @@ $(document).ready(function() {
             var info = "nombre=" + nombre;
             $.get('guardaMarca.php', info, function() {
                 $("#txtnombremarca").val("");
-                $("#consultaMarca").load("./marca/consultarMarca.php");
+                $("#consultaMarca").load("consultarMarca.php");
                 alertify.success("Marca agregada correctamente");
                 return false;
             });

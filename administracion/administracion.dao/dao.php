@@ -14,7 +14,7 @@ class dao {
     }
 
     function consultarTarifa($listaProducto, $idProducto) {
-        include '../../daoconexion/daoConeccion.php';
+        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. idProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto";
         $resultado2 = mysql_query($sql2, $cn->Conectarse());

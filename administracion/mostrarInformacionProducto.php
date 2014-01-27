@@ -9,11 +9,11 @@ if ($rs == false) {
     $interfaz = mysql_error();
 } else {
     $info = false;
-    $interfaz .="<div id='detalle'>";
+    $interfaz .="<div id='detalle' class='well well-lg'>";
     while ($datos = mysql_fetch_array($rs)) {
-        $interfaz .="<strong>Producto :</strong> " . $datos[0] . "&nbsp;";
-        $interfaz .="<strong>Proveedor :</strong>" . $datos[1] . "&nbsp;";
-        $interfaz .="<strong>Marca :</strong>" . $datos[2] . "<br/>";
+        $interfaz .="Nombre del Producto : " . $datos[0] . "<br/>";
+        $interfaz .="Nombre del Proveedor :" . $datos[1] . "<br/>";
+        $interfaz .="Marca : " . $datos[2] . "<br/>";
         $info = true;
     }
     $interfaz .="</div>";
