@@ -71,6 +71,7 @@
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de Productos</a></li>
                         <li id="6" class=""><a onclick="entroTarifas();">Precio Venta Producto</a></li>
+
                     </ul>
                     <!--                    <div class="row text-center">
                                             <div class="btn-group">
