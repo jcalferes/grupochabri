@@ -22,6 +22,6 @@
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
-        <script src="../administracion/administracion.js/marca.js"></script>
+        <script src="../administracion.js/marca.js"></script>
     </body>
 </html>

@@ -7,7 +7,7 @@ function verficaPostal() {
     }
     else {
         var info = "postal=" + postal;
-        $.get('obtieneDireccion.php', info, function(respuesta) {
+        $.get('direccion/obtieneDireccion.php', info, function(respuesta) {
             var dataJson = eval(respuesta);
             $("#selectColonia").html(function() {
                 var contenido;
@@ -51,7 +51,7 @@ $(document).ready(function() {
                 return false;
             } else {
                 var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&cruzamientos=" + cruzamientos + "&idcpostales=" + idcpostales;
-                $.get('guardaDireccion.php', info, function() {
+                $.get('direccion/guardaDireccion.php', info, function() {
                     alertify.success("Direccion agregada correctamente");
                     return false;
                 });
