@@ -353,19 +353,21 @@
 
 .tabcontrol > .content
 {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: 30em;//Aqui se cambia la medida del wizard
-    overflow: hidden;
-    border-top: 1px solid #bbb;
-    padding-top: 20px;
+    /*        position: relative;*/
+    /*    display: inline-block;*/
+    /*width: 100%;*/
+    /*    height: 34em;//Aqui se cambia la medida del wizard*/
+    /*overflow: hidden;*/
+    /*    border-top: 1px solid #bbb;*/
+    /*padding-top: 20px;*/
+
+
 }
 
 .tabcontrol > .content > .body
 {
     float: left;
-    position: absolute;
+/*    position: absolute;*/
     width: 95%;
     height: 95%;
     padding: 2.5%;

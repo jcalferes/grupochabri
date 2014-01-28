@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $("#consultaMarca").load("consultarMarca.php");
+    $("#consultaMarca").load("consultarMarca.php", function(){
+        $('#dtmarca').dataTable();
+    });
     $("#btnguardarMarca").click(function() {
         var nombre = $("#txtnombremarca").val();
         if (nombre == "" || /^\s+$/.test(nombre)) {

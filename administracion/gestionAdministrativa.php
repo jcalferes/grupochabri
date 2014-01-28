@@ -12,10 +12,11 @@
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.bootstrap.css" rel="stylesheet">
+        <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <!-- CSS Personalizados-->
-        <link href="../bootstrap/css/misestilos/scrollSection.css" rel="stylesheet">
+        <link href="../bootstrap/css/misestilos/probando.css" rel="stylesheet">
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">
@@ -34,18 +35,18 @@
                         <li class=""><a href="#">Inicio</a></li>
                         <li><a href="#about">Acerca de</a></li>
                         <li><a href="#contact">Contacto</a></li>
-                        <!--                        <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="#">Link</a></li>
-                                                        <li><a href="#">Otro link</a></li>
-                                                        <li><a href="#">Algun link</a></li>
-                                                        <li class="divider"></li>
-                                                        <li class="dropdown-header">Titulo de la seccion</li>
-                                                        <li><a href="#">Un link</a></li>
-                                                        <li><a href="#">Otro link</a></li>
-                                                    </ul>
-                                                </li>-->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Link</a></li>
+                                <li><a href="#">Otro link</a></li>
+                                <li><a href="#">Algun link</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Titulo de la seccion</li>
+                                <li><a href="#">Un link</a></li>
+                                <li><a href="#">Otro link</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -57,12 +58,12 @@
             </div>
         </div>
         <div class="container">
+            <!--                    Aqui todo el contenido de la pagina-->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Gestion Administrativa</h3>
                 </div>
                 <div class="panel-body">
-                    <!--                    Aqui todo el contenido de la pagina-->
                     <ul class="nav nav-tabs nav-justified">
                         <!--<li class="active"><a href="#">Home</a></li>-->
                         <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
@@ -71,34 +72,26 @@
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de Productos</a></li>
                         <li id="6" class=""><a onclick="entroTarifas();">Precio Venta Producto</a></li>
-
                     </ul>
-                    <!--                    <div class="row text-center">
-                                            <div class="btn-group">
-                                                <input id="" type="button" class="btn btn-primary" onclick="entroMarca();" value="Marcas"/>
-                                                <input id="" type="button" class="btn btn-primary" onclick="entroProducto();" value="Productos"/>
-                                                <input id="" type="button" class="btn btn-primary" onclick="entroProveedor();" value="Proveedores"/>
-                                                <input id="" type="button" class="btn btn-primary" onclick="entroListaPrecio();" value="Listas de Precios"/>
-                                                <input id="" type="button" class="btn btn-primary" onclick="entroEntradasProductos();" value="Entradas de Productos"/>
-                                            </div>
-                                        </div>
-                                        <hr>-->
 
                     <div id="mostrar">
                     </div>
-                    <!--========================================================-->
                 </div>
                 <div class="panel-footer">
-                    <!--                    Aqui los botones o similares
-                                        ========================================================-->
+                    <!--                    Aqui los botones o similares-->
+
+                    <!--========================================================-->
                 </div>
             </div>
+            <!--========================================================-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
+        <script src="../dtbootstrap/jquery.dataTables.js"></script>
+        <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>
