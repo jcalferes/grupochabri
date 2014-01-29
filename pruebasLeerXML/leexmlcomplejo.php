@@ -1,6 +1,6 @@
 <?php
 
-$xml = new SimpleXMLElement("test.xml", null, true);
+$xml = new SimpleXMLElement("./xml/chabri.xml", null, true);
 $namespaces = $xml->getDocNamespaces();
 
 if (array_key_exists('cfdi', $namespaces)) {

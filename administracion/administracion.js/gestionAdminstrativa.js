@@ -55,3 +55,14 @@ function entroTarifas() {
     $("#6").addClass("active");
     $("#mostrar").load("wizTarifas.php");
 }
+
+function entroSalidasProduto() {
+    $("#1").removeClass("active");
+    $("#2").removeClass("active");
+    $("#3").removeClass("active");
+    $("#4").removeClass("active");
+    $("#5").removeClass("active");
+    $("#6").removeClass("active");
+    $("#7").addClass("active");
+    $("#mostrar").load("wizSalidaProducto.php");
+}
