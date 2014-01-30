@@ -2,6 +2,65 @@
 
 class dao {
 
+    function guardarEntradaProducto($cantidad, $idProducto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SET AUTOCOMMIT=0;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "BEGIN;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+ $fecha= date("d-m-Y ");
+ $hora = date('H:i:s');
+
+
+        $sql = "INSERT INTO existencias(cantidad, idSucursal)VALUES($cantidad, 1 )";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+       
+        $sql = "UPDATE productos SET idExistencia= '" . mysql_insert_id() . "' Where idProducto=$idProducto";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        if ($resultado) {
+            echo 'OK';
+            echo '';
+            $sql = "COMMIT";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+           
+        } else {
+            echo 'MAL';
+            echo '
+';
+            
+            echo 'SE EJECUTA EL ROOLBACK';
+            echo '
+';
+
+            $sql = "ROLLBACK;";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+        }
+
+     
+        $cn->cerrarBd();
+    }
+
+    function consultaExistencia($producto) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM existencias e INNER JOIN productos p ON p.idExistencia = e.idExistencia WHERE idProducto = $producto";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        if (mysql_affected_rows() == 0) {
+            $cantidad = 0;
+        } else {
+            while ($rs = mysql_fetch_array($resultado)) {
+                $cantidad = $rs["cantidad"];
+            }
+        }
+
+
+        return $cantidad;
+    }
+
     function consultarCosto($idProducto) {
 //        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -136,7 +195,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
-    
+
     function consultaListaPrecio() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

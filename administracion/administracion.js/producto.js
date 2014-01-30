@@ -38,8 +38,9 @@ $(document).ready(function() {
     });
 
     $("#selectTarifa").change(function() {
-        var Tarifa = $("#selectTarifa").val();
 
+        var Tarifa = $("#selectTarifa").val();
+        alert(Tarifa);
         $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
     });
 
@@ -57,5 +58,30 @@ $(document).ready(function() {
             return false;
 
         });
+    });
+
+    $("#selectProducto").load("obtenerProductos.php");
+    $("#selectProducto").change(function() {
+        var producto = $("#selectProducto").val();
+        info = "producto=" + producto;
+        $.get('obtenerExistencia.php', info, function(existencia) {
+            $("#existencia").html('<h4> hay en existencia ' + existencia + '</h4>')
+        });
+
+    });
+    $("#AgregarEntrada").click(function() {
+        var cantidad = $("#txtEntradaProducto").val();
+         var idProducto = $("#selectProducto").val();
+      
+      var  info = "cantidad=" + cantidad+ "&idProducto=" + idProducto;
+        $.get('guardarEntrada.php', info, function(comprobar) {
+            alert(comprobar);
+           if(comprobar =="OK"){
+               alertify.success("se guardo la Cantidad exitosamente");
+           }else{
+               alertify.error("no Se ha Guardado");
+           }
+        });
+
     });
 });
