@@ -1,0 +1,38 @@
+@media (max-width: 600px)
+{
+    .wizard > .steps > ul > li
+    {
+        width: 50%;
+    }
+
+    .wizard > .steps a,
+    .wizard > .steps a:hover,
+    .wizard > .steps a:active
+    {
+        margin-top: 0.5em;
+    }
+
+    .wizard.vertical > .steps,
+    .wizard.vertical > .actions
+    {
+        display: block;
+        float: none;
+        width: 100%;
+    }
+
+    .wizard.vertical > .content
+    {
+        display: block;
+        float: none;
+        margin: 0 0.5em 0.5em;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px)
+{
+    .wizard > .steps > ul > li
+    {
+        width: 100%;
+    }
+}

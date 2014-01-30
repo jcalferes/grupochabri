@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" version="3.2" serie="A" folio="10003" fecha="2014-01-15T17:17:01" sello="RhJ3LuB/R3QXCeKsA+Ji46lsXORIckKdBpfdATVumeoVCfUvhdbu61yykYjlzFM5j5SuF9NEArRzdYtxnI6hQyjAFv0bDE9OmbWaxcedT26GzNr+DhSfa/De84KG70xrNOV0JQt6cwa9v0eVNWa3jS8x5JSxjCjFVSm1roiGOHw=" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="00001000000201656572" certificado="MIIEazCCA1OgAwIBAgIUMDAwMDEwMDAwMDAyMDE2NTY1NzIwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDczMDE2MDAwMVoXDTE2MDczMDE2MDAwMVowgawxGjAYBgNVBAMTEUFMRkFDRVJPIFNBIERFIENWMRowGAYDVQQpExFBTEZBQ0VSTyBTQSBERSBDVjEaMBgGA1UEChMRQUxGQUNFUk8gU0EgREUgQ1YxJTAjBgNVBC0THEFMRjg0MDkwMUk3OSAvIEJFQ0U0OTA3MjNHRjMxHjAcBgNVBAUTFSAvIEJFQ0U0OTA3MjNIREZSU00wNjEPMA0GA1UECxMGTUFUUklaMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCklLluhiUlP/KSJ2yEP1O4KZRkmMYWvvQi9WUTN2nxtrpMtG+wVi1GOWlIEmaQhKUPUVWvmoHzssrv2lzt4zpn16HZU6xZRHEbWWnZD6JrtsUX1T7Aj0Wwt4YLtQTxp2f//5FogOMdLv9iLke47Mo2zx9dQFhHr2hqdAg5cHlHSQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQUFAAOCAQEAK9i26wCzgZGDMwnyq1MpO+xJdA9Qzj8McLW7BO9r7loFvQ8uEVGDLSO02hzDmraehTwaal3u8/l5VZmL09iQCEHOtcCkRGUR0Kqs69SLhBKf5AI8HCRx2CZdi51yJnAwMwe38TqyUiuy3fkN1W6NZJxBb5w0k/9EqCpQf5WxzZPVrYHL72u/XFRFWljSF3tC8xraNU6OJRGh688lsVOy2Aqg4GmJzcyklnJehzHevvqcMbqIFvl3IcZOiwvkBPmoXSG7a6HiYxxoDluBiVcW/NeBw+QqelFdTbXe64mSwLqQtufcFLKWNhYgxejX8VtHmQHrjGr0IwmN+cdFxDsWgg==" condicionesDePago="CONTADO 1" subTotal="12405.25" TipoCambio="1.00" Moneda="Peso Mexicano" total="14390.09" tipoDeComprobante="ingreso" metodoDePago="EFECTIVO" LugarExpedicion="AVENIDA JUAREZ 301 A , CIUDAD INDUSTRIAL, 97288, MERIDA, MERIDA, YUCATAN, MEXICO" NumCtaPago="NO APLICA">
+    <cfdi:Emisor rfc="ALF840901I79" nombre="ALFACERO SA DE CV">
+        <cfdi:DomicilioFiscal calle="AVENIDA JUAREZ" noExterior="301 A" colonia="CIUDAD INDUSTRIAL" localidad="MERIDA" municipio="MERIDA" estado="YUCATAN" pais="MEXICO" codigoPostal="97288"/>
+        <cfdi:RegimenFiscal Regimen="Régimen General de Ley"/>
+    </cfdi:Emisor>
+    <cfdi:Receptor rfc="CABJ830923TW9" nombre="CHALE BRICEÑO JESUS ESAU">
+        <cfdi:Domicilio calle="CALLE 65 X 16 Y 18" noExterior="675" colonia="EMILIO PORTES GIL" localidad="MERIDA" municipio="MERIDA" estado="YUCATAN" pais="MEXICO" codigoPostal="97167"/>
+    </cfdi:Receptor>
+    <cfdi:Conceptos>
+        <cfdi:Concepto cantidad="1000.000" unidad="KILOGRAMO" descripcion="ALAMBRE RECOCIDO 16  1 KG" valorUnitario="11.83" importe="11830.00"/>
+        <cfdi:Concepto cantidad="25.000" unidad="KILOGRAMO" descripcion="ALAMBRE GALV 16 200 G" valorUnitario="23.01" importe="575.25"/>
+    </cfdi:Conceptos>
+    <cfdi:Impuestos totalImpuestosTrasladados="1984.84">
+        <cfdi:Traslados>
+            <cfdi:Traslado impuesto="IVA" tasa="16.00" importe="1984.84"/>
+        </cfdi:Traslados>
+    </cfdi:Impuestos>
+    <cfdi:Complemento>
+        <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/TimbreFiscalDigital/TimbreFiscalDigital.xsd" selloCFD="RhJ3LuB/R3QXCeKsA+Ji46lsXORIckKdBpfdATVumeoVCfUvhdbu61yykYjlzFM5j5SuF9NEArRzdYtxnI6hQyjAFv0bDE9OmbWaxcedT26GzNr+DhSfa/De84KG70xrNOV0JQt6cwa9v0eVNWa3jS8x5JSxjCjFVSm1roiGOHw=" FechaTimbrado="2014-01-15T17:17:04" UUID="2359129C-1898-4439-AE28-13CAD3B1E411" noCertificadoSAT="00001000000202864883" version="1.0" selloSAT="p8EohN2UkOyq1ntYz2XdeM7paU/Vf3WBASwrvFi0l76eDk8GiHo0RzP8GqVtuiaV4772xMdxMg6Lu3rVl46kaCDds2FUODh/sLWcPHfkctvSzqcCexerPOf5oMH0/cRZw9i5rqtiP8yFW40/vn8oWW9xz0HPpTG5NeQRMe0dPn0="/>
+    </cfdi:Complemento>
+</cfdi:Comprobante>
+ 
