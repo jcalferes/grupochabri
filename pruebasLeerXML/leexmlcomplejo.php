@@ -1,9 +1,13 @@
 <?php
 
-$xml = new SimpleXMLElement("C:\chabri.xml", null, true);
+$xml = new SimpleXMLElement("chabri.xml", null, true);
 $namespaces = $xml->getDocNamespaces();
 
 if (array_key_exists('cfdi', $namespaces)) {
+//    $xml->xpath('//cfdi:');
+
+
+
     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Concepto') as $Emisor) {
         echo "yo leo con cfdi<br />";
         echo $Emisor['cantidad'];

@@ -1,6 +1,5 @@
 function comprueba_extension(formulario, archivo) {
-    alert('Entre');
-    extensiones_permitidas = new Array(".gif", ".jpg", ".doc", ".pdf", ".xml");
+    extensiones_permitidas = new Array(".xml"); //".gif", ".jpg", ".doc", ".pdf", 
     mierror = "";
     if (!archivo) {
         //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario
@@ -21,12 +20,12 @@ function comprueba_extension(formulario, archivo) {
             mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
         } else {
             //submito!
-            alert("Todo correcto. Voy a submitir el formulario.");
+            alertify.success("Todo correcto. Voy a submitir el formulario.");
             formulario.submit();
             return 1;
         }
     }
     //si estoy aqui es que no se ha podido submitir
-    alert(mierror);
+    alertify.error(mierror);
     return 0;
 }
