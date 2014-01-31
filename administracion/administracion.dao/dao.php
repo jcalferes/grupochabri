@@ -2,7 +2,17 @@
 
 class dao {
 
-    function guardarEntradaProducto($cantidad, $idProducto) {
+    function consultaTableConsulta() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT idProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY idProducto ASC";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        $datos = mysql_query($sql, $cn->Conectarse());
+       
+        return $datos;
+    }
+
+    function guardarEntradaProducto($cantidad, $idProducto, $existencia) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SET AUTOCOMMIT=0;";
@@ -11,27 +21,32 @@ class dao {
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
- $fecha= date("d-m-Y ");
- $hora = date('H:i:s');
+        $fecha = date("d-m-Y ");
+        $hora = date('H:i');
 
+        $cantidadInventario = $cantidad + $existencia;
+        $sql = "INSERT INTO entradas(cantidad, idSucursal,fecha, hora,idProducto)VALUES($cantidad, 1,'$fecha','$hora',$idProducto)";
+        $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO existencias(cantidad, idSucursal)VALUES($cantidad, 1 )";
+        $sql = "UPDATE existencias SET idStatus= 1 WHERE idProducto=$idProducto AND idStatus = 2";
         $resultado = mysql_query($sql, $cn->Conectarse());
-       
-        $sql = "UPDATE productos SET idExistencia= '" . mysql_insert_id() . "' Where idProducto=$idProducto";
+
+        $sql = "INSERT INTO existencias(cantidad, idSucursal,fechaIngreso,horaIngreso,idStatus,idProducto)VALUES($cantidadInventario, 1,'$fecha','$hora',2,$idProducto )";
         $resultado = mysql_query($sql, $cn->Conectarse());
+
+//        $sql = "UPDATE productos SET idExistencia= '" . mysql_insert_id() . "' Where idProducto=$idProducto";
+//        $resultado = mysql_query($sql, $cn->Conectarse());
 
         if ($resultado) {
             echo 'OK';
             echo '';
             $sql = "COMMIT";
             $resultado = mysql_query($sql, $cn->Conectarse());
-           
         } else {
             echo 'MAL';
             echo '
 ';
-            
+
             echo 'SE EJECUTA EL ROOLBACK';
             echo '
 ';
@@ -40,25 +55,18 @@ class dao {
             $resultado = mysql_query($sql, $cn->Conectarse());
         }
 
-     
+
         $cn->cerrarBd();
     }
 
     function consultaExistencia($producto) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM existencias e INNER JOIN productos p ON p.idExistencia = e.idExistencia WHERE idProducto = $producto";
+        $sql = "SELECT * FROM existencias  WHERE idProducto = $producto AND idStatus = 2";
         $resultado = mysql_query($sql, $cn->Conectarse());
-        if (mysql_affected_rows() == 0) {
-            $cantidad = 0;
-        } else {
-            while ($rs = mysql_fetch_array($resultado)) {
-                $cantidad = $rs["cantidad"];
-            }
-        }
 
 
-        return $cantidad;
+        return $resultado;
     }
 
     function consultarCosto($idProducto) {
