@@ -52,6 +52,7 @@ $(document).ready(function() {
             } else {
                 var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&cruzamientos=" + cruzamientos + "&idcpostales=" + idcpostales;
                 $.get('guardaDireccion.php', info, function() {
+                    
                     alertify.success("Direccion agregada correctamente");
                     return false;
                 });

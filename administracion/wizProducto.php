@@ -21,6 +21,16 @@
                             <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
                         </div>
                         <div class="form-group">
+                            <label>Unidad De Medida:</label>
+                            <input type="text" class="form-control" id="txtgrupo" placeholder="Unidad De Medida">
+                        </div>
+                        <div class="form-group">
+                            <label>grupo de producto:</label>
+                           
+                            <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto" style="width: 30%"/>
+                            <select id="selectUnidadMedida"> <option value="0"> Unidad de Medida</option> <option value="1"> metros</option></select>
+                        </div>
+                        <div class="form-group">
                             <label>Costo Producto</label>
                             <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
                         </div>
@@ -87,6 +97,17 @@
                     </div>
                 </div>
             </section>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Entrada de Productos</h2>
+            <section>
+                <div id="entradaProducto" style="margin-left: 5%">
+                    <select id="selectProducto" style="width: 90%; height: 35px">
+                    </select><br/>
+                    <h4 id="existencia">Hay en existencia=</h4>
+                    <input type="number" id="txtEntradaProducto" placeholder="Ingrese Cantidad a Entrar" style="width: 90%; height: 35px"/><br/>
+                    <input type="submit" id="AgregarEntrada" class="btn btn-primary"/>
+                </div>
+
+            </section>
         </div>
         <div class="modal fade" id="mdlMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -130,6 +151,10 @@
                             <div class="form-group col-lg-6">
                                 <label>Numero Interior:</label>
                                 <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
+                            </div>
+                            <div class="form-group">
+                                <label>Calle:</label>
+                                <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto">
                             </div>
                             <div class="form-group ">
                                 <label>Cruzamientos:</label>
