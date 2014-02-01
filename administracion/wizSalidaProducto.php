@@ -11,10 +11,19 @@
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section class="scrollSection">
                 <!--==============================-->
-                <form name="subexml" action="cargaXMl.php" method="post" enctype="multipart/form-data" style="margin: 0% 25% 0% 25%">
-                    <input id="archivo" type="file" name="buscaxml" size="200" accept="application/xml" title="Buscar XML">
+                <form id="xml" style="margin: 0% 25% 0% 25%">
+                    <input type="file" id="buscaxml" name="buscaxml[]" class="form-control" accept="application/xml" title="Buscar XML">
                     <hr>
-                    <input type=button name="m" value="Enviar" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
+                    <div id="uno">
+                        <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
+                    </div>
+                </form>
+                <div id="cargados">
+                    <!-- Aqui van los archivos cargados -->
+                </div>
+                <form id="validacion">
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar"/>
+                    <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
                 </form>
                 <!--==============================-->
             </section>

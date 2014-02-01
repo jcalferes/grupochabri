@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group pull-right">
                                 <label>Proveedor:</label><br>
-                                <select id="selectProveedor" style=" height: 35px">
+                                <select id="selectProveedor" class="form-control" style=" height: 35px">
                                 </select>
                                 <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
                             </div>
@@ -111,7 +111,6 @@
                     <input type="number" id="txtEntradaProducto" placeholder="Ingrese Cantidad a Entrar" style="width: 90%; height: 35px"/><br/>
                     <input type="submit" id="AgregarEntrada" class="btn btn-primary"/>
                 </div>
-
             </section>
         </div>
         <div class="modal fade" id="mdlMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
