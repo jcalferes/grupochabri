@@ -20,37 +20,43 @@
                             <label>Codigo Producto</label>
                             <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
                         </div>
-                        <div class="form-group">
-                            <label>Unidad De Medida:</label>
-                            <input type="text" class="form-control" id="txtgrupo" placeholder="Unidad De Medida">
-                        </div>
-                        <div class="form-group">
-                            <label>grupo de producto:</label>
-                           
-                            <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto" style="width: 30%"/>
-                            <select id="selectUnidadMedida"> <option value="0"> Unidad de Medida</option> <option value="1"> metros</option></select>
-                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Unidad de medida:</label><br>
+                                <select id="selectUnidadMedida" style="height: 35px"> 
+                                    <option value="0"> Unidad de Medida</option>
+                                    <option value="1"> metros</option>
+                                </select>
+                            </div>
+                            <div class="form-group pull-right">
+                                <label>grupo de producto:</label><br>
+                                <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto"/>
+                            </div>
+                        </div><br>
                         <div class="form-group">
                             <label>Costo Producto</label>
                             <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
                         </div>
-                        <div class="form-group">
-                            <label>Marca:</label><br>
-                            <select id="selectMarca" style="width: 90%; height: 35px">
-                            </select>
-                            <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
-                        </div>
-                        <div class="form-group">
-                            <label>Proveedor:</label><br>
-                            <select id="selectProveedor" style="width: 90%; height: 35px">
-                            </select>
-                            <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>Marca:</label><br>
+                                <select id="selectMarca" style=" height: 35px">
+                                </select>
+                                <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
+                            </div>
+                            <div class="form-group pull-right">
+                                <label>Proveedor:</label><br>
+                                <select id="selectProveedor" style=" height: 35px">
+                                </select>
+                                <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
+                            </div>
                         </div>
                         <!--                    <div class="form-group">
                                                 <label>Lista de Precios:</label><br>
                                                 <select id="selectListaPrecios" style="width: 100%; height: 35px">
                                                 </select>
                                             </div>-->
+                        <hr>
                         <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                     </div>
 
@@ -84,7 +90,6 @@
                             <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                         <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     </div>  
-
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
