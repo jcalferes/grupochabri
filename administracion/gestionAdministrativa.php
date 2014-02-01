@@ -16,7 +16,6 @@
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <!-- CSS Personalizados-->
-        <link href="../bootstrap/css/misestilos/probando.css" rel="stylesheet">
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">

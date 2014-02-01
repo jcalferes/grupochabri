@@ -19,8 +19,6 @@ function comprueba_extension(formulario, archivo) {
         if (!permitida) {
             mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
         } else {
-            //submito!
-            alertify.success("Todo correcto. Voy a submitir el formulario.");
             formulario.submit();
             return 1;
         }
@@ -28,4 +26,12 @@ function comprueba_extension(formulario, archivo) {
     //si estoy aqui es que no se ha podido submitir
     alertify.error(mierror);
     return 0;
+}
+
+function guardarinf(){
+    guardar.php;
+    
+    
+    
+    
 }

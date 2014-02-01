@@ -12,10 +12,9 @@
             <section class="scrollSection">
                 <!--==============================-->
                 <form name="subexml" action="cargaXMl.php" method="post" enctype="multipart/form-data" style="margin: 0% 25% 0% 25%">
-                    <input type="file" name="buscaxml" size="200" accept="application/xml" title="Buscar XML">
+                    <input id="archivo" type="file" name="buscaxml" size="200" accept="application/xml" title="Buscar XML">
                     <hr>
                     <input type=button name="m" value="Enviar" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
-                    <!--<input type="submit" name="guardarxml" value="Enviar" class="btn btn-primary">-->
                 </form>
                 <!--==============================-->
             </section>

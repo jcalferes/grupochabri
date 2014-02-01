@@ -5,6 +5,7 @@ function entroMarca() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#6").removeClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizMarca.php");
 
 }
@@ -15,6 +16,7 @@ function entroProducto() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#6").removeClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizProducto.php");
 }
 function entroProveedor() {
@@ -24,6 +26,7 @@ function entroProveedor() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#6").removeClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizProveedor.php");
 }
 
@@ -34,6 +37,7 @@ function entroListaPrecio() {
     $("#4").addClass("active");
     $("#5").removeClass("active");
     $("#6").removeClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizListaPrecio.php");
 }
 
@@ -44,6 +48,7 @@ function entroEntradasProductos() {
     $("#4").removeClass("active");
     $("#5").addClass("active");
     $("#6").removeClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizEntradaProducto.php");
 }
 function entroTarifas() {
@@ -53,6 +58,7 @@ function entroTarifas() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#6").addClass("active");
+    $("#7").removeClass("active");
     $("#mostrar").load("wizTarifas.php");
 }
 

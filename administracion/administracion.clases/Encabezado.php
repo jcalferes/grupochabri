@@ -18,12 +18,20 @@ class Encabezado {
     private $Total;
     private $Rfc;
     private $Nombre;
-    private $Direccion;
+    private $Calle;
     private $Cp;
     private $No;
     private $Estado;
     private $Ciudad;
     private $Colonia;
+
+    public function getCalle() {
+        return $this->Calle;
+    }
+
+    public function setCalle($Calle) {
+        $this->Calle = $Calle;
+    }
 
     public function getFecha() {
         return $this->Fecha;
@@ -43,10 +51,6 @@ class Encabezado {
 
     public function getNombre() {
         return $this->Nombre;
-    }
-
-    public function getDireccion() {
-        return $this->Direccion;
     }
 
     public function getCp() {
@@ -87,10 +91,6 @@ class Encabezado {
 
     public function setNombre($Nombre) {
         $this->Nombre = $Nombre;
-    }
-
-    public function setDireccion($Direccion) {
-        $this->Direccion = $Direccion;
     }
 
     public function setCp($Cp) {

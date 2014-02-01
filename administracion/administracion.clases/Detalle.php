@@ -18,6 +18,7 @@ class Detalle {
     private $Cantidad;
     private $Nombre;
     private $Preciounitario;
+    private $IdFacturaEncabezado;
 
     public function getUnidadmedida() {
         return $this->Unidadmedida;
@@ -25,6 +26,14 @@ class Detalle {
 
     public function getSubtotal() {
         return $this->Subtotal;
+    }
+
+    public function getIdFacturaEncabezado() {
+        return $this->IdFacturaEncabezado;
+    }
+
+    public function setIdFacturaEncabezado($IdFacturaEncabezado) {
+        $this->IdFacturaEncabezado = $IdFacturaEncabezado;
     }
 
     public function getCantidad() {

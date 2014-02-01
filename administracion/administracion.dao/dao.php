@@ -136,7 +136,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
-    
+
     function consultaListaPrecio() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -254,6 +254,30 @@ class dao {
                WHERE codigoProducto='$codigoProducto'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
+    }
+
+    function guardaEncabezado(Encabezado $t) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO facturaEncabezados (fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query($sql, $cn->Conectarse());
+        $dato = mysql_query($sql2, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($dato)) {
+            $id = $rs["ID"];
+        }
+        $cn->cerrarBd();
+        return $id;
+    }
+
+    function guardaDetalle(Detalle $t) {
+        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getNombre() . "','" . $t->getPreciounitario() . "','" . $t->getIdFacturaEncabezado() . "')";
+
+        $c = mysql_query($sql);
+        if ($c == false) {
+            $error = mysql_error();
+        }
+        return $error;
     }
 
 }
