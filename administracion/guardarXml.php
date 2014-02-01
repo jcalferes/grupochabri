@@ -12,3 +12,4 @@ $detalle = new Detalle();
 $encabezado = $_SESSION['objEncabezado'];
 
 
+
