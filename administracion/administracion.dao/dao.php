@@ -8,7 +8,7 @@ class dao {
         $sql = "SELECT idProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY idProducto ASC";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
-       
+
         return $datos;
     }
 
@@ -337,8 +337,8 @@ class dao {
         return $id;
     }
 
-    function guardaDetalle(Detalle $t) {
-        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getNombre() . "','" . $t->getPreciounitario() . "','" . $t->getIdFacturaEncabezado() . "')";
+    function guardaDetalle(Detalle $t, $id) {
+        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
 
         $c = mysql_query($sql);
         if ($c == false) {

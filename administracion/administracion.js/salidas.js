@@ -63,8 +63,7 @@ $("#cancelar").click(function() {
 
 $("#validar").click(function() {
     alert('Entre');
-    var info ="";
-    $.get('guardarXml.php',function() {
+    $.get('guardarXml.php', function() {
         alertify.success("Algo");
         return false;
     });
