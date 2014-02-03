@@ -19,7 +19,7 @@
         ?>
         <tr>
             <td>
-                <input type="text" id="<?php echo $x; ?>" onblur="dameValor(<?php echo $x; ?>);"/>
+                <input type="text" id="<?php echo $x; ?>" onblur="dameValor(<?php echo $x; ?>);" value="baba"/>
             </td>
         </tr>        
         <?php

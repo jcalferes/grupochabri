@@ -22,7 +22,7 @@
                     <!-- Aqui van los archivos cargados -->
                 </div>
                 <form id="validacion">
-                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar"/>
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar" onclick="eliminaSession();"/>
                     <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
                 </form>
                 <!--==============================-->
@@ -30,5 +30,6 @@
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="administracion.js/salidas.js"></script>
+        <script src="../administracion/administracion.js/prueba.js"></script>
     </body>
 </html>

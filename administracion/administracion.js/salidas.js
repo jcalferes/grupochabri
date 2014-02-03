@@ -6,7 +6,8 @@ function comprueba_extension(formulario, archivo) {
     mierror = "";
     if (!archivo) {
         //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario
-        mierror = "No has seleccionado ningún archivo";
+        //mierror = "No has seleccionado ningún archivo";
+        alertify.error("No has seleccionado ningún archivo");
     } else {
         //recupero la extensión de este nombre de archivo
         extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase();
@@ -20,7 +21,8 @@ function comprueba_extension(formulario, archivo) {
             }
         }
         if (!permitida) {
-            mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
+            //mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
+            alertify.error("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join());
         } else {
             var archivos = document.getElementById("buscaxml");//Damos el valor del input tipo file
             var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
@@ -36,7 +38,7 @@ function comprueba_extension(formulario, archivo) {
             //data.append('texto', texto);
 
             $.ajax({
-                url: 'cargaXML.php', //Url a donde la enviaremos
+                url: 'xmlCargar.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
                 data: data, //Le pasamos el objeto que creamos con los archivos
@@ -52,7 +54,7 @@ function comprueba_extension(formulario, archivo) {
         }
     }
     //si estoy aqui es que no se ha podido submitir
-    alertify.error(mierror);
+    //alertify.error(mierror);
     return 0;
 }
 $("#cancelar").click(function() {
@@ -62,9 +64,13 @@ $("#cancelar").click(function() {
 });
 
 $("#validar").click(function() {
-    alert('Entre');
-    $.get('guardarXml.php', function() {
-        alertify.success("Algo");
-        return false;
+    $.get('xmlGuardar.php', function() {
+        $("#cargados").empty();
     });
 });
+
+function eliminaSession() {
+    $.get('xmlCancelar.php', function() {
+        $("#cargados").empty();
+    });
+}
