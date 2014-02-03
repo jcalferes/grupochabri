@@ -8,22 +8,28 @@
                 <div style="margin-left: 3%">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">Codigo Producto</label>
+                            <label  class="col-sm-2 control-label">Codigo:</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="codigoProducto" placeholder="Codigo">
                             </div>
+                            <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
+                            <input  id="cancelarEntradas" type="submit" class="btn" value="Cancelar"/>
                         </div>
                         <div id="datosCaptura">
                             <div class="form-group">
-                                <label for="cantidadMinima" class="col-sm-2 control-label">Cantidad Minima</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="cantidadMinima" placeholder="Cantidad Minima">
+                                <label  class="col-sm-2 control-label">Cantidad</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="cantidad"/>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cantidadMaxima" class="col-sm-2 control-label">Cantidad Maxima</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="cantidadMaxima" placeholder="Cantidad Minima">
+                                <label  class="col-sm-2 control-label">Cant. Minima</label>
+                                <div class="col-sm-2">
+                                    <input type="text"  class="form-control" id="cantidadMinima"/>
+                                </div>
+                                <!--                            </div>
+                                                            <div class="form-group">-->
+                                <label class="col-sm-2 control-label">Cant. Maxima</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="cantidadMaxima"/>
                                 </div>
                             </div>
                         </div>
