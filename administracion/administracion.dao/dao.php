@@ -341,8 +341,8 @@ class dao {
         return $id;
     }
 
-    function guardaDetalle(Detalle $t) {
-        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getNombre() . "','" . $t->getPreciounitario() . "','" . $t->getIdFacturaEncabezado() . "')";
+    function guardaDetalle(Detalle $t, $id) {
+        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
 
         $c = mysql_query($sql);
         if ($c == false) {

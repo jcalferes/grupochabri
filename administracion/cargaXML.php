@@ -1,5 +1,8 @@
 <?php
 
+include './administracion.clases/Detalle.php';
+include './administracion.clases/Encabezado.php';
+session_start();
 //Como no sabemos cuantos archivos van a llegar, iteramos la variable $_FILES
 $ruta = "../subidas/";
 foreach ($_FILES as $key) {
@@ -13,15 +16,12 @@ foreach ($_FILES as $key) {
     }
 }
 $archivo = $ruta . $nombre;
-include './administracion.clases/Detalle.php';
-include './administracion.clases/Encabezado.php';
 $xml = simplexml_load_file($archivo);
 $ns = $xml->getNamespaces(true);
 $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
 $encabezado = new Encabezado();
 $detalle = new Detalle();
-
 
 echo "<span class='label label-default'>Comprobante </span>";
 echo "<blockquote>";
