@@ -8,7 +8,7 @@ class dao {
         $sql = "SELECT idProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY idProducto ASC";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
-       
+
         return $datos;
     }
 
@@ -319,7 +319,11 @@ class dao {
                inner join marcas m
                on m.idMarca = p.idMarca
                WHERE codigoProducto='$codigoProducto'";
-        $rs = mysql_query($sql, $cn->Conectarse());
+        try {
+            $rs = mysql_query($sql, $cn->Conectarse());
+        } catch (mysqli_sql_exception $e) {
+            $rs = $e->getMessage();
+        }
         return $rs;
     }
 

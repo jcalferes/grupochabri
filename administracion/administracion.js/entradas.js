@@ -12,7 +12,7 @@ $(document).ready(function() {
             var info = "codigoProducto=" + $("#codigoProducto").val();
             $.get('mostrarInformacionProducto.php', info, function(informacion) {
                 if (informacion == 1) {
-                    $("#detalle").html("<div>No existe Información de este Producto</div>");
+                    $("#detalle").html("<div><strong>No existe Información de este Producto</strong></div>");
                     $("#codigoProducto").focus();
                 }
                 else {
@@ -26,6 +26,9 @@ $(document).ready(function() {
         }
     });
 
-
+    $("#guardarEntradas").click(function() {
+        var informacion = "codigoProducto ="+$("#codigoProducto").val()+"&cant="+$("#cantidad").val()+"&cantMinima="+$("#cantidadMinima").val()+"&cantidadMaxima="+$("#cantidadMaxima").val();
+    
+    });
 
 });
