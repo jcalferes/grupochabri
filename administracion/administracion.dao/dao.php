@@ -181,9 +181,9 @@ class dao {
                 . "INNER JOIN costos c ON c.idProducto = p.idProducto LIMIT 0, 30 ";
 
         $datos = mysql_query($sql, $cn->Conectarse());
-        while ($rs = mysql_fetch_array($dato)) {
-            $id = $rs[1];
-        }
+//        while ($rs = mysql_fetch_array($dato)) {
+//            $id = $rs[1];
+//        }
 
         return $datos;
     }
