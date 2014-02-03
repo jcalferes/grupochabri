@@ -164,7 +164,7 @@ echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
-echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th>";
+echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th><th>Descuento</th>";
 echo "</thead>";
 echo "<tbody>";
 //                    $id = $dao->guardaEncabezado($encabezado);
@@ -176,9 +176,11 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td>" . $Concepto['importe'] . "</td>";
     echo "<td>" . $Concepto['cantidad'] . "</td>";
-    echo "<td><input type='text' id='id$cuentaid' onblur='dameValor($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
+    echo "<td><input type='text' class='form-control' id='id$cuentaid' onblur='dameValorId($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
+    echo "<td><input type='text' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);' /></td>";
+    echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false'/></td>";
     echo "</tr>";
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
     $detalle->setSubtotal(utf8_decode($Concepto['importe']));
@@ -186,13 +188,13 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $detalle->setId(utf8_decode($Concepto['noIdentificacion']));
     $detalle->setNombre(utf8_decode($Concepto['descripcion']));
     $detalle->setPreciounitario(utf8_decode($Concepto['valorUnitario']));
-    $detalle->setIdFacturaEncabezado($id);
     $arrayDetalle[$cont] = $detalle;
     $cont++;
     $cuentaid++;
 }
 echo "</tbody>";
 echo "</table>";
+echo '<input type="text" id="hola"/>';
 echo "</blockquote>";
 
 echo "<span class='label label-default'>Traslado </span>";
@@ -232,10 +234,9 @@ foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
 }
 echo "</tbody>";
 echo "</table>";
-echo '<input type="text id="pr" value="pablo"/>';
 echo "</blockquote>";
 $_SESSION['objEncabezado'] = $encabezado;
 $_SESSION['arrayDetalle'] = $arrayDetalle;
 unlink($archivo);
 ?>
-
+<input onchange="" onkeyup=""

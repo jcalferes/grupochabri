@@ -65,10 +65,12 @@ $("#cancelar").click(function() {
 
 $("#validar").click(function() {
     $.get('xmlGuardar.php', function() {
+        $("#cargados").empty();
     });
 });
 
 function eliminaSession() {
     $.get('xmlCancelar.php', function() {
+        $("#cargados").empty();
     });
 }
