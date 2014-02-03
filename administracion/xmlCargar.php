@@ -239,4 +239,3 @@ $_SESSION['objEncabezado'] = $encabezado;
 $_SESSION['arrayDetalle'] = $arrayDetalle;
 unlink($archivo);
 ?>
-<input onchange="" onkeyup=""
