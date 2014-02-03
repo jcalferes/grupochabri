@@ -75,6 +75,10 @@
                     </ul>
 
                     <div id="mostrar">
+                        
+                        
+                        
+                        
                     </div>
                 </div>
                 <div class="panel-footer">
