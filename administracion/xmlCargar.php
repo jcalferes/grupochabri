@@ -1,4 +1,5 @@
 <?php
+
 include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
 session_start();
@@ -175,7 +176,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td>" . $Concepto['importe'] . "</td>";
     echo "<td>" . $Concepto['cantidad'] . "</td>";
-    echo "<td><input type='text' class='form-control' id='$cuentaid' onblur='dameValor($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
+    echo "<td><input type='text' id='id$cuentaid' onblur='dameValor($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
     echo "</tr>";
@@ -231,10 +232,10 @@ foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
 }
 echo "</tbody>";
 echo "</table>";
+echo '<input type="text id="pr" value="pablo"/>';
 echo "</blockquote>";
-
 $_SESSION['objEncabezado'] = $encabezado;
 $_SESSION['arrayDetalle'] = $arrayDetalle;
 unlink($archivo);
 ?>
-<script src="../administracion/administracion.js/prueba.js"></script>
+
