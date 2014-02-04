@@ -20,7 +20,7 @@ $xml = simplexml_load_file($archivo);
 $ns = $xml->getNamespaces(true);
 $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
-$$encabezadoEntrada = new Encabezado();
+$encabezadoSalida = new Encabezado();
 $detallex = new Detalle();
 
 
@@ -44,9 +44,9 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<td>" . $cfdiComprobante['noCertificado'] . "</td>";
     echo "<td>" . $cfdiComprobante['tipoDeComprobante'] . "</td>";
     echo "</tr>";
-    $$encabezadoEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
-    $$encabezadoEntrada->setTotal(utf8_decode($cfdiComprobante['total']));
-    $$encabezadoEntrada->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
+    $encabezadoSalida->setFecha(utf8_decode($cfdiComprobante['fecha']));
+    $encabezadoSalida->setTotal(utf8_decode($cfdiComprobante['total']));
+    $encabezadoSalida->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -125,8 +125,8 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['rfc'] . "</td>";
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
-    $$encabezadoEntrada->setRfc(utf8_decode($Receptor['rfc']));
-    $$encabezadoEntrada->setNombre(UTF8_decode($Receptor['nombre']));
+    $encabezadoSalida->setRfc(utf8_decode($Receptor['rfc']));
+    $encabezadoSalida->setNombre(UTF8_decode($Receptor['nombre']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -150,12 +150,12 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
     echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
     echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
     echo "</tr>";
-    $$encabezadoEntrada->setCalle(utf8_decode($ReceptorDomicilio['calle']));
-    $$encabezadoEntrada->setEstado(utf8_decode($ReceptorDomicilio['estado']));
-    $$encabezadoEntrada->setColonia(utf8_decode($ReceptorDomicilio['colonia']));
-    $$encabezadoEntrada->setCiudad(utf8_decode($ReceptorDomicilio['municipio']));
-    $$encabezadoEntrada->setNo(utf8_decode($ReceptorDomicilio['noExterior']));
-    $$encabezadoEntrada->setCp(utf8_decode($ReceptorDomicilio['codigoPostal']));
+    $encabezadoSalida->setCalle(utf8_decode($ReceptorDomicilio['calle']));
+    $encabezadoSalida->setEstado(utf8_decode($ReceptorDomicilio['estado']));
+    $encabezadoSalida->setColonia(utf8_decode($ReceptorDomicilio['colonia']));
+    $encabezadoSalida->setCiudad(utf8_decode($ReceptorDomicilio['municipio']));
+    $encabezadoSalida->setNo(utf8_decode($ReceptorDomicilio['noExterior']));
+    $encabezadoSalida->setCp(utf8_decode($ReceptorDomicilio['codigoPostal']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -237,7 +237,7 @@ foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
-$_SESSION['objEncabezadoSalida'] = $$encabezadoEntrada;
+$_SESSION['objEncabezadoSalida'] = $encabezadoSalida;
 $_SESSION['arrayDetalleSalida'] = $arregloDetalleSalida;
 unlink($archivo);
 ?>

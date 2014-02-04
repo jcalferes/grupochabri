@@ -29,6 +29,6 @@
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
-        <script src="administracion.js/salidas.js"></script>
+        <script src="administracion.js/xmlSalidas.js"></script>
     </body>
 </html>
