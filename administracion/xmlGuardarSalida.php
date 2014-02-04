@@ -6,12 +6,12 @@ include './administracion.clases/Encabezado.php';
 include './administracion.dao/dao.php';
 include_once '../daoconexion/daoConeccion.php';
 session_start();
-$encabezadoSalida = new Encabezado();
+$$encabezadoEntrada = new Encabezado();
 $detalle = new Detalle();
 $dao = new dao();
 
-$encabezadoSalida = $_SESSION['objEncabezadoSalida'];
-$id = $dao->guardaEncabezado($encabezadoSalida);
+$$encabezadoEntrada = $_SESSION['objEncabezadoSalida'];
+$id = $dao->guardaEncabezado($$encabezadoEntrada);
 $arrayDetalleSalida = $_SESSION['arrayDetalleSalida'];
 $cn = new coneccion();
 $cn->Conectarse();

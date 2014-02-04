@@ -65,13 +65,14 @@
                     <!-- Aqui van los archivos cargados -->
                 </div>
                 <form id="validacionentradas">
-                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar" onclick="eliminaSession();"/>
-                    <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
+                    <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/entradas.js"></script>
-        <script src="../administracion/administracion.js/calculosXml.js"></script>
+        <script src="../administracion/administracion.js/xmlEntradas.js"></script>
+        <script src="../administracion/administracion.js/xmlCalculos.js"></script>
     </body>
 </html>

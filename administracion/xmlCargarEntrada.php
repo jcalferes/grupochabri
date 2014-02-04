@@ -20,7 +20,7 @@ $xml = simplexml_load_file($archivo);
 $ns = $xml->getNamespaces(true);
 $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
-$encabezadoSalida = new Encabezado();
+$encabezadoEntrada = new Encabezado();
 $detalle = new Detalle();
 
 echo "<span class='label label-default'>Comprobante </span>";
@@ -43,9 +43,9 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<td>" . $cfdiComprobante['noCertificado'] . "</td>";
     echo "<td>" . $cfdiComprobante['tipoDeComprobante'] . "</td>";
     echo "</tr>";
-    $encabezadoSalida->setFecha(utf8_decode($cfdiComprobante['fecha']));
-    $encabezadoSalida->setTotal(utf8_decode($cfdiComprobante['total']));
-    $encabezadoSalida->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
+    $encabezadoEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
+    $encabezadoEntrada->setTotal(utf8_decode($cfdiComprobante['total']));
+    $encabezadoEntrada->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -124,8 +124,8 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['rfc'] . "</td>";
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
-    $encabezadoSalida->setRfc(utf8_decode($Receptor['rfc']));
-    $encabezadoSalida->setNombre(UTF8_decode($Receptor['nombre']));
+    $encabezadoEntrada->setRfc(utf8_decode($Receptor['rfc']));
+    $encabezadoEntrada->setNombre(UTF8_decode($Receptor['nombre']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -149,12 +149,12 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
     echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
     echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
     echo "</tr>";
-    $encabezadoSalida->setCalle(utf8_decode($ReceptorDomicilio['calle']));
-    $encabezadoSalida->setEstado(utf8_decode($ReceptorDomicilio['estado']));
-    $encabezadoSalida->setColonia(utf8_decode($ReceptorDomicilio['colonia']));
-    $encabezadoSalida->setCiudad(utf8_decode($ReceptorDomicilio['municipio']));
-    $encabezadoSalida->setNo(utf8_decode($ReceptorDomicilio['noExterior']));
-    $encabezadoSalida->setCp(utf8_decode($ReceptorDomicilio['codigoPostal']));
+    $encabezadoEntrada->setCalle(utf8_decode($ReceptorDomicilio['calle']));
+    $encabezadoEntrada->setEstado(utf8_decode($ReceptorDomicilio['estado']));
+    $encabezadoEntrada->setColonia(utf8_decode($ReceptorDomicilio['colonia']));
+    $encabezadoEntrada->setCiudad(utf8_decode($ReceptorDomicilio['municipio']));
+    $encabezadoEntrada->setNo(utf8_decode($ReceptorDomicilio['noExterior']));
+    $encabezadoEntrada->setCp(utf8_decode($ReceptorDomicilio['codigoPostal']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -164,11 +164,11 @@ echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
-echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th><th>Descuento</th>";
+echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th><th>Descuento</th><th>Valor Total</th>";
 echo "</thead>";
 echo "<tbody>";
 //                    $id = $dao->guardaEncabezado($encabezado);
-$arrayDetalleSalida = [];
+$arrayDetalleEntrada = [];
 $cont = 0;
 $cuentaid = 1;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
@@ -179,7 +179,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='id$cuentaid' onblur='dameValorId($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
-    echo "<td><input type='number' min='0' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);' /></td>";
+    echo "<td><input type='number' min='0' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'  value='0'/></td>";
     echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false'/></td>";
     echo "</tr>";
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
@@ -188,7 +188,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $detalle->setId(utf8_decode($Concepto['noIdentificacion']));
     $detalle->setNombre(utf8_decode($Concepto['descripcion']));
     $detalle->setPreciounitario(utf8_decode($Concepto['valorUnitario']));
-    $arrayDetalleSalida[$cont] = $detalle;
+    $arrayDetalleEntrada[$cont] = $detalle;
     $detalle = new Detalle();
     $cont++;
     $cuentaid++;
@@ -235,7 +235,7 @@ foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
-$_SESSION['objEncabezado'] = $encabezadoSalida;
-$_SESSION['arrayDetalle'] = $arrayDetalleSalida;
+$_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
+$_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 unlink($archivo);
 ?>
