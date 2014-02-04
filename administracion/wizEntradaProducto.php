@@ -74,5 +74,7 @@
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
+        <script src="../utilerias/validCampoFranz.js"></script>
+
     </body>
 </html>

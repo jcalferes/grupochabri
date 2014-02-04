@@ -179,8 +179,8 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='id$cuentaid' onblur='dameValorId($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
-    echo "<td><input type='number' min='0' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'  value='0'/></td>";
-    echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false'/></td>";
+    echo "<td><input type='text' maxlength='3' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'/></td>";
+    echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false' value='". $Concepto['valorUnitario'] ."' /></td>";
     echo "</tr>";
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
     $detalle->setSubtotal(utf8_decode($Concepto['importe']));
