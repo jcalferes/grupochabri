@@ -22,8 +22,7 @@ $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
 $encabezadoSalida = new Encabezado();
 $detallex = new Detalle();
-$arregloDetalleSalida = [];
-$cont = 0;
+
 
 echo "<span class='label label-default'>Comprobante </span>";
 echo "<blockquote>";
@@ -170,6 +169,8 @@ echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion
 echo "</thead>";
 echo "<tbody>";
 
+$arregloDetalleSalida = [];
+$cont = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
     echo "<td>" . $Concepto['unidad'] . "</td>";
@@ -179,15 +180,19 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
     echo "</tr>";
-    
+
     $detallex->setUnidadmedida(utf8_decode($Concepto['unidad']));
     $detallex->setSubtotal(utf8_decode($Concepto['importe']));
     $detallex->setCantidad(utf8_decode($Concepto['cantidad']));
     $detallex->setId(utf8_decode($Concepto['noIdentificacion']));
     $detallex->setNombre(utf8_decode($Concepto['descripcion']));
     $detallex->setPreciounitario(utf8_decode($Concepto['valorUnitario']));
-    
+
+
+
+
     $arregloDetalleSalida[$cont] = $detallex;
+    $detallex = new Detalle();
     $cont++;
 }
 echo "</tbody>";

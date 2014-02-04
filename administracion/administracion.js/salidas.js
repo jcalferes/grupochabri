@@ -46,9 +46,9 @@ function comprueba_extension(formulario, archivo) {
                 cache: false //Para que el formulario no guarde cache
             }).done(function(msg) {
                 $("#xml").slideUp();
-                $("#validacion").slideDown();
                 $("#cargados").slideDown();
                 $("#cargados").append(msg); //Mostrara los archivos cargados en el div con el id "Cargados"
+                $("#validacion").slideDown();
             });
 
         }
@@ -58,9 +58,13 @@ function comprueba_extension(formulario, archivo) {
     return 0;
 }
 $("#cancelar").click(function() {
-    $("#cargados").slideUp();
-    $("#validacion").slideUp();
-    $("#xml").slideDown();
+    $.get('xmlCancelarSalida.php', function() {
+        $("#cargados").empty();
+        $("#cargados").slideUp();
+        $("#validacion").slideUp();
+        $("#xml").slideDown();
+        alertify.error("XML descartado");
+    });
 });
 
 $("#validar").click(function() {
@@ -72,13 +76,3 @@ $("#validar").click(function() {
         alertify.success("XML guardado correctamente");
     });
 });
-
-function eliminaSession() {
-    $.get('xmlCancelarSalida.php', function() {
-        $("#cargados").empty();
-        $("#cargados").slideUp();
-        $("#validacion").slideUp();
-        $("#xml").slideDown();
-alertify.success("XML descartado");
-    });
-}

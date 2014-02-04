@@ -22,7 +22,7 @@
                     <!-- Aqui van los archivos cargados -->
                 </div>
                 <form id="validacion">
-                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar" onclick="eliminaSession();"/>
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar"/>
                     <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
                 </form>
                 <!--==============================-->
