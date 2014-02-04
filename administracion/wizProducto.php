@@ -21,7 +21,7 @@
                             <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
                         </div>
                         <div class="form-group">
-                            <label>Unidad De Medida:</label>
+                            <label>Unidad De Medida:</label><br/>
                            
                             <select id="selectMedida" class="selectpicker" data-container="body" data-live-search="true">
                                 
