@@ -22,11 +22,11 @@
                         </div>
                         <div class="form-group">
                             <label>Unidad De Medida:</label><br/>
-                           
+
                             <select id="selectMedida" class="selectpicker" data-container="body" data-live-search="true">
-                                
+
                             </select>
-                            
+
                         </div>
                         <div class="form-group">
 
@@ -35,6 +35,7 @@
                             <label>Grupo de producto:</label><br/>
                             <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker" data-container="body" data-live-search="true">
                             </select>
+                            <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+">
                         </div>
 
                         <div class="form-group">
@@ -139,6 +140,28 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div class="modal fade" id="mdlGrupoProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Nuevo Grupo Producto</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label> Nombre del grupo de productos:</label>
+                                <input type="text" class="form-control" id="txtnombreGrupo" placeholder="Ingrese el nombre del grupo de productos">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input id="cancelGrupo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            <input id="btnGuardarGrupo" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" />
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -194,12 +217,15 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-       
+        
         <script src="../administracion/administracion.js/controlWizard.js"></script>
+        <script src="../administracion/administracion.js/grupoProducto.js"></script>
+        
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/producto.js"></script>
         <script src="../administracion/administracion.js/marca.js"></script>
         <script src="../administracion/administracion.js/proveedor.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
+        <script src="../administracion/administracion.js/selectPickers.js"></script>
     </body>
 </html>
