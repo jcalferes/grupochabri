@@ -75,10 +75,10 @@
                     </ul>
 
                     <div id="mostrar">
-                        
-                        
-                        
-                        
+
+
+
+
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -91,11 +91,14 @@
         </div> <!-- /container -->
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css">
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../bootstrap/css/bootstrap.min.css"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>
