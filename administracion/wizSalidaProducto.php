@@ -12,7 +12,7 @@
             <section class="scrollSection">
                 <!--==============================-->
                 <form id="xml" style="margin: 0% 25% 0% 25%">
-                    <input type="file" id="buscaxml" name="buscaxml[]" class="form-control" accept="application/xml" title="Buscar XML">
+                    <input type="file" id="buscaxml" name="buscaxml[]"  accept="application/xml" title="Buscar XML">
                     <hr>
                     <div id="uno">
                         <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
@@ -30,6 +30,5 @@
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="administracion.js/salidas.js"></script>
-        <script src="../administracion/administracion.js/prueba.js"></script>
     </body>
 </html>

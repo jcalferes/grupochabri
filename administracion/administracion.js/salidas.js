@@ -38,7 +38,7 @@ function comprueba_extension(formulario, archivo) {
             //data.append('texto', texto);
 
             $.ajax({
-                url: 'xmlCargar.php', //Url a donde la enviaremos
+                url: 'xmlCargarSalida.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
                 data: data, //Le pasamos el objeto que creamos con los archivos
@@ -64,13 +64,21 @@ $("#cancelar").click(function() {
 });
 
 $("#validar").click(function() {
-    $.get('xmlGuardar.php', function() {
+    $.get('xmlGuardarSalida.php', function() {
         $("#cargados").empty();
+        $("#cargados").slideUp();
+        $("#validacion").slideUp();
+        $("#xml").slideDown();
+        alertify.success("XML guardado correctamente");
     });
 });
 
 function eliminaSession() {
-    $.get('xmlCancelar.php', function() {
+    $.get('xmlCancelarSalida.php', function() {
         $("#cargados").empty();
+        $("#cargados").slideUp();
+        $("#validacion").slideUp();
+        $("#xml").slideDown();
+alertify.success("XML descartado");
     });
 }

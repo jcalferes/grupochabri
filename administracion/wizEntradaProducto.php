@@ -52,12 +52,26 @@
             <section>
 
             </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Transferencias</h2>
+            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section>
-
+                <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
+                    <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
+                    <hr>
+                    <div>
+                        <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension_xmlentrada(this.form, this.form.buscaxmlentrada.value)">
+                    </div>
+                </form>
+                <div id="cargaxml">
+                    <!-- Aqui van los archivos cargados -->
+                </div>
+                <form id="validacionentradas">
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar" onclick="eliminaSession();"/>
+                    <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
+                </form>
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/entradas.js"></script>
+        <script src="../administracion/administracion.js/calculosXml.js"></script>
     </body>
 </html>
