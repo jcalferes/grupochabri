@@ -83,7 +83,7 @@
                 </div>
                 <div class="panel-footer">
                     <!--                    Aqui los botones o similares-->
-
+                   
                     <!--========================================================-->
                 </div>
             </div>
