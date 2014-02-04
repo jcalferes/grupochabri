@@ -5,12 +5,25 @@ function  editar() {
 
 }
 $(document).ready(function() {
+
     var existenciaInventario;
+    
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php");
     $("#selectTarifa").load("consultarTarifas.php");
-    $("#selectMarca").load("mostrarMarcas.php");
-    $("#selectProveedor").load("mostrarProveedores.php");
+    $("#selectMarca").load("mostrarMarcas.php",function(){
+         $("#selectMarca").selectpicker();
+    });
+    $("#selectGrupo").load("mostrarGrupos.php",function(){
+         $("#selectGrupo").selectpicker();
+    });
+    $("#selectProveedor").load("mostrarProveedores.php",function(){
+         $("#selectProveedor").selectpicker();
+    });
+    $("#selectMedida").load("mostrarUnidadesMedida.php", function(){
+      $("#selectMedida").selectpicker();  
+    });
+    
 //    $("#selectListaPrecios").load("mostrarlistaPrecios.php");
     $("#mostrarDivProveedor").hide("slow");
 
@@ -30,10 +43,10 @@ $(document).ready(function() {
             $("#consultaProducto").load("consultarProducto.php");
             $("#txtNombreProducto").val("");
             $("#txtCodigoProducto").val("");
-             $("#selectProveedor").val(0);
+            $("#selectProveedor").val(0);
             $("#selectProveedor").val(0);
             $("#txtCostoProducto").val("");
-             $("#selectProducto").load("obtenerProductos.php");
+            $("#selectProducto").load("obtenerProductos.php");
             alertify.success("Producto agregada correctamente");
             return false;
 

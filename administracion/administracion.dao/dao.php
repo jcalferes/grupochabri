@@ -2,6 +2,22 @@
 
 class dao {
 
+        function consultarGrupos() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM grupoProductos";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function consultarMedidas() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM unidadesMedidas";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+    
     function consultaTableConsulta() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

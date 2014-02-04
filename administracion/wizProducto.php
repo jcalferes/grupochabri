@@ -20,33 +20,37 @@
                             <label>Codigo Producto</label>
                             <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
                         </div>
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <label>Unidad de medida:</label><br>
-                                <select id="selectUnidadMedida" style="height: 35px"> 
-                                    <option value="0"> Unidad de Medida</option>
-                                    <option value="1"> metros</option>
-                                </select>
-                            </div>
-                            <div class="form-group pull-right">
-                                <label>grupo de producto:</label><br>
-                                <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto"/>
-                            </div>
-                        </div><br>
+                        <div class="form-group">
+                            <label>Unidad De Medida:</label><br/>
+                           
+                            <select id="selectMedida" class="selectpicker" data-container="body" data-live-search="true">
+                                
+                            </select>
+                            
+                        </div>
+                        <div class="form-group">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Grupo de producto:</label><br/>
+                            <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label>Costo Producto</label>
                             <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
                         </div>
-                        <div class="form-inline">
+                        <div class="form-group">
                             <div class="form-group">
                                 <label>Marca:</label><br>
-                                <select id="selectMarca" style=" height: 35px">
+                                <select id="selectMarca" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
                                 </select>
                                 <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
                             </div>
-                            <div class="form-group pull-right">
+                            <div class="form-group">
                                 <label>Proveedor:</label><br>
-                                <select id="selectProveedor" class="form-control" style=" height: 35px">
+                                <select id="selectProveedor" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
                                 </select>
                                 <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
                             </div>
@@ -190,6 +194,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+       
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/producto.js"></script>
