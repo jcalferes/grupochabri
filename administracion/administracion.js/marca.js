@@ -14,8 +14,8 @@ $(document).ready(function() {
             var info = "nombre=" + nombre;
             $.get('guardaMarca.php', info, function() {
                 $("#txtnombremarca").val("");
-                $("#selectMarca").load("consultarMarca.php",function(){
-                    $("#selectMarca").selectpicker('refresh'); 
+                $("#selectMarca").load("mostrarMarcas.php", function() {
+                    $("#selectMarca").selectpicker('refresh');
                 });
                 alertify.success("Marca agregada correctamente");
                 return false;

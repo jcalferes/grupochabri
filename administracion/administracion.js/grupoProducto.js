@@ -10,7 +10,7 @@ $(document).ready(function() {
                     $("#selectGrupo").selectpicker('refresh');
                 });
                 alertify.success("se guardo el grupo exitosamente");
-                
+                $("#txtnombreGrupo").val("");
             } else {
                 alertify.error("no guardo");
             }

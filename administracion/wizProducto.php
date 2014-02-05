@@ -93,6 +93,7 @@
                             <input id="txtdescuento" type="number" class="form-control"  placeholder="Ingrese el descuento">
                         </div>
                             <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
+                        <input id="btncancelarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Cancelar"/>
                         <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     </div>  
                 </form>
@@ -217,10 +218,10 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        
+
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/grupoProducto.js"></script>
-        
+
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/producto.js"></script>
         <script src="../administracion/administracion.js/marca.js"></script>
