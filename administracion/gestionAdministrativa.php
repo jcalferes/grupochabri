@@ -73,17 +73,12 @@
                         <li id="6" class=""><a onclick="entroTarifas();">Precio de Venta</a></li>
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                     </ul>
-
                     <div id="mostrar">
-
-
-
-
                     </div>
                 </div>
                 <div class="panel-footer">
                     <!--                    Aqui los botones o similares-->
-
+                    <input type="text" maxlength="5">
                     <!--========================================================-->
                 </div>
             </div>

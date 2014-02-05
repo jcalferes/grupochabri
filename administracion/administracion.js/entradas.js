@@ -27,8 +27,10 @@ $(document).ready(function() {
     });
 
     $("#guardarEntradas").click(function() {
-        var informacion = "codigoProducto ="+$("#codigoProducto").val()+"&cant="+$("#cantidad").val()+"&cantMinima="+$("#cantidadMinima").val()+"&cantidadMaxima="+$("#cantidadMaxima").val();
-    
-    });
+        var informacion = "codigoProducto =" + $("#codigoProducto").val() + "&cant=" + $("#cantidad").val() + "&cantMinima=" + $("#cantidadMinima").val() + "&cantidadMaxima=" + $("#cantidadMaxima").val();
 
+    });
 });
+
+
+

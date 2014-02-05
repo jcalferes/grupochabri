@@ -35,6 +35,10 @@
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
+            <section class="scrollSection">
+
+            </section>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
