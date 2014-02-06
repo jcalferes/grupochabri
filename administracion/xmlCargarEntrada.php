@@ -28,12 +28,13 @@ echo "<blockquote>";
 echo "<div class='table-responsive'>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
-echo "<th>Version</th><th>Fecha</th><th>Total</th><th>Subtotal</th><th>Forma de Pago</th><th>No. Certificado</th><th>Tipo Comprobante</th>";
+echo "<th>Version</th><th>Folio</th><th>Fecha</th><th>Total</th><th>Subtotal</th><th>Forma de Pago</th><th>No. Certificado</th><th>Tipo Comprobante</th>";
 echo "</thead>";
 echo "<tbody>";
 foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<tr>";
     echo "<td>" . $cfdiComprobante['version'] . "</td>";
+    echo "<td>" . $cfdiComprobante['folio'] . "</td>";
     echo "<td>" . $cfdiComprobante['fecha'] . "</td>";
 //                        echo "<td>" .  $cfdiComprobante['sello'] . "</td>";
     echo "<td>" . $cfdiComprobante['total'] . "</td>";
@@ -43,6 +44,7 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<td>" . $cfdiComprobante['noCertificado'] . "</td>";
     echo "<td>" . $cfdiComprobante['tipoDeComprobante'] . "</td>";
     echo "</tr>";
+    $encabezadoEntrada->setFolio(utf8_decode($cfdiComprobante['folio']));
     $encabezadoEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
     $encabezadoEntrada->setTotal(utf8_decode($cfdiComprobante['total']));
     $encabezadoEntrada->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
@@ -163,7 +165,7 @@ echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th><th>Descuento</th><th>Valor Total</th>";
+echo "<th>Cantidad</th><th>Unidad</th><th>Codigo</th><th>Descripcion</th><th>Precio Unitario</th><th>Descuento</th><th>CDA</th><th>Importe</th>";
 echo "</thead>";
 echo "<tbody>";
 //                    $id = $dao->guardaEncabezado($encabezado);
@@ -172,14 +174,14 @@ $cont = 0;
 $cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
+    echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
     echo "<td>" . $Concepto['unidad'] . "</td>";
-    echo "<td>" . $Concepto['importe'] . "</td>";
-    echo "<td>" . $Concepto['cantidad'] . "</td>";
-    echo "<td><input type='text' class='form-control' id='id$cuentaid' onblur='dameValorId($cuentaid);' value='" . $Concepto['noIdentificacion'] . "' /></td>";
+    echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
     echo "<td><input type='text' maxlength='3' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'/></td>";
     echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
+    echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
     $detalle->setSubtotal(utf8_decode($Concepto['importe']));
@@ -195,6 +197,17 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
 echo "<input id='control' type='hidden' value='" . $cont . "' />";
 echo "</tbody>";
 echo "</table>";
+$importe = 0;
+foreach ($arrayDetalleEntrada as $detalle) {
+    $importe += $detalle->getSubtotal();
+}
+$coniva = $importe * 0.16;
+$total = $importe + $coniva;
+echo "<form class='form-inline'>";
+echo "<span>Subtotal: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 15%' value='" . $importe . "'/>";
+echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva' disabled='false' style='width: 15%' value='" . $coniva . "'/>";
+echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 15%' value='" . $total . "'/>";
+echo "</form>";
 echo "</blockquote>";
 
 echo "<span class='label label-default'>Traslado </span>";
