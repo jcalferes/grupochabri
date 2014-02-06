@@ -159,10 +159,9 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
-
 echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
-echo "<table class='table table-hover'>";
+echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
 echo "<th>Unidad</th><th>Importe</th><th>Cantidad</th><th>Id</th><th>Descripcion</th><th>Valor Unitario</th><th>Descuento</th><th>Valor Total</th>";
 echo "</thead>";
@@ -170,7 +169,7 @@ echo "<tbody>";
 //                    $id = $dao->guardaEncabezado($encabezado);
 $arrayDetalleEntrada = [];
 $cont = 0;
-$cuentaid = 1;
+$cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
     echo "<td>" . $Concepto['unidad'] . "</td>";
@@ -180,7 +179,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
     echo "<td><input type='text' maxlength='3' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'/></td>";
-    echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false' value='". $Concepto['valorUnitario'] ."' /></td>";
+    echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "</tr>";
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
     $detalle->setSubtotal(utf8_decode($Concepto['importe']));
@@ -193,6 +192,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $cont++;
     $cuentaid++;
 }
+echo "<input id='control' type='hidden' value='" . $cont . "' />";
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";

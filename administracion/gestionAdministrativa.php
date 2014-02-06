@@ -78,7 +78,6 @@
                 </div>
                 <div class="panel-footer">
                     <!--                    Aqui los botones o similares-->
-                    <input type="text" maxlength="5">
                     <!--========================================================-->
                 </div>
             </div>
