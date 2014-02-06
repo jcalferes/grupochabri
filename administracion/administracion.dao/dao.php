@@ -2,6 +2,43 @@
 
 class dao {
 
+    function guardarGrupo(GrupoProductos $g) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SET AUTOCOMMIT=0;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "BEGIN;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "INSERT INTO grupoProductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+
+
+        if ($resultado) {
+            echo 'OK';
+            echo '';
+            $sql = "COMMIT";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+            return;
+        } else {
+            echo 'MAL';
+            echo '
+';
+            echo 'SE EJECUTA EL ROOLBACK';
+            echo '
+';
+
+            $sql = "ROLLBACK;";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+            return;
+        }
+
+        $cn->cerrarBd();
+    }
+
     function consultarGrupos() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

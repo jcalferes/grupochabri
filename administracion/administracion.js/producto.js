@@ -7,29 +7,41 @@ function  editar() {
 $(document).ready(function() {
 
     var existenciaInventario;
-    
+
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php");
     $("#selectTarifa").load("consultarTarifas.php");
-    $("#selectMarca").load("mostrarMarcas.php",function(){
-         $("#selectMarca").selectpicker();
+    $("#selectMarca").load("mostrarMarcas.php", function() {
+        $("#selectMarca").selectpicker();
     });
-    $("#selectGrupo").load("mostrarGrupos.php",function(){
-         $("#selectGrupo").selectpicker();
+    $("#selectGrupo").load("mostrarGrupos.php", function() {
+        $("#selectGrupo").selectpicker();
     });
-    $("#selectProveedor").load("mostrarProveedores.php",function(){
-         $("#selectProveedor").selectpicker();
+    $("#selectProveedor").load("mostrarProveedores.php", function() {
+        $("#selectProveedor").selectpicker();
     });
-    $("#selectMedida").load("mostrarUnidadesMedida.php", function(){
-      $("#selectMedida").selectpicker();  
+    $("#selectMedida").load("mostrarUnidadesMedida.php", function() {
+        $("#selectMedida").selectpicker();
     });
-    
+
 //    $("#selectListaPrecios").load("mostrarlistaPrecios.php");
     $("#mostrarDivProveedor").hide("slow");
 
     $("#agregarProveedor").click(function() {
         $("#formulario").hide("slow");
         $("#mostrarDivProveedor").show("slow");
+    });
+
+    $("#btncancelarproveedor").click(function() {
+        $("#mostrarDivProveedor").hide("slow");
+        $("#formulario").show("slow");
+        $("#txtnombreproveedor").val("");
+        $("#txtrfc").val("");
+        $("#txtdiascredito").val("");
+        $("#txtdescuento").val("");
+        $("#formulario").show("slow");
+        $("#mostrarDivProveedor").hide("slow");
+
     });
     $("#guardarDatos").click(function() {
         var nombreProducto = $("#txtNombreProducto").val();
