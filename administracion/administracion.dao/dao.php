@@ -2,7 +2,7 @@
 
 class dao {
 
-        function consultarGrupos() {
+    function consultarGrupos() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM grupoProductos";
@@ -17,7 +17,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
-    
+
     function consultaTableConsulta() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -360,6 +360,14 @@ class dao {
     function guardaDetalle(Detalle $t, $id) {
         $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
 
+        $c = mysql_query($sql);
+        if ($c == false) {
+            $error = mysql_error();
+        }
+        return $error;
+    }
+
+    function guardaDetalleEntrada($sql) {
         $c = mysql_query($sql);
         if ($c == false) {
             $error = mysql_error();
