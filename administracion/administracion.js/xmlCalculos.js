@@ -26,14 +26,11 @@ $("#validarentrada").click(function() {
     var datos = new Array();
     var info = $('#control').val();
     alert(info);
-    for (var i = 0; i <= info; i++) {
+    for (var i = 0; i < info; i++) {
         var id = $("#id" + i + "").val();
         var cda = $("#total" + i + "").val();
-        alert('1');
         var dat = new Dato(i, id, cda);
-        alert('2');
         datos.push(dat);
-        alert('3');
     }
 
     var datosJSON = JSON.stringify(datos);
