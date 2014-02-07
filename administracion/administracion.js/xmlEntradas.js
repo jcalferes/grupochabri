@@ -69,20 +69,5 @@ $("#cancelarentrada").click(function() {
     });
 });
 
-$("#validarentrada").click(function() {
-    alert('Entre!');
-    
-    
-//    $.get('xmlCancelarEntrada.php', function() {
-//        $("#cargaxml").empty();
-//        $("#cargaxml").slideUp();
-//        $("#validacionentradas").slideUp();
-//        $("#xmlenrada").slideDown();
-//        alertify.error("XML descartado");
-//    });
-});
-function  dameValorId(id) {
-    var info = $("#id" + id + "").val();
-    alert(info);
-    ids[id] = info;
-}
+
+

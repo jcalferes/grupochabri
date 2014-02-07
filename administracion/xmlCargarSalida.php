@@ -29,12 +29,13 @@ echo "<blockquote>";
 echo "<div class='table-responsive'>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
-echo "<th>Version</th><th>Fecha</th><th>Total</th><th>Subtotal</th><th>Forma de Pago</th><th>No. Certificado</th><th>Tipo Comprobante</th>";
+echo "<th>Version</th><th>Folio</th><th>Fecha</th><th>Total</th><th>Subtotal</th><th>Forma de Pago</th><th>No. Certificado</th><th>Tipo Comprobante</th>";
 echo "</thead>";
 echo "<tbody>";
 foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<tr>";
     echo "<td>" . $cfdiComprobante['version'] . "</td>";
+    echo "<td>" . $cfdiComprobante['folio'] . "</td>";
     echo "<td>" . $cfdiComprobante['fecha'] . "</td>";
 //                        echo "<td>" .  $cfdiComprobante['sello'] . "</td>";
     echo "<td>" . $cfdiComprobante['total'] . "</td>";
@@ -44,6 +45,7 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     echo "<td>" . $cfdiComprobante['noCertificado'] . "</td>";
     echo "<td>" . $cfdiComprobante['tipoDeComprobante'] . "</td>";
     echo "</tr>";
+    $encabezadoSalida->setFolio(utf8_decode($cfdiComprobante['folio']));
     $encabezadoSalida->setFecha(utf8_decode($cfdiComprobante['fecha']));
     $encabezadoSalida->setTotal(utf8_decode($cfdiComprobante['total']));
     $encabezadoSalida->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));

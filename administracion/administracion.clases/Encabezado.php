@@ -13,6 +13,7 @@
  */
 class Encabezado {
 
+    private $folio;
     private $Fecha;
     private $Subtotal;
     private $Total;
@@ -43,6 +44,14 @@ class Encabezado {
 
     public function getTotal() {
         return $this->Total;
+    }
+
+    public function getFolio() {
+        return $this->folio;
+    }
+
+    public function setFolio($folio) {
+        $this->folio = $folio;
     }
 
     public function getRfc() {

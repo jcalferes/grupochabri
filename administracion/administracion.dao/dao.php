@@ -6,9 +6,6 @@ class dao {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 
-
-
-
         $sql = "SET AUTOCOMMIT=0;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
@@ -386,7 +383,7 @@ class dao {
     function guardaEncabezado(Encabezado $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO facturaEncabezados (fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
+        $sql = "INSERT INTO facturaEncabezados (folioEncabezado, fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFolio() . "','" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -400,6 +397,14 @@ class dao {
     function guardaDetalle(Detalle $t, $id) {
         $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
 
+        $c = mysql_query($sql);
+        if ($c == false) {
+            $error = mysql_error();
+        }
+        return $error;
+    }
+
+    function guardaDetalleEntrada($sql) {
         $c = mysql_query($sql);
         if ($c == false) {
             $error = mysql_error();

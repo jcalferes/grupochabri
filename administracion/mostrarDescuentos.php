@@ -6,7 +6,7 @@ $x = new Detalle();
 $posicion = $_GET["id"];
 $porcentaje = $_GET["porcentaje"];
 $arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
-$x = $arrayDetalleEntrada[$posicion - 1];
+$x = $arrayDetalleEntrada[$posicion];
 $precioUnitario = $x->getPreciounitario();
 $cantidad = $x->getCantidad();
 
