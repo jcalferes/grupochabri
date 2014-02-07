@@ -1,5 +1,5 @@
-function eliminar(valor) {
-    alert("algo");
+function eliminar(t) {
+    alert(t);
 }
 $(document).ready(function() {
 
@@ -122,13 +122,8 @@ $(document).ready(function() {
         //almacenamos en una variable todo el contenido de la nueva fila que deseamos
         //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html
         var valor = $("#selectListaPrecios").val();
-
         var palabras = valor.split("-");
-        var strNueva_Fila = '<tr>' +
-                '<td>' + palabras[1] + '</td>' +
-                '<td><input type="text" class="clsAnchoTotal" id="palabras"></td>' +
-                '<td align="right"><input type="submit" onclick="eliminar()";/></td>' +
-                '</tr>';
+        var strNueva_Fila = "<tr><td>" + palabras[1] + "</td><td><input type='text' class='clsAnchoTotal' id='palabras'/></td><td align='right'><input type='button' onclick=\"eliminar('" + valor + "');\"/></td></tr>";
 
         $("#selectListaPrecios").find("option[value=" + valor + "]").remove();
         /*obtenemos el padre del boton presionado (en este caso queremos la tabla, por eso
