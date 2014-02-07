@@ -1,9 +1,10 @@
 
-function Dato(id, ident, coda)
+function Dato(id, ident, coda, desc)
 {
     this.id = id;
     this.ident = ident;
     this.coda = coda;
+    this.desc = desc;
 }
 
 function  dameValorDescuento(id) {
@@ -31,11 +32,11 @@ function  dameValorDescuento(id) {
     });
 }
 
-//function  dameValorId(id) {
-//    var info = $("#id" + id + "").val();
-//    alert(info);
-//    ids[id] = info;
-//}
+function  dameValorId(id) {
+    var info = $("#id" + id + "").val();
+    alert(info);
+    ids[id] = info;
+}
 
 $("#validarentrada").click(function() {
     var datos = new Array();
@@ -44,16 +45,24 @@ $("#validarentrada").click(function() {
     for (var i = 0; i < info; i++) {
         var id = $("#id" + i + "").val();
         var cda = $("#total" + i + "").val();
-        var dat = new Dato(i, id, cda);
+        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
+            var descu = $("#dct" + i + "").val();
+        } else {
+            var quevalor = $("#dct" + i + "").val();
+            alertify.error(quevalor + " no es un descuento valido");
+            return false;
+        }
+        var dat = new Dato(i, id, cda, descu);
         datos.push(dat);
     }
+    alert('Todo bien');
 
-    var datosJSON = JSON.stringify(datos);
-
-    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-        console.log(respuesta);
-    }).error(function() {
-        console.log('Error al ejecutar la petición');
-    });
+//    var datosJSON = JSON.stringify(datos);
+//
+//    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
+//        console.log(respuesta);
+//    }).error(function() {
+//        console.log('Error al ejecutar la petición');
+//    });
 });
 

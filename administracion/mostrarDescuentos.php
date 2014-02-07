@@ -12,6 +12,6 @@ $cantidad = $x->getCantidad();
 
 $precioRegla = (($porcentaje * $precioUnitario) / 100);
 $precio = $precioUnitario - $precioRegla;
-$precioTotal = $precio;
+$precioTotal = number_format($precio, 2, '.', '');
 echo $precioTotal;
 
