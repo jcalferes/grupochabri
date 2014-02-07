@@ -179,7 +179,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td>" . $Concepto['valorUnitario'] . "</td>";
-    echo "<td><input type='text' maxlength='3' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);'/></td>";
+    echo "<td><input type='text' maxlength='6' class='form-control' id='dct$cuentaid' onkeyup='dameValorDescuento($cuentaid);' /></td>";
     echo "<td><input type='text' class='form-control' id='total$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
@@ -203,10 +203,13 @@ foreach ($arrayDetalleEntrada as $detalle) {
 }
 $coniva = $importe * 0.16;
 $total = $importe + $coniva;
+$fimporte = number_format($importe, 2, '.', '');
+$fconiva = number_format($coniva, 2, '.', '');
+$ftotal = number_format($total, 2, '.', '');
 echo "<form class='form-inline'>";
-echo "<span>Subtotal: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 15%' value='" . $importe . "'/>";
-echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva' disabled='false' style='width: 15%' value='" . $coniva . "'/>";
-echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 15%' value='" . $total . "'/>";
+echo "<span>Subtotal: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 15%' value='" . $fimporte . "'/>";
+echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva' disabled='false' style='width: 15%' value='" . $fconiva . "'/>";
+echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 15%' value='" . $ftotal . "'/>";
 echo "</form>";
 echo "</blockquote>";
 

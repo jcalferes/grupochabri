@@ -7,16 +7,16 @@ function Dato(id, ident, coda)
 }
 
 function  dameValorDescuento(id) {
-
+    $(function() {
+        $("#dct" + id + "").validCampoFranz('0123456789-.');
+    });
     var porcentaje = $("#dct" + id + "").val();
     var info = "id=" + id + "&porcentaje=" + porcentaje;
     $.get('mostrarDescuentos.php', info, function(valor) {
-
         $("#total" + id + "").val(valor);
-
         var cantidad = $("#cantidad" + id + "").val();
         var nuevoimporte = valor * cantidad;
-        $("#importe" + id + "").val(nuevoimporte);
+        $("#importe" + id + "").val(nuevoimporte.toFixed(2));
         var info = $('#control').val();
         var nuevosubtotal = 0;
         for (var n = 0; n < info; n++) {
@@ -25,11 +25,9 @@ function  dameValorDescuento(id) {
         }
         var nuevoconiva = nuevosubtotal * 0.16;
         var nuevototal = nuevosubtotal + nuevoconiva;
-        nuevoconiva.toFixed(2);
-        nuevototal.toFixed(2);
-        $("#subtotal").val(nuevosubtotal);
-        $("#coniva").val(nuevoconiva);
-        $("#total").val(nuevototal);
+        $("#subtotal").val(nuevosubtotal.toFixed(2));
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
     });
 }
 
@@ -52,13 +50,10 @@ $("#validarentrada").click(function() {
 
     var datosJSON = JSON.stringify(datos);
 
-    $.post('xmlGuardarEntrada.php', {datos: datosJSON},
-    function(respuesta) {
+    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
         console.log(respuesta);
-    }).error(
-            function() {
-                console.log('Error al ejecutar la petición');
-            }
-    );
+    }).error(function() {
+        console.log('Error al ejecutar la petición');
+    });
 });
 
