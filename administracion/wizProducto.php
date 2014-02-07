@@ -10,7 +10,7 @@
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto</h2>
             <section class="scrollSection">
-                <form style="margin: 0% 25% 0% 25%">
+                <div style="margin: 0% 25% 0% 25%">
                     <div id="formulario"> 
                         <div class="form-group"  >
                             <label>Nombre:</label>
@@ -55,7 +55,24 @@
                                 </select>
                                 <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
                             </div>
+                            <div class="form-group">
+                                <label>Lista Precio:</label><br>
+                                <select id="selectListaPrecios" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true" onchange="tablas()" name="seleccionando[]">
+                                </select>
+                               
+                                <table class="table table-hover" >
+                                    <thead>
+                                    <th> Lista Precio</th><th>Cantidad</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="tablaListaPrecios" >
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
+                        <
                         <!--                    <div class="form-group">
                                                 <label>Lista de Precios:</label><br>
                                                 <select id="selectListaPrecios" style="width: 100%; height: 35px">
@@ -96,7 +113,8 @@
                         <input id="btncancelarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Cancelar"/>
                         <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     </div>  
-                </form>
+                </div>
+                <!--<input type="submit" onclick="eliminar(4)"/>-->
             </section>
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
             <section class="scrollSection">
