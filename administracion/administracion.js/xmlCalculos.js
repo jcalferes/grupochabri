@@ -16,15 +16,17 @@ function  dameValorDescuento(id) {
 
         var cantidad = $("#cantidad" + id + "").val();
         var nuevoimporte = valor * cantidad;
-        $("#importe" + id + "").val(nuevoimporte)
+        $("#importe" + id + "").val(nuevoimporte);
         var info = $('#control').val();
-        alert(info);
+        var nuevosubtotal = 0;
         for (var n = 0; n < info; n++) {
             var calculandosubtotal = parseFloat($("#importe" + n + "").val());
-            confirm(calculandosubtotal);
+            nuevosubtotal = nuevosubtotal + calculandosubtotal;
         }
         var nuevoconiva = nuevosubtotal * 0.16;
         var nuevototal = nuevosubtotal + nuevoconiva;
+        nuevoconiva.toFixed(2);
+        nuevototal.toFixed(2);
         $("#subtotal").val(nuevosubtotal);
         $("#coniva").val(nuevoconiva);
         $("#total").val(nuevototal);
