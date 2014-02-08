@@ -342,12 +342,16 @@ class dao {
     }
 
     function guardaDetalle(Detalle $t, $id) {
-        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
-
-        $c = mysql_query($sql);
-        if ($c == false) {
-            $error = mysql_error();
+        try {
+            $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
+            $c = mysql_query($sql);
+//            if ($c == false) {
+//                $error = mysql_error();
+//            }
+        } catch (SQLException $x) {
+            $x->getMessage();
         }
+
         return $error;
     }
 
