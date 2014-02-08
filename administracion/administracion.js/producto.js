@@ -1,22 +1,44 @@
-function eliminar() {
-
-}
-function  editar() {
-
+function eliminar(valor) {
+    alert("algo");
 }
 $(document).ready(function() {
+
     var existenciaInventario;
+    $("#selectListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php");
     $("#selectTarifa").load("consultarTarifas.php");
-    $("#selectMarca").load("mostrarMarcas.php");
-    $("#selectProveedor").load("mostrarProveedores.php");
+    $("#selectMarca").load("mostrarMarcas.php", function() {
+        $("#selectMarca").selectpicker();
+    });
+    $("#selectGrupo").load("mostrarGrupos.php", function() {
+        $("#selectGrupo").selectpicker();
+    });
+    $("#selectProveedor").load("mostrarProveedores.php", function() {
+        $("#selectProveedor").selectpicker();
+    });
+    $("#selectMedida").load("mostrarUnidadesMedida.php", function() {
+        $("#selectMedida").selectpicker();
+    });
+
 //    $("#selectListaPrecios").load("mostrarlistaPrecios.php");
     $("#mostrarDivProveedor").hide("slow");
 
     $("#agregarProveedor").click(function() {
         $("#formulario").hide("slow");
         $("#mostrarDivProveedor").show("slow");
+    });
+
+    $("#btncancelarproveedor").click(function() {
+        $("#mostrarDivProveedor").hide("slow");
+        $("#formulario").show("slow");
+        $("#txtnombreproveedor").val("");
+        $("#txtrfc").val("");
+        $("#txtdiascredito").val("");
+        $("#txtdescuento").val("");
+        $("#formulario").show("slow");
+        $("#mostrarDivProveedor").hide("slow");
+
     });
     $("#guardarDatos").click(function() {
         var nombreProducto = $("#txtNombreProducto").val();
@@ -30,10 +52,10 @@ $(document).ready(function() {
             $("#consultaProducto").load("consultarProducto.php");
             $("#txtNombreProducto").val("");
             $("#txtCodigoProducto").val("");
-             $("#selectProveedor").val(0);
+            $("#selectProveedor").val(0);
             $("#selectProveedor").val(0);
             $("#txtCostoProducto").val("");
-             $("#selectProducto").load("obtenerProductos.php");
+            $("#selectProducto").load("obtenerProductos.php");
             alertify.success("Producto agregada correctamente");
             return false;
 
@@ -95,4 +117,67 @@ $(document).ready(function() {
         });
 
     });
+
+    $(document).on('change', '#selectListaPrecios', function() {
+        //almacenamos en una variable todo el contenido de la nueva fila que deseamos
+        //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html
+        var valor = $("#selectListaPrecios").val();
+
+        var palabras = valor.split("-");
+        var strNueva_Fila = '<tr>' +
+                '<td>' + palabras[1] + '</td>' +
+                '<td><input type="text" class="clsAnchoTotal" id="palabras"></td>' +
+                '<td align="right"><input type="submit" onclick="eliminar()";/></td>' +
+                '</tr>';
+
+        $("#selectListaPrecios").find("option[value=" + valor + "]").remove();
+        /*obtenemos el padre del boton presionado (en este caso queremos la tabla, por eso
+         utilizamos get(3)
+         table -> padre 3
+         tfoot -> padre 2
+         tr -> padre 1
+         td -> padre 0
+         nosotros queremos utilizar el padre 3 para agregarle en la etiqueta
+         tbody una nueva fila*/
+        var objTabla = $(this).parents().get(3);
+
+        //agregamos la nueva fila a la tabla
+        $(objTabla).find('tbody').append(strNueva_Fila);
+
+        //si el cuerpo la tabla esta oculto (al agregar una nueva fila) lo mostramos
+        if (!$(objTabla).find('tbody').is(':visible')) {
+            //le hacemos clic al titulo de la tabla, para mostrar el contenido
+            $(objTabla).find('caption').click();
+        }
+    });
+//
+//    $(document).on('click', '.clsEliminarFila', function() {
+//        /*obtener el cuerpo de la tabla; contamos cuantas filas (tr) tiene
+//         si queda solamente una fila le preguntamos al usuario si desea eliminarla*/
+//        var objCuerpo = $(this).parents().get(2);
+//        if ($(objCuerpo).find('tr').length == 1) {
+//            if (!confirm('Esta es el única fila de la lista ¿Desea eliminarla?')) {
+//                return;
+//            }
+//        }
+//        /*obtenemos el padre (tr) del td que contiene a nuestro boton de eliminar
+//         que quede claro: estamos obteniendo dos padres
+//         el asunto de los padres e hijos funciona exactamente como en la vida real
+//         es una jergarquia. imagine un arbol genealogico y tendra todo claro ;)
+//         tr	--> padre del td que contiene el boton
+//         td	--> hijo de tr y padre del boton
+//         boton --> hijo directo de td (y nieto de tr? si!)
+//         */
+//        var objFila = $(this).parents().get(1);
+//        /*eliminamos el tr que contiene los datos del contacto (se elimina todo el
+//         contenido (en este caso los td, los text y logicamente, el boton */
+//        $(objFila).remove();
+//
+//        $('#selectListaPrecios').append('<option value=' + valor + '>' + valor + '</option>');
+//
+//    });
+
+
 });
+
+

@@ -2,6 +2,59 @@
 
 class dao {
 
+    function guardarGrupo(GrupoProductos $g) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SET AUTOCOMMIT=0;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "BEGIN;";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+        $sql = "INSERT INTO grupoProductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+
+
+        if ($resultado) {
+            echo 'OK';
+            echo '';
+            $sql = "COMMIT";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+            return;
+        } else {
+            echo 'MAL';
+            echo '
+';
+            echo 'SE EJECUTA EL ROOLBACK';
+            echo '
+';
+
+            $sql = "ROLLBACK;";
+            $resultado = mysql_query($sql, $cn->Conectarse());
+            return;
+        }
+
+        $cn->cerrarBd();
+    }
+
+    function consultarGrupos() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM grupoProductos";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function consultarMedidas() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM unidadesMedidas";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function consultaTableConsulta() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -215,7 +268,7 @@ class dao {
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM listaprecios";
+       $sql = "SELECT concat_ws('-', idListaPrecio, nombreListaPrecio) as fusion, idListaPrecio FROM listaprecios";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 
@@ -330,7 +383,7 @@ class dao {
     function guardaEncabezado(Encabezado $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO facturaEncabezados (fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
+        $sql = "INSERT INTO facturaEncabezados (folioEncabezado, fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFolio() . "','" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -352,6 +405,14 @@ class dao {
             $x->getMessage();
         }
 
+        return $error;
+    }
+
+    function guardaDetalleEntrada($sql) {
+        $c = mysql_query($sql);
+        if ($c == false) {
+            $error = mysql_error();
+        }
         return $error;
     }
 

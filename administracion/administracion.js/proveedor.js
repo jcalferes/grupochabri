@@ -43,14 +43,16 @@ $(document).ready(function() {
                     alertify.error("No agregaste una direccion");
                     return false;
                 } else {
-                   
+
                     $("#txtnombreproveedor").val("");
                     $("#txtrfc").val("");
                     $("#txtdiascredito").val("");
                     $("#txtdescuento").val("");
                     $("#formulario").show("slow");
                     $("#mostrarDivProveedor").hide("slow");
-                     $("#consultaProveedor").load("consultarProveedor.php");
+                    $("#selectProveedor").load("mostrarProveedores.php", function() {
+                        $("#selectProveedor").selectpicker('refresh');
+                    });
                     alertify.success("Proveedor agregado correctamente");
                     return false;
 

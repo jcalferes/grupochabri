@@ -5,14 +5,13 @@ session_start();
 $x = new Detalle();
 $posicion = $_GET["id"];
 $porcentaje = $_GET["porcentaje"];
-$arrayDetalle = $_SESSION['arrayDetalle'];
-$x = $arrayDetalle[$posicion - 1];
+$arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
+$x = $arrayDetalleEntrada[$posicion];
 $precioUnitario = $x->getPreciounitario();
 $cantidad = $x->getCantidad();
 
-//$precio = ($precioUnitario * ($porcentaje / 100));
-$precioRegla = (($porcentaje * $precioUnitario)/100);
-$precio = $precioUnitario-$precioRegla;
-$precioTotal = $precio;
+$precioRegla = (($porcentaje * $precioUnitario) / 100);
+$precio = $precioUnitario - $precioRegla;
+$precioTotal = number_format($precio, 2, '.', '');
 echo $precioTotal;
 

@@ -38,7 +38,7 @@ function comprueba_extension(formulario, archivo) {
             //data.append('texto', texto);
 
             $.ajax({
-                url: 'xmlCargar.php', //Url a donde la enviaremos
+                url: 'xmlCargarSalida.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
                 data: data, //Le pasamos el objeto que creamos con los archivos
@@ -46,9 +46,9 @@ function comprueba_extension(formulario, archivo) {
                 cache: false //Para que el formulario no guarde cache
             }).done(function(msg) {
                 $("#xml").slideUp();
-                $("#validacion").slideDown();
                 $("#cargados").slideDown();
                 $("#cargados").append(msg); //Mostrara los archivos cargados en el div con el id "Cargados"
+                $("#validacion").slideDown();
             });
 
         }
@@ -58,19 +58,21 @@ function comprueba_extension(formulario, archivo) {
     return 0;
 }
 $("#cancelar").click(function() {
-    $("#cargados").slideUp();
-    $("#validacion").slideUp();
-    $("#xml").slideDown();
+    $.get('xmlCancelarSalida.php', function() {
+        $("#cargados").empty();
+        $("#cargados").slideUp();
+        $("#validacion").slideUp();
+        $("#xml").slideDown();
+        alertify.error("XML descartado");
+    });
 });
 
 $("#validar").click(function() {
-    $.get('xmlGuardar.php', function() {
+    $.get('xmlGuardarSalida.php', function() {
         $("#cargados").empty();
+        $("#cargados").slideUp();
+        $("#validacion").slideUp();
+        $("#xml").slideDown();
+        alertify.success("XML guardado correctamente");
     });
 });
-
-function eliminaSession() {
-    $.get('xmlCancelar.php', function() {
-        $("#cargados").empty();
-    });
-}
