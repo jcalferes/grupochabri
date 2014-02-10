@@ -7,35 +7,64 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
-function  dameValorDescuento(id) {
-    $(function() {
-        $("#dct" + id + "").validCampoFranz('0123456789-.');
-    });
-    var porcentaje = $("#dct" + id + "").val();
-    var info = "id=" + id + "&porcentaje=" + porcentaje;
-    $.get('mostrarDescuentos.php', info, function(valor) {
-        $("#total" + id + "").val(valor);
-        var cantidad = $("#cantidad" + id + "").val();
-        var nuevoimporte = valor * cantidad;
-        $("#importe" + id + "").val(nuevoimporte.toFixed(2));
-        var info = $('#control').val();
-        var nuevosubtotal = 0;
-        for (var n = 0; n < info; n++) {
-            var calculandosubtotal = parseFloat($("#importe" + n + "").val());
-            nuevosubtotal = nuevosubtotal + calculandosubtotal;
-        }
-        var nuevoconiva = nuevosubtotal * 0.16;
-        var nuevototal = nuevosubtotal + nuevoconiva;
-        $("#subtotal").val(nuevosubtotal.toFixed(2));
-        $("#coniva").val(nuevoconiva.toFixed(2));
-        $("#total").val(nuevototal.toFixed(2));
-    });
+function  dameValorDescuento1(id) {
+    alert('entre');
+    var porcentaje = $("#unodct" + id + "").val();
+    var expre = /[1234567890]/;
+    if (porcentaje.match(expre)) {
+        alert('bien');
+    } else {
+        alert('mal');
+    }
+//    if (porcentaje == "" || /^\s+$/.test(porcentaje)) {
+//        var porcentaje = 0.00;
+//        $("#dosdct" + id + "").val("");
+//    } else {
+//        var porcentaje = $("#unodct" + id + "").val();
+//    }
+//    var valorunitario = parseFloat($("#valorunitario" + id + "").val());
+//    var cantidad = parseFloat($("#cantidad" + id + "").val());
+//    var descuento = (porcentaje * valorunitario) / 100;
+//    var cda = valorunitario - descuento;
+//    $("#cda" + id + "").val(cda.toFixed(2));
+//    var importe = cda * cantidad;
+//    $("#importe" + id + "").val(importe.toFixed(2));
+//    var info = $('#control').val();
+//    var nuevosubtotal = 0;
+//    for (var n = 0; n < info; n++) {
+//        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
+//        nuevosubtotal = nuevosubtotal + calculandosubtotal;
+//    }
+//
+//    var nuevoconiva = nuevosubtotal * 0.16;
+//    var nuevototal = nuevosubtotal + nuevoconiva;
+//    $("#subtotal").val(nuevosubtotal.toFixed(2));
+//    $("#coniva").val(nuevoconiva.toFixed(2));
+//    $("#total").val(nuevototal.toFixed(2));
 }
 
-function  dameValorId(id) {
-    var info = $("#id" + id + "").val();
-    alert(info);
-    ids[id] = info;
+function  dameValorDescuento2(id) {
+    var porcentaje = $("#unodct" + id + "").val();
+    if (porcentaje != "") {
+        var porcentajedos = $("#dosdct" + id + "").val();
+        if (porcentajedos == "" || /^\s+$/.test(porcentajedos)) {
+            var porcentajedos = 0.00;
+        } else {
+            var porcentajedos = $("#dosdct" + id + "").val();
+        }
+        var valorunitario = parseFloat($("#valorunitario" + id + "").val());
+        var cantidad = parseFloat($("#cantidad" + id + "").val());
+        var descuento = (porcentaje * valorunitario) / 100;
+        var cda = valorunitario - descuento;
+        var descuentodos = (porcentajedos * cda) / 100;
+        var cdados = cda - descuentodos;
+        $("#cda" + id + "").val(cdados.toFixed(2));
+        var importedos = cda * cantidad;
+        $("#importe" + id + "").val(importedos.toFixed(2));
+    } else {
+        alertify.error('Primero aplica un primer descuento');
+        $("#dosdct" + id + "").val("");
+    }
 }
 
 $("#validarentrada").click(function() {
@@ -56,7 +85,6 @@ $("#validarentrada").click(function() {
         datos.push(dat);
     }
     alert('Todo bien');
-
 //    var datosJSON = JSON.stringify(datos);
 //
 //    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {

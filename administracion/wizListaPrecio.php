@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Listas</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Tabla de Listas</h2>
             <section class="scrollSection">
                 <div id="consultaListaPrecio">
                 </div>
