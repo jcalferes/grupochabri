@@ -159,12 +159,17 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
+
 echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
+echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrarextras()' value='+ Agregar descuentos generales'/><br>";
+echo "<div hidden id='desctextra'>";
 echo "<form class='form-inline'>";
+echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrardescuentos()' value='Regresar a descuentos por producto'/><hr>";
 echo "<span>Desct. Factura: </span><input type='text' class='form-control' id='descuentoFactura'  style='width: 15%' value='0.00'/>";
 echo "<span> Desct. Pronto Pago: </span><input type='text' class='form-control' id='descuentoProntoPago'  style='width: 15%' value='0.00' onkeyup='descuentoPP()'/>";
 echo "</form>";
+echo "</div><hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
 echo "<th>Cantidad</th><th>Unidad</th><th>Codigo</th><th>Descripcion</th><th>Precio Unitario</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
@@ -217,7 +222,6 @@ echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva'
 echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 10%' value='" . $ftotal . "'/>";
 echo "</form>";
 echo "</blockquote>";
-
 echo "<span class='label label-default'>Traslado </span>";
 echo "<blockquote>";
 echo "<table class='table table-hover'>";

@@ -6,6 +6,30 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
+function mostrardescuentos() {
+    alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
+        if (e) {
+            $("#btnextra").slideDown();
+            $("#tblconceptos").slideDown();
+            $("#desctextra").slideUp();
+        } else {
+            alertify.error("You've clicked Cancel");
+        }
+    });
+}
+
+function mostrarextras() {
+    alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos a los productos de forma individual. Deseas continuar?", function(e) {
+        if (e) {
+            $("#btnextra").slideUp();
+            $("#tblconceptos").slideUp();
+            $("#desctextra").slideDown();
+        } else {
+            alertify.error("You've clicked Cancel");
+        }
+    });
+}
+
 function calculaTotales() {
     var info = $('#control').val();
     var nuevosubtotal = 0;
@@ -14,40 +38,40 @@ function calculaTotales() {
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
 
-    var desctpp = parseFloat($("#descuentoProntoPago").val());
-    var desctff = parseFloat($("#descuentoFactura").val());
-
-    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
-        var reglapp = 0;
-    } else {
-        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-            var reglapp = (desctpp * nuevosubtotal) / 100;
-        } else {
-            var reglapp = 0;
-        }
-    }
-
-    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
-        var reglaff = 0;
-    } else {
-        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-            var reglaff = (desctff * nuevosubtotal) / 100;
-        } else {
-            var reglaff = 0;
-        }
-    }
-
-    var totaldesctgeneral = reglapp + reglaff;
-    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
-
-//    var subtotalcondescuento = nuevosubtotal - totaldesctgeneral;
+//    var desctpp = parseFloat($("#descuentoProntoPago").val());
+//    var desctff = parseFloat($("#descuentoFactura").val());
 //
-//    var nuevoconiva = subtotalcondescuento * 0.16;
-//    var nuevototal = subtotalcondescuento + nuevoconiva;
+//    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
+//        var reglapp = 0;
+//    } else {
+//        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//            var reglapp = (desctpp * nuevosubtotal) / 100;
+//        } else {
+//            var reglapp = 0;
+//        }
+//    }
+//    alert(reglapp);
 //
-//    $("#subtotal").val(nuevosubtotal.toFixed(2));
-//    $("#coniva").val(nuevoconiva.toFixed(2));
-//    $("#total").val(nuevototal.toFixed(2));
+//    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
+//        var reglaff = 0;
+//    } else {
+//        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//            var reglaff = (desctff * nuevosubtotal) / 100;
+//        } else {
+//            var reglaff = 0;
+//        }
+//    }
+//    alert(reglaff);
+//
+//    var totaldesctgeneral = reglapp + reglaff;
+//    alert(totaldesctgeneral);
+//    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
+    var nuevoconiva = nuevosubtotal * 0.16;
+    var nuevototal = nuevosubtotal + nuevoconiva;
+
+    $("#subtotal").val(nuevosubtotal.toFixed(2));
+    $("#coniva").val(nuevoconiva.toFixed(2));
+    $("#total").val(nuevototal.toFixed(2));
 }
 
 function  calculaDescuentos() {
