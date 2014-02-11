@@ -13,11 +13,41 @@ function calculaTotales() {
         var calculandosubtotal = parseFloat($("#importe" + n + "").val());
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
-    var nuevoconiva = nuevosubtotal * 0.16;
-    var nuevototal = nuevosubtotal + nuevoconiva;
-    $("#subtotal").val(nuevosubtotal.toFixed(2));
-    $("#coniva").val(nuevoconiva.toFixed(2));
-    $("#total").val(nuevototal.toFixed(2));
+
+    var desctpp = parseFloat($("#descuentoProntoPago").val());
+    var desctff = parseFloat($("#descuentoFactura").val());
+
+    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
+        var reglapp = 0;
+    } else {
+        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+            var reglapp = (desctpp * nuevosubtotal) / 100;
+        } else {
+            var reglapp = 0;
+        }
+    }
+
+    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
+        var reglaff = 0;
+    } else {
+        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+            var reglaff = (desctff * nuevosubtotal) / 100;
+        } else {
+            var reglaff = 0;
+        }
+    }
+
+    var totaldesctgeneral = reglapp + reglaff;
+    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
+
+//    var subtotalcondescuento = nuevosubtotal - totaldesctgeneral;
+//
+//    var nuevoconiva = subtotalcondescuento * 0.16;
+//    var nuevototal = subtotalcondescuento + nuevoconiva;
+//
+//    $("#subtotal").val(nuevosubtotal.toFixed(2));
+//    $("#coniva").val(nuevoconiva.toFixed(2));
+//    $("#total").val(nuevototal.toFixed(2));
 }
 
 function  calculaDescuentos() {
