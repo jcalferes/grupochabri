@@ -268,7 +268,7 @@ class dao {
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-       $sql = "SELECT concat_ws('-', idListaPrecio, nombreListaPrecio) as fusion, idListaPrecio FROM listaprecios";
+       $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 

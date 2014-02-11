@@ -5,12 +5,15 @@ include './administracion.dao/dao.php';
 $dao = new dao();
 
 $datos = $dao->consultarListaPrecios();
-echo '<select>';
-echo'<option value="0">Seleccion una lista de precio</option>';
+
+ echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Lista De Precio</th><th>Precio</th><th>alta</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
-    echo' <option value=' . $rs["fusion"] . ' >' . $rs["fusion"] . '</option> ';
+$valor = $rs["fusion"];
+
+    $pieces = explode("-", $valor);
+    echo"<tr><td>$pieces[0]</td>";
+    echo"<td ><input type='text' class='producto' id='texto$pieces[0]'  name='$pieces[0]' disabled    ></td>";
+   echo"<td ><input type='checkbox' class='producto' name='check$pieces[0]' id='check$pieces[0]' onchange='tester(\"$pieces[0]\")'/></td></tr>";
 }
-echo '</select>';
-
-
+echo"</tbody></table></div>";
 

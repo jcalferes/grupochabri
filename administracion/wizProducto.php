@@ -8,80 +8,74 @@
                 <div id="consultaProducto" style="margin-left: 5%">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto</h2>
+            <h2><span class="glyphicon glyphicon-plus" />&numsp;Nuevo producto</h2>
             <section class="scrollSection">
                 <div style="margin: 0% 25% 0% 25%">
-                    <div id="formulario"> 
-                        <div class="form-group"  >
-                            <label>Nombre:</label>
-                            <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" >
-                        </div>
-                        <div class="form-group">
-                            <label>Codigo Producto</label>
-                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
-                        </div>
-                        <div class="form-group">
-                            <label>Unidad De Medida:</label><br/>
-
-                            <select id="selectMedida" class="selectpicker" data-container="body" data-live-search="true">
-
-                            </select>
-
-                        </div>
-                        <div class="form-group">
-
-                        </div>
-                        <div class="form-group">
-                            <label>Grupo de producto:</label><br/>
-                            <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker" data-container="body" data-live-search="true">
-                            </select>
-                            <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Costo Producto</label>
-                            <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
-                        </div>
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label>Marca:</label><br>
-                                <select id="selectMarca" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
-                                </select>
-                                <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
+                    <form id="formularioProductos">
+                        <div id="formulario"> 
+                            <div class="form-group"  >
+                                <label>Nombre:</label>
+                                <input type="text" class="form-control producto" id="txtNombreProducto" placeholder="Nombre del producto"  >
                             </div>
                             <div class="form-group">
-                                <label>Proveedor:</label><br>
-                                <select id="selectProveedor" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
-                                </select>
-                                <input type="button" class="btn btn-primary" value="+" id="agregarProveedor">
+                                <label>Codigo Producto</label>
+                                <input type="text" class="form-control producto" id="txtCodigoProducto" placeholder="Código del Producto" >
                             </div>
                             <div class="form-group">
-                                <label>Lista Precio:</label><br>
-                                <select id="selectListaPrecios" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true" onchange="tablas()" name="seleccionando[]">
+                                <label>Unidad De Medida:</label><br/>
+
+                                <select id="selectMedida" class="selectpicker producto" data-container="body" data-live-search="true">
+
                                 </select>
-                               
-                                <table class="table table-hover" >
-                                    <thead>
-                                    <th> Lista Precio</th><th>Cantidad</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr id="tablaListaPrecios" >
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Grupo de producto:</label><br/>
+                                <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker producto" data-container="body" data-live-search="true">
+                                </select>
+                                <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+">
                             </div>
 
-                        </div>
-                        <
-                        <!--                    <div class="form-group">
-                                                <label>Lista de Precios:</label><br>
-                                                <select id="selectListaPrecios" style="width: 100%; height: 35px">
-                                                </select>
-                                            </div>-->
-                        <hr>
-                        <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
-                    </div>
+                            <div class="form-group">
+                                <label>Costo Producto</label>
+                                <input type="text" class="form-control producto" id="txtCostoProducto" placeholder="Costo del Producto" >
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>Marca:</label><br>
+                                    <select id="selectMarca" style=" height: 35px" class="selectpicker producto" data-container="body" data-live-search="true">
+                                    </select>
+                                    <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
+                                </div>
+                                <div class="form-group">
+                                    <label>Proveedor:</label><br>
+                                    <select id="selectProveedor" style=" height: 35px" class="selectpicker producto" data-container="body" data-live-search="true">
+                                    </select>
+                                    <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Lista Precio:</label><br>
+                                    <div id="tablaListaPrecios" >
+                                        
+                                    </div>
 
+
+                                </div>
+
+                            </div>
+
+                            <!--                    <div class="form-group">
+                                                    <label>Lista de Precios:</label><br>
+                                                    <select id="selectListaPrecios" style="width: 100%; height: 35px">
+                                                    </select>
+                                                </div>-->
+                            <hr>
+                            <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
+                        </div>
+                    </form>
 
                     <!--                    <div id="textos">
                                             <input type="number" placeholder="Tarifa" class="form-control" /> <br/>
