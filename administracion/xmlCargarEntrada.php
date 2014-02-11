@@ -182,6 +182,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid' onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
     echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
+    echo "<input type='text' value='0' id='totaldct$cuentaid'/>";
     echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
@@ -209,10 +210,11 @@ $fimporte = number_format($importe, 2, '.', '');
 $fconiva = number_format($coniva, 2, '.', '');
 $ftotal = number_format($total, 2, '.', '');
 echo "<form class='form-inline'>";
-echo "<span>Desct. Total: </span><input type='text' class='form-control' id='descuentoTotal' disabled='false' style='width: 15%'/>";
-echo "<span> Subtotal: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 15%' value='" . $fimporte . "'/>";
-echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva' disabled='false' style='width: 15%' value='" . $fconiva . "'/>";
-echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 15%' value='" . $ftotal . "'/>";
+echo "<span>Desct. General: </span><input type='text' class='form-control' id='descuentogeneral' disabled='false' style='width: 10%'/>";
+echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control' id='descuentoporproductos' disabled='false' style='width: 10%' />";
+echo "<span> Subtotal: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 10%' value='" . $fimporte . "'/>";
+echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva' disabled='false' style='width: 10%' value='" . $fconiva . "'/>";
+echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 10%' value='" . $ftotal . "'/>";
 echo "</form>";
 echo "</blockquote>";
 
