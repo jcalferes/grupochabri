@@ -6,33 +6,65 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
-function solodesctPF() {
-
-}
-
-function solodesctPP() {
-
-}
-
 function calculaPF() {
     var subtotal = calculaSubtotal();
     var descuentopf = $("#descuentoFactura").val();
     var porcentajepf = 0;
 
-    if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
-        porcentajepf = 0;
-        $("#descuentoFactura").val("");
-    } else {
-        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-            porcentajepf = $("#descuentoFactura").val();
-        } else {
-            porcentajepf = 0;
-        }
-    }
-    var calculadesctpf = (porcentajepf * subtotal) / 100;
-    var totalpf = subtotal - calculadesctpf;
+    if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//        alert('Si hay valor en DESCUENTOPP');
 
-    $("#subtotal").val(totalpf.toFixed(2));
+        var porcentajepp = $("#descuentoProntoPago").val();
+        var calculadesctpp = (porcentajepp * subtotal) / 100;
+        var totalpp = subtotal - calculadesctpp;
+
+        var subtotalcondesctpp = totalpp;
+//        alert('Subtotal con dect.PP aplicado: ' + subtotalcondesctpp);
+
+
+
+        var txtdesctgeneral = calculadesctpp;
+//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
+
+        if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
+            porcentajepf = 0;
+            $("#descuentoFactura").val("");
+        } else {
+            if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepf = $("#descuentoFactura").val();
+            } else {
+                porcentajepf = 0;
+            }
+        }
+//        alert('Porcentage con el que voy a calcular: ' + porcentajepf);
+
+        var calculadesctpf = (porcentajepf * subtotalcondesctpp) / 100;
+//        alert('Cantidad a descontar del subtotal y con Desct.PP: ' + calculadesctpf);
+        var totalpf = subtotalcondesctpp - calculadesctpf;
+//        alert('Nuevo subtotal: ' + totalpf);
+        $("#subtotal").val(totalpf.toFixed(2));
+
+        var nuevodesctgeneral = txtdesctgeneral + calculadesctpf;
+//        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
+        $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
+
+    } else {
+        if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
+            porcentajepf = 0;
+            $("#descuentoFactura").val("");
+        } else {
+            if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepf = $("#descuentoFactura").val();
+            } else {
+                porcentajepf = 0;
+            }
+        }
+        var calculadesctpf = (porcentajepf * subtotal) / 100;
+        var totalpf = subtotal - calculadesctpf;
+
+        $("#descuentogeneral").val(calculadesctpf.toFixed(2));
+        $("#subtotal").val(totalpf.toFixed(2));
+    }
 }
 
 function calculaPP() {
@@ -40,26 +72,57 @@ function calculaPP() {
     var descuentopp = $("#descuentoProntoPago").val();
     var porcentajepp = 0;
 
-    if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
-        porcentajepp = 0;
-        $("#descuentoProntoPago").val("");
-    } else {
-        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-            porcentajepp = $("#descuentoProntoPago").val();
-        } else {
+    if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//        alert('Si hay valor den DESCTPF');
+
+        var porcentajepf = $("#descuentoFactura").val();
+        var calculadesctpf = (porcentajepf * subtotal) / 100;
+        var totalpf = subtotal - calculadesctpf;
+
+        var subtotalcondesctpf = totalpf;
+//        alert('Subtotal con Desct.PF aplicado: ' + subtotalcondesctpf);
+
+        var txtdesctgeneral = calculadesctpf;
+//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
+        if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
             porcentajepp = 0;
+            $("#descuentoProntoPago").val("");
+        } else {
+            if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepp = $("#descuentoProntoPago").val();
+            } else {
+                porcentajepp = 0;
+            }
         }
+//        alert('Porcentage con el que voy a calcular: ' + porcentajepp);
+
+        var calculadesctpp = (porcentajepp * subtotalcondesctpf) / 100;
+//        alert('Cantidad a descontar del subtotal y con Desct.PF: ' + calculadesctpp);
+        var totalpp = subtotalcondesctpf - calculadesctpp;
+//        alert('Nuevo subtotal: ' + totalpp);
+        $("#subtotal").val(totalpp.toFixed(2));
+
+        var nuevodesctgeneral = txtdesctgeneral + calculadesctpp;
+//        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
+        $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
+
+    } else {
+        if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
+            porcentajepp = 0;
+            $("#descuentoProntoPago").val("");
+        } else {
+            if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepp = $("#descuentoProntoPago").val();
+            } else {
+                porcentajepp = 0;
+            }
+        }
+        var calculadesctpp = (porcentajepp * subtotal) / 100;
+        var totalpp = subtotal - calculadesctpp;
+
+        $("#descuentogeneral").val(calculadesctpp.toFixed(2));
+        $("#subtotal").val(totalpp.toFixed(2));
     }
-    var calculadesctpp = (porcentajepp * subtotal) / 100;
-    var totalpp = subtotal - calculadesctpp;
-
-//    var desctgeneral = calculaPF();
-//    var nuevodesctgeneral = desctgeneral + calculadesctpp;
-//
-//    $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
-    $("#subtotal").val(totalpp.toFixed(2));
-
-    return calculadesctpp;
 }
 
 function mostrardescuentos() {
@@ -69,8 +132,11 @@ function mostrardescuentos() {
             $("#tblconceptos").slideDown();
             $("#desctextra").slideUp();
             calculaTotales();
+            $("#descuentogeneral").val("0.00");
+            $("#descuentoProntoPago").val("");
+            $("#descuentoFactura").val("");
         } else {
-            alertify.error("You've clicked Cancel");
+
         }
     });
 }
@@ -82,7 +148,7 @@ function mostrarextras() {
             $("#tblconceptos").slideUp();
             $("#desctextra").slideDown();
         } else {
-            alertify.error("You've clicked Cancel");
+           
         }
     });
 }
