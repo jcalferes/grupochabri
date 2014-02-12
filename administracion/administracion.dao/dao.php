@@ -185,7 +185,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarProducto(Producto $p, Costo $c) {
+    function guardarProducto(Producto $p, Costo $c, Tarifa $t) {
         session_start();
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -196,12 +196,34 @@ class dao {
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "')";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
         $sql = "INSERT INTO costos(costo, idProducto)VALUES('" . $c->getCosto() . "','" . mysql_insert_id() . "' )";
         $resultado = mysql_query($sql, $cn->Conectarse());
+        $lista = $t->getIdListaPrecio();
+
+        foreach ($lista as $valor) {
+            $pieces = explode("-", $valor);
+
+            if ($pieces[0] !== " ") {
+                if ($pieces[0] !== "") {
+                    if ($pieces[0] !== null) {
+                        $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio, idStatus)VALUES(' $id ','$pieces[0]','$pieces[1]','2')";
+                        $resultado = mysql_query($sql, $cn->Conectarse());
+                    }else{
+                        echo 'mal';
+                        
+                    }
+                }else{
+                    echo 'mal';
+                }
+            } else {
+                echo 'mal';
+            }
+        }
+
 
         if ($resultado) {
             echo 'OK';
@@ -268,7 +290,7 @@ class dao {
     function consultarListaPrecios() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-       $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios";
+        $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 

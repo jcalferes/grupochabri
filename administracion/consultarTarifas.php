@@ -12,8 +12,8 @@ $valor = $rs["fusion"];
 
     $pieces = explode("-", $valor);
     echo"<tr><td>$pieces[0]</td>";
-    echo"<td ><input type='text' class='producto' id='texto$pieces[0]'  name='$pieces[0]' disabled    ></td>";
-   echo"<td ><input type='checkbox' class='producto' name='check$pieces[0]' id='check$pieces[0]' onchange='tester(\"$pieces[0]\")'/></td></tr>";
+    echo"<td ><input type='text' class='producto' id='texto$pieces[0]'  name='$pieces[1]' disabled    ></td>";
+   echo"<td ><input type='checkbox' class='checando' name='check$pieces[0]' id='check$pieces[0]' onchange='tester(\"$pieces[0]\")'/></td></tr>";
 }
 echo"</tbody></table></div>";
 
