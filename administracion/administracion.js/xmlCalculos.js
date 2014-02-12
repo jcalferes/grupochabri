@@ -148,7 +148,7 @@ function mostrarextras() {
             $("#tblconceptos").slideUp();
             $("#desctextra").slideDown();
         } else {
-           
+
         }
     });
 }
