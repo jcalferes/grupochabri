@@ -44,6 +44,14 @@ function calculaPF() {
 //        alert('Nuevo subtotal: ' + totalpf);
         $("#subtotal").val(totalpf.toFixed(2));
 
+        var nuevoconiva = totalpf * 0.16;
+        var nuevototal = totalpf + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
+
+
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpf;
 //        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
@@ -61,6 +69,14 @@ function calculaPF() {
         }
         var calculadesctpf = (porcentajepf * subtotal) / 100;
         var totalpf = subtotal - calculadesctpf;
+
+
+        var nuevoconiva = totalpf * 0.16;
+        var nuevototal = totalpf + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
 
         $("#descuentogeneral").val(calculadesctpf.toFixed(2));
         $("#subtotal").val(totalpf.toFixed(2));
@@ -101,6 +117,13 @@ function calculaPP() {
         var totalpp = subtotalcondesctpf - calculadesctpp;
 //        alert('Nuevo subtotal: ' + totalpp);
         $("#subtotal").val(totalpp.toFixed(2));
+        
+        var nuevoconiva = totalpp * 0.16;
+        var nuevototal = totalpp + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
 
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpp;
 //        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
@@ -119,6 +142,13 @@ function calculaPP() {
         }
         var calculadesctpp = (porcentajepp * subtotal) / 100;
         var totalpp = subtotal - calculadesctpp;
+
+        var nuevoconiva = totalpp * 0.16;
+        var nuevototal = totalpp + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
 
         $("#descuentogeneral").val(calculadesctpp.toFixed(2));
         $("#subtotal").val(totalpp.toFixed(2));
@@ -219,7 +249,7 @@ function  calculaDescuentos() {
 
 function  dameValorDescuento1(id) {
 
-    var porcentaje = $("#unodct" + id + "").val()
+    var porcentaje = $("#unodct" + id + "").val();
     if (porcentaje === "" || /^\s+$/.test(porcentaje)) {
         porcentaje = 0.00;
         $("#unodct" + id + "").val("");
@@ -275,24 +305,23 @@ function  dameValorDescuento2(id) {
     }
 }
 
-//$("#validarentrada").click(function() {
-//    var datos = new Array();
-//    var info = $('#control').val();
-//    alert(info);
-//    for (var i = 0; i < info; i++) {
-//        var id = $("#id" + i + "").val();
-//        var cda = $("#total" + i + "").val();
-//        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
-//            var descu = $("#dct" + i + "").val();
-//        } else {
-//            var quevalor = $("#dct" + i + "").val();
-//            alertify.error(quevalor + " no es un descuento valido");
-//            return false;
-//        }
-//        var dat = new Dato(i, id, cda, descu);
-//        datos.push(dat);
-//    }
-//    alert('Todo bien');
+$("#validarentrada").click(function() {
+    var datos = new Array();
+    var info = $('#control').val();
+    for (var i = 0; i < info; i++) {
+        var id = $("#id" + i + "").val();
+        var cda = $("#total" + i + "").val();
+        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
+            var descu = $("#dct" + i + "").val();
+        } else {
+            var quevalor = $("#dct" + i + "").val();
+            alertify.error(quevalor + " no es un descuento valido");
+            return false;
+        }
+        var dat = new Dato(i, id, cda, descu);
+        datos.push(dat);
+    }
+    alert('Todo bien');
 //    var datosJSON = JSON.stringify(datos);
 //
 //    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
@@ -300,5 +329,5 @@ function  dameValorDescuento2(id) {
 //    }).error(function() {
 //        console.log('Error al ejecutar la petición');
 //    });
-//});
+});
 
