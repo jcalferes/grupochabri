@@ -166,8 +166,8 @@ echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick=
 echo "<div hidden id='desctextra'>";
 echo "<form class='form-inline'>";
 echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrardescuentos()' value='Regresar a descuentos por producto'/><hr>";
-echo "<span>Desct. Factura: </span><input type='text' class='form-control' id='descuentoFactura'  style='width: 15%' value='0.00'/>";
-echo "<span> Desct. Pronto Pago: </span><input type='text' class='form-control' id='descuentoProntoPago'  style='width: 15%' value='0.00' onkeyup='descuentoPP()'/>";
+echo "<span>Desct. Factura: </span><input type='text' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
+echo "<span> Desct. Pronto Pago: </span><input type='text' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' onkeyup='descuentoPP()'/>";
 echo "</form>";
 echo "</div><hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";

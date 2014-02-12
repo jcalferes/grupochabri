@@ -6,12 +6,69 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
+function solodesctPF() {
+
+}
+
+function solodesctPP() {
+
+}
+
+function calculaPF() {
+    var subtotal = calculaSubtotal();
+    var descuentopf = $("#descuentoFactura").val();
+    var porcentajepf = 0;
+
+    if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
+        porcentajepf = 0;
+        $("#descuentoFactura").val("");
+    } else {
+        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+            porcentajepf = $("#descuentoFactura").val();
+        } else {
+            porcentajepf = 0;
+        }
+    }
+    var calculadesctpf = (porcentajepf * subtotal) / 100;
+    var totalpf = subtotal - calculadesctpf;
+
+    $("#subtotal").val(totalpf.toFixed(2));
+}
+
+function calculaPP() {
+    var subtotal = calculaSubtotal();
+    var descuentopp = $("#descuentoProntoPago").val();
+    var porcentajepp = 0;
+
+    if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
+        porcentajepp = 0;
+        $("#descuentoProntoPago").val("");
+    } else {
+        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+            porcentajepp = $("#descuentoProntoPago").val();
+        } else {
+            porcentajepp = 0;
+        }
+    }
+    var calculadesctpp = (porcentajepp * subtotal) / 100;
+    var totalpp = subtotal - calculadesctpp;
+
+//    var desctgeneral = calculaPF();
+//    var nuevodesctgeneral = desctgeneral + calculadesctpp;
+//
+//    $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
+    $("#subtotal").val(totalpp.toFixed(2));
+
+    return calculadesctpp;
+}
+
 function mostrardescuentos() {
     alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
         if (e) {
             $("#btnextra").slideDown();
             $("#tblconceptos").slideDown();
             $("#desctextra").slideUp();
+            calculaTotales();
         } else {
             alertify.error("You've clicked Cancel");
         }
@@ -19,7 +76,7 @@ function mostrardescuentos() {
 }
 
 function mostrarextras() {
-    alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos a los productos de forma individual. Deseas continuar?", function(e) {
+    alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
         if (e) {
             $("#btnextra").slideUp();
             $("#tblconceptos").slideUp();
@@ -28,6 +85,16 @@ function mostrarextras() {
             alertify.error("You've clicked Cancel");
         }
     });
+}
+
+function calculaSubtotal() {
+    var info = $('#control').val();
+    var nuevosubtotal = 0;
+    for (var n = 0; n < info; n++) {
+        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
+        nuevosubtotal = nuevosubtotal + calculandosubtotal;
+    }
+    return nuevosubtotal;
 }
 
 function calculaTotales() {
@@ -82,7 +149,6 @@ function  calculaDescuentos() {
         nuevototaldescuentos = nuevototaldescuentos + calculandototaldescuentos;
     }
     $("#descuentoporproductos").val(nuevototaldescuentos.toFixed(2));
-
 }
 
 function  dameValorDescuento1(id) {
