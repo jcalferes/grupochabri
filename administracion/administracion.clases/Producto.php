@@ -19,7 +19,10 @@ class Producto {
     private $idProveedor;
     private $idListaPrecios;
     private $codigoProducto;
+    private $cantidadMaxima;
+    private $cantidadMinima;
 
+    
     public function getIdProducto() {
         return $this->idProducto;
     }
@@ -67,5 +70,22 @@ class Producto {
     public function setCodigoProducto($codigoProducto) {
         $this->codigoProducto = $codigoProducto;
     }
+    public function getCantidadMaxima() {
+        return $this->cantidadMaxima;
+    }
+
+    public function getCantidadMinima() {
+        return $this->cantidadMinima;
+    }
+
+    public function setCantidadMaxima($cantidadMaxima) {
+        $this->cantidadMaxima = $cantidadMaxima;
+    }
+
+    public function setCantidadMinima($cantidadMinima) {
+        $this->cantidadMinima = $cantidadMinima;
+    }
+
+
 
 }
