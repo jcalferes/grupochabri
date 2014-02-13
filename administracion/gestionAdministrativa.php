@@ -25,7 +25,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar" ></span>
                     </button>
                     <a class="navbar-brand" href="#">Grupo Chabri</a>
                 </div>
@@ -46,7 +46,7 @@
                                 <li><a href="#">Otro link</a></li>
                             </ul>
                         </li>
-
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
@@ -81,6 +81,7 @@
                     <!--========================================================-->
                 </div>
             </div>
+
             <!--========================================================-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->

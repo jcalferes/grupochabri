@@ -1,4 +1,3 @@
-
 function Dato(id, ident, coda, desc)
 {
     this.id = id;
@@ -7,41 +6,308 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
-function  dameValorDescuento(id) {
-    $(function() {
-        $("#dct" + id + "").validCampoFranz('0123456789-.');
-    });
-    var porcentaje = $("#dct" + id + "").val();
-    var info = "id=" + id + "&porcentaje=" + porcentaje;
-    $.get('mostrarDescuentos.php', info, function(valor) {
-        $("#total" + id + "").val(valor);
-        var cantidad = $("#cantidad" + id + "").val();
-        var nuevoimporte = valor * cantidad;
-        $("#importe" + id + "").val(nuevoimporte.toFixed(2));
-        var info = $('#control').val();
-        var nuevosubtotal = 0;
-        for (var n = 0; n < info; n++) {
-            var calculandosubtotal = parseFloat($("#importe" + n + "").val());
-            nuevosubtotal = nuevosubtotal + calculandosubtotal;
+function calculaPF() {
+    var subtotal = calculaSubtotal();
+    var descuentopf = $("#descuentoFactura").val();
+    var porcentajepf = 0;
+
+    if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//        alert('Si hay valor en DESCUENTOPP');
+
+        var porcentajepp = $("#descuentoProntoPago").val();
+        var calculadesctpp = (porcentajepp * subtotal) / 100;
+        var totalpp = subtotal - calculadesctpp;
+
+        var subtotalcondesctpp = totalpp;
+//        alert('Subtotal con dect.PP aplicado: ' + subtotalcondesctpp);
+
+
+
+        var txtdesctgeneral = calculadesctpp;
+//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
+
+        if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
+            porcentajepf = 0;
+            $("#descuentoFactura").val("");
+        } else {
+            if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepf = $("#descuentoFactura").val();
+            } else {
+                porcentajepf = 0;
+            }
         }
-        var nuevoconiva = nuevosubtotal * 0.16;
-        var nuevototal = nuevosubtotal + nuevoconiva;
-        $("#subtotal").val(nuevosubtotal.toFixed(2));
+//        alert('Porcentage con el que voy a calcular: ' + porcentajepf);
+
+        var calculadesctpf = (porcentajepf * subtotalcondesctpp) / 100;
+//        alert('Cantidad a descontar del subtotal y con Desct.PP: ' + calculadesctpf);
+        var totalpf = subtotalcondesctpp - calculadesctpf;
+//        alert('Nuevo subtotal: ' + totalpf);
+        $("#subtotal").val(totalpf.toFixed(2));
+
+        var nuevoconiva = totalpf * 0.16;
+        var nuevototal = totalpf + nuevoconiva;
+
+
         $("#coniva").val(nuevoconiva.toFixed(2));
         $("#total").val(nuevototal.toFixed(2));
+
+
+        var nuevodesctgeneral = txtdesctgeneral + calculadesctpf;
+//        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
+        $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
+
+    } else {
+        if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
+            porcentajepf = 0;
+            $("#descuentoFactura").val("");
+        } else {
+            if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepf = $("#descuentoFactura").val();
+            } else {
+                porcentajepf = 0;
+            }
+        }
+        var calculadesctpf = (porcentajepf * subtotal) / 100;
+        var totalpf = subtotal - calculadesctpf;
+
+
+        var nuevoconiva = totalpf * 0.16;
+        var nuevototal = totalpf + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
+
+        $("#descuentogeneral").val(calculadesctpf.toFixed(2));
+        $("#subtotal").val(totalpf.toFixed(2));
+    }
+}
+
+function calculaPP() {
+    var subtotal = calculaSubtotal();
+    var descuentopp = $("#descuentoProntoPago").val();
+    var porcentajepp = 0;
+
+    if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//        alert('Si hay valor den DESCTPF');
+
+        var porcentajepf = $("#descuentoFactura").val();
+        var calculadesctpf = (porcentajepf * subtotal) / 100;
+        var totalpf = subtotal - calculadesctpf;
+
+        var subtotalcondesctpf = totalpf;
+//        alert('Subtotal con Desct.PF aplicado: ' + subtotalcondesctpf);
+
+        var txtdesctgeneral = calculadesctpf;
+//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
+        if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
+            porcentajepp = 0;
+            $("#descuentoProntoPago").val("");
+        } else {
+            if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepp = $("#descuentoProntoPago").val();
+            } else {
+                porcentajepp = 0;
+            }
+        }
+//        alert('Porcentage con el que voy a calcular: ' + porcentajepp);
+
+        var calculadesctpp = (porcentajepp * subtotalcondesctpf) / 100;
+//        alert('Cantidad a descontar del subtotal y con Desct.PF: ' + calculadesctpp);
+        var totalpp = subtotalcondesctpf - calculadesctpp;
+//        alert('Nuevo subtotal: ' + totalpp);
+        $("#subtotal").val(totalpp.toFixed(2));
+        
+        var nuevoconiva = totalpp * 0.16;
+        var nuevototal = totalpp + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
+
+        var nuevodesctgeneral = txtdesctgeneral + calculadesctpp;
+//        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
+        $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
+
+    } else {
+        if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
+            porcentajepp = 0;
+            $("#descuentoProntoPago").val("");
+        } else {
+            if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                porcentajepp = $("#descuentoProntoPago").val();
+            } else {
+                porcentajepp = 0;
+            }
+        }
+        var calculadesctpp = (porcentajepp * subtotal) / 100;
+        var totalpp = subtotal - calculadesctpp;
+
+        var nuevoconiva = totalpp * 0.16;
+        var nuevototal = totalpp + nuevoconiva;
+
+
+        $("#coniva").val(nuevoconiva.toFixed(2));
+        $("#total").val(nuevototal.toFixed(2));
+
+        $("#descuentogeneral").val(calculadesctpp.toFixed(2));
+        $("#subtotal").val(totalpp.toFixed(2));
+    }
+}
+
+function mostrardescuentos() {
+    alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
+        if (e) {
+            $("#btnextra").slideDown();
+            $("#tblconceptos").slideDown();
+            $("#desctextra").slideUp();
+            calculaTotales();
+            $("#descuentogeneral").val("0.00");
+            $("#descuentoProntoPago").val("");
+            $("#descuentoFactura").val("");
+        } else {
+
+        }
     });
 }
 
-function  dameValorId(id) {
-    var info = $("#id" + id + "").val();
-    alert(info);
-    ids[id] = info;
+function mostrarextras() {
+    alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
+        if (e) {
+            $("#btnextra").slideUp();
+            $("#tblconceptos").slideUp();
+            $("#desctextra").slideDown();
+        } else {
+
+        }
+    });
+}
+
+function calculaSubtotal() {
+    var info = $('#control').val();
+    var nuevosubtotal = 0;
+    for (var n = 0; n < info; n++) {
+        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
+        nuevosubtotal = nuevosubtotal + calculandosubtotal;
+    }
+    return nuevosubtotal;
+}
+
+function calculaTotales() {
+    var info = $('#control').val();
+    var nuevosubtotal = 0;
+    for (var n = 0; n < info; n++) {
+        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
+        nuevosubtotal = nuevosubtotal + calculandosubtotal;
+    }
+
+//    var desctpp = parseFloat($("#descuentoProntoPago").val());
+//    var desctff = parseFloat($("#descuentoFactura").val());
+//
+//    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
+//        var reglapp = 0;
+//    } else {
+//        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//            var reglapp = (desctpp * nuevosubtotal) / 100;
+//        } else {
+//            var reglapp = 0;
+//        }
+//    }
+//    alert(reglapp);
+//
+//    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
+//        var reglaff = 0;
+//    } else {
+//        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+//            var reglaff = (desctff * nuevosubtotal) / 100;
+//        } else {
+//            var reglaff = 0;
+//        }
+//    }
+//    alert(reglaff);
+//
+//    var totaldesctgeneral = reglapp + reglaff;
+//    alert(totaldesctgeneral);
+//    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
+    var nuevoconiva = nuevosubtotal * 0.16;
+    var nuevototal = nuevosubtotal + nuevoconiva;
+
+    $("#subtotal").val(nuevosubtotal.toFixed(2));
+    $("#coniva").val(nuevoconiva.toFixed(2));
+    $("#total").val(nuevototal.toFixed(2));
+}
+
+function  calculaDescuentos() {
+    var info = $('#control').val();
+    var nuevototaldescuentos = 0;
+    for (var n = 0; n < info; n++) {
+        var calculandototaldescuentos = parseFloat($("#totaldct" + n + "").val());
+        nuevototaldescuentos = nuevototaldescuentos + calculandototaldescuentos;
+    }
+    $("#descuentoporproductos").val(nuevototaldescuentos.toFixed(2));
+}
+
+function  dameValorDescuento1(id) {
+
+    var porcentaje = $("#unodct" + id + "").val();
+    if (porcentaje === "" || /^\s+$/.test(porcentaje)) {
+        porcentaje = 0.00;
+        $("#unodct" + id + "").val("");
+    } else {
+        if ($("#unodct" + id + "").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+            var porcentaje = $("#unodct" + id + "").val();
+        } else {
+            var porcentaje = 0.00;
+        }
+    }
+    var valorunitario = parseFloat($("#valorunitario" + id + "").val());
+    var cantidad = parseFloat($("#cantidad" + id + "").val());
+    var descuento = (porcentaje * valorunitario) / 100;
+    $("#totaldct" + id + "").val(descuento);
+    var cda = valorunitario - descuento;
+    $("#cda" + id + "").val(cda.toFixed(2));
+    var importe = cda * cantidad;
+    $("#importe" + id + "").val(importe.toFixed(2));
+    calculaDescuentos();
+    calculaTotales();
+}
+
+function  dameValorDescuento2(id) {
+    var porcentaje = $("#unodct" + id + "").val();
+    if (porcentaje !== "" || /^\s+$/.test(porcentaje)) {
+        var porcentajedos = $("#dosdct" + id + "").val();
+        if (porcentajedos === "" || /^\s+$/.test(porcentajedos)) {
+            porcentajedos = 0.00;
+            $("#dosdct" + id + "").val("");
+        } else {
+            if ($("#dosdct" + id + "").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+                var porcentajedos = $("#dosdct" + id + "").val();
+            } else {
+                var porcentajedos = 0.00;
+            }
+        }
+        var valorunitario = parseFloat($("#valorunitario" + id + "").val());
+        var cantidad = parseFloat($("#cantidad" + id + "").val());
+        var descuento = (porcentaje * valorunitario) / 100;
+        var cda = valorunitario - descuento;
+        var descuentodos = (porcentajedos * cda) / 100;
+        var sumadescuentos = descuento + descuentodos;
+        $("#totaldct" + id + "").val(sumadescuentos);
+        var cdados = cda - descuentodos;
+        $("#cda" + id + "").val(cdados.toFixed(2));
+        var importedos = cdados * cantidad;
+        $("#importe" + id + "").val(importedos.toFixed(2));
+        calculaDescuentos();
+        calculaTotales();
+    } else {
+        alertify.error('Primero aplica un primer descuento');
+        $("#dosdct" + id + "").val("");
+    }
 }
 
 $("#validarentrada").click(function() {
     var datos = new Array();
     var info = $('#control').val();
-    alert(info);
     for (var i = 0; i < info; i++) {
         var id = $("#id" + i + "").val();
         var cda = $("#total" + i + "").val();
@@ -56,7 +322,6 @@ $("#validarentrada").click(function() {
         datos.push(dat);
     }
     alert('Todo bien');
-
 //    var datosJSON = JSON.stringify(datos);
 //
 //    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
