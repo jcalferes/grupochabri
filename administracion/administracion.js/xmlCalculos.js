@@ -6,6 +6,44 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
+function chkExtras() {
+    var nose = $("#chk").is(":checked");
+    if (nose === true) {
+        alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
+            if (e) {
+                $("#descuentoFactura").removeAttr("disabled", "disabled");
+                $("#descuentoProntoPago").removeAttr("disabled", "disabled");
+                $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
+
+            } else {
+
+            }
+        });
+    } else {
+        alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
+            if (e) {
+                $("#btnextra").slideDown();
+                var control = $('#control').val();
+                for (var i = 0; i < control; i++) {
+                    $("#unodct" + i + "").removeAttr("disabled", "disabled");
+                    $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+                    $("#id" + i + "").removeAttr("disabled", "disabled");
+                }
+                $("#descuentoFactura").attr("disabled", "disabled");
+                $("#descuentoProntoPago").attr("disabled", "disabled");
+                $("#btnbuscar").removeAttr("disabled", "disabled");
+                $("#desctextra").slideUp();
+                calculaTotales();
+                $("#descuentogeneral").val("0.00");
+                $("#descuentoProntoPago").val("");
+                $("#descuentoFactura").val("");
+            } else {
+
+            }
+        });
+    }
+}
+
 function calculaPF() {
     var subtotal = calculaSubtotal();
     var descuentopf = $("#descuentoFactura").val();
