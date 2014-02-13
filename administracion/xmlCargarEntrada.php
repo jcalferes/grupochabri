@@ -162,17 +162,17 @@ echo "</blockquote>";
 
 echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
-echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrarextras()' value='+ Agregar descuentos generales'/><br>";
+echo "<button type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrarextras()'><span class='glyphicon glyphicon-plus'></span> Agregar descuentos generales</button>";
 echo "<div hidden id='desctextra'>";
 echo "<form class='form-inline'>";
-echo "<input type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrardescuentos()' value='Regresar a descuentos por producto'/><hr>";
+echo "<button type='button' class='btn btn-xs btn-default' id='btnextra' onclick='mostrardescuentos()'><span class='glyphicon glyphicon-share-alt'></span> Regresar a descuentos por producto</button><hr>";
 echo "<span>Desct. Factura: </span><input type='text' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
 echo "<span> Desct. Pronto Pago: </span><input type='text' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' onkeyup='descuentoPP()'/>";
 echo "</form>";
 echo "</div><hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Codigo</th><th>Descripcion</th><th>Precio Unitario</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick=''><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Precio Unitario</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 //<th>Unidad</th>
 echo "</thead>";
 echo "<tbody>";

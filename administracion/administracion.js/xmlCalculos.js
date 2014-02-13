@@ -117,7 +117,7 @@ function calculaPP() {
         var totalpp = subtotalcondesctpf - calculadesctpp;
 //        alert('Nuevo subtotal: ' + totalpp);
         $("#subtotal").val(totalpp.toFixed(2));
-        
+
         var nuevoconiva = totalpp * 0.16;
         var nuevototal = totalpp + nuevoconiva;
 
@@ -159,7 +159,13 @@ function mostrardescuentos() {
     alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
         if (e) {
             $("#btnextra").slideDown();
-            $("#tblconceptos").slideDown();
+            var control = $('#control').val();
+            for (var i = 0; i < control; i++) {
+                $("#unodct" + i + "").removeAttr("disabled", "disabled");
+                $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+                $("#id" + i + "").removeAttr("disabled", "disabled");
+            }
+            $("#btnbuscar").removeAttr("disabled", "disabled");
             $("#desctextra").slideUp();
             calculaTotales();
             $("#descuentogeneral").val("0.00");
@@ -175,7 +181,7 @@ function mostrarextras() {
     alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
         if (e) {
             $("#btnextra").slideUp();
-            $("#tblconceptos").slideUp();
+            $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
             $("#desctextra").slideDown();
         } else {
 

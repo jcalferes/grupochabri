@@ -212,11 +212,10 @@ class dao {
                     if ($pieces[0] !== null) {
                         $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio, idStatus)VALUES(' $id ','$pieces[0]','$pieces[1]','2')";
                         $resultado = mysql_query($sql, $cn->Conectarse());
-                    }else{
+                    } else {
                         echo 'mal';
-                        
                     }
-                }else{
+                } else {
                     echo 'mal';
                 }
             } else {
@@ -432,6 +431,14 @@ class dao {
             $error = mysql_error();
         }
         return $error;
+    }
+
+    function obtieneTodosProductos() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
 }
