@@ -46,7 +46,7 @@
                                 <li><a href="#">Otro link</a></li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
