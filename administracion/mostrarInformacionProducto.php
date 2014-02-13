@@ -9,7 +9,7 @@ if ($rs == false) {
     $interfaz = mysql_error();
 } else {
     $info = false;
-    $interfaz .="<div id='detalle'>";
+    $interfaz .="<div id='detalle' class='well well-lg'>";
     while ($datos = mysql_fetch_array($rs)) {
         $interfaz .="<strong>PRODUCTO:&nbsp;" . $datos[0] . "&nbsp;";
         $interfaz .="PROVEEDOR:&nbsp;" . $datos[1] . "&nbsp;";

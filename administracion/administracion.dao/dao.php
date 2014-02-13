@@ -212,11 +212,10 @@ class dao {
                     if ($pieces[0] !== null) {
                         $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio, idStatus)VALUES(' $id ','$pieces[0]','$pieces[1]','2')";
                         $resultado = mysql_query($sql, $cn->Conectarse());
-                    }else{
+                    } else {
                         echo 'mal';
-                        
                     }
-                }else{
+                } else {
                     echo 'mal';
                 }
             } else {
@@ -436,6 +435,27 @@ class dao {
             $error = mysql_error();
         }
         return $error;
+    }
+
+    function guardarEntradas(Entradas $entradas) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $cn->Conectarse();
+        $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
+        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
+        mysql_query("START TRANSACTION;");
+        $entradas = mysql_query($MySQLEntradas);
+        if ($entradas == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $existencias = mysql_query($MySQLExistencias);
+            if ($existencias == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                mysql_query("COMMIT;");
+            }
+        }
+        $cn->cerrarBd();
     }
 
 }
