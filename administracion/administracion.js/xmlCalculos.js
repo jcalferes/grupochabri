@@ -276,6 +276,7 @@ function calculaTotales() {
     var nuevoconiva = nuevosubtotal * 0.16;
     var nuevototal = nuevosubtotal + nuevoconiva;
 
+    
     $("#subtotal").val(nuevosubtotal.toFixed(2));
     $("#coniva").val(nuevoconiva.toFixed(2));
     $("#total").val(nuevototal.toFixed(2));
@@ -307,7 +308,8 @@ function  dameValorDescuento1(id) {
     var valorunitario = parseFloat($("#valorunitario" + id + "").val());
     var cantidad = parseFloat($("#cantidad" + id + "").val());
     var descuento = (porcentaje * valorunitario) / 100;
-    $("#totaldct" + id + "").val(descuento);
+    var descuentotodos = descuento * cantidad;
+    $("#totaldct" + id + "").val(descuentotodos.toFixed(2));
     var cda = valorunitario - descuento;
     $("#cda" + id + "").val(cda.toFixed(2));
     var importe = cda * cantidad;
@@ -336,7 +338,8 @@ function  dameValorDescuento2(id) {
         var cda = valorunitario - descuento;
         var descuentodos = (porcentajedos * cda) / 100;
         var sumadescuentos = descuento + descuentodos;
-        $("#totaldct" + id + "").val(sumadescuentos);
+        var sumadescuentostodos = sumadescuentos * cantidad;
+        $("#totaldct" + id + "").val(sumadescuentostodos.toFixed(2));
         var cdados = cda - descuentodos;
         $("#cda" + id + "").val(cdados.toFixed(2));
         var importedos = cdados * cantidad;

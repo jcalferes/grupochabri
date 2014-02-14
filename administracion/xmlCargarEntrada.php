@@ -174,7 +174,7 @@ echo "</form>";
 echo "<hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick=''><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Precio Unitario</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick=''><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 //<th>Unidad</th>
 echo "</thead>";
 echo "<tbody>";
@@ -218,7 +218,7 @@ $fimporte = number_format($importe, 2, '.', '');
 $fconiva = number_format($coniva, 2, '.', '');
 $ftotal = number_format($total, 2, '.', '');
 echo "<form class='form-inline'>";
-echo "<span>Subtotal: </span><input type='text' class='form-control' id='subzero' disabled='false' style='width: 10%' value='0.00'/>";
+echo "<span> Subtotal: </span><input type='text' class='form-control' id='subzero' disabled='false' style='width: 10%' value='" . $fimporte . "'/>";
 echo "<span> Desct. General: </span><input type='text' class='form-control' id='descuentogeneral' disabled='false' style='width: 10%' value='0.00'/>";
 echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control' id='descuentoporproductos' disabled='false' style='width: 10%' value='0.00'/>";
 echo "<span> SDA: </span><input type='text' class='form-control' id='subtotal' disabled='false' style='width: 10%' value='" . $fimporte . "'/>";
@@ -229,6 +229,7 @@ echo "<span> IVA 16%: </span><input type='text' class='form-control' id='coniva'
 echo "<span> Total: </span><input type='text' class='form-control' id='total' disabled='false' style='width: 10%' value='" . $ftotal . "'/>";
 echo "</form>";
 echo "</blockquote>";
+
 echo "<span class='label label-default'>Traslado </span>";
 echo "<blockquote>";
 echo "<table class='table table-hover'>";
