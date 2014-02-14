@@ -2,6 +2,14 @@
 
 class dao {
 
+    function mostrarTarifasTabla($codigoProducto, $producto) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -58,7 +66,7 @@ class dao {
     function consultaTableConsulta() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT idProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY idProducto ASC";
+        $sql = "SELECT codigoProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY codigoProducto ASC";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
 
@@ -78,16 +86,16 @@ class dao {
         $hora = date('H:i');
 
         $cantidadInventario = $cantidad + $existencia;
-        $sql = "INSERT INTO entradas(cantidad, idSucursal,fecha, hora,idProducto)VALUES($cantidad, 1,'$fecha','$hora',$idProducto)";
+        $sql = "INSERT INTO entradas(cantidad, idSucursal,fecha, hora, codigoProducto)VALUES($cantidad, 1,'$fecha','$hora',$idProducto)";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "UPDATE existencias SET idStatus= 1 WHERE idProducto=$idProducto AND idStatus = 2";
+        $sql = "UPDATE existencias SET idStatus= 1 WHERE codigoProducto=$idProducto AND idStatus = 2";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO existencias(cantidad, idSucursal,fechaIngreso,horaIngreso,idStatus,idProducto)VALUES($cantidadInventario, 1,'$fecha','$hora',2,$idProducto )";
+        $sql = "INSERT INTO existencias(cantidad, idSucursal,fechaIngreso,horaIngreso,idStatus,codigoProducto)VALUES($cantidadInventario, 1,'$fecha','$hora',2,$idProducto )";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-//        $sql = "UPDATE productos SET idExistencia= '" . mysql_insert_id() . "' Where idProducto=$idProducto";
+//        $sql = "UPDATE productos SET idExistencia= '" . mysql_insert_id() . "' Where codigoProducto=$idProducto";
 //        $resultado = mysql_query($sql, $cn->Conectarse());
 
         if ($resultado) {
@@ -115,7 +123,7 @@ class dao {
     function consultaExistencia($producto) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM existencias  WHERE idProducto = $producto AND idStatus = 2";
+        $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto AND idStatus = 2";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
 
@@ -125,7 +133,7 @@ class dao {
     function consultarCosto($idProducto) {
 //        include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.idProducto WHERE p.idProducto = $idProducto ";
+        $sql = "SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.codigoProducto WHERE p.idProducto = $idProducto ";
         $resultado = mysql_query($sql, $cn->Conectarse());
         while ($rs = mysql_fetch_array($resultado)) {
             $costo = $rs["costo"];
@@ -136,7 +144,7 @@ class dao {
     function consultarTarifa($listaProducto, $idProducto) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. idProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto";
+        $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. codigoProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto";
         $resultado2 = mysql_query($sql2, $cn->Conectarse());
         while ($rs = mysql_fetch_array($resultado2)) {
             $tarifa = $rs["tarifa"];
@@ -162,14 +170,14 @@ class dao {
         $cn = new coneccion();
 //        $sql = "SELECT *\n"
 //    . "FROM productos p\n"
-//    . "Right Join tarifas t ON t.idProducto = p.idProducto\n"
+//    . "Right Join tarifas t ON t.codigoProducto = p.idProducto\n"
 //    . "Right Join listaPrecios l ON l.idListaPrecio = t.idListaPrecio LIMIT 0, 30 ";
         $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo,l.nombreListaPrecio, t.tarifa\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN tarifas t ON t.idProducto = p.idProducto\n"
-                . "INNER JOIN costos c ON c.idProducto = p.idProducto\n"
+                . "INNER JOIN tarifas t ON t.codigoProducto = p.idProducto\n"
+                . "INNER JOIN costos c ON c.codigoProducto = p.idProducto\n"
                 . "INNER JOIN listaprecios l ON l.idListaPrecio = t.idListaPrecio "
                 . "WHERE t.idListaPrecio = " . $t->getIdTarifa() . " LIMIT 0, 30 ";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -180,7 +188,7 @@ class dao {
     function guardarTarifa(Tarifa $t) {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio)VALUES('" . $t->getIdProducto() . "','" . $t->getTarifa() . "','" . $t->getIdListaPrecio() . "')";
+        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio)VALUES('" . $t->getIdProducto() . "','" . $t->getTarifa() . "','" . $t->getIdListaPrecio() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -200,7 +208,7 @@ class dao {
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
-        $sql = "INSERT INTO costos(costo, idProducto)VALUES('" . $c->getCosto() . "','" . mysql_insert_id() . "' )";
+        $sql = "INSERT INTO costos(costo, codigoProducto)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 
@@ -210,7 +218,7 @@ class dao {
             if ($pieces[0] !== " ") {
                 if ($pieces[0] !== "") {
                     if ($pieces[0] !== null) {
-                        $sql = "INSERT INTO tarifas(idProducto, tarifa, idListaPrecio, idStatus)VALUES(' $id ','$pieces[0]','$pieces[1]','2')";
+                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2')";
                         $resultado = mysql_query($sql, $cn->Conectarse());
                     } else {
                         echo 'mal';
@@ -248,11 +256,11 @@ class dao {
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.idProducto \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN costos c ON c.idProducto = p.idProducto LIMIT 0, 30 ";
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
@@ -279,15 +287,15 @@ class dao {
     }
 
     function consultaListaPrecio() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM listaprecios";
+        $sql = "SELECT * FROM listaprecios order by idListaPrecio ASC";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
 
     function consultarListaPrecios() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios";
 

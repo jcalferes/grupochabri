@@ -238,7 +238,29 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
+        <div class="modal fade" id="mdlDetalleTarifa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" ">
+                       
+                        <h4 class="modal-title" id="labelTitulo">Tarifas</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div id="mostrarListaPreciosTarifa">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>
+                            <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            <input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/grupoProducto.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
@@ -246,5 +268,7 @@
         <script src="../administracion/administracion.js/marca.js"></script>
         <script src="../administracion/administracion.js/proveedor.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
+        <script src="../administracion/administracion.js/tarifas.js"></script>
+<!--        <script src="../administracion/administracion.js/selectPickers.js"></script>-->
     </body>
 </html>

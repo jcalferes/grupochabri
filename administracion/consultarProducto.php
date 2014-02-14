@@ -1,24 +1,29 @@
 <?php
-session_start();
+
 include './administracion.dao/dao.php';
 $dao = new dao();
 $datos = $dao->consultaProducto($cn);
-$datos2=$dao->consultaTableConsulta();
-$_SESSION["consulta2"]=$datos2;
-echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Editar</th><th>Producto</th><th>Proveedor</th><th>Marca</th><th>Costo</th><th>En existencia</th></thead><tbody>";
+$datos2 = $dao->consultaTableConsulta();
+
+echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Editar</th><th>Producto</th><th>Proveedor</th><th>Marca</th><th>Costo</th><th>En existencia</th><th>Lista de precios</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
-    echo"<tr><td><input type='checkbox' id='eliminar' onclick='eliminar()'> <a id='editar' onclick='editar()'>Editar</a> </td>";
-    echo"<td >$rs[idProducto]</td>";
-    $comprobar=$rs[idProducto];
-    echo"<td>$rs[producto]</td>";
+    echo"<tr ><td><input type='checkbox' id='eliminar' onclick='eliminar()'><input  type='button' id ='detalleTarifa' class='btn btn-primary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'></td> ";
+    echo"<td >$rs[producto]</td>";
+    $comprobar = $rs[codigoProducto];
+    echo"<td>$rs[codigoProducto]</td>";
     echo"<td id='$rs[marca]' >$rs[marca] </td>";
-   echo"<td id='$rs[costo]' >$rs[costo] </td>";
+    echo"<td id='$rs[costo]' >$rs[costo] </td>";
     while ($rs2 = mysql_fetch_array($datos2)) {
-        if($comprobar == $rs2[idProducto]){
-            echo"<td>$rs2[cantidad]</td></tr>";
-                   }
+        if ($comprobar == $rs2[idProducto]) {
+            if ($rs2[cantidad] !== "") {
+                echo"<td>$rs2[cantidad]</td>";
+            }
+        }else {
+            echo '<td>0</td>';
+        }
     }
-    mysql_data_seek($datos2,0); 
+    echo "<td><a onclick='gestionTarifas(" . "\"$rs[codigoProducto]\"" .",". "\"$rs[producto]\"" . ")' >detalles</a></td></tr>";
+    mysql_data_seek($datos2, 0);
 }
 echo"</tbody></table></div>";
 
