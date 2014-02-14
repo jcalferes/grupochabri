@@ -4,12 +4,12 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de marcas</h2>
-            <section class="scrollSection">
+            <section>
                 <div id="consultaMarca">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva marca</h2>
-            <section class="scrollSection">
+            <section>
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de la marca:</label>

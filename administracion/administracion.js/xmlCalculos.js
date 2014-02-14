@@ -6,6 +6,15 @@ function Dato(id, ident, coda, desc)
     this.desc = desc;
 }
 
+
+
+$(document).ready(function() {
+    alert('Hola');
+    $("#consultaMarca").load("consultarProductoId.php", function() {
+        $('#dtproductoid').dataTable();
+    });
+});
+
 function chkExtras() {
     var nose = $("#chk").is(":checked");
     if (nose === true) {

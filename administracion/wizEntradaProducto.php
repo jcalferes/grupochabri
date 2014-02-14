@@ -36,12 +36,9 @@
                     <div id="detalle">
                     </div>
                 </div>
-                <br>
-                <br>
                 <div style="margin-left: 5%">
                     <table  class="table table-hover"
                             id="tablaEntradas">
-
                     </table>
                 </div>
             </section>
@@ -67,6 +64,21 @@
                 </form>
             </section>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Buscar...</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="consultaMarca">
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
