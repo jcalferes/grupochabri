@@ -20,7 +20,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
             } else {
-
+                $('#chk').prop('checked',false);
             }
         });
     } else {
@@ -42,7 +42,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").val("");
                 $("#descuentoFactura").val("");
             } else {
-
+                $('#chk').prop('checked',true);
             }
         });
     }
