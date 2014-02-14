@@ -4,14 +4,24 @@ function Dato(id, ident, coda, desc) {
     this.coda = coda;
     this.desc = desc;
 }
-
-$(document).ready(function() {
-    $("#veridproductos").load("consultarProductoId.php", function() {
+function test() {
+    var rfc = $("#facrfc").text();
+    var info = "rfc=" + rfc;
+    $("#veridproductos").load("consultarProductoId.php", info, function() {
         $('#dtproductoid').dataTable();
     });
-});
+}
+
+
+//$(document).ready(function() {
+//    $("#veridproductos").load("consultarProductoId.php", function() {
+//        $('#dtproductoid').dataTable();
+//    });
+//});
 
 function chkExtras() {
+//    var eme = $("#facrfc").text();
+//    alert(eme);
     var nose = $("#chk").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
@@ -20,7 +30,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
             } else {
-                $('#chk').prop('checked',false);
+                $('#chk').prop('checked', false);
             }
         });
     } else {
@@ -42,7 +52,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").val("");
                 $("#descuentoFactura").val("");
             } else {
-                $('#chk').prop('checked',true);
+                $('#chk').prop('checked', true);
             }
         });
     }

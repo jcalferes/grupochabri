@@ -469,7 +469,7 @@ class dao {
     function obtieneTodosProductos() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos";
+        $sql = "SELECT * FROM productos ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
