@@ -70,7 +70,7 @@
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        <li id="6" class=""><a onclick="entroTarifas();">Precio de Venta</a></li>
+                        <li id="6" class=""><a onclick="entroTarifas();">vacio</a></li>
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                     </ul>
                     <div id="mostrar">

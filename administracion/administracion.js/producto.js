@@ -161,6 +161,15 @@ $(document).ready(function() {
             }
         });
     });
+    
+//    $('#consultaProducto tr>*').click(function (e) {
+//        var a = $(this).closest('tr').find('a')
+//        e.preventDefault()
+//        location.href = a.attr('href')
+//    })
+    
+    
+    
 //    $(document).on('change', '#selectListaPrecios', function() {
 //        //almacenamos en una variable todo el contenido de la nueva fila que deseamos
 //        //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html   onclick="eliminar(\'' + valor + '\');"
