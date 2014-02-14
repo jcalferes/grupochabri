@@ -9,8 +9,7 @@ function Dato(id, ident, coda, desc)
 
 
 $(document).ready(function() {
-    alert('Hola');
-    $("#consultaMarca").load("consultarProductoId.php", function() {
+    $("#veridproductos").load("consultarProductoId.php", function() {
         $('#dtproductoid').dataTable();
     });
 });
