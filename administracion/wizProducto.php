@@ -263,7 +263,6 @@
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/grupoProducto.js"></script>
-
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/producto.js"></script>
         <script src="../administracion/administracion.js/marca.js"></script>

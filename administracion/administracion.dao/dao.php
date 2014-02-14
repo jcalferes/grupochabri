@@ -424,12 +424,16 @@ class dao {
     }
 
     function guardaDetalle(Detalle $t, $id) {
-        $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
-
-        $c = mysql_query($sql);
-        if ($c == false) {
-            $error = mysql_error();
+        try {
+            $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
+            $c = mysql_query($sql);
+//            if ($c == false) {
+//                $error = mysql_error();
+//            }
+        } catch (SQLException $x) {
+            $x->getMessage();
         }
+
         return $error;
     }
 
@@ -439,6 +443,35 @@ class dao {
             $error = mysql_error();
         }
         return $error;
+    }
+
+    function guardarEntradas(Entradas $entradas) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $cn->Conectarse();
+        $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
+        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
+        mysql_query("START TRANSACTION;");
+        $entradas = mysql_query($MySQLEntradas);
+        if ($entradas == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $existencias = mysql_query($MySQLExistencias);
+            if ($existencias == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                mysql_query("COMMIT;");
+            }
+        }
+        $cn->cerrarBd();
+    }
+
+    function obtieneTodosProductos() {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
 }
