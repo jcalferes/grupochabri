@@ -94,6 +94,12 @@ function calculaPF() {
 //        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
 
+        var desctpf = parseFloat($("#descuentogeneral").val());
+        var desctpp = parseFloat($("#descuentoporproductos").val());
+
+        var desctsuma = desctpf + desctpp;
+        $("#sumadescuentos").val(desctsuma.toFixed(2));
+
     } else {
         if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
             porcentajepf = 0;
@@ -118,6 +124,12 @@ function calculaPF() {
 
         $("#descuentogeneral").val(calculadesctpf.toFixed(2));
         $("#subtotal").val(totalpf.toFixed(2));
+
+        var desctpf = parseFloat($("#descuentogeneral").val());
+        var desctpp = parseFloat($("#descuentoporproductos").val());
+
+        var desctsuma = desctpf + desctpp;
+        $("#sumadescuentos").val(desctsuma.toFixed(2));
     }
 }
 
@@ -167,6 +179,12 @@ function calculaPP() {
 //        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
 
+        var desctpf = parseFloat($("#descuentogeneral").val());
+        var desctpp = parseFloat($("#descuentoporproductos").val());
+
+        var desctsuma = desctpf + desctpp;
+        $("#sumadescuentos").val(desctsuma.toFixed(2));
+
     } else {
         if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
             porcentajepp = 0;
@@ -190,6 +208,12 @@ function calculaPP() {
 
         $("#descuentogeneral").val(calculadesctpp.toFixed(2));
         $("#subtotal").val(totalpp.toFixed(2));
+
+        var desctpf = parseFloat($("#descuentogeneral").val());
+        var desctpp = parseFloat($("#descuentoporproductos").val());
+
+        var desctsuma = desctpf + desctpp;
+        $("#sumadescuentos").val(desctsuma.toFixed(2));
     }
 }
 
@@ -273,11 +297,14 @@ function calculaTotales() {
 //    var totaldesctgeneral = reglapp + reglaff;
 //    alert(totaldesctgeneral);
 //    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
+
+
     var nuevoconiva = nuevosubtotal * 0.16;
     var nuevototal = nuevosubtotal + nuevoconiva;
 
-    
+
     $("#subtotal").val(nuevosubtotal.toFixed(2));
+
     $("#coniva").val(nuevoconiva.toFixed(2));
     $("#total").val(nuevototal.toFixed(2));
 }
@@ -316,6 +343,12 @@ function  dameValorDescuento1(id) {
     $("#importe" + id + "").val(importe.toFixed(2));
     calculaDescuentos();
     calculaTotales();
+
+    var desctpf = parseFloat($("#descuentogeneral").val());
+    var desctpp = parseFloat($("#descuentoporproductos").val());
+
+    var desctsuma = desctpf + desctpp;
+    $("#sumadescuentos").val(desctsuma.toFixed(2));
 }
 
 function  dameValorDescuento2(id) {
@@ -346,6 +379,12 @@ function  dameValorDescuento2(id) {
         $("#importe" + id + "").val(importedos.toFixed(2));
         calculaDescuentos();
         calculaTotales();
+
+        var desctpf = parseFloat($("#descuentogeneral").val());
+        var desctpp = parseFloat($("#descuentoporproductos").val());
+
+        var desctsuma = desctpf + desctpp;
+        $("#sumadescuentos").val(desctsuma.toFixed(2));
     } else {
         alertify.error('Primero aplica un primer descuento');
         $("#dosdct" + id + "").val("");
