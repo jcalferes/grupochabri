@@ -16,8 +16,8 @@ $(document).ready(function() {
                     $("#codigoProducto").focus();
                 }
                 else {
-//                     $("#codigoProducto").blur();
                     $("#detalle").html(informacion);
+                    $("#selecionarProveedor").selectpicker();
 //                    $("#cantidadMinima").focus();
                     $("#datosCaptura").slideDown(1000);
                 }
@@ -25,10 +25,43 @@ $(document).ready(function() {
             });
         }
     });
-
     $("#guardarEntradas").click(function() {
-        var informacion = "codigoProducto =" + $("#codigoProducto").val() + "&cant=" + $("#cantidad").val() + "&cantMinima=" + $("#cantidadMinima").val() + "&cantidadMaxima=" + $("#cantidadMaxima").val();
+        var codigo = $("#codigoProducto").val();
+        var informacion = "codigo= " + codigo + "&cant=" + $("#cantidad").val();
+        if (codigo == "" || $("#cantidad").val() == "") {
+            alertify.error("Error! LLene todos los campos");
+        }
+        else {
+            $.get('guardarEntradas.php', informacion, function() {
+                $("#codigoProducto").val('');
+                $("#cantidad").val('');
+                alertify.success("Exito! Nuevos Productos Insertados");
+                $("#tablaEntradas").load("mostrarEntradas.php");
+                $("#datosCaptura").slideUp(1000);
+                $("#detalle").slideUp('slow');
+                return false;
+            });
+        }
+    });
 
+    $("#buscarCodigo").click(function() {
+        $("#detalle").slideUp("1000");
+        $("#datosCaptura").slideUp('slow');
+        $("#detalle").html("<div></div>");
+        var info = "codigoProducto=" + $("#codigoProducto").val();
+        $.get('mostrarInformacionProducto.php', info, function(informacion) {
+            if (informacion == 1) {
+                $("#detalle").html("<div><strong>No existe Información de este Producto</strong></div>");
+                $("#codigoProducto").focus();
+            }
+            else {
+                $("#detalle").html(informacion);
+                $("#selecionarProveedor").selectpicker();
+//                    $("#cantidadMinima").focus();
+                $("#datosCaptura").slideDown(1000);
+            }
+            $("#detalle").slideDown('slow');
+        });
     });
 });
 

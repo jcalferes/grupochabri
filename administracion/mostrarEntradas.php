@@ -15,8 +15,8 @@ if ($datos == false) {
       <tr>';
     while ($rs = mysql_fetch_array($datos)) {
         echo '<tr>';
-        echo '<td>"' . $rs["producto"] . '"</td>';
-        echo '<td>"' . $rs["cantidad"] . '"</td>';
+        echo '<td>' . $rs["producto"] . '</td>';
+        echo '<td>' . $rs["cantidad"] . '</td>';
         echo '</tr>';
     }
     echo '</table>';

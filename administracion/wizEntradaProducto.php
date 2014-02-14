@@ -10,7 +10,14 @@
                         <div class="form-group">
                             <label  class="col-sm-2 control-label">Codigo:</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="codigoProducto" placeholder="Codigo">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
+                                    <span class="input-group-btn">
+                                        <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span> 
+                                </div>
                             </div>
                             <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
                             <input  id="cancelarEntradas" type="submit" class="btn" value="Cancelar"/>
@@ -19,24 +26,14 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">Cantidad</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="cantidad"/>
-                                </div>
-                                <label  class="col-sm-2 control-label">Cant. Minima</label>
-                                <div class="col-sm-2">
-                                    <input type="text"  class="form-control" id="cantidadMinima"/>
-                                </div>
-                                <!--                            </div>
-                                                            <div class="form-group">-->
-                                <label class="col-sm-2 control-label">Cant. Maxima</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="cantidadMaxima"/>
+                                    <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12" style="margin-left: 3%">
-                    <div id="detalle" class="well well-lg">
+                    <div id="detalle">
                     </div>
                 </div>
                 <br>
@@ -75,6 +72,5 @@
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
-
     </body>
 </html>
