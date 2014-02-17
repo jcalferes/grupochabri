@@ -103,5 +103,4 @@ class Concepto {
         $this->DesctDos = $DesctDos;
     }
 
-
 }

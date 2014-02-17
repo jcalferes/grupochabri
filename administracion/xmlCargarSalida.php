@@ -128,7 +128,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
     $encabezadoSalida->setRfc(utf8_decode($Receptor['rfc']));
-    $encabezadoSalida->setNombre(UTF8_decode($Receptor['nombre']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -152,12 +151,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
     echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
     echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
     echo "</tr>";
-    $encabezadoSalida->setCalle(utf8_decode($ReceptorDomicilio['calle']));
-    $encabezadoSalida->setEstado(utf8_decode($ReceptorDomicilio['estado']));
-    $encabezadoSalida->setColonia(utf8_decode($ReceptorDomicilio['colonia']));
-    $encabezadoSalida->setCiudad(utf8_decode($ReceptorDomicilio['municipio']));
-    $encabezadoSalida->setNo(utf8_decode($ReceptorDomicilio['noExterior']));
-    $encabezadoSalida->setCp(utf8_decode($ReceptorDomicilio['codigoPostal']));
+    
 }
 echo "</tbody>";
 echo "</table>";
