@@ -66,7 +66,7 @@ class dao {
     function consultaTableConsulta() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT codigoProducto, cantidad FROM existencias  WHERE idStatus = 2 ORDER BY codigoProducto ASC";
+        $sql = "SELECT codigoProducto, cantidad FROM existencias";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
 
