@@ -7,11 +7,10 @@
  */
 
 /**
- * Description of Detalles
- *
+ * Description of Concepto
  * @author Joel
  */
-class Detalle {
+class Concepto {
 
     private $Cantidad;
     private $Unidadmedida;
@@ -20,6 +19,9 @@ class Detalle {
     private $Costo;
     private $Importe;
     private $IdFacturaEncabezado;
+    private $Cda;
+    private $DesctUno;
+    private $DesctDos;
 
     public function getCantidad() {
         return $this->Cantidad;
@@ -49,6 +51,18 @@ class Detalle {
         return $this->IdFacturaEncabezado;
     }
 
+    public function getCda() {
+        return $this->Cda;
+    }
+
+    public function getDesctUno() {
+        return $this->DesctUno;
+    }
+
+    public function getDesctDos() {
+        return $this->DesctDos;
+    }
+
     public function setCantidad($Cantidad) {
         $this->Cantidad = $Cantidad;
     }
@@ -76,5 +90,18 @@ class Detalle {
     public function setIdFacturaEncabezado($IdFacturaEncabezado) {
         $this->IdFacturaEncabezado = $IdFacturaEncabezado;
     }
+
+    public function setCda($Cda) {
+        $this->Cda = $Cda;
+    }
+
+    public function setDesctUno($DesctUno) {
+        $this->DesctUno = $DesctUno;
+    }
+
+    public function setDesctDos($DesctDos) {
+        $this->DesctDos = $DesctDos;
+    }
+
 
 }

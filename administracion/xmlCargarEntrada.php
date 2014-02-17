@@ -2,6 +2,8 @@
 
 include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
+include './administracion.clases/Comprobante.php';
+include './administracion.clases/Concepto.php';
 session_start();
 //Como no sabemos cuantos archivos van a llegar, iteramos la variable $_FILES
 $ruta = "../subidas/";
@@ -21,7 +23,9 @@ $ns = $xml->getNamespaces(true);
 $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
 $encabezadoEntrada = new Encabezado();
+$comprobanteEntrada = new Comprobante();
 $detalle = new Detalle();
+$concepto = new Concepto();
 
 echo "<span class='label label-default'>Comprobante </span>";
 echo "<blockquote>";
@@ -46,6 +50,10 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     $encabezadoEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
     $encabezadoEntrada->setTotal(utf8_decode($cfdiComprobante['total']));
     $encabezadoEntrada->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
+
+    $comprobanteEntrada->setFolio(utf8_decode($cfdiComprobante['folio']));
+    $comprobanteEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
+    $comprobanteEntrada->setSubtotal(utf8_decode($cfdiComprobante['total']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -125,6 +133,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
     $encabezadoEntrada->setRfc(utf8_decode($Receptor['rfc']));
+    $comprobanteEntrada->setRfc(utf8_decode($Receptor['rfc']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -167,17 +176,18 @@ echo "</form>";
 echo "<hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Unidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 //<th>Unidad</th>
 echo "</thead>";
 echo "<tbody>";
 $arrayDetalleEntrada = [];
+$arrayConceptoEntrada = [];
 $cont = 0;
 $cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
     echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
-//    echo "<td>" . $Concepto['unidad'] . "</td>";
+    echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
@@ -187,14 +197,30 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
+
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
-    $detalle->setSubtotal(utf8_decode($Concepto['importe']));
+    $concepto->setUnidadmedida(utf8_decode($Concepto['unidad']));
+
+    $detalle->setImporte(utf8_decode($Concepto['importe']));
+    $concepto->setImporte(utf8_decode($Concepto['importe']));
+
     $detalle->setCantidad(utf8_decode($Concepto['cantidad']));
-    $detalle->setId(utf8_decode($Concepto['noIdentificacion']));
-    $detalle->setNombre(utf8_decode($Concepto['descripcion']));
-    $detalle->setPreciounitario(utf8_decode($Concepto['valorUnitario']));
+    $concepto->setCantidad(utf8_decode($Concepto['cantidad']));
+
+    $detalle->setCodigo(utf8_decode($Concepto['noIdentificacion']));
+    $concepto->setCodigo(utf8_decode($Concepto['noIdentificacion']));
+
+    $detalle->setDescripcion(utf8_decode($Concepto['descripcion']));
+    $concepto->setDescripcion(utf8_decode($Concepto['descripcion']));
+
+    $detalle->setCosto(utf8_decode($Concepto['valorUnitario']));
+    $concepto->setCosto(utf8_decode($Concepto['valorUnitario']));
+
+
     $arrayDetalleEntrada[$cont] = $detalle;
+    $arrayConceptoEntrada[$cont] = $concepto;
     $detalle = new Detalle();
+    $concepto = new Concepto();
     $cont++;
     $cuentaid++;
 }
@@ -203,7 +229,7 @@ echo "</tbody>";
 echo "</table>";
 $importe = 0;
 foreach ($arrayDetalleEntrada as $detalle) {
-    $importe += $detalle->getSubtotal();
+    $importe += $detalle->getImporte();
 }
 $coniva = $importe * 0.16;
 $total = $importe + $coniva;
@@ -270,6 +296,8 @@ echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
 $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
+$_SESSION['onjComprobanteEntrada'] = $comprobanteEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
+$_SESSION['$arrayConceptoEntrada'] = $arrayConceptoEntrada;
 unlink($archivo);
 ?>

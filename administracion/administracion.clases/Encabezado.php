@@ -13,22 +13,14 @@
  */
 class Encabezado {
 
-    private $folio;
+    private $Folio;
     private $Fecha;
     private $Subtotal;
     private $Total;
-    private $Tda;
     private $Rfc;
-    private $DescuentoFactura;
-    private $DescuentoProntoPago;
-    private $DescuentoGeneral;
-    private $DescuentoPorProducto;
-    private $DescuentoTotal;
-    private $Sda;
-    private $ConIva;
 
     public function getFolio() {
-        return $this->folio;
+        return $this->Folio;
     }
 
     public function getFecha() {
@@ -47,36 +39,8 @@ class Encabezado {
         return $this->Rfc;
     }
 
-    public function getDescuentoFactura() {
-        return $this->DescuentoFactura;
-    }
-
-    public function getDescuentoProntoPago() {
-        return $this->DescuentoProntoPago;
-    }
-
-    public function getDescuentoGeneral() {
-        return $this->DescuentoGeneral;
-    }
-
-    public function getDescuentoPorProducto() {
-        return $this->DescuentoPorProducto;
-    }
-
-    public function getDescuentoTotal() {
-        return $this->DescuentoTotal;
-    }
-
-    public function getSda() {
-        return $this->Sda;
-    }
-
-    public function getConIva() {
-        return $this->ConIva;
-    }
-
-    public function setFolio($folio) {
-        $this->folio = $folio;
+    public function setFolio($Folio) {
+        $this->Folio = $Folio;
     }
 
     public function setFecha($Fecha) {
@@ -93,42 +57,6 @@ class Encabezado {
 
     public function setRfc($Rfc) {
         $this->Rfc = $Rfc;
-    }
-
-    public function setDescuentoFactura($DescuentoFactura) {
-        $this->DescuentoFactura = $DescuentoFactura;
-    }
-
-    public function setDescuentoProntoPago($DescuentoProntoPago) {
-        $this->DescuentoProntoPago = $DescuentoProntoPago;
-    }
-
-    public function setDescuentoGeneral($DescuentoGeneral) {
-        $this->DescuentoGeneral = $DescuentoGeneral;
-    }
-
-    public function setDescuentoPorProducto($DescuentoPorProducto) {
-        $this->DescuentoPorProducto = $DescuentoPorProducto;
-    }
-
-    public function setDescuentoTotal($DescuentoTotal) {
-        $this->DescuentoTotal = $DescuentoTotal;
-    }
-
-    public function setSda($Sda) {
-        $this->Sda = $Sda;
-    }
-
-    public function setConIva($ConIva) {
-        $this->ConIva = $ConIva;
-    }
-
-    public function getTda() {
-        return $this->Tda;
-    }
-
-    public function setTda($Tda) {
-        $this->Tda = $Tda;
     }
 
 }
