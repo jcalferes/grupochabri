@@ -11,8 +11,10 @@ while ($rs = mysql_fetch_array($datos)) {
 $valor = $rs["fusion"];
 
     $pieces = explode("-", $valor);
+    $espacios=str_replace(" ","-",$pieces[1]);
+    $espacios2=str_replace(" ","-",$pieces[0]);
     echo"<tr><td>$pieces[0]</td>";
-    echo"<td ><input type='text' class='producto form-control' id='texto$pieces[0]'  name='$pieces[1]' disabled></td>";
+    echo"<td ><input type='text' class='producto form-control' id='texto$espacios'  name='$espacios2' disabled></td>";
    echo"<td ><input type='checkbox' class='checando' name='check$pieces[0]' id='check$pieces[0]' onchange='tester(\"$pieces[0]\")'/></td></tr>";
 }
 echo"</tbody></table></div>";
