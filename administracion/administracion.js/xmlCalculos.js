@@ -1,12 +1,27 @@
-function Dato(id, ident, coda, desc)
-{
+function Dato(id, ident, coda, desc) {
     this.id = id;
     this.ident = ident;
     this.coda = coda;
     this.desc = desc;
 }
+function test() {
+    var rfc = $("#facrfc").text();
+    var info = "rfc=" + rfc;
+    $("#veridproductos").load("consultarProductoId.php", info, function() {
+        $('#dtproductoid').dataTable();
+    });
+}
+
+
+//$(document).ready(function() {
+//    $("#veridproductos").load("consultarProductoId.php", function() {
+//        $('#dtproductoid').dataTable();
+//    });
+//});
 
 function chkExtras() {
+//    var eme = $("#facrfc").text();
+//    alert(eme);
     var nose = $("#chk").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
@@ -14,9 +29,8 @@ function chkExtras() {
                 $("#descuentoFactura").removeAttr("disabled", "disabled");
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
-
             } else {
-
+                $('#chk').prop('checked', false);
             }
         });
     } else {
@@ -38,7 +52,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").val("");
                 $("#descuentoFactura").val("");
             } else {
-
+                $('#chk').prop('checked', true);
             }
         });
     }
@@ -48,22 +62,12 @@ function calculaPF() {
     var subtotal = calculaSubtotal();
     var descuentopf = $("#descuentoFactura").val();
     var porcentajepf = 0;
-
     if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//        alert('Si hay valor en DESCUENTOPP');
-
         var porcentajepp = $("#descuentoProntoPago").val();
         var calculadesctpp = (porcentajepp * subtotal) / 100;
         var totalpp = subtotal - calculadesctpp;
-
         var subtotalcondesctpp = totalpp;
-//        alert('Subtotal con dect.PP aplicado: ' + subtotalcondesctpp);
-
-
-
         var txtdesctgeneral = calculadesctpp;
-//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
-
         if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
             porcentajepf = 0;
             $("#descuentoFactura").val("");
@@ -74,32 +78,19 @@ function calculaPF() {
                 porcentajepf = 0;
             }
         }
-//        alert('Porcentage con el que voy a calcular: ' + porcentajepf);
-
         var calculadesctpf = (porcentajepf * subtotalcondesctpp) / 100;
-//        alert('Cantidad a descontar del subtotal y con Desct.PP: ' + calculadesctpf);
         var totalpf = subtotalcondesctpp - calculadesctpf;
-//        alert('Nuevo subtotal: ' + totalpf);
         $("#subtotal").val(totalpf.toFixed(2));
-
         var nuevoconiva = totalpf * 0.16;
         var nuevototal = totalpf + nuevoconiva;
-
-
         $("#coniva").val(nuevoconiva.toFixed(2));
         $("#total").val(nuevototal.toFixed(2));
-
-
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpf;
-//        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
-
         var desctpf = parseFloat($("#descuentogeneral").val());
         var desctpp = parseFloat($("#descuentoporproductos").val());
-
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
-
     } else {
         if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
             porcentajepf = 0;
@@ -113,21 +104,14 @@ function calculaPF() {
         }
         var calculadesctpf = (porcentajepf * subtotal) / 100;
         var totalpf = subtotal - calculadesctpf;
-
-
         var nuevoconiva = totalpf * 0.16;
         var nuevototal = totalpf + nuevoconiva;
-
-
         $("#coniva").val(nuevoconiva.toFixed(2));
         $("#total").val(nuevototal.toFixed(2));
-
         $("#descuentogeneral").val(calculadesctpf.toFixed(2));
         $("#subtotal").val(totalpf.toFixed(2));
-
         var desctpf = parseFloat($("#descuentogeneral").val());
         var desctpp = parseFloat($("#descuentoporproductos").val());
-
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
     }
