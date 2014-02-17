@@ -17,21 +17,18 @@ class Encabezado {
     private $Fecha;
     private $Subtotal;
     private $Total;
+    private $Tda;
     private $Rfc;
-    private $Nombre;
-    private $Calle;
-    private $Cp;
-    private $No;
-    private $Estado;
-    private $Ciudad;
-    private $Colonia;
+    private $DescuentoFactura;
+    private $DescuentoProntoPago;
+    private $DescuentoGeneral;
+    private $DescuentoPorProducto;
+    private $DescuentoTotal;
+    private $Sda;
+    private $ConIva;
 
-    public function getCalle() {
-        return $this->Calle;
-    }
-
-    public function setCalle($Calle) {
-        $this->Calle = $Calle;
+    public function getFolio() {
+        return $this->folio;
     }
 
     public function getFecha() {
@@ -46,40 +43,40 @@ class Encabezado {
         return $this->Total;
     }
 
-    public function getFolio() {
-        return $this->folio;
-    }
-
-    public function setFolio($folio) {
-        $this->folio = $folio;
-    }
-
     public function getRfc() {
         return $this->Rfc;
     }
 
-    public function getNombre() {
-        return $this->Nombre;
+    public function getDescuentoFactura() {
+        return $this->DescuentoFactura;
     }
 
-    public function getCp() {
-        return $this->Cp;
+    public function getDescuentoProntoPago() {
+        return $this->DescuentoProntoPago;
     }
 
-    public function getNo() {
-        return $this->No;
+    public function getDescuentoGeneral() {
+        return $this->DescuentoGeneral;
     }
 
-    public function getEstado() {
-        return $this->Estado;
+    public function getDescuentoPorProducto() {
+        return $this->DescuentoPorProducto;
     }
 
-    public function getCiudad() {
-        return $this->Ciudad;
+    public function getDescuentoTotal() {
+        return $this->DescuentoTotal;
     }
 
-    public function getColonia() {
-        return $this->Colonia;
+    public function getSda() {
+        return $this->Sda;
+    }
+
+    public function getConIva() {
+        return $this->ConIva;
+    }
+
+    public function setFolio($folio) {
+        $this->folio = $folio;
     }
 
     public function setFecha($Fecha) {
@@ -98,28 +95,40 @@ class Encabezado {
         $this->Rfc = $Rfc;
     }
 
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
+    public function setDescuentoFactura($DescuentoFactura) {
+        $this->DescuentoFactura = $DescuentoFactura;
     }
 
-    public function setCp($Cp) {
-        $this->Cp = $Cp;
+    public function setDescuentoProntoPago($DescuentoProntoPago) {
+        $this->DescuentoProntoPago = $DescuentoProntoPago;
     }
 
-    public function setNo($No) {
-        $this->No = $No;
+    public function setDescuentoGeneral($DescuentoGeneral) {
+        $this->DescuentoGeneral = $DescuentoGeneral;
     }
 
-    public function setEstado($Estado) {
-        $this->Estado = $Estado;
+    public function setDescuentoPorProducto($DescuentoPorProducto) {
+        $this->DescuentoPorProducto = $DescuentoPorProducto;
     }
 
-    public function setCiudad($Ciudad) {
-        $this->Ciudad = $Ciudad;
+    public function setDescuentoTotal($DescuentoTotal) {
+        $this->DescuentoTotal = $DescuentoTotal;
     }
 
-    public function setColonia($Colonia) {
-        $this->Colonia = $Colonia;
+    public function setSda($Sda) {
+        $this->Sda = $Sda;
+    }
+
+    public function setConIva($ConIva) {
+        $this->ConIva = $ConIva;
+    }
+
+    public function getTda() {
+        return $this->Tda;
+    }
+
+    public function setTda($Tda) {
+        $this->Tda = $Tda;
     }
 
 }
