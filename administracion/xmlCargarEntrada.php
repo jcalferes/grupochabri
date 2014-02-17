@@ -240,7 +240,7 @@ echo "<form class='form-inline text-right'>";
 echo "<span> Subtotal: </span><input type='text' class='form-control text-right' id='subzero' disabled='false' style='width: 20%' value='" . $fimporte . "'/>";
 echo "</form>";
 echo "<br>";
-echo "<form class='form-inline text-right''>";
+echo "<form class='form-inline text-right'>";
 echo "<span> Desct. General: </span><input type='text' class='form-control text-right' id='descuentogeneral' disabled='false' style='width: 20%' value='0.00'/>";
 echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='0.00'/>";
 echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='0.00'/>";

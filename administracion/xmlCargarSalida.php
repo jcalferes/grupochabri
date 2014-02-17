@@ -151,7 +151,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $Re
     echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
     echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
     echo "</tr>";
-    
 }
 echo "</tbody>";
 echo "</table>";
@@ -178,11 +177,11 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "</tr>";
 
     $detallex->setUnidadmedida(utf8_decode($Concepto['unidad']));
-    $detallex->setSubtotal(utf8_decode($Concepto['importe']));
+    $detallex->setImporte(utf8_decode($Concepto['importe']));
     $detallex->setCantidad(utf8_decode($Concepto['cantidad']));
-    $detallex->setId(utf8_decode($Concepto['noIdentificacion']));
-    $detallex->setNombre(utf8_decode($Concepto['descripcion']));
-    $detallex->setPreciounitario(utf8_decode($Concepto['valorUnitario']));
+    $detallex->setCodigo(utf8_decode($Concepto['noIdentificacion']));
+    $detallex->setDescripcion(utf8_decode($Concepto['descripcion']));
+    $detallex->setCosto(utf8_decode($Concepto['valorUnitario']));
 
 
 
