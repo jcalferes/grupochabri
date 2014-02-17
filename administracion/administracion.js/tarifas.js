@@ -16,4 +16,9 @@ $("#editarTarifas").click(function(){
   $("#guardarTarifas").attr("disabled", false);
 });
 
+$("#guardarTarifas").click(function(){
+   
+    
+});
+
 });

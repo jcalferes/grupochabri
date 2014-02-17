@@ -2,7 +2,7 @@
 
 class dao {
 
-    function mostrarTarifasTabla($codigoProducto, $producto) {
+    function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto'";
