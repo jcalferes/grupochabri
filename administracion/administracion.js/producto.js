@@ -1,4 +1,18 @@
-
+function NumCheck(e, field) {
+    key = e.keyCode ? e.keyCode : e.which
+    if (key == 15) return true
+    if (key > 47 && key < 58) {
+      if (field.value == "") return true
+      regexp = /.[0-9]{4}$/
+      return !(regexp.test(field.value))
+    }
+    if (key == 46) {
+      if (field.value == "") return false
+      regexp = /^[0-9]+$/
+      return regexp.test(field.value)
+    }
+    return false
+  }
 function tester(valor) {
 
     if ($("#check" + valor).is(':checked')) {
@@ -11,11 +25,14 @@ function tester(valor) {
 
 }
 $(document).ready(function() {
-
+    $('.valLetra').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou');
+//    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
-    $("#consultaProducto").load("consultarProducto.php");
+    $("#consultaProducto").load("consultarProducto.php", function(){
+        $("#tdProducto").dataTable();
+    });
     $("#selectTarifa").load("consultarTarifas.php");
     $("#selectMarca").load("mostrarMarcas.php", function() {
         $("#selectMarca").selectpicker();
@@ -60,11 +77,13 @@ $(document).ready(function() {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            alert(valor);
-            if (valor !== "") {  alert("diferente a vacio");
-                if (valor !== " ") {alert("diferente a espacio");
+            ;
+            if (valor !== "") {
+
+                if (valor !== " ") {
+
                     if (valor !== null) {
-                        alert("diferente a nulo");
+
                         var algo = valor + "-" + nombre;
 
                         listaCalificaciones.push(algo);
@@ -72,21 +91,21 @@ $(document).ready(function() {
                         valor = "";
                         nombre = "";
                     } else {
-                        alert("fallo");
+
                         return 0;
                     }
                 } else {
-                    alert("fallo");
+
                     return 0;
                 }
 
             } else {
-                alert("fallo");
+
                 return 0;
 
             }
         });
-        alert(lista);
+
         ////////////////////////////////////////////////probando
 
         if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined) {
@@ -95,11 +114,15 @@ $(document).ready(function() {
 
             var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max;
             $.get('guardarProducto.php', info, function() {
-                $("#consultaProducto").load("consultarProducto.php");
+                $("#consultaProducto").load("consultarProducto.php", function(){
+                    $("#tdProducto").dataTable();
+                });
                 $("#txtNombreProducto").val("");
                 $("#txtCodigoProducto").val("");
-                $("#selectProveedor").val(0);
-                $("#selectProveedor").val(0);
+                $('#selectMarca').selectpicker('val', 0);
+                $('#selectProveedor').selectpicker('val', 0);
+                $('#selectGrupo').selectpicker('val', 0);
+                $('#selectMedida').selectpicker('val', 0);
                 $("#txtCostoProducto").val("");
                 $("#txtCantidadMinima").val("");
                 $("#txtCantidadMaxima").val("");
@@ -161,15 +184,15 @@ $(document).ready(function() {
             }
         });
     });
-    
+
 //    $('#consultaProducto tr>*').click(function (e) {
 //        var a = $(this).closest('tr').find('a')
 //        e.preventDefault()
 //        location.href = a.attr('href')
 //    })
-    
-    
-    
+
+
+
 //    $(document).on('change', '#selectListaPrecios', function() {
 //        //almacenamos en una variable todo el contenido de la nueva fila que deseamos
 //        //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html   onclick="eliminar(\'' + valor + '\');"
