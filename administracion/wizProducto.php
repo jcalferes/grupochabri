@@ -15,16 +15,16 @@
                         <div id="formulario"> 
                             <div class="form-group"  >
                                 <label>Nombre:</label>
-                                <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto"  >
+                                <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
                             </div>
                             <div class="form-group">
                                 <label>Codigo Producto</label>
-                                <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" >
+                                <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <label>Unidad De Medida:</label><br/>
 
-                                <select id="selectMedida" class="selectpicker" data-container="body" data-live-search="true">
+                                <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true" >
 
                                 </select>
 
@@ -34,35 +34,35 @@
                             </div>
                             <div class="form-group">
                                 <label>Grupo de producto:</label><br/>
-                                <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                                <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                 </select>
                                 <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+">
                             </div>
 
                             <div class="form-group">
                                 <label>Costo Producto</label>
-                                <input type="text" class="form-control" id="txtCostoProducto" placeholder="Costo del Producto" >
+                                <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeypress="return NumCheck(event, this);" onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
                                     <label>Marca:</label><br>
-                                    <select id="selectMarca" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                                    <select id="selectMarca" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
                                     <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
                                 </div>
                                 <div class="form-group">
                                     <label>Proveedor:</label><br>
-                                    <select id="selectProveedor" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                                    <select id="selectProveedor" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
                                     <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor">
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Minima</label>
-                                    <input type="text" class="form-control " id="txtCantidadMinima" placeholder="Cantidad MInima" >
+                                    <input type="number" class="form-control  valNum" id="txtCantidadMinima" placeholder="Cantidad MInima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Maxima</label>
-                                    <input type="text" class="form-control " id="txtCantidadMaxima" placeholder="Cantidad Maxima" >
+                                    <input type="number" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Lista Precio:</label><br>
@@ -203,11 +203,7 @@
                             <div class="form-group col-lg-6">
                                 <label>Numero Interior:</label>
                                 <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
-                            </div>
-                            <div class="form-group">
-                                <label>Calle:</label>
-                                <input type="text" class="form-control" id="txtgrupo" placeholder="Ingrese el grupo de producto">
-                            </div>
+                            </div>                          
                             <div class="form-group ">
                                 <label>Cruzamientos:</label>
                                 <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzameintos">

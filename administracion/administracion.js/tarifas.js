@@ -11,14 +11,15 @@ function gestionTarifas(codigoProducto, producto) {
 }
 
 $(document).ready(function() {
-$("#editarTarifas").click(function(){
-  $(".tarifa").attr("disabled", false);
-  $("#guardarTarifas").attr("disabled", false);
-});
+    $("#editarTarifas").click(function() {
+        $(".tarifa").attr("disabled", false);
+        $("#guardarTarifas").attr("disabled", false);
+    });
 
-$("#guardarTarifas").click(function(){
-   
-    
-});
+    $("#canceloTarifa").click(function() {
+        $(".tarifa").attr("disabled", true);
+        $("#guardarTarifas").attr("disabled", true);
+
+    });
 
 });

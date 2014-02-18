@@ -5,9 +5,7 @@ $dao = new dao();
 $datos = $dao->consultaProducto();
 $datos2 = $dao->consultaTableConsulta();
 $comprobar = "";
-$rs2="";
-$rs="";
-$idProducto="";
+
 echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Editar</th><th>Producto</th><th>Proveedor</th><th>Marca</th><th>Costo</th><th>En existencia</th><th>Lista de precios</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
     $comillas=str_replace("\"","\\\"",$rs['producto']);
