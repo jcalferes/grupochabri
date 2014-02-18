@@ -1,9 +1,21 @@
-function Dato(id, ident, coda, desc) {
-    this.id = id;
-    this.ident = ident;
-    this.coda = coda;
-    this.desc = desc;
+function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProductos, iva, total, folio) {
+    this.desctFactura = desctFactura;
+    this.desctProntoPago = desctProntoPago;
+    this.desctGeneral = desctGeneral;
+    this.desctPorProductos = desctPorProductos;
+    this.iva = iva;
+    this.total = total;
+    this.folio = folio;
+
 }
+
+function Concepto(importe, codigo, desctuno, desctdos) {
+    this.importe = importe;
+    this.codigo = codigo;
+    this.desctuno = desctuno;
+    this.desctdos = desctdos;
+}
+
 function test() {
     var rfc = $("#facrfc").text();
     var info = "rfc=" + rfc;
@@ -12,16 +24,7 @@ function test() {
     });
 }
 
-
-//$(document).ready(function() {
-//    $("#veridproductos").load("consultarProductoId.php", function() {
-//        $('#dtproductoid').dataTable();
-//    });
-//});
-
 function chkExtras() {
-//    var eme = $("#facrfc").text();
-//    alert(eme);
     var nose = $("#chk").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
@@ -309,6 +312,7 @@ function  dameValorDescuento1(id) {
     if (porcentaje === "" || /^\s+$/.test(porcentaje)) {
         porcentaje = 0.00;
         $("#unodct" + id + "").val("");
+        $("#dosdct" + id + "").val("");
     } else {
         if ($("#unodct" + id + "").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
             var porcentaje = $("#unodct" + id + "").val();
@@ -379,10 +383,11 @@ $("#validarentrada").click(function() {
     var datos = new Array();
     var control = $('#control').val();
     for (var i = 0; i < control; i++) {
+
         //Validando los campos CODIGO DE PRODUCTO
         var id = $("#id" + i + "").val();
         if (id === "" || /^\s+$/.test(id)) {
-            alertify.error("Falta un codigo de producto");
+            alertify.alert("Falta un codigo de producto");
             return false;
         }
 
@@ -395,47 +400,90 @@ $("#validarentrada").click(function() {
             if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
                 desctuno = $("#unodct" + i + "").val();
             } else {
-                alertify.error(validadesctuno + " no es un descuento valido");
+                alertify.error('En la columna Desct. 1: \"' + validadesctuno + '\"' + " no es un descuento valido");
                 return false;
             }
         }
 
         //Validando los campos DESCT 2
-        var validadesctdos = $("#unodct" + i + "").val();
+        var validadesctdos = $("#dosdct" + i + "").val();
         var desctdos = 0;
         if (validadesctdos === "" || /^\s+$/.test(validadesctdos)) {
             desctdos = 0;
         } else {
-            if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
-                desctdos = $("#unodct" + i + "").val();
+            if ($("#dosdct" + i + "").val().match(/^[0-9\.-]+$/)) {
+                desctdos = $("#dosdct" + i + "").val();
             } else {
-                alertify.error(validadesctdos + " no es un descuento valido");
+                alertify.error('En la columna Desct. 2: \"' + validadesctdos + '\"' + ' no es un descuento valido');
                 return false;
             }
         }
+    }
 
-
-
-
-        var cda = $("#total" + i + "").val();
-        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
-            var descu = $("#dct" + i + "").val();
+    //Validando descuento por factura
+    var validadescuentofactura = $("#descuentoFactura").val();
+    var descuentofactura = 0;
+    if (validadescuentofactura === "" || /^\s+$/.test(validadescuentofactura)) {
+        descuentofactura = 0;
+    } else {
+        if ($("#descuentoFactura").val().match(/^[0-9\.-]+$/)) {
+            descuentofactura = $("#descuentoFactura").val();
         } else {
-            var quevalor = $("#dct" + i + "").val();
-            alertify.error(quevalor + " no es un descuento valido");
-
+            alertify.error('\"' + validadescuentofactura + '\"' + ' no es un descuento de factura valido');
             return false;
         }
-        var dat = new Dato(i, id, cda, descu);
-        datos.push(dat);
     }
-    alert('Todo bien');
-//    var datosJSON = JSON.stringify(datos);
+
+    //Validando descuento por pronto pago
+    var validadescuentoprontopago = $("#descuentoProntoPago").val();
+    var descuentoprontopago = 0;
+    if (validadescuentoprontopago === "" || /^\s+$/.test(validadescuentoprontopago)) {
+        descuentoprontopago = 0;
+    } else {
+        if ($("#descuentoProntoPago").val().match(/^[0-9\.-]+$/)) {
+            descuentoprontopago = $("#descuentoProntoPago").val();
+        } else {
+            alertify.error('\"' + validadescuentoprontopago + '\"' + ' no es un descuento por pronto pago valido');
+            return false;
+        }
+    }
+
+    alertify.alert('Todo bien');
+//    var dat1 = new Dato('11', '21', '31', '41');
+//    var dat2 = new Dato('12', '22', '32', '42');
+//    var dat3 = new Dato('13', '23', '33', '43');
+//    var dat4 = new Dato('14', '24', '34', '44');
+//
+//    ar1.push(dat1);
+//    ar1.push(dat2);
+//    ar1.push(dat3);
+//    ar1.push(dat4);
+//
+//    var otro = new Otro('Mu');
+//
+//    ar2.push(ar1);
+//    ar2.push(otro);
+//
+//
+//    var datosJSON = JSON.stringify(ar2);
 //
 //    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
 //        console.log(respuesta);
 //    }).error(function() {
 //        console.log('Error al ejecutar la petición');
 //    });
+
+//        var cda = $("#total" + i + "").val();
+//        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
+//            var descu = $("#dct" + i + "").val();
+//        } else {
+//            var quevalor = $("#dct" + i + "").val();
+//            alertify.error(quevalor + " no es un descuento valido");
+//
+//            return false;
+//        }
+//        var dat = new Dato(i, id, cda, descu);
+//        datos.push(dat);
+//    }
 });
 
