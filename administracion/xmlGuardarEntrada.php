@@ -15,12 +15,21 @@ $cn = new coneccion();
 
 $lafecha = $utilerias->generarFecha();
 
-$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
+$encabezado = $_SESSION['objEncabezadoEntrada'];
 $arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
 
 $datos = json_decode($_POST['datos']);
-$comprobante = $datos[0];
-$conceptos = $datos[1];
+$comprobante = $datos[1];
+$conceptos = $datos[0];
+
+$rfc = $encabezado->getRfc();
+
+foreach ($conceptos as $concepto) {
+    $codigo = $concepto->codigo;
+    echo $concepto->codigo;
+    
+}
+
 
 echo 'prr';
 

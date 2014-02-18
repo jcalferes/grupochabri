@@ -489,6 +489,12 @@ class dao {
         return $datos;
     }
 
+//==============================================================================
+    function validarExistenciaProducto($codigo, $rfc) {
+        
+        
+    }
+
 }
 
 ?>
