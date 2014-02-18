@@ -23,7 +23,7 @@ $ns = $xml->getNamespaces(true);
 $xml->registerXPathNamespace('c', $ns['cfdi']);
 $xml->registerXPathNamespace('t', $ns['tfd']);
 $encabezadoEntrada = new Encabezado();
-$comprobanteEntrada = new Comprobante();
+
 $detalle = new Detalle();
 $concepto = new Concepto();
 
@@ -50,10 +50,6 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
     $encabezadoEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
     $encabezadoEntrada->setTotal(utf8_decode($cfdiComprobante['total']));
     $encabezadoEntrada->setSubtotal(utf8_decode($cfdiComprobante['subTotal']));
-
-    $comprobanteEntrada->setFolio(utf8_decode($cfdiComprobante['folio']));
-    $comprobanteEntrada->setFecha(utf8_decode($cfdiComprobante['fecha']));
-    $comprobanteEntrada->setSubtotal(utf8_decode($cfdiComprobante['total']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -133,7 +129,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
     $encabezadoEntrada->setRfc(utf8_decode($Receptor['rfc']));
-    $comprobanteEntrada->setRfc(utf8_decode($Receptor['rfc']));
 }
 echo "</tbody>";
 echo "</table>";
@@ -181,7 +176,6 @@ echo "<th>Cantidad</th><th>Unidad</th><th>Codigo&nbsp;<button type='button' clas
 echo "</thead>";
 echo "<tbody>";
 $arrayDetalleEntrada = [];
-$arrayConceptoEntrada = [];
 $cont = 0;
 $cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
@@ -199,28 +193,20 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "</tr>";
 
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
-    $concepto->setUnidadmedida(utf8_decode($Concepto['unidad']));
 
     $detalle->setImporte(utf8_decode($Concepto['importe']));
-    $concepto->setImporte(utf8_decode($Concepto['importe']));
 
     $detalle->setCantidad(utf8_decode($Concepto['cantidad']));
-    $concepto->setCantidad(utf8_decode($Concepto['cantidad']));
 
     $detalle->setCodigo(utf8_decode($Concepto['noIdentificacion']));
-    $concepto->setCodigo(utf8_decode($Concepto['noIdentificacion']));
 
     $detalle->setDescripcion(utf8_decode($Concepto['descripcion']));
-    $concepto->setDescripcion(utf8_decode($Concepto['descripcion']));
 
     $detalle->setCosto(utf8_decode($Concepto['valorUnitario']));
-    $concepto->setCosto(utf8_decode($Concepto['valorUnitario']));
 
 
     $arrayDetalleEntrada[$cont] = $detalle;
-    $arrayConceptoEntrada[$cont] = $concepto;
     $detalle = new Detalle();
-    $concepto = new Concepto();
     $cont++;
     $cuentaid++;
 }
@@ -296,8 +282,7 @@ echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
 $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
-$_SESSION['onjComprobanteEntrada'] = $comprobanteEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
-$_SESSION['$arrayConceptoEntrada'] = $arrayConceptoEntrada;
+
 unlink($archivo);
 ?>
