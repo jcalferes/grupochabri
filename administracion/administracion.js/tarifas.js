@@ -21,5 +21,12 @@ $(document).ready(function() {
         $("#guardarTarifas").attr("disabled", true);
 
     });
+    
+    $("#guardarTarifas").click(function(){
+         $("#tablaListaPrecios").find('.tarifa').each(function() {
+             
+             
+         });
+    });
 
 });

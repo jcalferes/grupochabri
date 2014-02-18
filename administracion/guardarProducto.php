@@ -16,13 +16,13 @@ $producto->setIdMarca($_GET["marca"]);
 $producto->setIdProveedor($_GET["proveedor"]);
 $producto->setCodigoProducto($_GET["codigoProducto"]);
 $costo->setCosto($_GET["costoProducto"]);
-
-//foreach ($lista as $valor) {
-//    $pieces = explode("-", $valor);
-//    $tarifa->setIdListaPrecio($pieces[1]);
-//    $tarifa->setTarifa($pieces[0]);
-//}
-$dao->comprobarCodigoValido($producto);
 $tarifa->setIdListaPrecio($lista);
+
+$datos = $dao->comprobarCodigoValido($producto);
+if($datos < 1){
 $dao->guardarProducto($producto, $costo, $tarifa);
-?>
+echo 1;
+
+}else{
+   echo 0;
+}

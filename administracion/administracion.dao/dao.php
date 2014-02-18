@@ -1,14 +1,20 @@
 <?php
 
 class dao {
-    
-    function comprobarCodigoValido(Producto $p){
+
+    function comprobarCodigoValido(Producto $p) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        return $datos;
-        
+        $valor = mysql_affected_rows();
+        if($valor >0){
+            return 1;
+            echo 1;
+        }else{
+            return 0;
+            echo 1;
+        }
     }
 
     function mostrarTarifasTabla($codigoProducto) {
@@ -204,7 +210,7 @@ class dao {
 
     function guardarProducto(Producto $p, Costo $c, Tarifa $t) {
         session_start();
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 
         $sql = "SET AUTOCOMMIT=0;";
@@ -242,8 +248,7 @@ class dao {
 
 
         if ($resultado) {
-            echo 'OK';
-            echo '';
+            
             $sql = "COMMIT";
             $resultado = mysql_query($sql, $cn->Conectarse());
         } else {
@@ -263,7 +268,7 @@ class dao {
     }
 
     function consultaProducto() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto \n"
                 . "FROM productos p\n"
@@ -280,7 +285,7 @@ class dao {
     }
 
     function consultaMarca() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM marcas";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -288,7 +293,7 @@ class dao {
     }
 
     function consultaProveedor() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM proveedores";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -314,7 +319,7 @@ class dao {
     }
 
     function consultarProveedores() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM proveedores";
 
@@ -324,7 +329,7 @@ class dao {
     }
 
     function consultarMarcas() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM marcas";
 

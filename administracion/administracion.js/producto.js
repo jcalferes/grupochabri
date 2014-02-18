@@ -33,7 +33,7 @@ $(document).ready(function() {
     $("#consultaProducto").load("consultarProducto.php", function(){
         $("#tdProducto").dataTable();
     });
-    $("#selectTarifa").load("consultarTarifas.php");
+//    $("#selectTarifa").load("consultarTarifas.php");
     $("#selectMarca").load("mostrarMarcas.php", function() {
         $("#selectMarca").selectpicker();
     });
@@ -77,7 +77,7 @@ $(document).ready(function() {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            ;
+            
             if (valor !== "") {
 
                 if (valor !== " ") {
@@ -90,18 +90,19 @@ $(document).ready(function() {
                         lista = JSON.stringify(listaCalificaciones);
                         valor = "";
                         nombre = "";
+                        
                     } else {
 
-                        return 0;
+                        
                     }
                 } else {
 
-                    return 0;
+                    
                 }
 
             } else {
 
-                return 0;
+                
 
             }
         });
@@ -113,7 +114,9 @@ $(document).ready(function() {
 
 
             var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max;
-            $.get('guardarProducto.php', info, function() {
+            $.get('guardarProducto.php', info, function(x) {
+                alert(x);
+                if(x >= 1){
                 $("#consultaProducto").load("consultarProducto.php", function(){
                     $("#tdProducto").dataTable();
                 });
@@ -132,58 +135,60 @@ $(document).ready(function() {
                 $("#selectProducto").load("obtenerProductos.php");
                 alertify.success("Producto agregada correctamente");
                 return false;
-//
+                }else{
+                    alertify.error("el codigo ya existe");
+                }
             });
 
         } else {
             alertify.error("todos los campos deben tener valor");
         }
     });
-    $("#selectTarifa").change(function() {
-
-        var Tarifa = $("#selectTarifa").val();
-        alert(Tarifa);
-        $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
-    });
-    $("#btnTarifa").click(function() {
-        var Tarifa = $("#txtTarifa").val();
-        var selectTarifa = $("#selectTarifa").val();
-        var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
-        $.get('guardarTarifa.php', info, function() {
-
-//            $('#formulario').hide('slow');
-//            $("#selectTarifa").load("mostrarListaPrecios.php");
-//            $('#checarListas').show('hide');
-            alertify.success("Tarifa del Producto agregado correctamente");
-            return false;
-        });
-    });
-    $("#selectProducto").load("obtenerProductos.php");
-    $("#selectProducto").change(function() {
-        var producto = $("#selectProducto").val();
-        info = "producto=" + producto;
-        $.get('obtenerExistencia.php', info, function(existencia) {
-            existenciaInventario = existencia;
-            $("#existencia").html('<h4> hay en existencia= ' + existenciaInventario + '</h4>');
-        });
-    });
-    $("#AgregarEntrada").click(function() {
-        var cantidad = $("#txtEntradaProducto").val();
-        var idProducto = $("#selectProducto").val();
-        var info = "cantidad=" + cantidad + "&idProducto=" + idProducto + "&existenciaActual=" + existenciaInventario;
-        $.get('guardarEntrada.php', info, function(comprobar) {
-            alert(comprobar);
-            if (comprobar == "OK") {
-
-                $("#selectProducto").val(0);
-                $("#txtEntradaProducto").val("");
-                $("#existencia").html('<h4> hay en existencia=0</h4>');
-                alertify.success("se guardo la Cantidad exitosamente");
-            } else {
-                alertify.error("no Se ha Guardado");
-            }
-        });
-    });
+//    $("#selectTarifa").change(function() {
+//
+//        var Tarifa = $("#selectTarifa").val();
+//        alert(Tarifa);
+//        $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
+//    });
+//    $("#btnTarifa").click(function() {
+//        var Tarifa = $("#txtTarifa").val();
+//        var selectTarifa = $("#selectTarifa").val();
+//        var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
+//        $.get('guardarTarifa.php', info, function() {
+//
+////            $('#formulario').hide('slow');
+////            $("#selectTarifa").load("mostrarListaPrecios.php");
+////            $('#checarListas').show('hide');
+//            alertify.success("Tarifa del Producto agregado correctamente");
+//            return false;
+//        });
+//    });
+//    $("#selectProducto").load("obtenerProductos.php");
+//    $("#selectProducto").change(function() {
+//        var producto = $("#selectProducto").val();
+//        info = "producto=" + producto;
+//        $.get('obtenerExistencia.php', info, function(existencia) {
+//            existenciaInventario = existencia;
+//            $("#existencia").html('<h4> hay en existencia= ' + existenciaInventario + '</h4>');
+//        });
+//    });
+//    $("#AgregarEntrada").click(function() {
+//        var cantidad = $("#txtEntradaProducto").val();
+//        var idProducto = $("#selectProducto").val();
+//        var info = "cantidad=" + cantidad + "&idProducto=" + idProducto + "&existenciaActual=" + existenciaInventario;
+//        $.get('guardarEntrada.php', info, function(comprobar) {
+//            alert(comprobar);
+//            if (comprobar == "OK") {
+//
+//                $("#selectProducto").val(0);
+//                $("#txtEntradaProducto").val("");
+//                $("#existencia").html('<h4> hay en existencia=0</h4>');
+//                alertify.success("se guardo la Cantidad exitosamente");
+//            } else {
+//                alertify.error("no Se ha Guardado");
+//            }
+//        });
+//    });
 
 //    $('#consultaProducto tr>*').click(function (e) {
 //        var a = $(this).closest('tr').find('a')
