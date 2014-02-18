@@ -30,7 +30,9 @@ $(document).ready(function() {
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
-    $("#consultaProducto").load("consultarProducto.php");
+    $("#consultaProducto").load("consultarProducto.php", function(){
+        $("#tdProducto").dataTable();
+    });
     $("#selectTarifa").load("consultarTarifas.php");
     $("#selectMarca").load("mostrarMarcas.php", function() {
         $("#selectMarca").selectpicker();
@@ -112,7 +114,9 @@ $(document).ready(function() {
 
             var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max;
             $.get('guardarProducto.php', info, function() {
-                $("#consultaProducto").load("consultarProducto.php");
+                $("#consultaProducto").load("consultarProducto.php", function(){
+                    $("#tdProducto").dataTable();
+                });
                 $("#txtNombreProducto").val("");
                 $("#txtCodigoProducto").val("");
                 $('#selectMarca').selectpicker('val', 0);

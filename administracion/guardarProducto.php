@@ -22,6 +22,7 @@ $costo->setCosto($_GET["costoProducto"]);
 //    $tarifa->setIdListaPrecio($pieces[1]);
 //    $tarifa->setTarifa($pieces[0]);
 //}
+$dao->comprobarCodigoValido($producto);
 $tarifa->setIdListaPrecio($lista);
 $dao->guardarProducto($producto, $costo, $tarifa);
 ?>

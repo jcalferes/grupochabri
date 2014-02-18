@@ -1,6 +1,15 @@
 <?php
 
 class dao {
+    
+    function comprobarCodigoValido(Producto $p){
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+        
+    }
 
     function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
@@ -256,7 +265,7 @@ class dao {
     function consultaProducto() {
         include '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
