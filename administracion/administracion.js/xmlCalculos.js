@@ -470,42 +470,16 @@ $("#validarentrada").click(function() {
     alertify.alert('Todo bien');
     var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
+    datos.push(conceptos);
+    datos.push(comprobante);
 
-//    var dat1 = new Dato('11', '21', '31', '41');
-//    var dat2 = new Dato('12', '22', '32', '42');
-//    var dat3 = new Dato('13', '23', '33', '43');
-//    var dat4 = new Dato('14', '24', '34', '44');
-//
-//    ar1.push(dat1);
-//    ar1.push(dat2);
-//    ar1.push(dat3);
-//    ar1.push(dat4);
-//
-//    var otro = new Otro('Mu');
-//
-//    ar2.push(ar1);
-//    ar2.push(otro);
-//
-//
-//    var datosJSON = JSON.stringify(ar2);
-//
-//    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-//        console.log(respuesta);
-//    }).error(function() {
-//        console.log('Error al ejecutar la petición');
-//    });
+    var datosJSON = JSON.stringify(datos);
 
-//        var cda = $("#total" + i + "").val();
-//        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
-//            var descu = $("#dct" + i + "").val();
-//        } else {
-//            var quevalor = $("#dct" + i + "").val();
-//            alertify.error(quevalor + " no es un descuento valido");
-//
-//            return false;
-//        }
-//        var dat = new Dato(i, id, cda, descu);
-//        datos.push(dat);
-//    }
+    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
+        console.log(respuesta);
+    }).error(function() {
+        console.log('Error al ejecutar la petición');
+    });
+
 });
 
