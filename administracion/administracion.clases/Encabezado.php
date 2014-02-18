@@ -13,25 +13,14 @@
  */
 class Encabezado {
 
-    private $folio;
+    private $Folio;
     private $Fecha;
     private $Subtotal;
     private $Total;
     private $Rfc;
-    private $Nombre;
-    private $Calle;
-    private $Cp;
-    private $No;
-    private $Estado;
-    private $Ciudad;
-    private $Colonia;
 
-    public function getCalle() {
-        return $this->Calle;
-    }
-
-    public function setCalle($Calle) {
-        $this->Calle = $Calle;
+    public function getFolio() {
+        return $this->Folio;
     }
 
     public function getFecha() {
@@ -46,40 +35,12 @@ class Encabezado {
         return $this->Total;
     }
 
-    public function getFolio() {
-        return $this->folio;
-    }
-
-    public function setFolio($folio) {
-        $this->folio = $folio;
-    }
-
     public function getRfc() {
         return $this->Rfc;
     }
 
-    public function getNombre() {
-        return $this->Nombre;
-    }
-
-    public function getCp() {
-        return $this->Cp;
-    }
-
-    public function getNo() {
-        return $this->No;
-    }
-
-    public function getEstado() {
-        return $this->Estado;
-    }
-
-    public function getCiudad() {
-        return $this->Ciudad;
-    }
-
-    public function getColonia() {
-        return $this->Colonia;
+    public function setFolio($Folio) {
+        $this->Folio = $Folio;
     }
 
     public function setFecha($Fecha) {
@@ -96,30 +57,6 @@ class Encabezado {
 
     public function setRfc($Rfc) {
         $this->Rfc = $Rfc;
-    }
-
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
-    }
-
-    public function setCp($Cp) {
-        $this->Cp = $Cp;
-    }
-
-    public function setNo($No) {
-        $this->No = $No;
-    }
-
-    public function setEstado($Estado) {
-        $this->Estado = $Estado;
-    }
-
-    public function setCiudad($Ciudad) {
-        $this->Ciudad = $Ciudad;
-    }
-
-    public function setColonia($Colonia) {
-        $this->Colonia = $Colonia;
     }
 
 }

@@ -377,15 +377,53 @@ function  dameValorDescuento2(id) {
 
 $("#validarentrada").click(function() {
     var datos = new Array();
-    var info = $('#control').val();
-    for (var i = 0; i < info; i++) {
+    var control = $('#control').val();
+    for (var i = 0; i < control; i++) {
+        //Validando los campos CODIGO DE PRODUCTO
         var id = $("#id" + i + "").val();
+        if (id === "" || /^\s+$/.test(id)) {
+            alertify.error("Falta un codigo de producto");
+            return false;
+        }
+
+        //Validando los campos DESCT 1
+        var validadesctuno = $("#unodct" + i + "").val();
+        var desctuno = 0;
+        if (validadesctuno === "" || /^\s+$/.test(validadesctuno)) {
+            desctuno = 0;
+        } else {
+            if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
+                desctuno = $("#unodct" + i + "").val();
+            } else {
+                alertify.error(validadesctuno + " no es un descuento valido");
+                return false;
+            }
+        }
+
+        //Validando los campos DESCT 2
+        var validadesctdos = $("#unodct" + i + "").val();
+        var desctdos = 0;
+        if (validadesctdos === "" || /^\s+$/.test(validadesctdos)) {
+            desctdos = 0;
+        } else {
+            if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
+                desctdos = $("#unodct" + i + "").val();
+            } else {
+                alertify.error(validadesctdos + " no es un descuento valido");
+                return false;
+            }
+        }
+
+
+
+
         var cda = $("#total" + i + "").val();
         if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
             var descu = $("#dct" + i + "").val();
         } else {
             var quevalor = $("#dct" + i + "").val();
             alertify.error(quevalor + " no es un descuento valido");
+
             return false;
         }
         var dat = new Dato(i, id, cda, descu);

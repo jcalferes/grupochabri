@@ -466,10 +466,12 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function obtieneTodosProductos() {
-        include '../daoconexion/daoConeccion.php';
+    function obtieneTodosProductos($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos ";
+        $sql = "SELECT p.codigoProducto, p.producto FROM PRODUCTOS p\n"
+                . " INNER JOIN proveedores pr on pr.idProveedor = p.idProveedor\n"
+                . " WHERE pr.rfc='$rfc'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
