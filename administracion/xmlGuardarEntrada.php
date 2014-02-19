@@ -25,7 +25,8 @@ $conceptos = $datos[0];
 
 $rfc = $encabezado->getRfc();
 $valido = $dao->validarExistenciaProductoProveedor();
-
+$validaCodigo = 1;
+$recchazaCodigo = 0;
 foreach ($conceptos as $concepto) {
     $ads = $concepto->codigo;
     while ($rs = mysql_fetch_array($valido)) {
@@ -37,12 +38,12 @@ foreach ($conceptos as $concepto) {
     }
     mysql_data_seek($valido, 0);
 
-    if ($validaCodigo !== 0) {
+    if ($validaCodigo != 0) {
         echo $rechazaCodigo;
         return false;
     }
 }
-echo 0;
+
 
 //$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
 //$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);

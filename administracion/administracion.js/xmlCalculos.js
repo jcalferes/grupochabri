@@ -467,7 +467,7 @@ $("#validarentrada").click(function() {
     var iva = $("#coniva").val();
     var total = $("#total").val();
 
-    alertify.alert('Todo bien');
+//    alertify.alert('Todo bien');
     var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
     datos.push(conceptos);
@@ -476,11 +476,11 @@ $("#validarentrada").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-        if(respuesta == 0){
-              alertify.success("Todo bien");
+        if (respuesta == 0) {
+            alertify.success("Todo bien");
         }
         else {
-             alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
+            alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
         }
     }).error(function() {
         console.log('Error al ejecutar la petición');
