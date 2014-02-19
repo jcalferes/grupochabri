@@ -490,7 +490,7 @@ class dao {
     }
 
 //===================Para guardar XMl entrada===================================
-    function validarExistenciaProductoProveedor($codigo) {
+    function validarExistenciaProductoProveedor() {
 //        include_once '../daoconexion/daoConeccion.php';
 //        $cn = new coneccion();
         $sql = "SELECT producto, codigoProducto FROM productos p"

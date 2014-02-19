@@ -24,39 +24,25 @@ $comprobante = $datos[1];
 $conceptos = $datos[0];
 
 $rfc = $encabezado->getRfc();
-$valido = $dao->validarExistenciaProductoProveedor($codigo);
+$valido = $dao->validarExistenciaProductoProveedor();
 
 foreach ($conceptos as $concepto) {
     $ads = $concepto->codigo;
     while ($rs = mysql_fetch_array($valido)) {
-        if ($ads != $rs[codigoProducto]) {
-            $controlCodigo = $concepto->codigo;
+        if ($ads != $rs['codigoProducto']) {
+            $rechazaCodigo = $concepto->codigo;
         } else {
-            $controlCodigo = 0;
+            $validaCodigo = 0;
         }
     }
     mysql_data_seek($valido, 0);
 
-    echo $controlCodigo;
+    if ($validaCodigo !== 0) {
+        echo $rechazaCodigo;
+        return false;
+    }
 }
-
-//foreach ($conceptos as $concepto) {
-//    $codigo = $concepto->codigo;
-//
-//    if ($valido !== false) {
-//        $rs = mysql_fetch_array($valido);
-//        if ($codigo === $rs[codigoProducto]) {
-//            mysql_data_seek($valido, 0);
-//            echo 0;
-//        } else {
-//            echo $codigo;
-//            return false;
-//        }
-//    } else {
-//        echo $codigo;
-//        return false;
-//    }
-//}
+echo 0;
 
 //$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
 //$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);
