@@ -25,7 +25,8 @@ function tester(valor) {
 
 }
 $(document).ready(function() {
-    $('.valLetra').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou');
+    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");

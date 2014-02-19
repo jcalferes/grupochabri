@@ -8,10 +8,10 @@ class dao {
         $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
-        if($valor >0){
+        if ($valor > 0) {
             return 1;
             echo 1;
-        }else{
+        } else {
             return 0;
             echo 1;
         }
@@ -89,7 +89,7 @@ class dao {
     }
 
     function guardarEntradaProducto($cantidad, $idProducto, $existencia) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SET AUTOCOMMIT=0;";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -136,7 +136,7 @@ class dao {
     }
 
     function consultaExistencia($producto) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto AND idStatus = 2";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -146,7 +146,7 @@ class dao {
     }
 
     function consultarCosto($idProducto) {
-//        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos p INNER JOIN costos c ON p.idProducto = c.codigoProducto WHERE p.idProducto = $idProducto ";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -157,7 +157,7 @@ class dao {
     }
 
     function consultarTarifa($listaProducto, $idProducto) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql2 = "SELECT * FROM productos p INNER JOIN Tarifas t ON p.idProducto = t. codigoProducto WHERE p.idProducto = $idProducto AND t.idListaPrecio = $listaProducto";
         $resultado2 = mysql_query($sql2, $cn->Conectarse());
@@ -169,7 +169,7 @@ class dao {
     }
 
     function VerificarProducto($producto) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE producto = '$producto'";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -181,7 +181,7 @@ class dao {
     }
 
     function consultaTarifas(Tarifa $t) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 //        $sql = "SELECT *\n"
 //    . "FROM productos p\n"
@@ -201,7 +201,7 @@ class dao {
     }
 
     function guardarTarifa(Tarifa $t) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio)VALUES('" . $t->getIdProducto() . "','" . $t->getTarifa() . "','" . $t->getIdListaPrecio() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -248,7 +248,7 @@ class dao {
 
 
         if ($resultado) {
-            
+
             $sql = "COMMIT";
             $resultado = mysql_query($sql, $cn->Conectarse());
         } else {
@@ -344,7 +344,7 @@ class dao {
     }
 
     function guardarMarca(Marca $t) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
         mysql_query($sql, $cn->Conectarse());
@@ -353,7 +353,7 @@ class dao {
 
     function guardarDireccion(Direccion $t) {
         session_start();
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getIdPostal() . "');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
@@ -368,6 +368,7 @@ class dao {
     }
 
     function guardarProveedor(Proveedor $t) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "');";
         mysql_query($sql, $cn->Conectarse());
@@ -375,7 +376,7 @@ class dao {
     }
 
     function guardarListaPrecio(ListaPrecio $t) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
         $vl = mysql_query($sql, $cn->Conectarse());
@@ -389,7 +390,7 @@ class dao {
     }
 
     function obtieneDireccion($t) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT idcpostales, cp, asenta, estado, ciudad FROM cpostales WHERE cp = $t";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -397,7 +398,7 @@ class dao {
     }
 
     function obtenerEntradas() {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "select * from productos p 
             inner join  entradas e 
@@ -407,7 +408,7 @@ class dao {
     }
 
     function obtenerInformacionProducto($codigoProducto) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.producto, pr.nombre, m.marca FROM productos p
                inner join proveedores pr

@@ -15,11 +15,11 @@
                         <div id="formulario"> 
                             <div class="form-group"  >
                                 <label>Nombre:</label>
-                                <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
+                                <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
                             </div>
                             <div class="form-group">
                                 <label>Codigo Producto</label>
-                                <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <label>Unidad De Medida:</label><br/>
