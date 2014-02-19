@@ -495,7 +495,7 @@ class dao {
 //        $cn = new coneccion();
         $sql = "SELECT producto, codigoProducto FROM productos p"
                 . " INNER JOIN proveedores pr"
-                . " pr.rfc = 'AAMG670310LV1'";
+                . " WHERE pr.rfc = 'AAMG670310LV1'";
         $valor = mysql_query($sql);
         return $valor;
     }

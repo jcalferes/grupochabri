@@ -24,8 +24,21 @@ $comprobante = $datos[1];
 $conceptos = $datos[0];
 
 $rfc = $encabezado->getRfc();
-
 $valido = $dao->validarExistenciaProductoProveedor($codigo);
+
+foreach ($conceptos as $concepto) {
+    $ads = $concepto->codigo;
+    while ($rs = mysql_fetch_array($valido)) {
+        if ($ads != $rs[codigoProducto]) {
+            $controlCodigo = $concepto->codigo;
+        } else {
+            $controlCodigo = 0;
+        }
+    }
+    mysql_data_seek($valido, 0);
+
+    echo $controlCodigo;
+}
 
 //foreach ($conceptos as $concepto) {
 //    $codigo = $concepto->codigo;
