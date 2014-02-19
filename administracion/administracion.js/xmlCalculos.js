@@ -476,6 +476,11 @@ $("#validarentrada").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
+        if (respuesta !== 0) {
+            alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
+        } else {
+            alertify.success("Todo bien");
+        }
         console.log(respuesta);
     }).error(function() {
         console.log('Error al ejecutar la petición');

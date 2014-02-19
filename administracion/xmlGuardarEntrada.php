@@ -12,6 +12,7 @@ $encabezado = new Encabezado();
 $utilerias = new Utilerias();
 $dao = new dao();
 $cn = new coneccion();
+$cn->Conectarse();
 
 $lafecha = $utilerias->generarFecha();
 
@@ -24,14 +25,25 @@ $conceptos = $datos[0];
 
 $rfc = $encabezado->getRfc();
 
-foreach ($conceptos as $concepto) {
-    $codigo = $concepto->codigo;
-    echo $concepto->codigo;
-    
-}
+$valido = $dao->validarExistenciaProductoProveedor($codigo);
 
-
-echo 'prr';
+//foreach ($conceptos as $concepto) {
+//    $codigo = $concepto->codigo;
+//
+//    if ($valido !== false) {
+//        $rs = mysql_fetch_array($valido);
+//        if ($codigo === $rs[codigoProducto]) {
+//            mysql_data_seek($valido, 0);
+//            echo 0;
+//        } else {
+//            echo $codigo;
+//            return false;
+//        }
+//    } else {
+//        echo $codigo;
+//        return false;
+//    }
+//}
 
 //$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
 //$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);
