@@ -3,7 +3,8 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Inventarios</h2>
+            <h2>
+                <span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Inventarios</h2>
             <section>
                 <div style="margin-left: 3%">
                     <div class="form-horizontal">
@@ -63,6 +64,49 @@
                     <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Entradas Manualmente</h2>
+            <section>
+                <div class="col-sm-3">
+                    <select id="proveedores" 
+                            class="selectpicker" 
+                            data-container="body" 
+                            data-live-search="true">
+                    </select>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-sm-3">
+                    <div class="input-group" id="panelBusqueda">
+                        <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
+                        <span class="input-group-btn">
+                            <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span> 
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <table class="table table-hover" id="tablaDatosEntrada">
+                    <thead>
+                    <th>Cantidad</th>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>  
+                    <th>Costo</th>
+                    <th>Desct. 1</th>
+                    <th>Desct. 2</th>
+                    <th>Desct. Total</th>
+                    <th>CDA</th>
+                    <th>Importe</th> 
+                    </thead>
+                </table>
+                <hr>
+                <form class="form-inline text-right">
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+            </section>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -83,6 +127,8 @@
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
+        <script src="../administracion/administracion.js/entradasManualmente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
     </body>
 </html>
+<!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

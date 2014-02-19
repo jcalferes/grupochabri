@@ -1,8 +1,5 @@
 
 $(document).ready(function() {
-
-    
-
     $("#codigoProducto").focus();
     $("#tablaEntradas").load("mostrarEntradas.php");
     $("#detalle").hide();

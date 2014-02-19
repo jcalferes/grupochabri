@@ -474,6 +474,23 @@ class dao {
         return $datos;
     }
 
+    function buscarProducto(Producto $p, $proveedor) {
+        include '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $MySQL = "SELECT codigoproducto, producto, costo  FROM productos p
+               inner join proveedores pr
+               on p.idProveedor = pr.idProveedor
+               inner join marcas m
+               on m.idMarca = p.idMarca
+	       inner join costos cost
+	       on p.idProducto = cost.idProducto 
+               WHERE codigoProducto='" . $p->getCodigoProducto() . "'
+               and pr.idProveedor='" . $proveedor . "';";
+        $rs = mysql_query($MySQL, $cn->Conectarse());
+        $cn->cerrarBd();
+        return $rs;
+    }
+
 }
 
 ?>
