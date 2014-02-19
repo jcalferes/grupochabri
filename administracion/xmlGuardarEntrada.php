@@ -3,20 +3,24 @@
 include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
 include './administracion.dao/dao.php';
+include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
 session_start();
 
 $detalle = new Detalle();
 $encabezado = new Encabezado();
+$utilerias = new Utilerias();
 $dao = new dao();
 $cn = new coneccion();
 
+$lafecha = $utilerias->generarFecha();
 
+$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
+$arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
 
 $datos = json_decode($_POST['datos']);
-
-$ar1 = $datos[0];
-$obj = $datos[1];
+$comprobante = $datos[0];
+$conceptos = $datos[1];
 
 echo 'prr';
 

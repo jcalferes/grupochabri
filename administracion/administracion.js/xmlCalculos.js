@@ -1,17 +1,19 @@
-function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProductos, iva, total, folio) {
+function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProductos, desctTotal, sda, iva, total) {
     this.desctFactura = desctFactura;
     this.desctProntoPago = desctProntoPago;
     this.desctGeneral = desctGeneral;
     this.desctPorProductos = desctPorProductos;
+    this.desctTotal = desctTotal;
+    this.sda = sda;
     this.iva = iva;
     this.total = total;
-    this.folio = folio;
 
 }
 
-function Concepto(importe, codigo, desctuno, desctdos) {
+function Concepto(importe, codigo, cda, desctuno, desctdos) {
     this.importe = importe;
     this.codigo = codigo;
+    this.cda = cda;
     this.desctuno = desctuno;
     this.desctdos = desctdos;
 }
@@ -380,22 +382,26 @@ function  dameValorDescuento2(id) {
 }
 
 $("#validarentrada").click(function() {
-    var datos = new Array();
-    var control = $('#control').val();
+    var conceptos = []; //Aqui pondre todos los conceptos de la factura
+    var datos = []; //Este me servira para pasar los datos a php
+    var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
+
     for (var i = 0; i < control; i++) {
 
         //Validando los campos CODIGO DE PRODUCTO
-        var id = $("#id" + i + "").val();
-        if (id === "" || /^\s+$/.test(id)) {
+        var validaid = $("#id" + i + "").val();
+        if (validaid === "" || /^\s+$/.test(validaid)) {
             alertify.alert("Falta un codigo de producto");
             return false;
+        } else {
+            var id = $("#id" + i + "").val();
         }
 
         //Validando los campos DESCT 1
         var validadesctuno = $("#unodct" + i + "").val();
-        var desctuno = 0;
+        var desctuno = 0.00;
         if (validadesctuno === "" || /^\s+$/.test(validadesctuno)) {
-            desctuno = 0;
+            desctuno = 0.00;
         } else {
             if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
                 desctuno = $("#unodct" + i + "").val();
@@ -407,9 +413,9 @@ $("#validarentrada").click(function() {
 
         //Validando los campos DESCT 2
         var validadesctdos = $("#dosdct" + i + "").val();
-        var desctdos = 0;
+        var desctdos = 0.00;
         if (validadesctdos === "" || /^\s+$/.test(validadesctdos)) {
-            desctdos = 0;
+            desctdos = 0.00;
         } else {
             if ($("#dosdct" + i + "").val().match(/^[0-9\.-]+$/)) {
                 desctdos = $("#dosdct" + i + "").val();
@@ -418,13 +424,20 @@ $("#validarentrada").click(function() {
                 return false;
             }
         }
+
+        var importe = $("#importe" + i + "").val();
+        var cda = $("#cda" + i + "").val();
+
+
+        var concepto = new Concepto(importe, id, cda, desctuno, desctdos);
+        conceptos.push(concepto);
     }
 
     //Validando descuento por factura
     var validadescuentofactura = $("#descuentoFactura").val();
-    var descuentofactura = 0;
+    var descuentofactura = 0.00;
     if (validadescuentofactura === "" || /^\s+$/.test(validadescuentofactura)) {
-        descuentofactura = 0;
+        descuentofactura = 0.00;
     } else {
         if ($("#descuentoFactura").val().match(/^[0-9\.-]+$/)) {
             descuentofactura = $("#descuentoFactura").val();
@@ -436,9 +449,9 @@ $("#validarentrada").click(function() {
 
     //Validando descuento por pronto pago
     var validadescuentoprontopago = $("#descuentoProntoPago").val();
-    var descuentoprontopago = 0;
+    var descuentoprontopago = 0.00;
     if (validadescuentoprontopago === "" || /^\s+$/.test(validadescuentoprontopago)) {
-        descuentoprontopago = 0;
+        descuentoprontopago = 0.00;
     } else {
         if ($("#descuentoProntoPago").val().match(/^[0-9\.-]+$/)) {
             descuentoprontopago = $("#descuentoProntoPago").val();
@@ -447,43 +460,26 @@ $("#validarentrada").click(function() {
             return false;
         }
     }
+    var descuentogeneral = $("#descuentogeneral").val();
+    var descuentoporproductos = $("#descuentoporproductos").val();
+    var descuentototal = $("#sumadescuentos").val();
+    var sda = $("#subtotal").val();
+    var iva = $("#coniva").val();
+    var total = $("#total").val();
 
     alertify.alert('Todo bien');
-//    var dat1 = new Dato('11', '21', '31', '41');
-//    var dat2 = new Dato('12', '22', '32', '42');
-//    var dat3 = new Dato('13', '23', '33', '43');
-//    var dat4 = new Dato('14', '24', '34', '44');
-//
-//    ar1.push(dat1);
-//    ar1.push(dat2);
-//    ar1.push(dat3);
-//    ar1.push(dat4);
-//
-//    var otro = new Otro('Mu');
-//
-//    ar2.push(ar1);
-//    ar2.push(otro);
-//
-//
-//    var datosJSON = JSON.stringify(ar2);
-//
-//    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-//        console.log(respuesta);
-//    }).error(function() {
-//        console.log('Error al ejecutar la petición');
-//    });
+    var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
-//        var cda = $("#total" + i + "").val();
-//        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
-//            var descu = $("#dct" + i + "").val();
-//        } else {
-//            var quevalor = $("#dct" + i + "").val();
-//            alertify.error(quevalor + " no es un descuento valido");
-//
-//            return false;
-//        }
-//        var dat = new Dato(i, id, cda, descu);
-//        datos.push(dat);
-//    }
+    datos.push(conceptos);
+    datos.push(comprobante);
+
+    var datosJSON = JSON.stringify(datos);
+
+    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
+        console.log(respuesta);
+    }).error(function() {
+        console.log('Error al ejecutar la petición');
+    });
+
 });
 
