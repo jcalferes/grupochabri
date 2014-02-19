@@ -1,4 +1,22 @@
+function NumCheck(e, field, tarifa) {
 
+    key = e.keyCode ? e.keyCode : e.which
+    if (key == 15)
+        return true
+    if (key > 47 && key < 58) {
+        if (field.value == "")
+            return true
+        regexp = /.[0-9]{4}$/
+        return !(regexp.test(field.value))
+    }
+    if (key == 46) {
+        if (field.value == "")
+            return false
+        regexp = /^[0-9]+$/
+        return regexp.test(field.value)
+    }
+    return false
+}
 function tester(valor) {
 
     if ($("#check" + valor).is(':checked')) {
@@ -10,13 +28,29 @@ function tester(valor) {
     }
 
 }
-$(document).ready(function() {
+function obtenerUtilidad(utilidad) {
+    alert(utilidad);
+     var costo=document.getElementById("txtCostoProducto").value;
+     alert(costo);
+   var utilidad = $("#texto" + utilidad).val();
+   utilidad = utilidad /100;
+   alert(utilidad);
+   var tarifa = costo * utilidad;
+   alert(tarifa);
+   $("#tarifa" + utilidad).attr("disabled", true);
 
+}
+$(document).ready(function() {
+    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+//    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
-    $("#consultaProducto").load("consultarProducto.php");
-    $("#selectTarifa").load("consultarTarifas.php");
+    $("#consultaProducto").load("consultarProducto.php", function() {
+        $("#tdProducto").dataTable();
+    });
+//    $("#selectTarifa").load("consultarTarifas.php");
     $("#selectMarca").load("mostrarMarcas.php", function() {
         $("#selectMarca").selectpicker();
     });
@@ -45,6 +79,10 @@ $(document).ready(function() {
         $("#formulario").show("slow");
         $("#mostrarDivProveedor").hide("slow");
     });
+
+
+
+
     $("#guardarDatos").click(function() {
         var lista;
         var nombreProducto = $("#txtNombreProducto").val();
@@ -56,37 +94,43 @@ $(document).ready(function() {
         var max = $("#txtCantidadMaxima").val();
         var listaCalificaciones = new Array();
 ////////////////////////////////////////////////probando
+
+       
+
         $("#tablaListaPrecios").find('.producto').each(function() {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            alert(valor);
-            if (valor !== "") {  alert("diferente a vacio");
-                if (valor !== " ") {alert("diferente a espacio");
+
+            if (valor !== "") {
+
+                if (valor !== " ") {
+
                     if (valor !== null) {
-                        alert("diferente a nulo");
+
                         var algo = valor + "-" + nombre;
 
                         listaCalificaciones.push(algo);
                         lista = JSON.stringify(listaCalificaciones);
                         valor = "";
                         nombre = "";
+
                     } else {
-                        alert("fallo");
-                        return 0;
+
+
                     }
                 } else {
-                    alert("fallo");
-                    return 0;
+
+
                 }
 
             } else {
-                alert("fallo");
-                return 0;
+
+
 
             }
         });
-        alert(lista);
+
         ////////////////////////////////////////////////probando
 
         if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined) {
@@ -94,82 +138,90 @@ $(document).ready(function() {
 
 
             var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max;
-            $.get('guardarProducto.php', info, function() {
-                $("#consultaProducto").load("consultarProducto.php");
-                $("#txtNombreProducto").val("");
-                $("#txtCodigoProducto").val("");
-                $("#selectProveedor").val(0);
-                $("#selectProveedor").val(0);
-                $("#txtCostoProducto").val("");
-                $("#txtCantidadMinima").val("");
-                $("#txtCantidadMaxima").val("");
-                $(".producto").val("");
-                $(".producto").attr("disabled", true);
-                $(".checando").attr("checked", false);
-                $("#selectProducto").load("obtenerProductos.php");
-                alertify.success("Producto agregada correctamente");
-                return false;
-//
+            $.get('guardarProducto.php', info, function(x) {
+                alert(x);
+                if (x >= 1) {
+                    $("#consultaProducto").load("consultarProducto.php", function() {
+                        $("#tdProducto").dataTable();
+                    });
+                    $("#txtNombreProducto").val("");
+                    $("#txtCodigoProducto").val("");
+                    $('#selectMarca').selectpicker('val', 0);
+                    $('#selectProveedor').selectpicker('val', 0);
+                    $('#selectGrupo').selectpicker('val', 0);
+                    $('#selectMedida').selectpicker('val', 0);
+                    $("#txtCostoProducto").val("");
+                    $("#txtCantidadMinima").val("");
+                    $("#txtCantidadMaxima").val("");
+                    $(".producto").val("");
+                    $(".producto").attr("disabled", true);
+                    $(".checando").attr("checked", false);
+                    $("#selectProducto").load("obtenerProductos.php");
+                    alertify.success("Producto agregada correctamente");
+                    return false;
+                } else {
+                    alertify.error("el codigo ya existe");
+                }
             });
 
         } else {
             alertify.error("todos los campos deben tener valor");
         }
     });
-    $("#selectTarifa").change(function() {
+//    $("#selectTarifa").change(function() {
+//
+//        var Tarifa = $("#selectTarifa").val();
+//        alert(Tarifa);
+//        $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
+//    });
+//    $("#btnTarifa").click(function() {
+//        var Tarifa = $("#txtTarifa").val();
+//        var selectTarifa = $("#selectTarifa").val();
+//        var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
+//        $.get('guardarTarifa.php', info, function() {
+//
+////            $('#formulario').hide('slow');
+////            $("#selectTarifa").load("mostrarListaPrecios.php");
+////            $('#checarListas').show('hide');
+//            alertify.success("Tarifa del Producto agregado correctamente");
+//            return false;
+//        });
+//    });
+//    $("#selectProducto").load("obtenerProductos.php");
+//    $("#selectProducto").change(function() {
+//        var producto = $("#selectProducto").val();
+//        info = "producto=" + producto;
+//        $.get('obtenerExistencia.php', info, function(existencia) {
+//            existenciaInventario = existencia;
+//            $("#existencia").html('<h4> hay en existencia= ' + existenciaInventario + '</h4>');
+//        });
+//    });
+//    $("#AgregarEntrada").click(function() {
+//        var cantidad = $("#txtEntradaProducto").val();
+//        var idProducto = $("#selectProducto").val();
+//        var info = "cantidad=" + cantidad + "&idProducto=" + idProducto + "&existenciaActual=" + existenciaInventario;
+//        $.get('guardarEntrada.php', info, function(comprobar) {
+//            alert(comprobar);
+//            if (comprobar == "OK") {
+//
+//                $("#selectProducto").val(0);
+//                $("#txtEntradaProducto").val("");
+//                $("#existencia").html('<h4> hay en existencia=0</h4>');
+//                alertify.success("se guardo la Cantidad exitosamente");
+//            } else {
+//                alertify.error("no Se ha Guardado");
+//            }
+//        });
+//    });
 
-        var Tarifa = $("#selectTarifa").val();
-        alert(Tarifa);
-        $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
-    });
-    $("#btnTarifa").click(function() {
-        var Tarifa = $("#txtTarifa").val();
-        var selectTarifa = $("#selectTarifa").val();
-        var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
-        $.get('guardarTarifa.php', info, function() {
-
-//            $('#formulario').hide('slow');
-//            $("#selectTarifa").load("mostrarListaPrecios.php");
-//            $('#checarListas').show('hide');
-            alertify.success("Tarifa del Producto agregado correctamente");
-            return false;
-        });
-    });
-    $("#selectProducto").load("obtenerProductos.php");
-    $("#selectProducto").change(function() {
-        var producto = $("#selectProducto").val();
-        info = "producto=" + producto;
-        $.get('obtenerExistencia.php', info, function(existencia) {
-            existenciaInventario = existencia;
-            $("#existencia").html('<h4> hay en existencia= ' + existenciaInventario + '</h4>');
-        });
-    });
-    $("#AgregarEntrada").click(function() {
-        var cantidad = $("#txtEntradaProducto").val();
-        var idProducto = $("#selectProducto").val();
-        var info = "cantidad=" + cantidad + "&idProducto=" + idProducto + "&existenciaActual=" + existenciaInventario;
-        $.get('guardarEntrada.php', info, function(comprobar) {
-            alert(comprobar);
-            if (comprobar == "OK") {
-
-                $("#selectProducto").val(0);
-                $("#txtEntradaProducto").val("");
-                $("#existencia").html('<h4> hay en existencia=0</h4>');
-                alertify.success("se guardo la Cantidad exitosamente");
-            } else {
-                alertify.error("no Se ha Guardado");
-            }
-        });
-    });
-    
 //    $('#consultaProducto tr>*').click(function (e) {
 //        var a = $(this).closest('tr').find('a')
 //        e.preventDefault()
 //        location.href = a.attr('href')
 //    })
-    
-    
-    
+
+
+
 //    $(document).on('change', '#selectListaPrecios', function() {
 //        //almacenamos en una variable todo el contenido de la nueva fila que deseamos
 //        //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html   onclick="eliminar(\'' + valor + '\');"

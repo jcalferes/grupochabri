@@ -1,18 +1,30 @@
-function Dato(id, ident, coda, desc)
-{
-    this.id = id;
-    this.ident = ident;
-    this.coda = coda;
-    this.desc = desc;
+function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProductos, desctTotal, sda, iva, total) {
+    this.desctFactura = desctFactura;
+    this.desctProntoPago = desctProntoPago;
+    this.desctGeneral = desctGeneral;
+    this.desctPorProductos = desctPorProductos;
+    this.desctTotal = desctTotal;
+    this.sda = sda;
+    this.iva = iva;
+    this.total = total;
+
 }
 
+function Concepto(importe, codigo, cda, desctuno, desctdos) {
+    this.importe = importe;
+    this.codigo = codigo;
+    this.cda = cda;
+    this.desctuno = desctuno;
+    this.desctdos = desctdos;
+}
 
-
-$(document).ready(function() {
-    $("#veridproductos").load("consultarProductoId.php", function() {
+function test() {
+    var rfc = $("#facrfc").text();
+    var info = "rfc=" + rfc;
+    $("#veridproductos").load("consultarProductoId.php", info, function() {
         $('#dtproductoid').dataTable();
     });
-});
+}
 
 function chkExtras() {
     var nose = $("#chk").is(":checked");
@@ -22,9 +34,8 @@ function chkExtras() {
                 $("#descuentoFactura").removeAttr("disabled", "disabled");
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
-
             } else {
-
+                $('#chk').prop('checked', false);
             }
         });
     } else {
@@ -46,7 +57,7 @@ function chkExtras() {
                 $("#descuentoProntoPago").val("");
                 $("#descuentoFactura").val("");
             } else {
-
+                $('#chk').prop('checked', true);
             }
         });
     }
@@ -56,22 +67,12 @@ function calculaPF() {
     var subtotal = calculaSubtotal();
     var descuentopf = $("#descuentoFactura").val();
     var porcentajepf = 0;
-
     if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//        alert('Si hay valor en DESCUENTOPP');
-
         var porcentajepp = $("#descuentoProntoPago").val();
         var calculadesctpp = (porcentajepp * subtotal) / 100;
         var totalpp = subtotal - calculadesctpp;
-
         var subtotalcondesctpp = totalpp;
-//        alert('Subtotal con dect.PP aplicado: ' + subtotalcondesctpp);
-
-
-
         var txtdesctgeneral = calculadesctpp;
-//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
-
         if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
             porcentajepf = 0;
             $("#descuentoFactura").val("");
@@ -82,32 +83,19 @@ function calculaPF() {
                 porcentajepf = 0;
             }
         }
-//        alert('Porcentage con el que voy a calcular: ' + porcentajepf);
-
         var calculadesctpf = (porcentajepf * subtotalcondesctpp) / 100;
-//        alert('Cantidad a descontar del subtotal y con Desct.PP: ' + calculadesctpf);
         var totalpf = subtotalcondesctpp - calculadesctpf;
-//        alert('Nuevo subtotal: ' + totalpf);
         $("#subtotal").val(totalpf.toFixed(2));
-
         var nuevoconiva = totalpf * 0.16;
         var nuevototal = totalpf + nuevoconiva;
-
-
         $("#coniva").val(nuevoconiva.toFixed(2));
         $("#total").val(nuevototal.toFixed(2));
-
-
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpf;
-//        alert('Nuevo Descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
-
         var desctpf = parseFloat($("#descuentogeneral").val());
         var desctpp = parseFloat($("#descuentoporproductos").val());
-
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
-
     } else {
         if (descuentopf === "" || /^\s+$/.test(descuentopf)) {
             porcentajepf = 0;
@@ -121,21 +109,14 @@ function calculaPF() {
         }
         var calculadesctpf = (porcentajepf * subtotal) / 100;
         var totalpf = subtotal - calculadesctpf;
-
-
         var nuevoconiva = totalpf * 0.16;
         var nuevototal = totalpf + nuevoconiva;
-
-
         $("#coniva").val(nuevoconiva.toFixed(2));
         $("#total").val(nuevototal.toFixed(2));
-
         $("#descuentogeneral").val(calculadesctpf.toFixed(2));
         $("#subtotal").val(totalpf.toFixed(2));
-
         var desctpf = parseFloat($("#descuentogeneral").val());
         var desctpp = parseFloat($("#descuentoporproductos").val());
-
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
     }
@@ -333,6 +314,7 @@ function  dameValorDescuento1(id) {
     if (porcentaje === "" || /^\s+$/.test(porcentaje)) {
         porcentaje = 0.00;
         $("#unodct" + id + "").val("");
+        $("#dosdct" + id + "").val("");
     } else {
         if ($("#unodct" + id + "").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
             var porcentaje = $("#unodct" + id + "").val();
@@ -400,28 +382,104 @@ function  dameValorDescuento2(id) {
 }
 
 $("#validarentrada").click(function() {
-    var datos = new Array();
-    var info = $('#control').val();
-    for (var i = 0; i < info; i++) {
-        var id = $("#id" + i + "").val();
-        var cda = $("#total" + i + "").val();
-        if ($("#dct" + i + "").val().match(/^[0-9\.-]+$/)) {
-            var descu = $("#dct" + i + "").val();
+    var conceptos = []; //Aqui pondre todos los conceptos de la factura
+    var datos = []; //Este me servira para pasar los datos a php
+    var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
+
+    for (var i = 0; i < control; i++) {
+
+        //Validando los campos CODIGO DE PRODUCTO
+        var validaid = $("#id" + i + "").val();
+        if (validaid === "" || /^\s+$/.test(validaid)) {
+            alertify.alert("Falta un codigo de producto");
+            return false;
         } else {
-            var quevalor = $("#dct" + i + "").val();
-            alertify.error(quevalor + " no es un descuento valido");
+            var id = $("#id" + i + "").val();
+        }
+
+        //Validando los campos DESCT 1
+        var validadesctuno = $("#unodct" + i + "").val();
+        var desctuno = 0.00;
+        if (validadesctuno === "" || /^\s+$/.test(validadesctuno)) {
+            desctuno = 0.00;
+        } else {
+            if ($("#unodct" + i + "").val().match(/^[0-9\.-]+$/)) {
+                desctuno = $("#unodct" + i + "").val();
+            } else {
+                alertify.error('En la columna Desct. 1: \"' + validadesctuno + '\"' + " no es un descuento valido");
+                return false;
+            }
+        }
+
+        //Validando los campos DESCT 2
+        var validadesctdos = $("#dosdct" + i + "").val();
+        var desctdos = 0.00;
+        if (validadesctdos === "" || /^\s+$/.test(validadesctdos)) {
+            desctdos = 0.00;
+        } else {
+            if ($("#dosdct" + i + "").val().match(/^[0-9\.-]+$/)) {
+                desctdos = $("#dosdct" + i + "").val();
+            } else {
+                alertify.error('En la columna Desct. 2: \"' + validadesctdos + '\"' + ' no es un descuento valido');
+                return false;
+            }
+        }
+
+        var importe = $("#importe" + i + "").val();
+        var cda = $("#cda" + i + "").val();
+
+
+        var concepto = new Concepto(importe, id, cda, desctuno, desctdos);
+        conceptos.push(concepto);
+    }
+
+    //Validando descuento por factura
+    var validadescuentofactura = $("#descuentoFactura").val();
+    var descuentofactura = 0.00;
+    if (validadescuentofactura === "" || /^\s+$/.test(validadescuentofactura)) {
+        descuentofactura = 0.00;
+    } else {
+        if ($("#descuentoFactura").val().match(/^[0-9\.-]+$/)) {
+            descuentofactura = $("#descuentoFactura").val();
+        } else {
+            alertify.error('\"' + validadescuentofactura + '\"' + ' no es un descuento de factura valido');
             return false;
         }
-        var dat = new Dato(i, id, cda, descu);
-        datos.push(dat);
     }
-    alert('Todo bien');
-//    var datosJSON = JSON.stringify(datos);
-//
-//    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-//        console.log(respuesta);
-//    }).error(function() {
-//        console.log('Error al ejecutar la petición');
-//    });
+
+    //Validando descuento por pronto pago
+    var validadescuentoprontopago = $("#descuentoProntoPago").val();
+    var descuentoprontopago = 0.00;
+    if (validadescuentoprontopago === "" || /^\s+$/.test(validadescuentoprontopago)) {
+        descuentoprontopago = 0.00;
+    } else {
+        if ($("#descuentoProntoPago").val().match(/^[0-9\.-]+$/)) {
+            descuentoprontopago = $("#descuentoProntoPago").val();
+        } else {
+            alertify.error('\"' + validadescuentoprontopago + '\"' + ' no es un descuento por pronto pago valido');
+            return false;
+        }
+    }
+    var descuentogeneral = $("#descuentogeneral").val();
+    var descuentoporproductos = $("#descuentoporproductos").val();
+    var descuentototal = $("#sumadescuentos").val();
+    var sda = $("#subtotal").val();
+    var iva = $("#coniva").val();
+    var total = $("#total").val();
+
+    alertify.alert('Todo bien');
+    var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
+
+    datos.push(conceptos);
+    datos.push(comprobante);
+
+    var datosJSON = JSON.stringify(datos);
+
+    $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
+        console.log(respuesta);
+    }).error(function() {
+        console.log('Error al ejecutar la petición');
+    });
+
 });
 
