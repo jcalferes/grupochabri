@@ -9,6 +9,7 @@ function gestionTarifas(codigoProducto, producto) {
     $('#labelTitulo').html('<h4> Tarifas del producto</h4>' + producto);
     $('#mostrarListaPreciosTarifa').load("gestionListaPreciosTarifa.php?codigoProducto=" + codigoProducto);
 }
+    
 
 $(document).ready(function() {
     $("#editarTarifas").click(function() {

@@ -15,11 +15,11 @@
                         <div id="formulario"> 
                             <div class="form-group"  >
                                 <label>Nombre:</label>
-                                <input type="text" class="form-control" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
+                                <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
                             </div>
                             <div class="form-group">
                                 <label>Codigo Producto</label>
-                                <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <label>Unidad De Medida:</label><br/>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Maxima</label>
-                                    <input type="number" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
+                                    <input  type="number" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Lista Precio:</label><br>
@@ -227,7 +227,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                <input  id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                             </div>
                         </div>
                     </form>
