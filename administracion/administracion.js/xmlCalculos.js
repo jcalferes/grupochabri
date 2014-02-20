@@ -257,36 +257,6 @@ function calculaTotales() {
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
 
-//    var desctpp = parseFloat($("#descuentoProntoPago").val());
-//    var desctff = parseFloat($("#descuentoFactura").val());
-//
-//    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
-//        var reglapp = 0;
-//    } else {
-//        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//            var reglapp = (desctpp * nuevosubtotal) / 100;
-//        } else {
-//            var reglapp = 0;
-//        }
-//    }
-//    alert(reglapp);
-//
-//    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
-//        var reglaff = 0;
-//    } else {
-//        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//            var reglaff = (desctff * nuevosubtotal) / 100;
-//        } else {
-//            var reglaff = 0;
-//        }
-//    }
-//    alert(reglaff);
-//
-//    var totaldesctgeneral = reglapp + reglaff;
-//    alert(totaldesctgeneral);
-//    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
-
-
     var nuevoconiva = nuevosubtotal * 0.16;
     var nuevototal = nuevosubtotal + nuevoconiva;
 
@@ -475,7 +445,7 @@ $("#validarentrada").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-        if (respuesta == 0) {
+        if (respuesta === 0) {
             alertify.success("Todo bien");
         } else {
             alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
