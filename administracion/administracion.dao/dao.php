@@ -539,8 +539,8 @@ class dao {
     }
 
     function guardarComprobante(Encabezado $ecbz, Comprobante $cpbt, $lafecha) {
-        $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
-                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
+        $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
+                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','". $cpbt->getDescuentoProntoPago() ."','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
         $control1 = mysql_query($sql);

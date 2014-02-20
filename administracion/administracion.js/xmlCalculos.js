@@ -127,17 +127,14 @@ function calculaPP() {
     var porcentajepp = 0;
 
     if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//        alert('Si hay valor den DESCTPF');
 
         var porcentajepf = $("#descuentoFactura").val();
         var calculadesctpf = (porcentajepf * subtotal) / 100;
         var totalpf = subtotal - calculadesctpf;
 
         var subtotalcondesctpf = totalpf;
-//        alert('Subtotal con Desct.PF aplicado: ' + subtotalcondesctpf);
 
         var txtdesctgeneral = calculadesctpf;
-//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
         if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
             porcentajepp = 0;
             $("#descuentoProntoPago").val("");
@@ -148,12 +145,9 @@ function calculaPP() {
                 porcentajepp = 0;
             }
         }
-//        alert('Porcentage con el que voy a calcular: ' + porcentajepp);
 
         var calculadesctpp = (porcentajepp * subtotalcondesctpf) / 100;
-//        alert('Cantidad a descontar del subtotal y con Desct.PF: ' + calculadesctpp);
         var totalpp = subtotalcondesctpf - calculadesctpp;
-//        alert('Nuevo subtotal: ' + totalpp);
         $("#subtotal").val(totalpp.toFixed(2));
 
         var nuevoconiva = totalpp * 0.16;
@@ -164,7 +158,6 @@ function calculaPP() {
         $("#total").val(nuevototal.toFixed(2));
 
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpp;
-//        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
 
         var desctpf = parseFloat($("#descuentogeneral").val());

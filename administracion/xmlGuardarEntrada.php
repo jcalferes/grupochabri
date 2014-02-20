@@ -28,11 +28,11 @@ $datos = json_decode($_POST['datos']);
 $compbt = $datos[1];
 $conceptos = $datos[0];
 
-$comprobante->setDescuentoFactura(floatval($compbt->descuentofactura));
-$comprobante->setDescuentoProntoPago(floatval($compbt->descuentoprontopago));
-$comprobante->setDescuentoGeneral(floatval($compbt->descuentogeneral));
-$comprobante->setDescuentoPorProducto(floatval($compbt->descuentoporproductos));
-$comprobante->setDescuentoTotal(floatval($compbt->descuentototal));
+$comprobante->setDescuentoFactura(floatval($compbt->desctFactura));
+$comprobante->setDescuentoProntoPago(floatval($compbt->desctProntoPago));
+$comprobante->setDescuentoGeneral(floatval($compbt->desctGeneral));
+$comprobante->setDescuentoPorProducto(floatval($compbt->desctPorProductos));
+$comprobante->setDescuentoTotal(floatval($compbt->desctTotal));
 $comprobante->setSda(floatval($compbt->sda));
 $comprobante->setConIva(floatval($compbt->iva));
 $comprobante->setTotal(floatval($compbt->total));
