@@ -45,6 +45,8 @@ foreach ($conceptos as $concepto) {
 }
 
 
+
+
 //$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
 //$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);
 
