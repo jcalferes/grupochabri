@@ -7,7 +7,6 @@ function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProduc
     this.sda = sda;
     this.iva = iva;
     this.total = total;
-
 }
 
 function Concepto(importe, codigo, cda, desctuno, desctdos) {
@@ -478,8 +477,7 @@ $("#validarentrada").click(function() {
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
         if (respuesta == 0) {
             alertify.success("Todo bien");
-        }
-        else {
+        } else {
             alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
         }
     }).error(function() {

@@ -509,8 +509,6 @@ class dao {
 
 //===================Para guardar XMl entrada===================================
     function validarExistenciaProductoProveedor() {
-//        include_once '../daoconexion/daoConeccion.php';
-//        $cn = new coneccion();
         $sql = "SELECT producto, codigoProducto FROM productos p"
                 . " INNER JOIN proveedores pr"
                 . " WHERE pr.rfc = 'AAMG670310LV1'";
@@ -518,6 +516,63 @@ class dao {
         return $valor;
     }
 
+    function guardarEncabezado(Encabezado $ecbz, $lafecha) {
+        $sql = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
+                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $ecbz->getTotal() . "','" . $ecbz->getRfc() . "','" . $ecbz->getFolio() . "','$lafecha')";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query("START TRANSACTION;");
+        $control1 = mysql_query($sql);
+        if ($control1 == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $control2 = mysql_query($sql2);
+            if ($control2 == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                while ($rs = mysql_fetch_array($control2)) {
+                    $id = $rs["ID"];
+                }
+                mysql_query("COMMIT;");
+            }
+        }
+        return $id;
+    }
+
+    function guardarComprobante(Encabezado $ecbz, Comprobante $cpbt, $lafecha) {
+        $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
+                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query("START TRANSACTION;");
+        $control1 = mysql_query($sql);
+        if ($control1 == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $control2 = mysql_query($sql2);
+            if ($control2 == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                while ($rs = mysql_fetch_array($control2)) {
+                    $id = $rs["ID"];
+                }
+                mysql_query("COMMIT;");
+            }
+        }
+        return $id;
+    }
+
+    function guardarDetalle(Detalle $d, $idEncabezado) {
+        $sql = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
+                . "VALUES ('" . $d->getUnidadmedida() . "','" . $d->getImporte() . "','" . $d->getCantidad() . "'),'" . $d->getCodigo() . "','" . $d->getDescripcion() . "','" . $d->getCosto() . "','$idEncabezado'";
+        $control = mysql_query($sql);
+        if ($control == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            mysql_query("COMMIT;");
+        }
+        return $control;
+    }
+
 }
 
+//==============================================================================
 ?>
