@@ -67,13 +67,9 @@ for ($i = 0; $i < $control; $i++) {
     $detalle = $arrayDetalleEntrada[$i];
     $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
     if ($controlDetalle == false) {
-        echo 1;
-        return false;
+        
     }
 }
-
-echo 1;
-
 
 
 

@@ -562,7 +562,7 @@ class dao {
 
     function guardarDetalle(Detalle $d, $idEncabezado) {
         $sql = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
-                . "VALUES ('" . $d->getUnidadmedida() . "','" . $d->getImporte() . "','" . $d->getCantidad() . "'),'" . $d->getCodigo() . "','" . $d->getDescripcion() . "','" . $d->getCosto() . "','$idEncabezado'";
+                . "VALUES ('" . $d->getUnidadmedida() . "','" . $d->getImporte() . "','" . $d->getCantidad() . "','" . $d->getCodigo() . "','" . $d->getDescripcion() . "','" . $d->getCosto() . "','$idEncabezado')";
         $control = mysql_query($sql);
         if ($control == false) {
             mysql_query("ROLLBACK;");
