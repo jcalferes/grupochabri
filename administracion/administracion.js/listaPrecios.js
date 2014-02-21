@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $("#consultaListaPrecio").load("consultarListaPrecio.php");
+    $("#consultaListaPrecio").load("consultarListaPrecio.php", function(){
+        $('#dtlistaprecios').dataTable();
+    });
     $("#btnguardarLista").click(function() {
         var nombrelista = $("#txtnombrelista").val();
         if (nombrelista == "" || /^\s+$/.test(nombrelista)) {
