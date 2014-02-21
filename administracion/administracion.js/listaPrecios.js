@@ -17,6 +17,7 @@ $(document).ready(function() {
                 }
                 if (control == 1) {
                     $("#consultaListaPrecio").load("consultarListaPrecio.php");
+                    $("#txtnombrelista").val("");
                     alertify.success("Lista agregada correctamente");
                     return false;
                 }
