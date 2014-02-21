@@ -15,6 +15,7 @@
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap-select.css">
         <!-- CSS Personalizados-->
     </head>
     <body>
@@ -70,7 +71,7 @@
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        <li id="6" class=""><a onclick="entroTarifas();">vacio</a></li>
+                        <!--                        <li id="6" class=""><a onclick="entroTarifas();">vacio</a></li>-->
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                     </ul>
                     <div id="mostrar">
@@ -90,8 +91,7 @@
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="../bootstrap/js/bootstrap-select.js"></script>
-        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-select.css">
+        <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../bootstrap/css/bootstrap.min.css"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>

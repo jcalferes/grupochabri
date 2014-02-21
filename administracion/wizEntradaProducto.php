@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
-                            <input  id="cancelarEntradas" type="submit" class="btn" value="Cancelar"/>
+                            <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
                         </div>
                         <div id="datosCaptura">
                             <div class="form-group">
@@ -46,23 +46,6 @@
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Entradas Proveedores</h2>
             <section>
 
-            </section>
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
-            <section>
-                <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
-                    <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
-                    <hr>
-                    <div>
-                        <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension_xmlentrada(this.form, this.form.buscaxmlentrada.value)">
-                    </div>
-                </form>
-                <div id="cargaxml">
-                    <!-- Aqui van los archivos cargados -->
-                </div>
-                <form id="validacionentradas">
-                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
-                    <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
-                </form>
             </section>
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Entradas Manualmente</h2>
             <section>
@@ -105,6 +88,23 @@
                 <hr>
                 <form class="form-inline text-right">
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+            </section>
+            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
+            <section>
+                <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
+                    <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
+                    <hr>
+                    <div>
+                        <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension_xmlentrada(this.form, this.form.buscaxmlentrada.value)">
+                    </div>
+                </form>
+                <div id="cargaxml">
+                    <!-- Aqui van los archivos cargados -->
+                </div>
+                <form id="validacionentradas">
+                    <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
+                    <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
             </section>
         </div>
