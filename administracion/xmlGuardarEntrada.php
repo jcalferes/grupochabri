@@ -69,6 +69,7 @@ for ($i = 0; $i < $control; $i++) {
     if ($controlDetalle == false) {
         
     }
+    $concepto = $conceptos[i];
 }
 
 
