@@ -15,7 +15,7 @@
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
-        <link href="../bootstrap/css/bootstrap-select.css">
+        <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
     <body>

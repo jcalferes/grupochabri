@@ -6,7 +6,7 @@ $dao = new dao();
 
 $datos = $dao->consultarListaPrecios();
 
- echo"<div class='table-responsive'><table class='table table-hover'><thead><th>% de Utilidad</th><th>Precio</th><th>alta</th><th>Tarifa</th></thead><tbody>";
+ echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th></th><th>Tarifa</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
 $valor = $rs["fusion"];
 
