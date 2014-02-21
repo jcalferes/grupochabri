@@ -38,7 +38,7 @@ $comprobante->setConIva(floatval($compbt->iva));
 $comprobante->setTotal(floatval($compbt->total));
 
 $rfc = $encabezado->getRfc();
-$valido = $dao->validarExistenciaProductoProveedor();
+$valido = $dao->validarExistenciaProductoProveedor($rfc);
 $validaCodigo = 1;
 $recchazaCodigo = 0;
 foreach ($conceptos as $concepto) {
@@ -62,15 +62,23 @@ $idEncabezado = $dao->guardarEncabezado($encabezado, $lafecha);
 $idComprobante = $dao->guardarComprobante($encabezado, $comprobante, $lafecha);
 
 $control = count($conceptos);
-
+$cpto = new Concepto();
 for ($i = 0; $i < $control; $i++) {
     $detalle = $arrayDetalleEntrada[$i];
     $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
     if ($controlDetalle == false) {
-        
+        echo 1;
+        break;
     }
-    $concepto = $conceptos[i];
+    $cpto = $conceptos[$i];
+    $cantidadExistencia = $dao->validarExistenciaProductoExistencia($cpto);
+    if ($cantidadExistencia == null) {
+        echo 1;
+        break;
+    }
 }
+
+
 
 
 

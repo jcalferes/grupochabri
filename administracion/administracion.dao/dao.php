@@ -508,10 +508,10 @@ class dao {
     }
 
 //===================Para guardar XMl entrada===================================
-    function validarExistenciaProductoProveedor() {
+    function validarExistenciaProductoProveedor($rfc) {
         $sql = "SELECT producto, codigoProducto FROM productos p"
                 . " INNER JOIN proveedores pr"
-                . " WHERE pr.rfc = 'AAMG670310LV1'";
+                . " WHERE pr.rfc = '$rfc'";
         $valor = mysql_query($sql);
         return $valor;
     }
@@ -540,7 +540,7 @@ class dao {
 
     function guardarComprobante(Encabezado $ecbz, Comprobante $cpbt, $lafecha) {
         $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
-                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','". $cpbt->getDescuentoProntoPago() ."','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
+                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','" . $cpbt->getDescuentoProntoPago() . "','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
         $control1 = mysql_query($sql);
@@ -563,6 +563,7 @@ class dao {
     function guardarDetalle(Detalle $d, $idEncabezado) {
         $sql = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
                 . "VALUES ('" . $d->getUnidadmedida() . "','" . $d->getImporte() . "','" . $d->getCantidad() . "','" . $d->getCodigo() . "','" . $d->getDescripcion() . "','" . $d->getCosto() . "','$idEncabezado')";
+        mysql_query("START TRANSACTION;");
         $control = mysql_query($sql);
         if ($control == false) {
             mysql_query("ROLLBACK;");
@@ -570,6 +571,27 @@ class dao {
             mysql_query("COMMIT;");
         }
         return $control;
+    }
+
+    function validarExistenciaProductoExistencia($cpto) {
+        $cantidad = 0;
+        $sql = "SELECT cantidad FROM existencias"
+                . " WHERE codigoProducto = 'xcd'";
+        mysql_query("START TRANSACTION;");
+        $control = mysql_query($sql);
+        if ($control == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            while ($rs = mysql_fetch_array($control)) {
+                $cantidad = $rs["cantidad"];
+            }
+            mysql_query("COMMIT;");
+        }
+        return $cantidad;
+    }
+
+    function actulizaExistencias() {
+        
     }
 
 }
