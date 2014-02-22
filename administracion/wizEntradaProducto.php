@@ -86,7 +86,13 @@
                         </span> 
                     </div>
                 </div>
-                <br>
+                <br/>
+                <br/>
+                <div class="checkbox" style="margin-left: 15px">
+                    <label>
+                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura
+                    </label>
+                </div>
                 <br>
                 <br>
                 <table class="table table-hover" id="tablaDatosEntrada">
