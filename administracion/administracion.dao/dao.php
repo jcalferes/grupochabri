@@ -576,7 +576,7 @@ class dao {
     function validarExistenciaProductoExistencia($cpto) {
         $cantidad = 0;
         $sql = "SELECT cantidad FROM existencias"
-                . " WHERE codigoProducto = 'xcd'";
+                . " WHERE codigoProducto = '$cpto->codigo'";
         mysql_query("START TRANSACTION;");
         $control = mysql_query($sql);
         if ($control == false) {
@@ -590,8 +590,16 @@ class dao {
         return $cantidad;
     }
 
-    function actulizaExistencias() {
-        
+    function actulizaExistencias($cpto, $nuevacantidad) {
+        $sql = "UPDATE existencias SET cantidad = '$nuevacantidad'"
+                . " WHERE codigoProducto = '$cpto->codigo'";
+        mysql_query("START TRANSACTION;");
+        $control = mysql_query($sql);
+        if ($control == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            mysql_query("COMMIT;");
+        }
     }
 
 }

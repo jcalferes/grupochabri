@@ -75,6 +75,10 @@ for ($i = 0; $i < $control; $i++) {
     if ($cantidadExistencia == null) {
         echo 1;
         break;
+    } else {
+        $cantidadXml = $detalle->getCantidad();
+        $nuevacantidad = $cantidadXml + $cantidadExistencia;
+        $dao->actulizaExistencias($cpto, $nuevacantidad);
     }
 }
 
