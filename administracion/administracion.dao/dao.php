@@ -565,7 +565,49 @@ class dao {
 //                mysql_query("COMMIT;");
             }
             //Terminar validar producto en existencia
-            ////Variables necesarias: $cantidad
+            //Variables necesarias: $cantidad
+            //==================================================================
+            //Comienza actulizar costo
+            $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
+                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1'";
+            $ctrlTraerCosto = mysql_query($sqlTraerCosto);
+            if ($ctrlTraerCosto == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlTraerCosto)) {
+                    $costoViejo = $rs["costo"];
+                    $idDondeSalioCosto = $rs["idCosto"];
+                }
+//                mysql_query("COMMIT;");
+            }
+            if ($costoViejo != $cpto->cda) {
+                $costoCalculo = $costoViejo + $cpto->cda;
+                $cantidadCalculo = $cantidad + $detalle->getCantidad();
+
+                $costoPromedio = $costoCalculo / $cantidadCalculo;
+
+                $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status)"
+                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1')";
+                $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
+                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto'";
+                $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
+                if ($ctrlInsertaNuevoCosto == false) {
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    $ctrlActulizarViejoCosto = mysql_query($sqlActulizarViejoCosto);
+                    if ($ctrlActulizarViejoCosto == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        
+                    }
+                }
+            } else {
+                
+            }
+            //Terminar actulizar costo
             //==================================================================
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
@@ -590,14 +632,15 @@ class dao {
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
-                mysql_query("COMMIT;");
+//                mysql_query("COMMIT;");
             }
             //Terminar guardar entrada
-            //==================================================================
         }//Cierre FOR
     }
 
 //Cierre de la funcion
     //==============================================================================
-}//Cierre DAO
+}
+
+//Cierre DAO
 ?>
