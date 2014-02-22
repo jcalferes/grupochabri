@@ -424,41 +424,6 @@ class dao {
         return $rs;
     }
 
-//================================Joel comento esto=============================
-//    function guardaEncabezado(Encabezado $t) {
-//        include_once '../daoconexion/daoConeccion.php';
-//        $cn = new coneccion();
-//        $sql = "INSERT INTO facturaEncabezados (folioEncabezado, fechaEncabezado,subtotalEncabezado, totalEncabezado, rfcEncabezado, nombreEncabezado, calleEncabezado, cpEncabezado, noEncabezado, estadoEncabezado, ciudadEncabezado, coloniaEncabezado) VALUES ('" . $t->getFolio() . "','" . $t->getFecha() . "','" . $t->getSubtotal() . "','" . $t->getTotal() . "','" . $t->getRfc() . "','" . $t->getNombre() . "','" . $t->getCalle() . "','" . $t->getCp() . "','" . $t->getNo() . "','" . $t->getEstado() . "','" . $t->getCiudad() . "','" . $t->getColonia() . "')";
-//        $sql2 = "SELECT LAST_INSERT_ID() ID;";
-//        mysql_query($sql, $cn->Conectarse());
-//        $dato = mysql_query($sql2, $cn->Conectarse());
-//        while ($rs = mysql_fetch_array($dato)) {
-//            $id = $rs["ID"];
-//        }
-//        $cn->cerrarBd();
-//        return $id;
-//    }
-//    function guardaDetalle(Detalle $t, $id) {
-//        try {
-//            $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $t->getUnidadmedida() . "','" . $t->getSubtotal() . "','" . $t->getCantidad() . "','" . $t->getId() . "' ,'" . $t->getNombre() . "','" . $t->getPreciounitario() . "',$id)";
-//            $c = mysql_query($sql);
-//           if ($c == false) {
-//                $error = mysql_error();
-//            }
-//        } catch (SQLException $x) {
-//            $x->getMessage();
-//        }
-//
-//        return $error;
-//    }
-//    function guardaDetalleEntrada($sql) {
-//        $c = mysql_query($sql);
-//        if ($c == false) {
-//            $error = mysql_error();
-//        }
-//        return $error;
-//    }
-//==============================================================================
     function guardarEntradas(Entradas $entradas) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -516,93 +481,104 @@ class dao {
         return $valor;
     }
 
-    function guardarEncabezado(Encabezado $ecbz, $lafecha) {
-        $sql = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
-                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $ecbz->getTotal() . "','" . $ecbz->getRfc() . "','" . $ecbz->getFolio() . "','$lafecha')";
-        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control) {
+        $detalle = new Detalle();
+        $concepto = new Concepto();
+        //======================================================================
+        //Empieza guardar encabezado
+        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha')";
+        $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
-        $control1 = mysql_query($sql);
-        if ($control1 == false) {
+        $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
+        if ($ctrlEnzabezadoGuardar == false) {
             mysql_query("ROLLBACK;");
+            return false;
         } else {
-            $control2 = mysql_query($sql2);
-            if ($control2 == false) {
+            $ctrlEncabezadoId = mysql_query($sqlEncabezadoId);
+            if ($ctrlEncabezadoId == false) {
                 mysql_query("ROLLBACK;");
+                return false;
             } else {
-                while ($rs = mysql_fetch_array($control2)) {
-                    $id = $rs["ID"];
+                while ($rs = mysql_fetch_array($ctrlEncabezadoId)) {
+                    $idEncabezado = $rs["ID"];
                 }
                 mysql_query("COMMIT;");
             }
         }
-        return $id;
-    }
-
-    function guardarComprobante(Encabezado $ecbz, Comprobante $cpbt, $lafecha) {
-        $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
-                . " VALUES ('" . $ecbz->getFecha() . "','" . $ecbz->getSubtotal() . "','" . $cpbt->getSda() . "','" . $ecbz->getRfc() . "','" . $cpbt->getDescuentoFactura() . "','" . $cpbt->getDescuentoProntoPago() . "','" . $cpbt->getDescuentoGeneral() . "','" . $cpbt->getDescuentoPorProducto() . "','" . $cpbt->getDescuentoTotal() . "','" . $cpbt->getConIva() . "','" . $cpbt->getTotal() . "','" . $ecbz->getFolio() . "','XML','$lafecha')";
-        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        //Terminar guardar encabezado
+        //Variables necesarias: $idEncabezado
+        //======================================================================
+        //Empieza guardar comprobante
+        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','XML','$lafecha')"; //Forzado TIPO
+        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
-        $control1 = mysql_query($sql);
-        if ($control1 == false) {
+        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
+        if ($ctrlComprobanteGuardar == false) {
             mysql_query("ROLLBACK;");
+            return false;
         } else {
-            $control2 = mysql_query($sql2);
-            if ($control2 == false) {
+            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
+            if ($ctrlComprobanteId == false) {
                 mysql_query("ROLLBACK;");
+                return false;
             } else {
-                while ($rs = mysql_fetch_array($control2)) {
-                    $id = $rs["ID"];
+                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
+                    $idComprobante = $rs["ID"];
                 }
                 mysql_query("COMMIT;");
             }
         }
-        return $id;
-    }
-
-    function guardarDetalle(Detalle $d, $idEncabezado) {
-        $sql = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
-                . "VALUES ('" . $d->getUnidadmedida() . "','" . $d->getImporte() . "','" . $d->getCantidad() . "','" . $d->getCodigo() . "','" . $d->getDescripcion() . "','" . $d->getCosto() . "','$idEncabezado')";
-        mysql_query("START TRANSACTION;");
-        $control = mysql_query($sql);
-        if ($control == false) {
-            mysql_query("ROLLBACK;");
-        } else {
-            mysql_query("COMMIT;");
-        }
-        return $control;
-    }
-
-    function validarExistenciaProductoExistencia($cpto) {
-        $cantidad = 0;
-        $sql = "SELECT cantidad FROM existencias"
-                . " WHERE codigoProducto = '$cpto->codigo'";
-        mysql_query("START TRANSACTION;");
-        $control = mysql_query($sql);
-        if ($control == false) {
-            mysql_query("ROLLBACK;");
-        } else {
-            while ($rs = mysql_fetch_array($control)) {
-                $cantidad = $rs["cantidad"];
+        //Terminar guardar comprobante
+        //Variables necesarias: $idComprobante
+        //======================================================================
+        for ($i = 0; $i < $control; $i++) {
+            //Comienza guardar detalle
+            $detalle = $arrayDetalleEntrada[$i];
+            $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
+                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
+            mysql_query("START TRANSACTION;");
+            $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
+            if ($ctrlDetalleGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                mysql_query("COMMIT;");
             }
-            mysql_query("COMMIT;");
-        }
-        return $cantidad;
-    }
-
-    function actulizaExistencias($cpto, $nuevacantidad) {
-        $sql = "UPDATE existencias SET cantidad = '$nuevacantidad'"
-                . " WHERE codigoProducto = '$cpto->codigo'";
-        mysql_query("START TRANSACTION;");
-        $control = mysql_query($sql);
-        if ($control == false) {
-            mysql_query("ROLLBACK;");
-        } else {
-            mysql_query("COMMIT;");
-        }
-    }
-
-}
-
-//==============================================================================
+            //Terminar guardar detalle
+            //Comienza validar producto en existencia
+            $cantidad = 0;
+            $cpto = $conceptos[$i];
+            $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
+                    . " WHERE codigoProducto = '$cpto->codigo'";
+            mysql_query("START TRANSACTION;");
+            $control = mysql_query($sqlConceptoValidarExistencia);
+            if ($control == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($control)) {
+                    $cantidad = $rs["cantidad"];
+                }
+                mysql_query("COMMIT;");
+            }
+            //Terminar validar producto en existencia
+            ////Variables necesarias: $cantidad
+            //Comienza Actulizar existencia
+            $nuevacantidad = $cantidad + $detalle->getCantidad();
+            $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
+                    . " WHERE codigoProducto = '$cpto->codigo'";
+            mysql_query("START TRANSACTION;");
+            $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
+            if ($control == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                mysql_query("COMMIT;");
+            }
+        }//Cierre FOR
+    }//Cierre de la funcion
+    //==============================================================================
+}//Cierre DAO
 ?>
