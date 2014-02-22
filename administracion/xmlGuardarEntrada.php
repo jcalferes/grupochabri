@@ -2,6 +2,8 @@
 
 include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
+include './administracion.clases/Comprobante.php';
+include './administracion.clases/Concepto.php';
 include './administracion.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
@@ -9,24 +11,94 @@ session_start();
 
 $detalle = new Detalle();
 $encabezado = new Encabezado();
+$comprobante = new Comprobante();
+$concepto = new Concepto();
+
 $utilerias = new Utilerias();
 $dao = new dao();
 $cn = new coneccion();
+$cn->Conectarse();
 
 $lafecha = $utilerias->generarFecha();
 
-$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
+$encabezado = $_SESSION['objEncabezadoEntrada'];
 $arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
 
 $datos = json_decode($_POST['datos']);
-$comprobante = $datos[0];
-$conceptos = $datos[1];
+$compbt = $datos[1];
+$conceptos = $datos[0];
 
-echo 'prr';
+$comprobante->setDescuentoFactura(floatval($compbt->desctFactura));
+$comprobante->setDescuentoProntoPago(floatval($compbt->desctProntoPago));
+$comprobante->setDescuentoGeneral(floatval($compbt->desctGeneral));
+$comprobante->setDescuentoPorProducto(floatval($compbt->desctPorProductos));
+$comprobante->setDescuentoTotal(floatval($compbt->desctTotal));
+$comprobante->setSda(floatval($compbt->sda));
+$comprobante->setConIva(floatval($compbt->iva));
+$comprobante->setTotal(floatval($compbt->total));
+
+$rfc = $encabezado->getRfc();
+$valido = $dao->validarExistenciaProductoProveedor($rfc);
+$validaCodigo = 1;
+$recchazaCodigo = 0;
+foreach ($conceptos as $concepto) {
+    $ads = $concepto->codigo;
+    while ($rs = mysql_fetch_array($valido)) {
+        if ($ads != $rs['codigoProducto']) {
+            $rechazaCodigo = $concepto->codigo;
+        } else {
+            $validaCodigo = 0;
+        }
+    }
+    mysql_data_seek($valido, 0);
+
+    if ($validaCodigo != 0) {
+        echo $rechazaCodigo;
+        return false;
+    }
+}
+
+$idEncabezado = $dao->guardarEncabezado($encabezado, $lafecha);
+$idComprobante = $dao->guardarComprobante($encabezado, $comprobante, $lafecha);
+
+$control = count($conceptos);
+$cpto = new Concepto();
+for ($i = 0; $i < $control; $i++) {
+    $detalle = $arrayDetalleEntrada[$i];
+    $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
+    if ($controlDetalle == false) {
+        echo 1;
+        break;
+    }
+    $cpto = $conceptos[$i];
+    $cantidadExistencia = $dao->validarExistenciaProductoExistencia($cpto);
+    if ($cantidadExistencia == null) {
+        echo 1;
+        break;
+    } else {
+        $cantidadXml = $detalle->getCantidad();
+        $nuevacantidad = $cantidadXml + $cantidadExistencia;
+        $dao->actulizaExistencias($cpto, $nuevacantidad);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
 //$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);
-
 //$arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
 //$datos = json_decode($_POST['datos']);
 //$control = count($datos);
@@ -46,4 +118,4 @@ echo 'prr';
 //    $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $unidadmedida . "','" . $subtotal . "','" . $cantidad . "','" . $id . "' ,'" . $nombre . "','" . $preciounit . "', '" . $idencabezado . "')";
 //    $dao->guardaDetalleEntrada($sql);
 //}
-
+?>

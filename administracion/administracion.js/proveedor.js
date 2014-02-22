@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $("#consultaProveedor").load("consultarProveedor.php");
+    $("#consultaProveedor").load("consultarProveedor.php", function(){
+        $('#dtproveedor').dataTable();
+    });
     $(function() {
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
         $('#txtdiascredito').validCampoFranz('0123456789');

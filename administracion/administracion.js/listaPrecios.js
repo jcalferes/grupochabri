@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $("#consultaListaPrecio").load("consultarListaPrecio.php");
+    $("#consultaListaPrecio").load("consultarListaPrecio.php", function(){
+        $('#dtlistaprecios').dataTable();
+    });
     $("#btnguardarLista").click(function() {
         var nombrelista = $("#txtnombrelista").val();
         if (nombrelista == "" || /^\s+$/.test(nombrelista)) {
@@ -17,6 +19,7 @@ $(document).ready(function() {
                 }
                 if (control == 1) {
                     $("#consultaListaPrecio").load("consultarListaPrecio.php");
+                    $("#txtnombrelista").val("");
                     alertify.success("Lista agregada correctamente");
                     return false;
                 }

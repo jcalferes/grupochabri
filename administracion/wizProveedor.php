@@ -11,6 +11,10 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+                     <div class="form-group">
+                        <label>RFC:</label>
+                        <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
+                    </div>
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
@@ -18,10 +22,6 @@
                     <div class="form-group">
                         <label>Direccion:</label>
                         <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
-                    </div>
-                    <div class="form-group">
-                        <label>RFC:</label>
-                        <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
                     </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>

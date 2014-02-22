@@ -13,13 +13,13 @@
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
-                            <div class="form-group"  >
-                                <label>Nombre:</label>
-                                <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto" onpaste="return false" >
-                            </div>
                             <div class="form-group">
                                 <label>Codigo Producto</label>
-                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto" onpaste="return false">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
+                            </div>
+                            <div class="form-group"  >
+                                <label>Nombre:</label>
+                                <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto">
                             </div>
                             <div class="form-group">
                                 <label>Unidad De Medida:</label><br/>
@@ -32,7 +32,7 @@
                             <div class="form-group">
 
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-inline">
                                 <label>Grupo de producto:</label><br/>
                                 <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                 </select>
@@ -44,13 +44,13 @@
                                 <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeypress="return NumCheck(event, this);" onpaste="return false">
                             </div>
                             <div class="form-group">
-                                <div class="form-group">
+                                <div class="form-group form-inline">
                                     <label>Marca:</label><br>
                                     <select id="selectMarca" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
                                     <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group form-inline">
                                     <label>Proveedor:</label><br>
                                     <select id="selectProveedor" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
@@ -238,33 +238,33 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" ">
-                       
+
                         <h4 class="modal-title" id="labelTitulo">Tarifas</h4>
                     </div>
                     <form>
                         <div class="modal-body">
                             <div class="form-group">
                                 <div id="mostrarListaPreciosTarifa">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>
-                            <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                            <input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>
-                        </div>
+                            <div class="modal-footer">
+                                <input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>
+                                <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                                <input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>
+                            </div>
                     </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        </div>
-        <script src="../administracion/administracion.js/controlWizard.js"></script>
-        <script src="../administracion/administracion.js/grupoProducto.js"></script>
-        <script src="../utilerias/validCampoFranz.js"></script>
-        <script src="../administracion/administracion.js/producto.js"></script>
-        <script src="../administracion/administracion.js/marca.js"></script>
-        <script src="../administracion/administracion.js/proveedor.js"></script>
-        <script src="../administracion/administracion.js/direccion.js"></script>
-        <script src="../administracion/administracion.js/tarifas.js"></script>
+    </div>
+    <script src="../administracion/administracion.js/controlWizard.js"></script>
+    <script src="../administracion/administracion.js/grupoProducto.js"></script>
+    <script src="../utilerias/validCampoFranz.js"></script>
+    <script src="../administracion/administracion.js/producto.js"></script>
+    <script src="../administracion/administracion.js/marca.js"></script>
+    <script src="../administracion/administracion.js/proveedor.js"></script>
+    <script src="../administracion/administracion.js/direccion.js"></script>
+    <script src="../administracion/administracion.js/tarifas.js"></script>
 <!--        <script src="../administracion/administracion.js/selectPickers.js"></script>-->
-    </body>
+</body>
 </html>

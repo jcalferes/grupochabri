@@ -7,7 +7,6 @@ function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProduc
     this.sda = sda;
     this.iva = iva;
     this.total = total;
-
 }
 
 function Concepto(importe, codigo, cda, desctuno, desctdos) {
@@ -128,17 +127,14 @@ function calculaPP() {
     var porcentajepp = 0;
 
     if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//        alert('Si hay valor den DESCTPF');
 
         var porcentajepf = $("#descuentoFactura").val();
         var calculadesctpf = (porcentajepf * subtotal) / 100;
         var totalpf = subtotal - calculadesctpf;
 
         var subtotalcondesctpf = totalpf;
-//        alert('Subtotal con Desct.PF aplicado: ' + subtotalcondesctpf);
 
         var txtdesctgeneral = calculadesctpf;
-//        alert('Cantidad en la casilla Desct. General: ' + txtdesctgeneral);
         if (descuentopp === "" || /^\s+$/.test(descuentopp)) {
             porcentajepp = 0;
             $("#descuentoProntoPago").val("");
@@ -149,12 +145,9 @@ function calculaPP() {
                 porcentajepp = 0;
             }
         }
-//        alert('Porcentage con el que voy a calcular: ' + porcentajepp);
 
         var calculadesctpp = (porcentajepp * subtotalcondesctpf) / 100;
-//        alert('Cantidad a descontar del subtotal y con Desct.PF: ' + calculadesctpp);
         var totalpp = subtotalcondesctpf - calculadesctpp;
-//        alert('Nuevo subtotal: ' + totalpp);
         $("#subtotal").val(totalpp.toFixed(2));
 
         var nuevoconiva = totalpp * 0.16;
@@ -165,7 +158,6 @@ function calculaPP() {
         $("#total").val(nuevototal.toFixed(2));
 
         var nuevodesctgeneral = txtdesctgeneral + calculadesctpp;
-//        alert('Nuevo descuento genral: ' + nuevodesctgeneral);
         $("#descuentogeneral").val(nuevodesctgeneral.toFixed(2));
 
         var desctpf = parseFloat($("#descuentogeneral").val());
@@ -257,36 +249,6 @@ function calculaTotales() {
         var calculandosubtotal = parseFloat($("#importe" + n + "").val());
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
-
-//    var desctpp = parseFloat($("#descuentoProntoPago").val());
-//    var desctff = parseFloat($("#descuentoFactura").val());
-//
-//    if (desctpp === "" || /^\s+$/.test(desctpp) || desctpp === 0) {
-//        var reglapp = 0;
-//    } else {
-//        if ($("#descuentoProntoPago").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//            var reglapp = (desctpp * nuevosubtotal) / 100;
-//        } else {
-//            var reglapp = 0;
-//        }
-//    }
-//    alert(reglapp);
-//
-//    if (desctff === "" || /^\s+$/.test(desctff) || desctff === 0) {
-//        var reglaff = 0;
-//    } else {
-//        if ($("#descuentoFactura").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
-//            var reglaff = (desctff * nuevosubtotal) / 100;
-//        } else {
-//            var reglaff = 0;
-//        }
-//    }
-//    alert(reglaff);
-//
-//    var totaldesctgeneral = reglapp + reglaff;
-//    alert(totaldesctgeneral);
-//    $("#descuentogeneral").val(totaldesctgeneral.toFixed(2));
-
 
     var nuevoconiva = nuevosubtotal * 0.16;
     var nuevototal = nuevosubtotal + nuevoconiva;
@@ -467,7 +429,7 @@ $("#validarentrada").click(function() {
     var iva = $("#coniva").val();
     var total = $("#total").val();
 
-    alertify.alert('Todo bien');
+//    alertify.alert('Todo bien');
     var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
     datos.push(conceptos);
@@ -476,7 +438,14 @@ $("#validarentrada").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-        console.log(respuesta);
+        if (respuesta == 1) {
+            alertify.success("Algo mal");
+        }
+        if (respuesta == 0) {
+            alertify.success("Todo bien");
+        } else {
+            alertify.error("El prodcuto con codigo: " + respuesta + " no se encuentra en el inventario o no esta asignado a este proveedor");
+        }
     }).error(function() {
         console.log('Error al ejecutar la petición');
     });
