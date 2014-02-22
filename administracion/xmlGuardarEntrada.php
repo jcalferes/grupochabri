@@ -58,64 +58,29 @@ foreach ($conceptos as $concepto) {
     }
 }
 
-$idEncabezado = $dao->guardarEncabezado($encabezado, $lafecha);
-$idComprobante = $dao->guardarComprobante($encabezado, $comprobante, $lafecha);
-
 $control = count($conceptos);
-$cpto = new Concepto();
-for ($i = 0; $i < $control; $i++) {
-    $detalle = $arrayDetalleEntrada[$i];
-    $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
-    if ($controlDetalle == false) {
-        echo 1;
-        break;
-    }
-    $cpto = $conceptos[$i];
-    $cantidadExistencia = $dao->validarExistenciaProductoExistencia($cpto);
-    if ($cantidadExistencia == null) {
-        echo 1;
-        break;
-    } else {
-        $cantidadXml = $detalle->getCantidad();
-        $nuevacantidad = $cantidadXml + $cantidadExistencia;
-        $dao->actulizaExistencias($cpto, $nuevacantidad);
-    }
-}
+$dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//$encabezadoEntrada = $_SESSION['objEncabezadoEntrada'];
-//$idcabeza = $dao->guardaEncabezado($encabezadoEntrada);
-//$arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
-//$datos = json_decode($_POST['datos']);
-//$control = count($datos);
-//$cn->Conectarse();
+//$cpto = new Concepto();
 //for ($i = 0; $i < $control; $i++) {
 //    $detalle = $arrayDetalleEntrada[$i];
-//
-//
-//    $unidadmedida = $detalle->getUnidadmedida();
-//    $subtotal = $detalle->getSubtotal();
-//    $cantidad = $detalle->getCantidad();
-//    $id = $datos[$i]->ident;
-//    $nombre = $detalle->getNombre();
-//    $preciounit = $datos[$i]->coda;
-//    $idencabezado = $idcabeza;
-//
-//    $sql = "INSERT INTO facturaDetalles (unidadMedidaDetalle, subtotalDetalle, cantidadDetalle, idDetalle, nombreDetalle, precioUnitarioDetalle, idFacturaEncabezados) VALUES ('" . $unidadmedida . "','" . $subtotal . "','" . $cantidad . "','" . $id . "' ,'" . $nombre . "','" . $preciounit . "', '" . $idencabezado . "')";
-//    $dao->guardaDetalleEntrada($sql);
+//    $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
+//    if ($controlDetalle == false) {
+//        echo 1;
+//        break;
+//    }
+//    $cpto = $conceptos[$i];
+//    $cantidadExistencia = $dao->validarExistenciaProductoExistencia($cpto);
+//    if ($cantidadExistencia == null) {
+//        echo 1;
+//        break;
+//    } else {
+//        $cantidadXml = $detalle->getCantidad();
+//        $nuevacantidad = $cantidadXml + $cantidadExistencia;
+//        $dao->actulizaExistencias($cpto, $nuevacantidad);
+//    }
 //}
 ?>
