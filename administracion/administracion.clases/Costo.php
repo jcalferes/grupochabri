@@ -14,9 +14,18 @@
 class Costo {
     private $idCosto;
     private $costo;
+    private $folioProducto;
     private $idProducto;
     
-    public function getIdCosto() {
+    public function getFolioProducto() {
+        return $this->folioProducto;
+    }
+
+    public function setFolioProducto($folioProducto) {
+        $this->folioProducto = $folioProducto;
+    }
+
+        public function getIdCosto() {
         return $this->idCosto;
     }
 

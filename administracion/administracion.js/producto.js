@@ -18,26 +18,61 @@ function NumCheck(e, field, tarifa) {
     return false
 }
 function tester(valor) {
-
+    var costo = document.getElementById("txtCostoProducto").value;
     if ($("#check" + valor).is(':checked')) {
         $("#texto" + valor).attr("disabled", false);
-
+        $("#texto" + valor).val(0);
+        $("#tarifa" + valor).val(costo);
     } else {
         $("#texto" + valor).attr("disabled", true);
+        $("#tarifa" + valor).val("");
         $("#texto" + valor).val("");
     }
 
 }
+function obtenerUtilidadCosto() {
+   
+    var costo = document.getElementById("txtCostoProducto").value;
+    $("#tablaListaPrecios").find(':checked').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        
+        var uti = $("#texto" + valor).val();
+        
+        uti = uti / 100;
+       
+        if (uti <= 0) {
+
+            var resultado = costo;
+           
+            $("#tarifa" + valor).val(resultado);
+            
+        } else {
+            var resultado = costo * uti;
+            resultado = parseFloat(resultado) + parseFloat(costo);
+            
+            $("#tarifa" + valor).val(resultado);
+            
+        }
+
+
+
+
+
+    });
+
+}
 function obtenerUtilidad(utilidad) {
-    alert(utilidad);
-     var costo=document.getElementById("txtCostoProducto").value;
-     alert(costo);
-   var utilidad = $("#texto" + utilidad).val();
-   utilidad = utilidad /100;
-   alert(utilidad);
-   var tarifa = costo * utilidad;
-   alert(tarifa);
-   $("#tarifa" + utilidad).attr("disabled", true);
+    
+    var costo = document.getElementById("txtCostoProducto").value;
+    
+    var utilidades = $("#texto" + utilidad).val();
+    utilidades = utilidades / 100;
+   
+    var tarifa = costo * utilidades;
+    tarifa = parseFloat(costo) + parseFloat(tarifa);
+    
+    $("#tarifa" + utilidad).val(tarifa);
 
 }
 $(document).ready(function() {
@@ -92,10 +127,12 @@ $(document).ready(function() {
         var costoProducto = $("#txtCostoProducto").val();
         var min = $("#txtCantidadMinima").val();
         var max = $("#txtCantidadMaxima").val();
-        var listaCalificaciones = new Array();
+        var folio = $("#txtFolioProducto").val();
+        var listaPrecios = new Array();
+        var listaTarifas = new Array();
 ////////////////////////////////////////////////probando
 
-       
+
 
         $("#tablaListaPrecios").find('.producto').each(function() {
             var elemento = this;
@@ -110,8 +147,8 @@ $(document).ready(function() {
 
                         var algo = valor + "-" + nombre;
 
-                        listaCalificaciones.push(algo);
-                        lista = JSON.stringify(listaCalificaciones);
+                        listaPrecios.push(algo);
+                        lista = JSON.stringify(listaPrecios);
                         valor = "";
                         nombre = "";
 
@@ -131,39 +168,47 @@ $(document).ready(function() {
             }
         });
 
+
+
+
+
+
         ////////////////////////////////////////////////probando
 
-        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined) {
+        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && folio !== "") {
 
+            if (min < max) {
 
-
-            var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max;
-            $.get('guardarProducto.php', info, function(x) {
-                alert(x);
-                if (x >= 1) {
-                    $("#consultaProducto").load("consultarProducto.php", function() {
-                        $("#tdProducto").dataTable();
-                    });
-                    $("#txtNombreProducto").val("");
-                    $("#txtCodigoProducto").val("");
-                    $('#selectMarca').selectpicker('val', 0);
-                    $('#selectProveedor').selectpicker('val', 0);
-                    $('#selectGrupo').selectpicker('val', 0);
-                    $('#selectMedida').selectpicker('val', 0);
-                    $("#txtCostoProducto").val("");
-                    $("#txtCantidadMinima").val("");
-                    $("#txtCantidadMaxima").val("");
-                    $(".producto").val("");
-                    $(".producto").attr("disabled", true);
-                    $(".checando").attr("checked", false);
-                    $("#selectProducto").load("obtenerProductos.php");
-                    alertify.success("Producto agregada correctamente");
-                    return false;
-                } else {
-                    alertify.error("el codigo ya existe");
-                }
-            });
-
+                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&folio=" + folio;
+                $.get('guardarProducto.php', info, function(x) {
+                   alertify.success(x);
+                    if (x >= 1) {
+                        $("#consultaProducto").load("consultarProducto.php", function() {
+                            $("#tdProducto").dataTable();
+                        });
+                        $("#txtNombreProducto").val("");
+                        $("#txtCodigoProducto").val("");
+                        $('#selectMarca').selectpicker('val', 0);
+                        $('#selectProveedor').selectpicker('val', 0);
+                        $('#selectGrupo').selectpicker('val', 0);
+                        $('#selectMedida').selectpicker('val', 0);
+                        $("#txtCostoProducto").val("");
+                        $("#txtCantidadMinima").val("");
+                        $("#txtCantidadMaxima").val("");
+                        $("#txtFolioProducto").val("");
+                        $(".producto").val("");
+                        $(".producto").attr("disabled", true);
+                        $(".checando").attr("checked", false);
+                        $("#selectProducto").load("obtenerProductos.php");
+                        alertify.success("Producto agregada correctamente");
+                        return false;
+                    } else {
+                        alertify.error("el codigo ya existe");
+                    }
+                });
+            } else {
+                alertify.error("la cantidad maxima debe ser mayor a la minima");
+            }
         } else {
             alertify.error("todos los campos deben tener valor");
         }
