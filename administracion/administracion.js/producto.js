@@ -77,6 +77,7 @@ function obtenerUtilidad(utilidad) {
 }
 $(document).ready(function() {
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
     $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;

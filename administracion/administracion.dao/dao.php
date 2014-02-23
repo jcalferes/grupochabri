@@ -84,8 +84,12 @@ class dao {
         $sql = "SELECT codigoProducto, cantidad FROM existencias";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
-
+$revisar= mysql_affected_rows();
+if($revisar>0){
         return $datos;
+}else{
+    return 0;
+}
     }
 
     function guardarEntradaProducto($cantidad, $idProducto, $existencia) {
@@ -289,7 +293,7 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto, c.folioProducto,c.fechaMovimiento \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
