@@ -77,7 +77,7 @@ function obtenerUtilidad(utilidad) {
 }
 $(document).ready(function() {
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+//     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
     $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
@@ -128,7 +128,9 @@ $(document).ready(function() {
         var costoProducto = $("#txtCostoProducto").val();
         var min = $("#txtCantidadMinima").val();
         var max = $("#txtCantidadMaxima").val();
-        var folio = $("#txtFolioProducto").val();
+        var unidadMedida = $("#selectMedida").val();
+        var grupoProducto = $("#selectGrupo").val();
+//        var folio = $("#txtFolioProducto").val();
         var listaPrecios = new Array();
         var listaTarifas = new Array();
 ////////////////////////////////////////////////probando
@@ -176,11 +178,11 @@ $(document).ready(function() {
 
         ////////////////////////////////////////////////probando
 
-        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && folio !== "") {
+        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
             if (min < max) {
 
-                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&folio=" + folio;
+                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" +grupoProducto + "&unidadMedida=" +unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
                    alertify.success(x);
                     if (x >= 1) {
@@ -196,7 +198,7 @@ $(document).ready(function() {
                         $("#txtCostoProducto").val("");
                         $("#txtCantidadMinima").val("");
                         $("#txtCantidadMaxima").val("");
-                        $("#txtFolioProducto").val("");
+//                        $("#txtFolioProducto").val("");
                         $(".producto").val("");
                         $(".producto").attr("disabled", true);
                         $(".checando").attr("checked", false);

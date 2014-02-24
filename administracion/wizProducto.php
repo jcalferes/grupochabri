@@ -17,10 +17,10 @@
                                 <label>Codigo Producto</label>
                                 <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
                             </div>
-                             <div class="form-group">
+<!--                             <div class="form-group">
                                 <label>Folio del producto</label>
                                 <input type="text" class="form-control valLetra" id="txtFolioProducto" placeholder="Código del Producto">
-                            </div>
+                            </div>-->
                             <div class="form-group"  >
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto">
