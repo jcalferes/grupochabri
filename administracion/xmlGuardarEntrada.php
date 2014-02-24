@@ -57,30 +57,6 @@ foreach ($conceptos as $concepto) {
         return false;
     }
 }
-
 $control = count($conceptos);
 $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
-
-
-
-
-//$cpto = new Concepto();
-//for ($i = 0; $i < $control; $i++) {
-//    $detalle = $arrayDetalleEntrada[$i];
-//    $controlDetalle = $dao->guardarDetalle($detalle, $idEncabezado);
-//    if ($controlDetalle == false) {
-//        echo 1;
-//        break;
-//    }
-//    $cpto = $conceptos[$i];
-//    $cantidadExistencia = $dao->validarExistenciaProductoExistencia($cpto);
-//    if ($cantidadExistencia == null) {
-//        echo 1;
-//        break;
-//    } else {
-//        $cantidadXml = $detalle->getCantidad();
-//        $nuevacantidad = $cantidadXml + $cantidadExistencia;
-//        $dao->actulizaExistencias($cpto, $nuevacantidad);
-//    }
-//}
 ?>
