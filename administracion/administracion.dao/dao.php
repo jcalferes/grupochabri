@@ -222,8 +222,8 @@ class dao {
 
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
-        
-           $sql = "INSERT INTO existencias(cantidad,codigoProducto)VALUES('0','" . $p->getCodigoProducto() . "')";
+
+        $sql = "INSERT INTO existencias(cantidad,codigoProducto)VALUES('0','" . $p->getCodigoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "')";
@@ -605,7 +605,7 @@ class dao {
                 $totalViejo = $cantidad * $costoViejo;
                 $totalNuevo = $cpto->cda * $detalle->getCantidad();
 
-                $totalFinal = $totalViejo * $totalNuevo;
+                $totalFinal = $totalViejo + $totalNuevo;
                 $cantidadFinal = $cantidad + $detalle->getCantidad();
 
                 $costoPromedio = $totalFinal / $cantidadFinal;
