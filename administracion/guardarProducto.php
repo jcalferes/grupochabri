@@ -9,7 +9,8 @@ $costo = new Costo();
 $tarifa = new Tarifa();
 $dao = new dao();
 $lista = json_decode(stripslashes($_GET["lista"]));
-
+$producto->setIdUnidadMedida($_GET["unidadMedida"]);
+$producto->setIdGrupoProducto($_GET["grupoProducto"]);
 $producto->setCantidadMaxima($_GET["max"]);
 $producto->setCantidadMinima($_GET["min"]);
 $producto->setProducto($_GET["producto"]);
@@ -17,7 +18,7 @@ $producto->setIdMarca($_GET["marca"]);
 $producto->setIdProveedor($_GET["proveedor"]);
 $producto->setCodigoProducto($_GET["codigoProducto"]);
 $costo->setCosto($_GET["costoProducto"]);
-$costo->setFolioProducto($_GET["folio"]);
+//$costo->setFolioProducto($_GET["folio"]);
 $tarifa->setIdListaPrecio($lista);
 
 $datos = $dao->comprobarCodigoValido($producto);

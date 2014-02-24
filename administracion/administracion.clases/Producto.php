@@ -21,7 +21,25 @@ class Producto {
     private $codigoProducto;
     private $cantidadMaxima;
     private $cantidadMinima;
+    private $idUnidadMedida;
+    private $idGrupoProducto;
+    public function getIdUnidadMedida() {
+        return $this->idUnidadMedida;
+    }
 
+    public function getIdGrupoProducto() {
+        return $this->idGrupoProducto;
+    }
+
+    public function setIdUnidadMedida($idUnidadMedida) {
+        $this->idUnidadMedida = $idUnidadMedida;
+    }
+
+    public function setIdGrupoProducto($idGrupoProducto) {
+        $this->idGrupoProducto = $idGrupoProducto;
+    }
+
+    
     
     public function getIdProducto() {
         return $this->idProducto;

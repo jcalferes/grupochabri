@@ -222,13 +222,16 @@ class dao {
 
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
+        
+           $sql = "INSERT INTO existencias(cantidad,codigoProducto)VALUES('0','" . $p->getCodigoProducto() . "')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "')";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
         $fecha = date("d/m/Y h:i");
-        $sql = "INSERT INTO costos(costo, codigoProducto, folioProducto, fechaMovimiento)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','" . $c->getFolioProducto() . "','$fecha')";
+        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 
