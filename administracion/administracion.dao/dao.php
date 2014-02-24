@@ -298,11 +298,12 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto where status=1";
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto"
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto where status=1";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {

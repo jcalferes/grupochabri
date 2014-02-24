@@ -17,23 +17,9 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td id='$rs[marca]' >$rs[marca] </td>";
     echo"<td id='$rs[costo]' >$rs[costo] </td>";
     echo"<td id='$rs[fechaMovimiento]' >$rs[fechaMovimiento] </td>";
+    echo"<td id='$rs[cantidad]' >$rs[cantidad] </td>";
    
-    if($datos2 !== 0){
-    while ($rs2 = mysql_fetch_array($datos2)) {
-        if ($comprobar === isset($rs2['idProducto'])) {
-            if ($rs2[cantidad] !== "") {
-                echo"<td>$rs2[cantidad]</td>";
-            }
-        } else {
-            echo "<td>0</td>";
-        }
-    }
-    mysql_data_seek($datos2, 0);
-    }else{
-        echo "<td>0</td>";
-    }
     echo "<td><a onclick='gestionTarifas(" . "\"$rs[codigoProducto]\"" . "," . "\"$comillas\"" . ")' >detalles</a></td></tr>";
-    
 }
 echo"</tbody></table></div>";
 
