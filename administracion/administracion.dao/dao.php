@@ -2,6 +2,8 @@
 
 class dao {
 
+    
+            
     function comprobarCodigoValido(Producto $p) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -142,7 +144,7 @@ class dao {
     function consultaExistencia($producto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto AND idStatus = 2";
+        $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
 
@@ -296,11 +298,12 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto, c.folioProducto,c.fechaMovimiento \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto";
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto where status=1";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
