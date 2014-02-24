@@ -17,7 +17,16 @@ class Tarifa {
     private $tarifa;
     private $idProducto;
     private $idListaPrecio;
-    
+    private $porcentajeUtilidad;
+    public function getPorcentajeUtilidad() {
+        return $this->porcentajeUtilidad;
+    }
+
+    public function setPorcentajeUtilidad($porcentajeUtilidad) {
+        $this->porcentajeUtilidad = $porcentajeUtilidad;
+    }
+
+        
     public function getIdProducto() {
         return $this->idProducto;
     }

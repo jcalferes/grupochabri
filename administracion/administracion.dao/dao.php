@@ -84,8 +84,12 @@ class dao {
         $sql = "SELECT codigoProducto, cantidad FROM existencias";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
-
+$revisar= mysql_affected_rows();
+if($revisar>0){
         return $datos;
+}else{
+    return 0;
+}
     }
 
     function guardarEntradaProducto($cantidad, $idProducto, $existencia) {
@@ -209,10 +213,10 @@ class dao {
     }
 
     function guardarProducto(Producto $p, Costo $c, Tarifa $t) {
-        session_start();
+       
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-
+        $cont = 0;
         $sql = "SET AUTOCOMMIT=0;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
@@ -223,18 +227,25 @@ class dao {
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
-        $sql = "INSERT INTO costos(costo, codigoProducto)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "')";
+        $fecha = date("d/m/Y h:i");
+        $sql = "INSERT INTO costos(costo, codigoProducto, folioProducto, fechaMovimiento)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','" . $c->getFolioProducto() . "','$fecha')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 
         foreach ($lista as $valor) {
             $pieces = explode("-", $valor);
-
-            if ($pieces[0] !== " ") {
-                if ($pieces[0] !== "") {
-                    if ($pieces[0] !== null) {
-                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2')";
-                        $resultado = mysql_query($sql, $cn->Conectarse());
+            if ($cont == 0) {
+                if ($pieces[0] !== " ") {
+                    if ($pieces[0] !== "") {
+                        if ($pieces[0] !== null) {
+                            $tarifa = $pieces[0];
+                            $listaPrecio = $pieces[1];
+                            $cont = 1;
+//                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus,porcentaUtilidad)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2',2)";
+//                        $resultado = mysql_query($sql, $cn->Conectarse());
+                        } else {
+                            echo 'mal';
+                        }
                     } else {
                         echo 'mal';
                     }
@@ -242,11 +253,23 @@ class dao {
                     echo 'mal';
                 }
             } else {
-                echo 'mal';
+                if ($pieces[0] !== " ") {
+                    if ($pieces[0] !== "") {
+                        if ($pieces[0] !== null) {
+                            $sql = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','2','$pieces[0]')";
+                            $resultado = mysql_query($sql, $cn->Conectarse());
+                            $cont = 0;
+                        } else {
+                            echo 'mal';
+                        }
+                    } else {
+                        echo 'mal';
+                    }
+                } else {
+                    echo 'mal';
+                }
             }
         }
-
-
         if ($resultado) {
 
             $sql = "COMMIT";
@@ -270,7 +293,7 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto, c.folioProducto,c.fechaMovimiento \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
@@ -456,7 +479,7 @@ class dao {
     }
 
     function buscarProducto(Producto $p, $proveedor) {
-        include '../daoconexion/daoConeccion.php';
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
                inner join proveedores pr
@@ -623,5 +646,7 @@ class dao {
         }//Cierre FOR
     }//Cierre de la funcion
     //==============================================================================
-}//Cierre DAO
+}
+
+//Cierre DAO
 ?>

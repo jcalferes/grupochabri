@@ -17,6 +17,10 @@
                                 <label>Codigo Producto</label>
                                 <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
                             </div>
+                             <div class="form-group">
+                                <label>Folio del producto</label>
+                                <input type="text" class="form-control valLetra" id="txtFolioProducto" placeholder="Código del Producto">
+                            </div>
                             <div class="form-group"  >
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto">
@@ -41,7 +45,7 @@
 
                             <div class="form-group">
                                 <label>Costo Producto</label>
-                                <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeypress="return NumCheck(event, this);" onpaste="return false">
+                                <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <div class="form-group form-inline">
