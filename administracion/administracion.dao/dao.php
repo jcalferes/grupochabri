@@ -509,49 +509,31 @@ class dao {
 
     function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control) {
         $detalle = new Detalle();
-        $concepto = new Concepto();
+        $sql = "SET AUTOCOMMIT=0;";
+        $resultado = mysql_query($sql);
+        $sql = "BEGIN;";
+        $resultado = mysql_query($sql);
         //======================================================================
         //Empieza guardar encabezado
-        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
+        $sql = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
                 . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha')";
-        $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
-        mysql_query("START TRANSACTION;");
-        $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
-        if ($ctrlEnzabezadoGuardar == false) {
-            mysql_query("ROLLBACK;");
-            return false;
-        } else {
-            $ctrlEncabezadoId = mysql_query($sqlEncabezadoId);
-            if ($ctrlEncabezadoId == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($ctrlEncabezadoId)) {
-                    $idEncabezado = $rs["ID"];
-                }
-            }
+        $resultado = mysql_query($sql);
+        $sql = "SELECT LAST_INSERT_ID() ID;";
+        $resultado = mysql_query($sql);
+        while ($rs = mysql_fetch_array($resultado)) {
+            $idEncabezado = $rs["ID"];
         }
         //Terminar guardar encabezado
         //Variables necesarias: $idEncabezado
         //======================================================================
         //Empieza guardar comprobante
-        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
+        $sql = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento)"
                 . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','XML','$lafecha')"; //Forzado TIPO
-        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
-        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
-        if ($ctrlComprobanteGuardar == false) {
-            mysql_query("ROLLBACK;");
-            return false;
-        } else {
-            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
-            if ($ctrlComprobanteId == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
-                    $idComprobante = $rs["ID"];
-                }
-            }
+        $resultado = mysql_query($sql);
+        $sql = "SELECT LAST_INSERT_ID() ID;";
+        $resultado = mysql_query($sql);
+        while ($rs = mysql_fetch_array($resultado)) {
+            $idComprobante = $rs["ID"];
         }
         //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
@@ -559,46 +541,36 @@ class dao {
         for ($i = 0; $i < $control; $i++) {
             //Comienza guardar detalle
             $detalle = $arrayDetalleEntrada[$i];
-            $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
+            $sql = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
                     . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
-            $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
-            if ($ctrlDetalleGuardar == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                
-            }
+            $resultado = mysql_query($sql);
             //Terminar guardar detalle
             //==================================================================
             //Comienza validar producto en existencia
             $cantidad = 0;
             $cpto = $conceptos[$i];
-            $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
+            $sql = "SELECT cantidad FROM existencias"
                     . " WHERE codigoProducto = '$cpto->codigo'";
-            $control = mysql_query($sqlConceptoValidarExistencia);
-            if ($control == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($control)) {
-                    $cantidad = $rs["cantidad"];
-                }
+            $resultado = mysql_query($sql);
+            while ($rs = mysql_fetch_array($resultado)) {
+                $cantidad = $rs["cantidad"];
             }
             //Terminar validar producto en existencia
             //Variables necesarias: $cantidad
             //==================================================================
+            //Comienza guardar xml concepto
+            $sql = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
+            $resultado = mysql_query($sql);
+            //Terminar guardar xml concepto
+            //==================================================================
             //Comienza actulizar costo
-            $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
+            $sql = "SELECT costo, idCosto FROM costos "
                     . " WHERE codigoProducto = '$cpto->codigo' AND status = '1'";
-            $ctrlTraerCosto = mysql_query($sqlTraerCosto);
-            if ($ctrlTraerCosto == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($ctrlTraerCosto)) {
-                    $costoViejo = $rs["costo"];
-                    $idDondeSalioCosto = $rs["idCosto"];
-                }
+            $resultado = mysql_query($sql);
+            while ($rs = mysql_fetch_array($resultado)) {
+                $costoViejo = $rs["costo"];
+                $idDondeSalioCosto = $rs["idCosto"];
             }
             if ($costoViejo != $cpto->cda) {
 
@@ -610,57 +582,38 @@ class dao {
 
                 $costoPromedio = $totalFinal / $cantidadFinal;
 
-                $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status)"
+                $sql = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status)"
                         . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1')";
-                $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
+                $resultado = mysql_query($sql);
+                $sql = "UPDATE costos SET status = '2'"
                         . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto'";
-                $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
-                if ($ctrlInsertaNuevoCosto == false) {
-                    mysql_query("ROLLBACK;");
-                    return false;
-                } else {
-                    $ctrlActulizarViejoCosto = mysql_query($sqlActulizarViejoCosto);
-                    if ($ctrlActulizarViejoCosto == false) {
-                        mysql_query("ROLLBACK;");
-                        return false;
-                    }
-                }
+                $resultado = mysql_query($sql);
             }
             //Terminar actulizar costo
             //==================================================================
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
-            $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
+            $sql = "UPDATE existencias SET cantidad = '$nuevacantidad'"
                     . " WHERE codigoProducto = '$cpto->codigo'";
-            $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
-            if ($ctrlActulizaExistencia == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                
-            }
+            $resultado = mysql_query($sql);
+
             //Terminar Actulizar existencia
             //==================================================================
             //Comienza guardar entrada
-            $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
+            $sql = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
                     . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','1')"; //Forzado usuaro e idSucursal
-            $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
-            if ($ctrlEntradasGuardar == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            }//Terminar guardar entrada
-            //==================================================================
-            //Comienza guardar xml concepto
-            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlConcepto, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
-                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
-            $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
-            if ($ctrlConceptoGuardar == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                mysql_query("COMMIT;");
-            }//Terminar guardar xml concepto
+            $resultado = mysql_query($sql);
+            //Terminar guardar entrada
         }//Cierre FOR
+        if ($resultado) {
+            $sql = "COMMIT";
+            $resultado = mysql_query($sql);
+            return;
+        } else {
+            $sql = "ROLLBACK;";
+            $resultado = mysql_query($sql);
+            return;
+        }
     }
 
 //Cierre de la funcion
