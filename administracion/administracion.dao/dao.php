@@ -84,12 +84,12 @@ class dao {
         $sql = "SELECT codigoProducto, cantidad FROM existencias";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $datos = mysql_query($sql, $cn->Conectarse());
-$revisar= mysql_affected_rows();
-if($revisar>0){
-        return $datos;
-}else{
-    return 0;
-}
+        $revisar = mysql_affected_rows();
+        if ($revisar > 0) {
+            return $datos;
+        } else {
+            return 0;
+        }
     }
 
     function guardarEntradaProducto($cantidad, $idProducto, $existencia) {
@@ -213,7 +213,7 @@ if($revisar>0){
     }
 
     function guardarProducto(Producto $p, Costo $c, Tarifa $t) {
-       
+
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
@@ -563,6 +563,7 @@ if($revisar>0){
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
+                
             }
             //Terminar guardar detalle
             //==================================================================
@@ -615,9 +616,9 @@ if($revisar>0){
                     if ($ctrlActulizarViejoCosto == false) {
                         mysql_query("ROLLBACK;");
                         return false;
-                    } 
+                    }
                 }
-            } 
+            }
             //Terminar actulizar costo
             //==================================================================
             //Comienza Actulizar existencia
@@ -629,6 +630,7 @@ if($revisar>0){
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
+                
             }
             //Terminar Actulizar existencia
             //==================================================================
@@ -639,14 +641,20 @@ if($revisar>0){
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
                 return false;
+            }//Terminar guardar entrada
+            //==================================================================
+            //Comienza guardar xml concepto
+            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlConcepto, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
+            $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
+            if ($ctrlConceptoGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
             } else {
                 mysql_query("COMMIT;");
-            }
-            //Terminar guardar entrada
+            }//Terminar guardar xml concepto
         }//Cierre FOR
     }//Cierre de la funcion
     //==============================================================================
-}
-
-//Cierre DAO
+}//Cierre DAO
 ?>
