@@ -654,7 +654,11 @@ class dao {
                 mysql_query("COMMIT;");
             }//Terminar guardar xml concepto
         }//Cierre FOR
-    }//Cierre de la funcion
+    }
+
+//Cierre de la funcion
     //==============================================================================
-}//Cierre DAO
+}
+
+//Cierre DAO
 ?>
