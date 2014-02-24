@@ -144,7 +144,7 @@ class dao {
     function consultaExistencia($producto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto AND idStatus = 2";
+        $sql = "SELECT * FROM existencias  WHERE codigoProducto = $producto AND idStatus = 1";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
 
