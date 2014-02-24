@@ -598,10 +598,14 @@ class dao {
                 }
             }
             if ($costoViejo != $cpto->cda) {
-                $costoCalculo = $costoViejo + $cpto->cda;
-                $cantidadCalculo = $cantidad + $detalle->getCantidad();
 
-                $costoPromedio = $costoCalculo / $cantidadCalculo;
+                $totalViejo = $cantidad * $costoViejo;
+                $totalNuevo = $cpto->cda * $detalle->getCantidad();
+
+                $totalFinal = $totalViejo * $totalNuevo;
+                $cantidadFinal = $cantidad + $detalle->getCantidad();
+
+                $costoPromedio = $totalFinal / $cantidadFinal;
 
                 $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status)"
                         . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1')";
