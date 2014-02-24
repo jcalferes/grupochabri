@@ -2,6 +2,8 @@
 
 class dao {
 
+    
+            
     function comprobarCodigoValido(Producto $p) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

@@ -22,9 +22,11 @@ echo"<div class='table-responsive'><table class='table table-hover'><thead><th>N
 
 foreach ($arreglo as $valor){
     $pieces = explode("_", $valor);
+    
     $validando1 = str_replace(" ", "_", $pieces[4]);
-    echo"<tr><label>$validando1</label><td><input type='text' class='producto form-control' id='texto $validando1'    name='$validando1' onkeyup='obtenerUtilidad(\"$pieces[0]\")' onkeypress='return NumCheck(event, this)' disabled/></td>";
+    echo"<tr><td><label>$validando1</label></td><td><input type='text' class='producto form-control' id='texto $validando1'    name='$validando1' onkeyup='obtenerUtilidad(\"$pieces[0]\")' onkeypress='return NumCheck(event, this)' value='$pieces[2]' disabled/></td>";
     echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' disabled/></td></tr>";
     }
+ 
 
 echo '</tbody></table></div>';
