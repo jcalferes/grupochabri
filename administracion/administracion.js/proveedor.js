@@ -1,16 +1,33 @@
+function focusRFC() {
+    $("#txtrfc").focus();
+}
 function validaRfc() {
     var rfc = $("#txtrfc").val().toUpperCase();
     if (rfc === "" || /^\s+$/.test(rfc)) {
         $("#frmrfc").removeClass("has-success");
         $("#frmrfc").removeClass("has-error");
     } else {
-        if ($("#txtrfc").val().toUpperCase().match(/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/)) {
-            $("#frmrfc").removeClass("has-error");
-            $("#frmrfc").addClass("has-success");
-        } else {
-            $("#frmrfc").removeClass("has-success");
-            $("#frmrfc").addClass("has-error");
-            $("#txtrfc").focus();
+        var fisica = $("#fisica").is(":checked");
+        var moral = $("#moral").is(":checked");
+        if (fisica == true) {
+            if ($("#txtrfc").val().toUpperCase().match(/^[A-Z]{4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/)) {
+                $("#frmrfc").removeClass("has-error");
+                $("#frmrfc").addClass("has-success");
+            } else {
+                $("#frmrfc").removeClass("has-success");
+                $("#frmrfc").addClass("has-error");
+                $("#txtrfc").focus();
+            }
+        }
+        if (moral == true) {
+            if ($("#txtrfc").val().toUpperCase().match(/^[A-Z]{3}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/)) {
+                $("#frmrfc").removeClass("has-error");
+                $("#frmrfc").addClass("has-success");
+            } else {
+                $("#frmrfc").removeClass("has-success");
+                $("#frmrfc").addClass("has-error");
+                $("#txtrfc").focus();
+            }
         }
     }
 }
