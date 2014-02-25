@@ -11,25 +11,29 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                     <div class="form-group">
+                    <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
-                        <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
+                        <input type="text" class="form-control" id="txtrfc" onblur="validaRfc();">
                     </div>
                     <div class="form-group">
                         <label>Nombre:</label>
-                        <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
+                        <input type="text" class="form-control" id="txtnombreproveedor">
                     </div>
                     <div class="form-group">
                         <label>Direccion:</label>
                         <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
                     </div>
+                    <div id="frmemail" class="form-group">
+                        <label>E-mail:</label>
+                        <input id="txtemail" type="email" class="form-control" onblur="validaEmail();">
+                    </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>
-                        <input id="txtdiascredito" type="number" class="form-control"  placeholder="Ingrese los dias de credito">
+                        <input id="txtdiascredito" type="number" class="form-control" onpaste="return false">
                     </div>
                     <div class="form-group">
                         <label>Descuento:</label>
-                        <input id="txtdescuento" type="number" class="form-control"  placeholder="Ingrese el descuento">
+                        <input id="txtdescuento" type="number" class="form-control" onpaste="return false">
                     </div>
                         <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
@@ -68,11 +72,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%">
+                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%" onpaste="return false">
                             </div>
                             <div class="form-group ">
                                 <label>Colonia:</label>
-                                <select id="selectColonia" style="width: 100%; height: 35px">
+                                <select id="selectColonia" class="form-control" style="width: 100%; height: 35px">
                                 </select>
                             </div>
                             <div class="form-group">

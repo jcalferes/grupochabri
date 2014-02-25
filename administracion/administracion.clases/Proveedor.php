@@ -18,6 +18,7 @@ class Proveedor {
     private $rfc;
     private $diasCredito;
     private $descuento;
+    private $email;
 
     public function getNombre() {
         return $this->nombre;
@@ -57,6 +58,14 @@ class Proveedor {
 
     public function setDescuento($descuento) {
         $this->descuento = $descuento;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
 }

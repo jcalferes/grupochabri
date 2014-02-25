@@ -33,11 +33,11 @@ $(document).ready(function() {
     });
 
     $("#btnguardardireccion").click(function() {
-        var calle = $("#txtcalle").val();
-        var numeroexterior = $("#txtnumeroexterior").val();
-        var numerointerior = $("#txtnumerointerior").val();
-        var cruzamientos = $("#txtcruzamientos").val();
-        var postal = $("#txtpostal").val();
+        var calle = $.trim($("#txtcalle").val().toUpperCase());
+        var numeroexterior = $.trim($("#txtnumeroexterior").val().toUpperCase());
+        var numerointerior = $.trim($("#txtnumerointerior").val().toUpperCase());
+        var cruzamientos = $.trim($("#txtcruzamientos").val().toUpperCase());
+        var postal = $.trim($("#txtpostal").val());
         var idcpostales = $("#selectColonia").val();
         var estado = $("#txtestado").val();
 
