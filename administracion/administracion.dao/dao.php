@@ -4,10 +4,11 @@ class dao {
 
     
             
-    function comprobarCodigoValido(Producto $p) {
+    function comprobarCodigoValido($codigo) {
+        
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {

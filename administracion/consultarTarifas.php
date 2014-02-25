@@ -15,7 +15,7 @@ while ($rs = mysql_fetch_array($datos)) {
 
     echo"<tr><td>$pieces[0]</td>";
     echo"<td ><input type='text' class='producto form-control' id='texto$validando1'    name='$pieces[1]' onkeyup='obtenerUtilidad(\"$validando1\")' onkeypress='return NumCheck(event, this)' disabled/></td>";
-    echo"<td ><input type='checkbox' class='checando' name='check$validando1' id='check$validando1' onchange='tester(\"$validando1\")' value='$validando1'/></td>";
+    echo"<td ><input type='checkbox' class='checando' name='check$validando1' id='check$validando1' onchange='tester(\"$validando1\")' value='$validando1'/disabled></td>";
     echo"<td ><input type='text' class='producto form-control ' name='$pieces[1]' id='tarifa$validando1' disabled/></td></tr>";
 }
 echo"</tbody></table></div>";
