@@ -20,7 +20,7 @@
                         <input type="text" class="form-control" id="txtnombreproveedor">
                     </div>
                     <div class="form-group">
-                        <label>Direccion:</label>
+                        <label>Direccion Fiscal:</label>
                         <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
                     </div>
                     <div id="frmemail" class="form-group">
@@ -31,9 +31,11 @@
                         <label>Dias de credito:</label>
                         <input id="txtdiascredito" type="number" class="form-control" onpaste="return false">
                     </div>
-                    <div class="form-group">
-                        <label>Descuento:</label>
-                        <input id="txtdescuento" type="number" class="form-control" onpaste="return false">
+                    <div class="form-group form-inline">
+                        <label>Desct. Facrura:</label>
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <label>Desct. Pronto Pago:</label>
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                     </div>
                         <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
@@ -50,7 +52,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Nueva Direccion</h4>
+                        <h4 class="modal-title" id="myModalLabel">Nueva Direccion Fiscal</h4>
                     </div>
                     <form>
                         <div class="modal-body">
