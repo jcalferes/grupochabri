@@ -43,11 +43,7 @@
                     </table>
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Entradas Proveedores</h2>
-            <section>
-
-            </section>
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Entradas Manualmente</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
                 <div class="col-sm-3">
                     <select id="proveedores" 
@@ -96,6 +92,13 @@
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-transfer"/>&numsp; Transferencias</h2>
+            <section>
+                <form id="" style="margin: 0% 25% 0% 25%">
+                    <select id="selectSucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                    </select>
+                </form>
+            </section>
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
@@ -133,6 +136,7 @@
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
+        <script src="../administracion/administracion.js/transferencias.js"></script>
         <script src="../administracion/administracion.js/entradasManualmente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
     </body>

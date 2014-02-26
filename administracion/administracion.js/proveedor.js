@@ -1,6 +1,7 @@
 function verDireccion(id) {
     var info = "id=" + id;
     $("#verdireccion").load("consultaDireccion.php", info, function() {
+        $('#mdlverdireccion').modal('show');
     });
 }
 function focusRFC() {
