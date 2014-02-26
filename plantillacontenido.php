@@ -11,7 +11,7 @@
         <!-- CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-       
+
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">
