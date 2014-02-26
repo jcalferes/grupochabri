@@ -171,7 +171,7 @@ echo "</form>";
 echo "<hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Unidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Unidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th><th>CDAO</th>";
 //<th>Unidad</th>
 echo "</thead>";
 echo "<tbody>";
@@ -190,6 +190,10 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' value='0.00' id='totaldct$cuentaid' disabled='false'/></td>";
     echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    $cantidad = floatval($Concepto['cantidad']);
+    $importe = floatval($Concepto['importe']);
+    $cdao = $importe/$cantidad;
+    echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
     echo "</tr>";
 
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
