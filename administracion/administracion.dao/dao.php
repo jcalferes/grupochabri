@@ -1,4 +1,5 @@
 <?php
+
 class dao {
 
     function comprobarCodigoValido(Producto $p) {
@@ -396,7 +397,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento, email)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "','" . $t->getEmail() . "');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -478,6 +479,18 @@ class dao {
                 . " INNER JOIN proveedores pr on pr.idProveedor = p.idProveedor\n"
                 . " WHERE pr.rfc='$rfc'";
         $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function obtieneDireccionDeProveedor($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, c.cp, c.asenta, c.municipio, c.estado, c.ciudad FROM direcciones d "
+                . " INNER JOIN cpostales c on c.idcpostales = d.idcpostales"
+                . " WHERE d.idDireccion = '$id'";
+        mysql_set_charset('utf8');
+        $datos = mysql_query($sql, $cn->Conectarse());
+        mysql_set_charset('utf8');
         return $datos;
     }
 
@@ -663,5 +676,7 @@ class dao {
 
 //Cierre de la funcion
     //==============================================================================
-}//Cierre DAO
+}
+
+//Cierre DAO
 ?>

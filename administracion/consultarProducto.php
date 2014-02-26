@@ -9,7 +9,7 @@ $comprobar = "";
 echo"<div class='table-responsive'><table id='tdProducto' cellpadding='0' cellspacing='0' border='0' class='table table-hover table-bordered'><thead><th>Editar</th><th>Producto</th><th>CodigoProducto</th><th>Marca</th><th>Costo</th><th>fechaMovimiento</th><th>En existencia</th><th>Lista de precios</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
     $comillas = str_replace("\"", "\\\"", $rs['producto']);
-    echo"<tr ><td><input type='checkbox' id='eliminar' onclick='eliminar()'><input  type='button' id ='detalleTarifa' class='btn btn-primary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'/></td> ";
+    echo"<tr><td><input type='checkbox' id='eliminar' onclick='eliminar()'><input  type='button' id ='detalleTarifa' class='btn btn-primary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'/></td> ";
     echo"<td >$rs[producto]</td>";
     $comprobar = $rs['codigoProducto'];
     echo"<td>$rs[codigoProducto]</td>";

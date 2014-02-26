@@ -245,41 +245,41 @@ echo "<span> Total: </span><input type='text' class='form-control text-right' id
 echo "</form>";
 echo "</blockquote>";
 
-//echo "<span class='label label-default'>Traslado </span>";
-//echo "<blockquote>";
-//echo "<table class='table table-hover'>";
-//echo "<thead>";
-//echo "<th>Tasa</th><th>Importe</th><th>Impuesto</th>";
-//echo "</thead>";
-//echo "<tbody>";
-//foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado') as $Traslado) {
-//    echo "<tr>";
-//    echo "<td>" . $Traslado['tasa'] . "</td>";
-//    echo "<td>" . $Traslado['importe'] . "</td>";
-//    echo "<td>" . $Traslado['impuesto'] . "</td>";
-//    echo "</tr>";
-//}
-//echo "</tbody>";
-//echo "</table>";
-//echo "</blockquote>";
-//echo "<span class='label label-default'>Timbre Fiscal </span>";
-//echo "<blockquote>";
-//echo "<table class='table table-hover'>";
-//echo "<thead>";
-//echo "<th>Fecha de Timbrado</th><th>UUID</th><th>No. Certificado SAT</th><th>Version</th>";
-//echo "</thead>";
-//echo "<tbody>";
-//foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
-//    echo "<tr>";
-//    echo "<td>" . $tfd['FechaTimbrado'] . "</td>";
-//    echo "<td>" . $tfd['UUID'] . "</td>";
-//    echo "<td>" . $tfd['noCertificadoSAT'] . "</td>";
-//    echo "<td>" . $tfd['version'] . "</td>";
-//    echo "</tr>";
-//}
-//echo "</tbody>";
-//echo "</table>";
-//echo "</blockquote>";
+echo "<span class='label label-default'>Traslado </span>";
+echo "<blockquote>";
+echo "<table class='table table-hover'>";
+echo "<thead>";
+echo "<th>Tasa</th><th>Importe</th><th>Impuesto</th>";
+echo "</thead>";
+echo "<tbody>";
+foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado') as $Traslado) {
+    echo "<tr>";
+    echo "<td>" . $Traslado['tasa'] . "</td>";
+    echo "<td>" . $Traslado['importe'] . "</td>";
+    echo "<td>" . $Traslado['impuesto'] . "</td>";
+    echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+echo "</blockquote>";
+echo "<span class='label label-default'>Timbre Fiscal </span>";
+echo "<blockquote>";
+echo "<table class='table table-hover'>";
+echo "<thead>";
+echo "<th>Fecha de Timbrado</th><th>UUID</th><th>No. Certificado SAT</th><th>Version</th>";
+echo "</thead>";
+echo "<tbody>";
+foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
+    echo "<tr>";
+    echo "<td>" . $tfd['FechaTimbrado'] . "</td>";
+    echo "<td>" . $tfd['UUID'] . "</td>";
+    echo "<td>" . $tfd['noCertificadoSAT'] . "</td>";
+    echo "<td>" . $tfd['version'] . "</td>";
+    echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+echo "</blockquote>";
 $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 

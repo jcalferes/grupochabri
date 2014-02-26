@@ -46,7 +46,7 @@
                         <input id="txtdiascredito" type="number" class="form-control" onpaste="return false">
                     </div>
                     <div class="form-group form-inline">
-                        <label>Desct. Facrura:</label>
+                        <label>Desct. Factura:</label>
                         <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
@@ -109,6 +109,21 @@
                             </div>
                         </div>
                     </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="mdlverdireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Ver direccion</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="verdireccion">
+                        </div>
+                    </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
