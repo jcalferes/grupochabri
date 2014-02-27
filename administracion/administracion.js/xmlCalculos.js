@@ -17,16 +17,6 @@ function Concepto(importe, codigo, cda, desctuno, desctdos) {
     this.desctdos = desctdos;
 }
 
-function calculaCdao() {
-    var control = $("#control").val();
-    for (var i = 0; i < control; i++) {
-        var cantidad = $("#cantidad" + i + "").val();
-        var importe = $("#importe" + i + "").val();
-        var cdao = importe / cantidad;
-        $("#cdao" + i + "").val(cdao.toFixed(2));
-    }
-}
-
 function test() {
     var rfc = $("#facrfc").text();
     var info = "rfc=" + rfc;
@@ -339,7 +329,7 @@ function  dameValorDescuento1(id) {
 
     var desctsuma = desctpf + desctpp;
     $("#sumadescuentos").val(desctsuma.toFixed(2));
-    calculaCdao();
+
 }
 
 function  dameValorDescuento2(id) {
@@ -376,7 +366,7 @@ function  dameValorDescuento2(id) {
 
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
-        calculaCdao();
+
     } else {
         alertify.error('Primero aplica un primer descuento');
         $("#dosdct" + id + "").val("");
@@ -384,6 +374,7 @@ function  dameValorDescuento2(id) {
 }
 
 $("#validarentrada").click(function() {
+    var chkpp = $("#chkpp").is(":checked");
     var conceptos = []; //Aqui pondre todos los conceptos de la factura
     var datos = []; //Este me servira para pasar los datos a php
     var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
@@ -428,8 +419,11 @@ $("#validarentrada").click(function() {
         }
 
         var importe = $("#importe" + i + "").val();
-        var cda = $("#cda" + i + "").val();
-
+        if (chkpp === true) {
+            var cda = $("#cda" + i + "").val();
+        } else {
+            var cda = $("#cdao" + i + "").val();
+        }
 
         var concepto = new Concepto(importe, id, cda, desctuno, desctdos);
         conceptos.push(concepto);
@@ -469,7 +463,6 @@ $("#validarentrada").click(function() {
     var iva = $("#coniva").val();
     var total = $("#total").val();
 
-//    alertify.alert('Todo bien');
     var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
     datos.push(conceptos);
