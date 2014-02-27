@@ -13,9 +13,11 @@
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
-                            <div class="form-group">
+                            <div class="form-group form-inline">
                                 <label>Codigo Producto</label>
+
                                 <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
+                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="verificar codigo">
                             </div>
                             <!--                             <div class="form-group">
                                                             <label>Folio del producto</label>
@@ -25,7 +27,7 @@
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-inline">
                                 <label>Unidad De Medida:</label><br/>
 
                                 <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true" >

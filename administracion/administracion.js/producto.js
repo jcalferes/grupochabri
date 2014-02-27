@@ -31,28 +31,41 @@ function tester(valor) {
 
 }
 function obtenerUtilidadCosto() {
-   
+
     var costo = document.getElementById("txtCostoProducto").value;
+    if (costo !== "" && costo !== 0) {
+
+        $(":checkbox").attr("disabled", false);
+
+    } else {
+        $(".producto").val("");
+        $(".producto").attr("disabled", true);
+        $(".checando").attr("checked", false);
+
+        $(":checkbox").attr("disabled", true);
+
+    }
+
     $("#tablaListaPrecios").find(':checked').each(function() {
         var elemento = this;
         var valor = elemento.value;
-        
+
         var uti = $("#texto" + valor).val();
-        
+
         uti = uti / 100;
-       
+
         if (uti <= 0) {
 
             var resultado = costo;
-           
+
             $("#tarifa" + valor).val(resultado);
-            
+
         } else {
             var resultado = costo * uti;
             resultado = parseFloat(resultado) + parseFloat(costo);
-            
+
             $("#tarifa" + valor).val(resultado);
-            
+
         }
 
 
@@ -63,22 +76,27 @@ function obtenerUtilidadCosto() {
 
 }
 function obtenerUtilidad(utilidad) {
-    
+
     var costo = document.getElementById("txtCostoProducto").value;
-    
+
     var utilidades = $("#texto" + utilidad).val();
     utilidades = utilidades / 100;
-   
+
     var tarifa = costo * utilidades;
     tarifa = parseFloat(costo) + parseFloat(tarifa);
-    
+
     $("#tarifa" + utilidad).val(tarifa);
 
 }
 $(document).ready(function() {
-    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+
+
+
+
+
+    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -87,6 +105,8 @@ $(document).ready(function() {
         $("#tdProducto").dataTable();
     });
 //    $("#selectTarifa").load("consultarTarifas.php");
+
+
     $("#selectMarca").load("mostrarMarcas.php", function() {
         $("#selectMarca").selectpicker();
     });
@@ -116,7 +136,26 @@ $(document).ready(function() {
         $("#mostrarDivProveedor").hide("slow");
     });
 
+    $("#btnVerificarCodigo").click(function() {
 
+        var codigoProducto = $("#txtCodigoProducto").val();
+        var info = "codigoProducto=" + codigoProducto;
+        $.get('verificandoProducto.php', info, function(x) {
+            if (x < 1) {
+                alert(x);
+                alertify.success("no existe el producto");
+
+            } else {
+                alert(x);
+                lista = JSON.parse(x);
+                for (var i in lista) {
+                    alert(i);
+                   alert(lista[i].producto);
+                }
+                alertify.error("el producto ya existe");
+            }
+        });
+    });
 
 
     $("#guardarDatos").click(function() {
@@ -182,9 +221,9 @@ $(document).ready(function() {
 
             if (min < max) {
 
-                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" +grupoProducto + "&unidadMedida=" +unidadMedida;
+                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
-                   alertify.success(x);
+                    alertify.success(x);
                     if (x >= 1) {
                         $("#consultaProducto").load("consultarProducto.php", function() {
                             $("#tdProducto").dataTable();

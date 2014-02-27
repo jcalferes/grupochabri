@@ -1,19 +1,37 @@
 <?php
 
 class dao {
-
-    function comprobarCodigoValido(Producto $p) {
+    
+    function consultandoProductoPorCodigo($codigo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto \n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.codigoProducto = '$codigo'";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+//        while ($rs = mysql_fetch_array($dato)) {
+//            $id = $rs[1];
+//        }
+
+        return $datos;
+    }
+
+    function comprobarCodigoValido($codigo) {
+
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {
-            return 1;
-            echo 1;
+            return $datos;
         } else {
             return 0;
-            echo 1;
         }
     }
 
@@ -296,12 +314,13 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto where status=1";
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
