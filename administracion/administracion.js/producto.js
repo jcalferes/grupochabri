@@ -111,10 +111,11 @@ $(document).ready(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
+            alert('entre');
+            alert(x);
             if (x < 1) {
                 alertify.success("no existe el producto");
             } else {
-
                 lista = JSON.parse(x);
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
@@ -132,7 +133,6 @@ $(document).ready(function() {
                     if (ind == "idProveedor") {
                         $('#selectProveedor').selectpicker('val', elem);
                     }
-
                     if (ind == "costo") {
                         $("#txtCostoProducto").val(elem);
                     }
@@ -142,7 +142,6 @@ $(document).ready(function() {
                     if (ind == "cantidadMinima") {
                         $("#txtCantidadMinima").val(elem);
                     }
-
                     var info = "codigoProducto=" + codigoProducto;
                     $.get('obtenerTarifasPorConsulta.php', info, function(x) {
                     });
@@ -171,11 +170,8 @@ $(document).ready(function() {
             var nombre = elemento.name;
             var valor = elemento.value;
             if (valor !== "") {
-
                 if (valor !== " ") {
-
                     if (valor !== null) {
-
                         var algo = valor + "-" + nombre;
                         listaPrecios.push(algo);
                         lista = JSON.stringify(listaPrecios);
