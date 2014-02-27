@@ -29,7 +29,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {
-            return $datos;
+            return 1;
         } else {
             return 0;
         }
