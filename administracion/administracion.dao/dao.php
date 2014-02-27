@@ -1,7 +1,7 @@
 <?php
 
 class dao {
-    
+
     function consultandoProductoPorCodigo($codigo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

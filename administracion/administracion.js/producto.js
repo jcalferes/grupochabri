@@ -137,7 +137,6 @@ $(document).ready(function() {
     });
 
     $("#btnVerificarCodigo").click(function() {
-
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
@@ -183,7 +182,6 @@ $(document).ready(function() {
             }
         });
     });
-
 
     $("#guardarDatos").click(function() {
         var lista;
