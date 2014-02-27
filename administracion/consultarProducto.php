@@ -3,7 +3,6 @@
 include './administracion.dao/dao.php';
 $dao = new dao();
 $datos = $dao->consultaProducto();
-$datos2 = $dao->consultaTableConsulta();
 $comprobar = "";
 
 echo"<div class='table-responsive'><table id='tdProducto' cellpadding='0' cellspacing='0' border='0' class='table table-hover table-bordered'><thead><th>Editar</th><th>Producto</th><th>CodigoProducto</th><th>Marca</th><th>Costo</th><th>fechaMovimiento</th><th>En existencia</th><th>Lista de precios</th></thead><tbody>";

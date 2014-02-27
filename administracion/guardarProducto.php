@@ -21,7 +21,7 @@ $costo->setCosto($_GET["costoProducto"]);
 //$costo->setFolioProducto($_GET["folio"]);
 $tarifa->setIdListaPrecio($lista);
 
-$datos = $dao->comprobarCodigoValido($producto);
+$datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
 if($datos < 1){
 $dao->guardarProducto($producto, $costo, $tarifa);
 echo 1;

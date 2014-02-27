@@ -41,7 +41,7 @@ function obtenerUtilidadCosto() {
         $(".producto").val("");
         $(".producto").attr("disabled", true);
         $(".checando").attr("checked", false);
-        
+
         $(":checkbox").attr("disabled", true);
 
     }
@@ -94,9 +94,9 @@ $(document).ready(function() {
 
 
 
-    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -142,9 +142,16 @@ $(document).ready(function() {
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
             if (x < 1) {
+                alert(x);
                 alertify.success("no existe el producto");
 
             } else {
+                alert(x);
+                lista = JSON.parse(x);
+                for (var i in lista) {
+                    alert(i);
+                   alert(lista[i].producto);
+                }
                 alertify.error("el producto ya existe");
             }
         });
