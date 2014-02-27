@@ -146,7 +146,7 @@ $(document).ready(function() {
                 alertify.success("no existe el producto");
 
             } else {
-                alert(x);
+                
                 lista = JSON.parse(x);
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
@@ -172,11 +172,9 @@ $(document).ready(function() {
                         $("#txtCantidadMaxima").val(elem);
                     }
                     if (ind == "cantidadMinima") {
-                        $("#txtCostoMinima").val(elem);
+                        $("#txtCantidadMinima").val(elem);
                     }
-                    if (ind == "costo") {
-                        $("#txtCostoProducto").val(elem);
-                    }
+                    
 
 
 
