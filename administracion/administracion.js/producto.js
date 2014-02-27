@@ -139,12 +139,48 @@ $(document).ready(function() {
     $("#btnVerificarCodigo").click(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
-        $.get('verificandoProducto.php', info, function(respuesta) {
-            alert(respuesta);
-            var lista = JSON.parse(respuesta);
-            alert(lista);
-            for(var i in lista){
-                alert(lista[i].nombre);
+        $.get('verificandoProducto.php', info, function(x) {
+            if (x < 1) {
+                alert(x);
+                alertify.success("no existe el producto");
+
+            } else {
+                alert(x);
+                lista = JSON.parse(x);
+                $.each(lista, function(ind, elem) {
+                    if (ind == "producto") {
+                        $("#txtNombreProducto").val(elem);
+                    }
+                    if (ind == "idUnidadMedida") {
+                        $('#selectMedida').selectpicker('val', elem);
+                    }
+                    if (ind == "idGrupoProducto") {
+                        $('#selectGrupo').selectpicker('val', elem);
+                    }
+                    if (ind == "idMarca") {
+                        $('#selectMarca').selectpicker('val', elem);
+                    }
+                    if (ind == "idProveedor") {
+                        $('#selectProveedor').selectpicker('val', elem);
+                    }
+
+                    if (ind == "costo") {
+                        $("#txtCostoProducto").val(elem);
+                    }
+                    if (ind == "cantidadMaxima") {
+                        $("#txtCantidadMaxima").val(elem);
+                    }
+                    if (ind == "cantidadMinima") {
+                        $("#txtCostoMinima").val(elem);
+                    }
+                    if (ind == "costo") {
+                        $("#txtCostoProducto").val(elem);
+                    }
+
+
+
+                });
+                alertify.error("el producto ya existe");
             }
         });
     });
