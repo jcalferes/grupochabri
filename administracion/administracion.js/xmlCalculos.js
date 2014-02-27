@@ -17,6 +17,16 @@ function Concepto(importe, codigo, cda, desctuno, desctdos) {
     this.desctdos = desctdos;
 }
 
+function calculaCdao() {
+    var control = $("#control").val();
+    for (var i = 0; i < control; i++) {
+        var cantidad = $("#cantidad" + i + "").val();
+        var importe = $("#importe" + i + "").val();
+        var cdao = importe / cantidad;
+        $("#cdao" + i + "").val(cdao.toFixed(2));
+    }
+}
+
 function test() {
     var rfc = $("#facrfc").text();
     var info = "rfc=" + rfc;
@@ -25,8 +35,29 @@ function test() {
     });
 }
 
+function chkPP() {
+    var chkpp = $("#chkpp").is(":checked");
+    var control = $("#control").val();
+    if (chkpp === true) {
+        $('#chkpp').prop('checked', true);
+        for (var i = 0; i < control; i++) {
+            $("#unodct" + i + "").removeAttr("disabled", "disabled");
+            $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+        }
+
+    }
+    if (chkpp === false) {
+        $('#chkpp').prop('checked', false);
+        for (var i = 0; i < control; i++) {
+            $("#unodct" + i + "").attr("disabled", "disabled");
+            $("#dosdct" + i + "").attr("disabled", "disabled");
+        }
+    }
+}
+
 function chkExtras() {
     var nose = $("#chk").is(":checked");
+    var chkpp = $("#chkpp").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
             if (e) {
@@ -42,11 +73,18 @@ function chkExtras() {
             if (e) {
                 $("#btnextra").slideDown();
                 var control = $('#control').val();
-                for (var i = 0; i < control; i++) {
-                    $("#unodct" + i + "").removeAttr("disabled", "disabled");
-                    $("#dosdct" + i + "").removeAttr("disabled", "disabled");
-                    $("#id" + i + "").removeAttr("disabled", "disabled");
+                if (chkpp === true) {
+                    for (var i = 0; i < control; i++) {
+                        $("#unodct" + i + "").removeAttr("disabled", "disabled");
+                        $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+                        $("#id" + i + "").removeAttr("disabled", "disabled");
+                    }
+                } else {
+                    for (var i = 0; i < control; i++) {
+                        $("#id" + i + "").removeAttr("disabled", "disabled");
+                    }
                 }
+
                 $("#descuentoFactura").attr("disabled", "disabled");
                 $("#descuentoProntoPago").attr("disabled", "disabled");
                 $("#btnbuscar").removeAttr("disabled", "disabled");
@@ -301,6 +339,7 @@ function  dameValorDescuento1(id) {
 
     var desctsuma = desctpf + desctpp;
     $("#sumadescuentos").val(desctsuma.toFixed(2));
+    calculaCdao();
 }
 
 function  dameValorDescuento2(id) {
@@ -337,6 +376,7 @@ function  dameValorDescuento2(id) {
 
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
+        calculaCdao();
     } else {
         alertify.error('Primero aplica un primer descuento');
         $("#dosdct" + id + "").val("");
