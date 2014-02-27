@@ -59,4 +59,5 @@ foreach ($conceptos as $concepto) {
 }
 $control = count($conceptos);
 $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
+$cn->cerrarBd();
 ?>

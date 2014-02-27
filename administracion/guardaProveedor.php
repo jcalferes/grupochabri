@@ -25,9 +25,11 @@ if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}
             $proveedor->setNombre($_GET["nombre"]);
             $proveedor->setRfc($rfc);
             $proveedor->setDiasCredito($_GET["diascredito"]);
-            $proveedor->setDescuento($_GET["descuento"]);
             $id = $_SESSION['iddireccion'];
             $proveedor->setIdDireccion($id);
+            $proveedor->setEmail($_GET["email"]);
+            $proveedor->setDesctfactura($_GET["desctpf"]);
+            $proveedor->setDesctprontopago($_GET["desctpp"]);
             $dao->guardarProveedor($proveedor);
             unset($_SESSION["controlDireccion"]);
         } else {

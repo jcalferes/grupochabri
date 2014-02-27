@@ -416,7 +416,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -501,6 +501,18 @@ class dao {
         return $datos;
     }
 
+    function obtieneDireccionDeProveedor($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, c.cp, c.asenta, c.municipio, c.estado, c.ciudad FROM direcciones d "
+                . " INNER JOIN cpostales c on c.idcpostales = d.idcpostales"
+                . " WHERE d.idDireccion = '$id'";
+        mysql_set_charset('utf8');
+        $datos = mysql_query($sql, $cn->Conectarse());
+        mysql_set_charset('utf8');
+        return $datos;
+    }
+
     function buscarProducto(Producto $p, $proveedor) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -529,7 +541,6 @@ class dao {
 
     function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control) {
         $detalle = new Detalle();
-        $concepto = new Concepto();
         //======================================================================
         //Empieza guardar encabezado
         $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
@@ -595,17 +606,27 @@ class dao {
             $cpto = $conceptos[$i];
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
                     . " WHERE codigoProducto = '$cpto->codigo'";
-            $control = mysql_query($sqlConceptoValidarExistencia);
-            if ($control == false) {
+            $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
+            if ($ctrlConceptoValidarExistencia == false) {
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
-                while ($rs = mysql_fetch_array($control)) {
+                while ($rs = mysql_fetch_array($ctrlConceptoValidarExistencia)) {
                     $cantidad = $rs["cantidad"];
                 }
             }
             //Terminar validar producto en existencia
             //Variables necesarias: $cantidad
+            //==================================================================
+            //Comienza guardar xml concepto
+            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
+            $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
+            if ($ctrlConceptoGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //Terminar guardar xml concepto
             //==================================================================
             //Comienza actulizar costo
             $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
@@ -656,8 +677,6 @@ class dao {
             if ($ctrlActulizaExistencia == false) {
                 mysql_query("ROLLBACK;");
                 return false;
-            } else {
-                
             }
             //Terminar Actulizar existencia
             //==================================================================
@@ -668,19 +687,10 @@ class dao {
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
                 return false;
-            }//Terminar guardar entrada
-            //==================================================================
-            //Comienza guardar xml concepto
-            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlConcepto, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
-                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
-            $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
-            if ($ctrlConceptoGuardar == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                mysql_query("COMMIT;");
-            }//Terminar guardar xml concepto
+            }
+            //Terminar guardar entrada
         }//Cierre FOR
+        mysql_query("COMMIT;");
     }
 
 //Cierre de la funcion

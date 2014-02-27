@@ -17,7 +17,9 @@ class Proveedor {
     private $idDireccion;
     private $rfc;
     private $diasCredito;
-    private $descuento;
+    private $desctfactura;
+    private $desctprontopago;
+    private $email;
 
     public function getNombre() {
         return $this->nombre;
@@ -33,10 +35,6 @@ class Proveedor {
 
     public function getDiasCredito() {
         return $this->diasCredito;
-    }
-
-    public function getDescuento() {
-        return $this->descuento;
     }
 
     public function setNombre($nombre) {
@@ -55,8 +53,28 @@ class Proveedor {
         $this->diasCredito = $diasCredito;
     }
 
-    public function setDescuento($descuento) {
-        $this->descuento = $descuento;
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function getDesctfactura() {
+        return $this->desctfactura;
+    }
+
+    public function getDesctprontopago() {
+        return $this->desctprontopago;
+    }
+
+    public function setDesctfactura($desctfactura) {
+        $this->desctfactura = $desctfactura;
+    }
+
+    public function setDesctprontopago($desctprontopago) {
+        $this->desctprontopago = $desctprontopago;
     }
 
 }
