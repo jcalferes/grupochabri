@@ -137,26 +137,17 @@ $(document).ready(function() {
     });
 
     $("#btnVerificarCodigo").click(function() {
-
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
-        $.get('verificandoProducto.php', info, function(x) {
-            if (x < 1) {
-                alert(x);
-                alertify.success("no existe el producto");
-
-            } else {
-                alert(x);
-                lista = JSON.parse(x);
-                for (var i in lista) {
-                    alert(i);
-                   alert(lista[i].producto);
-                }
-                alertify.error("el producto ya existe");
+        $.get('verificandoProducto.php', info, function(respuesta) {
+            alert(respuesta);
+            var lista = JSON.parse(respuesta);
+            alert(lista);
+            for(var i in lista){
+                alert(lista[i].nombre);
             }
         });
     });
-
 
     $("#guardarDatos").click(function() {
         var lista;
