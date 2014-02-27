@@ -148,10 +148,39 @@ $(document).ready(function() {
             } else {
                 alert(x);
                 lista = JSON.parse(x);
-                for (var i in lista) {
-                    alert(i);
-                   alert(lista[i].producto);
-                }
+                $.each(lista, function(ind, elem) {
+                    if (ind == "producto") {
+                        $("#txtNombreProducto").val(elem);
+                    }
+                    if (ind == "idUnidadMedida") {
+                        $('#selectMedida').selectpicker('val', elem);
+                    }
+                    if (ind == "idGrupoProducto") {
+                        $('#selectGrupo').selectpicker('val', elem);
+                    }
+                    if (ind == "idMarca") {
+                        $('#selectMarca').selectpicker('val', elem);
+                    }
+                    if (ind == "idProveedor") {
+                        $('#selectProveedor').selectpicker('val', elem);
+                    }
+
+                    if (ind == "costo") {
+                        $("#txtCostoProducto").val(elem);
+                    }
+                    if (ind == "cantidadMaxima") {
+                        $("#txtCantidadMaxima").val(elem);
+                    }
+                    if (ind == "cantidadMinima") {
+                        $("#txtCostoMinima").val(elem);
+                    }
+                    if (ind == "costo") {
+                        $("#txtCostoProducto").val(elem);
+                    }
+
+
+
+                });
                 alertify.error("el producto ya existe");
             }
         });
