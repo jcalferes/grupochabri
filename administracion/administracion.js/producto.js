@@ -111,12 +111,15 @@ $(document).ready(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
-            alert('entre');
-            alert(x);
-            if (x < 1) {
-                alertify.success("no existe el producto");
-            } else {
-                lista = JSON.parse(x);
+        if (x < 1) {
+
+        alertify.success("no existe el producto");
+        } else {
+            
+                alert(x);
+                
+        lista = JSON.parse(x);
+        console.log(lista);
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
                         $("#txtNombreProducto").val(elem);
@@ -152,15 +155,15 @@ $(document).ready(function() {
     });
     $("#guardarDatos").click(function() {
         var lista;
-        var nombreProducto = $("#txtNombreProducto").val();
-        var marca = $("#selectMarca").val();
-        var proveedor = $("#selectProveedor").val();
-        var codigoProducto = $("#txtCodigoProducto").val();
-        var costoProducto = $("#txtCostoProducto").val();
-        var min = $("#txtCantidadMinima").val();
-        var max = $("#txtCantidadMaxima").val();
-        var unidadMedida = $("#selectMedida").val();
-        var grupoProducto = $("#selectGrupo").val();
+                var nombreProducto = $("#txtNombreProducto").val();
+                var marca = $("#selectMarca").val();
+                var proveedor = $("#selectProveedor").val();
+                var codigoProducto = $("#txtCodigoProducto").val();
+                var costoProducto = parseFloat($("#txtCostoProducto").val());
+                var min = parseFloat($("#txtCantidadMinima").val());
+                var max = $("#txtCantidadMaxima").val();
+                var unidadMedida = $("#selectMedida").val();
+                var grupoProducto = $("#selectGrupo").val();
 //        var folio = $("#txtFolioProducto").val();
         var listaPrecios = new Array();
         var listaTarifas = new Array();
@@ -185,9 +188,13 @@ $(document).ready(function() {
             } else {
             }
         });
-        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
-            if (min < max) {
-                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
+                ////////////////////////////////////////////////probando
+
+                if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
+
+alert("minimo es =" + min +  "maximo es = "+max);
+        if (min <= max) {
+        var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
                     alertify.success(x);
                     if (x >= 1) {
