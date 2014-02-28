@@ -249,7 +249,7 @@ class dao {
 
         $id = mysql_insert_id();
         $fecha = date("d/m/Y h:i");
-        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha')";
+        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 

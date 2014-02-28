@@ -143,8 +143,11 @@ var codigoProducto = $("#txtCodigoProducto").val();
 
         alertify.success("no existe el producto");
         } else {
-
+            
+                alert(x);
+                
         lista = JSON.parse(x);
+        console.log(lista);
                 $.each(lista, function(ind, elem) {
                 if (ind == "producto") {
                 $("#txtNombreProducto").val(elem);
@@ -191,8 +194,8 @@ var codigoProducto = $("#txtCodigoProducto").val();
                 var marca = $("#selectMarca").val();
                 var proveedor = $("#selectProveedor").val();
                 var codigoProducto = $("#txtCodigoProducto").val();
-                var costoProducto = $("#txtCostoProducto").val();
-                var min = $("#txtCantidadMinima").val();
+                var costoProducto = parseFloat($("#txtCostoProducto").val());
+                var min = parseFloat($("#txtCantidadMinima").val());
                 var max = $("#txtCantidadMaxima").val();
                 var unidadMedida = $("#selectMedida").val();
                 var grupoProducto = $("#selectGrupo").val();
@@ -237,8 +240,8 @@ var codigoProducto = $("#txtCodigoProducto").val();
 
                 if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
-        if (min < max) {
-
+alert("minimo es =" + min +  "maximo es = "+max);
+        if (min <= max) {
         var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
                 alertify.success(x);
