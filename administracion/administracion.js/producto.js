@@ -111,15 +111,15 @@ $(document).ready(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
-        if (x < 1) {
+            if (x < 1) {
 
-        alertify.success("no existe el producto");
-        } else {
-            
+                alertify.success("no existe el producto");
+            } else {
+
                 alert(x);
-                
-        lista = JSON.parse(x);
-        console.log(lista);
+
+                lista = JSON.parse(x);
+                console.log(lista);
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
                         $("#txtNombreProducto").val(elem);
@@ -146,8 +146,30 @@ $(document).ready(function() {
                         $("#txtCantidadMinima").val(elem);
                     }
                     var info = "codigoProducto=" + codigoProducto;
-                    $.get('obtenerTarifasPorConsulta.php', info, function(x) {
+
+                });
+                $.get('obtenerTarifasPorConsulta.php', info, function(x) {
+                    alert(x);
+                    lista = JSON.parse(x);
+                    console.log(lista);
+                    var provando = 0;
+                    $.each(lista, function(indice, elemento) {
+ $.each(elemento, function(ind, elem) {
+                        if (ind == 0) {
+                            
+                            alert(ind);
+                            provando = elem;
+                            alert(provando);
+                        }
+                        if (ind == 1) {
+                            alert(ind);
+                            alert(provando);
+                            $("#texto" + provando).val(elem);
+                            provando = 0;
+                        }
+
                     });
+                });
                 });
                 alertify.error("el producto ya existe");
             }
@@ -155,15 +177,15 @@ $(document).ready(function() {
     });
     $("#guardarDatos").click(function() {
         var lista;
-                var nombreProducto = $("#txtNombreProducto").val();
-                var marca = $("#selectMarca").val();
-                var proveedor = $("#selectProveedor").val();
-                var codigoProducto = $("#txtCodigoProducto").val();
-                var costoProducto = parseFloat($("#txtCostoProducto").val());
-                var min = parseFloat($("#txtCantidadMinima").val());
-                var max = $("#txtCantidadMaxima").val();
-                var unidadMedida = $("#selectMedida").val();
-                var grupoProducto = $("#selectGrupo").val();
+        var nombreProducto = $("#txtNombreProducto").val();
+        var marca = $("#selectMarca").val();
+        var proveedor = $("#selectProveedor").val();
+        var codigoProducto = $("#txtCodigoProducto").val();
+        var costoProducto = parseFloat($("#txtCostoProducto").val());
+        var min = parseFloat($("#txtCantidadMinima").val());
+        var max = $("#txtCantidadMaxima").val();
+        var unidadMedida = $("#selectMedida").val();
+        var grupoProducto = $("#selectGrupo").val();
 //        var folio = $("#txtFolioProducto").val();
         var listaPrecios = new Array();
         var listaTarifas = new Array();
@@ -188,13 +210,13 @@ $(document).ready(function() {
             } else {
             }
         });
-                ////////////////////////////////////////////////probando
+        ////////////////////////////////////////////////probando
 
-                if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
+        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
-alert("minimo es =" + min +  "maximo es = "+max);
-        if (min <= max) {
-        var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
+            alert("minimo es =" + min + "maximo es = " + max);
+            if (min <= max) {
+                var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
                     alertify.success(x);
                     if (x >= 1) {
