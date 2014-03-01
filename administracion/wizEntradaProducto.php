@@ -93,6 +93,24 @@
                 </table>
                 <hr>
                 <form class="form-inline text-right">
+                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Productos : <input type="text" id="descuentoProductosM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
             </section>
