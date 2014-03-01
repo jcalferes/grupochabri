@@ -115,7 +115,7 @@ function calcularDescTotal() {
         var importe = parseFloat($("#cant" + x).val()) * parseFloat($("#costo" + x).val());
         nuevoDescuetno1 = (descuento1 * importe) / 100;
         totalDescuento = totalDescuento + nuevoDescuetno1;
-        importe = importe-nuevoDescuetno1;
+        importe = importe - nuevoDescuetno1;
         nuevoDescuetno2 = (descuento2 * importe) / 100;
         totalDescuento = totalDescuento + nuevoDescuetno2;
     }
@@ -157,6 +157,19 @@ function sumaDeSubtotales() {
     $("#subTotalM").val(sumaTotalCantidadCosto);
 }
 
+function calcularCda() {
+    for (var x = 0; x < contador; x++) {
+        $("#cant"+x).val();
+        $("#costo"+x).val();
+        $("#descuento1"+x).val();
+        $("#descuento2"+x).val();
+        var importe = parseFloat($("#cant"+x).val())* parseFloat($("#costo"+x).val());
+        
+    }
+}
+
+
+
 $(document).ready(function() {
     $("#proveedores").change(function() {
         if ($("#proveedores").val() == 0) {
@@ -164,7 +177,7 @@ $(document).ready(function() {
             $("#buscarCodigoEntradas").attr('disabled', 'disabled');
         }
         else {
-            alert("no se");
+
             $("#buscarCodigoEntradas").removeAttr('disabled');
             $("#codigoProductoEntradas").removeAttr('disabled');
         }
