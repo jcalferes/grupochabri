@@ -364,6 +364,16 @@ class dao {
         return $datos;
     }
 
+    function consultarProveedores() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM proveedores";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
     function consultarMarcas() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

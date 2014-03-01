@@ -10,5 +10,4 @@ $direccion->setCruzamientos($_GET["cruzamientos"]);
 $direccion->setIdPostal($_GET["idcpostales"]);
 $_SESSION['objdireccion'] = $direccion;
 $_SESSION['controlDireccion'] = 1;
-?>
 
