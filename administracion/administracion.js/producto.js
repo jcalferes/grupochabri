@@ -157,14 +157,19 @@ $(document).ready(function() {
  $.each(elemento, function(ind, elem) {
                         if (ind == 0) {
                             
-                            alert(ind);
+                     
                             provando = elem;
-                            alert(provando);
+                       
                         }
                         if (ind == 1) {
-                            alert(ind);
-                            alert(provando);
+                            provando = provando.replace(" ","_")
+                           
+                            var costo = $("#txtCostoProducto").val();
+                           var utilidad = costo *(elem/100);
+                           utilidad = parseFloat(utilidad) + parseFloat(costo);
+                           alert("utlidad"+utilidad);
                             $("#texto" + provando).val(elem);
+                             $("#tarifa" + provando).val(utilidad);
                             provando = 0;
                         }
 
