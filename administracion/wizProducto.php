@@ -13,19 +13,20 @@
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
-                            <div class="form-group">
-                                <label>Codigo Producto</label>
-                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
+                            <label>Codigo Producto</label>
+                            <div class="form-group form-inline">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" style="width: 83%" placeholder="Código del Producto">
+                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="Verificar">
                             </div>
-<!--                             <div class="form-group">
-                                <label>Folio del producto</label>
-                                <input type="text" class="form-control valLetra" id="txtFolioProducto" placeholder="Código del Producto">
-                            </div>-->
+                            <!--                             <div class="form-group">
+                                                            <label>Folio del producto</label>
+                                                            <input type="text" class="form-control valLetra" id="txtFolioProducto" placeholder="Código del Producto">
+                                                        </div>-->
                             <div class="form-group"  >
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control valLetra" id="txtNombreProducto" placeholder="Nombre del producto">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-inline">
                                 <label>Unidad De Medida:</label><br/>
 
                                 <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true" >
@@ -121,26 +122,6 @@
                     </div>  
                 </div>
                 <!--<input type="submit" onclick="eliminar(4)"/>-->
-            </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
-            <section class="scrollSection">
-                <div id="consultaTarifas" style="margin-left: 5%">
-                    <select id="selectTarifa" style="width: 90%; height: 35px">
-                    </select>
-                    <div id="tablaTarifas" style="margin-left: 5%">
-
-                    </div>
-                </div>
-            </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Entrada de Productos</h2>
-            <section>
-                <div id="entradaProducto" style="margin-left: 5%">
-                    <select id="selectProducto" style="width: 90%; height: 35px">
-                    </select><br/>
-                    <h4 id="existencia">Hay en existencia=</h4>
-                    <input type="number" id="txtEntradaProducto" placeholder="Ingrese Cantidad a Entrar" style="width: 90%; height: 35px"/><br/>
-                    <input type="submit" id="AgregarEntrada" class="btn btn-primary"/>
-                </div>
             </section>
         </div>
         <div class="modal fade" id="mdlMarca" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -96,72 +96,79 @@ echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
 
-echo "<span class='label label-default'>Expedido en </span>";
-echo "<blockquote>";
-echo "<table class='table table-hover'>";
-echo "<thead>";
-echo "<th>Pais</th><th>Calle</th><th>Estado</th><th>Colonia</th><th>No. Exterior</th><th>Codigo Postal</th>";
-echo "</thead>";
-echo "<tbody>";
-foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor//cfdi:ExpedidoEn') as $ExpedidoEn) {
-    echo "<tr>";
-    echo "<td>" . $ExpedidoEn['pais'] . "</td>";
-    echo "<td>" . $ExpedidoEn['calle'] . "</td>";
-    echo "<td>" . $ExpedidoEn['estado'] . "</td>";
-    echo "<td>" . $ExpedidoEn['colonia'] . "</td>";
-    echo "<td>" . $ExpedidoEn['noExterior'] . "</td>";
-    echo "<td>" . $ExpedidoEn['codigoPostal'] . "</td>";
-    echo "</tr>";
-}
-echo "</tbody>";
-echo "</table>";
-echo "</blockquote>";
+//echo "<span class='label label-default'>Expedido en </span>";
+//echo "<blockquote>";
+//echo "<table class='table table-hover'>";
+//echo "<thead>";
+//echo "<th>Pais</th><th>Calle</th><th>Estado</th><th>Colonia</th><th>No. Exterior</th><th>Codigo Postal</th>";
+//echo "</thead>";
+//echo "<tbody>";
+//foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor//cfdi:ExpedidoEn') as $ExpedidoEn) {
+//    echo "<tr>";
+//    echo "<td>" . $ExpedidoEn['pais'] . "</td>";
+//    echo "<td>" . $ExpedidoEn['calle'] . "</td>";
+//    echo "<td>" . $ExpedidoEn['estado'] . "</td>";
+//    echo "<td>" . $ExpedidoEn['colonia'] . "</td>";
+//    echo "<td>" . $ExpedidoEn['noExterior'] . "</td>";
+//    echo "<td>" . $ExpedidoEn['codigoPostal'] . "</td>";
+//    echo "</tr>";
+//}
+//echo "</tbody>";
+//echo "</table>";
+//echo "</blockquote>";
 
-echo "<span class='label label-default'>Receptor </span>";
-echo "<blockquote>";
-echo "<table class='table table-hover'>";
-echo "<thead>";
-echo "<th>RFC</th><th>Nombre</th>";
-echo "</thead>";
-echo "<tbody>";
-foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
-    echo "<tr>";
-    echo "<td>" . $Receptor['rfc'] . "</td>";
-    echo "<td>" . $Receptor['nombre'] . "</td>";
-    echo "</tr>";
-}
-echo "</tbody>";
-echo "</table>";
-echo "</blockquote>";
+//echo "<span class='label label-default'>Receptor </span>";
+//echo "<blockquote>";
+//echo "<table class='table table-hover'>";
+//echo "<thead>";
+//echo "<th>RFC</th><th>Nombre</th>";
+//echo "</thead>";
+//echo "<tbody>";
+//foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
+//    echo "<tr>";
+//    echo "<td>" . $Receptor['rfc'] . "</td>";
+//    echo "<td>" . $Receptor['nombre'] . "</td>";
+//    echo "</tr>";
+//}
+//echo "</tbody>";
+//echo "</table>";
+//echo "</blockquote>";
 
-echo "<span class='label label-default'>Domicilio del receptor </span>";
-echo "<blockquote>";
-echo "<table class='table table-hover'>";
-echo "<thead>";
-echo "<th>Pais</th><th>Calle</th><th>Estado</th><th>Colonia</th><th>Municipio</th><th>No Exterior</th><th>No Interior</th><th>Codiogo Postal</th>";
-echo "</thead>";
-echo "<tbody>";
-foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $ReceptorDomicilio) {
-    echo "<tr>";
-    echo "<td>" . $ReceptorDomicilio['pais'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['calle'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['estado'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['colonia'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['municipio'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['noExterior'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
-    echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
-    echo "</tr>";
-}
-echo "</tbody>";
-echo "</table>";
-echo "</blockquote>";
+//echo "<span class='label label-default'>Domicilio del receptor </span>";
+//echo "<blockquote>";
+//echo "<table class='table table-hover'>";
+//echo "<thead>";
+//echo "<th>Pais</th><th>Calle</th><th>Estado</th><th>Colonia</th><th>Municipio</th><th>No Exterior</th><th>No Interior</th><th>Codiogo Postal</th>";
+//echo "</thead>";
+//echo "<tbody>";
+//foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $ReceptorDomicilio) {
+//    echo "<tr>";
+//    echo "<td>" . $ReceptorDomicilio['pais'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['calle'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['estado'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['colonia'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['municipio'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['noExterior'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['noInterior'] . "</td>";
+//    echo "<td>" . $ReceptorDomicilio['codigoPostal'] . "</td>";
+//    echo "</tr>";
+//}
+//echo "</tbody>";
+//echo "</table>";
+//echo "</blockquote>";
+
 echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
-echo "<div class='checkbox'>";
-echo "<label>";
+echo "<div class='checkbox-inline'>";
+echo "<span>";
+echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
+echo "</span>";
+echo "<hr>";
+echo "</div>";
+echo "<div class='checkbox-inline'>";
+echo "<span>";
 echo "<input type='checkbox' id='chk' onclick='chkExtras()'/> Descuentos globales de factura";
-echo "</label>";
+echo "</span>";
 echo "<hr>";
 echo "</div>";
 echo "<form class='form-inline'>";
@@ -171,7 +178,7 @@ echo "</form>";
 echo "<hr>";
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Unidad</th><th>Codigo&nbsp;<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th>";
 //<th>Unidad</th>
 echo "</thead>";
 echo "<tbody>";
@@ -181,14 +188,18 @@ $cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
     echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
-    echo "<td>" . $Concepto['unidad'] . "</td>";
+//    echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
-    echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid' onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
-    echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
+    echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid' disabled='false' onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
+    echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid'  disabled='false' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
     echo "<td><input type='text' class='form-control' value='0.00' id='totaldct$cuentaid' disabled='false'/></td>";
     echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
+    $cantidad = floatval($Concepto['cantidad']);
+    $importe = floatval($Concepto['importe']);
+    $cdao = number_format($importe / $cantidad, 2, '.', '');
+    echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
 
@@ -245,23 +256,24 @@ echo "<span> Total: </span><input type='text' class='form-control text-right' id
 echo "</form>";
 echo "</blockquote>";
 
-//echo "<span class='label label-default'>Traslado </span>";
-//echo "<blockquote>";
-//echo "<table class='table table-hover'>";
-//echo "<thead>";
-//echo "<th>Tasa</th><th>Importe</th><th>Impuesto</th>";
-//echo "</thead>";
-//echo "<tbody>";
-//foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado') as $Traslado) {
-//    echo "<tr>";
-//    echo "<td>" . $Traslado['tasa'] . "</td>";
-//    echo "<td>" . $Traslado['importe'] . "</td>";
-//    echo "<td>" . $Traslado['impuesto'] . "</td>";
-//    echo "</tr>";
-//}
-//echo "</tbody>";
-//echo "</table>";
-//echo "</blockquote>";
+echo "<span class='label label-default'>Traslado </span>";
+echo "<blockquote>";
+echo "<table class='table table-hover'>";
+echo "<thead>";
+echo "<th>Tasa</th><th>Importe</th><th>Impuesto</th>";
+echo "</thead>";
+echo "<tbody>";
+foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado') as $Traslado) {
+    echo "<tr>";
+    echo "<td>" . $Traslado['tasa'] . "</td>";
+    echo "<td>" . $Traslado['importe'] . "</td>";
+    echo "<td>" . $Traslado['impuesto'] . "</td>";
+    echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+echo "</blockquote>";
+
 //echo "<span class='label label-default'>Timbre Fiscal </span>";
 //echo "<blockquote>";
 //echo "<table class='table table-hover'>";
@@ -280,6 +292,7 @@ echo "</blockquote>";
 //echo "</tbody>";
 //echo "</table>";
 //echo "</blockquote>";
+
 $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 

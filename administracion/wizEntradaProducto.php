@@ -43,11 +43,7 @@
                     </table>
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Entradas Proveedores</h2>
-            <section>
-
-            </section>
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Entradas Manualmente</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
                 <div class="col-sm-3">
                     <select id="proveedores" 
@@ -151,6 +147,7 @@
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
+        <script src="../administracion/administracion.js/transferencias.js"></script>
         <script src="../administracion/administracion.js/entradasManualmente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
     </body>

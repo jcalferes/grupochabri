@@ -25,8 +25,29 @@ function test() {
     });
 }
 
+function chkPP() {
+    var chkpp = $("#chkpp").is(":checked");
+    var control = $("#control").val();
+    if (chkpp === true) {
+        $('#chkpp').prop('checked', true);
+        for (var i = 0; i < control; i++) {
+            $("#unodct" + i + "").removeAttr("disabled", "disabled");
+            $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+        }
+
+    }
+    if (chkpp === false) {
+        $('#chkpp').prop('checked', false);
+        for (var i = 0; i < control; i++) {
+            $("#unodct" + i + "").attr("disabled", "disabled");
+            $("#dosdct" + i + "").attr("disabled", "disabled");
+        }
+    }
+}
+
 function chkExtras() {
     var nose = $("#chk").is(":checked");
+    var chkpp = $("#chkpp").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
             if (e) {
@@ -42,11 +63,18 @@ function chkExtras() {
             if (e) {
                 $("#btnextra").slideDown();
                 var control = $('#control').val();
-                for (var i = 0; i < control; i++) {
-                    $("#unodct" + i + "").removeAttr("disabled", "disabled");
-                    $("#dosdct" + i + "").removeAttr("disabled", "disabled");
-                    $("#id" + i + "").removeAttr("disabled", "disabled");
+                if (chkpp === true) {
+                    for (var i = 0; i < control; i++) {
+                        $("#unodct" + i + "").removeAttr("disabled", "disabled");
+                        $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+                        $("#id" + i + "").removeAttr("disabled", "disabled");
+                    }
+                } else {
+                    for (var i = 0; i < control; i++) {
+                        $("#id" + i + "").removeAttr("disabled", "disabled");
+                    }
                 }
+
                 $("#descuentoFactura").attr("disabled", "disabled");
                 $("#descuentoProntoPago").attr("disabled", "disabled");
                 $("#btnbuscar").removeAttr("disabled", "disabled");
@@ -301,6 +329,7 @@ function  dameValorDescuento1(id) {
 
     var desctsuma = desctpf + desctpp;
     $("#sumadescuentos").val(desctsuma.toFixed(2));
+
 }
 
 function  dameValorDescuento2(id) {
@@ -337,6 +366,7 @@ function  dameValorDescuento2(id) {
 
         var desctsuma = desctpf + desctpp;
         $("#sumadescuentos").val(desctsuma.toFixed(2));
+
     } else {
         alertify.error('Primero aplica un primer descuento');
         $("#dosdct" + id + "").val("");
@@ -344,6 +374,7 @@ function  dameValorDescuento2(id) {
 }
 
 $("#validarentrada").click(function() {
+    var chkpp = $("#chkpp").is(":checked");
     var conceptos = []; //Aqui pondre todos los conceptos de la factura
     var datos = []; //Este me servira para pasar los datos a php
     var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
@@ -388,8 +419,11 @@ $("#validarentrada").click(function() {
         }
 
         var importe = $("#importe" + i + "").val();
-        var cda = $("#cda" + i + "").val();
-
+        if (chkpp === true) {
+            var cda = $("#cda" + i + "").val();
+        } else {
+            var cda = $("#cdao" + i + "").val();
+        }
 
         var concepto = new Concepto(importe, id, cda, desctuno, desctdos);
         conceptos.push(concepto);
@@ -429,7 +463,6 @@ $("#validarentrada").click(function() {
     var iva = $("#coniva").val();
     var total = $("#total").val();
 
-//    alertify.alert('Todo bien');
     var comprobante = new Comprobante(descuentofactura, descuentoprontopago, descuentogeneral, descuentoporproductos, descuentototal, sda, iva, total);
 
     datos.push(conceptos);

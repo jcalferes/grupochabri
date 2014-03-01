@@ -1,25 +1,44 @@
 <?php
+
 class dao {
 
-    function comprobarCodigoValido(Producto $p) {
+    function consultandoProductoPorCodigo($codigo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.codigoProducto = '$codigo'";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+//        while ($rs = mysql_fetch_array($dato)) {
+//            $id = $rs[1];
+//        }
+
+        return $datos;
+    }
+
+    function comprobarCodigoValido($codigo) {
+
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {
             return 1;
-            echo 1;
         } else {
             return 0;
-            echo 1;
         }
     }
 
     function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto'";
+        $sql = "SELECT l.nombreListaPrecio, t.porcentaUtilidad FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -230,7 +249,7 @@ class dao {
 
         $id = mysql_insert_id();
         $fecha = date("d/m/Y h:i");
-        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha')";
+        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 
@@ -295,12 +314,13 @@ class dao {
     function consultaProducto() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto where status=1";
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
@@ -396,7 +416,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, descuento, email)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getDescuento() . "','" . $t->getEmail() . "');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -478,6 +498,18 @@ class dao {
                 . " INNER JOIN proveedores pr on pr.idProveedor = p.idProveedor\n"
                 . " WHERE pr.rfc='$rfc'";
         $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function obtieneDireccionDeProveedor($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, c.cp, c.asenta, c.municipio, c.estado, c.ciudad FROM direcciones d "
+                . " INNER JOIN cpostales c on c.idcpostales = d.idcpostales"
+                . " WHERE d.idDireccion = '$id'";
+        mysql_set_charset('utf8');
+        $datos = mysql_query($sql, $cn->Conectarse());
+        mysql_set_charset('utf8');
         return $datos;
     }
 
@@ -663,5 +695,7 @@ class dao {
 
 //Cierre de la funcion
     //==============================================================================
-}//Cierre DAO
+}
+
+//Cierre DAO
 ?>
