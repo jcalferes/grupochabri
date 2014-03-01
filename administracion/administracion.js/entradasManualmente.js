@@ -164,6 +164,7 @@ $(document).ready(function() {
             $("#buscarCodigoEntradas").attr('disabled', 'disabled');
         }
         else {
+            alert("no se");
             $("#buscarCodigoEntradas").removeAttr('disabled');
             $("#codigoProductoEntradas").removeAttr('disabled');
         }
