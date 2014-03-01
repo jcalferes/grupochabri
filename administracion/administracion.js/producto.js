@@ -112,12 +112,9 @@ $(document).ready(function() {
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
             if (x < 1) {
-
-                alertify.success("no existe el producto");
+                alertify.error("No existe el producto");
             } else {
-
-                alert(x);
-
+//                alert(x);
                 lista = JSON.parse(x);
                 console.log(lista);
                 $.each(lista, function(ind, elem) {
@@ -154,29 +151,29 @@ $(document).ready(function() {
                     console.log(lista);
                     var provando = 0;
                     $.each(lista, function(indice, elemento) {
- $.each(elemento, function(ind, elem) {
-                        if (ind == 0) {
-                            
-                     
-                            provando = elem;
-                       
-                        }
-                        if (ind == 1) {
-                            provando = provando.replace(" ","_")
-                           
-                            var costo = $("#txtCostoProducto").val();
-                           var utilidad = costo *(elem/100);
-                           utilidad = parseFloat(utilidad) + parseFloat(costo);
-                           alert("utlidad"+utilidad);
-                            $("#texto" + provando).val(elem);
-                             $("#tarifa" + provando).val(utilidad);
-                            provando = 0;
-                        }
+                        $.each(elemento, function(ind, elem) {
+                            if (ind == 0) {
 
+
+                                provando = elem;
+
+                            }
+                            if (ind == 1) {
+                                provando = provando.replace(" ", "_")
+
+                                var costo = $("#txtCostoProducto").val();
+                                var utilidad = costo * (elem / 100);
+                                utilidad = parseFloat(utilidad) + parseFloat(costo);
+                                alert("utlidad" + utilidad);
+                                $("#texto" + provando).val(elem);
+                                $("#tarifa" + provando).val(utilidad);
+                                provando = 0;
+                            }
+
+                        });
                     });
                 });
-                });
-                alertify.error("el producto ya existe");
+                alertify.error("El producto ya existe");
             }
         });
     });
@@ -242,17 +239,17 @@ $(document).ready(function() {
                         $(".producto").attr("disabled", true);
                         $(".checando").attr("checked", false);
                         $("#selectProducto").load("obtenerProductos.php");
-                        alertify.success("Producto agregada correctamente");
+                        alertify.success("Producto agregado correctamente");
                         return false;
                     } else {
-                        alertify.error("el codigo ya existe");
+                        alertify.error("El codigo ya existe");
                     }
                 });
             } else {
-                alertify.error("la cantidad maxima debe ser mayor a la minima");
+                alertify.error("La cantidad maxima debe ser mayor a la minima");
             }
         } else {
-            alertify.error("todos los campos deben tener valor");
+            alertify.error("Todos los campos deben tener valor");
         }
     });
 //    $("#selectTarifa").change(function() {

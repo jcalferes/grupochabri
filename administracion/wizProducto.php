@@ -13,11 +13,10 @@
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
+                            <label>Codigo Producto</label>
                             <div class="form-group form-inline">
-                                <label>Codigo Producto</label>
-
-                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
-                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="verificar codigo">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" style="width: 83%" placeholder="Código del Producto">
+                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="Verificar">
                             </div>
                             <!--                             <div class="form-group">
                                                             <label>Folio del producto</label>

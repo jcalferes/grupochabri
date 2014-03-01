@@ -92,13 +92,6 @@
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
             </section>
-            <h2><span class="glyphicon glyphicon-transfer"/>&numsp; Transferencias</h2>
-            <section>
-                <form id="" style="margin: 0% 25% 0% 25%">
-                    <select id="selectSucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
-                    </select>
-                </form>
-            </section>
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
