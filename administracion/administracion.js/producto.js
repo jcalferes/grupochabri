@@ -146,7 +146,7 @@ $(document).ready(function() {
 
                 });
                 $.get('obtenerTarifasPorConsulta.php', info, function(x) {
-                    alert(x);
+//                    alert(x);
                     lista = JSON.parse(x);
                     console.log(lista);
                     var provando = 0;
@@ -164,7 +164,7 @@ $(document).ready(function() {
                                 var costo = $("#txtCostoProducto").val();
                                 var utilidad = costo * (elem / 100);
                                 utilidad = parseFloat(utilidad) + parseFloat(costo);
-                                alert("utlidad" + utilidad);
+//                                alert("utlidad" + utilidad);
                                 $("#texto" + provando).val(elem);
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
@@ -216,7 +216,7 @@ $(document).ready(function() {
 
         if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
-            alert("minimo es =" + min + "maximo es = " + max);
+//            alert("minimo es =" + min + "maximo es = " + max);
             if (min <= max) {
                 var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {

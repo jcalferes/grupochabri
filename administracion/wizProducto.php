@@ -4,12 +4,12 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
-            <section class="scrollSection">
-                <div id="consultaProducto" style="margin-left: 5%">
+            <section>
+                <div id="consultaProducto">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus" />&numsp;Nuevo producto</h2>
-            <section class="scrollSection">
+            <section >
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
