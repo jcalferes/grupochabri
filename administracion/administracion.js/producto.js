@@ -51,6 +51,7 @@ function obtenerUtilidadCosto() {
             $("#tarifa" + valor).val(resultado);
         } else {
             var resultado = costo * uti;
+            $("#util" + valor).val(resultado);
             resultado = parseFloat(resultado) + parseFloat(costo);
 
             $("#tarifa" + valor).val(resultado);
@@ -63,7 +64,9 @@ function obtenerUtilidad(utilidad) {
     var utilidades = $("#texto" + utilidad).val();
     utilidades = utilidades / 100;
     var tarifa = costo * utilidades;
+    $("#util" + utilidad).val(tarifa);
     tarifa = parseFloat(costo) + parseFloat(tarifa);
+
     $("#tarifa" + utilidad).val(tarifa);
 }
 
@@ -180,10 +183,11 @@ $(document).ready(function() {
 
                                 var costo = $("#txtCostoProducto").val();
                                 var utilidad = costo * (elem / 100);
+                                $("#util" + provando).val(utilidad);
                                 utilidad = parseFloat(utilidad) + parseFloat(costo);
                                 alert("utlidad" + utilidad);
                                 $("#texto" + provando).val(elem);
-                                 $("#texto" + provando).attr("disabled",false)
+                                $("#texto" + provando).attr("disabled", false)
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
                             }
@@ -191,7 +195,7 @@ $(document).ready(function() {
                         });
                     });
                 });
-                
+
                 alertify.error("el producto ya existe");
             }
         });

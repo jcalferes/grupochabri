@@ -64,11 +64,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Minima</label>
-                                    <input type="number" class="form-control  valNum" id="txtCantidadMinima" placeholder="Cantidad MInima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
+                                    <input type="text" class="form-control  valNum" id="txtCantidadMinima" placeholder="Cantidad MInima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Maxima</label>
-                                    <input  type="number" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
+                                    <input  type="text" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Lista Precio:</label><br>
