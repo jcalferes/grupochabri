@@ -89,14 +89,25 @@
                 </table>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
-            </section>
-            <h2><span class="glyphicon glyphicon-transfer"/>&numsp; Transferencias</h2>
-            <section>
-                <form id="" style="margin: 0% 25% 0% 25%">
-                    <select id="selectSucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
-                    </select>
+                <br>
+                <form class="form-inline text-right">
+                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Productos : <input type="text" id="descuentoProductosM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <br>
+                <form class="form-inline text-right">
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
@@ -136,7 +147,6 @@
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
-        <script src="../administracion/administracion.js/transferencias.js"></script>
         <script src="../administracion/administracion.js/entradasManualmente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
     </body>

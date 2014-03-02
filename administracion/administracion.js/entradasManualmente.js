@@ -2,6 +2,7 @@ var costo = 0;
 var cantidadRespaldo = 0;
 var costoRespaldo = 0;
 var contador = 0;
+var sumaDescTotal = 0;
 
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
@@ -35,20 +36,34 @@ $("#codigoProductoEntradas").keypress(function(e) {
         });
     }
 });
-
 function calcularPorCosto(id) {
-    var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
+    var costoPorCantidad = $("#costo" + id).val();
+    var cantPorCantidad = $("#cant" + id).val();
+    if (isNaN(costoPorCantidad)) {
+        costoPorCantidad = 0;
+    }
+    if (isNaN(cantPorCantidad)) {
+        cantPorCantidad = 0;
+    }
+    var importe = costoPorCantidad * cantPorCantidad;
     $("#importe" + id).val(importe);
     calculaTotalEntradasManual();
+    sumaDeSubtotales();
 }
-
 function calcularPorCantidad(id) {
-    var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
+    var costoPorCantidad = $("#costo" + id).val();
+    var cantPorCantidad = $("#cant" + id).val();
+    if (isNaN(costoPorCantidad)) {
+        costoPorCantidad = 0;
+    }
+    if (isNaN(cantPorCantidad)) {
+        cantPorCantidad = 0;
+    }
+    var importe = costoPorCantidad * cantPorCantidad;
     $("#importe" + id).val(importe);
     calculaTotalEntradasManual();
+    sumaDeSubtotales();
 }
-
-
 function calculaTotalEntradasManual() {
     var sumaTotalDeImporte = 0;
     for (var x = 0; x < contador; x++) {
@@ -75,13 +90,37 @@ function calcularDescuentos(id) {
         nuevoImporte = respaldoImporte - nuevoImporte;
     }
     $("#importe" + id).val(nuevoImporte);
+
     if (descuento1 === '' && descuento2 === '') {
         var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
         $("#importe" + id).val(importe);
     }
     calculaTotalEntradasManual();
+    calcularDescTotal();
 }
 
+function calcularDescTotal() {
+    var totalDescuento = 0;
+    var nuevoDescuetno2 = 0;
+    var nuevoDescuetno1 = 0;
+    for (var x = 0; x < contador; x++) {
+        var descuento1 = parseFloat($("#descuento1" + x).val());
+        var descuento2 = parseFloat($("#descuento2" + x).val());
+        if (isNaN(descuento1)) {
+            descuento1 = 0;
+        }
+        if (isNaN(descuento2)) {
+            descuento2 = 0;
+        }
+        var importe = parseFloat($("#cant" + x).val()) * parseFloat($("#costo" + x).val());
+        nuevoDescuetno1 = (descuento1 * importe) / 100;
+        totalDescuento = totalDescuento + nuevoDescuetno1;
+        importe = importe - nuevoDescuetno1;
+        nuevoDescuetno2 = (descuento2 * importe) / 100;
+        totalDescuento = totalDescuento + nuevoDescuetno2;
+    }
+    $("#descuentoTotalM").val(totalDescuento);
+}
 
 function respaldoCantidad(codigo, costoProducto) {
     $("#costoTotal").val();
@@ -100,6 +139,37 @@ function validarCampoDesc2(id) {
     }
 }
 
+function sumaDeSubtotales() {
+    var sumaTotalCantidadCosto = 0;
+    var multiplicacion = 0;
+    for (var x = 0; x < contador; x++) {
+        var cantidad = parseFloat($("#cant" + x).val());
+        var costo1 = parseFloat($("#costo" + x).val());
+        if (isNaN(costo1)) {
+            costo1 = 0;
+        }
+        if (isNaN(cantidad)) {
+            cantidad = 0;
+        }
+        multiplicacion = cantidad * costo1;
+        sumaTotalCantidadCosto = sumaTotalCantidadCosto + multiplicacion;
+    }
+    $("#subTotalM").val(sumaTotalCantidadCosto);
+}
+
+function calcularCda() {
+    for (var x = 0; x < contador; x++) {
+        $("#cant"+x).val();
+        $("#costo"+x).val();
+        $("#descuento1"+x).val();
+        $("#descuento2"+x).val();
+        var importe = parseFloat($("#cant"+x).val())* parseFloat($("#costo"+x).val());
+        
+    }
+}
+
+
+
 $(document).ready(function() {
     $("#proveedores").change(function() {
         if ($("#proveedores").val() == 0) {
@@ -107,6 +177,7 @@ $(document).ready(function() {
             $("#buscarCodigoEntradas").attr('disabled', 'disabled');
         }
         else {
+
             $("#buscarCodigoEntradas").removeAttr('disabled');
             $("#codigoProductoEntradas").removeAttr('disabled');
         }
@@ -114,7 +185,6 @@ $(document).ready(function() {
     $("#proveedores").load("mostrarProveedores.php", function() {
         $("#proveedores").selectpicker();
     });
-
     $("#descuentosGlobalesManuales").change(function() {
         if ($("#descuentosGlobalesManuales").is(':checked')) {
             for (var x = 0; x < contador; x++) {
@@ -132,6 +202,5 @@ $(document).ready(function() {
             $(".cantidades").removeAttr('disabled');
         }
     });
-
 });
 

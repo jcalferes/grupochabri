@@ -170,7 +170,9 @@ $(document).ready(function() {
                     lista = JSON.parse(x);
                     console.log(lista);
                     var provando = 0;
-                    $.each(lista, function(indice, elemento) {
+                    $(".producto").val("");
+                    $(".producto").attr("disabled", true);
+                     $.each(lista, function(indice, elemento) {
                         $.each(elemento, function(ind, elem) {
                             if (ind == 0) {
 
@@ -179,6 +181,7 @@ $(document).ready(function() {
 
                             }
                             if (ind == 1) {
+
                                 provando = provando.replace(" ", "_")
 
                                 var costo = $("#txtCostoProducto").val();
