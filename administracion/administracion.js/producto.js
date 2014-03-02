@@ -107,11 +107,25 @@ $(document).ready(function() {
         $("#formulario").show("slow");
         $("#mostrarDivProveedor").hide("slow");
     });
-    $("#btnVerificarCodigo").click(function() {
+    $("#txtCodigoProducto").blur(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
             if (x < 1) {
+                $("#txtNombreProducto").val("");
+                $("#txtCodigoProducto").val("");
+                $('#selectMarca').selectpicker('val', 0);
+                $('#selectProveedor').selectpicker('val', 0);
+                $('#selectGrupo').selectpicker('val', 0);
+                $('#selectMedida').selectpicker('val', 0);
+                $("#txtCostoProducto").val("");
+                $("#txtCantidadMinima").val("");
+                $("#txtCantidadMaxima").val("");
+//                        $("#txtFolioProducto").val("");
+                $(".producto").val("");
+                $(".producto").attr("disabled", true);
+                $(".checando").attr("checked", false);
+                $("#selectProducto").load("obtenerProductos.php");
 
                 alertify.success("no existe el producto");
             } else {
@@ -154,28 +168,30 @@ $(document).ready(function() {
                     console.log(lista);
                     var provando = 0;
                     $.each(lista, function(indice, elemento) {
- $.each(elemento, function(ind, elem) {
-                        if (ind == 0) {
-                            
-                     
-                            provando = elem;
-                       
-                        }
-                        if (ind == 1) {
-                            provando = provando.replace(" ","_")
-                           
-                            var costo = $("#txtCostoProducto").val();
-                           var utilidad = costo *(elem/100);
-                           utilidad = parseFloat(utilidad) + parseFloat(costo);
-                           alert("utlidad"+utilidad);
-                            $("#texto" + provando).val(elem);
-                             $("#tarifa" + provando).val(utilidad);
-                            provando = 0;
-                        }
+                        $.each(elemento, function(ind, elem) {
+                            if (ind == 0) {
 
+
+                                provando = elem;
+
+                            }
+                            if (ind == 1) {
+                                provando = provando.replace(" ", "_")
+
+                                var costo = $("#txtCostoProducto").val();
+                                var utilidad = costo * (elem / 100);
+                                utilidad = parseFloat(utilidad) + parseFloat(costo);
+                                alert("utlidad" + utilidad);
+                                $("#texto" + provando).val(elem);
+                                 $("#texto" + provando).attr("disabled",false)
+                                $("#tarifa" + provando).val(utilidad);
+                                provando = 0;
+                            }
+
+                        });
                     });
                 });
-                });
+                
                 alertify.error("el producto ya existe");
             }
         });
