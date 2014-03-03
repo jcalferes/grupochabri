@@ -47,7 +47,7 @@
 
                             <div class="form-group">
                                 <label>Costo Producto</label>
-                                <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false">
+                                <input type="text" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <div class="form-group form-inline">
@@ -88,6 +88,7 @@
                                                 </div>-->
                             <hr>
                             <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
+                            <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
                         </div>
                     </form>
 

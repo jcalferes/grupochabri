@@ -2,6 +2,85 @@
 
 class dao {
 
+    function editarProducto(Producto $p, Costo $c, Tarifa $t) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sqlCostos = "UPDATE costos set status = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $sqlProductos = "UPDATE productos set producto = '" . $p->getProducto() . "',idMarca= '" . $p->getIdMarca() . "',idProveedor= '" . $p->getIdProveedor() . "',cantidadMaxima= '" . $p->getCantidadMaxima() . "',cantidadMinima= '" . $p->getCantidadMinima() . "',idGrupoProducto= '" . $p->getIdGrupoProducto() . "',idUnidadMedida= '" . $p->getIdUnidadMedida() . "' WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $fecha = date("d/m/Y h:i");
+        $sqlCostoNuevo = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1')";
+
+
+
+
+        mysql_query("START TRANSACTION;");
+        $producto = mysql_query($sqlProductos, $cn->Conectarse());
+        if ($producto == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $costos = mysql_query($sqlCostos, $cn->Conectarse());
+            if ($costos == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                $costosNuevo = mysql_query($sqlCostoNuevo, $cn->Conectarse());
+                if ($costosNuevo == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+
+                    $lista = $t->getIdListaPrecio();
+
+                    foreach ($lista as $valor) {
+                        $pieces = explode("-", $valor);
+                        if ($cont == 0) {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+                                        $tarifa = $pieces[0];
+                                        $listaPrecio = $pieces[1];
+                                        $cont = 1;
+//                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus,porcentaUtilidad)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2',2)";
+//                        $resultado = mysql_query($sql, $cn->Conectarse());
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    echo 'mal';
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        } else {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+                                        $sqlTarifas = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','2','$pieces[0]')";
+                                        $tarifas = mysql_query($sqlTarifas, $cn->Conectarse());
+                                        if ($tarifas == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            echo 'BIEN';
+                                        }
+                                        $cont = 0;
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    echo 'mal';
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        }
+                    }
+
+
+                    mysql_query("COMMIT;");
+                }
+            }
+        }
+        $cn->cerrarBd();
+    }
+
     function consultandoProductoPorCodigo($codigo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -476,10 +555,10 @@ class dao {
         $cn->Conectarse();
         $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
 //        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
-        
-        $mysqlUpdateExistencias="UPDATE existencias set cantidad = '".$entradas->getCantidad()."' WHERE codigoProducto='".$entradas->getCodigoProducto(). "' and idSucursal ='0'";
-        
-        
+
+        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='0'";
+
+
         mysql_query("START TRANSACTION;");
         $entradas = mysql_query($MySQLEntradas);
         if ($entradas == false) {
