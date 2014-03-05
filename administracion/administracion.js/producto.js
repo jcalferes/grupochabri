@@ -113,7 +113,7 @@ $(document).ready(function() {
         $("#formulario").show("slow");
         $("#mostrarDivProveedor").hide("slow");
     });
-    $("#txtCodigoProducto").blur(function() {
+    $("#txtCodigoProducto").keyup(function() {
         var codigoProducto = $("#txtCodigoProducto").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
@@ -138,7 +138,7 @@ $(document).ready(function() {
 //                    'id': "guardarDatos",
 //                    'value': "Guardar"
 //                });
-                alertify.success("no existe el producto");
+//                alertify.success("no existe el producto");
             } else {
 
 
@@ -221,7 +221,7 @@ $(document).ready(function() {
 //                    'id': "editarDatos",
 //                    'value': "Editar"
 //                });
-                alertify.error("el producto ya existe");
+//                alertify.error("el producto ya existe");
             }
         });
     });
@@ -266,7 +266,7 @@ $(document).ready(function() {
         if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
 
-            if (min <= max) {
+            if (min < max) {
                 var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
                     alertify.success(x);
@@ -339,7 +339,7 @@ $(document).ready(function() {
         if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
 
 
-            if (min <= max) {
+            if (min < max) {
                 var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
 
                 $.get('editarProducto.php', info, function(x) {
