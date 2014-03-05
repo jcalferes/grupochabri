@@ -119,7 +119,6 @@ $(document).ready(function() {
         $.get('verificandoProducto.php', info, function(x) {
             if (x < 1) {
                 $("#txtNombreProducto").val("");
-                $("#txtCodigoProducto").val("");
                 $('#selectMarca').selectpicker('val', 0);
                 $('#selectProveedor').selectpicker('val', 0);
                 $('#selectGrupo').selectpicker('val', 0);
@@ -130,6 +129,7 @@ $(document).ready(function() {
 //                        $("#txtFolioProducto").val("");
                 $(".producto").val("");
                 $(".producto").attr("disabled", true);
+                $(".checando").attr("disabled", true);
                 $(".checando").attr("checked", false);
                 $("#selectProducto").load("obtenerProductos.php");
                 $("#guardarDatos").show();
@@ -146,7 +146,10 @@ $(document).ready(function() {
                 lista = JSON.parse(x);
                 console.log(lista);
                 $(".producto").attr("disabled", true);
-                $(".checando").attr("checked", false);
+                $(".checando").attr({
+                    checked: false,
+                    disabled: false
+                });
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
                         $("#txtNombreProducto").val(elem);
@@ -202,8 +205,8 @@ $(document).ready(function() {
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
                                 $("#check" + provando).attr({
-                                    "Checked": true,
-                                    "disabled": true
+                                    Checked: true,
+                                    disabled: false
                                 });
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
@@ -282,6 +285,7 @@ $(document).ready(function() {
                         $("#txtCantidadMaxima").val("");
 //                        $("#txtFolioProducto").val("");
                         $(".producto").val("");
+                        $(".neto").val("");
                         $(".producto").attr("disabled", true);
                         $(".checando").attr("checked", false);
                         $("#selectProducto").load("obtenerProductos.php");
@@ -321,21 +325,14 @@ $(document).ready(function() {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            if (valor !== "") {
-                if (valor !== " ") {
-                    if (valor !== null) {
-                        var algo = valor + "-" + nombre;
-                        listaPrecios.push(algo);
-                        lista = JSON.stringify(listaPrecios);
-                        valor = "";
-                        nombre = "";
-                    } else {
-                    }
-                } else {
-                }
+            var algo = valor + "-" + nombre;
+            listaPrecios.push(algo);
+            lista = JSON.stringify(listaPrecios);
+            valor = "";
+            nombre = "";
 
-            } else {
-            }
+
+
         });
         ////////////////////////////////////////////////probando
 
@@ -361,6 +358,7 @@ $(document).ready(function() {
                     $("#txtCantidadMaxima").val("");
 //                        $("#txtFolioProducto").val("");
                     $(".producto").val("");
+                    $(".neto").val("");
                     $(".producto").attr("disabled", true);
                     $(".checando").attr("checked", false);
                     $("#selectProducto").load("obtenerProductos.php");
