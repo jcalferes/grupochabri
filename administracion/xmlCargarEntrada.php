@@ -116,7 +116,6 @@ echo "</blockquote>";
 //echo "</tbody>";
 //echo "</table>";
 //echo "</blockquote>";
-
 //echo "<span class='label label-default'>Receptor </span>";
 //echo "<blockquote>";
 //echo "<table class='table table-hover'>";
@@ -133,7 +132,6 @@ echo "</blockquote>";
 //echo "</tbody>";
 //echo "</table>";
 //echo "</blockquote>";
-
 //echo "<span class='label label-default'>Domicilio del receptor </span>";
 //echo "<blockquote>";
 //echo "<table class='table table-hover'>";
@@ -159,27 +157,29 @@ echo "</blockquote>";
 
 echo "<span class='label label-default'>Concepto </span>";
 echo "<blockquote>";
+
 echo "<div class='checkbox-inline'>";
-echo "<span>";
-echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
-echo "</span>";
-echo "<hr>";
-echo "</div>";
-echo "<div class='checkbox-inline'>";
-echo "<span>";
+echo "<label>";
 echo "<input type='checkbox' id='chk' onclick='chkExtras()'/> Descuentos globales de factura";
-echo "</span>";
-echo "<hr>";
+echo "</label>";
 echo "</div>";
+
 echo "<form class='form-inline'>";
 echo "<span>Desct. Factura: </span><input type='text' disabled='false' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
-echo "<span> Desct. Pronto Pago: </span><input type='text' disabled='false' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' onkeyup='descuentoPP()'/>";
+echo "<span> Desct. Pronto Pago: </span><input type='text' disabled='false' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' />";
+echo "<span> Flete: </span><input type='text' disabled='false' class='form-control' id='flete' onkeyup='calculaflete()' style='width: 15%'/>";
 echo "</form>";
 echo "<hr>";
+
+echo "<div class='checkbox-inline'>";
+echo "<label>";
+echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
+echo "</label>";
+echo "</div>";
+
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th>";
-//<th>Unidad</th>
+echo "<th>Cantidad</th><th>Unidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th><th>Importe Flete</th>";
 echo "</thead>";
 echo "<tbody>";
 $arrayDetalleEntrada = [];
@@ -188,7 +188,7 @@ $cuentaid = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
     echo "<tr>";
     echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
-//    echo "<td>" . $Concepto['unidad'] . "</td>";
+    echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
     echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
@@ -201,6 +201,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $cdao = number_format($importe / $cantidad, 2, '.', '');
     echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    echo "<td><input type='text' class='form-control' id='importeflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
 
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
@@ -297,4 +298,4 @@ $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 
 unlink($archivo);
-?>
+
