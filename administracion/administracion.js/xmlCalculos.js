@@ -63,7 +63,7 @@ function calculaflete() {
         var nuevoimporte = importe + cantidad;
         $("#importeflete" + i + "").val(nuevoimporte);
     }
-
+    calculaTotales();
 }
 
 function chkExtras() {
@@ -298,7 +298,7 @@ function calculaTotales() {
     var info = $('#control').val();
     var nuevosubtotal = 0;
     for (var n = 0; n < info; n++) {
-        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
+        var calculandosubtotal = parseFloat($("#importeflete" + n + "").val());
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
 
@@ -442,7 +442,7 @@ $("#validarentrada").click(function() {
             }
         }
 
-        var importe = $("#importe" + i + "").val();
+        var importe = $("#importeflete" + i + "").val();
         if (chkpp === true) {
             var cda = $("#cda" + i + "").val();
         } else {
