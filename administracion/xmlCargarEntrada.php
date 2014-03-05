@@ -179,8 +179,7 @@ echo "</div>";
 
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Unidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='test()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th><th>Importe Flete</th>";
-//<th>Unidad</th>
+echo "<th>Cantidad</th><th>Unidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th><th>Importe Flete</th>";
 echo "</thead>";
 echo "<tbody>";
 $arrayDetalleEntrada = [];
@@ -202,7 +201,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $cdao = number_format($importe / $cantidad, 2, '.', '');
     echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
     echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
-    echo "<td><input type='text' class='form-control' id='impoteflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    echo "<td><input type='text' class='form-control' id='importeflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
 
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));

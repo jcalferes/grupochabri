@@ -17,7 +17,7 @@ function Concepto(importe, codigo, cda, desctuno, desctdos) {
     this.desctdos = desctdos;
 }
 
-function test() {
+function consultarProductoId() {
     var rfc = $("#facrfc").text();
     var info = "rfc=" + rfc;
     $("#veridproductos").load("consultarProductoId.php", info, function() {
@@ -46,11 +46,8 @@ function chkPP() {
 }
 
 function calculaflete() {
-
     var verificaflete = $("#flete").val();
-    alert(verificaflete);
     var control = $("#control").val();
-    alert(control);
     if (verificaflete === "" || /^\s+$/.test(verificaflete)) {
         var flete = 0;
     } else {
@@ -60,10 +57,12 @@ function calculaflete() {
             flete = 0;
         }
     }
-    alert(flete);
-
     var cantidad = flete / control;
-    alert(cantidad);
+    for (var i = 0; i < control; i++) {
+        var importe = parseFloat($("#importe" + i + "").val());
+        var nuevoimporte = importe + cantidad;
+        $("#importeflete" + i + "").val(nuevoimporte);
+    }
 
 }
 
