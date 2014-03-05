@@ -128,6 +128,8 @@ $(document).ready(function() {
                 $("#txtCantidadMaxima").val("");
 //                        $("#txtFolioProducto").val("");
                 $(".producto").val("");
+                $(".neto").val("");
+
                 $(".producto").attr("disabled", true);
                 $(".checando").attr("disabled", true);
                 $(".checando").attr("checked", false);
@@ -205,8 +207,8 @@ $(document).ready(function() {
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
                                 $("#check" + provando).attr({
-                                    Checked: true,
-                                    disabled: false
+                                    disabled: false,
+                                    Checked: true
                                 });
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
