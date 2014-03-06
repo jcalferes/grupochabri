@@ -298,7 +298,7 @@ function calculaTotales() {
     var info = $('#control').val();
     var nuevosubtotal = 0;
     for (var n = 0; n < info; n++) {
-        var calculandosubtotal = parseFloat($("#importeflete" + n + "").val());
+        var calculandosubtotal = parseFloat($("#importe" + n + "").val());
         nuevosubtotal = nuevosubtotal + calculandosubtotal;
     }
 
