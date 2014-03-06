@@ -50,32 +50,48 @@ function calculaflete() {
     var control = $("#control").val();
     if (verificaflete === "" || /^\s+$/.test(verificaflete)) {
         var flete = 0;
+        for (var i = 0; i < control; i++) {
+            var respimporte = $("#respaldoimporte" + i + "").val();
+            $("#importe" + i + "").val(respimporte);
+        }
     } else {
         if ($("#flete").val().match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
             flete = $("#flete").val();
+            var cantidad = flete / control;
+            for (var i = 0; i < control; i++) {
+                var importe = parseFloat($("#importe" + i + "").val());
+                var nuevoimporte = importe + cantidad;
+                $("#importe" + i + "").val(nuevoimporte);
+            }
+
         } else {
             flete = 0;
+            for (var i = 0; i < control; i++) {
+                var respimporte = $("#respaldoimporte" + i + "").val();
+                $("#importe" + i + "").val(respimporte);
+            }
         }
-    }
-    var cantidad = flete / control;
-    for (var i = 0; i < control; i++) {
-        var importe = parseFloat($("#importe" + i + "").val());
-        var nuevoimporte = importe + cantidad;
-        $("#importeflete" + i + "").val(nuevoimporte);
     }
     calculaTotales();
 }
 
 function chkExtras() {
-    var nose = $("#chk").is(":checked");
+    var chkext = $("#chk").is(":checked");
+    var control = $('#control').val();
 //    var chkpp = $("#chkpp").is(":checked");
-    if (nose === true) {
+    if (chkext === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
             if (e) {
                 $("#descuentoFactura").removeAttr("disabled", "disabled");
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
                 $("#flete").removeAttr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
+
+                for (var i = 0; i < control; i++) {
+                    var importe = $("#importe" + i + "").val();
+                    $("#respaldoimporte" + i + "").val(importe);
+                }
+
             } else {
                 $('#chk').prop('checked', false);
             }
@@ -86,16 +102,20 @@ function chkExtras() {
 //                $("#btnextra").slideDown();
                 var control = $('#control').val();
                 for (var i = 0; i < control; i++) {
+                    var respimporte = $("#respaldoimporte" + i + "").val();
+                    $("#importe" + i + "").val(respimporte);
+                }
+                for (var i = 0; i < control; i++) {
                     $("#unodct" + i + "").removeAttr("disabled", "disabled");
                     $("#dosdct" + i + "").removeAttr("disabled", "disabled");
                     $("#id" + i + "").removeAttr("disabled", "disabled");
+                    $("#respaldoimporte" + i + "").val("");
                 }
 
                 $("#descuentoFactura").attr("disabled", "disabled");
                 $("#descuentoProntoPago").attr("disabled", "disabled");
                 $("#flete").attr("disabled", "disabled");
                 $("#btnbuscar").removeAttr("disabled", "disabled");
-                $("#desctextra").slideUp();
                 calculaTotales();
                 $("#descuentogeneral").val("0.00");
                 $("#descuentoProntoPago").val("");
