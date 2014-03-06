@@ -167,17 +167,11 @@ echo "<hr>";
 echo "</div>";
 
 echo "<form class='form-inline'>";
-echo "<span>Desct. Factura: </span><input type='text' disabled='false' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
+echo "<span>Flete: </span><input type='text' class='form-control' id='flete' style='width: 15%'/>";
+echo "<span> Desct. Factura: </span><input type='text' disabled='false' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
 echo "<span> Desct. Pronto Pago: </span><input type='text' disabled='false' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' />";
-echo "<span> Flete: </span><input type='text' disabled='false' class='form-control' id='flete' onkeyup='calculaflete()' style='width: 15%'/>";
 echo "</form>";
 echo "<hr>";
-
-//echo "<div class='checkbox-inline'>";
-//echo "<label>";
-//echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
-//echo "</label>";
-//echo "</div>";
 
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";

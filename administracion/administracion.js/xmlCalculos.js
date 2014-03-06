@@ -25,29 +25,11 @@ function consultarProductoId() {
     });
 }
 
-//function chkPP() {
-//    var chkpp = $("#chkpp").is(":checked");
-//    var control = $("#control").val();
-//    if (chkpp === true) {
-//        $('#chkpp').prop('checked', true);
-//        for (var i = 0; i < control; i++) {
-//            $("#unodct" + i + "").removeAttr("disabled", "disabled");
-//            $("#dosdct" + i + "").removeAttr("disabled", "disabled");
-//        }
-//
-//    }
-//    if (chkpp === false) {
-//        $('#chkpp').prop('checked', false);
-//        for (var i = 0; i < control; i++) {
-//            $("#unodct" + i + "").attr("disabled", "disabled");
-//            $("#dosdct" + i + "").attr("disabled", "disabled");
-//        }
-//    }
-//}
 
 function calculaflete() {
     var verificaflete = $("#flete").val();
     var control = $("#control").val();
+
     if (verificaflete === "" || /^\s+$/.test(verificaflete)) {
         var flete = 0;
         for (var i = 0; i < control; i++) {
@@ -61,7 +43,7 @@ function calculaflete() {
             for (var i = 0; i < control; i++) {
                 var importe = parseFloat($("#importe" + i + "").val());
                 var nuevoimporte = importe + cantidad;
-                $("#importe" + i + "").val(nuevoimporte);
+                $("#importe" + i + "").val(nuevoimporte.toFixed(2));
             }
 
         } else {
@@ -84,13 +66,14 @@ function chkExtras() {
             if (e) {
                 $("#descuentoFactura").removeAttr("disabled", "disabled");
                 $("#descuentoProntoPago").removeAttr("disabled", "disabled");
-                $("#flete").removeAttr("disabled", "disabled");
+                $("#flete").attr("disabled", "disabled");
                 $("#tblconceptos").find("input,button,textarea").attr("disabled", "disabled");
 
                 for (var i = 0; i < control; i++) {
                     var importe = $("#importe" + i + "").val();
                     $("#respaldoimporte" + i + "").val(importe);
                 }
+                calculaflete();
 
             } else {
                 $('#chk').prop('checked', false);
@@ -109,18 +92,21 @@ function chkExtras() {
                     $("#unodct" + i + "").removeAttr("disabled", "disabled");
                     $("#dosdct" + i + "").removeAttr("disabled", "disabled");
                     $("#id" + i + "").removeAttr("disabled", "disabled");
-                    $("#respaldoimporte" + i + "").val("");
                 }
 
                 $("#descuentoFactura").attr("disabled", "disabled");
                 $("#descuentoProntoPago").attr("disabled", "disabled");
-                $("#flete").attr("disabled", "disabled");
+                $("#flete").removeAttr("disabled", "disabled");
                 $("#btnbuscar").removeAttr("disabled", "disabled");
                 calculaTotales();
                 $("#descuentogeneral").val("0.00");
                 $("#descuentoProntoPago").val("");
                 $("#descuentoFactura").val("");
                 $("#flete").val("");
+                calculaflete();
+                for (var i = 0; i < control; i++) {
+                    $("#respaldoimporte" + i + "").val("");
+                }
             } else {
                 $('#chk').prop('checked', true);
             }
