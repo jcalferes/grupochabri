@@ -194,7 +194,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     $icdao = $importe / $cantidad;
     $valorunnitario = number_format(floatval($Concepto['valorUnitario']), 2, '.', '');
     $ivalorunnitario = floatval($Concepto['valorUnitario']);
-    $operacion1 = ($cdao * 100) / $valorunnitario;
+    $operacion1 = ($icdao * 100) / $ivalorunnitario;
     $porcento = 100 - $operacion1;
 
     echo "<tr>";
@@ -206,25 +206,31 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     if ($cdao == $valorunnitario) {
         echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
     } else {
-        echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' value='" .  truncateFloat($porcento, 2) . "'/></td>";
+        echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' value='" . number_format($porcento, 2, '.', '') . "'/></td>";
     }
     echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
     if ($cdao == $valorunnitario) {
         echo "<td><input type='text' class='form-control' value='0.00' id='totaldct$cuentaid' disabled='false'/></td>";
     } else {
-
-        $op1 = ($porcento * $ivalorunnitario) / 100;
+        $porcentoformat = number_format($porcento, 2, '.', '');
+        $op1 = ($porcentoformat * $ivalorunnitario) / 100;
         $desctotal = $cantidad * $op1;
-        echo "<td><input type='text' class='form-control' id='totaldct$cuentaid' disabled='false' value='" . truncateFloat($desctotal, 2) . "' /></td>";
+        echo "<td><input type='text' class='form-control' id='totaldct$cuentaid' disabled='false' value='" . number_format($desctotal, 2, '.', '') . "' /></td>";
         $desctpptotal += $desctotal;
     }
     if ($cdao == $valorunnitario) {
         echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     } else {
-        echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" .  truncateFloat($icdao, 2) . "' /></td>";
+        $cdabueno = $valorunnitario - $op1;
+        echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . number_format($cdabueno, 2, '.', '') . "' /></td>";
     }
 //    echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
-    echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    if ($cdao == $valorunnitario) {
+        echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    } else {
+        $importebueno = $cdabueno * $cantidad;
+        echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . number_format($importebueno, 2, '.', '') . "' /></td>";
+    }
     echo "<td><input type='text' class='form-control' id='importeflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
 
@@ -267,12 +273,12 @@ echo "<span> Desct. General: </span><input type='text' class='form-control text-
 if ($cdao == $valorunnitario) {
     echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='0.00'/>";
 } else {
-    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='$desctpptotal'/>";
+    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='".number_format($desctpptotal, 2, '.', '')."'/>";
 }
 if ($cdao == $valorunnitario) {
     echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='0.00'/>";
 } else {
-    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='$desctpptotal'/>";
+    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='".number_format($desctpptotal, 2, '.', '')."'/>";
 }
 echo "</form>";
 echo "<form class='form-inline text-right'>";
@@ -331,9 +337,4 @@ $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 
 unlink($archivo);
 
-function truncateFloat($number, $digitos) {
-    $raiz = 10;
-    $multiplicador = pow($raiz, $digitos);
-    $resultado = ((int) ($number * $multiplicador)) / $multiplicador;
-    return number_format($resultado, $digitos);
-}
+

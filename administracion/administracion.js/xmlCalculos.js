@@ -325,6 +325,7 @@ function  calculaDescuentos() {
 function  dameValorDescuento1(id) {
 
     var porcentaje = $("#unodct" + id + "").val();
+//    alert('El porcentaje es: ' + porcentaje);
     if (porcentaje === "" || /^\s+$/.test(porcentaje)) {
         porcentaje = 0.00;
         $("#unodct" + id + "").val("");
@@ -337,13 +338,19 @@ function  dameValorDescuento1(id) {
         }
     }
     var valorunitario = parseFloat($("#valorunitario" + id + "").val());
+//    alert('El valor unitario es: ' + valorunitario);
     var cantidad = parseFloat($("#cantidad" + id + "").val());
+//    alert('La cantidad es: ' + cantidad);
     var descuento = (porcentaje * valorunitario) / 100;
+//    alert('El porcentaje: ' + porcentaje + 'por el valor unitario: ' + valorunitario + 'entre 100 es igual a: ' + descuento);
     var descuentotodos = descuento * cantidad;
+//    alert('El descuento final es de: ' + descuentotodos);
     $("#totaldct" + id + "").val(descuentotodos.toFixed(2));
     var cda = valorunitario - descuento;
+//    alert('CDA es igaul a: '+cda);
     $("#cda" + id + "").val(cda.toFixed(2));
     var importe = cda * cantidad;
+//    alert('El importe es: ' + importe);
     $("#importe" + id + "").val(importe.toFixed(2));
     calculaDescuentos();
     calculaTotales();
