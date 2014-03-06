@@ -4,19 +4,20 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
-            <section>
-                <div id="consultaProducto">
+            <section class="scrollSection">
+                <div id="consultaProducto" style="margin-left: 5%">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus" />&numsp;Nuevo producto</h2>
-            <section >
+            <section class="scrollSection">
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
                         <div id="formulario"> 
-                            <label>Codigo Producto</label>
                             <div class="form-group form-inline">
-                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" style="width: 83%" placeholder="Código del Producto">
-                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="Verificar">
+                                <label>Codigo Producto</label>
+
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
+<!--                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="verificar codigo">-->
                             </div>
                             <!--                             <div class="form-group">
                                                             <label>Folio del producto</label>
@@ -46,7 +47,7 @@
 
                             <div class="form-group">
                                 <label>Costo Producto</label>
-                                <input type="number" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false">
+                                <input type="text" class="form-control  valNum" id="txtCostoProducto" placeholder="Costo del Producto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false">
                             </div>
                             <div class="form-group">
                                 <div class="form-group form-inline">
@@ -63,11 +64,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Minima</label>
-                                    <input type="number" class="form-control  valNum" id="txtCantidadMinima" placeholder="Cantidad MInima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
+                                    <input type="text" class="form-control  valNum" id="txtCantidadMinima" placeholder="Cantidad MInima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad Maxima</label>
-                                    <input  type="number" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
+                                    <input  type="text" class="form-control valNum" id="txtCantidadMaxima" placeholder="Cantidad Maxima" onkeypress="return NumCheck(event, this);" onpaste="return false" >
                                 </div>
                                 <div class="form-group">
                                     <label>Lista Precio:</label><br>
@@ -87,6 +88,7 @@
                                                 </div>-->
                             <hr>
                             <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
+                            <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
                         </div>
                     </form>
 
