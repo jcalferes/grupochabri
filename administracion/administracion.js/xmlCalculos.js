@@ -25,25 +25,25 @@ function consultarProductoId() {
     });
 }
 
-function chkPP() {
-    var chkpp = $("#chkpp").is(":checked");
-    var control = $("#control").val();
-    if (chkpp === true) {
-        $('#chkpp').prop('checked', true);
-        for (var i = 0; i < control; i++) {
-            $("#unodct" + i + "").removeAttr("disabled", "disabled");
-            $("#dosdct" + i + "").removeAttr("disabled", "disabled");
-        }
-
-    }
-    if (chkpp === false) {
-        $('#chkpp').prop('checked', false);
-        for (var i = 0; i < control; i++) {
-            $("#unodct" + i + "").attr("disabled", "disabled");
-            $("#dosdct" + i + "").attr("disabled", "disabled");
-        }
-    }
-}
+//function chkPP() {
+//    var chkpp = $("#chkpp").is(":checked");
+//    var control = $("#control").val();
+//    if (chkpp === true) {
+//        $('#chkpp').prop('checked', true);
+//        for (var i = 0; i < control; i++) {
+//            $("#unodct" + i + "").removeAttr("disabled", "disabled");
+//            $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+//        }
+//
+//    }
+//    if (chkpp === false) {
+//        $('#chkpp').prop('checked', false);
+//        for (var i = 0; i < control; i++) {
+//            $("#unodct" + i + "").attr("disabled", "disabled");
+//            $("#dosdct" + i + "").attr("disabled", "disabled");
+//        }
+//    }
+//}
 
 function calculaflete() {
     var verificaflete = $("#flete").val();
@@ -68,7 +68,7 @@ function calculaflete() {
 
 function chkExtras() {
     var nose = $("#chk").is(":checked");
-    var chkpp = $("#chkpp").is(":checked");
+//    var chkpp = $("#chkpp").is(":checked");
     if (nose === true) {
         alertify.confirm("Solo se puede agregar descuentos globales, si ya haz terminado de aplicar descuentos por producto. Deseas continuar?", function(e) {
             if (e) {
@@ -83,18 +83,12 @@ function chkExtras() {
     } else {
         alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
             if (e) {
-                $("#btnextra").slideDown();
+//                $("#btnextra").slideDown();
                 var control = $('#control').val();
-                if (chkpp === true) {
-                    for (var i = 0; i < control; i++) {
-                        $("#unodct" + i + "").removeAttr("disabled", "disabled");
-                        $("#dosdct" + i + "").removeAttr("disabled", "disabled");
-                        $("#id" + i + "").removeAttr("disabled", "disabled");
-                    }
-                } else {
-                    for (var i = 0; i < control; i++) {
-                        $("#id" + i + "").removeAttr("disabled", "disabled");
-                    }
+                for (var i = 0; i < control; i++) {
+                    $("#unodct" + i + "").removeAttr("disabled", "disabled");
+                    $("#dosdct" + i + "").removeAttr("disabled", "disabled");
+                    $("#id" + i + "").removeAttr("disabled", "disabled");
                 }
 
                 $("#descuentoFactura").attr("disabled", "disabled");
@@ -405,7 +399,7 @@ function  dameValorDescuento2(id) {
 }
 
 $("#validarentrada").click(function() {
-    var chkpp = $("#chkpp").is(":checked");
+//    var chkpp = $("#chkpp").is(":checked");
     var conceptos = []; //Aqui pondre todos los conceptos de la factura
     var datos = []; //Este me servira para pasar los datos a php
     var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
@@ -450,11 +444,9 @@ $("#validarentrada").click(function() {
         }
 
         var importe = $("#importeflete" + i + "").val();
-        if (chkpp === true) {
-            var cda = $("#cda" + i + "").val();
-        } else {
-            var cda = $("#cdao" + i + "").val();
-        }
+
+        var cda = $("#cda" + i + "").val();
+
 
         var concepto = new Concepto(importe, id, cda, desctuno, desctdos);
         conceptos.push(concepto);

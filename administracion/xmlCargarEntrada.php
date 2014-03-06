@@ -163,6 +163,7 @@ echo "<div class='checkbox-inline'>";
 echo "<label>";
 echo "<input type='checkbox' id='chk' onclick='chkExtras()'/> Descuentos globales de factura";
 echo "</label>";
+echo "<hr>";
 echo "</div>";
 
 echo "<form class='form-inline'>";
@@ -172,11 +173,11 @@ echo "<span> Flete: </span><input type='text' disabled='false' class='form-contr
 echo "</form>";
 echo "<hr>";
 
-echo "<div class='checkbox-inline'>";
-echo "<label>";
-echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
-echo "</label>";
-echo "</div>";
+//echo "<div class='checkbox-inline'>";
+//echo "<label>";
+//echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
+//echo "</label>";
+//echo "</div>";
 
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
@@ -273,12 +274,12 @@ echo "<span> Desct. General: </span><input type='text' class='form-control text-
 if ($cdao == $valorunnitario) {
     echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='0.00'/>";
 } else {
-    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='".number_format($desctpptotal, 2, '.', '')."'/>";
+    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='" . number_format($desctpptotal, 2, '.', '') . "'/>";
 }
 if ($cdao == $valorunnitario) {
     echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='0.00'/>";
 } else {
-    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='".number_format($desctpptotal, 2, '.', '')."'/>";
+    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='" . number_format($desctpptotal, 2, '.', '') . "'/>";
 }
 echo "</form>";
 echo "<form class='form-inline text-right'>";
