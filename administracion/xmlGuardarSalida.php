@@ -18,7 +18,13 @@ $encabezadoSalida = $_SESSION['objEncabezadoSalida'];
 $arrayDetalleSalida = $_SESSION['arrayDetalleSalida'];
 $lafecha = $utilerias->generarFecha();
 
-$cn->Conectarse();
-$dao->MiniGuardadorSalidas($encabezadoSalida, $arrayDetalleSalida, $lafecha);
-$cn->cerrarBd();
+$rfccabezera = $encabezadoSalida->getRfc();
+$rfcorigen = "CABJ830923TW9";
+if ($rfccabezera != $rfcorigen) {
+    echo 10;
+} else {
+    $cn->Conectarse();
+    $dao->MiniGuardadorSalidas($encabezadoSalida, $arrayDetalleSalida, $lafecha);
+    $cn->cerrarBd();
+}
 ?>

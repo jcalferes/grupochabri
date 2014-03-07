@@ -39,25 +39,35 @@ $comprobante->setTotal(floatval($compbt->total));
 
 $rfc = $encabezado->getRfc();
 $valido = $dao->validarExistenciaProductoProveedor($rfc);
-$validaCodigo = 1;
-$recchazaCodigo = 0;
-foreach ($conceptos as $concepto) {
-    $ads = $concepto->codigo;
-    while ($rs = mysql_fetch_array($valido)) {
-        if ($ads != $rs['codigoProducto']) {
-            $rechazaCodigo = $concepto->codigo;
-        } else {
-            $validaCodigo = 0;
+if ($valido == false) {
+    echo 2;
+} else {
+    $validaCodigo = 1;
+    $recchazaCodigo = 0;
+    foreach ($conceptos as $concepto) {
+        $ads = $concepto->codigo;
+        while ($rs = mysql_fetch_array($valido)) {
+            if ($ads != $rs['codigoProducto']) {
+                $rechazaCodigo = $concepto->codigo;
+            } else {
+                $validaCodigo = 0;
+            }
+        }
+        mysql_data_seek($valido, 0);
+
+        if ($validaCodigo != 0) {
+            echo $rechazaCodigo;
+            return false;
         }
     }
-    mysql_data_seek($valido, 0);
-
-    if ($validaCodigo != 0) {
-        echo $rechazaCodigo;
-        return false;
+    $control = count($conceptos);
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
+    if ($paso == false) {
+        echo 1;
+    } else {
+        echo 0;
     }
+
+    $cn->cerrarBd();
 }
-$control = count($conceptos);
-$dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
-$cn->cerrarBd();
 ?>

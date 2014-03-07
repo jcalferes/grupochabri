@@ -1,12 +1,12 @@
 <?php
 
 class dao {
-    
-     function editarDireccion(Direccion $t) {
+
+    function editarDireccion(Direccion $t) {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', idcpostales='" . $t->getIdPostal() . "' WHERE idDireccion= '".$t->getIdDireccion()."'";
+        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', idcpostales='" . $t->getIdPostal() . "' WHERE idDireccion= '" . $t->getIdDireccion() . "'";
 //        $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
 ////        $dato = mysql_query($sql2, $cn->Conectarse());
@@ -33,7 +33,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         $band = mysql_affected_rows();
         if ($band < 1) {
-            return  0;
+            return 0;
         } else {
             return $datos;
         }
@@ -684,10 +684,15 @@ class dao {
 //===================Para guardar XMl entrada===================================
     function validarExistenciaProductoProveedor($rfc) {
         $sql = "SELECT producto, codigoProducto FROM productos p"
-                . " INNER JOIN proveedores pr"
+                . " INNER JOIN proveedores pr ON pr.idProveedor  = p.idProveedor"
                 . " WHERE pr.rfc = '$rfc'";
         $valor = mysql_query($sql);
-        return $valor;
+        $rs = mysql_fetch_array($valor);
+        if ($rs == false) {
+            return false;
+        } else {
+            return $valor;
+        }
     }
 
     function MiniGuardadorSalidas(Encabezado $encabezadoSalida, $arrayDetalleSalida, $lafecha) {
