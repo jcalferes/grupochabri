@@ -12,7 +12,7 @@
                             <label  class="col-sm-2 control-label">Codigo:</label>
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
+                                    <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
                                     <span class="input-group-btn">
                                         <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
                                             <span class="glyphicon glyphicon-search"></span>
@@ -73,6 +73,23 @@
                     </label>
                 </div>
                 <br>
+                <form class="form-inline text-right">
+                    <span>Desc. Factura : 
+                        <input type="text" 
+                               id="descFacturaM" 
+                               class="form-control 
+                               text-right" 
+                               style="width: 20%"/>
+                    </span>
+                    <span>Desc. Pronto pago : 
+                        <input type="text" 
+                               id="descProntoPagoM" 
+                               class="form-control 
+                               text-right" 
+                               style="width: 20%"/>
+                    </span>
+                </form>
+                <hr>
                 <br>
                 <table class="table table-hover" id="tablaDatosEntrada">
                     <thead>

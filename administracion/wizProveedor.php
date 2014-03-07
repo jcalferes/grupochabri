@@ -50,9 +50,12 @@
                         <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        
                     </div>
                         <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+
                 </form>
             </section>
         </div>
@@ -75,6 +78,18 @@
                                 <input type="text" class="form-control" id="txtnumeroexterior"  maxlength="15" placeholder="Ingrese el numero exterior">
                             </div>
                             <div class="form-group col-lg-6">
+
+
+
+
+
+
+
+
+
+
+
+
                                 <label>Numero Interior:</label>
                                 <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
                             </div>
@@ -98,10 +113,15 @@
                             <div class="form-group">
                                 <label>Estado:</label>
                                 <input id="txtestado" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <param id="extra" value="">
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                
+
+                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja"onclick="verficaPostal()">
                             </div>
                         </div>
                     </form>

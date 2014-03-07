@@ -1,6 +1,43 @@
 <?php
 
 class dao {
+    
+     function editarDireccion(Direccion $t) {
+        session_start();
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', idcpostales='" . $t->getIdPostal() . "' WHERE idDireccion= '".$t->getIdDireccion()."'";
+//        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        $x = mysql_query($sql, $cn->Conectarse());
+////        $dato = mysql_query($sql2, $cn->Conectarse());
+//        while ($rs = mysql_fetch_array($dato)) {
+//            $id = $rs["ID"];
+//        }
+        $_SESSION['iddireccion'] = $t->getIdDireccion();
+        $cn->cerrarBd();
+        return $x;
+    }
+
+    function editarProveedor(Proveedor $t) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE proveedores set nombre='" . $t->getNombre() . "', idDireccion='" . $t->getIdDireccion() . "',  diasCredito='" . $t->getDiasCredito() . "', email='" . $t->getEmail() . "', descuentoPorFactura='" . $t->getDesctfactura() . "', descuentoPorProntoPago='" . $t->getDesctprontopago() . "', tipoProveedor='" . $t->getTipoProveedor() . "' WHERE rfc='" . $t->getRfc() . "';";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
+    function verificandoProveedor($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM proveedores p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion INNER JOIN cpostales c ON c.idcpostales = d.idcpostales WHERE rfc= '$rfc'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $band = mysql_affected_rows();
+        if ($band < 1) {
+            return  0;
+        } else {
+            return $datos;
+        }
+    }
 
     function editarProducto(Producto $p, Costo $c, Tarifa $t) {
         include_once '../daoconexion/daoConeccion.php';
@@ -526,7 +563,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . "');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
