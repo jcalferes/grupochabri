@@ -4,6 +4,7 @@ include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.clases/Concepto.php';
+
 session_start();
 //Como no sabemos cuantos archivos van a llegar, iteramos la variable $_FILES
 $ruta = "../subidas/";
@@ -162,46 +163,71 @@ echo "<div class='checkbox-inline'>";
 echo "<label>";
 echo "<input type='checkbox' id='chk' onclick='chkExtras()'/> Descuentos globales de factura";
 echo "</label>";
+echo "<hr>";
 echo "</div>";
 
 echo "<form class='form-inline'>";
-echo "<span>Desct. Factura: </span><input type='text' disabled='false' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
+echo "<span>Flete: </span><input type='text' class='form-control' id='flete' style='width: 15%'/>";
+echo "<span> Desct. Factura: </span><input type='text' disabled='false' class='form-control' id='descuentoFactura'  onkeyup='calculaPF()' style='width: 15%'/>";
 echo "<span> Desct. Pronto Pago: </span><input type='text' disabled='false' class='form-control' id='descuentoProntoPago' onkeyup='calculaPP()' style='width: 15%' />";
-echo "<span> Flete: </span><input type='text' disabled='false' class='form-control' id='flete' onkeyup='calculaflete()' style='width: 15%'/>";
 echo "</form>";
 echo "<hr>";
 
-echo "<div class='checkbox-inline'>";
-echo "<label>";
-echo "<input type='checkbox' id='chkpp' onclick='chkPP()'/> Descuentos por producto";
-echo "</label>";
-echo "</div>";
-
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Unidad</th><th>Codigo<button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Descripcion</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDAP</th><th>CDAD</th><th>Importe</th><th>Importe Flete</th>";
+echo "<th>Cantidad</th><th>Codigo <button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 echo "</thead>";
 echo "<tbody>";
 $arrayDetalleEntrada = [];
 $cont = 0;
 $cuentaid = 0;
+$desctpptotal = 0;
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto) {
-    echo "<tr>";
-    echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
-    echo "<td>" . $Concepto['unidad'] . "</td>";
-    echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
-    echo "<td>" . $Concepto['descripcion'] . "</td>";
-    echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
-    echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid' disabled='false' onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
-    echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid'  disabled='false' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
-    echo "<td><input type='text' class='form-control' value='0.00' id='totaldct$cuentaid' disabled='false'/></td>";
-    echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     $cantidad = floatval($Concepto['cantidad']);
     $importe = floatval($Concepto['importe']);
     $cdao = number_format($importe / $cantidad, 2, '.', '');
-    echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
-    echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
-    echo "<td><input type='text' class='form-control' id='importeflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    $icdao = $importe / $cantidad;
+    $valorunnitario = number_format(floatval($Concepto['valorUnitario']), 2, '.', '');
+    $ivalorunnitario = floatval($Concepto['valorUnitario']);
+    $operacion1 = ($icdao * 100) / $ivalorunnitario;
+    $porcento = 100 - $operacion1;
+
+    echo "<tr>";
+    echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
+//    echo "<td>" . $Concepto['unidad'] . "</td>";
+    echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
+//    echo "<td>" . $Concepto['descripcion'] . "</td>";
+    echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
+    if ($cdao == $valorunnitario) {
+        echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' /></td>";
+    } else {
+        echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' value='" . number_format($porcento, 2, '.', '') . "'/></td>";
+    }
+    echo "<td><input type='text' maxlength='6' class='form-control' id='dosdct$cuentaid' onkeyup='dameValorDescuento2($cuentaid)' /></td>";
+    if ($cdao == $valorunnitario) {
+        echo "<td><input type='text' class='form-control' value='0.00' id='totaldct$cuentaid' disabled='false'/></td>";
+    } else {
+        $porcentoformat = number_format($porcento, 2, '.', '');
+        $op1 = ($porcentoformat * $ivalorunnitario) / 100;
+        $desctotal = $cantidad * $op1;
+        echo "<td><input type='text' class='form-control' id='totaldct$cuentaid' disabled='false' value='" . number_format($desctotal, 2, '.', '') . "' /></td>";
+        $desctpptotal += $desctotal;
+    }
+    if ($cdao == $valorunnitario) {
+        echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
+    } else {
+        $cdabueno = $valorunnitario - $op1;
+        echo "<td><input type='text' class='form-control' id='cda$cuentaid' disabled='false' value='" . number_format($cdabueno, 2, '.', '') . "' /></td>";
+    }
+//    echo "<td><input type='text' class='form-control' id='cdao$cuentaid' disabled='false' value='$cdao' /></td>";
+    if ($cdao == $valorunnitario) {
+        echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
+    } else {
+        $importebueno = $cdabueno * $cantidad;
+        echo "<td><input type='text' class='form-control' id='importe$cuentaid' disabled='false' value='" . number_format($importebueno, 2, '.', '') . "' /></td>";
+    }
+    echo "<input type='hidden' class='form-control' id='respaldoimporte$cuentaid' disabled='false' />";
+//    echo "<td><input type='text' class='form-control' id='importeflete$cuentaid' disabled='false' value='" . $Concepto['importe'] . "' /></td>";
     echo "</tr>";
 
     $detalle->setUnidadmedida(utf8_decode($Concepto['unidad']));
@@ -240,8 +266,16 @@ echo "</form>";
 echo "<br>";
 echo "<form class='form-inline text-right'>";
 echo "<span> Desct. General: </span><input type='text' class='form-control text-right' id='descuentogeneral' disabled='false' style='width: 20%' value='0.00'/>";
-echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='0.00'/>";
-echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='0.00'/>";
+if ($cdao == $valorunnitario) {
+    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='0.00'/>";
+} else {
+    echo "<span> Desct. Prodcutos: </span><input type='text' class='form-control text-right' id='descuentoporproductos' disabled='false' style='width: 20%' value='" . number_format($desctpptotal, 2, '.', '') . "'/>";
+}
+if ($cdao == $valorunnitario) {
+    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='0.00'/>";
+} else {
+    echo "<span> Desct. Total: </span><input type='text' class='form-control text-right' id='sumadescuentos' disabled='false' style='width: 20%' value='" . number_format($desctpptotal, 2, '.', '') . "'/>";
+}
 echo "</form>";
 echo "<form class='form-inline text-right'>";
 echo "<br>";
@@ -298,4 +332,5 @@ $_SESSION['objEncabezadoEntrada'] = $encabezadoEntrada;
 $_SESSION['arrayDetalleEntrada'] = $arrayDetalleEntrada;
 
 unlink($archivo);
+
 
