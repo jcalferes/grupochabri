@@ -14,7 +14,7 @@ if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}
 } else {
     if (isset($_SESSION["controlDireccion"])) {
         $direccion = $_SESSION['objdireccion'];
-        $x = $dao->guardarDireccion($direccion);
+        $x = $dao->editarDireccion($direccion);
         if ($x == true) {
             $proveedor->setNombre($_GET["nombre"]);
             $proveedor->setTipoProveedor($_GET["radios"]);
@@ -25,7 +25,7 @@ if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}
             $proveedor->setEmail($_GET["email"]);
             $proveedor->setDesctfactura($_GET["desctpf"]);
             $proveedor->setDesctprontopago($_GET["desctpp"]);
-            $dao->guardarProveedor($proveedor);
+            $dao->editarProveedor($proveedor);
             unset($_SESSION["controlDireccion"]);
         } else {
             echo 3;

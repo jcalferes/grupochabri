@@ -7,6 +7,15 @@ class Direccion {
     private $numerointerior;
     private $cruzamientos;
     private $idpostal;
+    private $idDireccion;
+
+    public function getIdDireccion() {
+        return $this->idDireccion;
+    }
+
+    public function setIdDireccion($idDireccion) {
+        $this->idDireccion = $idDireccion;
+    }
 
     public function getCalle() {
         return $this->calle;
