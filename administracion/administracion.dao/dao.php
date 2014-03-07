@@ -10,9 +10,6 @@ class dao {
         $fecha = date("d/m/Y h:i");
         $sqlCostoNuevo = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1')";
 
-
-
-
         mysql_query("START TRANSACTION;");
         $producto = mysql_query($sqlProductos, $cn->Conectarse());
         if ($producto == false) {
@@ -656,12 +653,78 @@ class dao {
         return $valor;
     }
 
+    function MiniGuardadorSalidas(Encabezado $encabezadoSalida, $arrayDetalleSalida, $lafecha) {
+        $detalle = new Detalle();
+        //Guardar encabezado salida
+        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento, idTipoMovimiento)"
+                . " VALUES ('" . $encabezadoSalida->getFecha() . "','" . $encabezadoSalida->getSubtotal() . "','" . $encabezadoSalida->getTotal() . "','" . $encabezadoSalida->getRfc() . "','" . $encabezadoSalida->getFolio() . "','$lafecha','2')";
+        $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query("START TRANSACTION;");
+        $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
+        if ($ctrlEnzabezadoGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlEncabezadoId = mysql_query($sqlEncabezadoId);
+            if ($ctrlEncabezadoId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlEncabezadoId)) {
+                    $idEncabezado = $rs["ID"];
+                }
+            }
+        }
+        //Terminar guardar encabezado
+        //Variables necesarias: $idEncabezado
+        //======================================================================
+        foreach ($arrayDetalleSalida as $detalle) {
+            //Guardar ddetalles
+            $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
+                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
+            $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
+            if ($ctrlDetalleGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //==================================================================
+            //Comienza validar producto en existencia
+            $cantidad = 0;
+            $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
+                    . " WHERE codigoProducto = '" . $detalle->getCodigo() . "'";
+            $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
+            if ($ctrlConceptoValidarExistencia == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlConceptoValidarExistencia)) {
+                    $cantidad = $rs["cantidad"];
+                }
+            }
+            //Terminar validar producto en existencia
+            //Variables necesarias: $cantidad
+            //==================================================================
+            //Comienza Actulizar existencia
+            $nuevacantidad = $cantidad - $detalle->getCantidad();
+            $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
+                    . " WHERE codigoProducto = '" . $detalle->getCodigo() . "'";
+            $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
+            if ($ctrlActulizaExistencia == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //Terminar Actulizar existencia
+            //==================================================================
+        }
+        mysql_query("COMMIT;");
+    }
+
     function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
-        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha')";
+        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento, idTipoMovimiento)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha','1')";
         $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
         $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
