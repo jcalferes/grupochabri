@@ -6,5 +6,11 @@ $(document).ready(function() {
 });
 
 $("#loginbtn").click(function() {
-   alertify.success("Buuu");
+    var usuario = $("#loginuser").val();
+    var pass = $("#loginpass").val();
+
+    var info = "usuario=" + usuario + "&pass=" + pass;
+    $.get('iniciarSesion.php', info, function(respuesta) {
+
+    });
 });
