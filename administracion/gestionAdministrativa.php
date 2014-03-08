@@ -53,6 +53,7 @@
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
                         <li class=""><a href="#">Un link mas</a></li>
+                        <li><a href="#">Cerrar Sesion</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -93,7 +94,6 @@
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-        <script src="../bootstrap/css/bootstrap.min.css"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>
