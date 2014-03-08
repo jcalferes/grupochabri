@@ -13,23 +13,23 @@
  */
 class Usuario {
 
-    private $nombre;
+    private $usuario;
     private $pass;
-
-    public function getNombre() {
-        return $this->nombre;
-    }
 
     public function getPass() {
         return $this->pass;
     }
 
-    public function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
     public function setPass($pass) {
         $this->pass = $pass;
+    }
+
+    public function getUsuario() {
+        return $this->usuario;
+    }
+
+    public function setUsuario($usuario) {
+        $this->usuario = $usuario;
     }
 
 }

@@ -14,9 +14,7 @@
 class dao {
 
     function iniciarSesion(Usuario $usuario) {
-        
-       
-        $sql = "SELECT nombre, idTipoUsuario FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getNombre() . "'";
+        $sql = "SELECT nombre, idTipoUsuario FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getUsuario() . "'";
         $control = mysql_query($sql);
         $rs = mysql_affected_rows();
         if ($rs == 0) {

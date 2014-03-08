@@ -17,12 +17,14 @@ $("#loginbtn").click(function() {
     } else {
         var info = "usuario=" + usuario + "&pass=" + pass;
         $.get('iniciarSesion.php', info, function(respuesta) {
-            if (respuesta == 1) {
+            if (respuesta == false) {
                 alertify.error("Usuario o Contraseña invalidos");
             } else {
-                alertify.success("Bien");
-                $("#loginuser").val("");
-                $("#loginpass").val("");
+                if (respuesta == 2) {
+                    $("#loginuser").val("");
+                    $("#loginpass").val("");
+                    document.location.href = '../administracion/gestionAdministrativa.php';
+                }
             }
         });
     }
