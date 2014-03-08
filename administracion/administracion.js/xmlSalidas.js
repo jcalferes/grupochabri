@@ -68,7 +68,12 @@ $("#cancelar").click(function() {
 });
 
 $("#validar").click(function() {
-    $.get('xmlGuardarSalida.php', function() {
+    $.get('xmlGuardarSalida.php', function(respuesta) {
+        var info = respuesta;
+        if (info == 10) {
+            alertify.error("Este XML no pertenece a GRUPO CHABRI");
+            return false;
+        }
         $("#cargados").empty();
         $("#cargados").slideUp();
         $("#validacion").slideUp();

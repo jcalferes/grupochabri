@@ -64,10 +64,11 @@ echo "</thead>";
 echo "<tbody>";
 foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor') as $Emisor) {
     echo "<tr>";
-    echo "<td>" . $Emisor['rfc'] . "</td>";
+    echo "<td><span id='facrfc'>" . $Emisor['rfc'] . "</span></td>";
     echo "<td>" . $Emisor['nombre'] . "</td>";
     echo "</tr>";
 }
+$encabezadoSalida->setRfc(utf8_decode($Emisor['rfc']));
 echo "</tbody>";
 echo "</table>";
 echo "</blockquote>";
@@ -127,7 +128,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor) {
     echo "<td>" . $Receptor['rfc'] . "</td>";
     echo "<td>" . $Receptor['nombre'] . "</td>";
     echo "</tr>";
-    $encabezadoSalida->setRfc(utf8_decode($Receptor['rfc']));
 }
 echo "</tbody>";
 echo "</table>";

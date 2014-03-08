@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"> 
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,16 +7,13 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="shortcut icon" href="">
-        <title>Gestion Administrativa - Grupo Chabri  </title>
+        <title>Grupo Chabri</title>
         <!-- CSS -->
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
-        <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
-        <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
-        <!-- CSS Personalizados-->
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">
@@ -26,7 +23,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar" ></span>
+                        <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Grupo Chabri</a>
                 </div>
@@ -47,53 +44,52 @@
                                 <li><a href="#">Otro link</a></li>
                             </ul>
                         </li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
                         <li class=""><a href="#">Un link mas</a></li>
-                        <li><a href="#">Cerrar Sesion</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar Sesion<b class="caret"></b></a>
+                            <ul class="dropdown-menu" style="width: 320px">
+                                <form class="text-center" style="padding: 10px">
+                                    <div class="input-group" style="margin: 0% 5% 3% 5%">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input type="text" id="loginuser" class="form-control" placeholder="Usuario" >
+                                    </div>
+                                    <div class="input-group" style="margin: 0% 5% 5% 5%">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                        <input type="text" id="loginpass" class="form-control" placeholder="Password" >
+                                    </div>
+                                    <input type="button" id="loginbtn" class="btn btn-primary" style="width: 50%; margin: 0% 0% 0% 0%" value="Iniciar"/>
+                                </form>
+                            </ul>
+                        </li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
         <div class="container">
-            <!--                    Aqui todo el contenido de la pagina-->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Gestion Administrativa</h3>
-                </div>
-                <div class="panel-body">
-                    <ul class="nav nav-tabs nav-justified">
-                        <!--<li class="active"><a href="#">Home</a></li>-->
-                        <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
-                        <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
-                        <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
-                        <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        <!--                        <li id="6" class=""><a onclick="entroTarifas();">vacio</a></li>-->
-                        <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
-                    </ul>
-                    <div id="mostrar">
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <!--                    Aqui los botones o similares-->
-                    <!--========================================================-->
-                </div>
-            </div>
-
-            <!--========================================================-->
+            <!--            <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Aqui el titulo de la pagina</h3>
+                            </div>
+                            <div class="panel-body">
+                                                    Aqui todo el contenido de la pagina
+            
+                                ========================================================
+                            </div>
+                            <div class="panel-footer">
+                                                    Aqui los botones o similares
+            
+                                ========================================================
+                            </div>
+                        </div>-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
-        <script src="../jsteps/js/jquery.steps.min.js"></script>
-        <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="../dtbootstrap/jquery.dataTables.js"></script>
-        <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
-        <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-        <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
+        <script src="../alertify/lib/alertify.min.js"></script>
+        <script src="index.js/index.js"></script>
     </body>
 </html>

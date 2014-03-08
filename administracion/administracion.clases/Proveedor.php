@@ -20,6 +20,15 @@ class Proveedor {
     private $desctfactura;
     private $desctprontopago;
     private $email;
+    private $tipoProveedor;
+
+    public function getTipoProveedor() {
+        return $this->tipoProveedor;
+    }
+
+    public function setTipoProveedor($tipoProveedor) {
+        $this->tipoProveedor = $tipoProveedor;
+    }
 
     public function getNombre() {
         return $this->nombre;
