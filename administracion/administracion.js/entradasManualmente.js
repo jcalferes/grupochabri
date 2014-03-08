@@ -25,11 +25,11 @@ $("#codigoProductoEntradas").keypress(function(e) {
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
-                        <td> <input id="descTotal'+contador+'" class="form-control descuentos" type= "text" disabled="true" /> </td>\n\
+                        <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" /> </td>\n\
                         <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
                         <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
-                    contador = contador + 1;
                 }
+                contador = contador + 1;
                 $("#tablaDatosEntrada").append(tr);
                 $(".descuentos").attr('disabled', 'disabled');
             }
@@ -68,6 +68,9 @@ function calculaTotalEntradasManual() {
     var sumaTotalDeImporte = 0;
     for (var x = 0; x < contador; x++) {
         var importe = parseFloat($("#importe" + x + "").val());
+        if (isNaN(importe)) {
+            importe = 0;
+        }
         sumaTotalDeImporte = sumaTotalDeImporte + importe;
     }
     $("#costoTotal").val(sumaTotalDeImporte);
@@ -98,6 +101,7 @@ function calcularDescuentos(id) {
     calculaTotalEntradasManual();
     calcularDescTotal();
     calcularCda();
+    calcularDescuentoDeProductos();
 }
 
 function calcularDescTotal() {
@@ -159,31 +163,50 @@ function sumaDeSubtotales() {
 }
 
 function calcularCda() {
-
     for (var x = 0; x < contador; x++) {
         var descTotal = 0;
-        var cda =0;
-        var desc1 = $("#descuento1" + x).val();
-        var desc2 = $("#descuento2" + x).val();
-        if (isNaN(desc1)){
-            desc1 = 0;}
-        if (isNaN(desc2)){
-            desc2 = 0;}
+        var cda = 0;
+        var desc1 = parseFloat($("#descuento1" + x).val());
+        var desc2 = parseFloat($("#descuento2" + x).val());
+        if (isNaN(desc1)) {
+            desc1 = 0;
+        }
+        if (isNaN(desc2)) {
+            desc2 = 0;
+        }
         var importe = parseFloat($("#cant" + x).val()) * parseFloat($("#costo" + x).val());
         var importe1 = (importe * parseFloat(desc1)) / 100;
-        descTotal = descTotal + importe1;
+        if (isNaN(importe1)) {
+            importe1 = 0;
+        }
+        descTotal = parseFloat(descTotal) + parseFloat(importe1);
         var importe2 = ((importe - importe1) * parseFloat(desc2)) / 100;
         if (isNaN(importe2)) {
             importe2 = 0;
-        } 
-        cda = (importe-(importe1+importe2));
-        cda = cda /$("#cant"+x).val();
-        descTotal =descTotal+importe2;
+        }
+        cda = (importe - (importe1 + importe2));
+        cda = cda / $("#cant" + x).val();
+        descTotal = parseFloat(descTotal) + parseFloat(importe2);
+        if (isNaN(descTotal)) {
+            descTotal = 0.00;
+        }
         $("#descTotal" + x).val(descTotal);
-        $("#cda"+x).val(cda);
+        if (isNaN(cda)) {
+            cda = 0.00;
+        }
+        $("#cda" + x).val(cda);
     }
 }
-
+function calcularDescuentoDeProductos() {
+    var descuentoProductos = 0;
+    for (var x = 0; x < contador; x++) {
+        descuentoProductos = (parseFloat(descuentoProductos) + parseFloat($("#descTotal" + x).val()));
+    }
+    if (isNaN(descuentoProductos)) {
+        descuentoProductos = 0;
+    }
+    $("#descuentoProductosM").val(parseFloat(descuentoProductos));
+}
 
 
 $(document).ready(function() {
