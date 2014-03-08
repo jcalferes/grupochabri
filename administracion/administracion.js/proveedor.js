@@ -87,7 +87,7 @@ function validaEmail() {
 $(document).ready(function() {
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
-    $("#btnEditarproveedor").hide();
+    $("#btneditarproveedor").hide();
     $("#consultaProveedor").load("consultarProveedor.php", function() {
         $('#dtproveedor').dataTable();
     });
