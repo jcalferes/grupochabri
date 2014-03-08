@@ -118,10 +118,10 @@
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
-                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
                                 
 
-                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja"onclick="verficaPostal()">
+                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
                     </form>

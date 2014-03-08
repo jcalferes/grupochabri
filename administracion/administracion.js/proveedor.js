@@ -1,4 +1,31 @@
+function verficaPostal2() {
+    $("#txtestado").val("");
+    $("#txtciudad").val("");
+    $("#selectColonia").removeAttr("disabled", "disabled");
+    var postal = $("#txtpostal").val();
+    if (postal == "" || /^\s+$/.test(postal)) {
+    }
+    else {
+        var info = "postal=" + postal;
+        $.get('obtieneDireccion.php', info, function(respuesta) {
+            var dataJson = eval(respuesta);
+            $("#selectColonia").html(function() {
+                var contenido;
+                contenido = "<select id='selectColonia'>";
+                for (var i in dataJson) {
+                    contenido += "<option value='" + dataJson[i].idcpostales + "'>" + dataJson[i].asenta + "</option>";
+                    $("#txtciudad").val(dataJson[i].ciudad);
+                    $("#txtestado").val(dataJson[i].estado);
 
+                }
+                contenido += "</select>";
+                return contenido;
+            });
+            $("#btneditardireccion").trigger("click");
+
+        });
+    }
+}
 
 function verDireccion(id) {
     var info = "id=" + id;
@@ -59,6 +86,8 @@ function validaEmail() {
 
 $(document).ready(function() {
     $("#botonNinja").hide();
+    $("#btneditardireccion").hide();
+    $("#btneditarproveedor").hide();
     $("#consultaProveedor").load("consultarProveedor.php", function() {
         $('#dtproveedor').dataTable();
     });
@@ -173,7 +202,7 @@ $(document).ready(function() {
 
 
     $("#btneditarproveedor").click(function() {
-        alert("entro");
+
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
         var diascredito = $("#txtdiascredito").val();
@@ -268,21 +297,27 @@ $(document).ready(function() {
         var rfc = $("#txtrfc").val();
         var info = "rfc=" + rfc;
         $.get('verificandoProvedor.php', info, function(x) {
-            alert(x);
-            if (x == 0) {
-                alert("rfc no existe");
+            if (x == 1) {
+                $("#btneditardireccion").hide();
+                $("#btnguardardireccion").show();
+                $("#btneditarproveedor").hide();
+                $("#btnguardarproveedor").show();
             } else {
+                $("#btneditardireccion").show();
+                $("#btnguardardireccion").hide();
+                $("#btneditarproveedor").show();
+                $("#btnguardarproveedor").hide();
                 lista = JSON.parse(x);
                 console.log(lista);
                 $.each(lista, function(ind, elem) {
                     if (ind == "17") {
-                        if(elem == "FISICA"){
+                        if (elem == "FISICA") {
                             $("#fisica").attr("checked", true);
                             $("#moral").attr("checked", false);
                         }
-                        if(elem == "MORAL"){
-                             $("#moral").attr("checked", true);
-                             $("#fisica").attr("checked", false);
+                        if (elem == "MORAL") {
+                            $("#moral").attr("checked", true);
+                            $("#fisica").attr("checked", false);
                         }
                     }
                     if (ind == "3") {
@@ -320,8 +355,8 @@ $(document).ready(function() {
                         $("#extra").val(elem);
 
                     }
-                    $("#botonNinja").trigger("click");
-                    $("#btneditardireccion").trigger("click");
+
+
 
 //                    if (ind == "32") {
 //                        $("#txtciudad").val(elem);
@@ -334,8 +369,10 @@ $(document).ready(function() {
 //                        $("#selectcolonia").val(elem);
 //                    }
                 });
+                $("#botonNinja").trigger("click");
+
             }
-            $("#btnguardardireccion").trigger("click");
+//            $("#btnguardardireccion").trigger("click");
         });
 
     });

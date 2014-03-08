@@ -16,6 +16,7 @@ function verficaPostal() {
                     contenido += "<option value='" + dataJson[i].idcpostales + "'>" + dataJson[i].asenta + "</option>";
                     $("#txtciudad").val(dataJson[i].ciudad);
                     $("#txtestado").val(dataJson[i].estado);
+                    
                 }
                 contenido += "</select>";
                 return contenido;
@@ -59,15 +60,17 @@ $(document).ready(function() {
             }
         }
     });
-     $("#btneditardireccion").click(function() {
+    $("#btneditardireccion").click(function() {
         var calle = $.trim($("#txtcalle").val().toUpperCase());
+        var postal = $.trim($("#txtpostal").val());
         var numeroexterior = $.trim($("#txtnumeroexterior").val().toUpperCase());
         var numerointerior = $.trim($("#txtnumerointerior").val().toUpperCase());
         var cruzamientos = $.trim($("#txtcruzamientos").val().toUpperCase());
-        var postal = $.trim($("#txtpostal").val());
+        
         var idcpostales = $("#selectColonia").val();
         var estado = $("#txtestado").val();
         var extra = $("#extra").val();
+        var ciudad = $("#txtciudad").val();
 
         if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" || idcpostales == "" || cruzamientos == "" || /^\s+$/.test(calle) || /^\s+$/.test(numeroexterior) || /^\s+$/.test(numerointerior) || /^\s+$/.test(postal) || /^\s+$/.test(idcpostales) || /^\s+$/.test(cruzamientos)) {
             alertify.error("Todos los campos son obligatorios");
@@ -78,7 +81,7 @@ $(document).ready(function() {
                 alertify.error("CP invalido");
                 return false;
             } else {
-                var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&cruzamientos=" + cruzamientos + "&idcpostales=" + idcpostales + "&extra="+ extra;
+                var info = "calle=" + calle + "&numeroexterior=" + numeroexterior + "&numerointerior=" + numerointerior + "&cruzamientos=" + cruzamientos + "&idcpostales=" + idcpostales + "&extra=" + extra;
                 $.get('editarDireccion.php', info, function() {
 
                     alertify.success("Direccion editada correctamente");

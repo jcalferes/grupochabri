@@ -98,29 +98,53 @@
                                             <input type="submit" value="guardar" class="btn btn-primary" id="guardarDatos"/>
                                             </div>-->
                     <div id="mostrarDivProveedor">
-                        <div class="form-group">
-                            <label>Nombre:</label>
-                            <input type="text" class="form-control" id="txtnombreproveedor" placeholder="Ingrese el nombre del proveedor">
-                        </div>
-                        <div class="form-group">
-                            <label>Direccion:</label>
-                            <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
-                        </div>
-                        <div class="form-group">
-                            <label>RFC:</label>
-                            <input type="text" class="form-control" id="txtrfc" placeholder="Ingrese el RFC del proveedor">
-                        </div>
-                        <div class="form-group">
-                            <label>Dias de credito:</label>
-                            <input id="txtdiascredito" type="number" class="form-control"  placeholder="Ingrese los dias de credito">
-                        </div>
-                        <div class="form-group">
-                            <label>Descuento:</label>
-                            <input id="txtdescuento" type="number" class="form-control"  placeholder="Ingrese el descuento">
-                        </div>
-                            <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
-                        <input id="btncancelarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Cancelar"/>
-                        <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                        <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+
+                    <div class="radio-inline" >
+                        <label>
+                            <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
+                            Fisica
+                        </label>
+                    </div>
+                    <div class="radio-inline" >
+                        <label>
+                            <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
+                            Moral
+                        </label>
+                    </div>
+
+                    <div id="frmrfc" class="form-group">
+                        <label>RFC:</label>
+                        <input type="text" class="form-control" id="txtrfc" onblur="validaRfc();">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" id="txtnombreproveedor">
+                    </div>
+                    <div class="form-group">
+                        <label>Direccion Fiscal:</label>
+                        <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
+                    </div>
+                    <div id="frmemail" class="form-group">
+                        <label>E-mail:</label>
+                        <input id="txtemail" type="email" class="form-control" onblur="validaEmail();">
+                    </div>
+                    <div class="form-group">
+                        <label>Dias de credito:</label>
+                        <input id="txtdiascredito" type="number" class="form-control" onpaste="return false">
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Desct. Factura:</label>
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <label>Desct. Pronto Pago:</label>
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        
+                    </div>
+                        <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
+                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+
+                </form>
                     </div>  
                 </div>
                 <!--<input type="submit" onclick="eliminar(4)"/>-->
@@ -171,11 +195,11 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+              <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Nueva Direccion</h4>
+                        <h4 class="modal-title" id="myModalLabel">Nueva Direccion Fiscal</h4>
                     </div>
                     <form>
                         <div class="modal-body">
@@ -188,20 +212,32 @@
                                 <input type="text" class="form-control" id="txtnumeroexterior"  maxlength="15" placeholder="Ingrese el numero exterior">
                             </div>
                             <div class="form-group col-lg-6">
+
+
+
+
+
+
+
+
+
+
+
+
                                 <label>Numero Interior:</label>
                                 <input type="text" class="form-control" id="txtnumerointerior"  maxlength="15" placeholder="Ingrese el numero interior">
-                            </div>                          
+                            </div>
                             <div class="form-group ">
                                 <label>Cruzamientos:</label>
-                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzameintos">
+                                <input id="txtcruzamientos" type="text" class="form-control"  maxlength="15" placeholder="Ingrese los cruzamientos">
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%">
+                                <input id="txtpostal" type="number" class="form-control" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%" onpaste="return false">
                             </div>
                             <div class="form-group ">
                                 <label>Colonia:</label>
-                                <select id="selectColonia" style="width: 100%; height: 35px">
+                                <select id="selectColonia" class="form-control" style="width: 100%; height: 35px">
                                 </select>
                             </div>
                             <div class="form-group">
@@ -211,10 +247,15 @@
                             <div class="form-group">
                                 <label>Estado:</label>
                                 <input id="txtestado" type="text" class="form-control"  placeholder="Ingrese la colonia">
+                                <param id="extra" value="">
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input  id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+                                
+
+                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
                     </form>
