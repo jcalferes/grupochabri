@@ -12,6 +12,7 @@
  * @author Joel
  */
 session_start();
+
 class verificaSession {
 
     function validaSesion() {

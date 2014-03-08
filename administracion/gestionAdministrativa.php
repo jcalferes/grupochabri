@@ -77,7 +77,6 @@ $verificasession->validaSesion();
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                         <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
                     </ul>
@@ -89,7 +88,6 @@ $verificasession->validaSesion();
                     <!--========================================================-->
                 </div>
             </div>
-
             <!--========================================================-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->
