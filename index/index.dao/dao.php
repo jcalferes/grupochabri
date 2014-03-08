@@ -14,10 +14,16 @@
 class dao {
 
     function iniciarSesion(Usuario $usuario) {
-        include_once '../../daoconexion/daoConeccion.php';
-        $sql = "SELECT nombre FROM usuarios WHERE password = '" . $usuario->getPass() . "'";
-        $cn = new coneccion();
-        mysql_query($sql, $cn->Conectarse());
+        
+       
+        $sql = "SELECT nombre, idTipoUsuario FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getNombre() . "'";
+        $control = mysql_query($sql);
+        $rs = mysql_affected_rows();
+        if ($rs == 0) {
+            return 1;
+        } else {
+            return $control;
+        }
     }
 
 }

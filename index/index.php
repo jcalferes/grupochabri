@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="input-group" style="margin: 0% 5% 5% 5%">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                                        <input type="text" id="loginpass" class="form-control" placeholder="Password" >
+                                        <input type="password" id="loginpass" class="form-control" placeholder="Password" >
                                     </div>
                                     <input type="button" id="loginbtn" class="btn btn-primary" style="width: 50%; margin: 0% 0% 0% 0%" value="Iniciar"/>
                                 </form>
