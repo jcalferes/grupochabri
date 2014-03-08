@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include './indes.clases/Usuario.php';
 include './index.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
@@ -20,7 +21,8 @@ if ($control == 1) {
         $tipousuario = $rs['idTipoUsuario'];
     }
     if ($tipousuario == 2) {
-        $_SESSION["usuarioadministrador"] = $usuario->getUsuario();
+        $_SESSION["usuarioSesion"] = $usuario->getUsuario();
+        $_SESSION["tipoSesion"] = $tipousuario;
     }
     echo $tipousuario;
     $cn->cerrarBd();
