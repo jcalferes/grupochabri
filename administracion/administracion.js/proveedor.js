@@ -370,19 +370,19 @@ $(document).ready(function() {
                     if (ind == "16") {
                         $("#txtdesctpp").val(elem);
                     }
-                    if (ind == "20") {
+                    if (ind == "22") {
                         $("#txtcalle").val(elem);
                     }
-                    if (ind == "22") {
+                    if (ind == "24") {
                         $("#txtnumeroexterior").val(elem);
                     }
-                    if (ind == "24") {
+                    if (ind == "26") {
                         $("#txtnumerointerior").val(elem);
                     }
-                    if (ind == "26") {
+                    if (ind == "28") {
                         $("#txtcruzamientos").val(elem);
                     }
-                    if (ind == "32") {
+                    if (ind == "33") {
                         $("#txtpostal").val(elem);
 
                     }
