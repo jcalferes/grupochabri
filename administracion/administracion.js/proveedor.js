@@ -1,3 +1,38 @@
+function eliminarProveedores(){
+    var idProveedor = new Array();
+    var info;
+
+    $("#dtproveedor").find(':checked').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        idProveedor.push(valor);
+        lista = JSON.stringify(idProveedor);
+        info = "proveedor=" + lista;
+
+
+    });
+    alert(info);
+    if (info != undefined) {
+        alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
+            if (e) {
+                alertify.success("SI");
+                $.get('eliminaProveedor.php', info, function() {
+                    alertify.success("se han dado de baja de manera correcta")
+                    $("#consultaProveedor").load("consultarProveedor.php", function() {
+                        $('#dtProveedor').dataTable();
+                    });
+                });
+            } else {
+                alertify.error("NO");
+            }
+        });
+        return false;
+
+    } else {
+        alertify.error("Debe selecciona al menos un proveedor");
+    }
+}
+
 function verficaPostal2() {
     $("#txtestado").val("");
     $("#txtciudad").val("");

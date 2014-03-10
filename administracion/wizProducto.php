@@ -276,9 +276,9 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>
+                                <!--<input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>-->
                                 <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>
+                                <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
                             </div>
                     </form>
                 </div><!-- /.modal-content -->

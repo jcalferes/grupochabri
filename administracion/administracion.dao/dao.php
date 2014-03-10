@@ -2,6 +2,76 @@
 
 class dao {
 
+    function eliminaListaPrecio($listaPrecios) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaPrecios as $valor) {
+            $sql = "update listaPrecios set idStatus='2' Where idListaPrecio ='$valor'";
+            $lista = mysql_query($sql, $cn->Conectarse());
+            if ($lista == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                 $sql = "update tarifas set idStatus='2' Where idListaPrecio ='$valor'";
+            $lista = mysql_query($sql, $cn->Conectarse());
+            if ($lista == false) {
+                mysql_query("ROLLBACK;");
+            }else{
+                echo'bien';
+            }
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
+    function eliminaProveedor($listaProveedores) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaProveedores as $valor) {
+            $sql = "update proveedores set idStatus='2' Where idProveedor ='$valor'";
+            $proveedores = mysql_query($sql, $cn->Conectarse());
+            if ($proveedores == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
+    function eliminaProductos($listaProductos) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaProductos as $valor) {
+            $sql = "update productos set idStatus='2' Where codigoProducto ='$valor'";
+            $productos = mysql_query($sql, $cn->Conectarse());
+            if ($productos == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
+    function eliminaMarcas($listaMarcas) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaMarcas as $valor) {
+            $sql = "update marcas set idStatus='2' Where idMarca ='$valor'";
+            $marcas = mysql_query($sql, $cn->Conectarse());
+            if ($marcas == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
     function editarDireccion(Direccion $t) {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
@@ -185,7 +255,7 @@ class dao {
     function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT l.nombreListaPrecio, t.porcentaUtilidad FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto' AND idStatus = '1'";
+        $sql = "SELECT l.nombreListaPrecio, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto' AND l.idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -391,7 +461,7 @@ class dao {
         $sql = "INSERT INTO existencias(cantidad,codigoProducto)VALUES('0','" . $p->getCodigoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "')";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
@@ -467,7 +537,7 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1";
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1'";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
@@ -480,7 +550,7 @@ class dao {
     function consultaMarca() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM marcas";
+        $sql = "SELECT * FROM marcas Where idStatus='1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -488,7 +558,7 @@ class dao {
     function consultaProveedor() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM proveedores";
+        $sql = "SELECT * FROM proveedores WHERE idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -496,7 +566,7 @@ class dao {
     function consultaListaPrecio() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM listaprecios order by idListaPrecio ASC";
+        $sql = "SELECT * FROM listaprecios WHERE idStatus='1' order by idListaPrecio ASC";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -504,7 +574,7 @@ class dao {
     function consultarListaPrecios() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios";
+        $sql = "SELECT concat_ws('-', nombreListaPrecio, idListaPrecio) as fusion, idListaPrecio FROM listaprecios Where idStatus='1'";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 
@@ -539,7 +609,7 @@ class dao {
     function guardarMarca(Marca $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO marcas(marca)VALUES ('" . $t->getMarca() . "')";
+        $sql = "INSERT INTO marcas(marca,idStatus)VALUES ('" . $t->getMarca() . "','1')";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -563,7 +633,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . "');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . ",'1');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -571,7 +641,7 @@ class dao {
     function guardarListaPrecio(ListaPrecio $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO listaprecios (nombreListaPrecio) VALUES ('" . $t->getNombreListaPrecio() . "')";
+        $sql = "INSERT INTO listaprecios (nombreListaPrecio,idStatus) VALUES ('" . $t->getNombreListaPrecio() . "','1')";
         $vl = mysql_query($sql, $cn->Conectarse());
         if ($vl === false) {
             $control = 0;

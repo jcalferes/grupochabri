@@ -16,7 +16,41 @@ function NumCheck(e, field, tarifa) {
     }
     return false
 }
+function eliminarProductos() {
 
+    var idProductos = new Array();
+    var info;
+
+    $("#tdProducto").find(':checked').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        idProductos.push(valor);
+        lista = JSON.stringify(idProductos);
+        info = "productos=" + lista;
+
+
+    });
+    alert(info);
+    if (info != undefined) {
+        alertify.confirm("Desea Eliminar las productos seleccionadas?", function(e) {
+            if (e) {
+                alertify.success("SI");
+                $.get('eliminaProductos.php', info, function() {
+                    alertify.success("se han dado de baja de manera correcta")
+                    $("#consultaProducto").load("consultarProducto.php", function() {
+                        $('#tdProducto').dataTable();
+                    });
+                });
+            } else {
+                alertify.error("NO");
+            }
+        });
+        return false;
+
+    } else {
+        alertify.error("Debe selecciona al menos una  marca");
+    }
+    }
 function tester(valor) {
     var costo = document.getElementById("txtCostoProducto").value;
     if ($("#check" + valor).is(':checked')) {
