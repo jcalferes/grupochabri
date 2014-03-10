@@ -43,6 +43,7 @@
                     </table>
                 </div>
             </section>
+            
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
                 <div class="col-sm-3">

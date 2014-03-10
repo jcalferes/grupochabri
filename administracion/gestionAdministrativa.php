@@ -1,3 +1,8 @@
+<?php
+include '../index/verificaSession.php';
+$verificasession = new verificaSession();
+$verificasession->validaSesion();
+?>
 <!DOCTYPE html>
 <html lang="es"> 
     <head>
@@ -53,6 +58,7 @@
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
                         <li class=""><a href="#">Un link mas</a></li>
+                        <li><a href="#">Cerrar Sesion</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -71,8 +77,8 @@
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                         <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        <!--                        <li id="6" class=""><a onclick="entroTarifas();">vacio</a></li>-->
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
+                        <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
                     </ul>
                     <div id="mostrar">
                     </div>
@@ -82,7 +88,6 @@
                     <!--========================================================-->
                 </div>
             </div>
-
             <!--========================================================-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->
@@ -93,7 +98,6 @@
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-        <script src="../bootstrap/css/bootstrap.min.css"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>

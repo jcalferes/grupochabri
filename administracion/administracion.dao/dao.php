@@ -601,11 +601,6 @@ class dao {
         return $datos;
     }
 
-    function genera_md5($clave) {
-        $codificado = md5($clave);
-        return $codificado;
-    }
-
     function guardarMarca(Marca $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
