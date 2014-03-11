@@ -12,13 +12,13 @@ class dao {
             if ($lista == false) {
                 mysql_query("ROLLBACK;");
             } else {
-                 $sql = "update tarifas set idStatus='2' Where idListaPrecio ='$valor'";
-            $lista = mysql_query($sql, $cn->Conectarse());
-            if ($lista == false) {
-                mysql_query("ROLLBACK;");
-            }else{
-                echo'bien';
-            }
+                $sql = "update tarifas set idStatus='2' Where idListaPrecio ='$valor'";
+                $lista = mysql_query($sql, $cn->Conectarse());
+                if ($lista == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+                    echo'bien';
+                }
             }
         }
         mysql_query("COMMIT;");
@@ -628,8 +628,8 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . ",'1');";
-        mysql_query($sql, $cn->Conectarse());
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . "','1');";
+        $rs = mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
 
