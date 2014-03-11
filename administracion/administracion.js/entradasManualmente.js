@@ -47,8 +47,10 @@ function calcularPorCosto(id) {
     }
     var importe = costoPorCantidad * cantPorCantidad;
     $("#importe" + id).val(importe);
-    calculaTotalEntradasManual();
     sumaDeSubtotales();
+    calcularSDA();
+    calcularIva();
+    calculaTotalEntradasManual();
 }
 function calcularPorCantidad(id) {
     var costoPorCantidad = $("#costo" + id).val();
@@ -61,19 +63,24 @@ function calcularPorCantidad(id) {
     }
     var importe = costoPorCantidad * cantPorCantidad;
     $("#importe" + id).val(importe);
-    calculaTotalEntradasManual();
+
     sumaDeSubtotales();
+    calcularSDA();
+    calcularIva();
+    calculaTotalEntradasManual();
 }
 function calculaTotalEntradasManual() {
-    var sumaTotalDeImporte = 0;
-    for (var x = 0; x < contador; x++) {
-        var importe = parseFloat($("#importe" + x + "").val());
-        if (isNaN(importe)) {
-            importe = 0;
-        }
-        sumaTotalDeImporte = sumaTotalDeImporte + importe;
+    var sda = $("#sdaM").val();
+    if (isNaN(sda)) {
+        sda = 0;
     }
-    $("#costoTotal").val(sumaTotalDeImporte);
+    var iva = $("#ivaM").val();
+    if (isNaN(iva)) {
+        iva = 0;
+    }
+   
+    var total = parseFloat(sda) + parseFloat(iva); 
+    $("#costoTotal").val(total);
 }
 
 function calcularDescuentos(id) {
@@ -98,33 +105,58 @@ function calcularDescuentos(id) {
         var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
         $("#importe" + id).val(importe);
     }
-    calculaTotalEntradasManual();
-    calcularDescTotal();
+
     calcularCda();
     calcularDescuentoDeProductos();
+    calcularDescTotal();
+    calcularSDA();
+    calcularIva();
+    calculaTotalEntradasManual();
 }
 
 function calcularDescTotal() {
-    var totalDescuento = 0;
-    var nuevoDescuetno2 = 0;
-    var nuevoDescuetno1 = 0;
-    for (var x = 0; x < contador; x++) {
-        var descuento1 = parseFloat($("#descuento1" + x).val());
-        var descuento2 = parseFloat($("#descuento2" + x).val());
-        if (isNaN(descuento1)) {
-            descuento1 = 0;
-        }
-        if (isNaN(descuento2)) {
-            descuento2 = 0;
-        }
-        var importe = parseFloat($("#cant" + x).val()) * parseFloat($("#costo" + x).val());
-        nuevoDescuetno1 = (descuento1 * importe) / 100;
-        totalDescuento = totalDescuento + nuevoDescuetno1;
-        importe = importe - nuevoDescuetno1;
-        nuevoDescuetno2 = (descuento2 * importe) / 100;
-        totalDescuento = totalDescuento + nuevoDescuetno2;
+    var descuentoGeneral = $("#descuentoGeneralM").val();
+    var descuentoProductos = $("#descuentoProductosM").val();
+    if (isNaN(descuentoGeneral)) {
+        descuentoGeneral = 0;
     }
-    $("#descuentoTotalM").val(totalDescuento);
+    if (isNaN(descuentoProductos)) {
+        descuentoProductos = 0;
+    }
+    var totalDescuentos = descuentoGeneral + descuentoProductos;
+    if (isNaN(totalDescuentos)) {
+        totalDescuentos = 0;
+    }
+    $("#descuentoTotalM").val(totalDescuentos);
+}
+
+function calcularSDA() {
+    var descuentoTotal = $("#descuentoTotalM").val();
+    var subTotal = $("#subTotalM").val();
+    if (isNaN(descuentoTotal)) {
+        descuentoTotal = 0;
+    }
+    if (isNaN(subTotal)) {
+        subTotal = 0;
+    }
+    var sda = subTotal - descuentoTotal;
+    if (isNaN(sda)) {
+        sda = 0;
+    }
+    $("#sdaM").val(sda);
+}
+
+function calcularIva() {
+    var sda = $("#sdaM").val();
+    var iva = 0.16;
+    if (isNaN(sda)) {
+        sda = 0;
+    }
+    iva = (sda * iva);
+    if (isNaN(iva)) {
+        iva = 0;
+    }
+    $("#ivaM").val(iva);
 }
 
 function respaldoCantidad(codigo, costoProducto) {
