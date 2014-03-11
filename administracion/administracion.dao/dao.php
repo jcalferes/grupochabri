@@ -980,9 +980,17 @@ class dao {
         mysql_query("COMMIT;");
     }
 
-//Cierre de la funcion
-    //==============================================================================
-}
+    function mostrarTipoUsuario() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tiposusuarios";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return $rs;
+        }
+        $cn->cerrarBd();
+    }
 
-//Cierre DAO
-?>
+}

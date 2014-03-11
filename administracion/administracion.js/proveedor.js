@@ -1,4 +1,4 @@
-function eliminarProveedores(){
+function eliminarProveedores() {
     var idProveedor = new Array();
     var info;
 

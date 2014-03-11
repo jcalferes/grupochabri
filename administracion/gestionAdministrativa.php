@@ -1,7 +1,7 @@
 <?php
-include '../index/verificaSession.php';
-$verificasession = new verificaSession();
-$verificasession->validaSesion();
+//include '../index/verificaSession.php';
+//$verificasession = new verificaSession();
+//$verificasession->validaSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
@@ -52,7 +52,6 @@ $verificasession->validaSesion();
                                 <li><a href="#">Otro link</a></li>
                             </ul>
                         </li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
