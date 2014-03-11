@@ -5,7 +5,7 @@ $(document).ready(function() {
 });
 $("#btnusuario").click(function() {
     var tipousuario = $("#selectTipoUsuario").val();
-    var usuario = $.trim($("#txtusuario").val().toUpperCase());
+    var usuario = $.trim($("#txtusuario").val);
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
     var paterno = $.trim($("#txtpaterno").val().toUpperCase());
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
@@ -40,8 +40,21 @@ $("#btnusuario").click(function() {
         $("#frmrepass").addClass("has-success");
     }
     alert(tipousuario);
-    var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "$pass=" + pass;
+    var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
     $.get("guardarUsuario.php", info, function(respuesta) {
-
+        alert(respuesta);
+        if (respuesta == 1) {
+            alertify.error("Error al guardar");
+        }
+        if (respuesta == 0) {
+            alertify.success("Bien");
+            $('#selectTipoUsuario').selectpicker('val', 0);
+            $("#txtusuario").val("");
+            $("#txtnombre").val("");
+            $("#txtpaterno").val("");
+            $("#txtmaterno").val("");
+            $("#txtpass").val("");
+            $("#txtrepass").val("");
+        }
     });
 });

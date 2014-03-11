@@ -992,12 +992,18 @@ class dao {
         }
         $cn->cerrarBd();
     }
-    
-    function guardarUsuario(Usuario $usuario){
+
+    function guardarUsuario(Usuario $usuario, $idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal, idStatus)"
-                . "VALUES ()";
+                . "VALUES ('" . $usuario->getUsuario() . "','" . $usuario->getNombre() . "','" . $usuario->getPaterno() . "','" . $usuario->getMaterno() . "','" . $usuario->getPass() . "','" . $usuario->getTipousuario() . "','$idsucursal','1')";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
