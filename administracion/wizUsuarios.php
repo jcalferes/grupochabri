@@ -32,11 +32,11 @@
                     </div>
                     <div id="frmpass" class="form-group">
                         <label>Password:</label><br>
-                        <input type="text" id="txtmaterno" class="form-control" style="width: 50%" />
+                        <input type="text" id="txtpass" class="form-control" style="width: 50%" />
                     </div>
                     <div id="frmrepass" class="form-group">
                         <label>Validar Password:</label><br>
-                        <input type="text" id="txtmaterno" class="form-control" style="width: 50%" />
+                        <input type="text" id="txtrepass" class="form-control" style="width: 50%" />
                     </div>
                     <hr>
                     <input type="button" id="btnusuario" class="form-control btn btn-primary" value="Guardar" style="width: 50%" />
