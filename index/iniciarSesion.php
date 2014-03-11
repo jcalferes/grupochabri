@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include './indes.clases/Usuario.php';
+include './index.clases/Sesion.php';
 include './index.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';

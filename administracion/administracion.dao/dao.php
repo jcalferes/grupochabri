@@ -992,5 +992,12 @@ class dao {
         }
         $cn->cerrarBd();
     }
+    
+    function guardarUsuario(Usuario $usuario){
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal, idStatus)"
+                . "VALUES ()";
+    }
 
 }
