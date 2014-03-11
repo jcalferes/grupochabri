@@ -36,38 +36,81 @@ $("#codigoProductoEntradas").keypress(function(e) {
         });
     }
 });
+
+function validar() {
+    var valor = $("#numero").val();
+    if (valor == '-' || valor == '+') {
+    }
+    else {
+        var paso = soloNumeroEnteros(valor);
+        if (paso == false) {
+            valor = valor.substring(0, valor.length - 1);
+            $("#numero").val(valor);
+        }
+        else {
+        }
+    }
+}
+
 function calcularPorCosto(id) {
     var costoPorCantidad = $("#costo" + id).val();
-    var cantPorCantidad = $("#cant" + id).val();
-    if (isNaN(costoPorCantidad)) {
+    if (costoPorCantidad == "") {
         costoPorCantidad = 0;
     }
-    if (isNaN(cantPorCantidad)) {
-        cantPorCantidad = 0;
+    if (costoPorCantidad == '-' || costoPorCantidad == '+') {
     }
-    var importe = costoPorCantidad * cantPorCantidad;
-    $("#importe" + id).val(importe);
-    sumaDeSubtotales();
-    calcularSDA();
-    calcularIva();
-    calculaTotalEntradasManual();
+    else {
+        var paso = soloNumeroEnteros(costoPorCantidad);
+        if (paso == false) {
+            costoPorCantidad = costoPorCantidad.substring(0, costoPorCantidad.length - 1);
+            $("#costo" + id).val(costoPorCantidad);
+        }
+        else {
+            var cantPorCantidad = $("#cant" + id).val();
+            if (isNaN(costoPorCantidad)) {
+                costoPorCantidad = 0;
+            }
+            if (isNaN(cantPorCantidad)) {
+                cantPorCantidad = 0;
+            }
+            var importe = costoPorCantidad * cantPorCantidad;
+            $("#importe" + id).val(importe);
+            sumaDeSubtotales();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
+    }
 }
 function calcularPorCantidad(id) {
-    var costoPorCantidad = $("#costo" + id).val();
     var cantPorCantidad = $("#cant" + id).val();
-    if (isNaN(costoPorCantidad)) {
-        costoPorCantidad = 0;
+    if (cantPorCantidad == '-' || cantPorCantidad == '+') {
     }
-    if (isNaN(cantPorCantidad)) {
-        cantPorCantidad = 0;
-    }
-    var importe = costoPorCantidad * cantPorCantidad;
-    $("#importe" + id).val(importe);
+    else {
+        var paso = soloNumeroEnteros(cantPorCantidad);
+        if (paso == false) {
+            cantPorCantidad = cantPorCantidad.substring(0, cantPorCantidad.length - 1);
+            $("#cant" + id).val(cantPorCantidad);
+        }
+        else {
+            var costoPorCantidad = $("#costo" + id).val();
+            if (isNaN(costoPorCantidad)) {
+                costoPorCantidad = 0;
+            }
+            if (isNaN(cantPorCantidad)) {
+                cantPorCantidad = 0;
+            }
+            var importe = costoPorCantidad * cantPorCantidad;
+            $("#importe" + id).val(importe);
 
-    sumaDeSubtotales();
-    calcularSDA();
-    calcularIva();
-    calculaTotalEntradasManual();
+            sumaDeSubtotales();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
+    }
+
+
 }
 function calculaTotalEntradasManual() {
     var sda = $("#sdaM").val();
@@ -78,8 +121,7 @@ function calculaTotalEntradasManual() {
     if (isNaN(iva)) {
         iva = 0;
     }
-   
-    var total = parseFloat(sda) + parseFloat(iva); 
+    var total = parseFloat(sda) + parseFloat(iva);
     $("#costoTotal").val(total);
 }
 
@@ -88,30 +130,47 @@ function calcularDescuentos(id) {
     var nuevoImporte;
     var descuento1 = $("#descuento1" + id).val();
     var descuento2 = $("#descuento2" + id).val();
-    if (descuento1 > 0) {
-        calcularPorCosto(id);
-        importe = $("#importe" + id).val();
-        nuevoImporte = (descuento1 * importe) / 100;
-        nuevoImporte = importe - nuevoImporte;
-    }
-    if (descuento2 > 0) {
-        var respaldoImporte = nuevoImporte;
-        nuevoImporte = (descuento2 * nuevoImporte) / 100;
-        nuevoImporte = respaldoImporte - nuevoImporte;
-    }
-    $("#importe" + id).val(nuevoImporte);
 
-    if (descuento1 === '' && descuento2 === '') {
-        var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
-        $("#importe" + id).val(importe);
+    if (descuento1 == '-' || descuento1 == '+' || descuento2 == '-' || descuento2 == '+') {
     }
+    else {
+        var pasoDesc1 = soloNumeroEnteros(descuento1);
+        var pasoDesc2 = soloNumeroEnteros(descuento2);
+        if (pasoDesc1 == false) {
+            descuento1 = descuento1.substring(0, descuento1.length - 1);
+            $("#descuento1" + id).val(descuento1);
+        }
+        else if (pasoDesc2 == false) {
+            descuento2 = descuento2.substring(0, descuento2.length - 1);
+            $("#descuento2" + id).val(descuento2);
+        }
+        else {
+            if (descuento1 > 0) {
+                calcularPorCosto(id);
+                importe = $("#importe" + id).val();
+                nuevoImporte = (descuento1 * importe) / 100;
+                nuevoImporte = importe - nuevoImporte;
+            }
+            if (descuento2 > 0) {
+                var respaldoImporte = nuevoImporte;
+                nuevoImporte = (descuento2 * nuevoImporte) / 100;
+                nuevoImporte = respaldoImporte - nuevoImporte;
+            }
+            $("#importe" + id).val(nuevoImporte);
 
-    calcularCda();
-    calcularDescuentoDeProductos();
-    calcularDescTotal();
-    calcularSDA();
-    calcularIva();
-    calculaTotalEntradasManual();
+            if (descuento1 === '' && descuento2 === '') {
+                var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
+                $("#importe" + id).val(importe);
+            }
+
+            calcularCda();
+            calcularDescuentoDeProductos();
+            calcularDescTotal();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
+    }
 }
 
 function calcularDescTotal() {
@@ -239,7 +298,16 @@ function calcularDescuentoDeProductos() {
     }
     $("#descuentoProductosM").val(parseFloat(descuentoProductos));
 }
-
+function soloNumeroEnteros(valor) {
+    var paso = false;
+    if (valor == 0) {
+        paso = true;
+    }
+    else if (valor.match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+        paso = true;
+    }
+    return paso;
+}
 
 $(document).ready(function() {
     $("#proveedores").change(function() {
