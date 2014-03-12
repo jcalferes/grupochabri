@@ -1011,7 +1011,8 @@ class dao {
         $cn = new coneccion();
         $sql = "SELECT * FROM usuarios WHERE usuario= '$usuario'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        if ($datos == false) {
+        $rs = mysql_affected_rows();
+        if ($rs == 0) {
             return 0;
         } else {
             return $datos;

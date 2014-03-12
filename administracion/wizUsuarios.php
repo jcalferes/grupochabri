@@ -39,7 +39,12 @@
                         <input type="text" id="txtrepass" class="form-control" style="width: 50%" />
                     </div>
                     <hr>
-                    <input type="button" id="btnusuario" class="form-control btn btn-primary" value="Guardar" style="width: 50%" />
+                    <div id="divguardarusuario">
+                        <input type="button" id="btnguardarusuario" class="form-control btn btn-primary" value="Guardar" style="width: 50%" />
+                    </div>
+                    <div id="diveditarusuario">
+                        <input type="button" id="btneditarusuario" class="form-control btn btn-primary" value="Editar" style="width: 50%" />
+                    </div>
                 </form>
             </section>
         </div>

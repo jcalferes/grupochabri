@@ -1,22 +1,21 @@
 $(document).ready(function() {
     $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function() {
         $("#selectTipoUsuario").selectpicker();
+        $("#diveditarusuario").hide();
     });
 });
 
 $("#txtusuario").keyup(function() {
     var usuario = $.trim($("#txtusuario").val());
-    if(usuario === "" || /^\s+$/.test(usuario)){
-        $('#selectTipoUsuario').selectpicker('val', 0);
-        $("#txtnombre").val("");
-        $("#txtnombre").val("");
-        $("#txtnombre").val("");
-        $("#txtnombre").val("");
-        $("#txtnombre").val("");
-    }
     var info = "usuario=" + usuario;
     $.get('verificandoUsuario.php', info, function(respuesta) {
-        if (respuesta == 0) {
+        if (respuesta < 1) {
+            $('#selectTipoUsuario').selectpicker('val', 0);
+            $("#txtnombre").val("");
+            $("#txtpaterno").val("");
+            $("#txtmaterno").val("");
+            $("#diveditarusuario").slideUp();
+            $("#divguardarusuario").slideDown();
             return false;
         } else {
             datos = JSON.parse(respuesta);
@@ -33,12 +32,14 @@ $("#txtusuario").keyup(function() {
                 if (indice == "apellidoMaterno") {
                     $("#txtmaterno").val(elemento);
                 }
+                $("#divguardarusuario").slideUp();
+                $("#diveditarusuario").slideDown();
             });
         }
     });
 });
 
-$("#btnusuario").click(function() {
+$("#btnguardarusuario").click(function() {
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val);
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
