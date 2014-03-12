@@ -4,7 +4,6 @@ $(document).ready(function() {
         $("#diveditarusuario").hide();
     });
 });
-
 $("#txtusuario").keyup(function() {
     var usuario = $.trim($("#txtusuario").val());
     var info = "usuario=" + usuario;
@@ -20,6 +19,9 @@ $("#txtusuario").keyup(function() {
         } else {
             datos = JSON.parse(respuesta);
             $.each(datos, function(indice, elemento) {
+                if (indice == "idUsuario") {
+                    $('#txtid').val(elemento);
+                }
                 if (indice == "idtipousuario") {
                     $('#selectTipoUsuario').selectpicker('val', elemento);
                 }
@@ -32,17 +34,12 @@ $("#txtusuario").keyup(function() {
                 if (indice == "apellidoMaterno") {
                     $("#txtmaterno").val(elemento);
                 }
-                if (indice == "password") {
-                    var oldpass = elemento;
-                }
-                $("#divguardarusuario").slideUp();
-                $("#diveditarusuario").slideDown();
-                alert(oldpass);
             });
+            $("#divguardarusuario").slideUp();
+            $("#diveditarusuario").slideDown();
         }
     });
 });
-
 $("#btnguardarusuario").click(function() {
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val);
@@ -79,7 +76,7 @@ $("#btnguardarusuario").click(function() {
         $("#frmpass").addClass("has-success");
         $("#frmrepass").addClass("has-success");
     }
-    alert(tipousuario);
+
     var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
     $.get("guardarUsuario.php", info, function(respuesta) {
         alert(respuesta);
@@ -97,4 +94,47 @@ $("#btnguardarusuario").click(function() {
             $("#txtrepass").val("");
         }
     });
+});
+$("#btneditarusuario").click(function() {
+    var tipousuario = $("#selectTipoUsuario").val();
+    var usuario = $.trim($("#txtusuario").val);
+    var nombre = $.trim($("#txtnombre").val().toUpperCase());
+    var paterno = $.trim($("#txtpaterno").val().toUpperCase());
+    var materno = $.trim($("#txtmaterno").val().toUpperCase());
+    var pass = $.trim($("#txtpass").val().toUpperCase());
+    var repass = $.trim($("#txtrepass").val().toUpperCase());
+
+    if (tipousuario == 0) {
+        alertify.error("No seleccionaste un tipo de usuario");
+        return false;
+    }
+
+    if (usuario === "" || /^\s+$/.test(usuario) || nombre === "" || /^\s+$/.test(nombre) || paterno === "" || /^\s+$/.test(paterno) || materno === "" || /^\s+$/.test(materno) || pass === "" || /^\s+$/.test(pass || repass === "" || /^\s+$/.test(repass))) {
+        $("#frmpass").removeClass("has-error");
+        $("#frmrepass").removeClass("has-error");
+        $("#frmpass").removeClass("has-success");
+        $("#frmrepass").removeClass("has-success");
+        alertify.error("Todos los campos son obligatorios");
+        return false;
+    }
+
+    if (pass !== repass) {
+        $("#frmpass").removeClass("has-success");
+        $("#frmrepass").removeClass("has-success");
+        $("#frmpass").addClass("has-error");
+        $("#frmrepass").addClass("has-error");
+        alertify.error("Los passwords no coinciden");
+        return false;
+    } else {
+        $("#frmpass").removeClass("has-error");
+        $("#frmrepass").removeClass("has-error");
+        $("#frmpass").addClass("has-success");
+        $("#frmrepass").addClass("has-success");
+    }
+    var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
+    alert(info);
+});
+$("#btneliminarusuario").click(function() {
+    alert("Eliminando a la perrilla");
+
 });

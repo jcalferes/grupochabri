@@ -979,7 +979,7 @@ class dao {
         }//Cierre FOR
         mysql_query("COMMIT;");
     }
-
+//============================================== Todo para usuarios ============
     function mostrarTipoUsuario() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -1018,5 +1018,9 @@ class dao {
             return $datos;
         }
     }
-
+    
+    function editarUsuario(){
+        
+    }
+//==============================================================================
 }

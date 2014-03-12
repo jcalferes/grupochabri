@@ -17,6 +17,7 @@
                     <div class="form-group">
                         <label>Usuario:</label><br>
                         <input type="text" id="txtusuario" class="form-control" style="width: 50%"/>
+                        <input type="text" id="txtid" class="form-control hidden"  disabled="true" style="width: 50%" />
                     </div>
                     <div class="form-group">
                         <label>Nombre:</label><br>
@@ -39,11 +40,12 @@
                         <input type="text" id="txtrepass" class="form-control" style="width: 50%" />
                     </div>
                     <hr>
-                    <div id="divguardarusuario">
-                        <input type="button" id="btnguardarusuario" class="form-control btn btn-primary" value="Guardar" style="width: 50%" />
+                    <div id="divguardarusuario" class="form-group">
+                        <input type="button" id="btnguardarusuario" class="form-control btn btn-primary" value="Guardar" style="width: 25%" />
                     </div>
-                    <div id="diveditarusuario">
-                        <input type="button" id="btneditarusuario" class="form-control btn btn-primary" value="Editar" style="width: 50%" />
+                    <div id="diveditarusuario" class="form-group form-inline">
+                        <input type="button" id="btneditarusuario" class="form-control btn btn-primary" value="Editar" style="width: 25%" />
+                        <input type="button" id="btneliminarusuario" class="form-control btn btn-default" value="Eliminar" style="width: 25%" />
                     </div>
                 </form>
             </section>
