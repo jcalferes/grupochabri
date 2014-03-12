@@ -1006,4 +1006,16 @@ class dao {
         }
     }
 
+    function consultarExistenciaUsuario($usuario) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios WHERE usuario= '$usuario'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        if ($datos == false) {
+            return 0;
+        } else {
+            return $datos;
+        }
+    }
+
 }

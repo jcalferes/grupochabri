@@ -3,6 +3,41 @@ $(document).ready(function() {
         $("#selectTipoUsuario").selectpicker();
     });
 });
+
+$("#txtusuario").keyup(function() {
+    var usuario = $.trim($("#txtusuario").val());
+    if(usuario === "" || /^\s+$/.test(usuario)){
+        $('#selectTipoUsuario').selectpicker('val', 0);
+        $("#txtnombre").val("");
+        $("#txtnombre").val("");
+        $("#txtnombre").val("");
+        $("#txtnombre").val("");
+        $("#txtnombre").val("");
+    }
+    var info = "usuario=" + usuario;
+    $.get('verificandoUsuario.php', info, function(respuesta) {
+        if (respuesta == 0) {
+            return false;
+        } else {
+            datos = JSON.parse(respuesta);
+            $.each(datos, function(indice, elemento) {
+                if (indice == "idtipousuario") {
+                    $('#selectTipoUsuario').selectpicker('val', elemento);
+                }
+                if (indice == "nombre") {
+                    $("#txtnombre").val(elemento);
+                }
+                if (indice == "apellidoPaterno") {
+                    $("#txtpaterno").val(elemento);
+                }
+                if (indice == "apellidoMaterno") {
+                    $("#txtmaterno").val(elemento);
+                }
+            });
+        }
+    });
+});
+
 $("#btnusuario").click(function() {
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val);
