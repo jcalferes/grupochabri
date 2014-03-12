@@ -32,8 +32,12 @@ $("#txtusuario").keyup(function() {
                 if (indice == "apellidoMaterno") {
                     $("#txtmaterno").val(elemento);
                 }
+                if (indice == "password") {
+                    var oldpass = elemento;
+                }
                 $("#divguardarusuario").slideUp();
                 $("#diveditarusuario").slideDown();
+                alert(oldpass);
             });
         }
     });
