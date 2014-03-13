@@ -4,7 +4,7 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de salidas</h2>
-            <section class="scrollSection">
+            <section style="width: 100%">
                 <div id="consultaListaPrecio">
                 </div>
             </section>

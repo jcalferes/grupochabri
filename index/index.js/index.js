@@ -17,6 +17,7 @@ $("#loginbtn").click(function() {
     } else {
         var info = "usuario=" + usuario + "&pass=" + pass;
         $.get('iniciarSesion.php', info, function(respuesta) {
+            
             if (respuesta == false) {
                 alertify.error("Usuario o Contraseña invalidos");
             } else {
@@ -49,6 +50,11 @@ $("#loginbtn").click(function() {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
                     alertify.success("ES UN CLIENTE");
+                }
+                if (respuesta == 777) {
+                    $("#loginuser").val("");
+                    $("#loginpass").val("");
+                   alertify.error("PC no autorizada");
                 }
             }
         });

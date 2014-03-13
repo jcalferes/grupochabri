@@ -52,18 +52,17 @@ $verificasession->validaSesion();
                                 <li><a href="#">Otro link</a></li>
                             </ul>
                         </li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
                         <li class=""><a href="#">Un link mas</a></li>
-                        <li><a href="#">Cerrar Sesion</a></li>
+                        <li><a href="../index/cerrarSesion.php">Cerrar Sesion</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div class="container">
+        <div class="container" style="width: 100%">
             <!--                    Aqui todo el contenido de la pagina-->
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -79,6 +78,7 @@ $verificasession->validaSesion();
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                         <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
+                        <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
                     </ul>
                     <div id="mostrar">
                     </div>

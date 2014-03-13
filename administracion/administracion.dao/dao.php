@@ -2,6 +2,91 @@
 
 class dao {
 
+    function eliminaMaquinas($listaMaquinas) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaMaquinas as $valor) {
+            $sql = "update maquinas set idStatus='2' Where idMaquina ='$valor'";
+            $marcas = mysql_query($sql, $cn->Conectarse());
+            if ($marcas == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
+    function consultaMaquina() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM maquinas Where idStatus='1'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function guardarMaquina(Maquina $m) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO maquinas(nombreMaquina,idStatus)VALUES ('" . $m->getNombreMaquina() . "','1')";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
+    function eliminaCliente($listaClientes) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaClientes as $valor) {
+            $sql = "update clientes set idStatus='2' Where idClientes ='$valor'";
+            $proveedores = mysql_query($sql, $cn->Conectarse());
+            if ($proveedores == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
+    function editarCliente(Cliente $t) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE clientes set nombre='" . $t->getNombre() . "', idDireccion='" . $t->getIdDireccion() . "',  diasCredito='" . $t->getDiasCredito() . "', email='" . $t->getEmail() . "', descuentoPorFactura='" . $t->getDesctfactura() . "', descuentoPorProntoPago='" . $t->getDesctprontopago() . "', tipoCliente='" . $t->getTipoCliente() . "', idStatus='1' WHERE rfc='" . $t->getRfc() . "';";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
+    function verificandoCliente($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM clientes p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion INNER JOIN cpostales c ON c.idcpostales = d.idcpostales WHERE rfc= '$rfc'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $band = mysql_affected_rows();
+        if ($band < 1) {
+            return 0;
+        } else {
+            return $datos;
+        }
+    }
+
+    function guardarCliente(Cliente $t) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO clientes(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoCliente() . "','1');";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
+    function consultaCliente() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM clientes WHERE idStatus = '1'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function eliminaListaPrecio($listaPrecios) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -12,13 +97,13 @@ class dao {
             if ($lista == false) {
                 mysql_query("ROLLBACK;");
             } else {
-                 $sql = "update tarifas set idStatus='2' Where idListaPrecio ='$valor'";
-            $lista = mysql_query($sql, $cn->Conectarse());
-            if ($lista == false) {
-                mysql_query("ROLLBACK;");
-            }else{
-                echo'bien';
-            }
+                $sql = "update tarifas set idStatus='2' Where idListaPrecio ='$valor'";
+                $lista = mysql_query($sql, $cn->Conectarse());
+                if ($lista == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+                    echo'bien';
+                }
             }
         }
         mysql_query("COMMIT;");
@@ -255,7 +340,7 @@ class dao {
     function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT l.nombreListaPrecio, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio WHERE codigoProducto = '$codigoProducto' AND l.idStatus = '1'";
+        $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND t.idStatus = '1' AND c.status='1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -628,7 +713,7 @@ class dao {
     function guardarProveedor(Proveedor $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . ",'1');";
+        $sql = "INSERT INTO proveedores(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoProveedor() . "','1');";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
     }
@@ -980,9 +1065,78 @@ class dao {
         mysql_query("COMMIT;");
     }
 
-//Cierre de la funcion
+    //============================================== Todo para usuarios ============
+    function mostrarTipoUsuario() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tiposusuarios";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return $rs;
+        }
+    }
+
+    function guardarUsuario(Usuario $usuario, $idsucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal, idStatus)"
+                . "VALUES ('" . $usuario->getUsuario() . "','" . $usuario->getNombre() . "','" . $usuario->getPaterno() . "','" . $usuario->getMaterno() . "','" . $usuario->getPass() . "','" . $usuario->getTipousuario() . "','$idsucursal','1')";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function consultarExistenciaUsuario($usuario) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios WHERE usuario= '$usuario'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $rs = mysql_affected_rows();
+        if ($rs == 0) {
+            return 0;
+        } else {
+            return $datos;
+        }
+    }
+
+    function editarUsuario(Usuario $usuario, $idsucursal, $id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' & idSucursal = '$idsucursal'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
+        $cn->cerrarBd();
+    }
+
+    function eliminarUsuario($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "DELETE FROM usuarios WHERE idUsuario = '$id'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
+        $cn->cerrarBd();
+    }
+
+    function consultaUsuario() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     //==============================================================================
 }
-
-//Cierre DAO
-?>

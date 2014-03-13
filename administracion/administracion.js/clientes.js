@@ -1,24 +1,24 @@
-function eliminarProveedores() {
-    var idProveedor = new Array();
+function eliminarClientes() {
+    var idCliente = new Array();
     var info;
 
-    $("#dtproveedor").find(':checked').each(function() {
+    $("#dtcliente").find(':checked').each(function() {
         var elemento = this;
         var valor = elemento.value;
-        idProveedor.push(valor);
-        lista = JSON.stringify(idProveedor);
-        info = "proveedor=" + lista;
+        idCliente.push(valor);
+        lista = JSON.stringify(idCliente);
+        info = "clientes=" + lista;
 
 
     });
     alert(info);
     if (info != undefined) {
-        alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
+        alertify.confirm("Desea Eliminar los Clientes seleccionadas?", function(e) {
             if (e) {
-                $.get('eliminaProveedor.php', info, function() {
+                $.get('eliminaClientes.php', info, function() {
                     alertify.success("se han dado de baja de manera correcta")
-                    $("#consultaProveedor").load("consultarProveedor.php", function() {
-                        $('#dtProveedor').dataTable();
+                    $("#consultaCliente").load("consultarCliente.php", function() {
+                        $('#dtclientes').dataTable();
                     });
                 });
             } else {
@@ -27,7 +27,7 @@ function eliminarProveedores() {
         return false;
 
     } else {
-        alertify.error("Debe selecciona al menos un proveedor");
+        alertify.error("Debe selecciona al menos un Cliente");
     }
 }
 
@@ -120,9 +120,9 @@ function validaEmail() {
 $(document).ready(function() {
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
-    $("#btneditarproveedor").hide();
-    $("#consultaProveedor").load("consultarProveedor.php", function() {
-        $('#dtproveedor').dataTable();
+    $("#btneditarcliente").hide();
+    $("#consultacliente").load("consultarCliente.php", function() {
+        $('#dtcliente').dataTable();
     });
 
     $(function() {
@@ -130,20 +130,20 @@ $(document).ready(function() {
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou ');
+        $("#txtnombrecliente").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou ');
     });
 
     $("#btncanceloProvedor").click(function() {
-        $("#txtnombreproveedor").val("");
+        $("#txtnombrecliente").val("");
         $("#txtrfc").val("");
         $("#txtdiascredito").val("");
         $("#txtdescuento").val("");
         $("#formulario").show("slow");
-        $("#mostrarDivProveedor").hide("slow");
+        $("#mostrarDivcliente").hide("slow");
 
     });
-    $("#btnguardarproveedor").click(function() {
-        var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
+    $("#btnguardarcliente").click(function() {
+        var nombre = $.trim($("#txtnombrecliente").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
         var diascredito = $("#txtdiascredito").val();
         var descuento = $("#txtdescuento").val();
@@ -184,12 +184,13 @@ $(document).ready(function() {
                 $("#txtrfc").focus();
                 alertify.error("RFC no valido para personas morales");
                 radios = $("#moral").val();
+
                 return false;
             }
         }
 
         var info = "nombre=" + nombre + "&rfc=" + rfc + "&diascredito=" + diascredito + "&desctpf=" + desctpf + "&desctpp=" + desctpp + "&email=" + email + "&radios=" + radios;
-        $.get('guardaProveedor.php', info, function(respuesta) {
+        $.get('guardaCliente.php', info, function(respuesta) {
             var info = respuesta;
             if (info == 2)
             {
@@ -208,26 +209,24 @@ $(document).ready(function() {
             } else {
                 $("#txtdesctpf").val("");
                 $("#txtdesctpp").val("");
-                $("#txtnombreproveedor").val("");
+                $("#txtnombrecliente").val("");
                 $("#txtrfc").val("");
                 $("#txtemail").val("");
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
-                $(".direccion").val("");
-
                 $("#formulario").show("slow");
-                $("#mostrarDivProveedor").hide("slow");
+                $("#mostrarDivCliente").hide("slow");
                 $("#frmrfc").removeClass("has-success");
                 $("#frmrfc").removeClass("has-error");
                 $("#frmemail").removeClass("has-success");
                 $("#frmemail").removeClass("has-error");
-                $("#consultaProveedor").load("consultarProveedor.php", function() {
-                    $('#dtproveedor').dataTable();
+                $("#consultacliente").load("consultarCliente.php", function() {
+                    $('#dtcliente').dataTable();
                 });
-                $("#selectProveedor").load("mostrarProveedores.php", function() {
-                    $("#selectProveedor").selectpicker('refresh');
+                $("#selectCliente").load("mostrarClientes.php", function() {
+                    $("#selectClientes").selectpicker('refresh');
                 });
-                alertify.success("Proveedor agregado correctamente");
+                alertify.success("Cliente agregado correctamente");
                 return false;
             }
         });
@@ -235,9 +234,9 @@ $(document).ready(function() {
     });
 
 
-    $("#btneditarproveedor").click(function() {
+    $("#btneditarcliente").click(function() {
 
-        var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
+        var nombre = $.trim($("#txtnombrecliente").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
         var diascredito = $("#txtdiascredito").val();
         var descuento = $("#txtdescuento").val();
@@ -284,7 +283,7 @@ $(document).ready(function() {
         }
 
         var info = "nombre=" + nombre + "&rfc=" + rfc + "&diascredito=" + diascredito + "&desctpf=" + desctpf + "&desctpp=" + desctpp + "&email=" + email + "&radios=" + radios;
-        $.get('editarProveedor.php', info, function(respuesta) {
+        $.get('editarCliente.php', info, function(respuesta) {
             var info = respuesta;
             if (info == 2)
             {
@@ -303,26 +302,24 @@ $(document).ready(function() {
             } else {
                 $("#txtdesctpf").val("");
                 $("#txtdesctpp").val("");
-                $("#txtnombreproveedor").val("");
+                $("#txtnombrecliente").val("");
                 $("#txtrfc").val("");
-                $(".direccion").val("");
-
                 $("#txtemail").val("");
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
                 $("#formulario").show("slow");
-                $("#mostrarDivProveedor").hide("slow");
+                $("#mostrarDivCliente").hide("slow");
                 $("#frmrfc").removeClass("has-success");
                 $("#frmrfc").removeClass("has-error");
                 $("#frmemail").removeClass("has-success");
                 $("#frmemail").removeClass("has-error");
-                $("#consultaProveedor").load("consultarProveedor.php", function() {
-                    $('#dtproveedor').dataTable();
+                $("#consultacliente").load("consultarCliente.php", function() {
+                    $('#dtcliente').dataTable();
                 });
-                $("#selectProveedor").load("mostrarProveedores.php", function() {
-                    $("#selectProveedor").selectpicker('refresh');
+                $("#selectCliente").load("mostrarCliente.php", function() {
+                    $("#selectCliente").selectpicker('refresh');
                 });
-                alertify.success("Proveedor editado correctamente");
+                alertify.success("Cliente editado correctamente");
                 return false;
             }
         });
@@ -332,15 +329,15 @@ $(document).ready(function() {
     $("#txtrfc").keyup(function() {
         var rfc = $("#txtrfc").val();
         var info = "rfc=" + rfc;
-        $.get('verificandoProvedor.php', info, function(x) {
+        $.get('verificandoCliente.php', info, function(x) {
             if (x == 1) {
                 $("#btneditardireccion").hide();
                 $("#btnguardardireccion").show();
-                $("#btneditarproveedor").hide();
-                $("#btnguardarproveedor").show();
+                $("#btneditarcliente").hide();
+                $("#btnguardarcliente").show();
                 $("#txtdesctpf").val("");
                 $("#txtdesctpp").val("");
-                $("#txtnombreproveedor").val("");
+                $("#txtnombrecliente").val("");
                 $("#txtemail").val("");
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
@@ -349,15 +346,14 @@ $(document).ready(function() {
             } else {
                 $("#btneditardireccion").show();
                 $("#btnguardardireccion").hide();
-                $("#btneditarproveedor").show();
-                $("#btnguardarproveedor").hide();
-
+                $("#btneditarcliente").show();
+                $("#btnguardarcliente").hide();
                 lista = JSON.parse(x);
                 console.log(lista);
                 $("#botonNinja").trigger("click");
 
                 $.each(lista, function(ind, elem) {
-                    if (ind == "tipoProveedor") {
+                    if (ind == "tipoCliente") {
                         if (elem == "FISICA") {
                             $("#fisica").prop("checked", true);
 //                            $("#moral").attr("checked", false);
@@ -368,7 +364,7 @@ $(document).ready(function() {
                         }
                     }
                     if (ind == "nombre") {
-                        $("#txtnombreproveedor").val(elem);
+                        $("#txtnombrecliente").val(elem);
                     }
                     if (ind == "email") {
                         $("#txtemail").val(elem);
