@@ -7,6 +7,7 @@ function entroMarca() {
     $("#7").removeClass("active");
     $("#8").removeClass("active");
     $("#mostrar").load("wizMarca.php");
+    $("#9").removeClass("active");
 }
 function entroProducto() {
     $("#1").removeClass("active");
@@ -16,6 +17,7 @@ function entroProducto() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#mostrar").load("wizProducto.php");
+    $("#9").removeClass("active");
 }
 function entroProveedor() {
     $("#1").removeClass("active");
@@ -27,6 +29,7 @@ function entroProveedor() {
     $("#7").removeClass("active");
     $("#8").removeClass("active");
     $("#mostrar").load("wizProveedor.php");
+    $("#9").removeClass("active");
 }
 
 function entroListaPrecio() {
@@ -38,6 +41,7 @@ function entroListaPrecio() {
     $("#7").removeClass("active");
     $("#8").removeClass("active");
     $("#mostrar").load("wizListaPrecio.php");
+    $("#9").removeClass("active");
 }
 
 function entroEntradasProductos() {
@@ -49,6 +53,7 @@ function entroEntradasProductos() {
     $("#7").removeClass("active");
     $("#8").removeClass("active");
     $("#mostrar").load("wizEntradaProducto.php");
+    $("#9").removeClass("active");
 }
 
 function entroSalidasProduto() {
@@ -60,6 +65,7 @@ function entroSalidasProduto() {
     $("#7").addClass("active");
     $("#8").removeClass("active");
     $("#mostrar").load("wizSalidaProducto.php");
+    $("#9").removeClass("active");
 }
 
 function entroUsuarios() {
@@ -71,4 +77,16 @@ function entroUsuarios() {
     $("#7").removeClass("active");
     $("#8").addClass("active");
     $("#mostrar").load("wizUsuarios.php");
+    $("#9").removeClass("active");
+}
+function entroCliente() {
+    $("#1").removeClass("active");
+    $("#2").removeClass("active");
+    $("#3").removeClass("active");
+    $("#4").removeClass("active");
+    $("#5").removeClass("active");
+    $("#7").removeClass("active");
+    $("#8").removeClass("active");
+    $("#mostrar").load("wizClientes.php");
+    $("#9").addClass("active");
 }
