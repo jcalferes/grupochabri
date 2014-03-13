@@ -49,20 +49,16 @@
                     </div>
                 </form>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Consulta de Maquinas</h2>
-
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Consulta de Maquinas</h2>
             <section class="scrollSection">
-                 <form style="margin: 0% 25% 0% 25%">
-                     <div id="consultaMaquina" class="form-group">
-                        
-                    </div>
-                     </form>
+                <div id="consultaMaquina" style="margin: 0% 25% 0% 25%">
+                </div>
             </section>
-            
+
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva Maquina</h2>
 
             <section class="scrollSection">
-                 <form style="margin: 0% 25% 0% 25%">
+                <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de la maquina:</label>
                         <input type="text" class="form-control" id="txtnombremaquina" placeholder="Ingrese el nombre de la nueva maquina">
