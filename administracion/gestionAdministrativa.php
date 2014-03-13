@@ -62,7 +62,7 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div class="container">
+        <div class="container" style="width: 100%">
             <!--                    Aqui todo el contenido de la pagina-->
             <div class="panel panel-default">
                 <div class="panel-heading">

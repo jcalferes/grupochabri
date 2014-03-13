@@ -51,8 +51,8 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div class="container">
-            <div class="panel panel-default">
+        <div class="container" >
+            <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">Aqui el titulo de la pagina</h3>
                 </div>
