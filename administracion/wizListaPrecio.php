@@ -4,8 +4,8 @@
     <body>
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list" />&numsp;Tabla de Listas</h2>
-            <section class="scrollSection">
-                <div id="consultaListaPrecio">
+            <section>
+                <div id="consultaListaPrecio" style="margin: 0% 25% 0% 25%">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva lista</h2>
