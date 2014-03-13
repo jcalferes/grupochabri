@@ -979,6 +979,7 @@ class dao {
         }//Cierre FOR
         mysql_query("COMMIT;");
     }
+
 //============================================== Todo para usuarios ============
     function mostrarTipoUsuario() {
         include_once '../daoconexion/daoConeccion.php';
@@ -1018,9 +1019,14 @@ class dao {
             return $datos;
         }
     }
-    
-    function editarUsuario(){
-        
+
+    function editarUsuario(Usuario $usuario, $idsucursal, $id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' & idSucursal = '$idsucursal'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
     }
+
 //==============================================================================
 }

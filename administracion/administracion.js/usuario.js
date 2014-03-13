@@ -96,14 +96,16 @@ $("#btnguardarusuario").click(function() {
     });
 });
 $("#btneditarusuario").click(function() {
+    var id = $("#txtid").val();
+    alert(id);
     var tipousuario = $("#selectTipoUsuario").val();
-    var usuario = $.trim($("#txtusuario").val);
+    var usuario = $.trim($("#txtusuario").val());
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
     var paterno = $.trim($("#txtpaterno").val().toUpperCase());
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
     var pass = $.trim($("#txtpass").val().toUpperCase());
     var repass = $.trim($("#txtrepass").val().toUpperCase());
-
+    alert(usuario);
     if (tipousuario == 0) {
         alertify.error("No seleccionaste un tipo de usuario");
         return false;
@@ -131,10 +133,12 @@ $("#btneditarusuario").click(function() {
         $("#frmpass").addClass("has-success");
         $("#frmrepass").addClass("has-success");
     }
-    var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
-    alert(info);
+    var info = "id=" + id + "&tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
+    $.get("editarUsuario.php", info, function(respuesta) {
+
+    });
 });
 $("#btneliminarusuario").click(function() {
-    alert("Eliminando a la perrilla");
+
 
 });
