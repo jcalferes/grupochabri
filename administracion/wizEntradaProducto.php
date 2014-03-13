@@ -43,7 +43,7 @@
                     </table>
                 </div>
             </section>
-            
+
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
                 <div class="col-sm-3">
@@ -70,26 +70,27 @@
                 <br/>
                 <div class="checkbox" style="margin-left: 15px">
                     <label>
-                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura
+                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura.
+                    </label>
+                </div>
+                <div class="checkbox" style="margin-left: 15px">
+                    <label>
+                        <input type="checkbox" id="descuentosGeneralesM"> Aplicar Descuentos Generales.
                     </label>
                 </div>
                 <br>
-                <form class="form-inline text-right">
-                    <span>Desc. Factura : 
+                <div class="form-inline text-right">
+                    <span>Descuentos : 
                         <input type="text" 
-                               id="descFacturaM" 
+                               disabled="true"
+                               id="descuentosGeneralesPorComasM" 
                                class="form-control 
                                text-right" 
-                               style="width: 20%"/>
+                               style="width: 20%"
+                               placeholder="-3,2,2,10"/>
+                        <input type="submit" value="Calcular" class="btn btn-default"/>
                     </span>
-                    <span>Desc. Pronto pago : 
-                        <input type="text" 
-                               id="descProntoPagoM" 
-                               class="form-control 
-                               text-right" 
-                               style="width: 20%"/>
-                    </span>
-                </form>
+                </div>
                 <hr>
                 <br>
                 <table class="table table-hover" id="tablaDatosEntrada">

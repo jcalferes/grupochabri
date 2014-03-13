@@ -341,5 +341,15 @@ $(document).ready(function() {
             $(".cantidades").removeAttr('disabled');
         }
     });
+
+    $("#descuentosGeneralesM").change(function() {
+        if ($("#descuentosGeneralesM").is(':checked')) {
+//              $("#descuentosGeneralesM").attr('disabled', 'disabled');
+            $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+        }
+        else {
+            $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
+        }
+    });
 });
 
