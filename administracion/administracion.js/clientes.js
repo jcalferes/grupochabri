@@ -337,6 +337,13 @@ $(document).ready(function() {
                 $("#btnguardardireccion").show();
                 $("#btneditarcliente").hide();
                 $("#btnguardarcliente").show();
+                $("#txtdesctpf").val("");
+                $("#txtdesctpp").val("");
+                $("#txtnombrecliente").val("");
+                $("#txtemail").val("");
+                $("#txtdiascredito").val("");
+                $("#txtdescuento").val("");
+                $(".direccion").val("");
                 $.get('borrarVariable.php');
             } else {
                 $("#btneditardireccion").show();
@@ -345,15 +352,17 @@ $(document).ready(function() {
                 $("#btnguardarcliente").hide();
                 lista = JSON.parse(x);
                 console.log(lista);
+                $("#botonNinja").trigger("click");
+
                 $.each(lista, function(ind, elem) {
                     if (ind == "tipoCliente") {
                         if (elem == "FISICA") {
-                            $("#fisica").attr("checked", true);
-                            $("#moral").attr("checked", false);
+                            $("#fisica").prop("checked", true);
+//                            $("#moral").attr("checked", false);
                         }
                         if (elem == "MORAL") {
-                            $("#moral").attr("checked", true);
-                            $("#fisica").attr("checked", false);
+                            $("#moral").prop("checked", true);
+//                            $("#fisica").attr("checked", false);
                         }
                     }
                     if (ind == "nombre") {
@@ -406,7 +415,6 @@ $(document).ready(function() {
 //                        $("#selectcolonia").val(elem);
 //                    }
                 });
-                $("#botonNinja").trigger("click");
 
             }
 //            $("#btnguardardireccion").trigger("click");
