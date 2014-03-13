@@ -33,11 +33,11 @@
                     </div>
                     <div id="frmpass" class="form-group">
                         <label>Password:</label><br>
-                        <input type="text" id="txtpass" class="form-control" style="width: 50%" />
+                        <input type="password" id="txtpass" class="form-control" style="width: 50%" />
                     </div>
                     <div id="frmrepass" class="form-group">
                         <label>Validar Password:</label><br>
-                        <input type="text" id="txtrepass" class="form-control" style="width: 50%" />
+                        <input type="password" id="txtrepass" class="form-control" style="width: 50%" />
                     </div>
                     <hr>
                     <div id="divguardarusuario" class="form-group">

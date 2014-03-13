@@ -82,7 +82,6 @@ function chkExtras() {
     } else {
         alertify.confirm("Vas a regreasar al apartado de descuentos individaules. Todos los descuentos aqui, aplicados se perderan. Deseas continuar?", function(e) {
             if (e) {
-//                $("#btnextra").slideDown();
                 var control = $('#control').val();
                 for (var i = 0; i < control; i++) {
                     var respimporte = $("#respaldoimporte" + i + "").val();
