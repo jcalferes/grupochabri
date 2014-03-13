@@ -15,7 +15,6 @@ function eliminarProveedores() {
     if (info != undefined) {
         alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
             if (e) {
-                alertify.success("SI");
                 $.get('eliminaProveedor.php', info, function() {
                     alertify.success("se han dado de baja de manera correcta")
                     $("#consultaProveedor").load("consultarProveedor.php", function() {
@@ -23,7 +22,6 @@ function eliminarProveedores() {
                     });
                 });
             } else {
-                alertify.error("NO");
             }
         });
         return false;
@@ -215,6 +213,8 @@ $(document).ready(function() {
                 $("#txtemail").val("");
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
+                $(".direccion").val("");
+
                 $("#formulario").show("slow");
                 $("#mostrarDivProveedor").hide("slow");
                 $("#frmrfc").removeClass("has-success");
@@ -305,6 +305,8 @@ $(document).ready(function() {
                 $("#txtdesctpp").val("");
                 $("#txtnombreproveedor").val("");
                 $("#txtrfc").val("");
+                $(".direccion").val("");
+
                 $("#txtemail").val("");
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
@@ -336,27 +338,36 @@ $(document).ready(function() {
                 $("#btnguardardireccion").show();
                 $("#btneditarproveedor").hide();
                 $("#btnguardarproveedor").show();
+                $("#txtdesctpf").val("");
+                $("#txtdesctpp").val("");
+                $("#txtnombreproveedor").val("");
+                $("#txtemail").val("");
+                $("#txtdiascredito").val("");
+                $("#txtdescuento").val("");
+                $(".direccion").val("");
                 $.get('borrarVariable.php');
             } else {
                 $("#btneditardireccion").show();
                 $("#btnguardardireccion").hide();
                 $("#btneditarproveedor").show();
                 $("#btnguardarproveedor").hide();
+
                 lista = JSON.parse(x);
                 console.log(lista);
+                $("#botonNinja").trigger("click");
+
                 $.each(lista, function(ind, elem) {
-                    if (ind == "tipoCliente") {
+                    if (ind == "tipoProveedor") {
                         if (elem == "FISICA") {
-                            $("#fisica").attr("checked", true);
-                            $("#moral").attr("checked", false);
+                            $("#fisica").prop("checked", true);
+//                            $("#moral").attr("checked", false);
                         }
                         if (elem == "MORAL") {
-                            $("#moral").attr("checked", true);
-                            $("#fisica").attr("checked", false);
+                            $("#moral").prop("checked", true);
+//                            $("#fisica").attr("checked", false);
                         }
                     }
                     if (ind == "nombre") {
-                        alert(elem);
                         $("#txtnombreproveedor").val(elem);
                     }
                     if (ind == "email") {
@@ -405,7 +416,6 @@ $(document).ready(function() {
 //                        $("#selectcolonia").val(elem);
 //                    }
                 });
-                $("#botonNinja").trigger("click");
 
             }
 //            $("#btnguardardireccion").trigger("click");

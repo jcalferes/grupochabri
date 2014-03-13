@@ -1,6 +1,40 @@
 <?php
 
 class dao {
+    
+    function eliminaMaquinas($listaMaquinas){
+         include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($listaMaquinas as $valor) {
+            $sql = "update maquinas set idStatus='2' Where idMaquina ='$valor'";
+            $marcas = mysql_query($sql, $cn->Conectarse());
+            if ($marcas == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                echo'bien';
+            }
+        }
+        mysql_query("COMMIT;");
+        
+    }
+            
+    function consultaMaquina(){
+  include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM maquinas Where idStatus='1'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;    
+    
+    }
+
+    function guardarMaquina(Maquina $m) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO maquinas(nombreMaquina,idStatus)VALUES ('" . $m->getNombreMaquina() . "','1')";
+        mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
 
     function eliminaCliente($listaClientes) {
         include_once '../daoconexion/daoConeccion.php';
