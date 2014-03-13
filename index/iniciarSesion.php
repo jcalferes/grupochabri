@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include './indes.clases/Usuario.php';
+include './index.clases/Sesion.php';
 include './index.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
@@ -19,10 +19,12 @@ if ($control == 1) {
     while ($rs = mysql_fetch_array($control)) {
         $nombre = $rs['nombre'];
         $tipousuario = $rs['idTipoUsuario'];
+        $idsucursal = $rs['idSucursal'];
     }
     if ($tipousuario == 2) {
         $_SESSION["usuarioSesion"] = $usuario->getUsuario();
         $_SESSION["tipoSesion"] = $tipousuario;
+        $_SESSION["sucursalSesion"] = $idsucursal;
     }
     echo $tipousuario;
     $cn->cerrarBd();

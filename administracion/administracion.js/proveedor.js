@@ -186,7 +186,6 @@ $(document).ready(function() {
                 $("#txtrfc").focus();
                 alertify.error("RFC no valido para personas morales");
                 radios = $("#moral").val();
-
                 return false;
             }
         }

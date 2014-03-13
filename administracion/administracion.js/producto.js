@@ -50,7 +50,7 @@ function eliminarProductos() {
     } else {
         alertify.error("Debe selecciona al menos una  marca");
     }
-    }
+}
 function tester(valor) {
     var costo = document.getElementById("txtCostoProducto").value;
     if ($("#check" + valor).is(':checked')) {
