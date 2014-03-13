@@ -5,6 +5,8 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Usuarios</h2>
             <section >
+                <div id="consultaUsuario" style="margin: 0% 25% 0% 25%">
+                </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo Usuario</h2>
             <section >
