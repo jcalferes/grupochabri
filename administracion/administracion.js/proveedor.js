@@ -15,7 +15,6 @@ function eliminarProveedores() {
     if (info != undefined) {
         alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
             if (e) {
-                alertify.success("SI");
                 $.get('eliminaProveedor.php', info, function() {
                     alertify.success("se han dado de baja de manera correcta")
                     $("#consultaProveedor").load("consultarProveedor.php", function() {
@@ -23,7 +22,6 @@ function eliminarProveedores() {
                     });
                 });
             } else {
-                alertify.error("NO");
             }
         });
         return false;
@@ -370,7 +368,6 @@ $(document).ready(function() {
                         }
                     }
                     if (ind == "nombre") {
-                        alert(elem);
                         $("#txtnombreproveedor").val(elem);
                     }
                     if (ind == "email") {

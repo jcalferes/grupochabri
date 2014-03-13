@@ -15,7 +15,6 @@ function eliminarClientes() {
     if (info != undefined) {
         alertify.confirm("Desea Eliminar los Clientes seleccionadas?", function(e) {
             if (e) {
-                alertify.success("SI");
                 $.get('eliminaClientes.php', info, function() {
                     alertify.success("se han dado de baja de manera correcta")
                     $("#consultaCliente").load("consultarCliente.php", function() {
@@ -23,7 +22,6 @@ function eliminarClientes() {
                     });
                 });
             } else {
-                alertify.error("NO");
             }
         });
         return false;
@@ -366,7 +364,6 @@ $(document).ready(function() {
                         }
                     }
                     if (ind == "nombre") {
-                        alert(elem);
                         $("#txtnombrecliente").val(elem);
                     }
                     if (ind == "email") {

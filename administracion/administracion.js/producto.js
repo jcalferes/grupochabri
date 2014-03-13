@@ -30,11 +30,10 @@ function eliminarProductos() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las productos seleccionadas?", function(e) {
             if (e) {
-                alertify.success("SI");
                 $.get('eliminaProductos.php', info, function() {
                     alertify.success("se han dado de baja de manera correcta")
                     $("#consultaProducto").load("consultarProducto.php", function() {
@@ -42,7 +41,6 @@ function eliminarProductos() {
                     });
                 });
             } else {
-                alertify.error("NO");
             }
         });
         return false;

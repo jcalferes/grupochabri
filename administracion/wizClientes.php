@@ -48,7 +48,7 @@
                         <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
-                        
+
                     </div>
                         <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarcliente" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
@@ -56,6 +56,8 @@
 
                 </form>
             </section>
+         
+
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -116,8 +118,8 @@
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
-                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
-                                
+                                <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+
 
                                 <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
