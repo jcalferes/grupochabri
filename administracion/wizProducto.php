@@ -140,7 +140,7 @@
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                         
                     </div>
-                        <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
+                        <input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
 
