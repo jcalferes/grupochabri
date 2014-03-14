@@ -11,7 +11,7 @@ function eliminarProveedores() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
             if (e) {
