@@ -303,7 +303,6 @@ $(document).ready(function() {
             if (min < max) {
                 var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
                 $.get('guardarProducto.php', info, function(x) {
-                    alertify.success(x);
                     if (x >= 1) {
                         $("#consultaProducto").load("consultarProducto.php", function() {
                             $("#tdProducto").dataTable();
