@@ -1,10 +1,13 @@
 $(document).ready(function() {
+    $("#consultaUsuario").load("consultarUsuario.php", function() {
+        $('#dtusuario').dataTable();
+    });
     $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function() {
         $("#selectTipoUsuario").selectpicker();
         $("#diveditarusuario").hide();
     });
 });
-$("#txtusuario").keyup(function() {
+$("#txtusuario").blur(function() {
     var usuario = $.trim($("#txtusuario").val());
     var info = "usuario=" + usuario;
     $.get('verificandoUsuario.php', info, function(respuesta) {
@@ -42,7 +45,7 @@ $("#txtusuario").keyup(function() {
 });
 $("#btnguardarusuario").click(function() {
     var tipousuario = $("#selectTipoUsuario").val();
-    var usuario = $.trim($("#txtusuario").val);
+    var usuario = $.trim($("#txtusuario").val());
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
     var paterno = $.trim($("#txtpaterno").val().toUpperCase());
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
@@ -73,18 +76,18 @@ $("#btnguardarusuario").click(function() {
     } else {
         $("#frmpass").removeClass("has-error");
         $("#frmrepass").removeClass("has-error");
-        $("#frmpass").addClass("has-success");
-        $("#frmrepass").addClass("has-success");
     }
 
     var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
     $.get("guardarUsuario.php", info, function(respuesta) {
-        alert(respuesta);
         if (respuesta == 1) {
             alertify.error("Error al guardar");
         }
         if (respuesta == 0) {
             alertify.success("Bien");
+            $("#consultaUsuario").load("consultarUsuario.php", function() {
+                $('#dtusuario').dataTable();
+            });
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtusuario").val("");
             $("#txtnombre").val("");
@@ -97,7 +100,6 @@ $("#btnguardarusuario").click(function() {
 });
 $("#btneditarusuario").click(function() {
     var id = $("#txtid").val();
-    alert(id);
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val());
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
@@ -105,7 +107,6 @@ $("#btneditarusuario").click(function() {
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
     var pass = $.trim($("#txtpass").val().toUpperCase());
     var repass = $.trim($("#txtrepass").val().toUpperCase());
-    alert(usuario);
     if (tipousuario == 0) {
         alertify.error("No seleccionaste un tipo de usuario");
         return false;
@@ -130,15 +131,55 @@ $("#btneditarusuario").click(function() {
     } else {
         $("#frmpass").removeClass("has-error");
         $("#frmrepass").removeClass("has-error");
-        $("#frmpass").addClass("has-success");
-        $("#frmrepass").addClass("has-success");
     }
     var info = "id=" + id + "&tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
     $.get("editarUsuario.php", info, function(respuesta) {
-
+        if (respuesta == 1) {
+            alertify.error("Error al editar");
+        }
+        if (respuesta == 0) {
+            alertify.success("Bien");
+            $("#consultaUsuario").load("consultarUsuario.php", function() {
+                $('#dtusuario').dataTable();
+            });
+            $('#selectTipoUsuario').selectpicker('val', 0);
+            $("#txtusuario").val("");
+            $("#txtnombre").val("");
+            $("#txtpaterno").val("");
+            $("#txtmaterno").val("");
+            $("#txtpass").val("");
+            $("#txtrepass").val("");
+            $("#diveditarusuario").slideUp();
+            $("#divguardarusuario").slideDown();
+        }
     });
 });
 $("#btneliminarusuario").click(function() {
-
+    alertify.confirm("Estas a punto de elimniar todos los datos de este usuario, Deseas continuar?", function(e) {
+        if (e) {
+            var id = $("#txtid").val();
+            var info = "id=" + id;
+            $.get("eliminarUsuario.php", info, function(respuesta) {
+                if (respuesta == 1) {
+                    alertify.error("Error al eliminar");
+                }
+                if (respuesta == 0) {
+                    alertify.success("Bien");
+                    $("#consultaUsuario").load("consultarUsuario.php", function() {
+                        $('#dtusuario').dataTable();
+                    });
+                    $('#selectTipoUsuario').selectpicker('val', 0);
+                    $("#txtusuario").val("");
+                    $("#txtnombre").val("");
+                    $("#txtpaterno").val("");
+                    $("#txtmaterno").val("");
+                    $("#txtpass").val("");
+                    $("#txtrepass").val("");
+                    $("#diveditarusuario").slideUp();
+                    $("#divguardarusuario").slideDown();
+                }
+            });
+        }
+    });
 
 });

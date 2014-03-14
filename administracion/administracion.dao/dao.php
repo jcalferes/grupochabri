@@ -1,9 +1,9 @@
 <?php
 
 class dao {
-    
-    function eliminaMaquinas($listaMaquinas){
-         include_once '../daoconexion/daoConeccion.php';
+
+    function eliminaMaquinas($listaMaquinas) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
         foreach ($listaMaquinas as $valor) {
@@ -16,16 +16,14 @@ class dao {
             }
         }
         mysql_query("COMMIT;");
-        
     }
-            
-    function consultaMaquina(){
-  include_once '../daoconexion/daoConeccion.php';
+
+    function consultaMaquina() {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM maquinas Where idStatus='1'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        return $datos;    
-    
+        return $datos;
     }
 
     function guardarMaquina(Maquina $m) {
@@ -1111,7 +1109,33 @@ class dao {
         $cn = new coneccion();
         $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' & idSucursal = '$idsucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
         $cn->cerrarBd();
+    }
+
+    function eliminarUsuario($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "DELETE FROM usuarios WHERE idUsuario = '$id'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return 0;
+        }
+        $cn->cerrarBd();
+    }
+
+    function consultaUsuario() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
     //==============================================================================
