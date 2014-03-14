@@ -9,20 +9,18 @@ $datos2 = $dao->consultaListaPrecio();
 
 $arreglo = array();
 while ($rs = mysql_fetch_array($datos, MYSQL_ASSOC)) {
-    
+
 //    echo $cont++;
 //    while ($rs = mysql_fetch_array($datos2, MYSQL_ASSOC)) {
-
 //        if ($rs2["idListaPrecio"] == $rs["idListaPrecio"]) {
-            $union = $codigoProducto . "_" . $rs["idListaPrecio"] . "_" . $rs["porcentaUtilidad"] . "_" . $rs["tarifa"] . "_" . $rs["nombreListaPrecio"];
-            $arreglo[] = $union;
-            $costo = $rs["costo"];
+    $union = $codigoProducto . "_" . $rs["idListaPrecio"] . "_" . $rs["porcentaUtilidad"] . "_" . $rs["tarifa"] . "_" . $rs["nombreListaPrecio"];
+    $arreglo[] = $union;
+    $costo = $rs["costo"];
 //        }
 //    }
-
 //    mysql_data_seek($datos2, 0);
 }
-echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th></th><th>Tarifa</th></thead><tbody>";
+echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Tarifa</th></thead><tbody>";
 
 foreach ($arreglo as $valor) {
     $pieces = explode("_", $valor);

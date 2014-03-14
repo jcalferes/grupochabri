@@ -9,8 +9,6 @@ function eliminarListaPrecios() {
         idListas.push(valor);
         lista = JSON.stringify(idListas);
         info = "listaPrecio=" + lista;
-
-
     });
     alert(info);
     if (info != undefined) {
@@ -34,7 +32,7 @@ function eliminarListaPrecios() {
     }
 }
 $(document).ready(function() {
-    $("#consultaListaPrecio").load("consultarListaPrecio.php", function(){
+    $("#consultaListaPrecio").load("consultarListaPrecio.php", function() {
         $('#dtlistaprecios').dataTable();
     });
     $("#btnguardarLista").click(function() {
@@ -61,6 +59,4 @@ $(document).ready(function() {
             });
         }
     });
-
-
 });

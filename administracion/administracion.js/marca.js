@@ -38,7 +38,7 @@ $(document).ready(function() {
         $('#dtmarca').dataTable();
     });
     $("#btnguardarMarca").click(function() {
-        var nombre = $("#txtnombremarca").val();
+        var nombre = $.trim($("#txtnombremarca").val().toUpperCase());
         if (nombre == "" || /^\s+$/.test(nombre)) {
             $("#txtnombremarca").val("");
             $("#txtnombremarca").focus();

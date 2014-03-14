@@ -14,12 +14,11 @@ $encabezado = new Encabezado();
 $comprobante = new Comprobante();
 $concepto = new Concepto();
 
-$utilerias = new Utilerias();
 $dao = new dao();
 $cn = new coneccion();
 $cn->Conectarse();
 
-$lafecha = $utilerias->generarFecha();
+$lafecha = date("d/m/Y h:i");
 
 $encabezado = $_SESSION['objEncabezadoEntrada'];
 $arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
