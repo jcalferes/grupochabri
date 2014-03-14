@@ -579,7 +579,7 @@ class dao {
                 if ($pieces[0] !== " ") {
                     if ($pieces[0] !== "") {
                         if ($pieces[0] !== null) {
-                            $sql = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','1','$pieces[0]')";
+                            $sql = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa,fechaMovimientoTarifa)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','1','$pieces[0]','$fecha')";
                             $resultado = mysql_query($sql, $cn->Conectarse());
                             $cont = 0;
                         } else {
