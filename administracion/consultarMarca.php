@@ -4,9 +4,9 @@ include './administracion.dao/dao.php';
 $dao = new dao();
 $datos = $dao->consultaMarca();
 echo'<center><button type="button" class="btn btn-xs btn-default" id="btnver" onclick="eliminarMarcas()"><span class="glyphicon glyphicon-trash"></span></button></center>';
-echo"<div class='table-responsive' ><table cellpadding='0' cellspacing='0' border='0' class='table table-hover table-bordered' id='dtmarca'><thead><th>Editar</th><th>Marca</th></thead><tbody>";
+echo"<div class='table-responsive' ><table class='table table-hover' id='dtmarca'><thead><th></th><th>Marca</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
-    echo"<tr><td><input class='checkMarcas' type='checkbox' id='eliminar' onclick='eliminar()' value='$rs[idMarca]'> </td>";
+    echo"<tr><td><center><input class='checkMarcas' type='checkbox' id='eliminar' onclick='eliminar()' value='$rs[idMarca]'></center></td>";
     echo"<td>$rs[marca]</td>";
 }
 echo"</tbody></table></div>";

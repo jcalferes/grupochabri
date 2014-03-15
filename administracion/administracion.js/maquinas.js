@@ -12,7 +12,7 @@ function eliminarMaquinas() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las Maquinas seleccionadas?", function(e) {
             if (e) {

@@ -12,7 +12,7 @@ function eliminarMarcas() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las Marcas seleccionadas?", function(e) {
             if (e) {
@@ -38,7 +38,7 @@ $(document).ready(function() {
         $('#dtmarca').dataTable();
     });
     $("#btnguardarMarca").click(function() {
-        var nombre = $("#txtnombremarca").val();
+        var nombre = $.trim($("#txtnombremarca").val().toUpperCase());
         if (nombre == "" || /^\s+$/.test(nombre)) {
             $("#txtnombremarca").val("");
             $("#txtnombremarca").focus();

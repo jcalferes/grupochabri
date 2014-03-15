@@ -12,14 +12,14 @@
             <section >
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label>Tipo de Usuario:</label><br>
-                        <select id="selectTipoUsuario" class="selectpicker selectores" data-container="body" data-live-search="true" >
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>Usuario:</label><br>
                         <input type="text" id="txtusuario" class="form-control" style="width: 50%"/>
                         <input type="text" id="txtid" class="form-control hidden"  disabled="true" style="width: 50%" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Usuario:</label><br>
+                        <select id="selectTipoUsuario" class="selectpicker selectores" data-container="body" data-live-search="true" >
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Nombre:</label><br>
