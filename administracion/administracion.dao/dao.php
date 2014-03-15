@@ -1107,9 +1107,10 @@ class dao {
     function editarUsuario(Usuario $usuario, $idsucursal, $id) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' & idSucursal = '$idsucursal'";
+        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' and idSucursal = '$idsucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         if ($rs == false) {
+            $error = mysql_error();
             return 1;
         } else {
             return 0;
