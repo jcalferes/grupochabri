@@ -49,8 +49,8 @@ $("#btnguardarusuario").click(function() {
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
     var paterno = $.trim($("#txtpaterno").val().toUpperCase());
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
-    var pass = $.trim($("#txtpass").val().toUpperCase());
-    var repass = $.trim($("#txtrepass").val().toUpperCase());
+    var pass = $.trim($("#txtpass").val());
+    var repass = $.trim($("#txtrepass").val());
 
     if (tipousuario == 0) {
         alertify.error("No seleccionaste un tipo de usuario");
@@ -84,7 +84,7 @@ $("#btnguardarusuario").click(function() {
             alertify.error("Error al guardar");
         }
         if (respuesta == 0) {
-            alertify.success("Bien");
+            alertify.success("Usuario agregado correctamente");
             $("#consultaUsuario").load("consultarUsuario.php", function() {
                 $('#dtusuario').dataTable();
             });
@@ -105,8 +105,8 @@ $("#btneditarusuario").click(function() {
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
     var paterno = $.trim($("#txtpaterno").val().toUpperCase());
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
-    var pass = $.trim($("#txtpass").val().toUpperCase());
-    var repass = $.trim($("#txtrepass").val().toUpperCase());
+    var pass = $.trim($("#txtpass").val());
+    var repass = $.trim($("#txtrepass").val());
     if (tipousuario == 0) {
         alertify.error("No seleccionaste un tipo de usuario");
         return false;
@@ -138,7 +138,7 @@ $("#btneditarusuario").click(function() {
             alertify.error("Error al editar");
         }
         if (respuesta == 0) {
-            alertify.success("Bien");
+            alertify.success("Usuario editado correctamente");
             $("#consultaUsuario").load("consultarUsuario.php", function() {
                 $('#dtusuario').dataTable();
             });
@@ -164,7 +164,7 @@ $("#btneliminarusuario").click(function() {
                     alertify.error("Error al eliminar");
                 }
                 if (respuesta == 0) {
-                    alertify.success("Bien");
+                    alertify.success("Usuario eliminado");
                     $("#consultaUsuario").load("consultarUsuario.php", function() {
                         $('#dtusuario').dataTable();
                     });
