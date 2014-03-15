@@ -11,7 +11,7 @@ function eliminarClientes() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar los Clientes seleccionadas?", function(e) {
             if (e) {

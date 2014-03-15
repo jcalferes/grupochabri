@@ -12,7 +12,7 @@ function eliminarMarcas() {
 
 
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las Marcas seleccionadas?", function(e) {
             if (e) {

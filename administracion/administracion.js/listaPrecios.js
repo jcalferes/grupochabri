@@ -10,7 +10,7 @@ function eliminarListaPrecios() {
         lista = JSON.stringify(idListas);
         info = "listaPrecio=" + lista;
     });
-    alert(info);
+//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las listasPrecios seleccionadas?", function(e) {
             if (e) {
