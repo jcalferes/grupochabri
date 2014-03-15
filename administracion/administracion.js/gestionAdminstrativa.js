@@ -90,3 +90,15 @@ function entroCliente() {
     $("#mostrar").load("wizClientes.php");
     $("#9").addClass("active");
 }
+
+function entroVentas() {
+    $("#1").removeClass("active");
+    $("#2").removeClass("active");
+    $("#3").removeClass("active");
+    $("#4").removeClass("active");
+    $("#5").removeClass("active");
+    $("#7").removeClass("active");
+    $("#8").removeClass("active");
+    $("#mostrar").load("puntoDeVenta.php");
+    $("#10").addClass("active");
+}

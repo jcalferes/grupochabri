@@ -20,7 +20,8 @@ $("#codigoProductoEntradas").keypress(function(e) {
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td>' + datosJson[i].codigoProducto + '</td>\n\
-                        <td>' + datosJson[i].producto + '</td>\n\
+                        <td>' + datosJson[i].producto + '</td>\n\\n\
+                        <td>' + datosJson[i].costo + '</td>\n\
                         <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
@@ -218,16 +219,16 @@ function calcularIva() {
     $("#ivaM").val(iva);
 }
 
-function respaldoCantidad(codigo, costoProducto) {
-    $("#costoTotal").val();
-    cantidadRespaldo = $("#cant" + codigo).val();
-    costoRespaldo = $("#costo" + codigo).val();
-}
+//function respaldoCantidad(codigo, costoProducto) {
+//    $("#costoTotal").val();
+//    cantidadRespaldo = $("#cant" + codigo).val();
+//    costoRespaldo = $("#costo" + codigo).val();
+//}
 
-function  respaldoCosto(codigo) {
-    costoRespaldo = $("#costo" + codigo).val();
-    cantidadRespaldo = $("#cant" + codigo).val();
-}
+//function  respaldoCosto(codigo) {
+//    costoRespaldo = $("#costo" + codigo).val();
+//    cantidadRespaldo = $("#cant" + codigo).val();
+//}
 function validarCampoDesc2(id) {
     if ($("#descuento1" + id).val() == '') {
         alertify.error("Error! El descuento 1 requerido");
@@ -308,6 +309,33 @@ function soloNumeroEnteros(valor) {
     }
     return paso;
 }
+
+function generarDescuentosgenerales() {
+    var descuentos = 0;
+    calcularSDA();
+    var sda = $("#sdaM").val();
+    alert(sda);
+    var misDescuentos = new Array();
+    var descuentos = $("#descuentosGeneralesPorComasM").val().split(',');
+    for (var x = 0; x < descuentos.length; x++) {
+        try {
+            var valor = parseFloat(descuentos[x]);
+            if (isNaN(valor)) {
+            }
+            else {
+            }
+            misDescuentos.push(descuentos[x]);
+        }
+        catch (err) {
+        }
+    }
+    for (var x = 0; x < misDescuentos.length; x++) {
+        alert("entro al ciclo");
+        descuentos = parseFloat(descuentos) + (parseFloat(misDescuentos[x]) * parseFloat(sda)) / 100;
+    }
+    alert(descuentos);
+}
+
 
 $(document).ready(function() {
     $("#proveedores").change(function() {

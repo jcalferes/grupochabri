@@ -23,6 +23,8 @@ class Producto {
     private $cantidadMinima;
     private $idUnidadMedida;
     private $idGrupoProducto;
+    private $cantidad;
+
     public function getIdUnidadMedida() {
         return $this->idUnidadMedida;
     }
@@ -39,8 +41,6 @@ class Producto {
         $this->idGrupoProducto = $idGrupoProducto;
     }
 
-    
-    
     public function getIdProducto() {
         return $this->idProducto;
     }
@@ -88,6 +88,7 @@ class Producto {
     public function setCodigoProducto($codigoProducto) {
         $this->codigoProducto = $codigoProducto;
     }
+
     public function getCantidadMaxima() {
         return $this->cantidadMaxima;
     }
@@ -104,6 +105,12 @@ class Producto {
         $this->cantidadMinima = $cantidadMinima;
     }
 
+    public function getCantidad() {
+        return $this->cantidad;
+    }
 
+    public function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
+    }
 
 }

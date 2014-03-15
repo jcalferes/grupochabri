@@ -84,11 +84,11 @@
                         <input type="text" 
                                disabled="true"
                                id="descuentosGeneralesPorComasM" 
+                               onkeyup="generarDescuentosgenerales()"
                                class="form-control 
                                text-right" 
                                style="width: 20%"
                                placeholder="-3,2,2,10"/>
-                        <input type="submit" value="Calcular" class="btn btn-default"/>
                     </span>
                 </div>
                 <hr>
@@ -97,7 +97,8 @@
                     <thead>
                     <th>Cantidad</th>
                     <th>Codigo</th>
-                    <th>Descripcion</th>  
+                    <th>Descripcion</th>
+                    <th>Ult.Costo</th>
                     <th>Costo</th>
                     <th>Desct. 1</th>
                     <th>Desct. 2</th>

@@ -26,13 +26,17 @@ class dao {
 
     function verificarMaquina($nombremaquina) {
         $sql = "SELECT * FROM maquinas WHERE nombreMaquina= '$nombremaquina'";
-        mysql_query($sql);
+        $paso = mysql_query($sql);
+        if ($paso == false) {
+            $valor = mysql_error();
+        }
         $rs = mysql_affected_rows();
         if ($rs < 1) {
-            return "INVALIDA";
+            $valor = "INVALIDA";
         } else {
-            return "VALIDA";
+            $valor = "VALIDA";
         }
+        return $valor;
     }
 
 }
