@@ -9,11 +9,11 @@
         <link rel="shortcut icon" href="">
         <title>Grupo Chabri</title>
         <!-- CSS -->
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
-        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="alertify/themes/alertify.core.css" rel="stylesheet">
+        <link href="alertify/themes/alertify.default.css" rel="stylesheet">
+        <link href="dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">
@@ -87,9 +87,9 @@
                         </div>-->
         </div> <!-- /container -->
         <!-- JSCRIPT -->
-        <script src="../bootstrap/js/jquery.js"></script>
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
-        <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="index.js/index.js"></script>
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="alertify/lib/alertify.min.js"></script>
+        <script src="index/index.js/index.js"></script>
     </body>
 </html>

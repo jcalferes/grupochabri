@@ -16,7 +16,7 @@ $("#loginbtn").click(function() {
 
     } else {
         var info = "usuario=" + usuario + "&pass=" + pass;
-        $.get('iniciarSesion.php', info, function(respuesta) {
+        $.get('index/iniciarSesion.php', info, function(respuesta) {
             
             if (respuesta == false) {
                 alertify.error("Usuario o Contraseña invalidos");
@@ -24,12 +24,12 @@ $("#loginbtn").click(function() {
                 if (respuesta == 1) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = '../administracion/gestionAdministrativa.php';
+                    document.location.href = 'administracion/gestionAdministrativa.php';
                 }
                 if (respuesta == 2) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = '../administracion/gestionAdministrativa.php';
+                    document.location.href = 'administracion/gestionAdministrativa.php';
                 }
                 if (respuesta == 3) {
                     $("#loginuser").val("");
