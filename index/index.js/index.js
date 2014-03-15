@@ -16,8 +16,8 @@ $("#loginbtn").click(function() {
 
     } else {
         var info = "usuario=" + usuario + "&pass=" + pass;
-        $.get('index/iniciarSesion.php', info, function(respuesta) {
-            
+        $.get('./index/iniciarSesion.php', info, function(respuesta) {
+            alert(respuesta);
             if (respuesta == false) {
                 alertify.error("Usuario o Contraseña invalidos");
             } else {

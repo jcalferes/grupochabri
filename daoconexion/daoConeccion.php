@@ -16,7 +16,8 @@ class coneccion {
 //        mysql_close();
 //    }
     function Conectarse() {
-        if (!($link = mysql_connect("mysql.GrupoChabri.mx", "residencia", "GrupoChabri"))) {
+        if (!($link = mysql_connect("mysql.grupochabri.mx", "residencia", "GrupoChabri"))) {
+            $link = "Error conectando a la base de datos.";
             echo "Error conectando a la base de datos.";
             exit();
         }
@@ -24,7 +25,6 @@ class coneccion {
             echo "Error seleccionando la base de datos.";
             exit();
         }
-
         return $link;
     }
 
