@@ -20,7 +20,8 @@ $("#codigoProductoEntradas").keypress(function(e) {
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td>' + datosJson[i].codigoProducto + '</td>\n\
-                        <td>' + datosJson[i].producto + '</td>\n\
+                        <td>' + datosJson[i].producto + '</td>\n\\n\
+                        <td>' + datosJson[i].costo + '</td>\n\
                         <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
@@ -36,44 +37,93 @@ $("#codigoProductoEntradas").keypress(function(e) {
         });
     }
 });
+
+function validar() {
+    var valor = $("#numero").val();
+    if (valor == '-' || valor == '+') {
+    }
+    else {
+        var paso = soloNumeroEnteros(valor);
+        if (paso == false) {
+            valor = valor.substring(0, valor.length - 1);
+            $("#numero").val(valor);
+        }
+        else {
+        }
+    }
+}
+
 function calcularPorCosto(id) {
     var costoPorCantidad = $("#costo" + id).val();
-    var cantPorCantidad = $("#cant" + id).val();
-    if (isNaN(costoPorCantidad)) {
+    if (costoPorCantidad == "") {
         costoPorCantidad = 0;
     }
-    if (isNaN(cantPorCantidad)) {
-        cantPorCantidad = 0;
+    if (costoPorCantidad == '-' || costoPorCantidad == '+') {
     }
-    var importe = costoPorCantidad * cantPorCantidad;
-    $("#importe" + id).val(importe);
-    calculaTotalEntradasManual();
-    sumaDeSubtotales();
+    else {
+        var paso = soloNumeroEnteros(costoPorCantidad);
+        if (paso == false) {
+            costoPorCantidad = costoPorCantidad.substring(0, costoPorCantidad.length - 1);
+            $("#costo" + id).val(costoPorCantidad);
+        }
+        else {
+            var cantPorCantidad = $("#cant" + id).val();
+            if (isNaN(costoPorCantidad)) {
+                costoPorCantidad = 0;
+            }
+            if (isNaN(cantPorCantidad)) {
+                cantPorCantidad = 0;
+            }
+            var importe = costoPorCantidad * cantPorCantidad;
+            $("#importe" + id).val(importe);
+            sumaDeSubtotales();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
+    }
 }
 function calcularPorCantidad(id) {
-    var costoPorCantidad = $("#costo" + id).val();
     var cantPorCantidad = $("#cant" + id).val();
-    if (isNaN(costoPorCantidad)) {
-        costoPorCantidad = 0;
+    if (cantPorCantidad == '-' || cantPorCantidad == '+') {
     }
-    if (isNaN(cantPorCantidad)) {
-        cantPorCantidad = 0;
+    else {
+        var paso = soloNumeroEnteros(cantPorCantidad);
+        if (paso == false) {
+            cantPorCantidad = cantPorCantidad.substring(0, cantPorCantidad.length - 1);
+            $("#cant" + id).val(cantPorCantidad);
+        }
+        else {
+            var costoPorCantidad = $("#costo" + id).val();
+            if (isNaN(costoPorCantidad)) {
+                costoPorCantidad = 0;
+            }
+            if (isNaN(cantPorCantidad)) {
+                cantPorCantidad = 0;
+            }
+            var importe = costoPorCantidad * cantPorCantidad;
+            $("#importe" + id).val(importe);
+
+            sumaDeSubtotales();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
     }
-    var importe = costoPorCantidad * cantPorCantidad;
-    $("#importe" + id).val(importe);
-    calculaTotalEntradasManual();
-    sumaDeSubtotales();
+
+
 }
 function calculaTotalEntradasManual() {
-    var sumaTotalDeImporte = 0;
-    for (var x = 0; x < contador; x++) {
-        var importe = parseFloat($("#importe" + x + "").val());
-        if (isNaN(importe)) {
-            importe = 0;
-        }
-        sumaTotalDeImporte = sumaTotalDeImporte + importe;
+    var sda = $("#sdaM").val();
+    if (isNaN(sda)) {
+        sda = 0;
     }
-    $("#costoTotal").val(sumaTotalDeImporte);
+    var iva = $("#ivaM").val();
+    if (isNaN(iva)) {
+        iva = 0;
+    }
+    var total = parseFloat(sda) + parseFloat(iva);
+    $("#costoTotal").val(total);
 }
 
 function calcularDescuentos(id) {
@@ -81,62 +131,104 @@ function calcularDescuentos(id) {
     var nuevoImporte;
     var descuento1 = $("#descuento1" + id).val();
     var descuento2 = $("#descuento2" + id).val();
-    if (descuento1 > 0) {
-        calcularPorCosto(id);
-        importe = $("#importe" + id).val();
-        nuevoImporte = (descuento1 * importe) / 100;
-        nuevoImporte = importe - nuevoImporte;
-    }
-    if (descuento2 > 0) {
-        var respaldoImporte = nuevoImporte;
-        nuevoImporte = (descuento2 * nuevoImporte) / 100;
-        nuevoImporte = respaldoImporte - nuevoImporte;
-    }
-    $("#importe" + id).val(nuevoImporte);
 
-    if (descuento1 === '' && descuento2 === '') {
-        var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
-        $("#importe" + id).val(importe);
+    if (descuento1 == '-' || descuento1 == '+' || descuento2 == '-' || descuento2 == '+') {
     }
-    calculaTotalEntradasManual();
-    calcularDescTotal();
-    calcularCda();
-    calcularDescuentoDeProductos();
+    else {
+        var pasoDesc1 = soloNumeroEnteros(descuento1);
+        var pasoDesc2 = soloNumeroEnteros(descuento2);
+        if (pasoDesc1 == false) {
+            descuento1 = descuento1.substring(0, descuento1.length - 1);
+            $("#descuento1" + id).val(descuento1);
+        }
+        else if (pasoDesc2 == false) {
+            descuento2 = descuento2.substring(0, descuento2.length - 1);
+            $("#descuento2" + id).val(descuento2);
+        }
+        else {
+            if (descuento1 > 0) {
+                calcularPorCosto(id);
+                importe = $("#importe" + id).val();
+                nuevoImporte = (descuento1 * importe) / 100;
+                nuevoImporte = importe - nuevoImporte;
+            }
+            if (descuento2 > 0) {
+                var respaldoImporte = nuevoImporte;
+                nuevoImporte = (descuento2 * nuevoImporte) / 100;
+                nuevoImporte = respaldoImporte - nuevoImporte;
+            }
+            $("#importe" + id).val(nuevoImporte);
+
+            if (descuento1 === '' && descuento2 === '') {
+                var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
+                $("#importe" + id).val(importe);
+            }
+
+            calcularCda();
+            calcularDescuentoDeProductos();
+            calcularDescTotal();
+            calcularSDA();
+            calcularIva();
+            calculaTotalEntradasManual();
+        }
+    }
 }
 
 function calcularDescTotal() {
-    var totalDescuento = 0;
-    var nuevoDescuetno2 = 0;
-    var nuevoDescuetno1 = 0;
-    for (var x = 0; x < contador; x++) {
-        var descuento1 = parseFloat($("#descuento1" + x).val());
-        var descuento2 = parseFloat($("#descuento2" + x).val());
-        if (isNaN(descuento1)) {
-            descuento1 = 0;
-        }
-        if (isNaN(descuento2)) {
-            descuento2 = 0;
-        }
-        var importe = parseFloat($("#cant" + x).val()) * parseFloat($("#costo" + x).val());
-        nuevoDescuetno1 = (descuento1 * importe) / 100;
-        totalDescuento = totalDescuento + nuevoDescuetno1;
-        importe = importe - nuevoDescuetno1;
-        nuevoDescuetno2 = (descuento2 * importe) / 100;
-        totalDescuento = totalDescuento + nuevoDescuetno2;
+    var descuentoGeneral = $("#descuentoGeneralM").val();
+    var descuentoProductos = $("#descuentoProductosM").val();
+    if (isNaN(descuentoGeneral)) {
+        descuentoGeneral = 0;
     }
-    $("#descuentoTotalM").val(totalDescuento);
+    if (isNaN(descuentoProductos)) {
+        descuentoProductos = 0;
+    }
+    var totalDescuentos = descuentoGeneral + descuentoProductos;
+    if (isNaN(totalDescuentos)) {
+        totalDescuentos = 0;
+    }
+    $("#descuentoTotalM").val(totalDescuentos);
 }
 
-function respaldoCantidad(codigo, costoProducto) {
-    $("#costoTotal").val();
-    cantidadRespaldo = $("#cant" + codigo).val();
-    costoRespaldo = $("#costo" + codigo).val();
+function calcularSDA() {
+    var descuentoTotal = $("#descuentoTotalM").val();
+    var subTotal = $("#subTotalM").val();
+    if (isNaN(descuentoTotal)) {
+        descuentoTotal = 0;
+    }
+    if (isNaN(subTotal)) {
+        subTotal = 0;
+    }
+    var sda = subTotal - descuentoTotal;
+    if (isNaN(sda)) {
+        sda = 0;
+    }
+    $("#sdaM").val(sda);
 }
 
-function  respaldoCosto(codigo) {
-    costoRespaldo = $("#costo" + codigo).val();
-    cantidadRespaldo = $("#cant" + codigo).val();
+function calcularIva() {
+    var sda = $("#sdaM").val();
+    var iva = 0.16;
+    if (isNaN(sda)) {
+        sda = 0;
+    }
+    iva = (sda * iva);
+    if (isNaN(iva)) {
+        iva = 0;
+    }
+    $("#ivaM").val(iva);
 }
+
+//function respaldoCantidad(codigo, costoProducto) {
+//    $("#costoTotal").val();
+//    cantidadRespaldo = $("#cant" + codigo).val();
+//    costoRespaldo = $("#costo" + codigo).val();
+//}
+
+//function  respaldoCosto(codigo) {
+//    costoRespaldo = $("#costo" + codigo).val();
+//    cantidadRespaldo = $("#cant" + codigo).val();
+//}
 function validarCampoDesc2(id) {
     if ($("#descuento1" + id).val() == '') {
         alertify.error("Error! El descuento 1 requerido");
@@ -207,6 +299,42 @@ function calcularDescuentoDeProductos() {
     }
     $("#descuentoProductosM").val(parseFloat(descuentoProductos));
 }
+function soloNumeroEnteros(valor) {
+    var paso = false;
+    if (valor == 0) {
+        paso = true;
+    }
+    else if (valor.match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+        paso = true;
+    }
+    return paso;
+}
+
+function generarDescuentosgenerales() {
+    var descuentos = 0;
+    calcularSDA();
+    var sda = $("#sdaM").val();
+    alert(sda);
+    var misDescuentos = new Array();
+    var descuentos = $("#descuentosGeneralesPorComasM").val().split(',');
+    for (var x = 0; x < descuentos.length; x++) {
+        try {
+            var valor = parseFloat(descuentos[x]);
+            if (isNaN(valor)) {
+            }
+            else {
+            }
+            misDescuentos.push(descuentos[x]);
+        }
+        catch (err) {
+        }
+    }
+    for (var x = 0; x < misDescuentos.length; x++) {
+        alert("entro al ciclo");
+        descuentos = parseFloat(descuentos) + (parseFloat(misDescuentos[x]) * parseFloat(sda)) / 100;
+    }
+    alert(descuentos);
+}
 
 
 $(document).ready(function() {
@@ -239,6 +367,16 @@ $(document).ready(function() {
         else {
             $(".descuentos").attr('disabled', 'disabled');
             $(".cantidades").removeAttr('disabled');
+        }
+    });
+
+    $("#descuentosGeneralesM").change(function() {
+        if ($("#descuentosGeneralesM").is(':checked')) {
+//              $("#descuentosGeneralesM").attr('disabled', 'disabled');
+            $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+        }
+        else {
+            $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
         }
     });
 });

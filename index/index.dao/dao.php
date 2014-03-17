@@ -25,14 +25,24 @@ class dao {
     }
 
     function verificarMaquina($nombremaquina) {
-        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= '$nombremaquina'";
-        mysql_query($sql);
-        $rs = mysql_affected_rows();
-        if ($rs < 1) {
-            return "INVALIDA";
-        } else {
-            return "VALIDA";
+        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= 'JACA'";
+        $paso = mysql_query($sql);
+        if ($paso == false) {
+            $valor = mysql_error();
         }
+        $rs = mysql_affected_rows();
+        if ($rs > 0) {
+            $valor = "VALIDA";
+        }
+        else{
+            $valor = "INVALIDA";
+        }
+//        if ($rs < 1) {
+//            $valor = "INVALIDA";
+//        } else {
+//            $valor = "VALIDA";
+//        }
+        return $valor;
     }
 
 }

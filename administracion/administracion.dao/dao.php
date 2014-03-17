@@ -3,7 +3,7 @@
 class dao {
 
     function eliminaMaquinas($listaMaquinas) {
-        include_once '../daoconexion/daoConeccion.php';
+        include_once '../../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
         foreach ($listaMaquinas as $valor) {
@@ -831,6 +831,22 @@ class dao {
         return $rs;
     }
 
+    function buscarProductoVentas(Producto $p) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
+               inner join proveedores pr
+               on p.idProveedor = pr.idProveedor
+               inner join marcas m
+               on m.idMarca = p.idMarca
+	       inner join costos cost
+	       on p.codigoProducto = cost.codigoProducto
+               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'";
+        $rs = mysql_query($MySQL, $cn->Conectarse());
+        $cn->cerrarBd();
+        return $rs;
+    }
+
 //===================Para guardar XMl entrada===================================
     function validarExistenciaProductoProveedor($rfc) {
         $sql = "SELECT producto, codigoProducto FROM productos p"
@@ -1107,9 +1123,10 @@ class dao {
     function editarUsuario(Usuario $usuario, $idsucursal, $id) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' & idSucursal = '$idsucursal'";
+        $sql = "UPDATE usuarios SET usuario='" . $usuario->getUsuario() . "', nombre='" . $usuario->getNombre() . "', apellidoPaterno='" . $usuario->getPaterno() . "', apellidoMaterno='" . $usuario->getMaterno() . "', password='" . $usuario->getPass() . "', idtipousuario='" . $usuario->getTipousuario() . "' WHERE idUsuario = '$id' and idSucursal = '$idsucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         if ($rs == false) {
+            $error = mysql_error();
             return 1;
         } else {
             return 0;
