@@ -3,7 +3,7 @@
 class dao {
 
     function eliminaMaquinas($listaMaquinas) {
-        include_once '../daoconexion/daoConeccion.php';
+        include_once '../../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
         foreach ($listaMaquinas as $valor) {
