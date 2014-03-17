@@ -1,7 +1,7 @@
 <?php
-//include '../index/verificaSession.php';
-//$verificasession = new verificaSession();
-//$verificasession->validaSesion();
+include '../index/verificaSession.php';
+$verificasession = new verificaSession();
+$verificasession->validaSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
