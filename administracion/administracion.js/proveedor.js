@@ -114,7 +114,11 @@ function validaEmail() {
 }
 
 $(document).ready(function() {
+
+    $(":input:first").focus();
+
     $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
+
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
     $("#btneditarproveedor").hide();
@@ -123,11 +127,11 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
+        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou ');
+        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
     });
 
     $("#btncanceloProvedor").click(function() {
@@ -224,6 +228,7 @@ $(document).ready(function() {
                 $("#selectProveedor").load("mostrarProveedores.php", function() {
                     $("#selectProveedor").selectpicker('refresh');
                 });
+                $("#txtrfc").focus();
                 alertify.success("Proveedor agregado correctamente");
                 return false;
             }

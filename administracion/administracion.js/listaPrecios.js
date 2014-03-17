@@ -32,6 +32,8 @@ function eliminarListaPrecios() {
     }
 }
 $(document).ready(function() {
+
+    $('#txtnombrelista').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
     $("#consultaListaPrecio").load("consultarListaPrecio.php", function() {
         $('#dtlistaprecios').dataTable();
     });
@@ -53,6 +55,7 @@ $(document).ready(function() {
                 if (control == 1) {
                     $("#consultaListaPrecio").load("consultarListaPrecio.php");
                     $("#txtnombrelista").val("");
+                    $("#txtnombrelista").focus();
                     alertify.success("Lista agregada correctamente");
                     return false;
                 }
