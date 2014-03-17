@@ -16,7 +16,7 @@
                             <div class="form-group form-inline">
                                 <label>Codigo Producto</label>
 
-                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto">
+                                <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto" >
 <!--                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="verificar codigo">-->
                             </div>
                             <!--                             <div class="form-group">

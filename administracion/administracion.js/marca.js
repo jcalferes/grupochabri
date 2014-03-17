@@ -34,6 +34,7 @@ function eliminarMarcas() {
     }
 }
 $(document).ready(function() {
+    $('#txtnombremarca').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
     $("#consultaMarca").load("consultarMarca.php", function() {
         $('#dtmarca').dataTable();
     });
@@ -55,6 +56,7 @@ $(document).ready(function() {
                 $("#consultaMarca").load("consultarMarca.php", function() {
                     $('#dtmarca').dataTable();
                 });
+                $("#txtnombremarca").focus();
                 alertify.success("Marca agregada correctamente");
                 return false;
             });

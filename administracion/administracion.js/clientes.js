@@ -126,11 +126,11 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
+        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombrecliente").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou ');
+        $("#txtnombrecliente").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
     });
 
     $("#btncanceloProvedor").click(function() {
@@ -226,6 +226,7 @@ $(document).ready(function() {
                 $("#selectCliente").load("mostrarClientes.php", function() {
                     $("#selectClientes").selectpicker('refresh');
                 });
+                $("#txtrfc").focus();
                 alertify.success("Cliente agregado correctamente");
                 return false;
             }

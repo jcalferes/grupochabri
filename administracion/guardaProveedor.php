@@ -22,7 +22,9 @@ if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}
             $proveedor->setDiasCredito($_GET["diascredito"]);
             $id = $_SESSION['iddireccion'];
             $proveedor->setIdDireccion($id);
-            $proveedor->setEmail($_GET["email"]);
+            $remail = $_GET["email"];
+            preg_replace("/s+/", "", $remail);
+            $proveedor->setEmail($remail);
             $proveedor->setDesctfactura($_GET["desctpf"]);
             $proveedor->setDesctprontopago($_GET["desctpp"]);
             $dao->guardarProveedor($proveedor);

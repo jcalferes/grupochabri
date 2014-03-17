@@ -9,7 +9,7 @@ $dao = new dao();
 $usuario = new Usuario();
 $utilerias = new Utilerias();
 $cn = new coneccion();
-$cn->Conectarse();
+$link = $cn->Conectarse();
 $usuario->setPass($utilerias->genera_md5($_GET["pass"]));
 $usuario->setUsuario($_GET["usuario"]);
 $nombrepc = gethostbyaddr($_SERVER['REMOTE_ADDR']);

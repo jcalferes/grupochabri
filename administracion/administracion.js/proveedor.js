@@ -8,8 +8,6 @@ function eliminarProveedores() {
         idProveedor.push(valor);
         lista = JSON.stringify(idProveedor);
         info = "proveedor=" + lista;
-
-
     });
 //    alert(info);
     if (info != undefined) {
@@ -25,7 +23,6 @@ function eliminarProveedores() {
             }
         });
         return false;
-
     } else {
         alertify.error("Debe selecciona al menos un proveedor");
     }
@@ -49,13 +46,11 @@ function verficaPostal2() {
                     contenido += "<option value='" + dataJson[i].idcpostales + "'>" + dataJson[i].asenta + "</option>";
                     $("#txtciudad").val(dataJson[i].ciudad);
                     $("#txtestado").val(dataJson[i].estado);
-
                 }
                 contenido += "</select>";
                 return contenido;
             });
             $("#btneditardireccion").trigger("click");
-
         });
     }
 }
@@ -101,8 +96,9 @@ function validaRfc() {
 }
 
 function validaEmail() {
-    var rfc = $("#txtemail").val();
-    if (rfc === "" || /^\s+$/.test(rfc)) {
+    var mail = $("#txtemail").val();
+    alert(mail);
+    if (mail === "" || /^\s+$/.test(mail)) {
         $("#frmemail").removeClass("has-success");
         $("#frmemail").removeClass("has-error");
     } else {
@@ -118,6 +114,11 @@ function validaEmail() {
 }
 
 $(document).ready(function() {
+
+    $(":input:first").focus();
+
+    $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
+
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
     $("#btneditarproveedor").hide();
@@ -126,11 +127,11 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou');
+        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou ');
+        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
     });
 
     $("#btncanceloProvedor").click(function() {
@@ -227,6 +228,7 @@ $(document).ready(function() {
                 $("#selectProveedor").load("mostrarProveedores.php", function() {
                     $("#selectProveedor").selectpicker('refresh');
                 });
+                $("#txtrfc").focus();
                 alertify.success("Proveedor agregado correctamente");
                 return false;
             }
