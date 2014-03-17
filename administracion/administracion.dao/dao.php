@@ -808,9 +808,9 @@ class dao {
         $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, c.cp, c.asenta, c.municipio, c.estado, c.ciudad FROM direcciones d "
                 . " INNER JOIN cpostales c on c.idcpostales = d.idcpostales"
                 . " WHERE d.idDireccion = '$id'";
-        mysql_set_charset('utf8');
+//        mysql_set_charset('utf8');
         $datos = mysql_query($sql, $cn->Conectarse());
-        mysql_set_charset('utf8');
+//        mysql_set_charset('utf8');
         return $datos;
     }
 
