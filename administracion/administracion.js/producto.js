@@ -106,9 +106,9 @@ function obtenerUtilidadCosto() {
 }
 $(document).ready(function() {
     $("#editarDatos").hide();
-    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
+    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890"%()');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -395,6 +395,7 @@ $(document).ready(function() {
                     $(".producto").attr("disabled", true);
                     $(".checando").attr("checked", false);
                     $("#selectProducto").load("obtenerProductos.php");
+                    $("#txtNombreProducto").focus();
                     alertify.success("Producto agregada correctamente");
                     return false;
 
