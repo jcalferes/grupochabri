@@ -2,7 +2,9 @@
 
 include './administracion.dao/dao.php';
 $dao = new dao();
-$datos = $dao->consultaProducto();
+session_start();
+$sucursal = $_SESSION["sucursalSesion"];
+$datos = $dao->consultaProducto($sucursal);
 $comprobar = "";
 
 echo"<center><button type='button' class='btn btn-xs btn-default' id='btnver' onclick='eliminarProductos()'><span class='glyphicon glyphicon-trash'></span></button></cente><div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Costo</th><th>Fecha Mov.</th><th>Existencia</th><th>List. Precios</th></thead><tbody>";
