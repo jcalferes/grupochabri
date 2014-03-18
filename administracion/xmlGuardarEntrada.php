@@ -42,7 +42,7 @@ if ($valido == false) {
     echo 2;
 } else {
     $validaCodigo = 1;
-    $recchazaCodigo = 0;
+    $rechazaCodigo = 0;
     foreach ($conceptos as $concepto) {
         $ads = $concepto->codigo;
         while ($rs = mysql_fetch_array($valido)) {
