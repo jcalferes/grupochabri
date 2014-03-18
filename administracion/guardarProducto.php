@@ -4,6 +4,8 @@ include './administracion.dao/dao.php';
 include './administracion.clases/Producto.php';
 include './administracion.clases/Costo.php';
 include './administracion.clases/Tarifa.php';
+session_start();
+$prr= $_SESSION["sucursalSesion"];
 $producto = new Producto();
 $costo = new Costo();
 $tarifa = new Tarifa();
@@ -23,7 +25,7 @@ $tarifa->setIdListaPrecio($lista);
 
 $datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
 if($datos < 1){
-$dao->guardarProducto($producto, $costo, $tarifa);
+$dao->guardarProducto($producto, $costo, $tarifa,$prr);
 echo 1;
 
 }else{
