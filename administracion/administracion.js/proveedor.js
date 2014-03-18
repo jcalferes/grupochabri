@@ -1,3 +1,11 @@
+$("#btnotrotel").click(function() {
+    $("#frmtel").append("<hr><div class=\"input-group\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\">Go!</button></span></div><!-- /in");
+});
+
+$("#btnotroemail").click(function() {
+    $("#frmemail").append("<hr><input type=\"text\" class=\"form-control\" class=\"emails\" />");
+});
+
 function eliminarProveedores() {
     var idProveedor = new Array();
     var info;
@@ -97,7 +105,6 @@ function validaRfc() {
 
 function validaEmail() {
     var mail = $("#txtemail").val();
-    alert(mail);
     if (mail === "" || /^\s+$/.test(mail)) {
         $("#frmemail").removeClass("has-success");
         $("#frmemail").removeClass("has-error");

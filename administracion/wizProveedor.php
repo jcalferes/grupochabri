@@ -35,10 +35,16 @@
                     </div>
                     <div class="form-group">
                         <label>Direccion Fiscal:</label>
-                        <input id="muestramdldireccion" class="btn btn-sm btn-default" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
+                        <input id="muestramdldireccion" class="btn btn-sm btn-primary" data-dismiss="modal" type="button" data-toggle="modal" data-target="#mdlDireccion" value="+"/>
+                    </div>
+                    <div id="frmtel" class="form-group">
+                        <label>Telefono:</label>
+                        <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
+                        <input id="txttel" type="email" class="form-control" onblur="">
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
+                        <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txtemail" type="email" class="form-control" onblur="validaEmail();">
                     </div>
                     <div class="form-group">
