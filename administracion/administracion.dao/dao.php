@@ -613,7 +613,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function consultaProducto() {
+    function consultaProducto($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto \n"
@@ -622,7 +622,7 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1'";
+                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
