@@ -6,13 +6,13 @@ var txtemail = "masemail";
 $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
-    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\" ><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
 });
 
 $("#btnotroemail").click(function() {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
-    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borraemail(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borraemail(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
 });
 
 function borratel(cadena) {
