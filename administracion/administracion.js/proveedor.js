@@ -166,6 +166,7 @@ $(document).ready(function() {
         $("#mostrarDivProveedor").hide("slow");
 
     });
+//==============================================================================
     $("#btnguardarproveedor").click(function() {
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
@@ -259,9 +260,8 @@ $(document).ready(function() {
 
     });
 
-
+//==============================================================================
     $("#btneditarproveedor").click(function() {
-
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
         var diascredito = $("#txtdiascredito").val();
@@ -353,7 +353,7 @@ $(document).ready(function() {
         });
 
     });
-
+//==============================================================================
     $("#txtrfc").keyup(function() {
         var rfc = $("#txtrfc").val();
         var info = "rfc=" + rfc;
