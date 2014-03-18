@@ -194,7 +194,7 @@ class dao {
         }
     }
 
-    function editarProducto(Producto $p, Costo $c, Tarifa $t,$idSucursal) {
+    function editarProducto(Producto $p, Costo $c, Tarifa $t, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlCostos = "UPDATE costos set status = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idSucursal= '$idSucursal' ";
@@ -532,7 +532,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarProducto(Producto $p, Costo $c, Tarifa $t,$idSucursal) {
+    function guardarProducto(Producto $p, Costo $c, Tarifa $t, $idSucursal) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -857,6 +857,7 @@ class dao {
         if ($rs == false) {
             return false;
         } else {
+            mysql_data_seek($valor, 0);
             return $valor;
         }
     }
@@ -1007,8 +1008,29 @@ class dao {
             //Variables necesarias: $cantidad
             //==================================================================
             //Comienza guardar xml concepto
+            $importe = 0;
+            $codigo = 0;
+            $cda = 0;
+            $desctuno = 0;
+            $desctdos = 0;
+
+            if (isset($cpto->importe)) {
+                $importe = $cpto->importe;
+            }
+            if (isset($cpto->codigo)) {
+                $codigo = $cpto->codigo;
+            }
+            if (isset($cpto->cda)) {
+                $cda = $cpto->cda;
+            }
+            if (isset($cpto->desctuno)) {
+                $desctuno = $cpto->desctuno;
+            }
+            if (isset($cpto->desctdos)) {
+                $desctdos = $cpto->desctdos;
+            }
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
-                    . " VALUES ('" . $detalle->getUnidadmedida() . "','" . $cpto->importe . "','" . $detalle->getCantidad() . "','" . $cpto->codigo . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','" . $cpto->cda . "','" . $cpto->desctuno . "','" . $cpto->desctdos . "')";
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','$importe','" . $detalle->getCantidad() . "','$codigo','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','$cda','$desctuno','$desctdos')";
             $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
             if ($ctrlConceptoGuardar == false) {
                 mysql_query("ROLLBACK;");
@@ -1079,6 +1101,7 @@ class dao {
             //Terminar guardar entrada
         }//Cierre FOR
         mysql_query("COMMIT;");
+        return true;
     }
 
     //============================================== Todo para usuarios ============

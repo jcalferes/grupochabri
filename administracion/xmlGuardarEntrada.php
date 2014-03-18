@@ -61,13 +61,12 @@ if ($valido == false) {
         }
     }
     $control = count($conceptos);
-    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control,$idsucursal);
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal);
+    $cn->cerrarBd();
     if ($paso == false) {
         echo 1;
     } else {
         echo 0;
     }
-
-    $cn->cerrarBd();
 }
 ?>

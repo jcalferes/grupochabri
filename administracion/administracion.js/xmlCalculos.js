@@ -499,7 +499,6 @@ $("#validarentrada").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('xmlGuardarEntrada.php', {datos: datosJSON}, function(respuesta) {
-        alert(respuesta);
         if (respuesta == 2) {
             alertify.error("No esta registrado este proveedor o no existen productos para el mismo");
             return false;
