@@ -175,19 +175,19 @@ function calcularDescuentos(id) {
 }
 
 function calcularDescTotal() {
-    var descuentoGeneral = $("#descuentoGeneralM").val();
-    var descuentoProductos = $("#descuentoProductosM").val();
+    var descuentoGeneral = parseFloat($("#descuentoGeneralM").val());
+    var descuentoProductos = parseFloat($("#descuentoProductosM").val());
     if (isNaN(descuentoGeneral)) {
         descuentoGeneral = 0;
     }
     if (isNaN(descuentoProductos)) {
         descuentoProductos = 0;
     }
-    var totalDescuentos = descuentoGeneral + descuentoProductos;
+    var totalDescuentos = parseFloat(descuentoGeneral) + parseFloat(descuentoProductos);
     if (isNaN(totalDescuentos)) {
         totalDescuentos = 0;
     }
-    $("#descuentoTotalM").val(totalDescuentos);
+    $("#descuentoTotalM").val(parseFloat(totalDescuentos));
 }
 
 function calcularSDA() {
@@ -311,10 +311,10 @@ function soloNumeroEnteros(valor) {
 }
 
 function generarDescuentosgenerales() {
-    var descuentos = 0;
+    $("#descuentoGeneralM").val(0);
+    calcularDescTotal();
     calcularSDA();
-    var sda = $("#sdaM").val();
-    alert(sda);
+    var descuent = 0;
     var misDescuentos = new Array();
     var descuentos = $("#descuentosGeneralesPorComasM").val().split(',');
     for (var x = 0; x < descuentos.length; x++) {
@@ -323,17 +323,25 @@ function generarDescuentosgenerales() {
             if (isNaN(valor)) {
             }
             else {
+                misDescuentos.push(descuentos[x]);
             }
-            misDescuentos.push(descuentos[x]);
         }
         catch (err) {
         }
     }
     for (var x = 0; x < misDescuentos.length; x++) {
-        alert("entro al ciclo");
-        descuentos = parseFloat(descuentos) + (parseFloat(misDescuentos[x]) * parseFloat(sda)) / 100;
+        var sda = $("#sdaM").val();
+        if (isNaN(misDescuentos[x])) {
+        }
+        else {
+            descuent = parseFloat(descuent) + (parseFloat(misDescuentos[x]) * parseFloat(sda)) / 100;
+        }
+        $("#descuentoGeneralM").val(parseFloat(descuent));
+        calcularDescTotal();
+        calcularSDA();
     }
-    alert(descuentos);
+    calcularIva();
+    calculaTotalEntradasManual();
 }
 
 

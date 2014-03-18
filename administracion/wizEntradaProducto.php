@@ -84,7 +84,7 @@
                         <input type="text" 
                                disabled="true"
                                id="descuentosGeneralesPorComasM" 
-                               onkeyup="generarDescuentosgenerales()"
+                               onkeyup="generarDescuentosgenerales();"
                                class="form-control 
                                text-right" 
                                style="width: 20%"
