@@ -1,10 +1,27 @@
+var cuantostel = 0;
+var cuantosemail = 0;
+var txttel = "mastel";
+var txtemail = "masemail";
+
 $("#btnotrotel").click(function() {
-    $("#frmtel").append("<hr><div class=\"input-group\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\">Go!</button></span></div><!-- /in");
+    cuantostel++;
+    cadena = txttel + cuantostel;
+    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
 });
 
 $("#btnotroemail").click(function() {
-    $("#frmemail").append("<hr><input type=\"text\" class=\"form-control\" class=\"emails\" />");
+    cuantosemail++;
+    cadena = txtemail + cuantosemail;
+    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borraemail(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
 });
+
+function borratel(cadena) {
+    $("#" + cadena).remove();
+}
+
+function borraemail(cadena) {
+    $("#" + cadena).remove();
+}
 
 function eliminarProveedores() {
     var idProveedor = new Array();
