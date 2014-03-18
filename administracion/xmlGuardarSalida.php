@@ -7,6 +7,7 @@ include './administracion.dao/dao.php';
 include_once '../daoconexion/daoConeccion.php';
 include '../utileriasPhp/Utilerias.php';
 session_start();
+$idsucursal = $_SESSION["sucursalSesion"];
 
 $encabezadoSalida = new Encabezado();
 $detalle = new Detalle();
@@ -24,7 +25,7 @@ if ($rfccabezera != $rfcorigen) {
     echo 10;
 } else {
     $cn->Conectarse();
-    $dao->MiniGuardadorSalidas($encabezadoSalida, $arrayDetalleSalida, $lafecha);
+    $dao->MiniGuardadorSalidas($encabezadoSalida, $arrayDetalleSalida, $lafecha, $idsucursal);
     $cn->cerrarBd();
 }
 ?>
