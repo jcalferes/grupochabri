@@ -1,4 +1,5 @@
 <?php
+
 class dao {
 
     function eliminaMaquinas($listaMaquinas) {
@@ -531,7 +532,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarProducto(Producto $p, Costo $c, Tarifa $t, $prr) {
+    function guardarProducto(Producto $p, Costo $c, Tarifa $t) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -550,7 +551,7 @@ class dao {
 
         $id = mysql_insert_id();
         $fecha = date("d/m/Y h:i");
-        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$prr')";
+        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','1')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         $lista = $t->getIdListaPrecio();
 
