@@ -993,7 +993,7 @@ class dao {
             $cantidad = 0;
             $cpto = $conceptos[$i];
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = $idSucursal";
+                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal'";
             $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
             if ($ctrlConceptoValidarExistencia == false) {
                 mysql_query("ROLLBACK;");
@@ -1018,7 +1018,7 @@ class dao {
             //==================================================================
             //Comienza actulizar costo
             $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
-                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1' AND idSucursal = $idSucursal";
+                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1' AND idSucursal = '$idSucursal'";
             $ctrlTraerCosto = mysql_query($sqlTraerCosto);
             if ($ctrlTraerCosto == false) {
                 mysql_query("ROLLBACK;");
@@ -1040,9 +1040,9 @@ class dao {
                 $costoPromedio = $totalFinal / $cantidadFinal;
 
                 $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status,idSucursal)"
-                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','1')";
+                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','$idSucursal')";
                 $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
-                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto' AND idSucursal = $idSucursal";
+                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
                 $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
                 if ($ctrlInsertaNuevoCosto == false) {
                     mysql_query("ROLLBACK;");
@@ -1060,7 +1060,7 @@ class dao {
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
             $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = $idSucursal ";
+                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal' ";
             $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
             if ($ctrlActulizaExistencia == false) {
                 mysql_query("ROLLBACK;");
