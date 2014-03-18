@@ -40,12 +40,12 @@
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
                         <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txttel" type="email" class="form-control" onblur="" style="width: 50%">
+                        <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
                         <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txtemail" type="email" class="form-control" onblur="validaEmail();" style="width: 50%">
+                        <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
                     </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>

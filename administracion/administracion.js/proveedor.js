@@ -6,8 +6,15 @@ var txtemail = "masemail";
 $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
-    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\" ><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    recon();
+
 });
+
+function recon() {
+    $(".telefono").validCampoFranz('0123456789');
+    $(".email").validCampoFranz('0123456789');
+}
 
 $("#btnotroemail").click(function() {
     cuantosemail++;
@@ -149,6 +156,8 @@ $(document).ready(function() {
     });
 
     $(function() {
+        $(".telefono").validCampoFranz('0123456789');
+        $(".email").validCampoFranz('0123456789');
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
@@ -156,6 +165,7 @@ $(document).ready(function() {
         $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
     });
+
 
     $("#btncanceloProvedor").click(function() {
         $("#txtnombreproveedor").val("");
