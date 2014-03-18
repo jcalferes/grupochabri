@@ -117,8 +117,6 @@ $(document).ready(function() {
 
     $(":input:first").focus();
 
-    $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
-
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
     $("#btneditarproveedor").hide();
@@ -132,6 +130,7 @@ $(document).ready(function() {
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
         $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
+        $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
     });
 
     $("#btncanceloProvedor").click(function() {

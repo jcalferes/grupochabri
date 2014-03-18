@@ -6,8 +6,9 @@ function entroMarca() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizMarca.php");
     $("#9").removeClass("active");
+    $("#mostrar").load("wizMarca.php");
+    
 }
 function entroProducto() {
     $("#1").removeClass("active");
