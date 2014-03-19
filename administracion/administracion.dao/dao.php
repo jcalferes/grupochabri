@@ -161,7 +161,7 @@ class dao {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', idcpostales='" . $t->getIdPostal() . "' WHERE idDireccion= '" . $t->getIdDireccion() . "'";
+        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', ciudad = '".$t->getCiudad()."', estado = '".$t->getEstado()."', colonia = '".$t->getColonia()."',codigoPostal='".$t->getPostal()."' WHERE idDireccion= '" . $t->getIdDireccion() . "'";
 //        $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
 ////        $dato = mysql_query($sql2, $cn->Conectarse());
@@ -184,7 +184,7 @@ class dao {
     function verificandoProveedor($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM proveedores p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion INNER JOIN cpostales c ON c.idcpostales = d.idcpostales WHERE rfc= '$rfc'";
+        $sql = "SELECT * FROM proveedores p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion WHERE rfc= '$rfc'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $band = mysql_affected_rows();
         if ($band < 1) {
@@ -194,7 +194,7 @@ class dao {
         }
     }
 
-    function editarProducto(Producto $p, Costo $c, Tarifa $t,$idSucursal) {
+    function editarProducto(Producto $p, Costo $c, Tarifa $t, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlCostos = "UPDATE costos set status = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idSucursal= '$idSucursal' ";
@@ -532,7 +532,7 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function guardarProducto(Producto $p, Costo $c, Tarifa $t,$idSucursal) {
+    function guardarProducto(Producto $p, Costo $c, Tarifa $t, $idSucursal) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -698,7 +698,7 @@ class dao {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos, idcpostales)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getIdPostal() . "');";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos,ciudad,estado,colonia,codigoPostal)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getCiudad() . "','" . $t->getEstado() . "','" . $t->getColonia() . "', '".$t->getPostal()."');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
