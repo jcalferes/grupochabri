@@ -1,3 +1,28 @@
+var cuantostel = 0;
+var cuantosemail = 0;
+var txttel = "mastel";
+var txtemail = "masemail";
+
+$("#btnotrotel").click(function() {
+    cuantostel++;
+    cadena = txttel + cuantostel;
+    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\" ><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+});
+
+$("#btnotroemail").click(function() {
+    cuantosemail++;
+    cadena = txtemail + cuantosemail;
+    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borraemail(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+});
+
+function borratel(cadena) {
+    $("#" + cadena).remove();
+}
+
+function borraemail(cadena) {
+    $("#" + cadena).remove();
+}
+
 function eliminarProveedores() {
     var idProveedor = new Array();
     var info;
@@ -95,7 +120,6 @@ function validaRfc() {
 
 function validaEmail() {
     var mail = $("#txtemail").val();
-    alert(mail);
     if (mail === "" || /^\s+$/.test(mail)) {
         $("#frmemail").removeClass("has-success");
         $("#frmemail").removeClass("has-error");
@@ -139,6 +163,7 @@ $(document).ready(function() {
         $("#mostrarDivProveedor").hide("slow");
 
     });
+//==============================================================================
     $("#btnguardarproveedor").click(function() {
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
@@ -232,9 +257,8 @@ $(document).ready(function() {
 
     });
 
-
+//==============================================================================
     $("#btneditarproveedor").click(function() {
-
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
         var diascredito = $("#txtdiascredito").val();
@@ -326,7 +350,7 @@ $(document).ready(function() {
         });
 
     });
-
+//==============================================================================
     $("#txtrfc").keyup(function() {
         var rfc = $("#txtrfc").val();
         var info = "rfc=" + rfc;
