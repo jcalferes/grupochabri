@@ -73,13 +73,11 @@ function verficaPostal2() {
             var dataJson = eval(respuesta);
             $("#selectColonia").html(function() {
                 var contenido;
-                contenido = "<select id='selectColonia'>";
                 for (var i in dataJson) {
-                    contenido += "<option value='" + dataJson[i].idcpostales + "'>" + dataJson[i].asenta + "</option>";
-                    $("#txtciudad").val(dataJson[i].ciudad);
-                    $("#txtestado").val(dataJson[i].estado);
+                    contenido += "<option value='" + dataJson[i].asenta + "'>" + dataJson[i].asenta + "</option>";
+
                 }
-                contenido += "</select>";
+                alert(contenido);
                 return contenido;
             });
             $("#btneditardireccion").trigger("click");
@@ -151,7 +149,9 @@ function probando() {
     });
 }
 $(document).ready(function() {
+
     $(":input:first").focus();
+
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
     $("#btneditarproveedor").hide();
@@ -383,6 +383,7 @@ $(document).ready(function() {
                 $("#txtdiascredito").val("");
                 $("#txtdescuento").val("");
                 $(".direccion").val("");
+                $("#BuscarCodigo").val("");
                 $.get('borrarVariable.php');
             } else {
                 $("#btneditardireccion").show();
@@ -404,6 +405,10 @@ $(document).ready(function() {
                             $("#moral").prop("checked", true);
 //                            $("#fisica").attr("checked", false);
                         }
+                    }
+                    if (ind == "cp") {
+                        $("#txtpostal").val(elem);
+
                     }
                     if (ind == "nombre") {
                         $("#txtnombreproveedor").val(elem);
@@ -432,12 +437,23 @@ $(document).ready(function() {
                     if (ind == "cruzamientos") {
                         $("#txtcruzamientos").val(elem);
                     }
-                    if (ind == "cp") {
-                        $("#txtpostal").val(elem);
 
-                    }
                     if (ind == "idDireccion") {
                         $("#extra").val(elem);
+
+                    }
+                    if (ind == "ciudad") {
+                        alert(elem);
+                        $("#txtciudad").val(elem);
+
+                    }
+                    if (ind == "estado") {
+                        $("#txtestado").val(elem);
+                       
+                    }
+                    if (ind == "colonia") {
+                        $("#BuscarCodigo").val(elem);
+                       
 
                     }
 

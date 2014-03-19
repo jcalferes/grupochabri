@@ -8,7 +8,44 @@ class Direccion {
     private $cruzamientos;
     private $idpostal;
     private $idDireccion;
+    private $colonia;
+    private $estado;
+    private $ciudad;
+    private $postal;
 
+    public function getPostal() {
+        return $this->postal;
+    }
+
+    public function setPostal($postal) {
+        $this->postal = $postal;
+    }
+
+        public function getColonia() {
+        return $this->colonia;
+    }
+
+    public function getEstado() {
+        return $this->estado;
+    }
+
+    public function getCiudad() {
+        return $this->ciudad;
+    }
+
+    public function setColonia($colonia) {
+        $this->colonia = $colonia;
+    }
+
+    public function setEstado($estado) {
+        $this->estado = $estado;
+    }
+
+    public function setCiudad($ciudad) {
+        $this->ciudad = $ciudad;
+    }
+
+    
     public function getIdDireccion() {
         return $this->idDireccion;
     }

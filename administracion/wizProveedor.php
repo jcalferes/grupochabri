@@ -90,12 +90,18 @@
                             </div>
                             <div class="form-group">
                                 <label>Codigo Postal:</label>
-                                <input id="txtpostal" name="direccion" type="number" class="form-control direccion" min="0" onchange="verficaPostal()" placeholder="Ingrese el codigo postal" style="width: 30%" onpaste="return false">
+                                <input id="txtpostal" name="direccion" type="number" class="form-control direccion" min="0"  placeholder="Ingrese el codigo postal" style="width: 30%" onpaste="return false">
+                                <input type="button" class="btn btn-primary" value="Buscar" id="Buscar"/>
                             </div>
                             <div class="form-group ">
                                 <label>Colonia:</label>
-                                <select id="selectColonia" name="direccion" class="form-control direccion" style="width: 100%; height: 35px">
-                                </select>
+<!--                                <select id="selectColonia" name="direccion" class="form-control direccion" style="width: 100%; height: 35px">
+                                </select>-->
+                                <input  id="BuscarCodigo" type="text" placeholder="...." list="selectColonia" style=" height: 30px" maxlength="30"/>
+                                <datalist id="selectColonia">
+
+                                </datalist>
+
                             </div>
                             <div class="form-group">
                                 <label>Ciudad:</label>
