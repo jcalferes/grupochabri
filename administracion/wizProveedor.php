@@ -11,7 +11,6 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-
                     <div class="radio-inline" >
                         <label>
                             <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
@@ -24,7 +23,6 @@
                             Moral
                         </label>
                     </div>
-
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
                         <input type="text" class="form-control" id="txtrfc" onblur="validaRfc();">
@@ -56,12 +54,11 @@
                         <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
-
                     </div>
-                        <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
+                    <input type="button" class="btn btn-danger" onclick="probando();" value="Probar"/>
+                                            <!--<input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
-
                 </form>
             </section>
         </div>
@@ -110,6 +107,7 @@
                                 <param id="extra" value="">
                             </div>
                             <div class="modal-footer">
+
                                 <input id="canceloDireccion" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <input id="btnguardardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
                                 <input id="btneditardireccion" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>

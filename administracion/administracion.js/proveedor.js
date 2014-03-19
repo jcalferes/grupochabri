@@ -6,7 +6,7 @@ var txtemail = "masemail";
 $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
-    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
     recon();
 
 });
@@ -19,7 +19,7 @@ function recon() {
 $("#btnotroemail").click(function() {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
-    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 50%;\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button class=\"btn\" onclick='borraemail(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
+    $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
 });
 
 function borratel(cadena) {
@@ -143,11 +143,15 @@ function validaEmail() {
         }
     }
 }
-
+function probando() {
+    alert("Entre");
+    $(".telefono").each(function() {
+        var valor = $(this).val();
+        alert(valor);
+    });
+}
 $(document).ready(function() {
-
     $(":input:first").focus();
-
     $("#botonNinja").hide();
     $("#btneditardireccion").hide();
     $("#btneditarproveedor").hide();
@@ -270,7 +274,6 @@ $(document).ready(function() {
 
     });
 
-//==============================================================================
     $("#btneditarproveedor").click(function() {
         var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
         var rfc = $("#txtrfc").val().toUpperCase();
