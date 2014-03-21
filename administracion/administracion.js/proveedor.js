@@ -449,11 +449,11 @@ $(document).ready(function() {
                     }
                     if (ind == "estado") {
                         $("#txtestado").val(elem);
-                       
+
                     }
                     if (ind == "colonia") {
                         $("#BuscarCodigo").val(elem);
-                       
+
 
                     }
 
