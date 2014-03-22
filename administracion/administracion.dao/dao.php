@@ -161,7 +161,7 @@ class dao {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', ciudad = '".$t->getCiudad()."', estado = '".$t->getEstado()."', colonia = '".$t->getColonia()."',codigoPostal='".$t->getPostal()."' WHERE idDireccion= '" . $t->getIdDireccion() . "'";
+        $sql = "update direcciones set calle='" . $t->getCalle() . "', numeroExterior='" . $t->getNumeroexterior() . "', numeroInterior='" . $t->getNumerointerior() . "', cruzamientos='" . $t->getCruzamientos() . "', ciudad = '" . $t->getCiudad() . "', estado = '" . $t->getEstado() . "', colonia = '" . $t->getColonia() . "',codigoPostal='" . $t->getPostal() . "' WHERE idDireccion= '" . $t->getIdDireccion() . "'";
 //        $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
 ////        $dato = mysql_query($sql2, $cn->Conectarse());
@@ -698,7 +698,7 @@ class dao {
         session_start();
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos,ciudad,estado,colonia,codigoPostal)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getCiudad() . "','" . $t->getEstado() . "','" . $t->getColonia() . "', '".$t->getPostal()."');";
+        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos,ciudad,estado,colonia,codigoPostal)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getCiudad() . "','" . $t->getEstado() . "','" . $t->getColonia() . "', '" . $t->getPostal() . "');";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
         $x = mysql_query($sql, $cn->Conectarse());
         $dato = mysql_query($sql2, $cn->Conectarse());
@@ -1178,5 +1178,66 @@ class dao {
         return $datos;
     }
 
-    //==============================================================================
+    //==========================================================================
+    function superGuardadorProveedores(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
+        //Guardando la direccion
+        $sqlDireccion = "INSERT INTO direcciones (calle, numeroExterior, numeroInterior, cruzamientos, postal, colonia, ciudad, estado) VALUES ('" . $direccion->getCalle() . "','" . $direccion->getNumeroexterior() . "','" . $direccion->getNumerointerior() . "','" . $direccion->getCruzamientos() . "','" . $direccion->getPostal() . "','" . $direccion->getColonia() . "','" . $direccion->getCiudad() . "','" . $direccion->getEstado() . "')";
+        $sqlDireccionId = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query("START TRANSACTION;");
+        $ctrlDireccionGuardar = mysql_query($sqlDireccion);
+        if ($ctrlDireccionGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlDireccionId = mysql_query($sqlDireccionId);
+            if ($ctrlDireccionId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlDireccionId)) {
+                    $idDireccion = $rs["ID"];
+                }
+            }
+        }
+        //Guardando Proveedor
+        $sqlProveedor = "INSERT INTO proveedores (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor, idStatus) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1')";
+        $sqlProveedorId = "SELECT LAST_INSERT_ID() ID;";
+        $ctrlProveedoGuardar = mysql_query($sqlProveedor);
+        if ($ctrlProveedoGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlProveedorId = mysql_query($sqlProveedorId);
+            if ($ctrlProveedorId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlProveedorId)) {
+                    $idProveedor = $rs["ID"];
+                }
+            }
+        }
+        //Guardando Telefonos
+        for ($i = 0; $i < $ctrltelefonos; $i++) {
+            $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idProveedor','PROVEEDOR')";
+            $ctrlTelefonoGuardar = mysql_query($sqlTelefonos);
+            if ($ctrlTelefonoGuardar == false) {
+                $rs = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        //Guardar Emails
+        for ($i = 0; $i < $ctrlemails; $i++) {
+            $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idProveedor','PROVEEDOR')";
+            $ctrlEmailsGuardar = mysql_query($sqlEmails);
+            if ($ctrlEmailsGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        mysql_query("COMMIT;");
+        return true;
+    }
+
 }

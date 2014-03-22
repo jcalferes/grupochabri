@@ -52,7 +52,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar Sesion<b class="caret"></b></a>
                             <ul class="dropdown-menu" style="width: 320px">
-                                <form class="text-center" style="padding: 10px">
+                                <form class="form-signin text-center" style="padding: 10px">
                                     <div class="input-group" style="margin: 0% 5% 3% 5%">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                                         <input type="text" id="loginuser" class="form-control" placeholder="Usuario" >
