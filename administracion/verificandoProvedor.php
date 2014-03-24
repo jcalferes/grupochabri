@@ -11,38 +11,19 @@ $dire = $dao->puleaDireccion($rfc);
 $tele = $dao->puleaTelefono($rfc);
 $emai = $dao->puleaEmails($rfc);
 if ($prov != false) {
+
     while ($pdt = mysql_fetch_array($prov)) {
-        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"]);
+        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"], 'descuentopf' => $pdt["descuentoPorFactura"], 'descuentopp' => $pdt["descuentoPorProntoPago"], 'tipoProveedor' => $pdt["tipoProveedor"]);
     }
-    while($ddt = mysql_fetch_array($dire)){
-        $arr['direccion']['datos'] = array('nombre' => $edt["nombre"], 'rfc' => $edt["rfc"], 'diascredito' => $edt["diasCredito"]);
+    while ($ddt = mysql_fetch_array($dire)) {
+        $arr['direccion']['datos'] = array('calle' => $ddt["calle"], 'numeroext' => $ddt["numeroExterior"], 'numeroint' => $ddt["numeroInterior"], 'cruzamientos' => $ddt["cruzamientos"], 'postal' => $ddt["postal"], 'colonia' => $ddt["colonia"], 'ciudad' => $ddt["ciudad"], 'estado' => $ddt["estado"]);
     }
-    while($tdt = mysql_fetch_array($tele)){
-        $arr['telefonos']['datos'] = array('nombre' => $tdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"]);
+    while ($tdt = mysql_fetch_array($tele)) {
+        $arr['telefonos']['datos'] = array($tdt["telefono"]);
     }
-    while($edt = mysql_fetch_array($emai)){
-        $arr['telefonos']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"]);
+    while ($edt = mysql_fetch_array($emai)) {
+        $arr['email']['datos'] = array($edt["email"]);
     }
+
+    echo json_encode($arr);
 } 
-
-
-
-
-//
-//while ($pdt = mysql_fetch_array($prov)) {
-//    $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"]);
-//}
-//echo 'asdasd';
-
-
-//$datos = $dao->verificandoProveedor($rfc);
-//if ($datos == 0) {
-//    echo "1";
-//} else {
-//    $rs = mysql_fetch_array($datos, MYSQL_ASSOC);
-//    foreach ($rs as $campo => $value) {
-//        $array[$campo] = utf8_encode($value);
-//    }
-//
-//    echo '' . json_encode($array) . '';
-//}
