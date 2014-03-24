@@ -1178,7 +1178,7 @@ class dao {
         return $datos;
     }
 
-    //==========================================================================
+    //==================Nuevo Guardar Proveedor=================================
     function superGuardadorProveedores(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
         //Guardando la direccion
         $sqlDireccion = "INSERT INTO direcciones (calle, numeroExterior, numeroInterior, cruzamientos, postal, colonia, ciudad, estado) VALUES ('" . $direccion->getCalle() . "','" . $direccion->getNumeroexterior() . "','" . $direccion->getNumerointerior() . "','" . $direccion->getCruzamientos() . "','" . $direccion->getPostal() . "','" . $direccion->getColonia() . "','" . $direccion->getCiudad() . "','" . $direccion->getEstado() . "')";
@@ -1240,4 +1240,76 @@ class dao {
         return true;
     }
 
+    //==================Sacar datos del proveedor===============================
+    function puleaProveedor($rfc) {
+        $sql = "SELECT nombre, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoProveedor FROM proveedores WHERE rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function puleaDireccion($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, d.postal, d.colonia, d.ciudad, d.estado FROM proveedores p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion WHERE p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function puleaTelefono($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT t.telefono FROM proveedores p INNER JOIN telefonos t ON p.idProveedor = t.idPropietario WHERE t.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function puleaEmails($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT e.email FROM proveedores p INNER JOIN emails e ON p.idProveedor = e.idPropietario WHERE e.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    //==========================================================================
 }

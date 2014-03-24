@@ -146,29 +146,21 @@ function validaRfc() {
     }
 }
 
-//function validaEmail() {
-//    var mail = $("#txtemail").val();
-//    if (mail === "" || /^\s+$/.test(mail)) {
-//        $("#frmemail").removeClass("has-success");
-//        $("#frmemail").removeClass("has-error");
-//    } else {
-//        if ($("#txtemail").val().match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
-//            $("#frmemail").removeClass("has-error");
-//            $("#frmemail").addClass("has-success");
-//        } else {
-//            $("#frmemail").removeClass("has-success");
-//            $("#frmemail").addClass("has-error");
-//            $("#txtemail").focus();
-//        }
-//    }
-//}
-
+$("#btncanceloProvedor").click(function() {
+    $("#txtnombreproveedor").val("");
+    $("#txtrfc").val("");
+    $("#txtdiascredito").val("");
+    $("#txtdescuento").val("");
+    $("#formulario").show("slow");
+    $("#mostrarDivProveedor").hide("slow");
+});
 
 $(document).ready(function() {
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
     $("#btneditarproveedor").hide();
+
     $("#consultaProveedor").load("consultarProveedor.php", function() {
         $('#dtproveedor').dataTable();
     });
@@ -186,19 +178,10 @@ $(document).ready(function() {
         $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz');
         $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz');
     });
+});
 
-    $("#btncanceloProvedor").click(function() {
-        $("#txtnombreproveedor").val("");
-        $("#txtrfc").val("");
-        $("#txtdiascredito").val("");
-        $("#txtdescuento").val("");
-        $("#formulario").show("slow");
-        $("#mostrarDivProveedor").hide("slow");
-
-    });
-
-    $("#btneditarproveedor").click(function() {
-        alertify.alert("No es posible editar por el momento...");
+$("#btneditarproveedor").click(function() {
+    alertify.alert("No es posible editar por el momento...");
 //        var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
 //        var rfc = $("#txtrfc").val().toUpperCase();
 //        var diascredito = $("#txtdiascredito").val();
@@ -288,111 +271,95 @@ $(document).ready(function() {
 //                return false;
 //            }
 //        });
-    });
+});
 
-    $("#txtrfc").keyup(function() {
-        var rfc = $("#txtrfc").val();
-        var info = "rfc=" + rfc;
-        $.get('verificandoProvedor.php', info, function(x) {
-            if (x == 1) {
-                $("#btneditardireccionproveedor").hide();
-                $("#btnguardardireccion").show();
-                $("#btneditarproveedor").hide();
-                $("#btnguardarproveedor").show();
-                $("#txtdesctpf").val("");
-                $("#txtdesctpp").val("");
-                $("#txtnombreproveedor").val("");
-                $("#txtemail").val("");
-                $("#txtdiascredito").val("");
-                $("#txtdescuento").val("");
-                $(".direccion").val("");
-                $("#BuscarCodigo").val("");
-                $.get('borrarVariable.php');
-            } else {
-                $("#btneditardireccionproveedor").show();
-                $("#btnguardardireccion").hide();
-                $("#btneditarproveedor").show();
-                $("#btnguardarproveedor").hide();
+$("#txtrfc").keyup(function() {
+    var rfc = $("#txtrfc").val();
+    var info = "rfc=" + rfc;
+    $.get('verificandoProvedor.php', info, function(x) {
+        if (x == 1) {
+            $("#btneditardireccionproveedor").hide();
+            $("#btnguardardireccion").show();
+            $("#btneditarproveedor").hide();
+            $("#btnguardarproveedor").show();
+            $("#txtdesctpf").val("");
+            $("#txtdesctpp").val("");
+            $("#txtnombreproveedor").val("");
+            $("#txtemail").val("");
+            $("#txtdiascredito").val("");
+            $("#txtdescuento").val("");
+            $(".direccion").val("");
+            $("#BuscarCodigo").val("");
+            $.get('borrarVariable.php');
+        } else {
+            $("#btneditardireccionproveedor").show();
+            $("#btnguardardireccion").hide();
+            $("#btneditarproveedor").show();
+            $("#btnguardarproveedor").hide();
 
-                lista = JSON.parse(x);
-                console.log(lista);
-                $("#botonNinja").trigger("click");
+            lista = JSON.parse(x);
+            console.log(lista);
+            $("#botonNinja").trigger("click");
 
-                $.each(lista, function(ind, elem) {
-                    if (ind == "tipoProveedor") {
-                        if (elem == "FISICA") {
-                            $("#fisica").prop("checked", true);
-//                            $("#moral").attr("checked", false);
-                        }
-                        if (elem == "MORAL") {
-                            $("#moral").prop("checked", true);
-//                            $("#fisica").attr("checked", false);
-                        }
+            $.each(lista, function(ind, elem) {
+                if (ind == "tipoProveedor") {
+                    if (elem == "FISICA") {
+                        $("#fisica").prop("checked", true);
                     }
-                    if (ind == "cp") {
-                        $("#txtpostal").val(elem);
+                    if (elem == "MORAL") {
+                        $("#moral").prop("checked", true);
+                    }
+                }
+                if (ind == "cp") {
+                    $("#txtpostal").val(elem);
 
-                    }
-                    if (ind == "nombre") {
-                        $("#txtnombreproveedor").val(elem);
-                    }
-                    if (ind == "email") {
-                        $("#txtemail").val(elem);
-                    }
-                    if (ind == "diasCredito") {
-                        $("#txtdiascredito").val(elem);
-                    }
-                    if (ind == "descuentoPorFactura") {
-                        $("#txtdesctpf").val(elem);
-                    }
-                    if (ind == "descuentoPorProntoPago") {
-                        $("#txtdesctpp").val(elem);
-                    }
-                    if (ind == "calle") {
-                        $("#txtcalle").val(elem);
-                    }
-                    if (ind == "numeroExterior") {
-                        $("#txtnumeroexterior").val(elem);
-                    }
-                    if (ind == "numeroExterior") {
-                        $("#txtnumerointerior").val(elem);
-                    }
-                    if (ind == "cruzamientos") {
-                        $("#txtcruzamientos").val(elem);
-                    }
+                }
+                if (ind == "nombre") {
+                    $("#txtnombreproveedor").val(elem);
+                }
+                if (ind == "email") {
+                    $("#txtemail").val(elem);
+                }
+                if (ind == "diasCredito") {
+                    $("#txtdiascredito").val(elem);
+                }
+                if (ind == "descuentoPorFactura") {
+                    $("#txtdesctpf").val(elem);
+                }
+                if (ind == "descuentoPorProntoPago") {
+                    $("#txtdesctpp").val(elem);
+                }
+                if (ind == "calle") {
+                    $("#txtcalle").val(elem);
+                }
+                if (ind == "numeroExterior") {
+                    $("#txtnumeroexterior").val(elem);
+                }
+                if (ind == "numeroExterior") {
+                    $("#txtnumerointerior").val(elem);
+                }
+                if (ind == "cruzamientos") {
+                    $("#txtcruzamientos").val(elem);
+                }
 
-                    if (ind == "idDireccion") {
-                        $("#extra").val(elem);
+                if (ind == "idDireccion") {
+                    $("#extra").val(elem);
 
-                    }
-                    if (ind == "ciudad") {
-                        alert(elem);
-                        $("#txtciudad").val(elem);
+                }
+                if (ind == "ciudad") {
+                    alert(elem);
+                    $("#txtciudad").val(elem);
 
-                    }
-                    if (ind == "estado") {
-                        $("#txtestado").val(elem);
+                }
+                if (ind == "estado") {
+                    $("#txtestado").val(elem);
 
-                    }
-                    if (ind == "colonia") {
-                        $("#BuscarCodigo").val(elem);
-
-
-                    }
-                    //                    if (ind == "32") {
-                    //                        $("#txtciudad").val(elem);
-                    //                    }
-                    //                    if (ind == "34") {
-                    //                        $("#txtestado").val(elem);
-                    //                    }
-                    //                    if (ind == "30") {
-                    //                        
-                    //                        $("#selectcolonia").val(elem);
-                    //                    }
-                });
-            }
-            //            $("#btnguardardireccion").trigger("click");
-        });
+                }
+                if (ind == "colonia") {
+                    $("#BuscarCodigo").val(elem);
+                }
+            });
+        }
     });
 });
 
@@ -527,52 +494,29 @@ $("#btnguardarproveedor").click(function() {
     var datosJSON = JSON.stringify(datos);
 
     $.post('guardaProveedor.php', {datos: datosJSON}, function(rs) {
+        if (rs == 0) {
+            $("#txtnombreproveedor").val("");
+            $("#txtrfc").val("");
+            $("#txtdiascredito").val("");
+            $("#txtdescuento").val("");
+            $("#txtemail").val("");
+            $("#txtdesctpf").val("");
+            $("#txtdesctpp").val("");
 
+            $("#txtcalle").val("");
+            $("#txtnumeroexterior").val("");
+            $("#txtnumerointerior").val("");
+            $("#txtcruzamientos").val("");
+            $("#txtpostal").val("");
+            $("#txtestado").val("");
+            $("#BuscarCodigo").val("");
+            $("#txtciudad").val("");
+
+            alertify.success("Proveedor agregador correctamente");
+        }
+        if (rs == 1) {
+            alertify.error("Error al guardar");
+        }
     });
-
-//    var info = "nombre=" + nombre + "&rfc=" + rfc + "&diascredito=" + diascredito + "&desctpf=" + desctpf + "&desctpp=" + desctpp + "&email=" + email + "&radios=" + radios;
-//    $.get('guardaProveedor.php', info, function(respuesta) {
-//        var info = respuesta;
-//        if (info == 2)
-//        {
-//            alertify.error("RFC no valido");
-//            return false;
-//        }
-//        if (info == 3)
-//        {
-//            alertify.error("Error al gurdar direccion");
-//            return false;
-//        }
-//        if (info == 1)
-//        {
-//            alertify.error("No agregaste una direccion");
-//            return false;
-//        } else {
-//            $("#txtdesctpf").val("");
-//            $("#txtdesctpp").val("");
-//            $("#txtnombreproveedor").val("");
-//            $("#txtrfc").val("");
-//            $("#txtemail").val("");
-//            $("#txtdiascredito").val("");
-//            $("#txtdescuento").val("");
-//            $(".direccion").val("");
-//
-//            $("#formulario").show("slow");
-//            $("#mostrarDivProveedor").hide("slow");
-//            $("#frmrfc").removeClass("has-success");
-//            $("#frmrfc").removeClass("has-error");
-//            $("#frmemail").removeClass("has-success");
-//            $("#frmemail").removeClass("has-error");
-//            $("#consultaProveedor").load("consultarProveedor.php", function() {
-//                $('#dtproveedor').dataTable();
-//            });
-//            $("#selectProveedor").load("mostrarProveedores.php", function() {
-//                $("#selectProveedor").selectpicker('refresh');
-//            });
-//            $("#txtrfc").focus();
-//            alertify.success("Proveedor agregado correctamente");
-//            return false;
-//        }
-//    });
 });
 

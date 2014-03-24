@@ -16,8 +16,9 @@ $dire = $datos[1];
 $telefonos = $datos[2];
 $emails = $datos[3];
 
-$proveedor->setTipoProveedor($prov->radio);
+$proveedor->setTipoProveedor($prov->radios);
 $proveedor->setNombre($prov->nombre);
+$proveedor->setRfc($prov->rfc);
 $proveedor->setDiasCredito($prov->diascredito);
 $proveedor->setDesctfactura($prov->desctpf);
 $proveedor->setDesctprontopago($prov->desctpp);
@@ -36,8 +37,13 @@ $ctrlemails = count($emails);
 
 $cn->Conectarse();
 $dao->superGuardadorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$cn->cerrarBd();
 
-
+if ($dao == true) {
+    echo 0;
+} else {
+    echo 1;
+}
 
 
 
