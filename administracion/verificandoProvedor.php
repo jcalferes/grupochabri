@@ -11,9 +11,8 @@ $dire = $dao->puleaDireccion($rfc);
 $tele = $dao->puleaTelefono($rfc);
 $emai = $dao->puleaEmails($rfc);
 if ($prov != false) {
-
     while ($pdt = mysql_fetch_array($prov)) {
-        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"], 'descuentopf' => $pdt["descuentoPorFactura"], 'descuentopp' => $pdt["descuentoPorProntoPago"], 'tipoProveedor' => $pdt["tipoProveedor"]);
+        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"], 'descuentopf' => $pdt["descuentoPorFactura"], 'descuentopp' => $pdt["descuentoPorProntoPago"], 'tipoproveedor' => $pdt["tipoProveedor"]);
     }
     while ($ddt = mysql_fetch_array($dire)) {
         $arr['direccion']['datos'] = array('calle' => $ddt["calle"], 'numeroext' => $ddt["numeroExterior"], 'numeroint' => $ddt["numeroInterior"], 'cruzamientos' => $ddt["cruzamientos"], 'postal' => $ddt["postal"], 'colonia' => $ddt["colonia"], 'ciudad' => $ddt["ciudad"], 'estado' => $ddt["estado"]);
@@ -22,8 +21,9 @@ if ($prov != false) {
         $arr['telefonos']['datos'] = array($tdt["telefono"]);
     }
     while ($edt = mysql_fetch_array($emai)) {
-        $arr['email']['datos'] = array($edt["email"]);
+        $arr['emails']['datos'] = array($edt["email"]);
     }
-
     echo json_encode($arr);
-} 
+} else {
+    echo 0;
+}

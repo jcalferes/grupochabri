@@ -2,6 +2,7 @@ var cuantostel = 0;
 var cuantosemail = 0;
 var txttel = "mastel";
 var txtemail = "masemail";
+var cadena = "";
 
 function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios) {
     this.nombre = nombre;
@@ -276,90 +277,122 @@ $("#btneditarproveedor").click(function() {
 $("#txtrfc").keyup(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
-    $.get('verificandoProvedor.php', info, function(x) {
-        if (x == 1) {
-            $("#btneditardireccionproveedor").hide();
-            $("#btnguardardireccion").show();
-            $("#btneditarproveedor").hide();
-            $("#btnguardarproveedor").show();
-            $("#txtdesctpf").val("");
-            $("#txtdesctpp").val("");
-            $("#txtnombreproveedor").val("");
-            $("#txtemail").val("");
-            $("#txtdiascredito").val("");
-            $("#txtdescuento").val("");
-            $(".direccion").val("");
-            $("#BuscarCodigo").val("");
-            $.get('borrarVariable.php');
+    $.get('verificandoProvedor.php', info, function(rs) {
+        if (rs == 0) {
+            alert("Nada");
         } else {
-            $("#btneditardireccionproveedor").show();
-            $("#btnguardardireccion").hide();
-            $("#btneditarproveedor").show();
-            $("#btnguardarproveedor").hide();
+            var arr = $.parseJSON(rs);
+            $("#txtnombreproveedor").val(arr.proveedor.datos.nombre);
+            $("#txtdiascredito").val(arr.proveedor.datos.diascredito);
+            $("#txtdesctpf").val(arr.proveedor.datos.descuentopf);
+            $("#txtdesctpp").val(arr.proveedor.datos.descuentopp);
+            var radios = arr.proveedor.datos.tipoproveedor;
+            if (radios == "FISICA") {
+                $("#fisica").prop("checked", true);
+            }
+            if (radios == "MORAL") {
+                $("#moral").prop("checked", true);
+            }
 
-            lista = JSON.parse(x);
-            console.log(lista);
-            $("#botonNinja").trigger("click");
+            $("#txtcalle").val(arr.direccion.datos.calle);
+            $("#txtnumeroexterior").val(arr.direccion.datos.numeroext);
+            $("#txtnumerointerior").val(arr.direccion.datos.numeroint);
+            $("#txtcruzamientos").val(arr.direccion.datos.cruzamientos);
+            $("#txtpostal").val(arr.direccion.datos.postal);
+            $("#txtestado").val(arr.direccion.datos.estado);
+            $("#BuscarCodigo").val(arr.direccion.datos.colonia);
+            $("#txtciudad").val(arr.direccion.datos.ciudad);
 
-            $.each(lista, function(ind, elem) {
-                if (ind == "tipoProveedor") {
-                    if (elem == "FISICA") {
-                        $("#fisica").prop("checked", true);
-                    }
-                    if (elem == "MORAL") {
-                        $("#moral").prop("checked", true);
-                    }
-                }
-                if (ind == "cp") {
-                    $("#txtpostal").val(elem);
-
-                }
-                if (ind == "nombre") {
-                    $("#txtnombreproveedor").val(elem);
-                }
-                if (ind == "email") {
-                    $("#txtemail").val(elem);
-                }
-                if (ind == "diasCredito") {
-                    $("#txtdiascredito").val(elem);
-                }
-                if (ind == "descuentoPorFactura") {
-                    $("#txtdesctpf").val(elem);
-                }
-                if (ind == "descuentoPorProntoPago") {
-                    $("#txtdesctpp").val(elem);
-                }
-                if (ind == "calle") {
-                    $("#txtcalle").val(elem);
-                }
-                if (ind == "numeroExterior") {
-                    $("#txtnumeroexterior").val(elem);
-                }
-                if (ind == "numeroExterior") {
-                    $("#txtnumerointerior").val(elem);
-                }
-                if (ind == "cruzamientos") {
-                    $("#txtcruzamientos").val(elem);
-                }
-
-                if (ind == "idDireccion") {
-                    $("#extra").val(elem);
-
-                }
-                if (ind == "ciudad") {
-                    alert(elem);
-                    $("#txtciudad").val(elem);
-
-                }
-                if (ind == "estado") {
-                    $("#txtestado").val(elem);
-
-                }
-                if (ind == "colonia") {
-                    $("#BuscarCodigo").val(elem);
-                }
-            });
+            var contartels = arr.telefonos.datos.length;
+//            for(){
+//                
+//            }
+            var contaremas = arr.emails.datos.length;
+            
         }
+//        if (x == 1) {
+//            $("#btneditardireccionproveedor").hide();
+//            $("#btnguardardireccion").show();
+//            $("#btneditarproveedor").hide();
+//            $("#btnguardarproveedor").show();
+//            $("#txtdesctpf").val("");
+//            $("#txtdesctpp").val("");
+//            $("#txtnombreproveedor").val("");
+//            $("#txtemail").val("");
+//            $("#txtdiascredito").val("");
+//            $("#txtdescuento").val("");
+//            $(".direccion").val("");
+//            $("#BuscarCodigo").val("");
+//            $.get('borrarVariable.php');
+//        } else {
+//            $("#btneditardireccionproveedor").show();
+//            $("#btnguardardireccion").hide();
+//            $("#btneditarproveedor").show();
+//            $("#btnguardarproveedor").hide();
+//
+//            lista = JSON.parse(x);
+//            console.log(lista);
+//            $("#botonNinja").trigger("click");
+//
+//            $.each(lista, function(ind, elem) {
+//                if (ind == "tipoProveedor") {
+//                    if (elem == "FISICA") {
+//                        $("#fisica").prop("checked", true);
+//                    }
+//                    if (elem == "MORAL") {
+//                        $("#moral").prop("checked", true);
+//                    }
+//                }
+//                if (ind == "cp") {
+//                    $("#txtpostal").val(elem);
+//
+//                }
+//                if (ind == "nombre") {
+//                    $("#txtnombreproveedor").val(elem);
+//                }
+//                if (ind == "email") {
+//                    $("#txtemail").val(elem);
+//                }
+//                if (ind == "diasCredito") {
+//                    $("#txtdiascredito").val(elem);
+//                }
+//                if (ind == "descuentoPorFactura") {
+//                    $("#txtdesctpf").val(elem);
+//                }
+//                if (ind == "descuentoPorProntoPago") {
+//                    $("#txtdesctpp").val(elem);
+//                }
+//                if (ind == "calle") {
+//                    $("#txtcalle").val(elem);
+//                }
+//                if (ind == "numeroExterior") {
+//                    $("#txtnumeroexterior").val(elem);
+//                }
+//                if (ind == "numeroExterior") {
+//                    $("#txtnumerointerior").val(elem);
+//                }
+//                if (ind == "cruzamientos") {
+//                    $("#txtcruzamientos").val(elem);
+//                }
+//
+//                if (ind == "idDireccion") {
+//                    $("#extra").val(elem);
+//
+//                }
+//                if (ind == "ciudad") {
+//                    alert(elem);
+//                    $("#txtciudad").val(elem);
+//
+//                }
+//                if (ind == "estado") {
+//                    $("#txtestado").val(elem);
+//
+//                }
+//                if (ind == "colonia") {
+//                    $("#BuscarCodigo").val(elem);
+//                }
+//            });
+//        }
     });
 });
 
