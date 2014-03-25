@@ -28,6 +28,7 @@ $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
     $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
+
     aplicarValidacion();
 
 });
@@ -41,6 +42,7 @@ $("#btnotroemail").click(function() {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
     $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
+
 });
 
 function borratel(cadena) {
@@ -279,9 +281,34 @@ $("#txtrfc").keyup(function() {
     var info = "rfc=" + rfc;
     $.get('verificandoProvedor.php', info, function(rs) {
         if (rs == 0) {
-            alert("Nada");
+            $("#tbltelefonos tbody tr").remove();
+            $("#tblemails tbody tr").remove();
+
+            $("#btnvertele").attr("disabled", "disabled");
+            $("#btnveremail").attr("disabled", "disabled");
+
+            $("#txtnombreproveedor").val("");
+            $("#txtdiascredito").val("");
+            $("#txtdesctpf").val("");
+            $("#txtdesctpp").val("");
+
+            $("#txtcalle").val("");
+            $("#txtnumeroexterior").val("");
+            $("#txtnumerointerior").val("");
+            $("#txtcruzamientos").val("");
+            $("#txtpostal").val("");
+            $("#txtestado").val("");
+            $("#BuscarCodigo").val("");
+            $("#txtciudad").val("");
+
         } else {
             var arr = $.parseJSON(rs);
+            $("#tbltelefonos tbody tr").remove();
+            $("#tblemails tbody tr").remove();
+
+            $("#btnvertele").removeAttr("disabled", "disabled");
+            $("#btnveremail").removeAttr("disabled", "disabled");
+
             $("#txtnombreproveedor").val(arr.proveedor.datos.nombre);
             $("#txtdiascredito").val(arr.proveedor.datos.diascredito);
             $("#txtdesctpf").val(arr.proveedor.datos.descuentopf);
@@ -304,96 +331,25 @@ $("#txtrfc").keyup(function() {
             $("#txtciudad").val(arr.direccion.datos.ciudad);
 
             var contartels = arr.telefonos.datos.length;
-//            for(){
-//                
-//            }
             var contaremas = arr.emails.datos.length;
-            
+
+            for (var i = 0; i < contartels; i++) {
+                $("#tbltelefonos tbody").append("<tr><td>" + arr.telefonos.datos[i].telefono + "</td><td>" + arr.telefonos.datos[i].idTelefonos + "</td></tr>");
+            }
+            for (var i = 0; i < contaremas; i++) {
+                $("#tblemails tbody").append("<tr><td>" + arr.emails.datos[i].email + "</td><td>" + arr.emails.datos[i].idEmail + "</td></tr>");
+            }
+
         }
-//        if (x == 1) {
-//            $("#btneditardireccionproveedor").hide();
-//            $("#btnguardardireccion").show();
-//            $("#btneditarproveedor").hide();
-//            $("#btnguardarproveedor").show();
-//            $("#txtdesctpf").val("");
-//            $("#txtdesctpp").val("");
-//            $("#txtnombreproveedor").val("");
-//            $("#txtemail").val("");
-//            $("#txtdiascredito").val("");
-//            $("#txtdescuento").val("");
-//            $(".direccion").val("");
-//            $("#BuscarCodigo").val("");
-//            $.get('borrarVariable.php');
-//        } else {
-//            $("#btneditardireccionproveedor").show();
-//            $("#btnguardardireccion").hide();
-//            $("#btneditarproveedor").show();
-//            $("#btnguardarproveedor").hide();
-//
-//            lista = JSON.parse(x);
-//            console.log(lista);
-//            $("#botonNinja").trigger("click");
-//
-//            $.each(lista, function(ind, elem) {
-//                if (ind == "tipoProveedor") {
-//                    if (elem == "FISICA") {
-//                        $("#fisica").prop("checked", true);
-//                    }
-//                    if (elem == "MORAL") {
-//                        $("#moral").prop("checked", true);
-//                    }
-//                }
-//                if (ind == "cp") {
-//                    $("#txtpostal").val(elem);
-//
-//                }
-//                if (ind == "nombre") {
-//                    $("#txtnombreproveedor").val(elem);
-//                }
-//                if (ind == "email") {
-//                    $("#txtemail").val(elem);
-//                }
-//                if (ind == "diasCredito") {
-//                    $("#txtdiascredito").val(elem);
-//                }
-//                if (ind == "descuentoPorFactura") {
-//                    $("#txtdesctpf").val(elem);
-//                }
-//                if (ind == "descuentoPorProntoPago") {
-//                    $("#txtdesctpp").val(elem);
-//                }
-//                if (ind == "calle") {
-//                    $("#txtcalle").val(elem);
-//                }
-//                if (ind == "numeroExterior") {
-//                    $("#txtnumeroexterior").val(elem);
-//                }
-//                if (ind == "numeroExterior") {
-//                    $("#txtnumerointerior").val(elem);
-//                }
-//                if (ind == "cruzamientos") {
-//                    $("#txtcruzamientos").val(elem);
-//                }
-//
-//                if (ind == "idDireccion") {
-//                    $("#extra").val(elem);
-//
-//                }
-//                if (ind == "ciudad") {
-//                    alert(elem);
-//                    $("#txtciudad").val(elem);
-//
-//                }
-//                if (ind == "estado") {
-//                    $("#txtestado").val(elem);
-//
-//                }
-//                if (ind == "colonia") {
-//                    $("#BuscarCodigo").val(elem);
-//                }
-//            });
-//        }
     });
+});
+
+$("#btnvertele").click(function() {
+    $('#mdltelefonos').modal('show');
+});
+
+$("#btnveremail").click(function() {
+    $('#mdlemails').modal('show');
 });
 
 $("#canceloDireccion").click(function() {

@@ -1278,7 +1278,7 @@ class dao {
     function puleaTelefono($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT t.telefono FROM proveedores p INNER JOIN telefonos t ON p.idProveedor = t.idPropietario WHERE t.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
+        $sql = "SELECT t.idTelefonos, t.telefono FROM proveedores p INNER JOIN telefonos t ON p.idProveedor = t.idPropietario WHERE t.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
         $rs = mysql_query($sql);
         $datos = mysql_affected_rows();
         if ($rs == false) {
@@ -1296,7 +1296,7 @@ class dao {
     function puleaEmails($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT e.email FROM proveedores p INNER JOIN emails e ON p.idProveedor = e.idPropietario WHERE e.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
+        $sql = "SELECT e.idEmail, e.email FROM proveedores p INNER JOIN emails e ON p.idProveedor = e.idPropietario WHERE e.tipoPropietario = 'PROVEEDOR' AND p.rfc = '$rfc'";
         $rs = mysql_query($sql);
         $datos = mysql_affected_rows();
         if ($rs == false) {
