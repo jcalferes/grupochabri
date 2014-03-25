@@ -126,7 +126,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
+                        <h4 class="modal-title" id="myModalLabel">Contacto - Telefono</h4>
                     </div>
                     <form>
                         <div class="modal-body">
@@ -151,7 +151,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
+                        <h4 class="modal-title" id="myModalLabel">Contacto - Email</h4>
                     </div>
                     <form>
                         <div class="modal-body">

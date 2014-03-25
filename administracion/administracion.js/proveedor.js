@@ -28,9 +28,7 @@ $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
     $("#frmtel").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
-
     aplicarValidacion();
-
 });
 
 function aplicarValidacion() {
@@ -42,7 +40,7 @@ $("#btnotroemail").click(function() {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
     $("#frmemail").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
-
+    aplicarValidacion();
 });
 
 function borratel(cadena) {
@@ -281,6 +279,11 @@ $("#txtrfc").keyup(function() {
     var info = "rfc=" + rfc;
     $.get('verificandoProvedor.php', info, function(rs) {
         if (rs == 0) {
+            $("#btneditardireccionproveedor").hide();
+            $("#btnguardardireccionproveedor").show();
+            $("#btneditarproveedor").hide();
+            $("#btnguardarproveedor").show();
+
             $("#tbltelefonos tbody tr").remove();
             $("#tblemails tbody tr").remove();
 
@@ -303,6 +306,11 @@ $("#txtrfc").keyup(function() {
 
         } else {
             var arr = $.parseJSON(rs);
+            $("#btneditardireccionproveedor").show();
+            $("#btnguardardireccionproveedor").hide();
+            $("#btneditarproveedor").show();
+            $("#btnguardarproveedor").hide();
+
             $("#tbltelefonos tbody tr").remove();
             $("#tblemails tbody tr").remove();
 
@@ -334,10 +342,10 @@ $("#txtrfc").keyup(function() {
             var contaremas = arr.emails.datos.length;
 
             for (var i = 0; i < contartels; i++) {
-                $("#tbltelefonos tbody").append("<tr><td>" + arr.telefonos.datos[i].telefono + "</td><td>" + arr.telefonos.datos[i].idTelefonos + "</td></tr>");
+                $("#tbltelefonos tbody").append("<tr><td>" + arr.telefonos.datos[i].telefono + "</td><td><button type='button' class='btn btn-xs' onclick='eliminardatoscontacto(" + arr.telefonos.datos[i].idTelefonos + ", 0);'><span class='glyphicon glyphicon-remove'></span></button></td></tr>");
             }
             for (var i = 0; i < contaremas; i++) {
-                $("#tblemails tbody").append("<tr><td>" + arr.emails.datos[i].email + "</td><td>" + arr.emails.datos[i].idEmail + "</td></tr>");
+                $("#tblemails tbody").append("<tr><td>" + arr.emails.datos[i].email + "</td><td><button type='button' class='btn btn-xs' onclick='eliminardatoscontacto(" + arr.emails.datos[i].idEmail + ", 1);'><span class='glyphicon glyphicon-remove'></span></button></td></tr>");
             }
 
         }
@@ -457,7 +465,7 @@ $("#btnguardarproveedor").click(function() {
         }
     });
     if (ctrltelefonos == 1) {
-        alertify.error("Hay un campo de telefono sin vacio");
+        alertify.error("Hay un campo de telefono vacio");
         return false;
     }
 
@@ -508,4 +516,8 @@ $("#btnguardarproveedor").click(function() {
         }
     });
 });
+
+function eliminardatoscontacto(id,tipo) {
+    alert("Entre");
+}
 
