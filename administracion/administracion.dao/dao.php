@@ -1320,5 +1320,33 @@ class dao {
         return $rs;
     }
 
+    function eliminartTelefonos($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "DELETE FROM telefonos WHERE idTelefonos = '$id'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            $rs = 00;
+        }
+        $cn->cerrarBd();
+        return $rs;
+    }
+
+    function eliminarEmails($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "DELETE FROM emails WHERE idEmail = '$id'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            $rs = 01;
+        }
+        $cn->cerrarBd();
+        return $rs;
+    }
+
     //==========================================================================
 }

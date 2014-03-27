@@ -275,6 +275,7 @@ $("#btneditarproveedor").click(function() {
 });
 
 $("#txtrfc").keyup(function() {
+    alert("Entre");
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
     $.get('verificandoProvedor.php', info, function(rs) {
@@ -347,7 +348,6 @@ $("#txtrfc").keyup(function() {
             for (var i = 0; i < contaremas; i++) {
                 $("#tblemails tbody").append("<tr><td>" + arr.emails.datos[i].email + "</td><td><button type='button' class='btn btn-xs' onclick='eliminardatoscontacto(" + arr.emails.datos[i].idEmail + ", 1);'><span class='glyphicon glyphicon-remove'></span></button></td></tr>");
             }
-
         }
     });
 });
@@ -518,15 +518,15 @@ $("#btnguardarproveedor").click(function() {
 });
 
 function eliminardatoscontacto(id, tipo) {
-    if (tipo == 0) {
-        var info = "id=" + id + "&tipo=" + tipo;
-        $.get('verificandoProvedor.php', info, function(rs) {
-
-        });
-    } else {
-
-    }
-    actualizaTablasTelMail();
+    var info = "id=" + id + "&tipo=" + tipo;
+    $.get('eliminarContactos.php', info, function(rs) {
+        if (rs == 00 || rs == 01) {
+            alertify.success("Datos eliminados");
+            actualizaTablasTelMail();
+        } else {
+            alert(rs);
+        }
+    });
 }
 
 function actualizaTablasTelMail() {
