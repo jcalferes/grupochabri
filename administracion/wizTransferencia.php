@@ -19,6 +19,7 @@
                 <br/>
                 <hr>
                 <br>
+                <form>
                 <table class="table table-striped" id="tablaTransferencias">
                     <thead>
                     <th>Codigo</th>
@@ -29,9 +30,14 @@
                      <th>Total</th>
                     </thead>
                 </table>
+                </form>
                 <hr>
                 <form class="form-inline text-right">
+                    <param class="myCodigo" value="inicial">
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <form class="form-inline text-right">
+                    <input type="button" id="mandarPedido" value="Aceptar"/>
                 </form>
             </section>
         </div>
