@@ -32,7 +32,7 @@ $("#btnotrotel").click(function() {
 });
 
 function aplicarValidacion() {
-    $(".telefono").validCampoFranz('0123456789');
+    $(".telefono").validCampoFranz('0123456789()');
     $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
 }
 
@@ -166,7 +166,7 @@ $(document).ready(function() {
     });
 
     $(function() {
-        $(".telefono").validCampoFranz('0123456789');
+        $(".telefono").validCampoFranz('0123456789()');
         $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
         $('#txtdiascredito').validCampoFranz('0123456789');
@@ -174,9 +174,9 @@ $(document).ready(function() {
         $('#txtdesctpp').validCampoFranz('0123456789');
         $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
-        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz');
-        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz');
-        $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz');
+        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+        $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
     });
 });
 
@@ -288,6 +288,15 @@ $("#btneditarproveedor").click(function() {
             $("#txtestado").val("");
             $("#BuscarCodigo").val("");
             $("#txtciudad").val("");
+
+            $("#btnvertele").attr("disabled", "disabled");
+            $("#btnveremail").attr("disabled", "disabled");
+
+            $("#btneditardireccionproveedor").hide();
+            $("#btnguardardireccionproveedor").show();
+            $("#canceloDireccion").show();
+            $("#btneditarproveedor").hide();
+            $("#btnguardarproveedor").show();
 
             $("#mastels").remove();
             $("#masemails").remove();
@@ -646,6 +655,9 @@ $("#btnguardarproveedor").click(function() {
             $("#txtestado").val("");
             $("#BuscarCodigo").val("");
             $("#txtciudad").val("");
+
+            $("#btnvertele").attr("disabled", "disabled");
+            $("#btnveremail").attr("disabled", "disabled");
 
             $("#mastels").remove();
             $("#masemails").remove();
