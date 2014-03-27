@@ -1,5 +1,4 @@
 function verficaPostal() {
-    alert("entro");
     $("#txtestado").val("");
     $("#txtciudad").val("");
     $("#selectColonia").removeAttr("disabled", "disabled");

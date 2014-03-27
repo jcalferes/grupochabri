@@ -74,7 +74,7 @@ $verificasession->validaSesion();
                         <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
                         <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas Precios</a></li>
+                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                         <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>

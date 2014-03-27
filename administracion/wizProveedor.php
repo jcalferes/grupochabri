@@ -37,11 +37,13 @@
                     </div>
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
                         <input id="btnotrotel" type="button" class="btn btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemail" type="button" class="btn btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
                     </div>
@@ -118,6 +120,51 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!-- Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="mdltelefonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Contacto - Telefono</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div id="lugartelefonos">
+                                <div class='table-responsive'>
+                                    <table class='table table-hover' id="tbltelefonos">
+                                        <thead><th>Numero</th><th></th></thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="mdlemails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Contacto - Email</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <table class='table table-hover' id="tblemails">
+                                <thead><th>Email</th><th></th></thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div class="modal fade" id="mdlverdireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
