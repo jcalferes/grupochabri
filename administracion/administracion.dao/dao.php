@@ -813,12 +813,8 @@ class dao {
     function obtieneDireccionDeProveedor($id) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, c.cp, c.asenta, c.municipio, c.estado, c.ciudad FROM direcciones d "
-                . " INNER JOIN cpostales c on c.idcpostales = d.idcpostales"
-                . " WHERE d.idDireccion = '$id'";
-//        mysql_set_charset('utf8');
+        $sql = "SELECT * FROM direcciones WHERE idDireccion = '$id'";
         $datos = mysql_query($sql, $cn->Conectarse());
-//        mysql_set_charset('utf8');
         return $datos;
     }
 
@@ -1351,7 +1347,7 @@ class dao {
 
     function superEditorProveedores(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
         //Sacar id proveedor
-        $sqlIdProveedor = "SELECTM idProveedor FROM proveedores WHERE rfc = '" . $proveedor->getRfc() . "'";
+        $sqlIdProveedor = "SELECT idProveedor, idDireccion FROM proveedores WHERE rfc = '" . $proveedor->getRfc() . "'";
         mysql_query("START TRANSACTION;");
         $ctrlIdProveedor = mysql_query($sqlIdProveedor);
         if ($ctrlIdProveedor == false) {
@@ -1359,14 +1355,22 @@ class dao {
             mysql_query("ROLLBACK;");
         } else {
             while ($rs = mysql_fetch_array($ctrlIdProveedor)) {
-                $idProveedor = $rs["ID"];
+                $idProveedor = $rs["idProveedor"];
+                $idDireccion = $rs["idDireccion"];
             }
         }
         //Editar Proveedor
-        $sqlEditarProveedor = "UPDATE proveedores SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "'";
+        $sqlEditarProveedor = "UPDATE proveedores SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "' WHERE idProveedor='$idProveedor'";
         $ctrlEditarProveedor = mysql_query($sqlEditarProveedor);
         if ($ctrlEditarProveedor == false) {
             $ctrlEditarProveedor = mysql_error();
+            mysql_query("ROLLBACK;");
+        }
+        //Editar direccion
+        $sqlEditarEditarDireccion = "UPDATE direcciones  SET calle='" . $direccion->getCalle() . "', numeroExterior='" . $direccion->getNumeroexterior() . "', numeroInterior='" . $direccion->getNumerointerior() . "', cruzamientos='" . $direccion->getCruzamientos() . "', postal='" . $direccion->getPostal() . "', colonia='" . $direccion->getColonia() . "', ciudad='" . $direccion->getCiudad() . "', estado='" . $direccion->getEstado() . "' WHERE idDireccion= '$idDireccion'";
+        $ctrlEditarDireccion = mysql_query($sqlEditarEditarDireccion);
+        if ($ctrlEditarDireccion == false) {
+            $ctrlEditarDireccion = mysql_error();
             mysql_query("ROLLBACK;");
         }
         //Editar agregar telefonos

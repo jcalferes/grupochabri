@@ -40,12 +40,16 @@
                         <button id="btnvertele" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
                         <input id="btnotrotel" type="button" class="btn btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
+                        <div id="mastels">
+                        </div>
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
                         <button id="btnveremail" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemail" type="button" class="btn btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
+                        <div id="masemails">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>
