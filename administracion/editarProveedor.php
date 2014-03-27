@@ -3,34 +3,45 @@
 include './administracion.clases/Proveedor.php';
 include './administracion.clases/Direccion.php';
 include './administracion.dao/dao.php';
-session_start();
+include_once '../daoconexion/daoConeccion.php';
+
 $proveedor = new Proveedor();
 $direccion = new Direccion();
+$cn = new coneccion();
 $dao = new dao();
-$rfc = $_GET["rfc"];
 
-if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/D', $rfc)) {
-    echo 2;
+$datos = json_decode($_POST['datos']);
+
+$prov = $datos[0];
+$dire = $datos[1];
+$telefonos = $datos[2];
+$emails = $datos[3];
+
+$proveedor->setTipoProveedor($prov->radios);
+$proveedor->setNombre($prov->nombre);
+$proveedor->setRfc($prov->rfc);
+$proveedor->setDiasCredito($prov->diascredito);
+$proveedor->setDesctfactura($prov->desctpf);
+$proveedor->setDesctprontopago($prov->desctpp);
+
+$direccion->setCalle($dire->calle);
+$direccion->setNumeroexterior($dire->numeroexterior);
+$direccion->setNumerointerior($dire->numerointerior);
+$direccion->setCruzamientos($dire->cruzamientos);
+$direccion->setPostal($dire->postal);
+$direccion->setColonia($dire->colonia);
+$direccion->setCiudad($dire->ciudad);
+$direccion->setEstado($dire->estado);
+
+$ctrltelefonos = count($telefonos);
+$ctrlemails = count($emails);
+
+$cn->Conectarse();
+$dao->superGuardadorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$cn->cerrarBd();
+
+if ($dao == true) {
+    echo 0;
 } else {
-    if (isset($_SESSION["controlDireccion"])) {
-        $direccion = $_SESSION['objdireccion'];
-        $x = $dao->editarDireccion($direccion);
-        if ($x == true) {
-            $proveedor->setNombre($_GET["nombre"]);
-            $proveedor->setTipoProveedor($_GET["radios"]);
-            $proveedor->setRfc($rfc);
-            $proveedor->setDiasCredito($_GET["diascredito"]);
-            $id = $_SESSION['iddireccion'];
-            $proveedor->setIdDireccion($id);
-            $proveedor->setEmail($_GET["email"]);
-            $proveedor->setDesctfactura($_GET["desctpf"]);
-            $proveedor->setDesctprontopago($_GET["desctpp"]);
-            $dao->editarProveedor($proveedor);
-            unset($_SESSION["controlDireccion"]);
-        } else {
-            echo 3;
-        }
-    } else {
-        echo 1;
-    }
+    echo 1;
 }

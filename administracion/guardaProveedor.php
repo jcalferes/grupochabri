@@ -36,7 +36,7 @@ $ctrltelefonos = count($telefonos);
 $ctrlemails = count($emails);
 
 $cn->Conectarse();
-$dao->superGuardadorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$dao->superEditorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
 $cn->cerrarBd();
 
 if ($dao == true) {
