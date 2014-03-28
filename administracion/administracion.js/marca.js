@@ -1,8 +1,6 @@
 function eliminarMarcas() {
-
     var idMarcas = new Array();
     var info;
-
     $("#dtmarca").find(':checked').each(function() {
         var elemento = this;
         var valor = elemento.value;
@@ -10,15 +8,13 @@ function eliminarMarcas() {
         lista = JSON.stringify(idMarcas);
         info = "marcas=" + lista;
 
-
     });
-//    alert(info);
     if (info != undefined) {
         alertify.confirm("Desea Eliminar las Marcas seleccionadas?", function(e) {
             if (e) {
                 alertify.success("SI");
                 $.get('eliminaMarca.php', info, function() {
-                    alertify.success("se han dado de baja de manera correcta")
+                    alertify.success("se han dado de baja de manera correcta");
                     $("#consultaMarca").load("consultarMarca.php", function() {
                         $('#dtmarca').dataTable();
                     });
@@ -33,8 +29,9 @@ function eliminarMarcas() {
         alertify.error("Debe selecciona al menos una  marca");
     }
 }
+
 $(document).ready(function() {
-    $('#txtnombremarca').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
+
     $("#consultaMarca").load("consultarMarca.php", function() {
         $('#dtmarca').dataTable();
     });

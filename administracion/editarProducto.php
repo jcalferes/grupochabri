@@ -4,10 +4,13 @@ include './administracion.dao/dao.php';
 include './administracion.clases/Producto.php';
 include './administracion.clases/Costo.php';
 include './administracion.clases/Tarifa.php';
+session_start();
 $producto = new Producto();
 $costo = new Costo();
 $tarifa = new Tarifa();
 $dao = new dao();
+$idsucursal = $_SESSION["sucursalSesion"];
+
 $lista = json_decode(stripslashes($_GET["lista"]));
 $producto->setIdUnidadMedida($_GET["unidadMedida"]);
 $producto->setIdGrupoProducto($_GET["grupoProducto"]);
@@ -22,5 +25,5 @@ $costo->setCosto($_GET["costoProducto"]);
 $tarifa->setIdListaPrecio($lista);
 
 
-$dao->editarProducto($producto, $costo, $tarifa);
+$dao->editarProducto($producto, $costo, $tarifa, $idsucursal);
 

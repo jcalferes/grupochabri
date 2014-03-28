@@ -6,8 +6,11 @@ function entroMarca() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizMarca.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+    $("#mostrar").load("wizMarca.php");
+
 }
 function entroProducto() {
     $("#1").removeClass("active");
@@ -16,8 +19,13 @@ function entroProducto() {
     $("#4").removeClass("active");
     $("#5").removeClass("active");
     $("#7").removeClass("active");
-    $("#mostrar").load("wizProducto.php");
+    $("#8").removeClass("active");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizProducto.php");
+
 }
 function entroProveedor() {
     $("#1").removeClass("active");
@@ -28,8 +36,12 @@ function entroProveedor() {
     $("#6").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizProveedor.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizProveedor.php");
+
 }
 
 function entroListaPrecio() {
@@ -40,8 +52,12 @@ function entroListaPrecio() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizListaPrecio.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizListaPrecio.php");
+
 }
 
 function entroEntradasProductos() {
@@ -52,8 +68,12 @@ function entroEntradasProductos() {
     $("#5").addClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizEntradaProducto.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizEntradaProducto.php");
+
 }
 
 function entroSalidasProduto() {
@@ -64,8 +84,12 @@ function entroSalidasProduto() {
     $("#5").removeClass("active");
     $("#7").addClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizSalidaProducto.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizSalidaProducto.php");
+
 }
 
 function entroUsuarios() {
@@ -76,8 +100,12 @@ function entroUsuarios() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").addClass("active");
-    $("#mostrar").load("wizUsuarios.php");
     $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizUsuarios.php");
+
 }
 function entroCliente() {
     $("#1").removeClass("active");
@@ -87,8 +115,12 @@ function entroCliente() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("wizClientes.php");
     $("#9").addClass("active");
+    $("#10").removeClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("wizClientes.php");
+
 }
 
 function entroVentas() {
@@ -99,6 +131,26 @@ function entroVentas() {
     $("#5").removeClass("active");
     $("#7").removeClass("active");
     $("#8").removeClass("active");
-    $("#mostrar").load("puntoDeVenta.php");
+    $("#9").removeClass("active");
     $("#10").addClass("active");
+    $("#11").removeClass("active");
+
+    $("#mostrar").load("puntoDeVenta.php");
+
+}
+
+function entroTrasferencia() {
+    $("#1").removeClass("active");
+    $("#2").removeClass("active");
+    $("#3").removeClass("active");
+    $("#4").removeClass("active");
+    $("#5").removeClass("active");
+    $("#7").removeClass("active");
+    $("#8").removeClass("active");
+    $("#9").removeClass("active");
+    $("#10").removeClass("active");
+    $("#11").addClass("active");
+
+    $("#mostrar").load("wizTransferencia.php");
+
 }

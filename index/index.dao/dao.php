@@ -25,7 +25,7 @@ class dao {
     }
 
     function verificarMaquina($nombremaquina) {
-        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= 'JACA'";
+        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= '$nombremaquina'";
         $paso = mysql_query($sql);
         if ($paso == false) {
             $valor = mysql_error();

@@ -8,6 +8,7 @@ include './administracion.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
 session_start();
+$idsucursal = $_SESSION["sucursalSesion"];
 
 $detalle = new Detalle();
 $encabezado = new Encabezado();
@@ -42,7 +43,7 @@ if ($valido == false) {
     echo 2;
 } else {
     $validaCodigo = 1;
-    $recchazaCodigo = 0;
+    $rechazaCodigo = 0;
     foreach ($conceptos as $concepto) {
         $ads = $concepto->codigo;
         while ($rs = mysql_fetch_array($valido)) {
@@ -60,13 +61,12 @@ if ($valido == false) {
         }
     }
     $control = count($conceptos);
-    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control);
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal);
+    $cn->cerrarBd();
     if ($paso == false) {
         echo 1;
     } else {
         echo 0;
     }
-
-    $cn->cerrarBd();
 }
 ?>

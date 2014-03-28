@@ -1,7 +1,7 @@
 <?php
-//include '../index/verificaSession.php';
-//$verificasession = new verificaSession();
-//$verificasession->validaSesion();
+include '../index/verificaSession.php';
+$verificasession = new verificaSession();
+$verificasession->validaSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
@@ -74,12 +74,13 @@
                         <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
                         <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
                         <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
+                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas</a></li>
                         <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
                         <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                         <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
                         <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
                         <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                        <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
                     </ul>
                     <div id="mostrar">
                     </div>
