@@ -1,8 +1,8 @@
-function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProductos, desctTotal, sda, iva, total) {
+function TransaccionDetalles(codigo, cantidad, costo) {
     this.codigo = codigo;
     this.cantidad = cantidad;
     this.costo = costo;
-   
+
 }
 
 function sacarTotal(cp) {
@@ -105,16 +105,16 @@ $(document).ready(function() {
     $("#mandarPedido").click(function() {
         var fallo = 0;
         var cont = 0;
-       var arreglo = [];
-       var contenedor=new contenedor;
-     
+
+
+
         $('.myCodigo').each(function() {
             var elemento = this;
             var valor = elemento.value;
             var min = $('#txtCantidad' + valor).val();
             var max = $('#txtMaxCantidad' + valor).val();
-            alert(valor);
-            if (min <= max || valor == "inicial") {
+
+            if (parseInt(min) <= parseInt(max) || valor == "inicial") {
 
                 $('#div' + valor).removeClass("has-error");
                 $('#div' + valor).addClass("has-success");
@@ -130,11 +130,28 @@ $(document).ready(function() {
         if (fallo == 1) {
             alertify.error("las cantidades a pedir deben ser menores a las que hay en el invenario actual");
         } else {
-            $('.guardar').each(function() {
-                var comprobante = new Comprobante();
+            var arreglo = [];
+            $('.myCodigo').each(function() {
+                var elemento = this;
+                var valor = elemento.value;
+                var codigo = $('#codigo' + valor).val();
+                var cantidad = $('#txtCantidad' + valor).val();
+                var costo = $('#costoUnitario' + valor).val();
+                var t = new TransaccionDetalles(codigo, cantidad, costo);
+                arreglo.push(t);
+                console.log(t);
             });
+
+            var datosJSON = JSON.stringify(arreglo);
            
-            
+            console.log(datosJSON);
+            $.post('guardarTransferencias.php', {datos: datosJSON}, function(respuesta) {
+alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
+            });
+
+
+
+
         }
 
     });

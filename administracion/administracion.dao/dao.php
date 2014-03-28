@@ -2,6 +2,39 @@
 
 class dao {
 
+    function guardarTranferenciaPedido($datos, $fecha) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+        foreach ($datos as $valor) {
+            $sqlencabezado = "INSERT INTO transaccionencabezados(fechaTransaccion,statusAprobacion,statusTransaccion) VALUES('$fecha','5','5')";
+            $sqlid = "SELECT LAST_INSERT_ID() ID;";
+
+
+            $sqlencabezado = mysql_query($sqlencabezado, $cn->Conectarse());
+            if ($sqlencabezado == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                $sqlid = mysql_query($sqlid, $cn->Conectarse());
+                if ($sqlid == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+                    while ($rs = mysql_fetch_array($sqlid)) {
+                        $sqlid = $rs["ID"];
+                        $sqldetalles = "INSERT INTO transacciondetalles(idEnzabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
+                        $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
+                        if ($sqldetalles == false) {
+                            mysql_query("ROLLBACK;");
+                        } else {
+                            echo'bien';
+                        }
+                    }
+                }
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
     function buscarCodigo($codigo, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
