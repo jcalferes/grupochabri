@@ -4,7 +4,8 @@
     <body>
         <div id="wizard">
             <h2>
-                <span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Inventarios</h2>
+                <span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Inventarios
+            </h2>
             <section>
                 <div style="margin-left: 3%">
                     <div class="form-horizontal">
@@ -46,15 +47,39 @@
 
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
-                <div class="col-sm-3">
-                    <select id="proveedores" 
-                            class="selectpicker" 
-                            data-container="body" 
-                            data-live-search="true">
-                    </select>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <center>
+
+                            <div class="panel-footer">
+                                Datos de la Facura
+                            </div>
+                            <br>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label  class="col-sm-1 control-label">Folio</label>
+                                    <div class="col-sm-4">
+                                        <input id="folioM" type="number" class="form-control"  placeholder="Folio">
+                                    </div>
+                                    <label  class="col-sm-2 control-label">Fecha Emitida</label>
+                                    <div class="col-sm-4">
+                                        <input id="fechaEmitidaM" type="date" class="form-control"  placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                        <select style="margin-left: -20px"
+                                                id="proveedores" 
+                                                class="selectpicker" 
+                                                data-container="body" 
+                                                data-live-search="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </center>
+                    </div>
                 </div>
-                <br>
-                <br>
                 <br>
                 <div class="col-sm-3">
                     <div class="input-group" id="panelBusqueda">
@@ -163,6 +188,8 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <script src="../administracion/administracion.js/XmlComprobante.js"></script>
+        <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>

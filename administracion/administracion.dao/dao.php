@@ -825,15 +825,13 @@ class dao {
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
                WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'
-               and pr.idProveedor='" . $proveedor . "';";
+               and pr.rfc='" . $proveedor . "';";
         $rs = mysql_query($MySQL, $cn->Conectarse());
         $cn->cerrarBd();
         return $rs;
     }
 
-    function buscarProductoVentas(Producto $p) {
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
+    function buscarProductoVentas(Codigo $c) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
@@ -841,9 +839,9 @@ class dao {
                on m.idMarca = p.idMarca
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'";
-        $rs = mysql_query($MySQL, $cn->Conectarse());
-        $cn->cerrarBd();
+               WHERE p.codigoProducto='" . $c->getCodigo() . "'";
+        $rs = mysql_query($MySQL);
+//        $cn->cerrarBd();
         return $rs;
     }
 

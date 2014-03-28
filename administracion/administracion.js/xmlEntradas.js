@@ -36,8 +36,6 @@ function comprueba_extension_xmlentrada(formulario, archivo) {
             for (i = 0; i < archivo.length; i++) {
                 data.append('archivo' + i, archivo[i]);
             }
-            //data.append('texto', texto);
-
             $.ajax({
                 url: 'xmlCargarEntrada.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
@@ -54,8 +52,6 @@ function comprueba_extension_xmlentrada(formulario, archivo) {
 
         }
     }
-    //si estoy aqui es que no se ha podido submitir
-    //alertify.error(mierror);
     return 0;
 }
 

@@ -19,9 +19,9 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     tr = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
-                        <td>' + datosJson[i].codigoProducto + '</td>\n\
-                        <td>' + datosJson[i].producto + '</td>\n\\n\
-                        <td>' + datosJson[i].costo + '</td>\n\
+                        <td><label id= "codigoM ' + x + '">' + datosJson[i].codigoProducto + '</lable></td>\n\
+                        <td><label id = "descripcionM' + x + '">' + datosJson[i].producto + '</label></td>\n\\n\
+                        <td><label id = "costoUnitarioM' + x + '">' + datosJson[i].costo + '</td>\n\
                         <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
@@ -110,8 +110,6 @@ function calcularPorCantidad(id) {
             calculaTotalEntradasManual();
         }
     }
-
-
 }
 function calculaTotalEntradasManual() {
     var sda = $("#sdaM").val();
@@ -163,7 +161,6 @@ function calcularDescuentos(id) {
                 var importe = (parseFloat(($("#costo" + id).val()) * parseFloat($("#cant" + id).val())));
                 $("#importe" + id).val(importe);
             }
-
             calcularCda();
             calcularDescuentoDeProductos();
             calcularDescTotal();
@@ -219,16 +216,6 @@ function calcularIva() {
     $("#ivaM").val(iva);
 }
 
-//function respaldoCantidad(codigo, costoProducto) {
-//    $("#costoTotal").val();
-//    cantidadRespaldo = $("#cant" + codigo).val();
-//    costoRespaldo = $("#costo" + codigo).val();
-//}
-
-//function  respaldoCosto(codigo) {
-//    costoRespaldo = $("#costo" + codigo).val();
-//    cantidadRespaldo = $("#cant" + codigo).val();
-//}
 function validarCampoDesc2(id) {
     if ($("#descuento1" + id).val() == '') {
         alertify.error("Error! El descuento 1 requerido");
@@ -301,12 +288,17 @@ function calcularDescuentoDeProductos() {
 }
 function soloNumeroEnteros(valor) {
     var paso = false;
+    var ultimo = valor.substring(valor.length - 1, valor.length);
+    if (ultimo == ".") {
+        valor = valor + "0";
+    }
     if (valor == 0) {
         paso = true;
     }
     else if (valor.match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
         paso = true;
     }
+
     return paso;
 }
 
@@ -344,7 +336,6 @@ function generarDescuentosgenerales() {
     calculaTotalEntradasManual();
 }
 
-
 $(document).ready(function() {
     $("#proveedores").change(function() {
         if ($("#proveedores").val() == 0) {
@@ -377,15 +368,48 @@ $(document).ready(function() {
             $(".cantidades").removeAttr('disabled');
         }
     });
-
     $("#descuentosGeneralesM").change(function() {
         if ($("#descuentosGeneralesM").is(':checked')) {
-//              $("#descuentosGeneralesM").attr('disabled', 'disabled');
             $("#descuentosGeneralesPorComasM").removeAttr('disabled');
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
         }
     });
+
+
+    $("#guardarEntradasManualmente").click(function() {
+        var datos = [];
+        var conceptos = [];
+        var xmlComprobanteManualmente = new XmlComprobante();
+        xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
+        xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
+        xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
+        xmlComprobanteManualmente.desctGeneralFactura = $("#descuentosGeneralesPorComasM").val();
+        xmlComprobanteManualmente.descuentoTotalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.descuentosGenerales = $("$descuentoGeneralM").val();
+        xmlComprobanteManualmente.ivaComprobante = $("#ivaM").val();
+        xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
+        xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
+        xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
+        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.tipoComprobante = "Entrada Manual";
+        for (var x = 0; x < contador; x++) {
+            var xmlConceptos = new xmlConceptos();
+            xmlConceptos.cantidadConcepto = $("#cant" + x).val();
+            xmlConceptos.cdaConcepto = $("#cda" + x).val();
+            xmlConceptos.codigoConcepto = $("#codigoM" + x).val();
+            xmlConceptos.descripcionConcepto = $("#descripcionM" + x).val();
+            xmlConceptos.desctUnoConcepto = $("#descuento1" + x).val();
+            xmlConceptos.desctDosConcepto = $("#descuento2" + x).val();
+            xmlConceptos.importeConcepto = $("#importe" + x).val();
+            xmlConceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).val();
+            xmlConceptos.unidadMedidaConcepto = "";
+            conceptos.push(xmlConceptos);
+        }
+        datos.push(xmlComprobanteManualmente);
+        datos.push(conceptos);
+    });
+
 });
 

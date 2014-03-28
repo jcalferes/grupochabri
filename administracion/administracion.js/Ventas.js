@@ -22,7 +22,6 @@ function buscar() {
                 var datosJson = eval(informacion);
                 var tr;
                 for (var i in datosJson) {
-                    alert("entro");
                     tr = '<tr>\n\
                           <td>' + datosJson[i].codigoProducto + '</td>\n\
                           <td>' + datosJson[i].producto + '</td>\n\\n\\n\
