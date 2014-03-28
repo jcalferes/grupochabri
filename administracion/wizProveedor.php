@@ -40,12 +40,16 @@
                         <button id="btnvertele" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
                         <input id="btnotrotel" type="button" class="btn btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
+                        <div id="mastels">
+                        </div>
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
                         <button id="btnveremail" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemail" type="button" class="btn btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
+                        <div id="masemails">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>
@@ -57,8 +61,8 @@
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                     </div>
-                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
-                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
             </section>
         </div>
@@ -111,7 +115,7 @@
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>
                                 <input id="btnguardardireccionproveedor" type="button" class="btn btn-primary" value="Guardar"/>
-                                <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Editar"/>
+                                <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  value="Confirmar"/>
                                 <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
