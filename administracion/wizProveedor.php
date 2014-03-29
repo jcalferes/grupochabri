@@ -11,20 +11,24 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                    <div id="frmrfc" class="form-group">
-                        <input type="checkbox" id="chktest" checked data-on-text="SI" data-off-text="NO">
+                    <div id="frmcual" class="form-group">
+                        <label id="">Guardar como proveedor: </label>
+                        <input type="checkbox" id="chkcual" checked data-on-text="SI" data-off-text="NO" data-size="small">
                     </div>
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
-                            Fisica
-                        </label>
-                    </div>
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
-                            Moral
-                        </label>
+                    <div id="frmtipo" class="form-group">
+                        <label>Tipo:</label><br>
+                        <div class="radio-inline" >
+                            <label>
+                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();"/>
+                                Fisica
+                            </label>
+                        </div>
+                        <div class="radio-inline" >
+                            <label>
+                                <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL"/>
+                                Moral
+                            </label>
+                        </div>
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
