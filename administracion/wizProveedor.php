@@ -11,23 +11,23 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                    <div id="frmcual" class="form-group">
-                        <input type="checkbox" id="chktest">
+                    <div id="frmrfc" class="form-group">
+                        <input type="checkbox" id="chktest" checked data-on-text="SI" data-off-text="NO">
+                    </div>
+                    <div class="radio-inline" >
+                        <label>
+                            <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
+                            Fisica
+                        </label>
+                    </div>
+                    <div class="radio-inline" >
+                        <label>
+                            <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
+                            Moral
+                        </label>
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
-                        <div class="radio-inline" >
-                            <label>
-                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
-                                Fisica
-                            </label>
-                        </div>
-                        <div class="radio-inline" >
-                            <label>
-                                <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
-                                Moral
-                            </label>
-                        </div>
                         <input type="text" class="form-control" id="txtrfc" onblur="validaRfc();">
                     </div>
                     <div class="form-group">
