@@ -8,23 +8,26 @@
                 <div id="consultaProveedor">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
-                            Fisica
-                        </label>
-                    </div>
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
-                            Moral
-                        </label>
+                    <div id="frmcual" class="form-group">
+                        <input type="checkbox" id="chktest">
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
+                        <div class="radio-inline" >
+                            <label>
+                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
+                                Fisica
+                            </label>
+                        </div>
+                        <div class="radio-inline" >
+                            <label>
+                                <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
+                                Moral
+                            </label>
+                        </div>
                         <input type="text" class="form-control" id="txtrfc" onblur="validaRfc();">
                     </div>
                     <div class="form-group">
@@ -61,6 +64,7 @@
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                     </div>
+
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>

@@ -146,7 +146,7 @@ function validaRfc() {
     }
 }
 
-$("#btncanceloProvedor").click(function() {
+$("#btncanceloProveedor").click(function() {
     $("#txtnombreproveedor").val("");
     $("#txtrfc").val("");
     $("#txtdiascredito").val("");
@@ -155,7 +155,19 @@ $("#btncanceloProvedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
+$('#chktest').on('switchChange', function(e, data) {
+    alert(data.value);
+});
+
+//$('#chktest').click(function() {
+//    alert("Entre");
+//    $('#chktest').on('switchChange', function(e, data) {
+//        alert(data.value);
+//    });
+//});
+
 $(document).ready(function() {
+    $("#chktest").bootstrapSwitch();
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
