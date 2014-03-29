@@ -21,7 +21,7 @@ $verificasession->validaSesion();
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
-        <link href="../switchboostrap/css/bootstrap-switch.min.css" rel="stylesheet">
+        <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
     <body>

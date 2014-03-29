@@ -159,13 +159,6 @@ $('#chktest').on('switchChange', function(e, data) {
     alert(data.value);
 });
 
-//$('#chktest').click(function() {
-//    alert("Entre");
-//    $('#chktest').on('switchChange', function(e, data) {
-//        alert(data.value);
-//    });
-//});
-
 $(document).ready(function() {
     $("#chktest").bootstrapSwitch();
     $(":input:first").focus();
