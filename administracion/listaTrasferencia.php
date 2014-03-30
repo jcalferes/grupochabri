@@ -3,7 +3,7 @@ include './administracion.clases/transaccionDetalles.php';
 include './administracion.clases/transaccionEncabezados.php';
 include './administracion.dao/dao.php';
 session_start();
-$idsucursal= $_SESSION["sucursalSesion"];
+$idsucursal= $_GET["idSucursal"];
 $codigo = $_GET["codigo"];
 $dao = new dao();
 $datos = $dao -> buscarCodigo($codigo, $idsucursal);

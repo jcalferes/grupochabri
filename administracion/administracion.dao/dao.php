@@ -2,27 +2,56 @@
 
 class dao {
 
-    function guardarTranferenciaPedido($datos, $fecha) {
+    function mostrarDetallesTransferencias($sucursal, $detalle) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo WHERE  idEnzabezadoTransaccion = '$detalle' ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function consultaTransferencias($idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT t.idEncabezadoTransaccion,st.status,st2.status,t.fechaTransaccion,s.sucursal FROM transaccionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.statusTransaccion INNER JOIN status st2 ON st2.idStatus = t.statusTransaccion  WHERE idSucursalEmisor = $idSucursal  ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function consultaSucursales() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM sucursales";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function guardarTranferenciaPedido($datos, $fecha, $sucursal, $sucursal2) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
-        foreach ($datos as $valor) {
-            $sqlencabezado = "INSERT INTO transaccionencabezados(fechaTransaccion,statusAprobacion,statusTransaccion) VALUES('$fecha','5','5')";
-            $sqlid = "SELECT LAST_INSERT_ID() ID;";
+
+        $sqlencabezado = "INSERT INTO transaccionencabezados(fechaTransaccion,statusAprobacion,statusTransaccion,idSucursalEmisor, idSucursalReceptor) VALUES('$fecha','5','5','$sucursal','$sucursal2')";
+        $sqlid = "SELECT LAST_INSERT_ID() ID;";
 
 
-            $sqlencabezado = mysql_query($sqlencabezado, $cn->Conectarse());
-            if ($sqlencabezado == false) {
+        $sqlencabezado = mysql_query($sqlencabezado, $cn->Conectarse());
+        if ($sqlencabezado == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+
+            $sqlid = mysql_query($sqlid, $cn->Conectarse());
+            if ($sqlid == false) {
                 mysql_query("ROLLBACK;");
             } else {
-                $sqlid = mysql_query($sqlid, $cn->Conectarse());
-                if ($sqlid == false) {
-                    mysql_query("ROLLBACK;");
-                } else {
-                    while ($rs = mysql_fetch_array($sqlid)) {
-                        $sqlid = $rs["ID"];
-                        $sqldetalles = "INSERT INTO transacciondetalles(idEnzabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
-                        $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
+                while ($rs = mysql_fetch_array($sqlid)) {
+                    $sqlid = $rs["ID"];
+                    foreach ($datos as $valor) {
+                        if ($valor->codigo !== NULL) {
+                            $sqldetalles = "INSERT INTO transacciondetalles(idEnzabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
+                            $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
+                        }
+                        mysql_data_seek($sqlid, 0);
                         if ($sqldetalles == false) {
                             mysql_query("ROLLBACK;");
                         } else {
