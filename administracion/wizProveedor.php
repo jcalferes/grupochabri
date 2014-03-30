@@ -8,9 +8,12 @@
                 <div id="consultaProveedor">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+                    <div id="frmrfc" class="form-group">
+                        <input type="checkbox" id="chktest" checked data-on-text="SI" data-off-text="NO">
+                    </div>
                     <div class="radio-inline" >
                         <label>
                             <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
@@ -61,6 +64,7 @@
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                     </div>
+
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>

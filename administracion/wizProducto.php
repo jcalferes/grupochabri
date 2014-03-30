@@ -150,6 +150,7 @@
                                 <label>Desct. Pronto Pago:</label>
                                 <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                             </div>
+                            <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar">
                             <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                             <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                         </form>
