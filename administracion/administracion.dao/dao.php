@@ -763,13 +763,18 @@ class dao {
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
                 . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
-
+       $validando= mysql_affected_rows();
+       if($validando >= 0){
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
 //            $id = $rs[1];
 //        }
 
-        return $datos;
+       return $datos;
+       
+       }else {
+           return 0;
+       }
     }
 
     function consultaMarca() {
