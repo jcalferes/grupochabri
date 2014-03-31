@@ -4,6 +4,19 @@ function TransaccionDetalles(codigo, cantidad, costo) {
     this.costo = costo;
 
 }
+function detallesTransferencia(transf, sucu) {
+    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<h4> Lista de transferencias:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf+ "&sucu=" +sucu);
+    $("#mandarRespuesta").hide();
+}
+
+function condicionesPeticion(transf) {
+    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf);
+    $("#mandarRespuesta").show();
+}
 
 function sacarTotal(cp) {
     var cantidad = $("#txtCantidad" + cp).val();
@@ -65,8 +78,14 @@ function recorrerTabla(codigo) {
     return band;
 }
 $(document).ready(function() {
+    $("#consultapedidos").load("consultaPedidos.php");
+    $("#consultatransferencias").load("consultaTransferencias.php");
+    $("#sucursal").load("sacarSucursales.php");
+
+
     $("#buscarCodigoTransferencia").click(function() {
-        var info = "codigo=" + $("#codigoProductoTranferencia").val();
+        var sucursal = $("#sucursal").val();
+        var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
         var codigo = $("#codigoProductoTranferencia").val();
         var comprobar = recorrerTabla(codigo);
         if (comprobar == 0) {
@@ -141,12 +160,12 @@ $(document).ready(function() {
                 arreglo.push(t);
                 console.log(t);
             });
-
+            var sucursal = $("#sucursal").val();
             var datosJSON = JSON.stringify(arreglo);
-           
+
             console.log(datosJSON);
-            $.post('guardarTransferencias.php', {datos: datosJSON}, function(respuesta) {
-alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
+            $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
+                alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
             });
 
 
