@@ -8,6 +8,11 @@
                 <div id="consultaProveedor">
                 </div>
             </section>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de clientes</h2>
+            <section style="width: 100%">
+                <div id="consultaClientes">
+                </div>
+            </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
