@@ -488,14 +488,17 @@ class dao {
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
         $sql = "INSERT INTO grupoProductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         if ($resultado == false) {
-            echo"bien";
-        } else {
             echo"ROLLBACK ACTIVATE";
             $sql = "ROLLBACK;";
             $resultado = mysql_query($sql, $cn->Conectarse());
+        } else {
+
+            echo"OK";
+            mysql_query("COMMIT;");
         }
         $cn->cerrarBd();
     }
