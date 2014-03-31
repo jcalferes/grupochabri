@@ -744,9 +744,10 @@ class dao {
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
                 . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
+        $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {
-            $datos = mysql_query($sql, $cn->Conectarse());
+
 //        while ($rs = mysql_fetch_array($dato)) {
 //            $id = $rs[1];
 //        }
