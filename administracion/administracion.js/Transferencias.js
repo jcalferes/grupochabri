@@ -4,11 +4,18 @@ function TransaccionDetalles(codigo, cantidad, costo) {
     this.costo = costo;
 
 }
-function detallesTransferencia(transf) {
+function detallesTransferencia(transf, sucu) {
     $('#detalleTransferencia').trigger('click');
-    $('#labelTitulo').html('<h4> Tarifas del producto</h4>' + transf);
-    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf);
+    $('#labelTitulo').html('<h4> Lista de transferencias:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf+ "&sucu=" +sucu);
+    $("#mandarRespuesta").hide();
+}
 
+function condicionesPeticion(transf) {
+    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf);
+    $("#mandarRespuesta").show();
 }
 
 function sacarTotal(cp) {
@@ -71,6 +78,7 @@ function recorrerTabla(codigo) {
     return band;
 }
 $(document).ready(function() {
+    $("#consultapedidos").load("consultaPedidos.php");
     $("#consultatransferencias").load("consultaTransferencias.php");
     $("#sucursal").load("sacarSucursales.php");
 

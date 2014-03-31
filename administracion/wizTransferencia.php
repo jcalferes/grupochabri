@@ -8,7 +8,7 @@
                 <div id="consultatransferencias">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Mis Transferencias</h2>
             <section>
                 <br>
                 <select id="sucursal" class="form-control" style="">
@@ -54,6 +54,16 @@
                     <input type="button" id="mandarPedido" value="Aceptar"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;peticiones a transferir</h2>
+            <section style="width: 100%">
+                <div id="consultapedidos">
+                </div>
+            </section>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Historial de peticiones </h2>
+            <section style="width: 100%">
+                <div id="x">
+                </div>
+            </section>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlDetalleTransferencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -70,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <!--<input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>-->
+                                <input id="mandarRespuesta" type="button" class="btn btn-default" value="Mandar Respuesta"/>
                                 <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
                             </div>

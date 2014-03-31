@@ -9,6 +9,6 @@ $lafecha = date("d/m/Y h:i");
 $dao = new dao();
 $datos = json_decode($_POST['datos']);
 
-$dao->guardarTranferenciaPedido($datos, $lafecha, $idsucursal,$sucursal);
+$dao->guardarRequisicionPedido($datos, $lafecha, $idsucursal,$sucursal);
 
 
