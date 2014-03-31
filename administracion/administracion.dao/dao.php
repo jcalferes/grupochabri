@@ -113,14 +113,6 @@ class dao {
         }
     }
 
-    function guardarCliente(Cliente $t) {
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
-        $sql = "INSERT INTO clientes(nombre, idDireccion, rfc, diasCredito, email, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus)VALUES('" . $t->getNombre() . "','" . $t->getIdDireccion() . "','" . $t->getRfc() . "','" . $t->getDiasCredito() . "','" . $t->getEmail() . "','" . $t->getDesctfactura() . "','" . $t->getDesctprontopago() . "','" . $t->getTipoCliente() . "','1');";
-        mysql_query($sql, $cn->Conectarse());
-        $cn->cerrarBd();
-    }
-
     function consultaCliente() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -733,22 +725,6 @@ class dao {
         $sql = "INSERT INTO marcas(marca,idStatus)VALUES ('" . $t->getMarca() . "','1')";
         mysql_query($sql, $cn->Conectarse());
         $cn->cerrarBd();
-    }
-
-    function guardarDireccion(Direccion $t) {
-        session_start();
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
-        $sql = "INSERT INTO direcciones(calle, numeroExterior, numeroInterior, cruzamientos,ciudad,estado,colonia,codigoPostal)VALUES ('" . $t->getCalle() . "','" . $t->getNumeroexterior() . "','" . $t->getNumerointerior() . "','" . $t->getCruzamientos() . "','" . $t->getCiudad() . "','" . $t->getEstado() . "','" . $t->getColonia() . "', '" . $t->getPostal() . "');";
-        $sql2 = "SELECT LAST_INSERT_ID() ID;";
-        $x = mysql_query($sql, $cn->Conectarse());
-        $dato = mysql_query($sql2, $cn->Conectarse());
-        while ($rs = mysql_fetch_array($dato)) {
-            $id = $rs["ID"];
-        }
-        $_SESSION['iddireccion'] = $id;
-        $cn->cerrarBd();
-        return $x;
     }
 
     function guardarProveedor(Proveedor $t) {
