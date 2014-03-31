@@ -157,8 +157,6 @@ $("#btncanceloProveedor").click(function() {
 
 $(document).ready(function() {
     $("#chkcual").bootstrapSwitch();
-    $("#fisica").bootstrapSwitch();
-    $("#moral").bootstrapSwitch();
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
