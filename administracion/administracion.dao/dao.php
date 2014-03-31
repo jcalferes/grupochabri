@@ -225,7 +225,7 @@ class dao {
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
         foreach ($listaPrecios as $valor) {
-            $sql = "update listaPrecios set idStatus='2' Where idListaPrecio ='$valor'";
+            $sql = "update listaprecios set idStatus='2' Where idListaPrecio ='$valor'";
             $lista = mysql_query($sql, $cn->Conectarse());
             if ($lista == false) {
                 mysql_query("ROLLBACK;");
@@ -445,7 +445,7 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoProducto = '$codigo'";
+                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoProducto = '$codigo'";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
@@ -480,6 +480,7 @@ class dao {
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
         $sql = "INSERT INTO grupoproductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         if ($resultado == false) {
@@ -497,7 +498,7 @@ class dao {
     function consultarGrupos() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM grupoProductos";
+        $sql = "SELECT * FROM grupoproductos";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -505,7 +506,7 @@ class dao {
     function consultarMedidas() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM unidadesMedidas";
+        $sql = "SELECT * FROM unidadesmedidas";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -734,7 +735,7 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
+                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
         $validando = mysql_affected_rows();
         if ($validando >= 0) {
             $datos = mysql_query($sql, $cn->Conectarse());
@@ -895,7 +896,7 @@ class dao {
     function obtieneTodosProductos($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto, p.producto FROM PRODUCTOS p\n"
+        $sql = "SELECT p.codigoProducto, p.producto FROM productos p\n"
                 . " INNER JOIN proveedores pr on pr.idProveedor = p.idProveedor\n"
                 . " WHERE pr.rfc='$rfc'";
         $datos = mysql_query($sql, $cn->Conectarse());
