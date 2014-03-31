@@ -480,37 +480,15 @@ class dao {
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-
-        $sql = "SET AUTOCOMMIT=0;";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-
-        $sql = "BEGIN;";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-
         $sql = "INSERT INTO grupoProductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
-
-
-
-        if ($resultado) {
-            echo 'OK';
-            echo '';
-            $sql = "COMMIT";
-            $resultado = mysql_query($sql, $cn->Conectarse());
-            return;
+        if ($resultado == false) {
+            echo"bien";
         } else {
-            echo 'MAL';
-            echo '
-';
-            echo 'SE EJECUTA EL ROOLBACK';
-            echo '
-';
-
+            echo"ROLLBACK ACTIVATE";
             $sql = "ROLLBACK;";
             $resultado = mysql_query($sql, $cn->Conectarse());
-            return;
         }
-
         $cn->cerrarBd();
     }
 
@@ -755,18 +733,17 @@ class dao {
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
                 . " INNER JOIN grupoProductos g ON g.idGrupoProducto = p.idGrupoProducto where status=1 and p.idStatus = '1' AND c.idSucursal = '$idSucursal'";
-       $validando= mysql_affected_rows();
-       if($validando >= 0){
-        $datos = mysql_query($sql, $cn->Conectarse());
+        $validando = mysql_affected_rows();
+        if ($validando >= 0) {
+            $datos = mysql_query($sql, $cn->Conectarse());
 //        while ($rs = mysql_fetch_array($dato)) {
 //            $id = $rs[1];
 //        }
 
-       return $datos;
-       
-       }else {
-           return 0;
-       }
+            return $datos;
+        } else {
+            return 0;
+        }
     }
 
     function consultaMarca() {
