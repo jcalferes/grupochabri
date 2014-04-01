@@ -67,7 +67,7 @@
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlDetalleTransferencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="width: 1000px">
                 <div class="modal-content">
                     <div class="modal-header" ">
 
@@ -91,5 +91,6 @@
     </div>
     <script src="../administracion/administracion.js/controlWizard.js"></script>
     <script src="administracion.js/Transferencias.js"></script>
+    <script src="administracion.js/requisiciones.js"></script>
 </body>
 </html>

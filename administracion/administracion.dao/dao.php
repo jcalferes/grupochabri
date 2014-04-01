@@ -2,10 +2,60 @@
 
 class dao {
 
+    function guardarTransferenciaPedido($datos, $lafecha, $idsucursal, $sucursal, $transf) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
+
+        $sqlencabezado = "INSERT INTO transaccionencabezados(fechatransaccion,statusAprobacion,statustransaccion,idSucursalEmisor, idSucursalReceptor) VALUES('$lafecha','5','5','$idsucursal','$sucursal')";
+        $sqlid = "SELECT LAST_INSERT_ID() ID;";
+        $sqlrequisicion = "UPDATE requisicionencabezados set statusAprobacion = '6' WHERE idEncabezadoRequisicion = '$transf'";
+
+        $sqlencabezado = mysql_query($sqlencabezado, $cn->Conectarse());
+        if ($sqlencabezado == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+
+            $sqlid = mysql_query($sqlid, $cn->Conectarse());
+            if ($sqlid == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                while ($rs = mysql_fetch_array($sqlid)) {
+                    $sqlid = $rs["ID"];
+                    foreach ($datos as $valor) {
+                        if ($valor->codigo !== NULL) {
+                            $sqldetalles = "INSERT INTO transacciondetalles(idEncabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
+                            $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
+                        }
+                        mysql_data_seek($sqlid, 0);
+                        if ($sqldetalles == false) {
+                            mysql_query("ROLLBACK;");
+                        } else {
+                            $sqlentradas = "INSERT INTO entradas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$idsucursal','usuario')";
+                            $sqlentradas = mysql_query($sqlentradas, $cn->Conectarse());
+                            if ($sqlentradas == false) {
+                                mysql_query("ROLLBACK;");
+                            } else {
+                                
+                            }
+                            $sqlrequisicion = mysql_query($sqlrequisicion, $cn->Conectarse());
+                            if ($sqlrequisicion == false) {
+                                mysql_query("ROLLBACK;");
+                            } else {
+                                echo 'bien';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        mysql_query("COMMIT;");
+    }
+
     function consultaPedidosR($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st2.status as plop,t.fechaRequisicion,s.sucursal FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
+        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st2.status as plop,st2.idStatus,t.fechaRequisicion,s.sucursal, s.idSucursal FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -67,7 +117,7 @@ class dao {
     function consultaPedidos($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT t.idEncabezadoTransaccion,st.status as prr,st2.status as plop,t.fechaTransaccion,s.sucursal FROM transaccionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.statusTransaccion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
+        $sql = "SELECT t.idEncabezadoTransaccion,st.status as prr,st2.status as plop,t.fechaTransaccion,s2.sucursal FROM transaccionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.statusTransaccion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -75,7 +125,7 @@ class dao {
     function mostrarDetallesTransferencias($sucursal, $detalle) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEnzabezadoTransaccion = '$detalle' and e.idSucursal = '$sucursal' ";
+        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM requisiciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoRequisicion = '$detalle' and e.idSucursal = '$sucursal' ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -118,7 +168,7 @@ class dao {
                     $sqlid = $rs["ID"];
                     foreach ($datos as $valor) {
                         if ($valor->codigo !== NULL) {
-                            $sqldetalles = "INSERT INTO transacciondetalles(idEnzabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
+                            $sqldetalles = "INSERT INTO transacciondetalles(idEncabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
                             $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
                         }
                         mysql_data_seek($sqlid, 0);
@@ -480,7 +530,7 @@ class dao {
     function mostrarTarifasTabla($codigoProducto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND t.idStatus = '1' AND c.status='1'";
+        $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND t.idStatus = '1' AND c.status='1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validacion = mysql_affected_rows();
         if ($validacion == false) {
