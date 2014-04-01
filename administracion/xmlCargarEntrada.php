@@ -29,7 +29,6 @@ $detalle = new Detalle();
 $concepto = new Concepto();
 
 echo "<span class='label label-default'>Comprobante </span>";
-echo "<blockquote>";
 echo "<div class='table-responsive'>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
@@ -55,10 +54,8 @@ foreach ($xml->xpath('//cfdi:Comprobante') as $cfdiComprobante) {
 echo "</tbody>";
 echo "</table>";
 echo "<div >";
-echo "</blockquote>";
 
 echo "<span class='label label-default'>Emisor </span>";
-echo "<blockquote>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
 echo "<th>RFC</th><th>Nombre</th>";
@@ -73,10 +70,8 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor') as $Emisor) {
 }
 echo "</tbody>";
 echo "</table>";
-echo "</blockquote>";
 
 echo "<span class='label label-default'>Dimicilio Fiscal </span>";
-echo "<blockquote>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
 echo "<th>Pais</th><th>Calle</th><th>Estado</th><th>Colonia</th><th>Municipio</th><th>No. Exterior</th><th>Codigo Postal</th>";
@@ -95,7 +90,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor//cfdi:DomicilioFiscal') as
 }
 echo "</tbody>";
 echo "</table>";
-echo "</blockquote>";
 
 //echo "<span class='label label-default'>Expedido en </span>";
 //echo "<blockquote>";
@@ -156,13 +150,11 @@ echo "</blockquote>";
 //echo "</table>";
 //echo "</blockquote>";
 
-echo "<span class='label label-default'>Concepto </span>";
-echo "<blockquote>";
-
+echo "<span class='label label-default'>Concepto </span><br><br>";
 echo "<div class='checkbox-inline'>";
-echo "<label>";
+echo "<span>";
 echo "<input type='checkbox' id='chk' onclick='chkExtras()'/> Descuentos globales de factura";
-echo "</label>";
+echo "</span>";
 echo "<hr>";
 echo "</div>";
 
@@ -289,10 +281,8 @@ echo "<br>";
 echo "<form class='form-inline text-right'>";
 echo "<span> Total: </span><input type='text' class='form-control text-right' id='total' disabled='false' style='width: 20%' value='" . $ftotal . "'/>";
 echo "</form>";
-echo "</blockquote>";
 
 echo "<span class='label label-default'>Traslado </span>";
-echo "<blockquote>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
 echo "<th>Tasa</th><th>Importe</th><th>Impuesto</th>";
@@ -307,7 +297,6 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:T
 }
 echo "</tbody>";
 echo "</table>";
-echo "</blockquote>";
 
 //echo "<span class='label label-default'>Timbre Fiscal </span>";
 //echo "<blockquote>";
