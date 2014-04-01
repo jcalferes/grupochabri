@@ -3,12 +3,12 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de proveedores</h2>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de clientes</h2>
             <section style="width: 100%">
                 <div id="consultaCliente">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo cliente</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
                     <div id="frmtipo" class="form-group">
@@ -189,7 +189,7 @@
         </div><!-- /.modal -->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
-        <script src="../administracion/administracion.js/proveedor.js"></script>
+        <script src="../administracion/administracion.js/clientes.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
     </body>
 </html>

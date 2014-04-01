@@ -320,7 +320,7 @@ $("#btneditarproveedor").click(function() {
 $("#txtrfc").keyup(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
-    $.get('verificandoProvedor.php', info, function(rs) {
+    $.get('verificandoCliente.php', info, function(rs) {
         if (rs == 0) {
             $("#btneditardireccionproveedor").hide();
             $("#btnguardardireccionproveedor").show();
@@ -632,7 +632,7 @@ function eliminardatoscontacto(id, tipo) {
 function actualizaTablasTelMail() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
-    $.get('verificandoProvedor.php', info, function(rs) {
+    $.get('verificandoCliente.php', info, function(rs) {
         var arr = $.parseJSON(rs);
         $("#tbltelefonos tbody tr").remove();
         $("#tblemails tbody tr").remove();

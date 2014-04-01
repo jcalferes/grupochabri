@@ -191,13 +191,13 @@ class dao {
         mysql_query("COMMIT;");
     }
 
-    function editarCliente(Cliente $t) {
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
-        $sql = "UPDATE clientes set nombre='" . $t->getNombre() . "', idDireccion='" . $t->getIdDireccion() . "',  diasCredito='" . $t->getDiasCredito() . "', email='" . $t->getEmail() . "', descuentoPorFactura='" . $t->getDesctfactura() . "', descuentoPorProntoPago='" . $t->getDesctprontopago() . "', tipoCliente='" . $t->getTipoCliente() . "', idStatus='1' WHERE rfc='" . $t->getRfc() . "';";
-        mysql_query($sql, $cn->Conectarse());
-        $cn->cerrarBd();
-    }
+//    function editarCliente(Cliente $t) {
+//        include_once '../daoconexion/daoConeccion.php';
+//        $cn = new coneccion();
+//        $sql = "UPDATE clientes set nombre='" . $t->getNombre() . "', idDireccion='" . $t->getIdDireccion() . "',  diasCredito='" . $t->getDiasCredito() . "', email='" . $t->getEmail() . "', descuentoPorFactura='" . $t->getDesctfactura() . "', descuentoPorProntoPago='" . $t->getDesctprontopago() . "', tipoCliente='" . $t->getTipoCliente() . "', idStatus='1' WHERE rfc='" . $t->getRfc() . "';";
+//        mysql_query($sql, $cn->Conectarse());
+//        $cn->cerrarBd();
+//    }
 
     function verificandoCliente($rfc) {
         include_once '../daoconexion/daoConeccion.php';
@@ -1563,7 +1563,7 @@ class dao {
     //==========================================================================
     function superEditorClientes(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
         //Sacar id proveedor
-        $sqlIdProveedor = "SELECT idProveedor, idDireccion FROM proveedores WHERE rfc = '" . $proveedor->getRfc() . "'";
+        $sqlIdProveedor = "SELECT idCliente, idDireccion FROM clientes WHERE rfc = '" . $proveedor->getRfc() . "'";
         mysql_query("START TRANSACTION;");
         $ctrlIdProveedor = mysql_query($sqlIdProveedor);
         if ($ctrlIdProveedor == false) {
@@ -1571,12 +1571,12 @@ class dao {
             mysql_query("ROLLBACK;");
         } else {
             while ($rs = mysql_fetch_array($ctrlIdProveedor)) {
-                $idProveedor = $rs["idProveedor"];
+                $idProveedor = $rs["idCliente"];
                 $idDireccion = $rs["idDireccion"];
             }
         }
         //Editar Proveedor
-        $sqlEditarProveedor = "UPDATE proveedores SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "' WHERE idProveedor='$idProveedor'";
+        $sqlEditarProveedor = "UPDATE clientes SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "' WHERE idCliente='$idProveedor'";
         $ctrlEditarProveedor = mysql_query($sqlEditarProveedor);
         if ($ctrlEditarProveedor == false) {
             $ctrlEditarProveedor = mysql_error();
@@ -1594,7 +1594,7 @@ class dao {
             
         } else {
             for ($i = 0; $i < $ctrltelefonos; $i++) {
-                $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idProveedor','PROVEEDOR')";
+                $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idProveedor','CLIENTE')";
                 $ctrlTelefonoGuardar = mysql_query($sqlTelefonos);
                 if ($ctrlTelefonoGuardar == false) {
                     $rs = mysql_error();
@@ -1608,7 +1608,7 @@ class dao {
             
         } else {
             for ($i = 0; $i < $ctrlemails; $i++) {
-                $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idProveedor','PROVEEDOR')";
+                $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idProveedor','CLIENTE')";
                 $ctrlEmailsGuardar = mysql_query($sqlEmails);
                 if ($ctrlEmailsGuardar == false) {
                     mysql_query("ROLLBACK;");
@@ -1618,6 +1618,77 @@ class dao {
         }
         mysql_query("COMMIT;");
         return true;
+    }
+
+    //===================Sacando datos cliente =================================
+    function cpuleaProveedor($rfc) {
+        $sql = "SELECT nombre, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente FROM clientes WHERE rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function cpuleaDireccion($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT d.calle, d.numeroExterior, d.numeroInterior, d.cruzamientos, d.postal, d.colonia, d.ciudad, d.estado FROM clientes p INNER JOIN direcciones d ON p.idDireccion = d.idDireccion WHERE p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function cpuleaTelefono($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT t.idTelefonos, t.telefono FROM clientes p INNER JOIN telefonos t ON p.idCliente = t.idPropietario WHERE t.tipoPropietario = 'CLIENTE' AND p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
+    }
+
+    function cpuleaEmails($rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT e.idEmail, e.email FROM clientes p INNER JOIN emails e ON p.idCliente = e.idPropietario WHERE e.tipoPropietario = 'CLIENTE' AND p.rfc = '$rfc'";
+        $rs = mysql_query($sql);
+        $datos = mysql_affected_rows();
+        if ($rs == false) {
+            $rs = mysql_error();
+        } else {
+            if ($datos > 0) {
+                
+            } else {
+                $rs = false;
+            }
+        }
+        return $rs;
     }
 
 }
