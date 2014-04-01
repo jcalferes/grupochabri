@@ -5,10 +5,10 @@ $dao = new dao();
 $codigoProducto = $_GET["codigoProducto"];
 
 $datos = $dao->mostrarTarifasTabla($codigoProducto);
-$datos2 = $dao->consultaListaPrecio();
+
 if ($datos !== 0) {
     $arreglo = array();
-    while ($rs = mysql_fetch_array($datos, MYSQL_ASSOC)) {
+    while ($rs = \mysql_fetch_array($datos, MYSQL_ASSOC)) {
 
 //    echo $cont++;
 //    while ($rs = mysql_fetch_array($datos2, MYSQL_ASSOC)) {
@@ -35,4 +35,5 @@ if ($datos !== 0) {
 } else {
     echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Tarifa</th></thead><tbody>";
     echo '</tbody></table></div>';
+    echo 'prr';
 }
