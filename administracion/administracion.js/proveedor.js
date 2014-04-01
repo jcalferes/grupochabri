@@ -27,7 +27,7 @@ function Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, 
 $("#btnotrotel").click(function() {
     cuantostel++;
     cadena = txttel + cuantostel;
-    $("#mastels").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
+    $("#mastels").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 57%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
     aplicarValidacion();
 });
 
@@ -39,7 +39,7 @@ function aplicarValidacion() {
 $("#btnotroemail").click(function() {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
-    $("#masemails").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 62%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"/><button class=\"btn\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>");
+    $("#masemails").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 57%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
     aplicarValidacion();
 });
 
@@ -155,12 +155,8 @@ $("#btncanceloProveedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
-$('#chktest').on('switchChange', function(e, data) {
-    alert(data.value);
-});
 
 $(document).ready(function() {
-    $("#chktest").bootstrapSwitch();
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
@@ -319,96 +315,6 @@ $("#btneditarproveedor").click(function() {
             alertify.error("Error al guardar");
         }
     });
-
-//        var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
-//        var rfc = $("#txtrfc").val().toUpperCase();
-//        var diascredito = $("#txtdiascredito").val();
-//        var descuento = $("#txtdescuento").val();
-//        var email = $("#txtemail").val();
-//        var desctpf = $("#txtdesctpf").val();
-//        var desctpp = $("#txtdesctpp").val();
-//        var radios;
-//
-//        if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento) || email == "" || /^\s+$/.test(email)) {
-//            alertify.error("Todos los campos son obligatorios");
-//            return false;
-//        }
-//
-//        var fisica = $("#fisica").is(":checked");
-//        var moral = $("#moral").is(":checked");
-//        if (fisica == true) {
-//            if ($("#txtrfc").val().toUpperCase().match(/^[A-Z]{4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/)) {
-//                $("#frmrfc").removeClass("has-error");
-//                $("#frmrfc").addClass("has-success");
-//                radios = $("#fisica").val();
-//            } else {
-//                $("#frmrfc").removeClass("has-success");
-//                $("#frmrfc").addClass("has-error");
-//                $("#txtrfc").focus();
-//                alertify.error("RFC no valido para personas fisicas");
-//                radios = $("#fisica").val();
-//                return false;
-//            }
-//        }
-//        if (moral == true) {
-//            if ($("#txtrfc").val().toUpperCase().match(/^[A-Z]{3}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/)) {
-//                $("#frmrfc").removeClass("has-error");
-//                $("#frmrfc").addClass("has-success");
-//                radios = $("#moral").val();
-//            } else {
-//                $("#frmrfc").removeClass("has-success");
-//                $("#frmrfc").addClass("has-error");
-//                $("#txtrfc").focus();
-//                alertify.error("RFC no valido para personas morales");
-//                radios = $("#moral").val();
-//
-//                return false;
-//            }
-//        }
-//
-//        var info = "nombre=" + nombre + "&rfc=" + rfc + "&diascredito=" + diascredito + "&desctpf=" + desctpf + "&desctpp=" + desctpp + "&email=" + email + "&radios=" + radios;
-//        $.get('editarProveedor.php', info, function(respuesta) {
-//            var info = respuesta;
-//            if (info == 2)
-//            {
-//                alertify.error("RFC no valido");
-//                return false;
-//            }
-//            if (info == 3)
-//            {
-//                alertify.error("Error al gurdar direccion");
-//                return false;
-//            }
-//            if (info == 1)
-//            {
-//                alertify.error("No agregaste una direccion");
-//                return false;
-//            } else {
-//                $("#txtdesctpf").val("");
-//                $("#txtdesctpp").val("");
-//                $("#txtnombreproveedor").val("");
-//                $("#txtrfc").val("");
-//                $(".direccion").val("");
-//
-//                $("#txtemail").val("");
-//                $("#txtdiascredito").val("");
-//                $("#txtdescuento").val("");
-//                $("#formulario").show("slow");
-//                $("#mostrarDivProveedor").hide("slow");
-//                $("#frmrfc").removeClass("has-success");
-//                $("#frmrfc").removeClass("has-error");
-//                $("#frmemail").removeClass("has-success");
-//                $("#frmemail").removeClass("has-error");
-//                $("#consultaProveedor").load("consultarProveedor.php", function() {
-//                    $('#dtproveedor').dataTable();
-//                });
-//                $("#selectProveedor").load("mostrarProveedores.php", function() {
-//                    $("#selectProveedor").selectpicker('refresh');
-//                });
-//                alertify.success("Proveedor editado correctamente");
-//                return false;
-//            }
-//        });
 });
 
 $("#txtrfc").keyup(function() {
