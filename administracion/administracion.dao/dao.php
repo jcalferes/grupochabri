@@ -474,7 +474,12 @@ class dao {
         $cn = new coneccion();
         $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaPrecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND t.idStatus = '1' AND c.status='1'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        return $datos;
+        $validacion = mysql_affected_rows();
+        if ($validacion == false) {
+            return 0;
+        } else {
+            return $datos;
+        }
     }
 
     function guardarGrupo(GrupoProductos $g) {
