@@ -180,7 +180,7 @@ class dao {
         $cn = new coneccion();
         mysql_query("START TRANSACTION;");
         foreach ($listaClientes as $valor) {
-            $sql = "update clientes set idStatus='2' Where idClientes ='$valor'";
+            $sql = "UPDATE clientes SET idStatus='2' WHERE idCliente ='$valor'";
             $proveedores = mysql_query($sql, $cn->Conectarse());
             if ($proveedores == false) {
                 mysql_query("ROLLBACK;");
@@ -190,14 +190,6 @@ class dao {
         }
         mysql_query("COMMIT;");
     }
-
-//    function editarCliente(Cliente $t) {
-//        include_once '../daoconexion/daoConeccion.php';
-//        $cn = new coneccion();
-//        $sql = "UPDATE clientes set nombre='" . $t->getNombre() . "', idDireccion='" . $t->getIdDireccion() . "',  diasCredito='" . $t->getDiasCredito() . "', email='" . $t->getEmail() . "', descuentoPorFactura='" . $t->getDesctfactura() . "', descuentoPorProntoPago='" . $t->getDesctprontopago() . "', tipoCliente='" . $t->getTipoCliente() . "', idStatus='1' WHERE rfc='" . $t->getRfc() . "';";
-//        mysql_query($sql, $cn->Conectarse());
-//        $cn->cerrarBd();
-//    }
 
     function verificandoCliente($rfc) {
         include_once '../daoconexion/daoConeccion.php';
