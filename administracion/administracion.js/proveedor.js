@@ -155,8 +155,8 @@ $("#btncanceloProveedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
+
 $(document).ready(function() {
-    $("#chkcual").bootstrapSwitch();
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();

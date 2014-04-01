@@ -3,36 +3,27 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de proveedores</h2>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de clientes</h2>
             <section style="width: 100%">
                 <div id="consultaProveedor">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de clientes</h2>
-            <section style="width: 100%">
-                <div id="consultaClientes">
-                </div>
-            </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar Nuevo</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                    <div id="frmcual" class="form-group">
-                        <label id="">Guardar como proveedor: </label>
-                        <input type="checkbox" id="chkcual" checked data-on-text="SI" data-off-text="NO" data-size="small">
-                    </div>
                     <div id="frmtipo" class="form-group">
                         <label>Tipo:</label><br>
                         <div class="radio-inline" >
-                            <label>
-                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();"/>
+                            <span>
+                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked/>
                                 Fisica
-                            </label>
+                            </span>
                         </div>
                         <div class="radio-inline" >
-                            <label>
+                            <span>
                                 <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL"/>
                                 Moral
-                            </label>
+                            </span>
                         </div>
                     </div>
                     <div id="frmrfc" class="form-group">
@@ -49,16 +40,16 @@
                     </div>
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
-                        <button id="btnvertele" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
-                        <input id="btnotrotel" type="button" class="btn btn-xs" value="+">
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                         <div id="mastels">
                         </div>
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
-                        <button id="btnveremail" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
-                        <input id="btnotroemail" type="button" class="btn btn-xs" value="+">
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
                         <div id="masemails">
                         </div>
