@@ -31,12 +31,30 @@ class dao {
                         if ($sqldetalles == false) {
                             mysql_query("ROLLBACK;");
                         } else {
-                            $sqlentradas = "INSERT INTO entradas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$idsucursal','usuario')";
+                            $sqlentradas = "INSERT INTO entradas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$sucursal','usuario')";
                             $sqlentradas = mysql_query($sqlentradas, $cn->Conectarse());
                             if ($sqlentradas == false) {
                                 mysql_query("ROLLBACK;");
                             } else {
-                                
+                                $sqlentradas = "INSERT INTO salidas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$idsucursal','usuario')";
+                                $sqlentradas = mysql_query($sqlentradas, $cn->Conectarse());
+                                if ($sqlentradas == false) {
+                                    mysql_query("ROLLBACK;");
+                                } else {
+                                    $sqlexistenciasSalida = "UPDATE  existencias SET cantidad= cantidad - $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = $idsucursal";
+                                    $sqlexistenciasSalida = mysql_query($sqlexistenciasSalida, $cn->Conectarse());
+                                    if ($sqlexistenciasSalida == false) {
+                                        mysql_query("ROLLBACK;");
+                                    } else {
+                                        $sqlexistenciasentrada = "UPDATE  existencias SET cantidad= cantidad + $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = $sucursal";
+                                        $sqlexistenciasentrada = mysql_query($sqlexistenciasentrada, $cn->Conectarse());
+                                        if ($sqlexistenciasentrada == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            echo 'bien';
+                                        }
+                                    }
+                                }
                             }
                             $sqlrequisicion = mysql_query($sqlrequisicion, $cn->Conectarse());
                             if ($sqlrequisicion == false) {
