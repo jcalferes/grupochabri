@@ -1,3 +1,7 @@
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("active");
+});
 function entroMarca() {
     $("#1").addClass("active");
     $("#2").removeClass("active");

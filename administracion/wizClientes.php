@@ -60,9 +60,9 @@
                     </div>
                     <div class="form-group form-inline">
                         <label>Desct. Factura:</label>
-                        <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 20%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
-                        <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false">
                     </div>
 
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
