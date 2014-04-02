@@ -3,6 +3,7 @@ $("#menu-toggle").click(function(e) {
     $("#wrapper").toggleClass("active");
 });
 function entroMarca() {
+    $("#wrapper").toggleClass("active");
     $("#1").addClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -15,8 +16,12 @@ function entroMarca() {
     $("#11").removeClass("active");
     $("#mostrar").load("wizMarca.php");
 
+
+
+
 }
 function entroProducto() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").addClass("active");
     $("#3").removeClass("active");
@@ -32,6 +37,7 @@ function entroProducto() {
 
 }
 function entroProveedor() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").addClass("active");
@@ -49,6 +55,7 @@ function entroProveedor() {
 }
 
 function entroListaPrecio() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -65,6 +72,7 @@ function entroListaPrecio() {
 }
 
 function entroEntradasProductos() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -81,6 +89,7 @@ function entroEntradasProductos() {
 }
 
 function entroSalidasProduto() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -97,6 +106,7 @@ function entroSalidasProduto() {
 }
 
 function entroUsuarios() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -112,6 +122,7 @@ function entroUsuarios() {
 
 }
 function entroCliente() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -128,6 +139,7 @@ function entroCliente() {
 }
 
 function entroVentas() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");
@@ -144,6 +156,7 @@ function entroVentas() {
 }
 
 function entroTrasferencia() {
+    $("#wrapper").toggleClass("active");
     $("#1").removeClass("active");
     $("#2").removeClass("active");
     $("#3").removeClass("active");

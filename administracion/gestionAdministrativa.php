@@ -95,6 +95,7 @@ $verificasession->validaSesion();
                         </div>
                         <div class="panel-body">
                             <div id="mostrar">
+                                <h1>HOLA! :)</h1>
                             </div>
                         </div>
                     </div>

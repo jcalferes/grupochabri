@@ -85,8 +85,8 @@
 .inset {
     padding: 20px;
 }
-
-@media (max-width:767px) {
+/*1200px para esconder solo en tablets (iPad)*/
+@media (max-width:1500px) { 
 
     #wrapper {
         padding-left: 0;
