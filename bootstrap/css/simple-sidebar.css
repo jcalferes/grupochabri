@@ -41,8 +41,8 @@
 }
 
 .sidebar-nav li a:hover {
-    color: #fff;
-    background: rgba(255,255,255,0.2);
+    color: #000000;
+    /*background: rgba(255,255,255,0.2);*/
     text-decoration: none;
 }
 
@@ -86,7 +86,7 @@
     padding: 20px;
 }
 /*1200px para esconder solo en tablets (iPad)*/
-@media (max-width:1500px) { 
+@media (max-width:1200px) { 
 
     #wrapper {
         padding-left: 0;
