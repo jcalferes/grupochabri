@@ -22,8 +22,9 @@ function sacarTotal2(cp) {
 }
 
 $(document).ready(function() {
-    var fallo = 0;
+
     $("#mandarRespuesta").click(function() {
+        var fallo = 0;
         $('.myCodigo2').each(function() {
             var elemento = this;
             var valor = elemento.value;
