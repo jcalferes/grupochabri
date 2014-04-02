@@ -1,3 +1,4 @@
+
 #wrapper {
     padding-left: 250px;
     transition: all 0.4s ease 0s;
@@ -35,7 +36,7 @@
 }
 
 .sidebar-nav li a {
-    color: #999999;
+    color: #5c5c5c; /*Color de la fuente por default*/
     display: block;
     text-decoration: none;
 }
