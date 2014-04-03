@@ -8,7 +8,8 @@ function aceptarTransferencia(encabezadoTransferencia) {
     alert("entro");
     var info = "aceptarTransferencia=" + encabezadoTransferencia;
     $.get('aceptarTransferencia.php', info, function(x) {
-        alertify("Transferencia Completada Exitosamente");
+        alertify.success("Transferencia Completada Exitosamente");
+        $("#mdlDetalleTransferencia").hide();
         $("#consultapedidos").load("consultaPedidos.php");
         $("#consultatransferencias").load("consultaTransferencias.php");
 
