@@ -161,21 +161,35 @@ $(document).ready(function() {
                 var codigo = $('#codigo' + valor).val();
                 var cantidad = $('#txtCantidad' + valor).val();
                 var costo = $('#costoUnitario' + valor).val();
-                var t = new TransaccionDetalles(codigo, cantidad, costo);
-                arreglo.push(t);
-                console.log(t);
+                if (codigo == undefined) {
+
+                } else {
+                    var t = new TransaccionDetalles(codigo, cantidad, costo);
+                    arreglo.push(t);
+                    console.log(t);
+                }
+
             });
             var sucursal = $("#sucursal").val();
             var datosJSON = JSON.stringify(arreglo);
 
-            console.log(datosJSON);
-            $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
-                $("#consultapedidos").load("consultaPedidos.php");
-                $("#consultatransferencias").load("consultaTransferencias.php");
-                alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
-            });
+            var cont = arreglo.length;
+            if (cont > 0) {
+                console.log(datosJSON);
+                $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
+                    $("#consultapedidos").load("consultaPedidos.php");
+                    $("#consultatransferencias").load("consultaTransferencias.php");
+                    $('#tablaTransferencias tr').each(function() {
+                        $(this).remove();
 
+                    });
+                    $("#costoTotal").val(0);
+                    alertify.success("Se ha mandado el pedido de transferencia de manera correcta");
+                });
 
+            } else {
+                alertify.error("Debes seleccionar un producto");
+            }
 
 
         }
