@@ -88,7 +88,7 @@ $verificasession->validaSesion();
                 </ul>
             </div>
             <div id="page-content-wrapper">
-                <div class="col-lg-12">
+                <div class="container-fluid">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a style="color: #777777" id="menu-toggle" class="btn btn-xs"><span class="glyphicon glyphicon-align-justify"/></a><span> Gestion Administrativa</span>
