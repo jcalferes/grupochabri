@@ -2,6 +2,14 @@
 
 class dao {
 
+    function cambiarEstatusTransferencia($aceptacion) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE requisicionencabezados set estatusRequisicion = '6' WHERE idEncabezadoRequisicion = '$aceptacion'";
+        $sql = mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
     function guardarTransferenciaPedido($datos, $lafecha, $idsucursal, $sucursal, $transf) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -68,6 +76,7 @@ class dao {
             }
         }
         mysql_query("COMMIT;");
+        $cn->cerrarBd();
     }
 
     function consultaPedidosR($idSucursal) {
@@ -89,7 +98,7 @@ class dao {
     function consultaRequisicion($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st2.status as plop,t.fechaRequisicion,s2.sucursal,s2.idSucursal FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalEmisor = $idSucursal  ";
+        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st.idStatus as idStatusTransf, st2.idStatus as idStatusAceptacion,st2.status as plop,t.fechaRequisicion,s2.sucursal,s2.idSucursal FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalEmisor = $idSucursal  ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -156,10 +165,10 @@ class dao {
         return $datos;
     }
 
-    function consultaSucursales() {
+    function consultaSucursales($sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM sucursales";
+        $sql = "SELECT * FROM sucursales WHERE idSucursal <> '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }

@@ -4,10 +4,20 @@ function TransaccionDetalles(codigo, cantidad, costo) {
     this.costo = costo;
 
 }
-function detallesTransferencia(transf, sucu) {
+function aceptarTransferencia(encabezadoTransferencia) {
+    alert("entro");
+    var info = "aceptarTransferencia=" + encabezadoTransferencia;
+    $.get('aceptarTransferencia.php', info, function(x) {
+        alertify("Transferencia Completada Exitosamente");
+        $("#consultapedidos").load("consultaPedidos.php");
+        $("#consultatransferencias").load("consultaTransferencias.php");
+
+    });
+}
+function detallesTransferencia(transf, sucu, transferir, aceptacion) {
     $('#detalleTransferencia').trigger('click');
     $('#labelTitulo').html('<h4> Lista de transferencias:</h4>' + transf);
-    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf + "&sucu=" + sucu);
+    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf + "&sucu=" + sucu + "&transferir=" + transferir + "&aceptacion=" + aceptacion);
     $("#mandarRespuesta").hide();
 }
 
@@ -87,26 +97,32 @@ $(document).ready(function() {
     $("#consultatransferencias").load("consultaTransferencias.php");
     $("#sucursal").load("sacarSucursales.php");
 
-
+    $("#CancelarPedido").click(function() {
+        $('#tablaTransferencias tr').each(function() {
+            $(this).remove();
+            $("#sucursal").prop('disabled', false);
+        });
+    });
     $("#buscarCodigoTransferencia").click(function() {
         var sucursal = $("#sucursal").val();
         var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
         var codigo = $("#codigoProductoTranferencia").val();
         var comprobar = recorrerTabla(codigo);
-        if (comprobar == 0) {
-            $.get('listaTrasferencia.php', info, function(x) {
+        if (sucursal > 0) {
+            if (comprobar == 0) {
+                $.get('listaTrasferencia.php', info, function(x) {
 
-                if (x == 0) {
-                    alertify.error("no hay ese codigo");
-                } else {
-
-                    alertify.success("producto agregado a la lista");
-                    lista = JSON.parse(x);
+                    if (x == 0) {
+                        alertify.error("no hay ese codigo");
+                    } else {
+                        $("#sucursal").prop('disabled', true);
+                        alertify.success("producto agregado a la lista");
+                        lista = JSON.parse(x);
 //                    console.log(lista);
-                    var tr = "";
-                    $.each(lista, function(ind, elem) {
-                        $.each(elem, function(ind, elem2) {
-                            tr = '<tr>\n\
+                        var tr = "";
+                        $.each(lista, function(ind, elem) {
+                            $.each(elem, function(ind, elem2) {
+                                tr = '<tr>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
                           <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
@@ -114,15 +130,18 @@ $(document).ready(function() {
                           <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoProducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
                         <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoProducto + '"  disabled></td>\n\
                       </tr>\n\ ';
-                            $("#tablaTransferencias").append(tr);
-                            $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                                $("#tablaTransferencias").append(tr);
+                                $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                            });
                         });
-                    });
 
-                }
-            });
+                    }
+                });
+            } else {
+                alertify.error("ya se a agregado este producto en la lista");
+            }
         } else {
-            alertify.error("ya se a agregado este producto en la lista");
+            alertify.error("Debe seleccionar una sucursal");
         }
     });
 

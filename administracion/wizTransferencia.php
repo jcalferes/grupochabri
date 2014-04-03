@@ -52,6 +52,7 @@
                 </form>
                 <form class="form-inline text-right">
                     <input type="button" id="mandarPedido" value="Aceptar"/>
+                    <input type="button" id="CancelarPedido" value="Cancelar"/>
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;peticiones a transferir</h2>

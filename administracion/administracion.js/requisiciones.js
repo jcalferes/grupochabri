@@ -69,6 +69,7 @@ $(document).ready(function() {
             $.post('guardarRequisicion.php', {datos: datosJSON, sucursal: sucursal, transf: transf}, function(respuesta) {
                 $("#consultapedidos").load("consultaPedidos.php");
                 $("#consultatransferencias").load("consultaTransferencias.php");
+                $("#mandarRespuesta").hide('slow');
                 alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
             });
 
