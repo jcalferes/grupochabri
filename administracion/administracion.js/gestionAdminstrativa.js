@@ -2,22 +2,25 @@ $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("active");
 
-//    $("#wrapper").addClass("col-lg-10");
     var rclass = $("#wrapper").hasClass('col-lg-10');
 
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 });
 function entroMarca() {
     $("#wrapper").toggleClass("active");
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 
 //    $("#1").addClass("active");
@@ -37,9 +40,11 @@ function entroProducto() {
     $("#wrapper").toggleClass("active");
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 
 //    $("#1").removeClass("active");
@@ -60,9 +65,11 @@ function entroProveedor() {
     $("#wrapper").toggleClass("active");
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 
 //    $("#1").removeClass("active");
@@ -85,9 +92,11 @@ function entroListaPrecio() {
     $("#wrapper").toggleClass("active");
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
@@ -109,9 +118,11 @@ function entroEntradasProductos() {
 
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
@@ -133,9 +144,11 @@ function entroSalidasProduto() {
 
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
@@ -157,9 +170,11 @@ function entroUsuarios() {
 
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
@@ -180,9 +195,11 @@ function entroCliente() {
 
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
@@ -202,9 +219,11 @@ function entroCliente() {
 function entroVentas() {
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
     $("#wrapper").toggleClass("active");
 //    $("#1").removeClass("active");
@@ -227,9 +246,11 @@ function entroTrasferencia() {
 
     var rclass = $("#wrapper").hasClass('col-lg-10');
     if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
         $("#wrapper").addClass("col-lg-10");
     } else {
         $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
     }
 //    $("#1").removeClass("active");
 //    $("#2").removeClass("active");
