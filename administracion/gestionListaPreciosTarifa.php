@@ -2,9 +2,12 @@
 
 include_once './administracion.dao/dao.php';
 $dao = new dao();
+session_start();
+$sucursal = $_SESSION["sucursalSesion"];
+
 $codigoProducto = $_GET["codigoProducto"];
 
-$datos = $dao->mostrarTarifasTabla($codigoProducto);
+$datos = $dao->mostrarTarifasTabla($codigoProducto, $sucursal);
 
 if ($datos !== 0) {
     $arreglo = array();
