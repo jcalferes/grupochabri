@@ -112,7 +112,7 @@ $(document).ready(function() {
     $("#sucursal").load("sacarSucursales.php");
 
     $("#CancelarPedido").click(function() {
-        $('#tablaTransferencias tr').each(function() {
+        $('#tablaTransferencias td').each(function() {
             $(this).remove();
             $("#sucursal").prop('disabled', false);
         });
