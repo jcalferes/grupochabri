@@ -4,14 +4,56 @@ function TransaccionDetalles(codigo, cantidad, costo) {
     this.costo = costo;
 
 }
+function cancelarTransferencia() {
+    var info = "aceptarTransferencia=" + encabezadoTransferencia;
+    $.get('cancelarTransferencia.php', info, function(x) {
+        alertify.success("Transferencia Cancelada Exitosamente");
+        $("#consultapedidos").load("consultaPedidos.php");
+        $("#consultatransferencias").load("consultaTransferencias.php");
+
+    });
+}
+function aceptarTransferencia(encabezadoTransferencia) {
+
+    var info = "aceptarTransferencia=" + encabezadoTransferencia;
+    $.get('aceptarTransferencia.php', info, function(x) {
+        $("#aceptarTraferencia").hide('slow');
+        $("#cancelarPedido").hide();
+        alertify.success("Transferencia Completada Exitosamente");
+        $("#consultapedidos").load("consultaPedidos.php");
+        $("#consultatransferencias").load("consultaTransferencias.php");
+
+    });
+}
+function detallesTransferencia(transf, sucu, transferir, aceptacion) {
+    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<h4> Lista de transferencias:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf + "&sucu=" + sucu + "&transferir=" + transferir + "&aceptacion=" + aceptacion);
+    $("#mandarRespuesta").hide();
+    $("#cancelarPedido").hide();
+
+}
+
+function condicionesPeticion(transf, sucu, plop) {
+    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
+    $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf + "&sucu=" + sucu);
+    if (plop == 5) {
+        $("#mandarRespuesta").show();
+        $("#cancelarPedido").show();
+    } else {
+        $("#mandarRespuesta").hide();
+        $("#cancelarPedido").hide();
+    }
+}
 
 function sacarTotal(cp) {
+
     var cantidad = $("#txtCantidad" + cp).val();
     var costo = $("#costoUnitario" + cp).val();
     var elemento = 0.0;
     var mientras = 0.0;
     $("#txtTotal" + cp).val(cantidad * costo);
-
     $('.transferencia').each(function() {
 
         elemento = $(this).val();
@@ -65,40 +107,56 @@ function recorrerTabla(codigo) {
     return band;
 }
 $(document).ready(function() {
+    $("#consultapedidos").load("consultaPedidos.php");
+    $("#consultatransferencias").load("consultaTransferencias.php");
+    $("#sucursal").load("sacarSucursales.php");
+
+    $("#CancelarPedido").click(function() {
+        $('#tablaTransferencias td').each(function() {
+            $(this).remove();
+            $("#sucursal").prop('disabled', false);
+        });
+    });
     $("#buscarCodigoTransferencia").click(function() {
-        var info = "codigo=" + $("#codigoProductoTranferencia").val();
+        var sucursal = $("#sucursal").val();
+        var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
         var codigo = $("#codigoProductoTranferencia").val();
         var comprobar = recorrerTabla(codigo);
-        if (comprobar == 0) {
-            $.get('listaTrasferencia.php', info, function(x) {
+        if (sucursal > 0) {
+            if (comprobar == 0) {
+                $.get('listaTrasferencia.php', info, function(x) {
 
-                if (x == 0) {
-                    alertify.error("no hay ese codigo");
-                } else {
-
-                    alertify.success("producto agregado a la lista");
-                    lista = JSON.parse(x);
+                    if (x == 0) {
+                        alertify.error("no hay ese codigo");
+                    } else {
+                        $("#sucursal").prop('disabled', true);
+                        alertify.success("producto agregado a la lista");
+                        $("#codigoProductoTranferencia").val("");
+                        lista = JSON.parse(x);
 //                    console.log(lista);
-                    var tr = "";
-                    $.each(lista, function(ind, elem) {
-                        $.each(elem, function(ind, elem2) {
-                            tr = '<tr>\n\
+                        var tr = "";
+                        $.each(lista, function(ind, elem) {
+                            $.each(elem, function(ind, elem2) {
+                                tr = '<tr>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
-                          <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onkeyup="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
+                          <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
                           <td><input type="text" class ="form-control" id="txtMaxCantidad' + elem[ind].codigoProducto + '" value="' + elem[ind].cantidad + '" disabled/></td>\n\
                           <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoProducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
                         <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoProducto + '"  disabled></td>\n\
                       </tr>\n\ ';
-                            $("#tablaTransferencias").append(tr);
-                            $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                                $("#tablaTransferencias").append(tr);
+                                $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                            });
                         });
-                    });
 
-                }
-            });
+                    }
+                });
+            } else {
+                alertify.error("ya se a agregado este producto en la lista");
+            }
         } else {
-            alertify.error("ya se a agregado este producto en la lista");
+            alertify.error("Debe seleccionar una sucursal");
         }
     });
 
@@ -137,23 +195,44 @@ $(document).ready(function() {
                 var codigo = $('#codigo' + valor).val();
                 var cantidad = $('#txtCantidad' + valor).val();
                 var costo = $('#costoUnitario' + valor).val();
-                var t = new TransaccionDetalles(codigo, cantidad, costo);
-                arreglo.push(t);
-                console.log(t);
-            });
+                if (codigo == undefined) {
 
+                } else {
+                    if (cantidad > 0) {
+                        var t = new TransaccionDetalles(codigo, cantidad, costo);
+                        arreglo.push(t);
+                        console.log(t);
+                    } else {
+
+                    }
+                }
+
+            });
+            var sucursal = $("#sucursal").val();
             var datosJSON = JSON.stringify(arreglo);
-           
-            console.log(datosJSON);
-            $.post('guardarTransferencias.php', {datos: datosJSON}, function(respuesta) {
-alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
-            });
+            var cont = arreglo.length;
+            if (cont > 0) {
 
 
+                console.log(datosJSON);
+                $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
+                    $("#consultapedidos").load("consultaPedidos.php");
+                    $("#consultatransferencias").load("consultaTransferencias.php");
+                    $('#tablaTransferencias tr').each(function() {
+                        $(this).remove();
+
+                    });
+                    $("#costoTotal").val(0);
+                    $("#sucursal").prop('disabled', false);
+                    alertify.success("Se ha mandado el pedido de transferencia de manera correcta");
+                });
+
+            } else {
+                alertify.error("Debes seleccionar un producto y debes pedir almenos uno en requisicion");
+            }
 
 
         }
 
     });
-
 });

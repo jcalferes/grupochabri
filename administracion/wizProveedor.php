@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de proveedores</h2>
+            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de clientes</h2>
             <section style="width: 100%">
                 <div id="consultaProveedor">
                 </div>
@@ -11,17 +11,20 @@
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo proveedor</h2>
             <section class="scrollSection">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked>
-                            Fisica
-                        </label>
-                    </div>
-                    <div class="radio-inline" >
-                        <label>
-                            <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL">
-                            Moral
-                        </label>
+                    <div id="frmtipo" class="form-group">
+                        <label>Tipo:</label><br>
+                        <div class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked/>
+                                Fisica
+                            </span>
+                        </div>
+                        <div class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL"/>
+                                Moral
+                            </span>
+                        </div>
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
@@ -37,16 +40,16 @@
                     </div>
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
-                        <button id="btnvertele" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
-                        <input id="btnotrotel" type="button" class="btn btn-xs" value="+">
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                         <div id="mastels">
                         </div>
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
-                        <button id="btnveremail" type="button" disabled="false" class="btn btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
-                        <input id="btnotroemail" type="button" class="btn btn-xs" value="+">
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
                         <div id="masemails">
                         </div>
@@ -57,10 +60,11 @@
                     </div>
                     <div class="form-group form-inline">
                         <label>Desct. Factura:</label>
-                        <input id="txtdesctpf" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 20%" onpaste="return false">
                         <label>Desct. Pronto Pago:</label>
-                        <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false">
                     </div>
+
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>

@@ -11,7 +11,11 @@ $("#txtusuario").blur(function() {
     var usuario = $.trim($("#txtusuario").val());
     var info = "usuario=" + usuario;
     $.get('verificandoUsuario.php', info, function(respuesta) {
-        if (respuesta < 1) {
+        if (respuesta == 999) {
+            alertify.error("Este usuario ya exite");
+            $("#txtusuario").val("");
+        }
+        if (respuesta == 0) {
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtnombre").val("");
             $("#txtpaterno").val("");

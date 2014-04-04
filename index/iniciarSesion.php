@@ -12,7 +12,8 @@ $cn = new coneccion();
 $link = $cn->Conectarse();
 $usuario->setPass($utilerias->genera_md5($_GET["pass"]));
 $usuario->setUsuario($_GET["usuario"]);
-$nombrepc = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+//$nombrepc = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+$nombrepc = "HOME";
 $validapc = $dao->verificarMaquina($nombrepc);
 if ($validapc == "VALIDA") {
     $control = $dao->iniciarSesion($usuario);

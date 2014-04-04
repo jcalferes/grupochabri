@@ -5,7 +5,7 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Usuarios</h2>
             <section >
-                <div id="consultaUsuario" style="margin: 0% 25% 0% 25%">
+                <div id="consultaUsuario">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo Usuario</h2>
@@ -52,14 +52,12 @@
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Consulta de Maquinas</h2>
-            <section class="scrollSection">
+            <section>
                 <div id="consultaMaquina" style="margin: 0% 25% 0% 25%">
                 </div>
             </section>
-
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva Maquina</h2>
-
-            <section class="scrollSection">
+            <section>
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de la maquina:</label>

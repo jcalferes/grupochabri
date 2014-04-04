@@ -14,8 +14,7 @@
                     <form id="formularioProductos">
                         <div id="formulario"> 
                             <div class="form-group form-inline">
-                                <label>Codigo Producto</label>
-
+                                <label>Codigo Producto:</label>
                                 <input type="text" class="form-control valLetra" id="txtCodigoProducto" placeholder="Código del Producto" >
 <!--                                <input type="button"  id="btnVerificarCodigo" class="btn btn-primary" value="verificar codigo">-->
                             </div>
@@ -150,6 +149,7 @@
                                 <label>Desct. Pronto Pago:</label>
                                 <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false">
                             </div>
+                            <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar">
                             <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                             <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                         </form>

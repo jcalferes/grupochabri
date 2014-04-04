@@ -16,15 +16,18 @@ $verificasession->validaSesion();
         <!-- CSS -->
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="../bootstrap/css/simple-sidebar.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
+        <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
+        <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
-    <body>
-        <div class="navbar navbar-default" role="navigation">
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -59,39 +62,42 @@ $verificasession->validaSesion();
                         <li class=""><a href="#">Un link mas</a></li>
                         <li><a href="../index/cerrarSesion.php">Cerrar Sesion</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
             </div>
         </div>
-        <div class="container" style="width: 100%">
-            <!--                    Aqui todo el contenido de la pagina-->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Gestion Administrativa</h3>
-                </div>
-                <div class="panel-body">
-                    <ul class="nav nav-tabs nav-justified">
-                        <!--<li class="active"><a href="#">Home</a></li>-->
-                        <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
-                        <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
-                        <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                        <li id="4" class=""><a onclick="entroListaPrecio();">Listas</a></li>
-                        <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                        <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
-                        <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
-                        <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
-                        <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
-                        <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
-                    </ul>
-                    <div id="mostrar">
+    </header>
+    <body>
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
+                    <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
+                    <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
+                    <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
+                    <li id="4" class=""><a onclick="entroListaPrecio();">Listas</a></li>
+                    <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                    <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
+                    <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
+                    <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
+                    <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
+                </ul>
+            </div>
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a style="color: #777777" id="menu-toggle" class="btn btn-xs"><span class="glyphicon glyphicon-align-justify"/></a><span> Gestion Administrativa</span>
+                        </div>
+                        <div class="panel-body">
+                            <div id="mostrar">
+                                <h1>HOLA! :)</h1>
+                            </div>
+                            <a href="#" class="scrollUp"></a>
+                        </div>
                     </div>
                 </div>
-                <div class="panel-footer">
-                    <!--                    Aqui los botones o similares-->
-                    <!--========================================================-->
-                </div>
             </div>
-            <!--========================================================-->
-        </div> <!-- /container -->
+        </div>
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
@@ -100,6 +106,7 @@ $verificasession->validaSesion();
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../switchboostrap/js/bootstrap-switch.js"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>

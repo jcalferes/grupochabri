@@ -1,36 +1,50 @@
 <?php
 
-include './administracion.clases/Cliente.php';
+include './administracion.clases/Proveedor.php';
 include './administracion.clases/Direccion.php';
+include_once '../daoconexion/daoConeccion.php';
 include './administracion.dao/dao.php';
-session_start();
-$cliente = new Cliente();
+$proveedor = new Proveedor();
 $direccion = new Direccion();
+$cn = new coneccion();
 $dao = new dao();
-$rfc = $_GET["rfc"];
 
-if (!preg_match('/^[A-Z]{3,4}[ \-]?[0-9]{2}((0{1}[1-9]{1})|(1{1}[0-2]{1}))((0{1}[1-9]{1})|([1-2]{1}[0-9]{1})|(3{1}[0-1]{1}))[ \-]?[A-Z0-9]{3}$/D', $rfc)) {
-    echo 2;
+$datos = json_decode($_POST['datos']);
+
+$prov = $datos[0];
+$dire = $datos[1];
+$telefonos = $datos[2];
+$emails = $datos[3];
+
+$proveedor->setTipoProveedor($prov->radios);
+$proveedor->setNombre($prov->nombre);
+$proveedor->setRfc($prov->rfc);
+$proveedor->setDiasCredito($prov->diascredito);
+$proveedor->setDesctfactura($prov->desctpf);
+$proveedor->setDesctprontopago($prov->desctpp);
+
+$direccion->setCalle($dire->calle);
+$direccion->setNumeroexterior($dire->numeroexterior);
+$direccion->setNumerointerior($dire->numerointerior);
+$direccion->setCruzamientos($dire->cruzamientos);
+$direccion->setPostal($dire->postal);
+$direccion->setColonia($dire->colonia);
+$direccion->setCiudad($dire->ciudad);
+$direccion->setEstado($dire->estado);
+
+$ctrltelefonos = count($telefonos);
+$ctrlemails = count($emails);
+
+$cn->Conectarse();
+$dao->superGuardadorClientes($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$cn->cerrarBd();
+
+if ($dao == true) {
+    echo 0;
 } else {
-    if (isset($_SESSION["controlDireccion"])) {
-        $direccion = $_SESSION['objdireccion'];
-        $x = $dao->guardarDireccion($direccion);
-        if ($x == true) {
-            $cliente->setNombre($_GET["nombre"]);
-            $cliente->setTipoCliente($_GET["radios"]);
-            $cliente->setRfc($rfc);
-            $cliente->setDiasCredito($_GET["diascredito"]);
-            $id = $_SESSION['iddireccion'];
-            $cliente->setIdDireccion($id);
-            $cliente->setEmail($_GET["email"]);
-            $cliente->setDesctfactura($_GET["desctpf"]);
-            $cliente->setDesctprontopago($_GET["desctpp"]);
-            $dao->guardarCliente($cliente);
-            unset($_SESSION["controlDireccion"]);
-        } else {
-            echo 3;
-        }
-    } else {
-        echo 1;
-    }
+    echo 1;
 }
+
+
+
+
