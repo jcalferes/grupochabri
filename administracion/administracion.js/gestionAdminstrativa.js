@@ -1,3 +1,18 @@
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+        $('.scrollUp').fadeIn();
+    } else {
+        $('.scrollUp').fadeOut();
+    }
+});
+$(document).ready(function() {
+    $('.scrollUp').click(function() {
+        $("html, body").animate({scrollTop: 0}, 600);
+        return false;
+    });
+})
+
+
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("active");
