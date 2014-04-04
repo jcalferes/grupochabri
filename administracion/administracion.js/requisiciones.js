@@ -2,7 +2,7 @@ function RequisicionDetalles(codigo, cantidad, costo) {
     this.codigo = codigo;
     this.cantidad = cantidad;
     this.costo = costo;
-
+    
 }
 function sacarTotal2(cp) {
     var cantidad = $("#txtCantidad2" + cp).val();
@@ -23,7 +23,7 @@ function sacarTotal2(cp) {
 
 $(document).ready(function() {
     var fallo = 0;
-
+    var algo = "";
     $("#cancelarPedido").click(function() {
         var transf = $("#transf").val();
         $.post('cancelarTransferencia.php', {transf: transf}, function() {
