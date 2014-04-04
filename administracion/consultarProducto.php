@@ -1,8 +1,9 @@
 <?php
 
+session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
-session_start();
+
 $sucursal = $_SESSION["sucursalSesion"];
 $datos = $dao->consultaProducto($sucursal);
 $comprobar = "";
