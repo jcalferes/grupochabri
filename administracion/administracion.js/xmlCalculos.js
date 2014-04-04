@@ -408,9 +408,7 @@ $("#validarentrada").click(function() {
     var conceptos = []; //Aqui pondre todos los conceptos de la factura
     var datos = []; //Este me servira para pasar los datos a php
     var control = $('#control').val();//Mi control para recorrer cada textbox de mi XML
-
     for (var i = 0; i < control; i++) {
-
         //Validando los campos CODIGO DE PRODUCTO
         var validaid = $("#id" + i + "").val();
         if (validaid === "" || /^\s+$/.test(validaid)) {

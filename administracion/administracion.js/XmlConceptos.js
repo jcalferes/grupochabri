@@ -1,4 +1,4 @@
-function xmlConceptos() {
+function xmlConceptosManualmente() {
     this.unidadMedidaConcepto = "";
     this.importeConcepto = "";
     this.cantidadConcepto = 0.00;

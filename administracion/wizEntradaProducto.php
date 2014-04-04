@@ -154,6 +154,8 @@
                 <form class="form-inline text-right">
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
+                <br>
+                <input type="submit" value="guardar" id="guardarEntradasManualmente"/>
             </section>
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section>

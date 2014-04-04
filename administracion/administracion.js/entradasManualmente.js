@@ -19,9 +19,9 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     tr = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
-                        <td><label id= "codigoM ' + x + '">' + datosJson[i].codigoProducto + '</lable></td>\n\
-                        <td><label id = "descripcionM' + x + '">' + datosJson[i].producto + '</label></td>\n\\n\
-                        <td><label id = "costoUnitarioM' + x + '">' + datosJson[i].costo + '</td>\n\
+                        <td><label id="codigoM' + contador + '">' + datosJson[i].codigoProducto + '</lable></td>\n\
+                        <td><label id="descripcionM' + contador + '">' + datosJson[i].producto + '</label></td>\n\\n\
+                        <td><label id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</td>\n\
                         <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
@@ -377,39 +377,49 @@ $(document).ready(function() {
         }
     });
 
-
+//
     $("#guardarEntradasManualmente").click(function() {
+        alert("click me");
         var datos = [];
-        var conceptos = [];
+//        var conceptos = [];
+        var lstConceptos = new Array();
         var xmlComprobanteManualmente = new XmlComprobante();
         xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
         xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
         xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
         xmlComprobanteManualmente.desctGeneralFactura = $("#descuentosGeneralesPorComasM").val();
         xmlComprobanteManualmente.descuentoTotalComprobante = $("#descuentoTotalM").val();
-        xmlComprobanteManualmente.descuentosGenerales = $("$descuentoGeneralM").val();
+        xmlComprobanteManualmente.descuentosGenerales = $("#descuentoGeneralM").val();
         xmlComprobanteManualmente.ivaComprobante = $("#ivaM").val();
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
         xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
-        xmlComprobanteManualmente.tipoComprobante = "Entrada Manual";
-        for (var x = 0; x < contador; x++) {
-            var xmlConceptos = new xmlConceptos();
-            xmlConceptos.cantidadConcepto = $("#cant" + x).val();
-            xmlConceptos.cdaConcepto = $("#cda" + x).val();
-            xmlConceptos.codigoConcepto = $("#codigoM" + x).val();
-            xmlConceptos.descripcionConcepto = $("#descripcionM" + x).val();
-            xmlConceptos.desctUnoConcepto = $("#descuento1" + x).val();
-            xmlConceptos.desctDosConcepto = $("#descuento2" + x).val();
-            xmlConceptos.importeConcepto = $("#importe" + x).val();
-            xmlConceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).val();
-            xmlConceptos.unidadMedidaConcepto = "";
-            conceptos.push(xmlConceptos);
+        xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
+        var conceptos = new Array();
+        for (var x = 0; x < parseInt(contador); x++) {
+            alert("entro");
+            var conceptos = new xmlConceptosManualmente();
+            conceptos.cantidadConcepto = $("#cant" + x).val();
+            conceptos.cdaConcepto = $("#cda" + x).val();
+            conceptos.codigoConcepto = $("#codigoM" + x).val();
+            conceptos.descripcionConcepto = $("#descripcionM" + x).val();
+            conceptos.desctUnoConcepto = $("#descuento1" + x).val();
+            conceptos.desctDosConcepto = $("#descuento2" + x).val();
+            conceptos.importeConcepto = $("#importe" + x).val();
+            conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).val();
+            conceptos.unidadMedidaConcepto = "";
+            lstConceptos.push(conceptos);
+            alert("entro a cargar datos");
         }
         datos.push(xmlComprobanteManualmente);
-        datos.push(conceptos);
+        datos.push(lstConceptos);
+        alert(lstConceptos.length);
+        var informacion = JSON.stringify(datos);
+        alert("va a entrar a guardar");
+        $.post('xmlGuardarEntradasManuales.php', {datos: informacion}, function() {
+        }).error(function() {
+            console.log('Error al ejecutar la petición');
+        });
     });
-
 });
-
