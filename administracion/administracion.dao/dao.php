@@ -738,6 +738,16 @@ class dao {
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
+        $sucursales = "SELECT * FROM sucursales WHERE idSucursal <> '$idSucursal'";
+        $sucursales = mysql_query($sucursales, $cn->Conectarse());
+        while ($rs = mysql_fetch_assoc($sucursales)) {
+            $sucursal = $rs["idSucursal"];
+            $sqlexistencias = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$sucursal')";
+            $fecha = date("d/m/Y h:i");
+            $sqlcostos = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$sucursal')";
+            $sqlexistencias = mysql_query($sqlexistencias, $cn->Conectarse());
+            $sqlcostos = mysql_query($sqlcostos, $cn->Conectarse());
+        }
         $sql = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$idSucursal')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
