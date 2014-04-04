@@ -2,6 +2,14 @@
 
 class dao {
 
+    function cambiarEstatusCancelarTransferencia($aceptacion) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE requisicionencabezados set estatusRequisicion = '3', statusAprobacion = '4' WHERE idEncabezadoRequisicion = '$aceptacion'";
+        $sql = mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
     function cambiarEstatusTransferencia($aceptacion) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -31,7 +39,7 @@ class dao {
                 while ($rs = mysql_fetch_array($sqlid)) {
                     $sqlid = $rs["ID"];
                     foreach ($datos as $valor) {
-                        if ($valor->codigo !== NULL) {
+                        if ($valor->codigo !== NULL && $valor->cantidad > 0) {
                             $sqldetalles = "INSERT INTO transacciondetalles(idEncabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
                             $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
                         }
@@ -124,7 +132,7 @@ class dao {
                 while ($rs = mysql_fetch_array($sqlid)) {
                     $sqlid = $rs["ID"];
                     foreach ($datos as $valor) {
-                        if ($valor->codigo !== NULL) {
+                        if ($valor->codigo !== NULL && $valor->cantidad > 0) {
                             $sqldetalles = "INSERT INTO requisiciondetalles(idEncabezadoRequisicion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
                             $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
                         }
@@ -194,7 +202,7 @@ class dao {
                 while ($rs = mysql_fetch_array($sqlid)) {
                     $sqlid = $rs["ID"];
                     foreach ($datos as $valor) {
-                        if ($valor->codigo !== NULL) {
+                        if ($valor->codigo !== NULL && $valor->cantidad > 0) {
                             $sqldetalles = "INSERT INTO transacciondetalles(idEncabezadoTransaccion,codigo, cantidad, costo) values('$sqlid','$valor->codigo','$valor->cantidad',' $valor->costo')";
                             $sqldetalles = mysql_query($sqldetalles, $cn->Conectarse());
                         }

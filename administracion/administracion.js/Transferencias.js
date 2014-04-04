@@ -4,12 +4,22 @@ function TransaccionDetalles(codigo, cantidad, costo) {
     this.costo = costo;
 
 }
+function cancelarTransferencia() {
+    var info = "aceptarTransferencia=" + encabezadoTransferencia;
+    $.get('cancelarTransferencia.php', info, function(x) {
+        alertify.success("Transferencia Cancelada Exitosamente");
+        $("#consultapedidos").load("consultaPedidos.php");
+        $("#consultatransferencias").load("consultaTransferencias.php");
+
+    });
+}
 function aceptarTransferencia(encabezadoTransferencia) {
-    alert("entro");
+
     var info = "aceptarTransferencia=" + encabezadoTransferencia;
     $.get('aceptarTransferencia.php', info, function(x) {
+        $("#aceptarTraferencia").hide('slow');
+        $("#cancelarPedido").hide();
         alertify.success("Transferencia Completada Exitosamente");
-        $("#mdlDetalleTransferencia").hide();
         $("#consultapedidos").load("consultaPedidos.php");
         $("#consultatransferencias").load("consultaTransferencias.php");
 
@@ -20,17 +30,20 @@ function detallesTransferencia(transf, sucu, transferir, aceptacion) {
     $('#labelTitulo').html('<h4> Lista de transferencias:</h4>' + transf);
     $('#mostrartransferencias').load("mostrarDetallesTransferencia.php?transferencia=" + transf + "&sucu=" + sucu + "&transferir=" + transferir + "&aceptacion=" + aceptacion);
     $("#mandarRespuesta").hide();
+    $("#cancelarPedido").hide();
+
 }
 
 function condicionesPeticion(transf, sucu, plop) {
     $('#detalleTransferencia').trigger('click');
     $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
     $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf + "&sucu=" + sucu);
-    alert(plop);
     if (plop == 5) {
         $("#mandarRespuesta").show();
+        $("#cancelarPedido").show();
     } else {
         $("#mandarRespuesta").hide();
+        $("#cancelarPedido").hide();
     }
 }
 
@@ -118,6 +131,7 @@ $(document).ready(function() {
                     } else {
                         $("#sucursal").prop('disabled', true);
                         alertify.success("producto agregado a la lista");
+                        $("#codigoProductoTranferencia").val("");
                         lista = JSON.parse(x);
 //                    console.log(lista);
                         var tr = "";
@@ -184,17 +198,22 @@ $(document).ready(function() {
                 if (codigo == undefined) {
 
                 } else {
-                    var t = new TransaccionDetalles(codigo, cantidad, costo);
-                    arreglo.push(t);
-                    console.log(t);
+                    if (cantidad > 0) {
+                        var t = new TransaccionDetalles(codigo, cantidad, costo);
+                        arreglo.push(t);
+                        console.log(t);
+                    } else {
+
+                    }
                 }
 
             });
             var sucursal = $("#sucursal").val();
             var datosJSON = JSON.stringify(arreglo);
-
             var cont = arreglo.length;
             if (cont > 0) {
+
+
                 console.log(datosJSON);
                 $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
                     $("#consultapedidos").load("consultaPedidos.php");
@@ -204,16 +223,16 @@ $(document).ready(function() {
 
                     });
                     $("#costoTotal").val(0);
+                    $("#sucursal").prop('disabled', false);
                     alertify.success("Se ha mandado el pedido de transferencia de manera correcta");
                 });
 
             } else {
-                alertify.error("Debes seleccionar un producto");
+                alertify.error("Debes seleccionar un producto y debes pedir almenos uno en requisicion");
             }
 
 
         }
 
     });
-
 });

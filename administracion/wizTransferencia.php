@@ -48,7 +48,7 @@
                 <hr>
                 <form class="form-inline text-right">
                     <param class="myCodigo" value="inicial">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <form class="form-inline text-right">
                     <input type="button" id="mandarPedido" value="Aceptar"/>
@@ -81,7 +81,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input id="mandarRespuesta" type="button" class="btn btn-default" value="Mandar Respuesta"/>
+                                <input id="mandarRespuesta" type="button" class="btn btn-default" value="Aceptar Pedido"/>
+                                <input id="cancelarPedido" type="button" class="btn btn-default" value="Cancelar Pedido"/>
                                 <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
                             </div>

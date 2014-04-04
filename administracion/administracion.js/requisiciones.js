@@ -23,7 +23,19 @@ function sacarTotal2(cp) {
 
 $(document).ready(function() {
     var fallo = 0;
+
+    $("#cancelarPedido").click(function() {
+        var transf = $("#transf").val();
+        $.post('cancelarTransferencia.php', {transf: transf}, function() {
+            $("#cancelarPedido").hide('slow');
+            $("#mandarRespuesta").hide('slow');
+
+            $("#consultapedidos").load("consultaPedidos.php");
+            $("#consultatransferencias").load("consultaTransferencias.php");
+        });
+    });
     $("#mandarRespuesta").click(function() {
+
         $('.myCodigo2').each(function() {
             var elemento = this;
             var valor = elemento.value;
@@ -44,18 +56,15 @@ $(document).ready(function() {
         if (fallo == 1) {
             alertify.error("las cantidades a pedir deben ser menores a las que hay en el invenario actual");
         } else {
-            alert("entro");
 
             var arreglo = [];
 
             $('.myCodigo2').each(function() {
-                alert("entro");
                 var elemento = this;
                 var valor = elemento.value;
                 var codigo = $('#codigo2' + valor).val();
                 var cantidad = $('#txtCantidad2' + valor).val();
                 var costo = $('#costoUnitario2' + valor).val();
-                alert("s" + valor + "s" + codigo + "s" + costo + "s" + cantidad);
                 var t = new RequisicionDetalles(codigo, cantidad, costo);
                 arreglo.push(t);
                 console.log(t);
@@ -68,6 +77,7 @@ $(document).ready(function() {
             $.post('guardarRequisicion.php', {datos: datosJSON, sucursal: sucursal, transf: transf}, function(respuesta) {
                 $("#consultapedidos").load("consultaPedidos.php");
                 $("#consultatransferencias").load("consultaTransferencias.php");
+                $("#cancelarPedido").hide('slow');
                 $("#mandarRespuesta").hide('slow');
                 alertify.success("Se ha mandado el pedido de transferencia de manera correcta")
             });
@@ -79,5 +89,6 @@ $(document).ready(function() {
 
 
     });
+
 
 });
