@@ -1,13 +1,65 @@
 <?php
 
+session_start();
+
+class Encabezado {
+
+    private $Folio;
+    private $Fecha;
+    private $Subtotal;
+    private $Total;
+    private $Rfc;
+
+    public function getFolio() {
+        return $this->Folio;
+    }
+
+    public function getFecha() {
+        return $this->Fecha;
+    }
+
+    public function getSubtotal() {
+        return $this->Subtotal;
+    }
+
+    public function getTotal() {
+        return $this->Total;
+    }
+
+    public function getRfc() {
+        return $this->Rfc;
+    }
+
+    public function setFolio($Folio) {
+        $this->Folio = $Folio;
+    }
+
+    public function setFecha($Fecha) {
+        $this->Fecha = $Fecha;
+    }
+
+    public function setSubtotal($Subtotal) {
+        $this->Subtotal = $Subtotal;
+    }
+
+    public function setTotal($Total) {
+        $this->Total = $Total;
+    }
+
+    public function setRfc($Rfc) {
+        $this->Rfc = $Rfc;
+    }
+
+}
+
+//include './administracion.clases/Encabezado.php'
 include './administracion.clases/Detalle.php';
-include './administracion.clases/Encabezado.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.clases/Concepto.php';
 include './administracion.dao/dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
-session_start();
+
 $idsucursal = $_SESSION["sucursalSesion"];
 
 $detalle = new Detalle();
