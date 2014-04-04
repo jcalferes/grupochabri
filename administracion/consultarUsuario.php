@@ -1,8 +1,10 @@
 <?php
 
 include './administracion.dao/dao.php';
+session_start();
+$sucursal = $_SESSION["sucursalSesion"];
 $dao = new dao();
-$datos = $dao->consultaUsuario();
+$datos = $dao->consultaUsuario($sucursal);
 //echo'<center><button type="button" class="btn btn-xs btn-default" id="btnver" onclick="eliminarMarcas()"><span class="glyphicon glyphicon-trash"></span></button></center>';
 echo"<div class='table-responsive' ><table class='table table-hover' id='dtusuario'><thead><th>Usuario</th><th>Nombre</th><th>Ape. Paterno</th><th>Ape. Materno</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {

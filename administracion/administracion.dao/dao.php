@@ -1342,10 +1342,10 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function consultaUsuario() {
+    function consultaUsuario($sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM usuarios WHERE idSucursal = $sucursal";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }

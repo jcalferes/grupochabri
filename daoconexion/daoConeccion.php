@@ -34,5 +34,4 @@ class coneccion {
 //    function cerrarBd() {
 //        mysql_close();
 //    }
-
 }
