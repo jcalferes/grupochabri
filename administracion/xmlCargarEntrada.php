@@ -1,11 +1,11 @@
 <?php
-
+session_start();
 include './administracion.clases/Detalle.php';
 include './administracion.clases/Encabezado.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.clases/Concepto.php';
 
-session_start();
+
 //Como no sabemos cuantos archivos van a llegar, iteramos la variable $_FILES
 $ruta = "../subidas/";
 foreach ($_FILES as $key) {
@@ -170,7 +170,7 @@ echo "<thead>";
 echo "<th>Cantidad</th><th>Codigo <button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 echo "</thead>";
 echo "<tbody>";
-$arrayDetalleEntrada = [];
+//$arrayDetalleEntrada = [];
 $cont = 0;
 $cuentaid = 0;
 $desctpptotal = 0;
