@@ -53,7 +53,7 @@
             </section>
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Consulta de Maquinas</h2>
             <section>
-                <div id="consultaMaquina">
+                <div id="consultaMaquina" style="margin: 0% 25% 0% 25%">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nueva Maquina</h2>

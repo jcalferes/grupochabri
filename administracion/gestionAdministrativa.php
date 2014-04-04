@@ -23,13 +23,8 @@ $verificasession->validaSesion();
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
         <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
+        <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
         <!-- CSS Personalizados-->
-        <style>
-            /* Move down content because we have a fixed navbar that is 50px tall */
-            body {
-                padding-top: 60px;
-            }
-        </style>
     </head>
     <header>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,6 +92,7 @@ $verificasession->validaSesion();
                             <div id="mostrar">
                                 <h1>HOLA! :)</h1>
                             </div>
+                            <a href="#" class="scrollUp"></a>
                         </div>
                     </div>
                 </div>
