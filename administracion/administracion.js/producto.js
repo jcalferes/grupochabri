@@ -262,7 +262,7 @@ $(document).ready(function() {
     $("#guardarDatos").click(function() {
 
         var lista;
-        var nombreProducto = $("#txtNombreProducto").val();
+        var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
         var marca = $("#selectMarca").val();
         var proveedor = $("#selectProveedor").val();
         var codigoProducto = $("#txtCodigoProducto").val();
