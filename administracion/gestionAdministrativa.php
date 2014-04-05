@@ -60,7 +60,7 @@ $verificasession->validaSesion();
                         <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
                         <li class=""><a href="#">Un link mas</a></li>
-                        <li><a href="../index/cerrarSesion.php">Cerrar Sesion</a></li>
+                        <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
                     </ul>
                 </div>
             </div>

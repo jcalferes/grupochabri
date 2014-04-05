@@ -2,6 +2,12 @@
 
 class dao {
 
+    function dondeInicie($idsucursal) {
+        $sql = "SELECT sucursal FROM sucursales WHERE idSucursal = '$idsucursal' ";
+        $rs = mysql_query($sql);
+        return $rs;
+    }
+
     function cambiarEstatusCancelarTransferencia($aceptacion) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
