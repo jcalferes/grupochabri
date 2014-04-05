@@ -49,35 +49,33 @@
             <section>
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <center>
-
-                            <div class="panel-footer">
-                                Datos de la Facura
+                        <div class="panel-footer">
+                            Datos de la Facura
+                        </div>
+                        <br>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group form-inline" >
+                                <label>Folio</label>
+                                <div class="col-sm-4">
+                                    <input id="folioM" type="number" class="form-control"  placeholder="Folio">
+                                </div> 
                             </div>
-                            <br>
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label  class="col-sm-1 control-label">Folio</label>
-                                    <div class="col-sm-4">
-                                        <input id="folioM" type="number" class="form-control"  placeholder="Folio">
-                                    </div>
-                                    <label  class="col-sm-2 control-label">Fecha Emitida</label>
-                                    <div class="col-sm-4">
-                                        <input id="fechaEmitidaM" type="date" class="form-control"  placeholder="Email">
-                                    </div>
+                            <div class="form-group form-inline">
+                                <label>Fecha Emitida</label>
+                                <div class="col-sm-4">
+                                    <input id="fechaEmitidaM" type="date" class="form-control"  placeholder="Email">
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-5">
-                                        <select style="margin-left: -20px"
-                                                id="proveedores" 
-                                                class="selectpicker" 
-                                                data-container="body" 
-                                                data-live-search="true">
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </center>
+                            </div>
+                            <div class="form-group form-inline">
+                                <label>Proveedor</label>
+                                <select id="proveedores" 
+                                        class="selectpicker" 
+                                        data-container="body" 
+                                        data-live-search="true"
+                                        data-style="btn-primary">
+                                </select> 
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <br>
@@ -91,20 +89,15 @@
                         </span> 
                     </div>
                 </div>
-                <br/>
-                <br/>
-                <div class="checkbox" style="margin-left: 15px">
-                    <label>
-                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura.
-                    </label>
-                </div>
-                <div class="checkbox" style="margin-left: 15px">
-                    <label>
-                        <input type="checkbox" id="descuentosGeneralesM"> Aplicar Descuentos Generales.
-                    </label>
-                </div>
+
                 <br>
                 <div class="form-inline text-right">
+                    <div class="checkbox" style="margin-left: 15px">
+                        <label>
+                            <input type="checkbox" id="descuentosGeneralesM"> Aplicar Descuentos Generales.
+                        </label>
+                    </div>
+                    <br>
                     <span>Descuentos : 
                         <input type="text" 
                                disabled="true"
@@ -117,6 +110,11 @@
                     </span>
                 </div>
                 <hr>
+                <div class="checkbox" style="margin-left: 15px">
+                    <label>
+                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura.
+                    </label>
+                </div>
                 <br>
                 <table class="table table-hover" id="tablaDatosEntrada">
                     <thead>

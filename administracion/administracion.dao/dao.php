@@ -1126,6 +1126,7 @@ class dao {
         mysql_query("START TRANSACTION;");
         $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
         if ($ctrlEnzabezadoGuardar == false) {
+            $error = mysql_error();
             mysql_query("ROLLBACK;");
             return false;
         } else {

@@ -1,5 +1,7 @@
 <?php
 
+echo 'hola';
+//
 include './administracion.clases/Concepto.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.dao/dao.php';
@@ -10,9 +12,10 @@ include './administracion.clases/Detalle.php';
 session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
-$datos = json_decode('datos');
-$comprobantes = $dato[0];
-$conceptos = $dato[1];
+$datos = json_decode(stripslashes($_POST['data']));
+//$datosM = json_decode('data');
+$comprobantes = $datos[0];
+$conceptos = $datos[1];
 $concepto = new Concepto();
 $comprobante = new Comprobante();
 $cn = new coneccion();
@@ -31,14 +34,15 @@ $comprobante->setRfc($comprobantes->rfcComprobante);
 $comprobante->setSda($comprobantes->sdaComprobante);
 $comprobante->setSubtotal($comprobantes->subTotalComprobante);
 $comprobante->setTotal($comprobantes->totalComprobante);
-//----------------------------------------------------------
+////----------------------------------------------------------
 $encabezado->setFecha($comprobantes->fechaComprobante);
 $encabezado->setFolio($comprobantes->folioComprobante);
 $encabezado->setRfc($comprobantes->rfcComprobante);
 $encabezado->setSubtotal($comprobantes->subTotalComprobante);
 $encabezado->setTotal($comprobantes->totalComprobante);
-//----------------------------------------------------------
-$array[];
+
+////----------------------------------------------------------
+$contador = 0;
 foreach ($conceptos as $detalles) {
     $detalle = new Detalle();
     $detalle->setCantidad($detalles->cantidadConcepto);
@@ -48,7 +52,9 @@ foreach ($conceptos as $detalles) {
     $detalle->setIdFacturaEncabezado(0);
     $detalle->setImporte($detalles->importeConcepto);
     $detalle->setUnidadmedida();
-    $array = $detalle;
+    $array[$contador] = $detalle;
+    $contador ++;
 }
 $control = count($conceptos);
-$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idSucursal);
+$cn->Conectarse();
+$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal);
