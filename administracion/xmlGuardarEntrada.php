@@ -121,6 +121,7 @@ class Detalle {
 }
 
 //include './administracion.clases/Encabezado.php'
+//include './administracion.clases/Detalle.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.clases/Concepto.php';
 include './administracion.dao/dao.php';
