@@ -18,7 +18,7 @@ class verificaSession {
     function validaSesion() {
         if (isset($_SESSION["usuarioSesion"])) {
             if (isset($_SESSION["tipoSesion"])) {
-                
+               
             } else {
                 echo "
         <script>
@@ -33,6 +33,7 @@ class verificaSession {
         </script>
          ";
         }
+        
     }
 
 }
