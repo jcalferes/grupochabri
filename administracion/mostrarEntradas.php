@@ -9,11 +9,11 @@ if ($datos == false) {
     echo '<br>';
     echo '<br>';
     echo '<table class="table table-hover">';
-    echo '<tr>
+    echo '<thead>
         <td><strong>Codigo</strong></td>
         <td><strong>Producto</strong></td>
         <td><strong>Cantidad<strong></td>
-      <tr>';
+      </thead><tbody>';
     while ($rs = mysql_fetch_array($datos)) {
         echo '<tr>';
         echo '<td>' . $rs["codigoProducto"] . '</td>';
@@ -21,6 +21,6 @@ if ($datos == false) {
         echo '<td>' . $rs["cantidad"] . '</td>';
         echo '</tr>';
     }
-    echo '</table>';
+    echo '</tbody></table>';
 }
 ?>
