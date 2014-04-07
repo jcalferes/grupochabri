@@ -9,4 +9,3 @@ while ($rs = mysql_fetch_array($datos)) {
     echo'<option value=' . $rs["rfc"] . '>' . utf8_encode($rs["nombre"]) . '</option>';
 }
 echo '</select>';
-
