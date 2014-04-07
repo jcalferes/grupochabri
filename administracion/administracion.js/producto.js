@@ -108,7 +108,7 @@ $(document).ready(function() {
     $("#editarDatos").hide();
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
+    $('#txtNombreProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|° ');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -262,7 +262,7 @@ $(document).ready(function() {
     $("#guardarDatos").click(function() {
 
         var lista;
-        var nombreProducto = $("#txtNombreProducto").val();
+        var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
         var marca = $("#selectMarca").val();
         var proveedor = $("#selectProveedor").val();
         var codigoProducto = $("#txtCodigoProducto").val();
@@ -297,7 +297,7 @@ $(document).ready(function() {
         });
         ////////////////////////////////////////////////probando
 
-        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== ""&& marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
+        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
 
 
             if (min < max) {

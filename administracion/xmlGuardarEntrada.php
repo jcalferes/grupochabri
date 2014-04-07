@@ -52,8 +52,76 @@ class Encabezado {
 
 }
 
+class Detalle {
+
+    private $Cantidad;
+    private $Unidadmedida;
+    private $Codigo;
+    private $Descripcion;
+    private $Costo;
+    private $Importe;
+    private $IdFacturaEncabezado;
+
+    public function getCantidad() {
+        return $this->Cantidad;
+    }
+
+    public function getUnidadmedida() {
+        return $this->Unidadmedida;
+    }
+
+    public function getCodigo() {
+        return $this->Codigo;
+    }
+
+    public function getDescripcion() {
+        return $this->Descripcion;
+    }
+
+    public function getCosto() {
+        return $this->Costo;
+    }
+
+    public function getImporte() {
+        return $this->Importe;
+    }
+
+    public function getIdFacturaEncabezado() {
+        return $this->IdFacturaEncabezado;
+    }
+
+    public function setCantidad($Cantidad) {
+        $this->Cantidad = $Cantidad;
+    }
+
+    public function setUnidadmedida($Unidadmedida) {
+        $this->Unidadmedida = $Unidadmedida;
+    }
+
+    public function setCodigo($Codigo) {
+        $this->Codigo = $Codigo;
+    }
+
+    public function setDescripcion($Descripcion) {
+        $this->Descripcion = $Descripcion;
+    }
+
+    public function setCosto($Costo) {
+        $this->Costo = $Costo;
+    }
+
+    public function setImporte($Importe) {
+        $this->Importe = $Importe;
+    }
+
+    public function setIdFacturaEncabezado($IdFacturaEncabezado) {
+        $this->IdFacturaEncabezado = $IdFacturaEncabezado;
+    }
+
+}
+
 //include './administracion.clases/Encabezado.php'
-include './administracion.clases/Detalle.php';
+//include './administracion.clases/Detalle.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.clases/Concepto.php';
 include './administracion.dao/dao.php';

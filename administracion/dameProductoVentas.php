@@ -1,51 +1,36 @@
 <?php
-
 include './administracion.clases/Producto.php';
 include './administracion.dao/dao.php';
-$productos = new Producto();
+include './administracion.clases/Codigo.php';
 $data = json_decode($_POST['data']);
-$codigo = 0;
 $dao = new dao();
 $nuevoArray = Array();
-for ($x = 0; $x < $arr; $x++) {
-    $longitud = count($nuevoArray);
-    if($longitud ==0){
-        $nuevoArray[$x]="$data[$x]"; 
+$longitud = 0;
+$longitudCodigos = count($data);
+$datos = array_count_values($data);
+foreach ($datos as $key => $val) {
+    $codigo = new Codigo();
+    $codigo->setCodigo($key);
+    $codigo->setCantidad($val);
+    $nuevoArray[] = $codigo;
+}
+include_once '../daoconexion/daoConeccion.php';
+$cn = new coneccion();
+$cn->Conectarse();
+$contador = 0;
+foreach ($nuevoArray as $lstDatos) {
+    $rs = $dao->buscarProductoVentas($lstDatos);
+    while ($resultSet = mysql_fetch_array($rs)) {
+        $paso = true;
+        $arr[$contador] = array(
+            'codigoProducto' => $resultSet[0],
+            'producto' => $resultSet[1],
+            'costo' => $resultSet[2],
+            'cantidad' => $lstDatos->getCantidad()
+        );
+        $contador++;
     }
 }
-for ($x = 0; $x <= $data; $x++) {
-
-//    $cantidad = 0;
-//    $codigo = $data[$x];
-//    for ($y = 0; $y <= $data; $y++) {
-//        if ($data[$x] == $data[$y]) {
-//            $productos->setCantidad($cantidad = $cantidad + 1);
-//        }
-//        if ($data[$y] == null) {
-//            break;
-//        }
-//    }
-//    $productos->setCodigoProducto($codigo);
-//    if ($codigo == null) {
-//        break;
-//    } else {
-//        $rs = $dao->buscarProductoVentas($productos);
-//        if ($rs == false) {
-//            echo mysql_error();
-//        } else {
-//            $paso = false;
-//            while ($resultSet = mysql_fetch_array($rs)) {
-//                $paso = true;
-//                $arr[$x] = array(
-//                    'codigoProducto' => $resultSet[0],
-//                    'producto' => $resultSet[1],
-//                    'costo' => $resultSet[2],
-//                    'cantidad' => $productos->getCantidad()
-//                );
-//            }
-//        }
-//    }
-}
-
+$cn->cerrarBd();
 echo '' . json_encode($arr) . '';
 ?>

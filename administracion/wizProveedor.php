@@ -70,12 +70,12 @@
                 </form>
             </section>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <!-- Modal  data-backdrop="static"-->
+        <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" > 
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Nueva Direccion Fiscal</h4>
                     </div>
                     <form>
@@ -117,7 +117,7 @@
                                 <param id="extra" value="">
                             </div>
                             <div class="modal-footer">
-                                <input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>
+                                <!--<input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>-->
                                 <input id="btnguardardireccionproveedor" type="button" class="btn btn-primary" value="Guardar"/>
                                 <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  value="Confirmar"/>
                                 <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">

@@ -10,6 +10,14 @@ $(document).ready(function() {
         $("html, body").animate({scrollTop: 0}, 600);
         return false;
     });
+
+    $.get('dondeInicie.php', function(x) {
+        var sucursal = x;
+        if (x == 999) {
+        } else {
+            $("#donde").text("Cerrar sesion: " + sucursal);
+        }
+    });
 })
 
 

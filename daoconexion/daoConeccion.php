@@ -19,7 +19,7 @@ class coneccion {
     }
 
 //    function Conectarse() {
-//        if (!($link = mysql_connect("mysql.pcoriente.com.mx", "darias66", "Darias09"))) {
+//        if (!($link = mysql_connect("mysql.pcoriente.com.mx", "residencia", "GrupoChabri"))) {
 //            $link = "Error conectando a la base de datos.";
 //            echo "Error conectando a la base de datos.";
 //            exit();
@@ -34,4 +34,5 @@ class coneccion {
 //    function cerrarBd() {
 //        mysql_close();
 //    }
+
 }

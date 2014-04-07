@@ -3,96 +3,73 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2>
-                <span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de Inventarios</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Tabla de Inventarios</h2>
             <section>
-                <div style="margin-left: 3%">
-                    <div class="form-horizontal">
+                <div class="form"  style="margin: 0% 25% 0% 25%">
+                    <div class="form-group">
+                        <label  class="control-label">Codigo:</label>
+                        <div class="input-group">
+                            <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
+                            <span class="input-group-btn">
+                                <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
+                        <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
+                    </div>
+                    <div id="datosCaptura">
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label">Codigo:</label>
-                            <div class="col-sm-3">
-                                <div class="input-group">
-                                    <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
-                                    <span class="input-group-btn">
-                                        <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </span> 
-                                </div>
-                            </div>
-                            <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
-                            <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
-                        </div>
-                        <div id="datosCaptura">
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">Cantidad</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
-                                </div>
-                            </div>
+                            <label  class="control-label">Cantidad</label>
+                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12" style="margin-left: 3%">
-                    <div id="detalle">
-                    </div>
+                <div id="detalle">
                 </div>
-                <div style="margin-left: 5%">
-                    <table  class="table table-hover"
-                            id="tablaEntradas">
-                    </table>
-                </div>
+                <table  class="table table-hover" id="tablaEntradas">
+                </table>
             </section>
 
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
-                <div class="col-sm-3">
-                    <select id="proveedores" 
-                            class="selectpicker" 
-                            data-container="body" 
-                            data-live-search="true">
-                    </select>
-                </div>
-                <br>
-                <br>
-                <br>
-                <div class="col-sm-3">
-                    <div class="input-group" id="panelBusqueda">
-                        <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
-                        <span class="input-group-btn">
-                            <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span> 
+                <form class="form-horizontal" role="form">
+                    <div class="form-group form-inline" >
+                        <label>Proveedor: </label>
+                        <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                        <label>Folio: </label>
+                        <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;
+                        <label>Fecha Emitida: </label>
+                        <input id="fechaEmitidaM" type="date" class="form-control" />
                     </div>
-                </div>
-                <br/>
-                <br/>
-                <div class="checkbox" style="margin-left: 15px">
-                    <label>
-                        <input type="checkbox" id="descuentosGlobalesManuales"> Descuentos globales de factura.
-                    </label>
-                </div>
-                <div class="checkbox" style="margin-left: 15px">
-                    <label>
-                        <input type="checkbox" id="descuentosGeneralesM"> Aplicar Descuentos Generales.
-                    </label>
-                </div>
-                <br>
-                <div class="form-inline text-right">
-                    <span>Descuentos : 
-                        <input type="text" 
-                               disabled="true"
-                               id="descuentosGeneralesPorComasM" 
-                               onkeyup="generarDescuentosgenerales();"
-                               class="form-control 
-                               text-right" 
-                               style="width: 20%"
-                               placeholder="-3,2,2,10"/>
-                    </span>
-                </div>
-                <hr>
-                <br>
+                    <div class="form-group form-inline">
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
+                            </label>
+                        </div><br>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
+                            </label>
+                        </div>
+                        <input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>
+                    </div>
+                    <div class="form-group form-inline">
+                        <div class="input-group" id="panelBusqueda">
+                            <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
+                            <span class="input-group-btn">
+                                <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span> 
+                        </div>
+                    </div>
+                </form>
                 <table class="table table-hover" id="tablaDatosEntrada">
                     <thead>
                     <th>Cantidad</th>
@@ -129,7 +106,10 @@
                 <form class="form-inline text-right">
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
+                <br>
+                <input type="button" class="btn btn-primary" value="Guardar" id="guardarEntradasManualmente"/>
             </section>
+            
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
@@ -163,6 +143,8 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <script src="../administracion/administracion.js/XmlComprobante.js"></script>
+        <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../administracion/administracion.js/entradas.js"></script>
         <script src="../administracion/administracion.js/xmlEntradas.js"></script>

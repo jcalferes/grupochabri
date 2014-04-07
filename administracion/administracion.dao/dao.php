@@ -2,6 +2,12 @@
 
 class dao {
 
+    function dondeInicie($idsucursal) {
+        $sql = "SELECT sucursal FROM sucursales WHERE idSucursal = '$idsucursal' ";
+        $rs = mysql_query($sql);
+        return $rs;
+    }
+
     function cambiarEstatusCancelarTransferencia($aceptacion) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -1015,15 +1021,13 @@ class dao {
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
                WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'
-               and pr.idProveedor='" . $proveedor . "';";
+               and pr.rfc='" . $proveedor . "';";
         $rs = mysql_query($MySQL, $cn->Conectarse());
         $cn->cerrarBd();
         return $rs;
     }
 
-    function buscarProductoVentas(Producto $p) {
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
+    function buscarProductoVentas(Codigo $c) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
@@ -1031,9 +1035,9 @@ class dao {
                on m.idMarca = p.idMarca
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'";
-        $rs = mysql_query($MySQL, $cn->Conectarse());
-        $cn->cerrarBd();
+               WHERE p.codigoProducto='" . $c->getCodigo() . "'";
+        $rs = mysql_query($MySQL);
+//        $cn->cerrarBd();
         return $rs;
     }
 
@@ -1128,6 +1132,7 @@ class dao {
         mysql_query("START TRANSACTION;");
         $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
         if ($ctrlEnzabezadoGuardar == false) {
+            $error = mysql_error();
             mysql_query("ROLLBACK;");
             return false;
         } else {
