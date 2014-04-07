@@ -227,7 +227,7 @@ $(document).ready(function() {
                                 provando = elem;
 
                             }
-                            if (ind == 1) {
+                            if (ind == 'porcentaUtilidad') {
 
                                 provando = provando.replace(" ", "_")
 
