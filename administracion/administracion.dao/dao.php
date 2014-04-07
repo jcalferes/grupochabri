@@ -1027,7 +1027,7 @@ class dao {
         return $rs;
     }
 
-    function buscarProductoVentas(Codigo $c) {
+    function buscarProductoVentas(Codigo $c, $idSucursal) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
@@ -1035,7 +1035,8 @@ class dao {
                on m.idMarca = p.idMarca
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $c->getCodigo() . "'";
+               WHERE p.codigoProducto='" . $c->getCodigo() . "'"
+           . " and  cost.idSucursal  = '" . $idSucursal . "' ";
         $rs = mysql_query($MySQL);
 //        $cn->cerrarBd();
         return $rs;

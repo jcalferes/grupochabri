@@ -1,11 +1,8 @@
 var codigos = new Array();
 
 $("#codigoProductoEntradas").keypress(function(e) {
-
     if (e.which == 13) {
-
         buscar();
-
     }
 });
 function buscar() {

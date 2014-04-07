@@ -352,7 +352,7 @@ $(document).ready(function() {
             $("#codigoProductoEntradas").removeAttr('disabled');
         }
     });
-    $("#proveedores").load("mostrarProveedores.php", function() {
+    $("#proveedores").load("mostrarProveedoresManualmente.php", function() {
         $("#proveedores").selectpicker();
     });
     $("#descuentosGlobalesManuales").change(function() {
