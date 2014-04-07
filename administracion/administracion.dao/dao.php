@@ -549,7 +549,7 @@ class dao {
     function mostrarTarifasTabla($codigoProducto, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND t.idStatus = '1' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal'";
+        $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validacion = mysql_affected_rows();
         if ($validacion == false) {
