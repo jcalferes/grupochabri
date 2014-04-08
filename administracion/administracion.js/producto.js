@@ -5,7 +5,7 @@ function NumCheck(e, field, tarifa) {
     if (key > 47 && key < 58) {
         if (field.value == "")
             return true
-        regexp = /.[0-9]{4}$/
+        regexp = /.[0-9]{20}$/
         return !(regexp.test(field.value))
     }
     if (key == 46) {
@@ -108,7 +108,7 @@ $(document).ready(function() {
     $("#editarDatos").hide();
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
-    $('#txtNombreProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|° ');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //    $('.valNum').validCampoFranz('0123456789.'); 
     var existenciaInventario;
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -227,7 +227,7 @@ $(document).ready(function() {
                                 provando = elem;
 
                             }
-                            if (ind == 'porcentaUtilidad') {
+                            if (ind == "porcentaUtilidad") {
 
                                 provando = provando.replace(" ", "_")
 
@@ -238,7 +238,8 @@ $(document).ready(function() {
 
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
-                                $("#check" + provando).attr({
+                                
+                                $("#check" + provando).prop({
                                     disabled: false,
                                     Checked: true
                                 });
@@ -262,7 +263,7 @@ $(document).ready(function() {
     $("#guardarDatos").click(function() {
 
         var lista;
-        var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
+        var nombreProducto = $("#txtNombreProducto").val();
         var marca = $("#selectMarca").val();
         var proveedor = $("#selectProveedor").val();
         var codigoProducto = $("#txtCodigoProducto").val();
@@ -297,7 +298,7 @@ $(document).ready(function() {
         });
         ////////////////////////////////////////////////probando
 
-        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
+        if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== ""&& marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
 
 
             if (min < max) {
