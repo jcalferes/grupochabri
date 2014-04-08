@@ -28,9 +28,11 @@ if ($datos !== 0) {
     foreach ($arreglo as $valor) {
         $pieces = explode("_", $valor);
         $neto = $costo * ($pieces[2] / 100);
+        $total = $neto + $costo;
         $validando1 = str_replace(" ", "_", $pieces[4]);
         echo"<tr><td><label>$validando1</label></td><td><input type='text' class='producto form-control' id='texto $validando1'    name='$validando1' onkeyup='obtenerUtilidad(\"$pieces[0]\")' onkeypress='return NumCheck(event, this)' value='$pieces[2]' disabled/></td>";
-        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$neto ' disabled/></td></tr>";
+        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$neto ' disabled/></td>";
+        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$total ' disabled/></td></tr>";
     }
 
 
