@@ -1169,7 +1169,7 @@ class dao {
                 }
             }
         }
-        //Terminar guardar comprobante
+                                                                                        //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
         for ($i = 0; $i < $control; $i++) {

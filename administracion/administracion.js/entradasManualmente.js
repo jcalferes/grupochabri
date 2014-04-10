@@ -55,7 +55,7 @@ function validar() {
 
 function calcularPorCosto(id) {
     var costoPorCantidad = $("#costo" + id).val();
-    if (costoPorCantidad == "") {
+    if (isNaN(costoPorCantidad)) {
         costoPorCantidad = 0;
     }
     if (costoPorCantidad == '-' || costoPorCantidad == '+') {
@@ -83,6 +83,7 @@ function calcularPorCosto(id) {
             calculaTotalEntradasManual();
         }
     }
+
 }
 function calcularPorCantidad(id) {
     var cantPorCantidad = $("#cant" + id).val();
@@ -110,7 +111,7 @@ function calcularPorCantidad(id) {
             calcularSDA();
             calcularIva();
             calculaTotalEntradasManual();
-            
+
         }
     }
 }
