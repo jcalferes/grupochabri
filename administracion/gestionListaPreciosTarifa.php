@@ -23,14 +23,16 @@ if ($datos !== 0) {
 //    }
 //    mysql_data_seek($datos2, 0);
     }
-    echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Tarifa</th></thead><tbody>";
+    echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Porcentaje de tarifa en pesos</th><th>Tarifa</th></thead><tbody>";
 
     foreach ($arreglo as $valor) {
         $pieces = explode("_", $valor);
         $neto = $costo * ($pieces[2] / 100);
+        $total = $neto + $costo;
         $validando1 = str_replace(" ", "_", $pieces[4]);
         echo"<tr><td><label>$validando1</label></td><td><input type='text' class='producto form-control' id='texto $validando1'    name='$validando1' onkeyup='obtenerUtilidad(\"$pieces[0]\")' onkeypress='return NumCheck(event, this)' value='$pieces[2]' disabled/></td>";
-        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$neto ' disabled/></td></tr>";
+        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$neto ' disabled/></td>";
+        echo"<td ><input type='text' class='producto form-control ' name='$validando1' id='tarifa$validando1' value='$total ' disabled/></td></tr>";
     }
 
 

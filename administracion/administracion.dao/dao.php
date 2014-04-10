@@ -1,8 +1,15 @@
 <?php
 
 class dao {
-
-    function dondeInicie($idsucursal) {
+    function mostrarDetallesTransferencias2($sucu, $detalle){
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoTransaccion = '$detalle' and e.idSucursal = '$sucu' ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+        
+    }
+                function dondeInicie($idsucursal) {
         $sql = "SELECT sucursal FROM sucursales WHERE idSucursal = '$idsucursal' ";
         $rs = mysql_query($sql);
         return $rs;
