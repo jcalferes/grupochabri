@@ -166,10 +166,10 @@ if ($valido == false) {
     $validaCodigo = 1;
     $rechazaCodigo = 0;
     foreach ($conceptos as $concepto) {
-        $ads = $concepto->codigo;
+        $ads = $concepto->codigoConcepto;
         while ($rs = mysql_fetch_array($valido)) {
             if ($ads != $rs['codigoProducto']) {
-                $rechazaCodigo = $concepto->codigo;
+                $rechazaCodigo = $concepto->codigoConcepto;
             } else {
                 $validaCodigo = 0;
             }
@@ -182,7 +182,8 @@ if ($valido == false) {
         }
     }
     $control = count($conceptos);
-    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal, $usuario);
+    $tipo = 'XML';
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal, $tipo, $usuario);
     $cn->cerrarBd();
     if ($paso == false) {
         echo 1;

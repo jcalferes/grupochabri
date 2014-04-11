@@ -1195,11 +1195,13 @@ class dao {
         //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
+        
         for ($i = 0; $i < $control; $i++) {
+            $cpto = $conceptos[$i];
             //Comienza guardar detalle
             $detalle = $arrayDetalleEntrada[$i];
             $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
-                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
+                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $cpto->codigoConcepto . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
             $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
             if ($ctrlDetalleGuardar == false) {
                 mysql_query("ROLLBACK;");
@@ -1211,7 +1213,7 @@ class dao {
             //==================================================================
             //Comienza validar producto en existencia
             $cantidad = 0;
-            $cpto = $conceptos[$i];
+            
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
                     . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
             $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
@@ -1270,9 +1272,9 @@ class dao {
                     $idDondeSalioCosto = $rs["idCosto"];
                 }
             }
-            if ($costoViejo != $cpto->cda) {
+            if ($costoViejo != $cpto->cdaConcepto) {
                 $totalViejo = $cantidad * $costoViejo;
-                $totalNuevo = $cpto->cda * $detalle->getCantidad();
+                $totalNuevo = $cpto->cdaConcepto * $detalle->getCantidad();
                 $totalFinal = $totalViejo + $totalNuevo;
                 $cantidadFinal = $cantidad + $detalle->getCantidad();
                 $costoPromedio = $totalFinal / $cantidadFinal;
