@@ -129,6 +129,7 @@ include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
 
 $idsucursal = $_SESSION["sucursalSesion"];
+$usuario = $_SESSION["usuarioSesion"];
 
 $detalle = new Detalle();
 $encabezado = new Encabezado();
@@ -181,7 +182,7 @@ if ($valido == false) {
         }
     }
     $control = count($conceptos);
-    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal);
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal, $usuario);
     $cn->cerrarBd();
     if ($paso == false) {
         echo 1;
