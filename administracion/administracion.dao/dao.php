@@ -965,12 +965,13 @@ class dao {
         return $datos;
     }
 
-    function obtenerEntradas() {
+    function obtenerEntradas($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "select * from productos p 
-            inner join  entradas e 
-            on e.codigoProducto = p.codigoProducto";
+            inner join  existencias e 
+            on e.codigoProducto = p.codigoProducto 
+            WHERE idSucursal = '" . $idSucursal . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -998,7 +999,7 @@ class dao {
         $cn->Conectarse();
         $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
 //        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
-        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='".$entradas->getIdSucursal()."'";
+        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='" . $entradas->getIdSucursal() . "'";
         mysql_query("START TRANSACTION;");
         $entradas = mysql_query($MySQLEntradas);
         if ($entradas == false) {
@@ -1191,7 +1192,7 @@ class dao {
                 }
             }
         }
-                                                                                        //Terminar guardar comprobante
+        //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
         for ($i = 0; $i < $control; $i++) {
@@ -1235,8 +1236,8 @@ class dao {
             if (isset($cpto->importeConcepto)) {
                 $importe = $cpto->importeConcepto;
             }
-            if (isset($cpto-> codigoConcepto)) {
-                $codigo = $cpto-> codigoConcepto;
+            if (isset($cpto->codigoConcepto)) {
+                $codigo = $cpto->codigoConcepto;
             }
             if (isset($cpto->cdaConcepto)) {
                 $cda = $cpto->cdaConcepto;
