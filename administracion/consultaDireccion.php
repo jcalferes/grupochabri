@@ -23,6 +23,7 @@ while ($rs = mysql_fetch_array($datos)) {
 }
 echo "</tbody>";
 echo "</table></div>";
+if($datos2 != false){
 echo "<h4>Telefono(s)</h4>";
 echo "<div class='table-responsive'><table class='table table-hover' id='dtproveedor'>";
 echo "<thead><th></th></thead>";
@@ -35,6 +36,8 @@ echo "</table></div>";
 echo "<hr>";
 echo "</tbody>";
 echo "</table></div>";
+}
+if($datos3 != false){
 echo "<h4>Email(s)</h4>";
 echo "<div class='table-responsive'><table class='table table-hover' id='dtproveedor'>";
 echo "<thead><th></th></thead>";
@@ -44,3 +47,4 @@ while ($rs = mysql_fetch_array($datos3)) {
 }
 echo "</tbody>";
 echo "</table></div>";
+}
