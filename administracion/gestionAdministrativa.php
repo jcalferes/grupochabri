@@ -57,9 +57,9 @@ $verificasession->validaSesion();
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Un link</a></li>
+<!--                        <li><a href="#">Un link</a></li>
                         <li><a href="#">Otro link</a></li>
-                        <li class=""><a href="#">Un link mas</a></li>
+                        <li class=""><a href="#">Un link mas</a></li>-->
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
                     </ul>
                 </div>
@@ -91,7 +91,7 @@ $verificasession->validaSesion();
                         </div>
                         <div class="panel-body">
                             <div id="mostrar">
-                                <h1>HOLA! :)</h1>
+                                <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
                             </div>
                             <a href="#" class="scrollUp"></a>
                         </div>
