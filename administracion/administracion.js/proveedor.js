@@ -104,8 +104,8 @@ function verficaPostal2() {
     }
 }
 
-function verDireccion(id) {
-    var info = "id=" + id;
+function verDireccion(id, rfc) {
+    var info = "id=" + id + "&rfc=" + rfc;
     $("#verdireccion").load("consultaDireccion.php", info, function() {
         $('#mdlverdireccion').modal('show');
     });
