@@ -10,7 +10,6 @@
         <title>Grupo Chabri</title>
         <!-- CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
@@ -51,7 +50,7 @@
                         <li class=""><a href="#">Un link mas</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar Sesion<b class="caret"></b></a>
-                            <ul class="dropdown-menu" style="width: 320px">
+                            <div class="dropdown-menu" style="width: 320px">
                                 <form class="form-signin text-center" style="padding: 10px">
                                     <div class="input-group" style="margin: 0% 5% 3% 5%">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -63,7 +62,7 @@
                                     </div>
                                     <input type="button" id="loginbtn" class="btn btn-primary" style="width: 50%; margin: 0% 0% 0% 0%" value="Iniciar"/>
                                 </form>
-                            </ul>
+                            </div>
                         </li>
                     </ul>
                 </div><!--/.nav-collapse -->

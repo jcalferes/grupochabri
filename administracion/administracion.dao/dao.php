@@ -1,15 +1,27 @@
 <?php
 
 class dao {
-    function mostrarDetallesTransferencias2($sucu, $detalle){
+
+    function obtenerOrdenCompra($folio) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM xmlcomprobantes x "
+                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  WHERE x.idXmlComprobante = '$folio' ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
+    function mostrarDetallesTransferencias2($sucu, $detalle) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoTransaccion = '$detalle' and e.idSucursal = '$sucu' ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
-        
     }
-                function dondeInicie($idsucursal) {
+
+    function dondeInicie($idsucursal) {
         $sql = "SELECT sucursal FROM sucursales WHERE idSucursal = '$idsucursal' ";
         $rs = mysql_query($sql);
         return $rs;
@@ -59,23 +71,29 @@ class dao {
                         mysql_data_seek($sqlid, 0);
                         if ($sqldetalles == false) {
                             mysql_query("ROLLBACK;");
+                            echo'backtransaccion';
                         } else {
                             $sqlentradas = "INSERT INTO entradas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$sucursal','usuario')";
                             $sqlentradas = mysql_query($sqlentradas, $cn->Conectarse());
+                            echo'algo';
                             if ($sqlentradas == false) {
                                 mysql_query("ROLLBACK;");
+                                echo'backentradas';
                             } else {
-                                $sqlentradas = "INSERT INTO salidas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$idsucursal','usuario')";
-                                $sqlentradas = mysql_query($sqlentradas, $cn->Conectarse());
-                                if ($sqlentradas == false) {
+                                $sqlsalidas = "INSERT INTO salidas(codigoProducto, cantidad,fecha,idSucursal,usuario) values('$valor->codigo','$valor->cantidad','$lafecha','$idsucursal','usuario')";
+                                $sqlsalidas = mysql_query($sqlsalidas, $cn->Conectarse());
+                                echo'algo';
+
+                                if ($sqlsalidas == false) {
                                     mysql_query("ROLLBACK;");
+                                    echo'backsalidas';
                                 } else {
-                                    $sqlexistenciasSalida = "UPDATE  existencias SET cantidad= cantidad - $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = $idsucursal";
+                                    $sqlexistenciasSalida = "UPDATE  existencias SET cantidad= cantidad - $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = '$idsucursal'";
                                     $sqlexistenciasSalida = mysql_query($sqlexistenciasSalida, $cn->Conectarse());
                                     if ($sqlexistenciasSalida == false) {
                                         mysql_query("ROLLBACK;");
                                     } else {
-                                        $sqlexistenciasentrada = "UPDATE  existencias SET cantidad= cantidad + $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = $sucursal";
+                                        $sqlexistenciasentrada = "UPDATE  existencias SET cantidad= cantidad + $valor->cantidad WHERE codigoProducto = '$valor->codigo' AND idSucursal = '$sucursal'";
                                         $sqlexistenciasentrada = mysql_query($sqlexistenciasentrada, $cn->Conectarse());
                                         if ($sqlexistenciasentrada == false) {
                                             mysql_query("ROLLBACK;");
@@ -1043,7 +1061,7 @@ class dao {
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
                WHERE p.codigoProducto='" . $c->getCodigo() . "'"
-           . " and  cost.idSucursal  = '" . $idSucursal . "' ";
+                . " and  cost.idSucursal  = '" . $idSucursal . "' ";
         $rs = mysql_query($MySQL);
 //        $cn->cerrarBd();
         return $rs;
@@ -1130,7 +1148,7 @@ class dao {
         mysql_query("COMMIT;");
     }
 
-    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal) {
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -1159,7 +1177,7 @@ class dao {
         //======================================================================
         //Empieza guardar comprobante
         $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','XML','$lafecha','$idSucursal')"; //Forzado TIPO
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','$tipo','$lafecha','$idSucursal')"; //Forzado TIPO
         $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
         $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
         if ($ctrlComprobanteGuardar == false) {
@@ -1217,20 +1235,20 @@ class dao {
             $desctuno = 0;
             $desctdos = 0;
 
-            if (isset($cpto->importe)) {
-                $importe = $cpto->importe;
+            if (isset($cpto->importeConcepto)) {
+                $importe = $cpto->importeConcepto;
             }
-            if (isset($cpto->codigo)) {
-                $codigo = $cpto->codigo;
+            if (isset($cpto-> codigoConcepto)) {
+                $codigo = $cpto-> codigoConcepto;
             }
-            if (isset($cpto->cda)) {
-                $cda = $cpto->cda;
+            if (isset($cpto->cdaConcepto)) {
+                $cda = $cpto->cdaConcepto;
             }
-            if (isset($cpto->desctuno)) {
-                $desctuno = $cpto->desctuno;
+            if (isset($cpto->desctUnoConcepto)) {
+                $desctuno = $cpto->desctUnoConcepto;
             }
-            if (isset($cpto->desctdos)) {
-                $desctdos = $cpto->desctdos;
+            if (isset($cpto->desctDosConcepto)) {
+                $desctdos = $cpto->desctDosConcepto;
             }
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
                     . " VALUES ('" . $detalle->getUnidadmedida() . "','$importe','" . $detalle->getCantidad() . "','$codigo','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','$cda','$desctuno','$desctdos')";
