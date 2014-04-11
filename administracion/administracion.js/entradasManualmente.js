@@ -340,12 +340,30 @@ function generarDescuentosgenerales() {
     calculaTotalEntradasManual();
 }
 
-function validar() {
+function validarCampos() {
+    var mensaje = "";
+    if ($("#proveedores").val() == 0) {
+        mensaje = " Se requiere un Proveedor";
+    }
+    else if ($("#folioM").val() === "") {
+        mensaje = " Se requiere un numero de Folio.";
+    }
+    else if ($("#fechaEmitidaM").val() === "") {
+        mensaje = " Se requiere una Fecha emitida";
+    }
+    else if (contador == 0) {
+        mensaje = " Por lo menos se requeire un producto  para la entrada";
+    }
+    else {
+        for (var x = 0; x < contador; x++) {
+            if ($("#cant" + x).val() === "" || $("#costo" + x).val() === "") {
+                mensaje = "Error Se requiere por lo menos una Cantidad o Costo";
+            }
+        }
+    }
 
+    return mensaje;
 }
-
-
-
 
 
 $(document).ready(function() {
@@ -390,48 +408,52 @@ $(document).ready(function() {
     });
 
     $("#guardarEntradasManualmente").click(function() {
-        var inf = new Array();
-        var lstConceptos = new Array();
-        var xmlComprobanteManualmente = new XmlComprobante();
-        xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
-        xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
-        xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
-        xmlComprobanteManualmente.desctGeneralFactura = $("#descuentosGeneralesPorComasM").val();
-        xmlComprobanteManualmente.descuentoTotalComprobante = $("#descuentoTotalM").val();
-        xmlComprobanteManualmente.descuentosGenerales = $("#descuentoGeneralM").val();
-        xmlComprobanteManualmente.ivaComprobante = $("#ivaM").val();
-        xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
-        xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
-        xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
-        xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
-        var conceptos = new Array();
-        for (var x = 0; x < parseInt(contador); x++) {
-            var conceptos = new xmlConceptosManualmente();
-            conceptos.cantidadConcepto = $("#cant" + x).val();
-            conceptos.cdaConcepto = $("#cda" + x).val();
-            conceptos.codigoConcepto = $("#codigoM" + x).text();
-            alert($("#codigoM" + x).text());
-            conceptos.descripcionConcepto = $("#descripcionM" + x).text();
-            conceptos.desctUnoConcepto = $("#descuento1" + x).val();
-            conceptos.desctDosConcepto = $("#descuento2" + x).val();
-            conceptos.importeConcepto = $("#importe" + x).val();
-            conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
-            conceptos.unidadMedidaConcepto = "";
-            lstConceptos.push(conceptos);
-        }
-        inf.push(xmlComprobanteManualmente);
-        inf.push(lstConceptos);
-        var informacion = JSON.stringify(inf);
-
-        $.ajax({
-            type: "POST",
-            url: "xmlGuardarEntradasManuales.php",
-            data: {data: informacion},
-            cache: false,
-            success: function() {
-                alertify.success("Exito! Calificaciones dadas de Alta");
+        var mensaje = validarCampos();
+        if (mensaje === "") {
+            var inf = new Array();
+            var lstConceptos = new Array();
+            var xmlComprobanteManualmente = new XmlComprobante();
+            xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
+            xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
+            xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
+            xmlComprobanteManualmente.desctGeneralFactura = $("#descuentosGeneralesPorComasM").val();
+            xmlComprobanteManualmente.descuentoTotalComprobante = $("#descuentoTotalM").val();
+            xmlComprobanteManualmente.descuentosGenerales = $("#descuentoGeneralM").val();
+            xmlComprobanteManualmente.ivaComprobante = $("#ivaM").val();
+            xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
+            xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
+            xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
+            xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+            xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
+            var conceptos = new Array();
+            for (var x = 0; x < parseInt(contador); x++) {
+                var conceptos = new xmlConceptosManualmente();
+                conceptos.cantidadConcepto = $("#cant" + x).val();
+                conceptos.cdaConcepto = $("#cda" + x).val();
+                conceptos.codigoConcepto = $("#codigoM" + x).text();
+                alert($("#codigoM" + x).text());
+                conceptos.descripcionConcepto = $("#descripcionM" + x).text();
+                conceptos.desctUnoConcepto = $("#descuento1" + x).val();
+                conceptos.desctDosConcepto = $("#descuento2" + x).val();
+                conceptos.importeConcepto = $("#importe" + x).val();
+                conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
+                conceptos.unidadMedidaConcepto = "";
+                lstConceptos.push(conceptos);
             }
-        });
+            inf.push(xmlComprobanteManualmente);
+            inf.push(lstConceptos);
+            var informacion = JSON.stringify(inf);
+            $.ajax({
+                type: "POST",
+                url: "xmlGuardarEntradasManuales.php",
+                data: {data: informacion},
+                cache: false,
+                success: function() {
+                    alertify.success("Exito! Entradas dadas de Alta Satisfactoriamente");
+                }
+            });
+        } else {
+            alertify.error("Error!" + mensaje);
+        }
     });
 });

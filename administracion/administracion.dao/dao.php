@@ -1273,15 +1273,11 @@ class dao {
                 }
             }
             if ($costoViejo != $cpto->cda) {
-
                 $totalViejo = $cantidad * $costoViejo;
                 $totalNuevo = $cpto->cda * $detalle->getCantidad();
-
                 $totalFinal = $totalViejo + $totalNuevo;
                 $cantidadFinal = $cantidad + $detalle->getCantidad();
-
                 $costoPromedio = $totalFinal / $cantidadFinal;
-
                 $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status,idSucursal)"
                         . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','$idSucursal')";
                 $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
@@ -1313,7 +1309,7 @@ class dao {
             //==================================================================
             //Comienza guardar entrada
             $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
-                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
+                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigoConcepto','$idSucursal')"; //Forzado usuaro e idSucursal
             $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
