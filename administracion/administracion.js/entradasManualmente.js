@@ -55,9 +55,9 @@ function validar() {
 
 function calcularPorCosto(id) {
     var costoPorCantidad = $("#costo" + id).val();
-    if (isNaN(costoPorCantidad)) {
-        costoPorCantidad = 0;
-    }
+//    if (isNaN(costoPorCantidad)) {
+//        costoPorCantidad = 0;
+//    }
     if (costoPorCantidad == '-' || costoPorCantidad == '+') {
     }
     else {
@@ -83,7 +83,6 @@ function calcularPorCosto(id) {
             calculaTotalEntradasManual();
         }
     }
-
 }
 function calcularPorCantidad(id) {
     var cantPorCantidad = $("#cant" + id).val();
@@ -340,6 +339,14 @@ function generarDescuentosgenerales() {
     calcularIva();
     calculaTotalEntradasManual();
 }
+
+function validar() {
+
+}
+
+
+
+
 
 $(document).ready(function() {
     $("#proveedores").change(function() {
