@@ -998,10 +998,7 @@ class dao {
         $cn->Conectarse();
         $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
 //        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
-
-        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='0'";
-
-
+        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='".$entradas->getIdSucursal()."'";
         mysql_query("START TRANSACTION;");
         $entradas = mysql_query($MySQLEntradas);
         if ($entradas == false) {
@@ -1215,7 +1212,7 @@ class dao {
             $cantidad = 0;
             $cpto = $conceptos[$i];
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal'";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
             $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
             if ($ctrlConceptoValidarExistencia == false) {
                 mysql_query("ROLLBACK;");
@@ -1261,7 +1258,7 @@ class dao {
             //==================================================================
             //Comienza actulizar costo
             $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
-                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1' AND idSucursal = '$idSucursal'";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND status = '1' AND idSucursal = '$idSucursal'";
             $ctrlTraerCosto = mysql_query($sqlTraerCosto);
             if ($ctrlTraerCosto == false) {
                 mysql_query("ROLLBACK;");
@@ -1279,9 +1276,9 @@ class dao {
                 $cantidadFinal = $cantidad + $detalle->getCantidad();
                 $costoPromedio = $totalFinal / $cantidadFinal;
                 $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status,idSucursal)"
-                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','$idSucursal')";
+                        . " VALUES ('$costoPromedio','$cpto->codigoConcepto','$lafecha','1','$idSucursal')";
                 $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
-                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
+                        . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
                 $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
                 if ($ctrlInsertaNuevoCosto == false) {
                     mysql_query("ROLLBACK;");
@@ -1299,7 +1296,7 @@ class dao {
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
             $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal' ";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal' ";
             $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
             if ($ctrlActulizaExistencia == false) {
                 mysql_query("ROLLBACK;");
