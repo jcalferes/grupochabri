@@ -1,7 +1,4 @@
 <?php
-
-echo 'hola';
-//
 include './administracion.clases/Concepto.php';
 include './administracion.clases/Comprobante.php';
 include './administracion.dao/dao.php';
@@ -10,6 +7,7 @@ include '../daoconexion/daoConeccion.php';
 include './administracion.clases/Encabezado.php';
 include './administracion.clases/Detalle.php';
 session_start();
+$usuario =$_SESSION["usuarioSesion"];
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
@@ -57,4 +55,4 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal);
+$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $usuario);
