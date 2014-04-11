@@ -90,7 +90,7 @@ $verificasession->validaSesion();
                         </div>
                         <div class="panel-body">
                             <div id="mostrar">
-                                <h1>HOLA! :)</h1>
+                                <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
                             </div>
                             <a href="#" class="scrollUp"></a>
                         </div>
