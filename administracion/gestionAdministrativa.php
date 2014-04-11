@@ -80,6 +80,7 @@ $verificasession->validaSesion();
                     <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                     <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
                     <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
+                    <li id="8" class=""><a onclick="ordenCompra();">Orden Compra</a></li>
                 </ul>
             </div>
             <div id="page-content-wrapper">
