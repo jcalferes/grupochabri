@@ -12,6 +12,7 @@ $tarifa = new Tarifa();
 $dao = new dao();
 $lista = json_decode(stripslashes($_GET["lista"]));
 $producto->setIdUnidadMedida($_GET["unidadMedida"]);
+$producto->setCbarras($_GET["cbarras"]);
 $producto->setIdGrupoProducto($_GET["grupoProducto"]);
 $producto->setCantidadMaxima($_GET["max"]);
 $producto->setCantidadMinima($_GET["min"]);
