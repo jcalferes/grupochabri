@@ -12,12 +12,26 @@
                     <form id="formularioProductos">
                         <div id="formulario"> 
                             <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chkgranel" onclick="nuevogranel();"> Es un producto a granel
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="frmcbarras">
                                 <label>Codigo de barras:</label>
                                 <input type="text" class="form-control valLetra" style="width: 60%" id="txtCodigoBarras"/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="frmcodnogranel">
                                 <label>Codigo de producto:</label>
                                 <input type="text" class="form-control valLetra" style="width: 60%" id="txtCodigoProducto"/>
+                            </div>
+                            <div class="form-group" id="frmcodgranel">
+                                <label>Codigo de producto a granel:</label>
+                                <div class="input-group" style="width: 60%">
+                                    <input type="text" id="txtCodigoProductoG" class="form-control valLetra">
+                                    <span class="input-group-addon">-GR</span>
+                                </div>
                             </div>
                             <div class="form-group"  >
                                 <label>Nombre:</label>
@@ -33,6 +47,18 @@
                                 <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                 </select>
                                 <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
+                            </div>
+                            <div class="form-group" id="frmcontenido">
+                                <label>Contenido</label>
+                                <input type="text" class="form-control  valNum" id="txtContenido" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
+                             <div class="input-group" style="width: 60%">
+                                    <input type="text" id="txtCodigoProductoG" class="form-control valLetra">
+                                    <span class="input-group-addon">Lt/Kg</span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="frmcostopieza">
+                                <label>Costo de la pieza</label>
+                                <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
                             </div>
                             <div class="form-group">
                                 <label>Costo producto</label>
@@ -51,15 +77,15 @@
                                     </select>
                                     <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor"/>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="frmcantmin">
                                     <label>Cantidad minima</label>
                                     <input type="text" class="form-control  valNum" id="txtCantidadMinima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="frmcantmax">
                                     <label>Cantidad maxima</label>
                                     <input  type="text" class="form-control valNum" id="txtCantidadMaxima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" >
                                     <label>Lista precio:</label><br>
                                     <div  id="tablaListaPrecios" >
                                     </div>

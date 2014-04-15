@@ -315,3 +315,29 @@ function ordenCompra() {
     $("#mostrar").load("wizOrdenCompra.php");
 
 }
+
+function entroAgranel() {
+    $("#wrapper").toggleClass("active");
+
+    var rclass = $("#wrapper").hasClass('col-lg-10');
+    if (rclass == false) {
+        $("#wrapper").removeClass("col-lg-12");
+        $("#wrapper").addClass("col-lg-10");
+    } else {
+        $("#wrapper").removeClass("col-lg-10");
+        $("#wrapper").addClass("col-lg-12");
+    }
+//    $("#1").removeClass("active");
+//    $("#2").removeClass("active");
+//    $("#3").removeClass("active");
+//    $("#4").removeClass("active");
+//    $("#5").removeClass("active");
+//    $("#7").removeClass("active");
+//    $("#8").removeClass("active");
+//    $("#9").removeClass("active");
+//    $("#10").removeClass("active");
+//    $("#11").addClass("active");
+
+    $("#mostrar").load("wizAgranel.php");
+
+}

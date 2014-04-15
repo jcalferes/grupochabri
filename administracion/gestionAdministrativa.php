@@ -26,7 +26,7 @@ $verificasession->validaSesion();
         <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
-    <header>
+    <body>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -57,16 +57,14 @@ $verificasession->validaSesion();
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-<!--                        <li><a href="#">Un link</a></li>
-                        <li><a href="#">Otro link</a></li>
-                        <li class=""><a href="#">Un link mas</a></li>-->
+                        <!--                        <li><a href="#">Un link</a></li>
+                                                <li><a href="#">Otro link</a></li>
+                                                <li class=""><a href="#">Un link mas</a></li>-->
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </header>
-    <body>
         <div id="wrapper">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
@@ -80,7 +78,8 @@ $verificasession->validaSesion();
                     <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
                     <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
                     <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
-                    <li id="8" class=""><a onclick="ordenCompra();">Orden Compra</a></li>
+                    <li id="6" class=""><a onclick="ordenCompra();">Orden Compra</a></li>
+                    <li id="12" class=""><a onclick="entroAgranel();">Agranel</a></li>
                 </ul>
             </div>
             <div id="page-content-wrapper">

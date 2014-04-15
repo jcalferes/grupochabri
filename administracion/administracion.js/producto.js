@@ -105,6 +105,9 @@ function obtenerUtilidadCosto() {
     });
 }
 $(document).ready(function() {
+    $("#frmcodgranel").hide();
+    $("#frmcontenido").hide();
+    $("#frmcostopieza").hide();
     $("#editarDatos").hide();
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
 //     $('#txtFolioProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou123456789"%()');
@@ -178,7 +181,7 @@ $(document).ready(function() {
                     disabled: false
                 });
                 $.each(lista, function(ind, elem) {
-                    if(ind == "codigoProducto"){
+                    if (ind == "codigoProducto") {
                         $("#txtCodigoProducto").val(elem);
                     }
                     if (ind == "producto") {
@@ -284,7 +287,7 @@ $(document).ready(function() {
                     disabled: false
                 });
                 $.each(lista, function(ind, elem) {
-                    if(ind == "codigoBarrasProducto"){
+                    if (ind == "codigoBarrasProducto") {
                         $("#txtCodigoBarras").val(elem);
                     }
                     if (ind == "producto") {
@@ -432,8 +435,6 @@ $(document).ready(function() {
             alertify.error("todos los campos deben tener valor");
         }
     });
-
-
 
     $('#editarDatos').click(function() {
 
@@ -621,6 +622,77 @@ $(document).ready(function() {
 //
 //    });
 
+
 });
 
+//===============================Formulario a granel============================
 
+function nuevogranel() {
+    var chk = $("#chkgranel").is(":checked");
+    if(chk == true){
+        $("#frmcbarras").slideUp();
+        $("#frmcantmin").slideUp();
+        $("#frmcantmax").slideUp();
+        $("#frmcodnogranel").slideUp();
+        $("#frmcodgranel").slideDown();
+        $("#frmcontenido").slideDown();
+        $("#frmcostopieza").slideDown();
+    }else{
+        $("#frmcbarras").slideDown();
+        $("#frmcantmin").slideDown();
+        $("#frmcantmax").slideDown();
+        $("#frmcodnogranel").slideDown();
+        $("#frmcodgranel").slideUp();
+        $("#frmcontenido").slideUp();
+        $("#frmcostopieza").slideUp();
+    }
+}
+//=============================Consultar para agranel===========================
+$("#txtCodigoProductoG").blur(function() {
+        var codigoProducto = $("#txtCodigoProductoG").val();
+        var info = "codigoProducto=" + codigoProducto;
+        $.get('verificandoProducto.php', info, function(x) {
+            if (x < 1) {
+                $("#txtNombreProducto").val("");
+                $("#txtCodigoBarras").val("");
+                $('#selectMarca').selectpicker('val', 0);
+                $('#selectProveedor').selectpicker('val', 0);
+                $('#selectGrupo').selectpicker('val', 0);
+                $('#selectMedida').selectpicker('val', 0);
+                $("#txtCostoProducto").val("");
+                $("#txtCantidadMinima").val("");
+                $("#txtCantidadMaxima").val("");
+                $(".producto").val("");
+                $(".neto").val("");
+
+                $(".producto").attr("disabled", true);
+                $(".checando").attr("disabled", true);
+                $(".checando").attr("checked", false);
+                $("#selectProducto").load("obtenerProductos.php");
+                $("#guardarDatos").show();
+//                $("#editarDatos").hide();
+            } else {
+                lista = JSON.parse(x);
+                $.each(lista, function(ind, elem) {
+                    if (ind == "producto") {
+                        $("#txtNombreProducto").val(elem);
+                    }
+                    if (ind == "idUnidadMedida") {
+                        $('#selectMedida').selectpicker('val', elem);
+                    }
+                    if (ind == "idGrupoProducto") {
+                        $('#selectGrupo').selectpicker('val', elem);
+                    }
+                    if (ind == "idMarca") {
+                        $('#selectMarca').selectpicker('val', elem);
+                    }
+                    if (ind == "idProveedor") {
+                        $('#selectProveedor').selectpicker('val', elem);
+                    }
+                    if (ind == "costo") {
+                        $("#txtCostoPieza").val(elem);
+                    }
+                });
+            }
+        });
+    });
