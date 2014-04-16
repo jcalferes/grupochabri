@@ -584,32 +584,33 @@ class dao {
         return $rs;
     }
 
-//    function comprobarCodigoValido($codigo) {
-//
-//        include_once '../daoconexion/daoConeccion.php';
-//        $cn = new coneccion();
-//        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
-//        $datos = mysql_query($sql, $cn->Conectarse());
-//        $valor = mysql_affected_rows();
-//        if ($valor > 0) {
-//            return 1;
-//        } else {
-//            return 0;
-//        }
-//    }
-//    function comprobarCodigoBarrasValido($codigo) {
-//
-//        include_once '../daoconexion/daoConeccion.php';
-//        $cn = new coneccion();
-//        $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigo'";
-//        $datos = mysql_query($sql, $cn->Conectarse());
-//        $valor = mysql_affected_rows();
-//        if ($valor > 0) {
-//            return 1;
-//        } else {
-//            return 0;
-//        }
-//    }
+    function comprobarCodigoValido($codigo) {
+
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $valor = mysql_affected_rows();
+        if ($valor > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function comprobarCodigoBarrasValido($codigo) {
+
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigo'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $valor = mysql_affected_rows();
+        if ($valor > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     function mostrarTarifasTabla($codigoProducto, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
@@ -880,6 +881,44 @@ class dao {
         }
 
         $_SESSION['idProducto'] = $id;
+        $cn->cerrarBd();
+    }
+
+    function actualizaExsitenciaGranel($idsucursal, Producto $producto, $contenido, $cuantos, $original) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        //===Sacar existencia===================================================
+        $sql = "SELECT * FROM existencias WHERE codigoProducto = '$original' AND idSucursal = '$idsucursal'";
+        mysql_query("START TRANSACTION;");
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $existencia = $rs["cantidad"];
+            }
+        }
+        //===Restar existencia==================================================
+        $nuevaexistencia = $existencia - $cuantos;
+        //===Actualizar existencia==============================================
+        $sql = "UPDATE existencias SET cantidad = '$nuevaexistencia' WHERE codigoProducto = '$original' AND idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //===Actualizar existencia granel=======================================
+        $sql = "UPDATE existencias SET cantidad = '$contenido' WHERE codigoProducto='" . $producto->getCodigoProducto() . "' AND idSucursal ='$idsucursal'";
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        mysql_query("COMMIT;");
         $cn->cerrarBd();
     }
 
@@ -1844,4 +1883,17 @@ class dao {
         return $rs;
     }
 
+    function verificaProductoGranel($codigo) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        mysql_query($sql, $cn->Conectarse());
+        $band = mysql_affected_rows();
+        if ($band < 1) {
+            $valida = 0;
+        } else {
+            $valida = 1;
+        }
+        return $valida;
+    }
 }
