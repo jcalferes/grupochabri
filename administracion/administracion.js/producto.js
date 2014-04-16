@@ -105,6 +105,7 @@ function obtenerUtilidadCosto() {
     });
 }
 $(document).ready(function() {
+    $("#guardarGranel").hide();
     $("#frmcodgranel").hide();
     $("#frmcontenido").hide();
     $("#frmcostopieza").hide();
@@ -629,26 +630,95 @@ $(document).ready(function() {
 
 function nuevogranel() {
     var chk = $("#chkgranel").is(":checked");
-    if(chk == true){
+    if (chk == true) {
+        $("#txtNombreProducto").val("");
+        $("#txtCodigoBarras").val("");
+        $("#txtCodigoProductoG").val("");
+        $('#selectMarca').selectpicker('val', 0);
+        $('#selectProveedor').selectpicker('val', 0);
+        $('#selectGrupo').selectpicker('val', 0);
+        $('#selectMedida').selectpicker('val', 0);
+        $("#txtCostoProducto").val("");
+        $("#txtCantidadMinima").val("");
+        $("#txtCantidadMaxima").val("");
+        $(".producto").val("");
+        $(".neto").val("");
+
+        $(".producto").attr("disabled", true);
+        $(".checando").attr("disabled", true);
+        $(".checando").attr("checked", false);
+        $("#selectProducto").load("obtenerProductos.php");
+
         $("#frmcbarras").slideUp();
         $("#frmcantmin").slideUp();
         $("#frmcantmax").slideUp();
+        $("#guardarDatos").slideUp();
+        
         $("#frmcodnogranel").slideUp();
         $("#frmcodgranel").slideDown();
         $("#frmcontenido").slideDown();
         $("#frmcostopieza").slideDown();
-    }else{
+        $("#divgrande").slideUp();
+
+        $("#txtCodigoProductoG").focus();
+    } else {
+        $("#txtNombreProducto").val("");
+        $("#txtCodigoBarras").val("");
+        $("#txtCodigoProductoG").val("");
+        $('#selectMarca').selectpicker('val', 0);
+        $('#selectProveedor').selectpicker('val', 0);
+        $('#selectGrupo').selectpicker('val', 0);
+        $('#selectMedida').selectpicker('val', 0);
+        $("#txtCostoProducto").val("");
+        $("#txtCantidadMinima").val("");
+        $("#txtCantidadMaxima").val("");
+        $(".producto").val("");
+        $(".neto").val("");
+
+        $(".producto").attr("disabled", true);
+        $(".checando").attr("disabled", true);
+        $(".checando").attr("checked", false);
+        $("#selectProducto").load("obtenerProductos.php");
+
+        $("#divgrande").slideDown();
         $("#frmcbarras").slideDown();
         $("#frmcantmin").slideDown();
         $("#frmcantmax").slideDown();
+        $("#guardarDatos").slideDown();
         $("#frmcodnogranel").slideDown();
         $("#frmcodgranel").slideUp();
         $("#frmcontenido").slideUp();
         $("#frmcostopieza").slideUp();
+        $("#guardarGranel").slideUp();
     }
 }
 //=============================Consultar para agranel===========================
 $("#txtCodigoProductoG").blur(function() {
+    var codeg = $("#txtCodigoProductoG").val();
+    if (codeg === "" || /^\s+$/.test(codeg)) {
+        $("#txtCodigoProductoG").val("");
+        $("#txtNombreProducto").val("");
+        $("#txtCodigoBarras").val("");
+        $('#selectMarca').selectpicker('val', 0);
+        $('#selectProveedor').selectpicker('val', 0);
+        $('#selectGrupo').selectpicker('val', 0);
+        $('#selectMedida').selectpicker('val', 0);
+        $("#txtCostoProducto").val("");
+        $("#txtCantidadMinima").val("");
+        $("#txtCantidadMaxima").val("");
+        $(".producto").val("");
+        $(".neto").val("");
+
+        $(".producto").attr("disabled", true);
+        $(".checando").attr("disabled", true);
+        $(".checando").attr("checked", false);
+        $("#selectProducto").load("obtenerProductos.php");
+
+        $("#guardarGranel").slideUp();
+        $("#txtCodigoProductoG").val("");
+        $("#txtCodigoProductoG").focus("");
+        $("#divgrande").slideUp();
+    } else {
         var codigoProducto = $("#txtCodigoProductoG").val();
         var info = "codigoProducto=" + codigoProducto;
         $.get('verificandoProducto.php', info, function(x) {
@@ -669,9 +739,14 @@ $("#txtCodigoProductoG").blur(function() {
                 $(".checando").attr("disabled", true);
                 $(".checando").attr("checked", false);
                 $("#selectProducto").load("obtenerProductos.php");
-                $("#guardarDatos").show();
-//                $("#editarDatos").hide();
+
+                $("#guardarGranel").slideUp();
+                $("#txtCodigoProductoG").val("");
+                $("#txtCodigoProductoG").focus("");
+                $("#divgrande").slideUp();
+                alertify.error("Deber existir el producto");
             } else {
+                $("#divgrande").slideDown();
                 lista = JSON.parse(x);
                 $.each(lista, function(ind, elem) {
                     if (ind == "producto") {
@@ -693,6 +768,9 @@ $("#txtCodigoProductoG").blur(function() {
                         $("#txtCostoPieza").val(elem);
                     }
                 });
+
+                $("#guardarGranel").slideDown();
             }
         });
-    });
+    }
+});
