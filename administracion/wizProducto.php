@@ -52,9 +52,10 @@
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
                                     <div class="input-group" style="width: 60%">
-                                        <input type="text" id="txtContenido" class="form-control valLetra">
+                                        <input type="text" id="txtContenido" class="form-control valLetra" onkeypress="return NumCheck(event, this);">
                                         <span class="input-group-addon">Lt/Kg</span>
                                     </div>
+                                    <input type="text" id="respaldaExistencia" hidden/>
                                 </div>
                                 <div class="form-group" id="frmcostopieza">
                                     <label>Costo de la pieza</label>
@@ -151,6 +152,7 @@
                                 <label>Desct. Pronto Pago:</label>
                                 <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false"/>
                             </div>
+                           
                             <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar"/>
                             <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                             <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
