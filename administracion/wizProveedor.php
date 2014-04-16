@@ -50,7 +50,7 @@
                         <label>E-mail:</label>
                         <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
+                        <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%"/>
                         <div id="masemails">
                         </div>
                     </div>
@@ -60,9 +60,9 @@
                     </div>
                     <div class="form-group form-inline">
                         <label>Desct. Factura:</label>
-                        <input id="txtdesctpf" type="number" class="form-control" style="width: 20%" onpaste="return false">
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 20%" onpaste="return false"/>
                         <label>Desct. Pronto Pago:</label>
-                        <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false">
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false"/>
                     </div>
 
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
@@ -178,7 +178,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Detalle de la direccion</h4>
+                        <h4 class="modal-title" id="myModalLabel">Detalles de Contacto</h4>
                     </div>
                     <div class="modal-body">
                         <div id="verdireccion">

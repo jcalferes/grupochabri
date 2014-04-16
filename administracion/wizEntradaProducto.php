@@ -41,7 +41,7 @@
                         <label>Proveedor: </label>
                         <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
                         <label>Folio: </label>
-                        <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;
+                        <input id="folioM" type="text" class="form-control"  placeholder="Folio">&numsp;
                         <label>Fecha Emitida: </label>
                         <input id="fechaEmitidaM" type="date" class="form-control" />
                     </div>

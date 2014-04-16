@@ -24,7 +24,17 @@ class Producto {
     private $idUnidadMedida;
     private $idGrupoProducto;
     private $cantidad;
+    private $cbarras;
+    
+    public function getCbarras() {
+        return $this->cbarras;
+    }
 
+    public function setCbarras($cbarras) {
+        $this->cbarras = $cbarras;
+    }
+
+    
     public function getIdUnidadMedida() {
         return $this->idUnidadMedida;
     }

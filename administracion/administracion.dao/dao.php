@@ -544,38 +544,72 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function consultandoProductoPorCodigo($codigo) {
+    function consultandoProductoPorCodigo($codigo, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoProducto = '$codigo'";
-
+                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoProducto = '$codigo' and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
-//        while ($rs = mysql_fetch_array($dato)) {
-//            $id = $rs[1];
-//        }
-
-        return $datos;
+        if ($datos == false) {
+            $datos = mysql_error();
+            $rs = 0;
+        } else {
+            $rs = $datos;
+        }
+        return $rs;
     }
 
-    function comprobarCodigoValido($codigo) {
-
+    function consultandoProductoPorCodigoBarras($codigo, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoBarrasProducto = '$codigo'  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        $valor = mysql_affected_rows();
-        if ($valor > 0) {
-            return 1;
+        if ($datos == false) {
+            $datos = mysql_error();
+            $rs = 0;
         } else {
-            return 0;
+            $rs = $datos;
         }
+        return $rs;
     }
+
+//    function comprobarCodigoValido($codigo) {
+//
+//        include_once '../daoconexion/daoConeccion.php';
+//        $cn = new coneccion();
+//        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+//        $datos = mysql_query($sql, $cn->Conectarse());
+//        $valor = mysql_affected_rows();
+//        if ($valor > 0) {
+//            return 1;
+//        } else {
+//            return 0;
+//        }
+//    }
+//    function comprobarCodigoBarrasValido($codigo) {
+//
+//        include_once '../daoconexion/daoConeccion.php';
+//        $cn = new coneccion();
+//        $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigo'";
+//        $datos = mysql_query($sql, $cn->Conectarse());
+//        $valor = mysql_affected_rows();
+//        if ($valor > 0) {
+//            return 1;
+//        } else {
+//            return 0;
+//        }
+//    }
 
     function mostrarTarifasTabla($codigoProducto, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
@@ -782,7 +816,7 @@ class dao {
         $sql = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$idSucursal')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1')";
+        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoBarrasProducto, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCbarras() . "' , '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1')";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
         $id = mysql_insert_id();
@@ -965,12 +999,13 @@ class dao {
         return $datos;
     }
 
-    function obtenerEntradas() {
+    function obtenerEntradas($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "select * from productos p 
-            inner join  entradas e 
-            on e.codigoProducto = p.codigoProducto";
+            inner join  existencias e 
+            on e.codigoProducto = p.codigoProducto 
+            WHERE idSucursal = '" . $idSucursal . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -998,10 +1033,7 @@ class dao {
         $cn->Conectarse();
         $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
 //        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
-
-        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='0'";
-
-
+        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='" . $entradas->getIdSucursal() . "'";
         mysql_query("START TRANSACTION;");
         $entradas = mysql_query($MySQLEntradas);
         if ($entradas == false) {
@@ -1148,7 +1180,7 @@ class dao {
         mysql_query("COMMIT;");
     }
 
-    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo) {
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -1177,7 +1209,7 @@ class dao {
         //======================================================================
         //Empieza guardar comprobante
         $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','$tipo','$lafecha','$idSucursal')"; //Forzado TIPO
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','$tipo','$lafecha','$idSucursal')";
         $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
         $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
         if ($ctrlComprobanteGuardar == false) {
@@ -1194,14 +1226,16 @@ class dao {
                 }
             }
         }
-                                                                                        //Terminar guardar comprobante
+        //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
+
         for ($i = 0; $i < $control; $i++) {
+            $cpto = $conceptos[$i];
             //Comienza guardar detalle
             $detalle = $arrayDetalleEntrada[$i];
             $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
-                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
+                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $cpto->codigoConcepto . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
             $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
             if ($ctrlDetalleGuardar == false) {
                 mysql_query("ROLLBACK;");
@@ -1213,9 +1247,9 @@ class dao {
             //==================================================================
             //Comienza validar producto en existencia
             $cantidad = 0;
-            $cpto = $conceptos[$i];
+
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal'";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
             $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
             if ($ctrlConceptoValidarExistencia == false) {
                 mysql_query("ROLLBACK;");
@@ -1238,8 +1272,8 @@ class dao {
             if (isset($cpto->importeConcepto)) {
                 $importe = $cpto->importeConcepto;
             }
-            if (isset($cpto-> codigoConcepto)) {
-                $codigo = $cpto-> codigoConcepto;
+            if (isset($cpto->codigoConcepto)) {
+                $codigo = $cpto->codigoConcepto;
             }
             if (isset($cpto->cdaConcepto)) {
                 $cda = $cpto->cdaConcepto;
@@ -1264,7 +1298,7 @@ class dao {
             //==================================================================
             //Comienza actulizar costo
             $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
-                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1' AND idSucursal = '$idSucursal'";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND status = '1' AND idSucursal = '$idSucursal'";
             $ctrlTraerCosto = mysql_query($sqlTraerCosto);
             if ($ctrlTraerCosto == false) {
                 mysql_query("ROLLBACK;");
@@ -1275,20 +1309,16 @@ class dao {
                     $idDondeSalioCosto = $rs["idCosto"];
                 }
             }
-            if ($costoViejo != $cpto->cda) {
-
+            if ($costoViejo != $cpto->cdaConcepto) {
                 $totalViejo = $cantidad * $costoViejo;
-                $totalNuevo = $cpto->cda * $detalle->getCantidad();
-
+                $totalNuevo = $cpto->cdaConcepto * $detalle->getCantidad();
                 $totalFinal = $totalViejo + $totalNuevo;
                 $cantidadFinal = $cantidad + $detalle->getCantidad();
-
                 $costoPromedio = $totalFinal / $cantidadFinal;
-
                 $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status,idSucursal)"
-                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','$idSucursal')";
+                        . " VALUES ('$costoPromedio','$cpto->codigoConcepto','$lafecha','1','$idSucursal')";
                 $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
-                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
+                        . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
                 $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
                 if ($ctrlInsertaNuevoCosto == false) {
                     mysql_query("ROLLBACK;");
@@ -1306,7 +1336,7 @@ class dao {
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
             $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
-                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal' ";
+                    . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal' ";
             $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
             if ($ctrlActulizaExistencia == false) {
                 mysql_query("ROLLBACK;");
@@ -1316,7 +1346,7 @@ class dao {
             //==================================================================
             //Comienza guardar entrada
             $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
-                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
+                    . " VALUES ('$usuario','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigoConcepto','$idSucursal')";
             $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
