@@ -52,10 +52,13 @@ foreach ($conceptos as $detalles) {
     $detalle->setDescripcion($detalles->descripcionConcepto);
     $detalle->setIdFacturaEncabezado(0);
     $detalle->setImporte($detalles->importeConcepto);
-    $detalle->setUnidadmedida();
+    $detalle->setCostoCotizacion($detalles->costoCotizacion);
+//    $detalle->setCostoCotizacion("hola");
+//    $detalle->setUnidadmedida();
+    
     $array[$contador] = $detalle;
     $contador ++;
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal,$tipo);
+$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);

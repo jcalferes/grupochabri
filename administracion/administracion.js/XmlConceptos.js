@@ -8,5 +8,6 @@ function xmlConceptosManualmente() {
     this.cdaConcepto = 0.00;
     this.desctUnoConcepto = 0.00;
     this.desctDosConcepto = 0.00;
+    this.costoCotizacion = 0.00;
 }
 

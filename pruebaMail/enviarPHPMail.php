@@ -32,7 +32,8 @@ $cabeceras .= "From: $de \r\n";
 
 $archivo = $_FILES['flsArchivo']['tmp_name'];
 $destino = $_FILES['flsArchivo']['name'];
-
+//include '../administracion/reportes/probando.pdf';
+$destino2 = "../administracion/reportes/probando.pdf'";
 if (move_uploaded_file($archivo, $destino)) {
     //Trabajando con PHPMailer
     include_once ("class.phpmailer.php");
@@ -44,19 +45,21 @@ if (move_uploaded_file($archivo, $destino)) {
 //    $mail->SMTPSecure = "tls"; //SSL socket layer
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
-    $mail->SMTPSecure = "tls";
-    $mail->Host = "smtp.live.com";
+    $mail->SMTPSecure = "ssl";
+    $mail->Host = "smtp.gmail.com";
     $mail->Port = 465;
 
     $mail->From = $de; //Remitente (En mi variable)
     $mail->AddAddress($para); //Destinatario
-    $mail->Username = "comodoro_21@hotmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-    $mail->Password = "(torres)!2"; //Aqui va la contraseña valida de tu correo
+    $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+    $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
     $mail->Subject = $asunto; //El asunto de correo
     $mail->Body = $mensaje; //El mensaje de correo
-    $mail->WordWrap = 50; //# de columnas
+//    $mail->WordWrap = 50; //# de columnas
+    $mail->CharSet = 'UTF-8';
+    $mail->WordWrap = 50;
     $mail->MsgHTML($mensaje); //Se indica que el cuerpo del correo tendra formato HTML
-    $mail->AddAttachment($destino); //Accedemos al archivo que se subio al servidor y lo adjuntamos
+    $mail->AddAttachment($destino2); //Accedemos al archivo que se subio al servidor y lo adjuntamos
 
     if ($mail->Send()) {//Enviamos el correo por PHPMailer
         $respuesta = "El mensaje a sido enviado desde tu cuenta de Gmail :)";
