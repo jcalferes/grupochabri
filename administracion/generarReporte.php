@@ -3,9 +3,11 @@
 echo 'dsadsadsa';
 include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
+include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF.
 $folio = $_GET["valor"];
 $dao = new dao();
+$utileria = new Utilerias();
 $datos = $dao->obtenerOrdenCompra($folio);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
@@ -85,7 +87,9 @@ $mipdf->load_html(utf8_decode($valor));
 
 # Renderizamos el documento PDF.
 $mipdf->render();
-$output = $mipdf->output();
-file_put_contents("../reportes/probando.pdf", $output);
+//$mipdf->output();
+file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
-//$mipdf->stream('FicheroEjemplo.pdf');
+////$mipdf->stream('FicheroEjemplo.pdf');
+$correo="shanaxchornos@gmail.com";
+$utileria->enviarCorreoElectronico($correo);

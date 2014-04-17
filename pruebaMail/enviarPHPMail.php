@@ -33,7 +33,7 @@ $cabeceras .= "From: $de \r\n";
 $archivo = $_FILES['flsArchivo']['tmp_name'];
 $destino = $_FILES['flsArchivo']['name'];
 //include '../administracion/reportes/probando.pdf';
-$destino2 = "../administracion/reportes/probando.pdf'";
+$destino2 = "../administracion/reportes/probando.pdf";
 if (move_uploaded_file($archivo, $destino)) {
     //Trabajando con PHPMailer
     include_once ("class.phpmailer.php");
@@ -59,7 +59,7 @@ if (move_uploaded_file($archivo, $destino)) {
     $mail->CharSet = 'UTF-8';
     $mail->WordWrap = 50;
     $mail->MsgHTML($mensaje); //Se indica que el cuerpo del correo tendra formato HTML
-    $mail->AddAttachment($destino2); //Accedemos al archivo que se subio al servidor y lo adjuntamos
+    $mail->AddAttachment("probando.pdf", "nombre.pdf"); //Accedemos al archivo que se subio al servidor y lo adjuntamos
 
     if ($mail->Send()) {//Enviamos el correo por PHPMailer
         $respuesta = "El mensaje a sido enviado desde tu cuenta de Gmail :)";

@@ -9,8 +9,24 @@ function seleccionTipo() {
     var orden = $("#orden").is(":checked");
     if (orden == true) {
         $("#folioM").show('slow');
+        $("#folio").show('slow');
+        $("#folio").val("");
+        $(".resultando").val(0);
+
+        $('#tablaDatosEntrada td').each(function() {
+            $(this).remove();
+
+        });
     } else {
+        $('#tablaDatosEntrada td').each(function() {
+            $(this).remove();
+
+        });
+        $("#folio").val("");
+
+        $(".resultando").val(0);
         $("#folioM").hide('slow');
+        $("#folio").hide('slow');
     }
 
 }
@@ -391,11 +407,12 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
-    $("#enviarOrdenCompra").click(function(){
-       var info = "valor=" + $("#folioM").val();; 
-       window.location.href = 'generarReporte.php?' + info;
+    $("#enviarOrdenCompra").click(function() {
+        var info = "valor=" + $("#folioM").val();
+        ;
+        window.location.href = 'generarReporte.php?' + info;
     })
-    
+
     $("#proveedores").change(function() {
         if ($("#proveedores").val() == 0) {
             $("#codigoProductoEntradas").attr('disabled', 'disabled');
