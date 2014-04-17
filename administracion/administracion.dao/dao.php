@@ -1883,17 +1883,37 @@ class dao {
         return $rs;
     }
 
-    function verificaProductoGranel($codigo) {
-        include_once '../daoconexion/daoConeccion.php';
-        $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
-        mysql_query($sql, $cn->Conectarse());
-        $band = mysql_affected_rows();
-        if ($band < 1) {
-            $valida = 0;
-        } else {
-            $valida = 1;
-        }
-        return $valida;
-    }
+//    function verificaProductoGranel($codigo, $sucursal) {
+//        
+//        include_once '../daoconexion/daoConeccion.php';
+//        $cn = new coneccion();
+//        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,  p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
+//                . "FROM productos p \n"
+//                . "INNER JOIN marcas m ON p.idMarca = m.idMarca \n"
+//                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor \n"
+//                . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto \n"
+//                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto \n"
+//                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto \n"
+//                . "WHERE c.status = 1 AND p.codigoProducto = '$codigo' AND c.idSucursal = '$sucursal' AND e.idSucursal = '$sucursal'";
+//        $datos = mysql_query($sql, $cn->Conectarse());
+//        if ($datos == false) {
+//            $datos = mysql_error();
+//            $rs = 0;
+//        } else {
+//            $rs = $datos;
+//        }
+//        return $rs;
+//       
+////        include_once '../daoconexion/daoConeccion.php';
+////        $cn = new coneccion();
+////        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+////        mysql_query($sql, $cn->Conectarse());
+////        $band = mysql_affected_rows();
+////        if ($band < 1) {
+////            $valida = 0;
+////        } else {
+////            $valida = 1;
+////        }
+////        return $valida;
+//    }
 }

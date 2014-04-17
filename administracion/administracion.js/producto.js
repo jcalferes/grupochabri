@@ -319,7 +319,6 @@ $(document).ready(function() {
 
                 });
                 $.get('obtenerTarifasPorConsulta.php', info, function(x) {
-
                     lista = JSON.parse(x);
                     console.log(lista);
                     var provando = 0;
@@ -328,23 +327,16 @@ $(document).ready(function() {
                     $.each(lista, function(indice, elemento) {
                         $.each(elemento, function(ind, elem) {
                             if (ind == 0) {
-
-
                                 provando = elem;
-
                             }
                             if (ind == "porcentaUtilidad") {
-
                                 provando = provando.replace(" ", "_")
-
                                 var costo = $("#txtCostoProducto").val();
                                 var utilidad = costo * (elem / 100);
                                 $("#util" + provando).val(utilidad);
                                 utilidad = parseFloat(utilidad) + parseFloat(costo);
-
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
-
                                 $("#check" + provando).prop({
                                     disabled: false,
                                     Checked: true
@@ -352,7 +344,6 @@ $(document).ready(function() {
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
                             }
-
                         });
                     });
                 });

@@ -8,15 +8,15 @@
                 <div id="null" style="margin: 0% 25% 0% 25%">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Nuevo producto agranel</h2>
+            <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar a granel</h2>
             <section>
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label>Nombre de la marca:</label>
-                        <input type="text" class="form-control" id="txtnombremarca" placeholder="Ingrese el nombre de la nueva marca">
+                        <label>Codigo producto:</label>
+                        <input type="text" class="form-control" id="txtcodigogranel">
                     </div>
                     <hr>
-                    <input id="null" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar"/>
+                    <input id="btnG" type="button" class="btn btn-primary" value="Guardar"/>
                 </form>
             </section>
         </div>
