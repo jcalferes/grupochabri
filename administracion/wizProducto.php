@@ -12,62 +12,92 @@
                     <form id="formularioProductos">
                         <div id="formulario"> 
                             <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chkgranel" onclick="nuevogranel();"> Es un producto a granel
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="frmcbarras">
                                 <label>Codigo de barras:</label>
                                 <input type="text" class="form-control valLetra" style="width: 60%" id="txtCodigoBarras"/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="frmcodnogranel">
                                 <label>Codigo de producto:</label>
                                 <input type="text" class="form-control valLetra" style="width: 60%" id="txtCodigoProducto"/>
                             </div>
-                            <div class="form-group"  >
-                                <label>Nombre:</label>
-                                <input type="text" class="form-control valLetra" id="txtNombreProducto"/>
+                            <div class="form-group" id="frmcodgranel">
+                                <label>Codigo de producto a granel:</label>
+                                <div class="input-group" style="width: 60%">
+                                    <input type="text" id="txtCodigoProductoG" class="form-control valLetra">
+                                    <span class="input-group-addon">-GR</span>
+                                </div>
                             </div>
-                            <div class="form-group form-inline">
-                                <label>Unidad de medida:</label><br/>
-                                <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true">
-                                </select>
-                            </div>
-                            <div class="form-group form-inline">
-                                <label>Grupo de producto:</label><br/>
-                                <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
-                                </select>
-                                <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Costo producto</label>
-                                <input type="text" class="form-control  valNum" id="txtCostoProducto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group form-inline">
-                                    <label>Marca:</label><br>
-                                    <select id="selectMarca" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
-                                    </select>
-                                    <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+"/>
+                            <div id="divgrande">
+                                <div class="form-group"  >
+                                    <label>Nombre:</label>
+                                    <input type="text" class="form-control valLetra" id="txtNombreProducto"/>
                                 </div>
                                 <div class="form-group form-inline">
-                                    <label>Proveedor:</label><br>
-                                    <select id="selectProveedor" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                    <label>Unidad de medida:</label><br/>
+                                    <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
-                                    <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor"/>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label>Grupo de producto:</label><br/>
+                                    <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                    </select>
+                                    <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
+                                </div>
+                                <div class="form-group" id="frmcontenido">
+                                    <label>Contenido</label>
+                                    <div class="input-group" style="width: 60%">
+                                        <input type="text" id="txtContenido" class="form-control valLetra" onkeypress="return NumCheck(event, this);">
+                                        <span class="input-group-addon">Lt/Kg</span>
+                                    </div>
+                                    <input type="text" id="respaldaExistencia" hidden/>
+                                </div>
+                                <div class="form-group" id="frmcostopieza">
+                                    <label>Costo de la pieza</label>
+                                    <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>Cantidad minima</label>
-                                    <input type="text" class="form-control  valNum" id="txtCantidadMinima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
+                                    <label>Costo producto</label>
+                                    <input type="text" class="form-control  valNum" id="txtCostoProducto" onkeyup="obtenerUtilidadCosto();" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>Cantidad maxima</label>
-                                    <input  type="text" class="form-control valNum" id="txtCantidadMaxima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Lista precio:</label><br>
-                                    <div  id="tablaListaPrecios" >
+                                    <div class="form-group form-inline">
+                                        <label>Marca:</label><br>
+                                        <select id="selectMarca" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                        </select>
+                                        <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+"/>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label>Proveedor:</label><br>
+                                        <select id="selectProveedor" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                        </select>
+                                        <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor"/>
+                                    </div>
+                                    <div class="form-group" id="frmcantmin">
+                                        <label>Cantidad minima</label>
+                                        <input type="text" class="form-control  valNum" id="txtCantidadMinima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
+                                    </div>
+                                    <div class="form-group" id="frmcantmax">
+                                        <label>Cantidad maxima</label>
+                                        <input  type="text" class="form-control valNum" id="txtCantidadMaxima"  onkeypress="return NumCheck(event, this);" onpaste="return false" />
+                                    </div>
+                                    <div class="form-group" >
+                                        <label>Lista precio:</label><br>
+                                        <div  id="tablaListaPrecios" >
+
+                                        </div>
                                     </div>
                                 </div>
+                                <hr>
                             </div>
-                            <hr>
                             <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                             <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
+                            <input type="button" class="btn btn-primary" value="Guardar Granel" id="guardarGranel"/>
                         </div>
                     </form>
                     <div id="mostrarDivProveedor">
@@ -122,6 +152,7 @@
                                 <label>Desct. Pronto Pago:</label>
                                 <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false"/>
                             </div>
+                           
                             <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar"/>
                             <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                             <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
@@ -234,7 +265,7 @@
         <div class="modal fade" id="mdlDetalleTarifa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" ">
+                    <div class="modal-header">
 
                         <h4 class="modal-title" id="labelTitulo">Tarifas</h4>
                     </div>
