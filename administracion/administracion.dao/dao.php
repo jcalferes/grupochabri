@@ -1323,8 +1323,11 @@ class dao {
             if (isset($cpto->desctDosConcepto)) {
                 $desctdos = $cpto->desctDosConcepto;
             }
-            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
-                    . " VALUES ('" . $detalle->getUnidadmedida() . "','$importe','" . $detalle->getCantidad() . "','$codigo','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','$cda','$desctuno','$desctdos')";
+            if (isset($cpto->costoCotizacion)) {
+                $cotizacion = $cpto->costoCotizacion;
+            }
+            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion)"
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','$importe','" . $detalle->getCantidad() . "','$codigo','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','$cda','$desctuno','$desctdos','$cotizacion')";
             $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
             if ($ctrlConceptoGuardar == false) {
                 mysql_query("ROLLBACK;");

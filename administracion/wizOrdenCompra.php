@@ -50,7 +50,7 @@
                         </span>
                     </div>
                     <div class="form-group form-inline" >
-                        <label>Folio: </label>
+                        <label id="folio">Folio: </label>
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
                         <label>Proveedor: </label>
                         <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
@@ -99,25 +99,25 @@
                 </table>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                    <span>Desc. Productos : <input type="text" id="descuentoProductosM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Productos : <input type="text" id="descuentoProductosM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
                 <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>

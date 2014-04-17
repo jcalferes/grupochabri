@@ -20,7 +20,17 @@ class Detalle {
     private $Costo;
     private $Importe;
     private $IdFacturaEncabezado;
+    private $costoCotizacion;
 
+    public function getCostoCotizacion() {
+        return $this->costoCotizacion;
+    }
+
+    public function setCostoCotizacion($costoCotizacion) {
+        $this->costoCotizacion = $costoCotizacion;
+    }
+
+        
     public function getCantidad() {
         return $this->Cantidad;
     }
