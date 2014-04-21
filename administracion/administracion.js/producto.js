@@ -63,7 +63,6 @@ function tester(valor) {
 
 }
 
-
 function obtenerUtilidad(utilidad) {
     var costo = document.getElementById("txtCostoProducto").value;
     var utilidades = $("#texto" + utilidad).val();
@@ -719,12 +718,10 @@ $("#txtCodigoProductoG").blur(function() {
         $("#divgrande").slideUp();
     } else {
         //======================================================================
-        var info2 = "codigoProductoG=" + codeg2;
-        $.get('verificandoProductoGranel.php', info2, function(rs) {
-            if (rs == 1) {
-                alertify.error("Este producto a granel ya existe y no se puede editar");
-                $("#txtCodigoProductoG").val("");
-            } else {
+        var info2 = "codigoProducto=" + codeg2;
+        $.get('verificandoProducto.php', info2, function(x) {
+            if (x < 1) {
+                alert("No existe a granel");
                 var codigoProducto = $("#txtCodigoProductoG").val();
                 var info = "codigoProducto=" + codigoProducto;
                 $.get('verificandoProducto.php', info, function(x) {
@@ -810,6 +807,64 @@ $("#txtCodigoProductoG").blur(function() {
                         }
                     }
                 });
+
+            } else {
+                alert("Existe agranel");
+                lista = JSON.parse(x);
+                $.each(lista, function(ind, elem) {
+                    if (ind == "cantidad") {
+                        $("#respaldaExistencia").val(elem);
+                    }
+                    if (ind == "producto") {
+                        $("#txtNombreProducto").val(elem);
+                    }
+                    if (ind == "idUnidadMedida") {
+                        $('#selectMedida').selectpicker('val', elem);
+                    }
+                    if (ind == "idGrupoProducto") {
+                        $('#selectGrupo').selectpicker('val', elem);
+                    }
+                    if (ind == "idMarca") {
+                        $('#selectMarca').selectpicker('val', elem);
+                    }
+                    if (ind == "idProveedor") {
+                        $('#selectProveedor').selectpicker('val', elem);
+                    }
+                    if (ind == "costo") {
+                        $("#txtCostoPieza").val(elem);
+                    }
+                });
+                var existencia = parseFloat($("#respaldaExistencia").val());
+                if (existencia == 0) {
+                    alertify.alert("No hay existencias del producto ingresado, para su venta a granel");
+                    $("#txtCostoProducto").addClass("disable", "dissable");
+                    $("#txtNombreProducto").val("");
+                    $("#txtCodigoBarras").val("");
+                    $('#selectMarca').selectpicker('val', 0);
+                    $('#selectProveedor').selectpicker('val', 0);
+                    $('#selectGrupo').selectpicker('val', 0);
+                    $('#selectMedida').selectpicker('val', 0);
+                    $("#txtCostoProducto").val("");
+                    $("#txtCantidadMinima").val("");
+                    $("#txtCantidadMaxima").val("");
+                    $(".producto").val("");
+                    $(".neto").val("");
+
+                    $(".producto").attr("disabled", true);
+                    $(".checando").attr("disabled", true);
+                    $(".checando").attr("checked", false);
+                    $("#selectProducto").load("obtenerProductos.php");
+
+                    $("#guardarGranel").slideUp();
+                    $("#txtCodigoProductoG").val("");
+                    $("#txtCodigoProductoG").focus("");
+                    $("#divgrande").slideUp();
+                } else {
+                    $("#divgrande").slideDown();
+                    $("#txtCostoProducto").attr("disabled", "disabled");
+                    $("#txtCostoPieza").attr("disabled", "disabled");
+                    $("#guardarGranel").slideDown();
+                }
             }
         });
         //======================================================================
