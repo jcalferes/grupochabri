@@ -535,8 +535,6 @@ class dao {
                             }
                         }
                     }
-
-
                     mysql_query("COMMIT;");
                 }
             }
@@ -1939,4 +1937,110 @@ class dao {
 ////        }
 ////        return $valida;
 //    }
+    function editarProductoGranel(Producto $p, Costo $c, Tarifa $t, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sqlCostos = "UPDATE costos set status = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idSucursal= '$idSucursal' ";
+        $sqlProductos = "UPDATE productos set producto = '" . $p->getProducto() . "',idMarca= '" . $p->getIdMarca() . "',idProveedor= '" . $p->getIdProveedor() . "',cantidadMaxima= '1',cantidadMinima= '0',idGrupoProducto= '" . $p->getIdGrupoProducto() . "',idUnidadMedida= '" . $p->getIdUnidadMedida() . "',idStatus='1' WHERE codigoProducto = '" . $p->getCodigoProducto() . "'";
+        $fecha = date("d/m/Y h:i");
+        $sqlCostoNuevo = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$idSucursal')";
+
+        mysql_query("START TRANSACTION;");
+        $producto = mysql_query($sqlProductos, $cn->Conectarse());
+        if ($producto == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            $costos = mysql_query($sqlCostos, $cn->Conectarse());
+            if ($costos == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                $costosNuevo = mysql_query($sqlCostoNuevo, $cn->Conectarse());
+                if ($costosNuevo == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+
+                    $lista = $t->getIdListaPrecio();
+
+                    foreach ($lista as $valor) {
+                        $pieces = explode("-", $valor);
+                        if ($cont == 0) {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+                                        $tarifa = $pieces[0];
+                                        $listaPrecio = $pieces[1];
+                                        $cont = 1;
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    $verificaExistecia = "SELECT * from tarifas WHERE idListaPrecio = $pieces[1] and codigoProducto = '" . $p->getCodigoProducto() . "' AND idStatus = '1' AND idSucursal = '$idSucursal' ";
+                                    $Existencia = mysql_query($verificaExistecia, $cn->Conectarse());
+                                    $band = mysql_affected_rows();
+                                    if ($band > 0) {
+                                        $sqlStatusTarifa = "UPDATE tarifas set idStatus = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idListaPrecio = $pieces[1] AND idSucursal = '$idSucursal'";
+                                        $statusTarifa = mysql_query($sqlStatusTarifa, $cn->Conectarse());
+                                        if ($statusTarifa == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            echo 'bien';
+                                        }
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        } else {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+
+                                        $sqlStatusTarifa = "UPDATE tarifas set idStatus = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idListaPrecio = $listaPrecio AND idSucursal ='$idSucursal'";
+                                        $statusTarifa = mysql_query($sqlStatusTarifa, $cn->Conectarse());
+                                        if ($statusTarifa == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            $sqlTarifas = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa, fechaMovimientoTarifa,idSucursal)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','1','$pieces[0]','$fecha','$idSucursal')";
+                                            $tarifas = mysql_query($sqlTarifas, $cn->Conectarse());
+                                            if ($tarifas == false) {
+                                                mysql_query("ROLLBACK;");
+                                            } else {
+                                                echo 'BIEN';
+                                            }
+                                            $cont = 0;
+                                        }
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    $verificaExistecia = "SELECT * tarifas WHERE idListaPrecio = $pieces[1] and codigoProducto = '" . $p->getCodigoProducto() . "' AND idStatus = '1' ";
+                                    $Existencia = mysql_query($verificaExistecia, $cn->Conectarse());
+                                    $band = mysql_affected_rows();
+                                    if ($band > 0) {
+                                        $sqlStatusTarifa = "UPDATE tarifas set idStatus = '2' WHERE codigoProducto = '" . $p->getCodigoProducto() . "' AND idListaPrecio = $pieces[1] AND idSucursal = '$idSucursal'";
+                                        $statusTarifa = mysql_query($sqlStatusTarifa, $cn->Conectarse());
+                                        if ($statusTarifa == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            echo 'bien';
+                                        }
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                    echo 'mal';
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        }
+                    }
+                    mysql_query("COMMIT;");
+                }
+            }
+        }
+        $cn->cerrarBd();
+    }
+
 }
