@@ -679,6 +679,7 @@ function nuevogranel() {
         $("#frmcontenido").slideUp();
         $("#frmcostopieza").slideUp();
         $("#guardarGranel").slideUp();
+        $("#editarGranel").slideUp();
         $("#txtCostoProducto").removeAttr("disabled", "disabled");
     }
 }
@@ -735,6 +736,7 @@ $("#txtCodigoProductoG").blur(function() {
                         $("#selectProducto").load("obtenerProductos.php");
 
                         $("#guardarGranel").slideUp();
+                        $("#editarGranel").slideUp();
                         $("#txtCodigoProductoG").val("");
                         $("#txtCodigoProductoG").focus("");
                         $("#divgrande").slideUp();
@@ -804,6 +806,7 @@ $("#txtCodigoProductoG").blur(function() {
                             $("#selectProducto").load("obtenerProductos.php");
 
                             $("#guardarGranel").slideUp();
+                            $("#editarGranel").slideUp();
                             $("#txtCodigoProductoG").val("");
                             $("#txtCodigoProductoG").focus("");
                             $("#divgrande").slideUp();
@@ -878,11 +881,11 @@ $("#txtCodigoProductoG").blur(function() {
                     $("#selectProducto").load("obtenerProductos.php");
 
                     $("#guardarGranel").slideUp();
+                    $("#editararGranel").slideUp();
                     $("#txtCodigoProductoG").val("");
                     $("#txtCodigoProductoG").focus("");
                     $("#divgrande").slideUp();
                 } else {
-
                     $.get('obtenerDatosAgranel.php', info2, function(rs) {
                         $("#txtContenido").val(rs);
                         var costo = $("#txtCostoProducto").val();
@@ -922,6 +925,7 @@ $("#txtCodigoProductoG").blur(function() {
                     $("#divgrande").slideDown();
                     $("#txtCostoProducto").attr("disabled", "disabled");
                     $("#txtCostoPieza").attr("disabled", "disabled");
+                    $("#guardarGranel").slideUp();
                     $("#editarGranel").slideDown();
                 }
             }
