@@ -98,6 +98,7 @@
                             <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                             <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
                             <input type="button" class="btn btn-primary" value="Guardar Granel" id="guardarGranel"/>
+                            <input type="button" class="btn btn-primary" value="Editar Granel" id="editarGranel"/>
                         </div>
                     </form>
                     <div id="mostrarDivProveedor">

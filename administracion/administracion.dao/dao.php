@@ -553,7 +553,8 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto where c.status=1 and p.codigoProducto = '$codigo' and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal'";
+                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
+                . "where c.status=1 and p.codigoProducto = '$codigo' and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = mysql_error();
@@ -912,6 +913,14 @@ class dao {
         }
         //===Actualizar existencia granel=======================================
         $sql = "UPDATE existencias SET cantidad = '$contenido' WHERE codigoProducto='" . $producto->getCodigoProducto() . "' AND idSucursal ='$idsucursal'";
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //===Respalda contenido==================================================
+        $sql = "INSERT INTO agranel (codigoAgranel, cantidad) VALUES ('" . $producto->getCodigoProducto() . "','$contenido')";
         $ctrl = mysql_query($sql, $cn->Conectarse());
         if ($ctrl == false) {
             $ctrl = mysql_error();
@@ -1882,6 +1891,17 @@ class dao {
             } else {
                 $rs = false;
             }
+        }
+        return $rs;
+    }
+
+    function obtenerDatosAgranel($codigo) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT cantidad FROM agranel WHERE codigoAgranel = '$codigo'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            $rs = mysql_error();
         }
         return $rs;
     }
