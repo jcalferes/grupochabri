@@ -5,7 +5,7 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos agranel</h2>
             <section>
-                <div id="null" style="margin: 0% 25% 0% 25%">
+                <div id="showGranel" style="margin: 0% 25% 0% 25%">
                 </div>
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar a granel</h2>

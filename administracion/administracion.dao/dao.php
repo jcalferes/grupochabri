@@ -2043,4 +2043,19 @@ class dao {
         $cn->cerrarBd();
     }
 
+    function consultaGranel($idsucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, e.cantidad FROM productos p "
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto "
+                . "INNER JOIN agranel a ON a.codigoAgranel = p.codigoProducto "
+                . "WHERE e.idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $ctrl = false;
+        }
+        return $ctrl;
+    }
+
 }
