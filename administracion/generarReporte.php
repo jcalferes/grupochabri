@@ -1,10 +1,10 @@
 <?php
-
-echo 'dsadsadsa';
 include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
-# Instanciamos un objeto de la clase DOMPDF.
+# Instanciamos un objeto de la clase DOMPDF. 
+$mipdf = new DOMPDF();
+
 $folio = $_GET["valor"];
 $dao = new dao();
 $utileria = new Utilerias();
@@ -52,7 +52,6 @@ $total = $datosOrden["totalComprobante"];
 
 //
 //$resp = $valor . $valor2 . $valor3;
-$mipdf = new DOMPDF();
 
 
 $interfaz = '
@@ -91,5 +90,5 @@ $mipdf->render();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
 ////$mipdf->stream('FicheroEjemplo.pdf');
-$correo="shanaxchornos@gmail.com";
-$utileria->enviarCorreoElectronico($correo);
+$correo="shanaxchronos@gmail.com";
+    $utileria->enviarCorreoElectronico($correo);

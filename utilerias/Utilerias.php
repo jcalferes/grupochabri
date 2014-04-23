@@ -35,7 +35,7 @@ class Utilerias {
 
     $mail->From = "de"; //Remitente (En mi variable)
     $mail->AddAddress("shanaxchronos@gmail.com"); //Destinatario
-    $mail->Username = $correo; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+    $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
     $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
     $mail->Subject = "asunto"; //El asunto de correo
     $mail->Body = "mensaje"; //El mensaje de correo

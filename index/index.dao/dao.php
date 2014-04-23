@@ -13,6 +13,10 @@
  */
 class dao {
 
+    function consultaEmail() {
+        
+    }
+
     function iniciarSesion(Usuario $usuario) {
         $sql = "SELECT nombre, idTipoUsuario, idSucursal FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getUsuario() . "'";
         $control = mysql_query($sql);
@@ -33,8 +37,7 @@ class dao {
         $rs = mysql_affected_rows();
         if ($rs > 0) {
             $valor = "VALIDA";
-        }
-        else{
+        } else {
             $valor = "INVALIDA";
         }
 //        if ($rs < 1) {

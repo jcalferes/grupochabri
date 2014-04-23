@@ -1401,7 +1401,7 @@ class dao {
             //Terminar guardar entrada
         }//Cierre FOR
         mysql_query("COMMIT;");
-        return true;
+        
     }
 
     //============================================== Todo para usuarios ============

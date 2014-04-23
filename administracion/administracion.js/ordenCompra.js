@@ -4,6 +4,7 @@ var costoRespaldo = 0;
 var contador = 0;
 var sumaDescTotal = 0;
 var tr2 = "";
+var tr3 = "";
 function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
@@ -32,13 +33,19 @@ function seleccionTipo() {
 }
 $("#folioM").keypress(function(e) {
     if (e.which == 13) {
-        alert("entro");
+//        alert("entro");
+        $("#enviarOrdenCompra").prop('value', "Enviar Orden de Compra");
+        $("#enviarOrdenCompra").prop('id', "enviarOrdenCompra");
+        $('#tablaDatosEntrada td').each(function() {
+            $(this).remove();
+
+        });
         var info = "folio=" + $("#folioM").val();
         $.get('consultaOrdenCompra.php', info, function(x) {
             if (x == 0) {
                 alertify.error("no hay ese codigo");
             } else {
-                var contador = 0;
+
                 alertify.error("Aqui mostrara Datos");
                 lista = JSON.parse(x);
                 console.log(lista);
@@ -48,18 +55,32 @@ $("#folioM").keypress(function(e) {
 
                         tr2 = '<tr>\n\
                         <td> \n\
-                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '"> </input> </td>\n\
+                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><span id="codigoM' + contador + '">' + elem[ind].codigoConcepto + '</span></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].descripcionConcepto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades" value="' + elem[ind].costoCotizacion + '"> </input\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
                         </td>\n\
-                        <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctUnoConcepto + '"/> </td>\n\
-                        <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctDosConcepto + '"/> </td>\n\
+                        <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctUnoConcepto + '" disabled="true"/> </td>\n\
+                        <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctDosConcepto + '" disabled="true"/> </td>\n\
                         <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" value="' + elem[ind].desctTotalComprobante + '"/> </td>\n\
                         <td> <input id="cda' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> </td>\n\
                         <td> <input id="importe' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '"> </input> </td></tr>';
-                        contador = 0;
+                        contador = contador + 1;
+                        tr3 += '<tr>\n\
+                        <td> \n\
+                        ' + elem[ind].cantidadConcepto + '</td>\n\
+                        <td>' + elem[ind].codigoConcepto + '</td>\n\
+                        <td>' + elem[ind].descripcionConcepto + '</td>\n\
+                        <td>' + elem[ind].precioUnitarioConcepto + '</td>\n\
+                        <td> ' + elem[ind].costoCotizacion + '\n\
+                        </td>\n\
+                        <td> ' + elem[ind].desctUnoConcepto + ' </td>\n\
+                        <td> ' + elem[ind].desctDosConcepto + ' </td>\n\
+                        <td> ' + elem[ind].desctTotalComprobante + '</td>\n\
+                        <td> ' + elem[ind].cdaConcepto + '</td>\n\
+                        <td> ' + elem[ind].importeConcepto + '</td></tr>';
+
                         $("#tablaDatosEntrada").append(tr2);
                         $("#subTotalM").val(elem[ind].subtotalComprobante);
                         $("#descuentoGeneralM").val(elem[ind].desctGeneralComprobante);
@@ -68,6 +89,8 @@ $("#folioM").keypress(function(e) {
                         $("#sdaM").val(elem[ind].sdaComprobante);
                         $("#ivaM").val(elem[ind].ivaComprobante);
                         $("#costoTotal").val(elem[ind].totalComprobante);
+                        $('#rfcComprobante').selectpicker("val",elem[ind].rfcComprobante);
+
                     });
                 });
 
@@ -407,11 +430,78 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
+    $("#emailProveedor").hide();
+
+    $("#guardaEnviaOrden").click(function() {
+        var inf = new Array();
+        var lstConceptos = new Array();
+        var xmlComprobanteManualmente = new XmlComprobante();
+        xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
+        xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
+        xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
+        xmlComprobanteManualmente.desctGeneralFactura = $("#descuentosGeneralesPorComasM").val();
+        xmlComprobanteManualmente.descuentoTotalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.descuentosGenerales = $("#descuentoGeneralM").val();
+        xmlComprobanteManualmente.ivaComprobante = $("#ivaM").val();
+        xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
+        xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
+        xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
+        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
+        var conceptos = new Array();
+        for (var x = 0; x < parseInt(contador); x++) {
+            var conceptos = new xmlConceptosManualmente();
+            conceptos.cantidadConcepto = $("#cant" + x).val();
+            conceptos.cdaConcepto = $("#cda" + x).val();
+            conceptos.codigoConcepto = $("#codigoM" + x).text();
+            conceptos.costoCotizacion = $("#costo" + x).val();
+            alert($("#codigoM" + x).text());
+            conceptos.descripcionConcepto = $("#descripcionM" + x).text();
+            conceptos.desctUnoConcepto = $("#descuento1" + x).val();
+            conceptos.desctDosConcepto = $("#descuento2" + x).val();
+            conceptos.importeConcepto = $("#importe" + x).val();
+            conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
+            conceptos.unidadMedidaConcepto = "";
+            if ($("#codigoM" + x).text() !== "") {
+                alert("entro" + x)
+                lstConceptos.push(conceptos);
+            }
+
+        }
+        inf.push(xmlComprobanteManualmente);
+        inf.push(lstConceptos);
+        var informacion = JSON.stringify(inf);
+//        $.post('guardarOrdenCompra.php', informacion, function(x) {
+//           
+//            window.location.href = 'generarReporte2.php?tr2=' + tr3;
+//            alertify.success("Exito! Orden Guardada" );
+//        });
+        $.ajax({
+            type: "POST",
+            url: "guardarOrdenCompra.php",
+            data: {data: informacion},
+            cache: false,
+            success: function() {
+                window.location.href = 'generarReporte2.php?tr2=' + tr3;
+                alertify.success("Exito! Orden Guardada");
+            }
+        });
+    });
+
+    $("#ModificarOrden").click(function() {
+        $(".cantidades").prop("disabled", false);
+        $(".descuentos").prop("disabled", false);
+        $("#emailProveedor").load("mostrarEmailsProveedor.php");
+        $("#emailProveedor").show();
+        $("#descuentosGlobalesManuales").prop('checked', true);
+
+
+    });
+
     $("#enviarOrdenCompra").click(function() {
         var info = "valor=" + $("#folioM").val();
-        ;
         window.location.href = 'generarReporte.php?' + info;
-    })
+    });
 
     $("#proveedores").change(function() {
         if ($("#proveedores").val() == 0) {

@@ -54,6 +54,8 @@
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
                         <label>Proveedor: </label>
                         <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                        <label>Proveedor: </label>
+                        <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
@@ -122,6 +124,9 @@
                 <br>
                 <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
                 <input type="button" class="btn btn-primary" value="Enviar Orden de Compra" id="enviarOrdenCompra"/>
+                <input type="button" class="btn btn-primary" value="Modificar Orden" id="ModificarOrden"/>
+                <input type="button" class="btn btn-primary" value="Cancelar Orden" id="CancelarOrden"/>
+                <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 
             <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
