@@ -10,13 +10,17 @@
             <section class="scrollSection">
                 <div style="margin: 0% 25% 0% 25%">
                     <form id="formularioProductos">
-                        <div id="formulario"> 
+                        <div id="formulario">
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" id="chkgranel" onclick="nuevogranel();"> Es un producto a granel
                                     </label>
                                 </div>
+                            </div>
+                            <div id="wellfinder" class="well well-sm">
+                                <label>Burcar por codigo/codigo de barras:</label>
+                                <input type="text" class="form-control" id="finder" />
                             </div>
                             <div class="form-group" id="frmcbarras">
                                 <label>Codigo de barras:</label>
@@ -98,6 +102,7 @@
                             <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
                             <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
                             <input type="button" class="btn btn-primary" value="Guardar Granel" id="guardarGranel"/>
+                            <input type="button" class="btn btn-primary" value="Editar Granel" id="editarGranel"/>
                         </div>
                     </form>
                     <div id="mostrarDivProveedor">
@@ -152,7 +157,7 @@
                                 <label>Desct. Pronto Pago:</label>
                                 <input id="txtdesctpp" type="number" class="form-control" style="width: 24%" onpaste="return false"/>
                             </div>
-                           
+
                             <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar"/>
                             <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                             <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>

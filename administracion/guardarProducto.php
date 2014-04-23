@@ -25,7 +25,7 @@ $costo->setCosto($_GET["costoProducto"]);
 $tarifa->setIdListaPrecio($lista);
 $granel = $_GET["granel"];
 $contenido = $_GET["contenido"];
-$cuantos = 1; //Solo sirve para los productos granel, indica cuanto se resta a la existencia del padre, caundo se crea un granel hijo por primera vez
+$cuantos = 1; //Solo sirve para los productos granel, indica cuanto se resta a la existencia del padre, caundo se crea un granel hijo
 $original = $_GET["original"];
 
 $datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
