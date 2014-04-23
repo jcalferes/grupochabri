@@ -1,6 +1,6 @@
 <?php
 
-echo 'hola';
+
 //
 include './administracion.clases/Concepto.php';
 include './administracion.clases/Comprobante.php';
