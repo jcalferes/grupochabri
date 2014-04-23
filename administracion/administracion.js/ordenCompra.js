@@ -89,8 +89,13 @@ $("#folioM").keypress(function(e) {
                         $("#sdaM").val(elem[ind].sdaComprobante);
                         $("#ivaM").val(elem[ind].ivaComprobante);
                         $("#costoTotal").val(elem[ind].totalComprobante);
-                        $('#rfcComprobante').selectpicker("val","\'elem[ind].rfcComprobante'\");
+                        $('#proveedores').selectpicker("val", elem[ind].rfcComprobante);
+                        $('#proveedores').prop("disabled", true);
 
+                        $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc="+elem[ind].rfcComprobante, function() {
+                            $("#emailProveedor").selectpicker();
+                        });
+                        $("#emailProveedor").show('slow');
                     });
                 });
 
@@ -514,6 +519,7 @@ $(document).ready(function() {
             $("#codigoProductoEntradas").removeAttr('disabled');
         }
     });
+
     $("#proveedores").load("mostrarProveedoresManualmente.php", function() {
         $("#proveedores").selectpicker();
     });

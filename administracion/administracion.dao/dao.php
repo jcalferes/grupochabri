@@ -2,6 +2,19 @@
 
 class dao {
 
+    function consultaEmail($proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sqlrfc="SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
+        $datos = mysql_query($sqlrfc, $cn->Conectarse());
+        $datos = mysql_affected_rows();
+        $sql = "SELECT email, idEmail FROM emails WHERE idPropietario = '$datos' AND tipoPropietario = 'PROVEEDOR'";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
     function obtenerOrdenCompra($folio) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -545,14 +558,14 @@ class dao {
     function consultandoProductoPorCodigo($codigo, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
+        $sql = "SELECT p.codigoProducto, p.codigoBarrasProducto, p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
-                . " INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
-                . "where c.status=1 and p.codigoProducto = '$codigo' and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal'";
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
+                . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo' or p.codigoBarrasProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = mysql_error();
@@ -1401,7 +1414,6 @@ class dao {
             //Terminar guardar entrada
         }//Cierre FOR
         mysql_query("COMMIT;");
-        
     }
 
     //============================================== Todo para usuarios ============
@@ -2041,6 +2053,21 @@ class dao {
             }
         }
         $cn->cerrarBd();
+    }
+
+    function consultaGranel($idsucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, e.cantidad FROM productos p "
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto "
+                . "INNER JOIN agranel a ON a.codigoAgranel = p.codigoProducto "
+                . "WHERE e.idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql, $cn->Conectarse());
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $ctrl = false;
+        }
+        return $ctrl;
     }
 
 }
