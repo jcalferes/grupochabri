@@ -18,17 +18,17 @@
                     <div id="divincremento">
                         <div class="well well-sm">
                             <div class="form-group">
-                                <h3><b>Datos producto padre:</b></h3>
-                                <label>Nombre: </label><span id="nombrep">|</span><br>
-                                <label>Existencias (Unidades) disponibles: </label><span id="existenciap">|</span><br>
-                                <label>Contenido: </label><span id="contenidop">|</span>
+                                <h3><b>Datos producto padre :</b></h3>
+                                <label>Nombre : </label><span id="nombrep">|</span><br>
+                                <label>Existencias (Unidades) disponibles : </label><span id="existenciap">|</span><br>
+                                <label>Contenido : </label><span id="contenidop">|</span>
                             </div>
                         </div>
                         <div class="well well-sm">
                             <div class="form-group">
-                                <h3><b>Datos producto hijo (granel):</b></h3>
-                                <label>Nombre: </label><span id="nombreg">|</span><br>
-                                <label>Existencia (Contenido) disponible: </label><span id="existencig">|</span>
+                                <h3><b>Datos producto hijo (granel) :</b></h3>
+                                <label>Nombre : </label><span id="nombreg">|</span><br>
+                                <label>Existencia (Contenido) disponible : </label><span id="existenciag">|</span>
                             </div>
                         </div>
                         <hr>

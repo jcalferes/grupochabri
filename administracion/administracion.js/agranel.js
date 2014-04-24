@@ -20,8 +20,13 @@ $("#txtcodigogranel").blur(function() {
                 alertify.error("No existe");
             } else {
                 var arr = $.parseJSON(rs);
-                alert(arr.producto.datos.producto);
-               alert(arr.granel.datos.producto);
+                
+                $("#nombrep").text(arr.producto.datos.producto);
+                $("#existenciap").text(arr.producto.datos.cantidad);
+                $("#contenidop").text(arr.granel.datos.contenido);
+                
+                $("#nombreg").text(arr.granel.datos.producto);
+                $("#existenciag").text(arr.granel.datos.cantidad);
 
                 $("#btnvalidar").slideDown();
                 $("#divincremento").slideDown();
