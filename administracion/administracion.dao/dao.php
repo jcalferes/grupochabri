@@ -2,6 +2,19 @@
 
 class dao {
 
+    function consultaEmail($proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sqlrfc="SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
+        $datos = mysql_query($sqlrfc, $cn->Conectarse());
+        $datos = mysql_affected_rows();
+        $sql = "SELECT email, idEmail FROM emails WHERE idPropietario = '$datos' AND tipoPropietario = 'PROVEEDOR'";
+
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
     function obtenerOrdenCompra($folio) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

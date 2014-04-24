@@ -13,9 +13,7 @@
  */
 class dao {
 
-    function consultaEmail() {
-        
-    }
+    
 
     function iniciarSesion(Usuario $usuario) {
         $sql = "SELECT nombre, idTipoUsuario, idSucursal FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getUsuario() . "'";

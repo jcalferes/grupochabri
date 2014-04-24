@@ -1,9 +1,10 @@
 <?php
-include './administracion.dao/dao.php';
+include_once './administracion.dao/dao.php';
 $dao = new dao();
-$datos = $dao->consultaEmail();
+$rfc = $_GET["rfc"];
+$datos = $dao->consultaEmail($rfc);
 echo'<option value= 0> Seleccione un Email  </option>';
 while ($rs = mysql_fetch_array($datos)) {
    
-    echo'<option value=' . $rs[4] . '> ' . $rs[0] . '  </option>';
+    echo'<option value=' . $rs[idEmail] . '> ' . $rs[email] . '  </option>';
 }

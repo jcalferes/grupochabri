@@ -54,8 +54,10 @@
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
                         <label>Proveedor: </label>
                         <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
-                        <label>Proveedor: </label>
+                        <label>Email: </label>
                         <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                        <label>Otro email(opcional): </label>
+                        <input id="tipoEmail" class="form-control"/>                       
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
