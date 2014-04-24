@@ -1080,7 +1080,6 @@ $("#guardarGranel").click(function() {
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var original = $("#txtCodigoProductoG").val();
-    alert(original);
     var codigoProducto = $("#txtCodigoProductoG").val() + "-GR";
     var costoProducto = parseFloat($("#txtCostoProducto").val());
     var min = 0;
