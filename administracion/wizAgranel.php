@@ -12,11 +12,28 @@
             <section>
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label>Codigo producto:</label>
+                        <label>Codigo producto padre:</label>
                         <input type="text" class="form-control" id="txtcodigogranel">
                     </div>
-                    <hr>
-                    <input id="btnG" type="button" class="btn btn-primary" value="Guardar"/>
+                    <div id="divincremento">
+                        <div class="well well-sm">
+                            <div class="form-group">
+                                <h3><b>Datos producto padre:</b></h3>
+                                <label>Nombre: </label><span id="nombrep">|</span><br>
+                                <label>Existencias (Unidades) disponibles: </label><span id="existenciap">|</span><br>
+                                <label>Contenido: </label><span id="contenidop">|</span>
+                            </div>
+                        </div>
+                        <div class="well well-sm">
+                            <div class="form-group">
+                                <h3><b>Datos producto hijo (granel):</b></h3>
+                                <label>Nombre: </label><span id="nombreg">|</span><br>
+                                <label>Existencia (Contenido) disponible: </label><span id="existencig">|</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <input id="btnvalidar" type="button" class="btn btn-primary" value="Validar"/>
+                    </div>
                 </form>
             </section>
         </div>

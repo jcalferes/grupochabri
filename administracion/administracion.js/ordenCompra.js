@@ -89,7 +89,7 @@ $("#folioM").keypress(function(e) {
                         $("#sdaM").val(elem[ind].sdaComprobante);
                         $("#ivaM").val(elem[ind].ivaComprobante);
                         $("#costoTotal").val(elem[ind].totalComprobante);
-                        $('#rfcComprobante').selectpicker("val","\"" + elem[ind].rfcComprobante + "\"");
+                        $('#rfcComprobante').selectpicker("val","\""+elem[ind].rfcComprobante+"\"");
 
                     });
                 });
