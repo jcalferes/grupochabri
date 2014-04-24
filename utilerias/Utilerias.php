@@ -14,12 +14,12 @@ class Utilerias {
         }
     }
 
-    function genera_md5($clave) {
+    function genera_md5($clave,$destinos) {
         $codificado = md5($clave);
         return $codificado;
     }
 
-    function enviarCorreoElectronico($correo) {
+    function enviarCorreoElectronico($correo, $destinos) {
   include_once ("class.phpmailer.php");
     include_once ("class.smtp.php");
 
@@ -34,7 +34,10 @@ class Utilerias {
     $mail->Port = 465;
 
     $mail->From = "de"; //Remitente (En mi variable)
-    $mail->AddAddress("shanaxchronos@gmail.com"); //Destinatario
+    foreach ($destinos as $value) {
+         $mail->AddAddress($value);//Destinatario
+    }
+    
     $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
     $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
     $mail->Subject = "asunto"; //El asunto de correo

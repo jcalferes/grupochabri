@@ -1,20 +1,31 @@
 
 <?php
+
 include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
 $mipdf = new DOMPDF();
 $valor = "";
+$destinos = array();
 //$folio = $_GET["valor"];
-$tr2=$_GET["tr2"];
+$tr2 = $_GET["tr2"];
+$correos = $_GET["correos"];
+$correos2 = $_GET["correos2"];
+
+$destinos[] = $correos;
+if ($correos2 !== "") {
+    $destinos[] = $correos2;
+}
+
+
 $dao = new dao();
 $utileria = new Utilerias();
 //$datos = $dao->obtenerOrdenCompra($folio);
 //$validar = mysql_affected_rows();
 //if ($validar > 0) {
 
-    $valor .= '
+$valor .= '
 <html>
 
 <body>
@@ -51,7 +62,6 @@ $utileria = new Utilerias();
 //} else {
 //    echo '0';
 //}
-
 //
 //$resp = $valor . $valor2 . $valor3;
 $valor .= "$tr2";
@@ -75,10 +85,6 @@ $valor .= "$tr2";
 // </table>
 // </body>
 // </html>';
-
-
-
-
 # Definimos el tamaño y orientación del papel que queremos.
 # O por defecto cogerá el que está en el fichero de configuración.
 $mipdf->set_paper("A4", "portrait");
@@ -92,8 +98,8 @@ $mipdf->render();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
 ////$mipdf->stream('FicheroEjemplo.pdf');
-$correo="shanaxchronos@gmail.com";
-    $utileria->enviarCorreoElectronico($correo);
-    
-    
-    
+$correo = "shanaxchronos@gmail.com";
+$utileria->enviarCorreoElectronico($correo, $destinos);
+
+
+
