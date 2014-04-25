@@ -2070,4 +2070,37 @@ class dao {
         return $ctrl;
     }
 
+    function verificaProductoGranel($codigog, $idsucursal) {
+        $sql = "SELECT p.producto, e.cantidad, a.cantidad AS contenido FROM productos p "
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto "
+                . "INNER JOIN agranel a ON a.codigoAgranel = p.codigoProducto "
+                . "WHERE e.idSucursal = '$idsucursal' AND p.codigoProducto = '$codigog'";
+        $datos = mysql_query($sql);
+        $ctrl = mysql_affected_rows();
+        if ($datos == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($ctrl < 1) {
+                $datos = false;
+            }
+        }
+        return $datos;
+    }
+    
+    function verificaProductoPadre($codigo, $idsucursal) {
+        $sql = "SELECT p.producto, e.cantidad FROM productos p "
+                . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto "
+                . "WHERE e.idSucursal = '$idsucursal' AND p.codigoProducto = '$codigo'";
+        $datos = mysql_query($sql);
+        $ctrl = mysql_affected_rows();
+        if ($datos == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($ctrl < 1) {
+                $datos = false;
+            }
+        }
+        return $datos;
+    }
+
 }

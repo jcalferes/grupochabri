@@ -739,6 +739,7 @@ function nuevogranel() {
     if (chk == true) {
         $("#txtNombreProducto").val("");
         $("#txtCodigoBarras").val("");
+        $("#txtCodigoProducto").val("");
         $("#txtCodigoProductoG").val("");
         $('#selectMarca').selectpicker('val', 0);
         $('#selectProveedor').selectpicker('val', 0);

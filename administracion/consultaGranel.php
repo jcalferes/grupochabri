@@ -8,7 +8,7 @@ echo"<div class='table-responsive' ><table class='table table-hover' id='dtmarca
 while ($rs = mysql_fetch_array($datos)) {
     echo"<tr><td>$rs[codigoProducto]</td>";
     echo"<td>$rs[producto]</td>";
-    echo"<td>$rs[cantidad]</td></tr>";
+    echo"<td>$rs[cantidad] Lt/Kg</td></tr>";
 }
 echo"</tbody></table></div>";
 
