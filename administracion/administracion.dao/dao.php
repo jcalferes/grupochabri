@@ -5,7 +5,7 @@ class dao {
     function consultaEmail($proveedor) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sqlrfc="SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
+        $sqlrfc = "SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
         $datos = mysql_query($sqlrfc, $cn->Conectarse());
         $datos = mysql_affected_rows();
         $sql = "SELECT email, idEmail FROM emails WHERE idPropietario = '$datos' AND tipoPropietario = 'PROVEEDOR'";
@@ -2086,7 +2086,7 @@ class dao {
         }
         return $datos;
     }
-    
+
     function verificaProductoPadre($codigo, $idsucursal) {
         $sql = "SELECT p.producto, e.cantidad FROM productos p "
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto "
@@ -2101,6 +2101,56 @@ class dao {
             }
         }
         return $datos;
+    }
+
+    function incrementaGranel($codigo, $codigog, $contenido, $idsucursal) {
+        //=== Sacar existencia producto padre
+        $sql = "SELECT cantidad FROM existencias WHERE codigoProducto = '$codigo' AND  idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql);
+        mysql_query("START TRANSACTION;");
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $cantidad = $rs["cantidad"];
+            }
+        }
+        //=== Restar existencia 
+        $nuevacantidad = $cantidad - 1;
+        //=== Actulizar existencia producto padre
+        $sql = "UPDATE existencias SET cantidad = '$nuevacantidad' WHERE codigoProducto = '$codigo' AND  idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //=== Sacar existencia prodcuto granel
+        $sql = "SELECT cantidad FROM existencias WHERE codigoProducto = '$codigog' AND  idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $cantidadg = $rs["cantidad"];
+            }
+        }
+        //=== Incrementar existencia granel
+        $nuevaexistencia = $cantidadg + $contenido;
+        //=== Actulizar existencia producto hijo
+        $sql = "UPDATE existencias SET cantidad = '$nuevaexistencia' WHERE codigoProducto = '$codigog' AND idSucursal = '$idsucursal'";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        mysql_query("COMMIT;");
+        return true;
     }
 
 }
