@@ -6,5 +6,5 @@ $datos = $dao->consultaEmail($rfc);
 echo'<option value= 0> Seleccione un Email  </option>';
 while ($rs = mysql_fetch_array($datos)) {
    
-    echo'<option value=' . $rs[idEmail] . '> ' . $rs[email] . '  </option>';
+    echo'<option value=' . $rs[email] . '> ' . $rs[email] . '  </option>';
 }
