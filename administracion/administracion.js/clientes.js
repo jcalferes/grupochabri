@@ -4,13 +4,15 @@ var txttel = "mastel";
 var txtemail = "masemail";
 var cadena = "";
 
-function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios) {
+function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user) {
     this.nombre = nombre;
     this.rfc = rfc;
     this.diascredito = diascredito;
     this.desctpf = desctpf;
     this.desctpp = desctpp;
     this.radios = radios;
+    this.pass = pass;
+    this.user = user;
 }
 
 function Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado) {
@@ -448,6 +450,9 @@ $("#btneditardireccionproveedor").click(function() {
 });
 
 $("#btnguardarproveedor").click(function() {
+    var user = $("#txtcuser").val();
+    var pass = $("#txtcpass").val();
+    var repass = $("#txtcrepass").val();
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
     var diascredito = $("#txtdiascredito").val();
@@ -510,8 +515,16 @@ $("#btnguardarproveedor").click(function() {
         }
     }
 
+    if (pass !== repass) {
+        alertify.error("Las contraseñas no coinciden");
+        return false;
+    }
+
+    alert(pass);
+    alert(user);
+
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
-    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios);
+    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user);
     var ctrltelefonos = 0;
     $(".telefono").each(function() {
         var valor = $(this).val();
@@ -546,45 +559,45 @@ $("#btnguardarproveedor").click(function() {
     datos.push(emails);
 
     var datosJSON = JSON.stringify(datos);
-    $.post('guardaCliente.php', {datos: datosJSON}, function(rs) {
-        if (rs == 0) {
-            $("#txtnombreproveedor").val("");
-            $("#txtrfc").val("");
-            $("#txtdiascredito").val("");
-            $("#txtdescuento").val("");
-            $("#txttel").val("");
-            $("#txtemail").val("");
-            $("#txtdesctpf").val("");
-            $("#txtdesctpp").val("");
-
-            $("#txtcalle").val("");
-            $("#txtnumeroexterior").val("");
-            $("#txtnumerointerior").val("");
-            $("#txtcruzamientos").val("");
-            $("#txtpostal").val("");
-            $("#txtestado").val("");
-            $("#BuscarCodigo").val("");
-            $("#txtciudad").val("");
-
-            $("#btnvertele").attr("disabled", "disabled");
-            $("#btnveremail").attr("disabled", "disabled");
-
-            $("#mastels").remove();
-            $("#masemails").remove();
-
-            $("#frmtel").append("<div id='mastels'></div>");
-            $("#frmemail").append("<div id='masemails'></div>");
-
-            $("#consultaCliente").load("consultarCliente.php", function() {
-                $('#dtcliente').dataTable();
-            });
-
-            alertify.success("Proveedor agregador correctamente");
-        }
-        if (rs == 1) {
-            alertify.error("Error al guardar");
-        }
-    });
+//    $.post('guardaCliente.php', {datos: datosJSON}, function(rs) {
+//        if (rs == 0) {
+//            $("#txtnombreproveedor").val("");
+//            $("#txtrfc").val("");
+//            $("#txtdiascredito").val("");
+//            $("#txtdescuento").val("");
+//            $("#txttel").val("");
+//            $("#txtemail").val("");
+//            $("#txtdesctpf").val("");
+//            $("#txtdesctpp").val("");
+//
+//            $("#txtcalle").val("");
+//            $("#txtnumeroexterior").val("");
+//            $("#txtnumerointerior").val("");
+//            $("#txtcruzamientos").val("");
+//            $("#txtpostal").val("");
+//            $("#txtestado").val("");
+//            $("#BuscarCodigo").val("");
+//            $("#txtciudad").val("");
+//
+//            $("#btnvertele").attr("disabled", "disabled");
+//            $("#btnveremail").attr("disabled", "disabled");
+//
+//            $("#mastels").remove();
+//            $("#masemails").remove();
+//
+//            $("#frmtel").append("<div id='mastels'></div>");
+//            $("#frmemail").append("<div id='masemails'></div>");
+//
+//            $("#consultaCliente").load("consultarCliente.php", function() {
+//                $('#dtcliente').dataTable();
+//            });
+//
+//            alertify.success("Proveedor agregador correctamente");
+//        }
+//        if (rs == 1) {
+//            alertify.error("Error al guardar");
+//        }
+//    });
 });
 
 function eliminardatoscontacto(id, tipo) {

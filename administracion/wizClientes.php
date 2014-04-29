@@ -64,7 +64,14 @@
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false">
                     </div>
-
+                    <div class="form-group">
+                        <label>Usuario</label>
+                        <input id="txtcuser" type="text" class="form-control" style="width: 50%">
+                        <label>Contraseña:</label>
+                        <input id="txtcpass" type="password" class="form-control" style="width: 50%">
+                        <label>Repetir contraseña:</label>
+                        <input id="txtcrepass" type="password" class="form-control" style="width: 50%">
+                    </div>
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
