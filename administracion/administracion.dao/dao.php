@@ -2,25 +2,36 @@
 
 class dao {
 
+    function modificaPedido($folio) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "UPDATE xmlcomprobantes set statusOrden = '1' WHERE idXmlComprobante = '$folio'";
+        $sql = mysql_query($sql, $cn->Conectarse());
+        $cn->cerrarBd();
+    }
+
     function consultaEmail($proveedor) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlrfc = "SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
         $datos = mysql_query($sqlrfc, $cn->Conectarse());
-        $datos = mysql_affected_rows();
-        $sql = "SELECT email, idEmail FROM emails WHERE idPropietario = '$datos' AND tipoPropietario = 'PROVEEDOR'";
+
+        while ($fila = mysql_fetch_array($datos)) {
+            $valor = $fila["idProveedor"];
+        }
+        $sql = "SELECT email, idEmail FROM emails WHERE idPropietario = '$valor' AND tipoPropietario = 'PROVEEDOR'";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
     }
 
-    function obtenerOrdenCompra($folio) {
+    function obtenerOrdenCompra($folio, $comprobante) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 
         $sql = "SELECT * FROM xmlcomprobantes x "
-                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  WHERE x.idXmlComprobante = '$folio' ";
+                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  WHERE x.idXmlComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -1143,6 +1154,22 @@ class dao {
         return $rs;
     }
 
+    function buscarProductoGral(Producto $p, $proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
+               inner join proveedores pr
+               on p.idProveedor = pr.idProveedor
+               inner join marcas m
+               on m.idMarca = p.idMarca
+	       inner join costos cost
+	       on p.codigoProducto = cost.codigoProducto
+               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "';";
+        $rs = mysql_query($MySQL, $cn->Conectarse());
+        $cn->cerrarBd();
+        return $rs;
+    }
+
     function buscarProductoVentas(Codigo $c, $idSucursal) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
                inner join proveedores pr
@@ -1414,6 +1441,8 @@ class dao {
             //Terminar guardar entrada
         }//Cierre FOR
         mysql_query("COMMIT;");
+        error_reporting(0);
+        return $idComprobante;
     }
 
     //============================================== Todo para usuarios ============

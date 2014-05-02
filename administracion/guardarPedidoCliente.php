@@ -1,28 +1,33 @@
 <?php
 
-
 //
-include './administracion.clases/Concepto.php';
-include './administracion.clases/Comprobante.php';
-include './administracion.dao/dao.php';
-include '../utileriasPhp/Utilerias.php';
-include '../daoconexion/daoConeccion.php';
-include './administracion.clases/Encabezado.php';
-include './administracion.clases/Detalle.php';
+include_once './administracion.clases/Concepto.php';
+include_once './administracion.clases/Comprobante.php';
+include_once './administracion.dao/dao.php';
+include_once '../utileriasPhp/Utilerias.php';
+include_once '../daoconexion/daoConeccion.php';
+include_once './administracion.clases/Encabezado.php';
+include_once './administracion.clases/Detalle.php';
 error_reporting(0);
 
 session_start();
-$tipo = "Orden Compra";
+$dao = new dao();
+$tipo = "PEDIDO CLIENTE";
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
+$band = $_POST["band"];
+$folio = $_POST["folio"];
+if ($band == "modifica") {
+    $dao->modificaPedido($folio);
+}
 //$datosM = json_decode('data');
 $comprobantes = $datos[0];
 $conceptos = $datos[1];
 $concepto = new Concepto();
 $comprobante = new Comprobante();
 $cn = new coneccion();
-$dao = new dao();
+
 $encabezado = new Encabezado();
 $comprobante->setConIva(floatval($comprobantes->ivaComprobante));
 $comprobante->setDescuentoFactura($comprobantes->desctGeneralFactura);
@@ -57,7 +62,7 @@ foreach ($conceptos as $detalles) {
     $detalle->setCostoCotizacion($detalles->costoCotizacion);
 //    $detalle->setCostoCotizacion("hola");
 //    $detalle->setUnidadmedida();
-    
+
     $array[$contador] = $detalle;
     $contador ++;
 }

@@ -3,16 +3,23 @@ var cantidadRespaldo = 0;
 var costoRespaldo = 0;
 var contador = 0;
 var sumaDescTotal = 0;
+var folio = 0;
 var tr2 = "";
 var tr3 = "";
 function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        folio = 0;
+        $("#emailProveedor").selectpicker('hide');
+        $("#lblemailP").hide('slow');
+        $("#txtEmail").hide('slow');
+        $("#lblemailO").hide('slow');
         $('#proveedores').prop("disabled", true);
         $("#proveedores").selectpicker('hide');
         $("#guardarOrdenCompra").hide();
         $("#guardaEnviaOrden").hide();
+
         $("#folioM").show('slow');
         $("#folio").show('slow');
         $("#folio").val("");
@@ -24,23 +31,28 @@ function seleccionTipo() {
 
         });
     } else {
+        folio = 0;
+
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
 
         });
+        $("#enviarOrdenCompra").hide("slow");
         $('#proveedores').selectpicker("val", 0);
         $("#folio").val("");
         $('#proveedores').prop("disabled", false);
-        $('#proveedores').selectpicker('show');
+
 
         $(".resultando").val(0);
         $("#ModificarOrden").hide('slow');
         $("#guardaEnviaOrden").hide('slow');
-        $("#txtEmail").hide('slow');
-        $("#guardarOrdenCompra").show();
+        $("#CancelarOrden").hide();
+
+//        $("#guardarOrdenCompra").show();
+        $('#proveedores').selectpicker('show');
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');
-
+        $("#txtEmail").hide('slow');
         $("#lblemailO").hide('slow');
 
         $("#folioM").hide('slow');
@@ -57,7 +69,7 @@ $("#folioM").keypress(function(e) {
             $(this).remove();
 
         });
-        var info = "folio=" + $("#folioM").val();
+        var info = "folio=" + $("#folioM").val() + "&comprobante=Orden Compra";
         $.get('consultaOrdenCompra.php', info, function(x) {
             if (x == 0) {
                 alertify.error("no hay ese codigo");
@@ -107,15 +119,15 @@ $("#folioM").keypress(function(e) {
                         $("#ivaM").val(elem[ind].ivaComprobante);
                         $("#costoTotal").val(elem[ind].totalComprobante);
 
-                        $('#rfcComprobante').selectpicker("val","\""+elem[ind].rfcComprobante+"\"");
+                        $('#rfcComprobante').selectpicker("val", "\"" + elem[ind].rfcComprobante + "\"");
 
                         $('#proveedores').selectpicker("val", elem[ind].rfcComprobante);
                         $('#proveedores').prop("disabled", true);
                         $("#ModificarOrden").show('slow');
-                       
 
 
-                        $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc="+elem[ind].rfcComprobante, function() {
+
+                        $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + elem[ind].rfcComprobante, function() {
                             $("#emailProveedor").selectpicker();
                             $("#emailProveedor").selectpicker('show');
 
@@ -125,6 +137,11 @@ $("#folioM").keypress(function(e) {
                         $("#lblemailP").show('show');
                         $("#lblemailO").show('show');
                         $("#proveedores").selectpicker('show');
+                        $("#guardaEnviaOrden").hide();
+                        $("#CancelarOrden").hide();
+                        $("#enviarOrdenCompra").show();
+                        $("#folioM").prop("disabled", true);
+                        $("#codigoProductoEntradas").prop("disabled", true);
 
                     });
                 });
@@ -163,6 +180,10 @@ $("#codigoProductoEntradas").keypress(function(e) {
                 contador = contador + 1;
                 $("#tablaDatosEntrada").append(tr);
                 $(".descuentos").attr('disabled', 'disabled');
+                $("#guardarOrdenCompra").show();
+                $("#CancelarOrden").show();
+                $('#proveedores').prop("disabled", true);
+
             }
         });
     }
@@ -465,6 +486,9 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
+    $("#enviarOrdenCompra").hide();
+    $("#guardarOrdenCompra").hide();
+    $("#CancelarOrden").hide();
     $("#guardarOrdenCompra").hide();
     $("#guardaEnviaOrden").hide();
     $("#txtEmail").hide();
@@ -497,7 +521,7 @@ $(document).ready(function() {
             conceptos.cdaConcepto = $("#cda" + x).val();
             conceptos.codigoConcepto = $("#codigoM" + x).text();
             conceptos.costoCotizacion = $("#costo" + x).val();
-            alert($("#codigoM" + x).text());
+//            alert($("#codigoM" + x).text());
             conceptos.descripcionConcepto = $("#descripcionM" + x).text();
             conceptos.desctUnoConcepto = $("#descuento1" + x).val();
             conceptos.desctDosConcepto = $("#descuento2" + x).val();
@@ -505,7 +529,7 @@ $(document).ready(function() {
             conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
             conceptos.unidadMedidaConcepto = "";
             if ($("#codigoM" + x).text() !== "") {
-                alert("entro" + x)
+//                alert("entro" + x)
                 lstConceptos.push(conceptos);
             }
 
@@ -518,32 +542,50 @@ $(document).ready(function() {
 //            window.location.href = 'generarReporte2.php?tr2=' + tr3;
 //            alertify.success("Exito! Orden Guardada" );
 //        });
-        $.ajax({
-            type: "POST",
-            url: "guardarOrdenCompra.php",
-            data: {data: informacion},
-            cache: false,
-            success: function() {
-                window.location.href = 'generarReporte2.php?tr2=' + tr3 + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
-                alertify.success("Exito! Orden Guardada");
-            }
-        });
+        alert($("#emailProveedor").val());
+        if ($("#emailProveedor").val() !== "0") {
+            $.ajax({
+                type: "POST",
+                url: "guardarOrdenCompra.php",
+                data: {data: informacion, band: "modifica", folio: $("#folioM").val()},
+                cache: false,
+                success: function(x) {
+                    window.location.href = 'generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
+                    alertify.success("Exito! Orden Guardada");
+                }
+            });
+        } else {
+            alertify.error("Seleccione almenos un email");
+        }
     });
 
     $("#ModificarOrden").click(function() {
         $(".cantidades").prop("disabled", false);
         $(".descuentos").prop("disabled", false);
         $("#guardaEnviaOrden").show();
+        $("#CancelarOrden").show();
+        $("#enviarOrdenCompra").hide();
 //        $("#emailProveedor").load("mostrarEmailsProveedor.php");
 //        $("#emailProveedor").show();
         $("#descuentosGlobalesManuales").prop('checked', true);
+        $("#codigoProductoEntradas").prop("disabled", false);
 
 
     });
 
     $("#enviarOrdenCompra").click(function() {
-        var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
-        window.location.href = 'generarReporte.php?' + info;
+//        alert(folio);
+        if ($("#emailProveedor").val() !== "0") {
+            if ($("#folioM").val() != "") {
+                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
+                window.location.href = 'generarReporte.php?' + info;
+            } else {
+                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
+                window.location.href = 'generarReporte.php?' + info;
+            }
+        } else {
+            alertify.error("Seleccione almenos un email");
+        }
     });
 
     $("#proveedores").change(function() {
@@ -618,7 +660,9 @@ $(document).ready(function() {
             conceptos.importeConcepto = $("#importe" + x).val();
             conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
             conceptos.unidadMedidaConcepto = "";
-            lstConceptos.push(conceptos);
+            if ($("#codigoM" + x).text() !== "") {
+                lstConceptos.push(conceptos);
+            }
         }
         inf.push(xmlComprobanteManualmente);
         inf.push(lstConceptos);
@@ -628,13 +672,40 @@ $(document).ready(function() {
             url: "guardarOrdenCompra.php",
             data: {data: informacion},
             cache: false,
-            success: function() {
+            success: function(x) {
+                var probando = $("#proveedores").val();
+                alertify.error(x);
+                folio = x;
+                $("#enviarOrdenCompra").show();
+                $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
+                    $("#emailProveedor").selectpicker();
+                    $("#emailProveedor").selectpicker('refresh');
+                    $("#emailProveedor").selectpicker('show');
 
+                });
+                $("#lblemailP").show('slow');
+                $("#txtEmail").show('slow');
+                $("#lblemailO").show('slow');
                 alertify.success("Exito! Orden Guardada");
             }
         });
     });
     $("#enviarOrdenCompra").click(function() {
 
+    });
+
+    $("#CancelarOrden").click(function() {
+        $('#tablaDatosEntrada td').each(function() {
+            $(this).remove();
+
+        });
+        $("#ModificarOrden").hide();
+        $("#CancelarOrden").hide();
+        $("#guardaEnviaOrden").hide();
+        $("#guardarOrdenCompra").hide();
+        $("#enviarOrdenCompra").hide();
+        $(".resultando").val(0);
+        $("#folioM").prop("disabled", false);
+        $("#codigoProductoEntradas").prop("disabled", false)
     });
 });
