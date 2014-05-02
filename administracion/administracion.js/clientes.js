@@ -105,9 +105,10 @@ function verficaPostal2() {
     }
 }
 
-function verDireccion(id) {
-    var info = "id=" + id;
-    $("#verdireccion").load("consultaDireccion.php", info, function() {
+function verDireccion(id, rfc) {
+
+    var info = "id=" + id + "&rfc=" + rfc;
+    $("#verdireccion").load("consultaDireccionC.php", info, function() {
         $('#mdlverdireccion').modal('show');
     });
 }
@@ -520,9 +521,6 @@ $("#btnguardarproveedor").click(function() {
         return false;
     }
 
-    alert(pass);
-    alert(user);
-
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
     var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user);
     var ctrltelefonos = 0;
@@ -559,45 +557,45 @@ $("#btnguardarproveedor").click(function() {
     datos.push(emails);
 
     var datosJSON = JSON.stringify(datos);
-//    $.post('guardaCliente.php', {datos: datosJSON}, function(rs) {
-//        if (rs == 0) {
-//            $("#txtnombreproveedor").val("");
-//            $("#txtrfc").val("");
-//            $("#txtdiascredito").val("");
-//            $("#txtdescuento").val("");
-//            $("#txttel").val("");
-//            $("#txtemail").val("");
-//            $("#txtdesctpf").val("");
-//            $("#txtdesctpp").val("");
-//
-//            $("#txtcalle").val("");
-//            $("#txtnumeroexterior").val("");
-//            $("#txtnumerointerior").val("");
-//            $("#txtcruzamientos").val("");
-//            $("#txtpostal").val("");
-//            $("#txtestado").val("");
-//            $("#BuscarCodigo").val("");
-//            $("#txtciudad").val("");
-//
-//            $("#btnvertele").attr("disabled", "disabled");
-//            $("#btnveremail").attr("disabled", "disabled");
-//
-//            $("#mastels").remove();
-//            $("#masemails").remove();
-//
-//            $("#frmtel").append("<div id='mastels'></div>");
-//            $("#frmemail").append("<div id='masemails'></div>");
-//
-//            $("#consultaCliente").load("consultarCliente.php", function() {
-//                $('#dtcliente').dataTable();
-//            });
-//
-//            alertify.success("Proveedor agregador correctamente");
-//        }
-//        if (rs == 1) {
-//            alertify.error("Error al guardar");
-//        }
-//    });
+    $.post('guardaCliente.php', {datos: datosJSON}, function(rs) {
+        if (rs == 0) {
+            $("#txtnombreproveedor").val("");
+            $("#txtrfc").val("");
+            $("#txtdiascredito").val("");
+            $("#txtdescuento").val("");
+            $("#txttel").val("");
+            $("#txtemail").val("");
+            $("#txtdesctpf").val("");
+            $("#txtdesctpp").val("");
+
+            $("#txtcalle").val("");
+            $("#txtnumeroexterior").val("");
+            $("#txtnumerointerior").val("");
+            $("#txtcruzamientos").val("");
+            $("#txtpostal").val("");
+            $("#txtestado").val("");
+            $("#BuscarCodigo").val("");
+            $("#txtciudad").val("");
+
+            $("#btnvertele").attr("disabled", "disabled");
+            $("#btnveremail").attr("disabled", "disabled");
+
+            $("#mastels").remove();
+            $("#masemails").remove();
+
+            $("#frmtel").append("<div id='mastels'></div>");
+            $("#frmemail").append("<div id='masemails'></div>");
+
+            $("#consultaCliente").load("consultarCliente.php", function() {
+                $('#dtcliente').dataTable();
+            });
+
+            alertify.success("Proveedor agregador correctamente");
+        }
+        if (rs == 1) {
+            alertify.error("Error al guardar");
+        }
+    });
 });
 
 function eliminardatoscontacto(id, tipo) {

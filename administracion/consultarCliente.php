@@ -13,6 +13,6 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td>$rs[diasCredito]</td>";
     echo"<td>$rs[descuentoPorFactura]</td>";
     echo"<td>$rs[descuentoPorProntoPago]</td>";
-    echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verDireccion($rs[idDireccion])'><span class='glyphicon glyphicon-map-marker'></span></button></center></td></tr>";
+    echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verDireccion($rs[idDireccion],\"$rs[rfc]\")'><span class='glyphicon glyphicon-map-marker'></span></button></center></td></tr>";
 }
 echo"</tbody></table></div>";
