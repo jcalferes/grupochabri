@@ -105,6 +105,7 @@ function verficaPostal2() {
 }
 
 function verDireccion(id, rfc) {
+    
     var info = "id=" + id + "&rfc=" + rfc;
     $("#verdireccion").load("consultaDireccion.php", info, function() {
         $('#mdlverdireccion').modal('show');
@@ -317,7 +318,7 @@ $("#btneditarproveedor").click(function() {
     });
 });
 
-$("#txtrfc").keyup(function() {
+$("#txtrfc").blur(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
     $.get('verificandoProvedor.php', info, function(rs) {
@@ -530,7 +531,7 @@ $("#btnguardarproveedor").click(function() {
     var ctrlemails = 0;
     $(".email").each(function() {
         var valor = $(this).val();
-        if (valor.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}[.][a-zA-Z]{2,4}$/)) {
+        if (valor.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}[.][a-zA-Z]{,4}$/)) {
             emails.push(valor);
         } else {
             ctrlemails = 1;

@@ -4,13 +4,15 @@ var txttel = "mastel";
 var txtemail = "masemail";
 var cadena = "";
 
-function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios) {
+function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user) {
     this.nombre = nombre;
     this.rfc = rfc;
     this.diascredito = diascredito;
     this.desctpf = desctpf;
     this.desctpp = desctpp;
     this.radios = radios;
+    this.pass = pass;
+    this.user = user;
 }
 
 function Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado) {
@@ -75,7 +77,7 @@ function eliminarClientes() {
         });
         return false;
     } else {
-        alertify.error("Debe selecciona al menos un Cliente");
+        alertify.error("Debe seleccionar al menos un Cliente");
     }
 }
 
@@ -103,9 +105,10 @@ function verficaPostal2() {
     }
 }
 
-function verDireccion(id) {
-    var info = "id=" + id;
-    $("#verdireccion").load("consultaDireccion.php", info, function() {
+function verDireccion(id, rfc) {
+
+    var info = "id=" + id + "&rfc=" + rfc;
+    $("#verdireccion").load("consultaDireccionC.php", info, function() {
         $('#mdlverdireccion').modal('show');
     });
 }
@@ -316,7 +319,7 @@ $("#btneditarproveedor").click(function() {
     });
 });
 
-$("#txtrfc").keyup(function() {
+$("#txtrfc").blur(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
     $.get('verificandoCliente.php', info, function(rs) {
@@ -448,6 +451,9 @@ $("#btneditardireccionproveedor").click(function() {
 });
 
 $("#btnguardarproveedor").click(function() {
+    var user = $("#txtcuser").val();
+    var pass = $("#txtcpass").val();
+    var repass = $("#txtcrepass").val();
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
     var diascredito = $("#txtdiascredito").val();
@@ -510,8 +516,13 @@ $("#btnguardarproveedor").click(function() {
         }
     }
 
+    if (pass !== repass) {
+        alertify.error("Las contraseñas no coinciden");
+        return false;
+    }
+
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
-    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios);
+    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user);
     var ctrltelefonos = 0;
     $(".telefono").each(function() {
         var valor = $(this).val();

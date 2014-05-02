@@ -1,3 +1,4 @@
+
 $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
         $('.scrollUp').fadeIn();
@@ -5,6 +6,7 @@ $(window).scroll(function() {
         $('.scrollUp').fadeOut();
     }
 });
+
 $(document).ready(function() {
     $('.scrollUp').click(function() {
         $("html, body").animate({scrollTop: 0}, 600);
@@ -18,7 +20,7 @@ $(document).ready(function() {
             $("#donde").text("Cerrar sesion: " + sucursal);
         }
     });
-})
+});
 
 
 $("#menu-toggle").click(function(e) {

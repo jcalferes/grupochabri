@@ -902,6 +902,7 @@ $("#txtCodigoProductoG").blur(function() {
                             }
                         });
                         var existencia = parseFloat($("#respaldaExistencia").val());
+                        alert(existencia);
                         if (existencia == 0) {
                             alertify.alert("No hay existencias del producto ingresado, para su venta a granel");
                             $("#txtCostoProducto").addClass("disable", "dissable");
