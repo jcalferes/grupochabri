@@ -64,7 +64,7 @@
                         <label>Desct. Pronto Pago:</label>
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false">
                     </div>
-                    <div class="form-group">
+                    <div id="contra" class="form-group">
                         <label>Usuario</label>
                         <input id="txtcuser" type="text" class="form-control" style="width: 50%">
                         <label>Contraseña:</label>

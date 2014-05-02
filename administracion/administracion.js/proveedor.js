@@ -318,7 +318,7 @@ $("#btneditarproveedor").click(function() {
     });
 });
 
-$("#txtrfc").keyup(function() {
+$("#txtrfc").blur(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
     $.get('verificandoProvedor.php', info, function(rs) {

@@ -77,7 +77,7 @@ function eliminarClientes() {
         });
         return false;
     } else {
-        alertify.error("Debe selecciona al menos un Cliente");
+        alertify.error("Debe seleccionar al menos un Cliente");
     }
 }
 
@@ -319,7 +319,7 @@ $("#btneditarproveedor").click(function() {
     });
 });
 
-$("#txtrfc").keyup(function() {
+$("#txtrfc").blur(function() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
     $.get('verificandoCliente.php', info, function(rs) {

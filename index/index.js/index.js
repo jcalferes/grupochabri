@@ -45,7 +45,7 @@ $("#loginbtn").click(function() {
                     $("#loginpass").val("");
                     alertify.success("ES UN DISTRIBUIDOR");
                 }
-                if (respuesta == 3) {
+                if (respuesta == 7) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
                     alertify.success("ES UN CLIENTE");
