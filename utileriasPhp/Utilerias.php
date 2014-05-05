@@ -8,7 +8,7 @@ class Utilerias {
     }
 
     function generarFecha() {
-        return date("d-m-Y ");
+        return date("d/m/Y");
     }
 
     function truncateFloat($number, $digitos) {
