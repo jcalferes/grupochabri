@@ -35,7 +35,7 @@
                 </table>
             </section>
 
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden Compra</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Cliente Compra</h2>
             <section>
                 <form class="form-horizontal" role="form">
                     <div class="radio-inline" >
@@ -47,7 +47,7 @@
                     <div class="radio-inline" >
                         <span>
                             <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
-                            Orden Compra
+                            Cliente Compra
                         </span>
                     </div>
                     <div class="form-group form-inline" >
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group form-inline">
 
-                        <div class="checkbox">
+<!--                        <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
                             </label>
@@ -74,8 +74,8 @@
                             <label>
                                 <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
                             </label>
-                        </div>
-                        <input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>
+                        </div>-->
+                        <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
                     </div>
                     <div class="form-group form-inline">
                         <div class="input-group" id="panelBusqueda">
@@ -95,9 +95,9 @@
                     <th>Descripcion</th>
                     <th>Costo Anterior</th>
                     <th>Costo</th>
-                    <th>Desct. 1</th>
-                    <th>Desct. 2</th>
-                    <th>Desct. Total</th>
+<!--                    <th>Desct. 1</th>
+                    <th>Desct. 2</th>-->
+<!--                    <th>Desct. Total</th>-->
                     <th>CDA</th>
                     <th>Importe</th> 
                     </thead>
@@ -108,9 +108,9 @@
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+<!--                    <span>Desc. General : <input type="text" id="descuentoGeneralM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                     <span>Desc. Productos : <input type="text" id="descuentoProductosM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
-                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Desc. Total : <input type="text" id="descuentoTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>-->
                 </form>
                 <br>
                 <form class="form-inline text-right">

@@ -577,10 +577,10 @@ $(document).ready(function() {
 //        alert(folio);
         if ($("#emailProveedor").val() !== "0") {
             if ($("#folioM").val() != "") {
-                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
+                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val()+"&comprobante=Orden Compra";
                 window.location.href = 'generarReporte.php?' + info;
             } else {
-                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val();
+                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() +"&comprobante=Orden Compra";
                 window.location.href = 'generarReporte.php?' + info;
             }
         } else {
