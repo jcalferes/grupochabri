@@ -9,6 +9,7 @@ $mipdf = new DOMPDF();
 $folio = $_GET["valor"];
 $correos = $_GET["correos"];
 $correos2 = $_GET["correos2"];
+$comprobante = $_GET["comprobante"];
 
 $destinos[] = $correos;
 if ($correos2 !== "") {
@@ -16,7 +17,7 @@ if ($correos2 !== "") {
 }
 $dao = new dao();
 $utileria = new Utilerias();
-$datos = $dao->obtenerOrdenCompra($folio);
+$datos = $dao->obtenerOrdenCompra($folio,$comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
 
@@ -24,7 +25,7 @@ if ($validar > 0) {
 <html>
 
 <body>
- 
+ <h1>'.$folio.' </h1>
 <table border ="1">
                    
                     <tr><td>Cantidad</td>
@@ -97,6 +98,9 @@ $mipdf->render();
 //$mipdf->output();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
-////$mipdf->stream('FicheroEjemplo.pdf');
-$correo = "shanaxchronos@gmail.com";
+$mipdf->stream('reportes/probando.pdf',array("Attachment" => 0));
+//$mipdf->stream('reportes/probando.pdf');
+if($correos !== ""){
+//$correo = "shanaxchronos@gmail.com";
 $utileria->enviarCorreoElectronico($correo,$destinos);
+}
