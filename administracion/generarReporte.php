@@ -17,15 +17,39 @@ if ($correos2 !== "") {
 }
 $dao = new dao();
 $utileria = new Utilerias();
-$datos = $dao->obtenerOrdenCompra($folio,$comprobante);
+$datos = $dao->obtenerOrdenCompra($folio, $comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
 
     $valor = '
-<html>
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.0.5.2 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Solis">
+	<META NAME="CREATED" CONTENT="20140506;14450000">
+	<META NAME="CHANGEDBY" CONTENT="Solis">
+	<META NAME="CHANGED" CONTENT="20140506;15030000">
+	<META NAME="AppVersion" CONTENT="14.0000">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 0.5in }
+		P { margin-bottom: 0.08in; direction: ltr; widows: 2; orphans: 2 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="es-MX" DIR="LTR">
+                                                             
+ <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN=LEFT HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 
-<body>
- <h1>'.$folio.' </h1>
+
+ <h1>FOLIO NO.-' . $folio . ' </h1>
 <table border ="1">
                    
                     <tr><td>Cantidad</td>
@@ -98,9 +122,9 @@ $mipdf->render();
 //$mipdf->output();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
-$mipdf->stream('reportes/probando.pdf',array("Attachment" => 0));
+$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 //$mipdf->stream('reportes/probando.pdf');
-if($correos !== ""){
+if ($correos !== "") {
 //$correo = "shanaxchronos@gmail.com";
-$utileria->enviarCorreoElectronico($correo,$destinos);
+    $utileria->enviarCorreoElectronico($correo, $destinos);
 }
