@@ -1172,16 +1172,16 @@ class dao {
 
     function buscarProductoVentas(Codigo $c, $idSucursal) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
-               inner join proveedores pr
-               on p.idProveedor = pr.idProveedor
-               inner join marcas m
-               on m.idMarca = p.idMarca
-	       inner join costos cost
-	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $c->getCodigo() . "'"
-                . " and  cost.idSucursal  = '" . $idSucursal . "' ";
+                  inner join proveedores pr
+                  on p.idProveedor = pr.idProveedor
+                  inner join marcas m
+                  on m.idMarca = p.idMarca
+	          inner join costos cost
+	          on p.codigoProducto = cost.codigoProducto
+                  WHERE p.codigoProducto='" . $c->getCodigo() . "'"
+                . " and  cost.idSucursal  = '" . $idSucursal . "' "
+                . " and cost.status = 1";
         $rs = mysql_query($MySQL);
-//        $cn->cerrarBd();
         return $rs;
     }
 
@@ -1687,7 +1687,7 @@ class dao {
         }
         return $rs;
     }
-    
+
     function eliminartTelefonos($id) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -2216,6 +2216,19 @@ class dao {
         }
         mysql_query("COMMIT;");
         return true;
+    }
+
+    function dameTarifas(Codigo $c, $idSucursal) {
+        $sql = "select nombreListaPrecio, porcentaUtilidad from tarifas  t
+                inner join listaprecios lp
+                on lp.idListaPrecio  = t.idListaPrecio
+                where codigoProducto = '" . $c->getCodigo() . "' 
+                and t.idStatus='" . $idSucursal . "'";
+        $datos = mysql_query($sql);
+        if ($datos == false) {
+            $datos = mysql_error();
+        }
+        return $datos;
     }
 
 }
