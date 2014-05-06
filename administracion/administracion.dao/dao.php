@@ -576,7 +576,7 @@ class dao {
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
-                . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo' or p.codigoBarrasProducto = '$codigo'";
+                . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = mysql_error();
