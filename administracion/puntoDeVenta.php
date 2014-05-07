@@ -19,6 +19,7 @@
                 <br/>
                 <hr>
                 <br>
+                <input type="submit" onclick="agregarProducto(123)"/>
                 <table class="table table-striped" id="tablaVentas">
                     <thead>
                     <th>Codigo</th>

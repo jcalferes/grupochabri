@@ -576,7 +576,7 @@ class dao {
                 . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
-                . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo' or p.codigoBarrasProducto = '$codigo'";
+                . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = mysql_error();
@@ -1183,16 +1183,16 @@ class dao {
 
     function buscarProductoVentas(Codigo $c, $idSucursal) {
         $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
-               inner join proveedores pr
-               on p.idProveedor = pr.idProveedor
-               inner join marcas m
-               on m.idMarca = p.idMarca
-	       inner join costos cost
-	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $c->getCodigo() . "'"
-                . " and  cost.idSucursal  = '" . $idSucursal . "' ";
+                  inner join proveedores pr
+                  on p.idProveedor = pr.idProveedor
+                  inner join marcas m
+                  on m.idMarca = p.idMarca
+	          inner join costos cost
+	          on p.codigoProducto = cost.codigoProducto
+                  WHERE p.codigoProducto='" . $c->getCodigo() . "'"
+                . " and  cost.idSucursal  = '" . $idSucursal . "' "
+                . " and cost.status = 1";
         $rs = mysql_query($MySQL);
-//        $cn->cerrarBd();
         return $rs;
     }
 
@@ -2227,6 +2227,36 @@ class dao {
         }
         mysql_query("COMMIT;");
         return true;
+    }
+
+    function dameTarifas(Codigo $c, $idSucursal) {
+        $sql = "select nombreListaPrecio, porcentaUtilidad from tarifas  t
+                inner join listaprecios lp
+                on lp.idListaPrecio  = t.idListaPrecio
+                where codigoProducto = '" . $c->getCodigo() . "' 
+                and t.idStatus='" . $idSucursal . "'";
+        $datos = mysql_query($sql);
+        if ($datos == false) {
+            $datos = mysql_error();
+        }
+        return $datos;
+    }
+
+    function consultaBuscador() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto\n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $validando = mysql_affected_rows();
+        if ($validando >= 0) {
+            return $datos;
+        } else {
+            return 0;
+        }
     }
 
 }

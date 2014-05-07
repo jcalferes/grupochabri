@@ -21,19 +21,50 @@ include_once '../daoconexion/daoConeccion.php';
 $cn = new coneccion();
 $cn->Conectarse();
 $contador = 0;
+$interfaz = "";
+$interfaz .= "<table class='table table-hover'>"
+        . "<thead>
+                <th>Codigo</th>
+                <th>Descripcion</th> 
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Lista de Precio</th>
+                <th>Descuento</th>
+                <th>Agregar</th>
+                <th>Descuento</th>
+                <th>Total</th>
+           </thead>";
 foreach ($nuevoArray as $lstDatos) {
     $rs = $dao->buscarProductoVentas($lstDatos, $id);
-    while ($resultSet = mysql_fetch_array($rs)) {
-        $paso = true;
-        $arr[$contador] = array(
-            'codigoProducto' => $resultSet[0],
-            'producto' => $resultSet[1],
-            'costo' => $resultSet[2],
-            'cantidad' => $lstDatos->getCantidad()
-        );
-        $contador++;
+    $rsTarifas = $dao->dameTarifas($lstDatos, $id);
+    $codigo = 0;
+    $descripcion = "";
+    while ($dat = mysql_fetch_array($rs)) {
+        $codigo = $dat[0];
+        $descripcion = $dat[1];
+        $interfaz.="<tr>";
+        $interfaz.="<td>" . $codigo . "</td>";
+        $interfaz.="<td>" . $descripcion . "</td>";
+        $interfaz.="<td>" . $dat[2] . "</td>";
+        $interfaz.="<td>" . $lstDatos->getCantidad() . "</td>";
+        $interfaz.="<td>";
+        $interfaz.="<select class = 'form-control'>";
     }
+    while ($rs = mysql_fetch_array($rsTarifas)) {
+        $interfaz.="<option value='" . $rs[1] . "'>" . $rs[0] . "</option>";
+    }
+    $interfaz.="</select>";
+    $interfaz.="</td>";
+    $interfaz.="<td><input type='text' class='form-control'/></td>";
+    $interfaz.="<td>"
+            . '<button type="submit" title = "Agregar ' . $descripcion . '" class="btn" onclick="agregarProducto(' . $codigo . ');">'
+            . '<span class="glyphicon glyphicon-plus"></span>'
+            . '</<button>'
+            . "</td>";
+    $interfaz.="</tr>";
 }
-$cn->cerrarBd();
-echo '' . json_encode($arr) . '';
+$interfaz.="</table>";
+
+echo $interfaz;
+
 ?>

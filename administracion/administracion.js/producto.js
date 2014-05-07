@@ -832,10 +832,12 @@ $("#txtCodigoProductoG").blur(function() {
     } else {
         var info2 = "codigoProducto=" + codeg2;
         $.get('verificandoProducto.php', info2, function(x) {
+            alert(x);
             if (x < 1) {
                 var codigoProducto = $("#txtCodigoProductoG").val();
                 var info = "codigoProducto=" + codigoProducto;
                 $.get('verificandoProducto.php', info, function(x) {
+                    alert(x);
                     if (x < 1) {
                         $("#txtCostoProducto").addClass("disable", "dissable");
                         $("#txtNombreProducto").val("");
