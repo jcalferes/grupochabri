@@ -18,6 +18,9 @@ class Utilerias {
         return number_format($resultado, $digitos);
     }
 
-}
 
+
+// END FUNCTION
+}
 ?>
+

@@ -821,11 +821,7 @@ class dao {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
-        $sql = "SET AUTOCOMMIT=0;";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-
-        $sql = "BEGIN;";
-        $resultado = mysql_query($sql, $cn->Conectarse());
+        mysql_query("START TRANSACTION;");
 
         $sucursales = "SELECT * FROM sucursales WHERE idSucursal <> '$idSucursal'";
         $sucursales = mysql_query($sucursales, $cn->Conectarse());
@@ -835,73 +831,88 @@ class dao {
             $fecha = date("d/m/Y h:i");
             $sqlcostos = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$sucursal')";
             $sqlexistencias = mysql_query($sqlexistencias, $cn->Conectarse());
-            $sqlcostos = mysql_query($sqlcostos, $cn->Conectarse());
-        }
-        $sql = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$idSucursal')";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-
-        $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoBarrasProducto, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCbarras() . "' , '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1')";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-
-        $id = mysql_insert_id();
-        $fecha = date("d/m/Y h:i");
-        $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$idSucursal')";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-        $lista = $t->getIdListaPrecio();
-
-        foreach ($lista as $valor) {
-            $pieces = explode("-", $valor);
-            if ($cont == 0) {
-                if ($pieces[0] !== " ") {
-                    if ($pieces[0] !== "") {
-                        if ($pieces[0] !== null) {
-                            $tarifa = $pieces[0];
-                            $listaPrecio = $pieces[1];
-                            $cont = 1;
-//                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus,porcentaUtilidad)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2',2)";
-//                        $resultado = mysql_query($sql, $cn->Conectarse());
-                        } else {
-                            echo 'mal';
-                        }
-                    } else {
-                        echo 'mal';
-                    }
-                } else {
-                    echo 'mal';
-                }
+            if ($sqlexistencias == false) {
+                mysql_query("ROLLBACK;");
             } else {
-                if ($pieces[0] !== " ") {
-                    if ($pieces[0] !== "") {
-                        if ($pieces[0] !== null) {
-                            $sql = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa,fechaMovimientoTarifa,idSucursal)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','1','$pieces[0]','$fecha','$idSucursal')";
-                            $resultado = mysql_query($sql, $cn->Conectarse());
-                            $cont = 0;
-                        } else {
-                            echo 'mal';
-                        }
-                    } else {
-                        echo 'mal';
-                    }
+                $sqlcostos = mysql_query($sqlcostos, $cn->Conectarse());
+                if ($sqlcostos == false) {
+                    mysql_query("ROLLBACK;");
                 } else {
-                    echo 'mal';
+                    
                 }
             }
         }
-        if ($resultado) {
-
-            $sql = "COMMIT";
-            $resultado = mysql_query($sql, $cn->Conectarse());
+        $sql = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$idSucursal')";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+        if ($resultado == false) {
+            mysql_query("ROLLBACK;");
         } else {
-            echo 'MAL';
-            echo '
-';
-            echo 'SE EJECUTA EL ROOLBACK';
-            echo '
-';
-
-            $sql = "ROLLBACK;";
+            $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoBarrasProducto, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCbarras() . "' , '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1')";
             $resultado = mysql_query($sql, $cn->Conectarse());
+            if ($resultado == false) {
+                mysql_query("ROLLBACK;");
+            } else {
+                $id = mysql_insert_id();
+                $fecha = date("d/m/Y h:i");
+                $sql = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$idSucursal')";
+                $resultado = mysql_query($sql, $cn->Conectarse());
+                if ($resultado == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+
+                    $lista = $t->getIdListaPrecio();
+
+                    foreach ($lista as $valor) {
+                        $pieces = explode("-", $valor);
+                        if ($cont == 0) {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+                                        $tarifa = $pieces[0];
+                                        $listaPrecio = $pieces[1];
+                                        $cont = 1;
+//                        $sql = "INSERT INTO tarifas(codigoProducto, tarifa, idListaPrecio, idStatus,porcentaUtilidad)VALUES('" . $p->getCodigoProducto() . "','$pieces[0]','$pieces[1]','2',2)";
+//                        $resultado = mysql_query($sql, $cn->Conectarse());
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    echo 'mal';
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        } else {
+                            if ($pieces[0] !== " ") {
+                                if ($pieces[0] !== "") {
+                                    if ($pieces[0] !== null) {
+                                        $sql = "INSERT INTO tarifas(codigoProducto, porcentaUtilidad, idListaPrecio, idStatus,tarifa,fechaMovimientoTarifa,idSucursal)VALUES('" . $p->getCodigoProducto() . "','$tarifa','$listaPrecio','1','$pieces[0]','$fecha','$idSucursal')";
+                                        $resultado = mysql_query($sql, $cn->Conectarse());
+                                        if ($resultado == false) {
+                                            mysql_query("ROLLBACK;");
+                                        } else {
+                                            $cont = 0;
+                                        }
+                                    } else {
+                                        echo 'mal';
+                                    }
+                                } else {
+                                    echo 'mal';
+                                }
+                            } else {
+                                echo 'mal';
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        mysql_query("COMMIT;");
+
+
+
+
 
         $_SESSION['idProducto'] = $id;
         $cn->cerrarBd();
@@ -1687,7 +1698,7 @@ class dao {
         }
         return $rs;
     }
-    
+
     function eliminartTelefonos($id) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

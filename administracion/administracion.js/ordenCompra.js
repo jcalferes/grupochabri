@@ -512,7 +512,8 @@ $(document).ready(function() {
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        alert( $("#costoTotal").val());
+        xmlComprobanteManualmente.totalComprobante = $("#costoTotal").val();
         xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
         var conceptos = new Array();
         for (var x = 0; x < parseInt(contador); x++) {
@@ -644,7 +645,7 @@ $(document).ready(function() {
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.totalComprobante = $("#costoTotal").val();
         xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
         var conceptos = new Array();
         for (var x = 0; x < parseInt(contador); x++) {
