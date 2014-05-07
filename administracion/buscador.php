@@ -24,10 +24,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Buscar</h4>
+                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="todos" ></div>
+                        <div id="todos" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
