@@ -132,7 +132,7 @@ $("#folioM").keypress(function(e) {
 //                        $("#proveedores").selectpicker('show');
                         $("#guardaEnviaOrden").hide();
                         $("#CancelarOrden").show();
-                        $("#enviarOrdenCompra").show();
+//                        $("#enviarOrdenCompra").hide();
                         $("#folioM").prop("disabled", true);
                         $("#codigoProductoEntradas").prop("disabled", false);
 
