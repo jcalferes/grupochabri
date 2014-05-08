@@ -24,15 +24,16 @@ $contador = 0;
 $interfaz = "";
 $interfaz .= "<table class='table table-hover'>"
         . "<thead>
-                <th>Codigo</th>
-                <th>Descripcion</th> 
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Lista de Precio</th>
-                <th>Descuento</th>
-                <th>Agregar</th>
-                <th>Descuento</th>
-                <th>Total</th>
+                <th><center>Codigo</center></th>
+                <th><center>Descripcion</center></th> 
+                <th><center>Precio</center></th>
+                <th><center>Cantidad</center></th>
+                <th><center>Lista de Precio</center></th>
+                <th><center>Descuento</center></th>
+                <th><center>Agregar</center></th>
+                <th><center>Eliminar</center></th>
+                <th><center>Descuento</center></th>
+                <th><center>Total</center></th>
            </thead>";
 foreach ($nuevoArray as $lstDatos) {
     $rs = $dao->buscarProductoVentas($lstDatos, $id);
@@ -50,21 +51,28 @@ foreach ($nuevoArray as $lstDatos) {
         $interfaz.="<td>";
         $interfaz.="<select class = 'form-control'>";
     }
-    while ($rs = mysql_fetch_array($rsTarifas)) {
-        $interfaz.="<option value='" . $rs[1] . "'>" . $rs[0] . "</option>";
+    while ($rsDatos = mysql_fetch_array($rsTarifas)) {
+        $interfaz.="<option value='" . $rsDatos[1] . "'>" . $rsDatos[0] . "</option>";
     }
+//    if($rsTarifas == false){
+//         $interfaz.="<option value='0'>No hay tarifas para este Producto</option>";
+//    }
     $interfaz.="</select>";
     $interfaz.="</td>";
     $interfaz.="<td><input type='text' class='form-control'/></td>";
-    $interfaz.="<td>"
-            . '<button type="submit" title = "Agregar ' . $descripcion . '" class="btn" onclick="agregarProducto(' . $codigo . ');">'
+    $interfaz.="<td><center>"
+            . "<button type='submit' class='btn' onclick='agregarProducto(" . "\"$codigo\"" . ");'>"
             . '<span class="glyphicon glyphicon-plus"></span>'
             . '</<button>'
-            . "</td>";
+            . "</center></td>";
+    $interfaz.="<td><center>"
+            . "<button type='submit' class='btn' onclick='quitarProducto(" . "\"$codigo\"" . ");'>"
+            . '<span class="glyphicon glyphicon-trash"></span>'
+            . '</<button>'
+            . "</center></td>";
     $interfaz.="</tr>";
 }
 $interfaz.="</table>";
 
 echo $interfaz;
-
 ?>
