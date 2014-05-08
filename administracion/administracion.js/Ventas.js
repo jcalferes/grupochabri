@@ -27,9 +27,34 @@ function agregarProducto(codigo) {
     codigos.push(codigo);
     cargarProductosCarrito();
 }
+function quitarProducto(codigo) {
+    for (var x = 0; x < codigos.length; x++) {
+        if (codigos[x] == codigo) {
+            codigos.splice(x, 1);
+            break;
+        }
+    }
+    cargarProductosCarrito();
+}
 
 $(document).ready(function() {
     $("#buscarCodigo").click(function() {
         buscar();
+    });
+
+    $("#btnver").click(function() {
+        var info;
+        $("#tdProducto").find(':checked').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            codigos.push(valor);
+            lista = JSON.stringify(codigos);
+            info = "marcas=" + lista;
+        });
+        if (info != undefined) {
+            cargarProductosCarrito();
+        } else {
+            alertify.error("Debes seleccionar al menos una  marca");
+        }
     });
 });

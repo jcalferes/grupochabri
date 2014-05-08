@@ -105,7 +105,7 @@ function verficaPostal2() {
 }
 
 function verDireccion(id, rfc) {
-    
+
     var info = "id=" + id + "&rfc=" + rfc;
     $("#verdireccion").load("consultaDireccion.php", info, function() {
         $('#mdlverdireccion').modal('show');
@@ -586,6 +586,11 @@ $("#btnguardarproveedor").click(function() {
         if (rs == 1) {
             alertify.error("Error al guardar");
         }
+        $("#selectProveedor").load("mostrarProveedores.php", function() {
+            $("#selectProveedor").selectpicker('refresh');
+        });
+        $("#mostrarDivProveedor").hide("slow");
+        $("#formulario").show("slow");
     });
 });
 
