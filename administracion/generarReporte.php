@@ -5,7 +5,7 @@ include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
 $mipdf = new DOMPDF();
-
+$escribio ="";
 $folio = $_GET["valor"];
 $correos = $_GET["correos"];
 $correos2 = $_GET["correos2"];
@@ -77,8 +77,11 @@ if ($validar > 0) {
     $valor .= '
                 </table>';
 
-    $valor .= 'Subtotal :' . $subtotal . '  Desc. General : ' . $descGral . ' Desc. Productos: ' . $descProd . '  Desc. Total : ' . $descTotal . ' SDA :' . $sda . '  Iva 16% : ' . $iva . '  Total : ' . $total . ' </body>
-</html>';
+    $valor .= '<table border = 1><tr><td>Subtotal:</td><td>' . $subtotal . '</td></tr><tr><td>  Desc. General :</td><td> ' . $descGral . '</td></tr><tr><td> Desc. Productos: </td><td>' . $descProd . '</td></tr><tr><td>  Desc. Total : </td><td>' . $descTotal . '</td></tr><tr><td> SDA :</td><td>' . $sda . '</td></tr><tr><td>  Iva 16% :</td><td> ' . $iva . '</td></tr><tr><td>  Total :</td><td> ' . $total . '</td></tr> </table>
+';
+    
+//$escribio = $utileria->numtoletras($total);
+    $valor.='Total:'.$utileria->numtoletras($total).'</body></html>';
 } else {
     echo '0';
 }
@@ -122,9 +125,10 @@ $mipdf->render();
 //$mipdf->output();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
-$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+//$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 //$mipdf->stream('reportes/probando.pdf');
 if ($correos !== "") {
 //$correo = "shanaxchronos@gmail.com";
     $utileria->enviarCorreoElectronico($correo, $destinos);
+    $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 }
