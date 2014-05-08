@@ -475,7 +475,7 @@ $("#btnguardarproveedor").click(function() {
     var telefonos = [];
     var datos = [];
 
-    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento)) {
+    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento) || user == "" || /^\s+$/.test(user) || pass == "" || /^\s+$/.test(pass) || repass == "" || /^\s+$/.test(repass)) {
         alertify.error("Todos los campos son obligatorios");
         return false;
     }

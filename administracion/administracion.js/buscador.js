@@ -1,15 +1,19 @@
 $(document).ready(function() {
+    $('#example').tooltip();
+});
+
+$('#example').on('hidden.bs.tooltip', function () {
+  alert(":P");
 });
 
 $("#btnbuscador").click(function() {
     $("#todos").load("consultarBuscador.php", function() {
         $('#tdProducto').dataTable();
     });
-    $('#mdlbuscador').modal('show');
+    $('#mdlbuscador').modal('toggle');
 });
 
 function listarProductos() {
-    alert("entre");
     var idMarcas = new Array();
     var info;
     $("#tdProducto").find(':checked').each(function() {
@@ -22,7 +26,7 @@ function listarProductos() {
 
     });
     if (info != undefined) {
-        alert("Hecho");
+        $('#mdlbuscador').modal('toggle');
 //        alertify.confirm("Desea Eliminar las Marcas seleccionadas?", function(e) {
 //            if (e) {
 //                alertify.success("SI");
@@ -39,6 +43,6 @@ function listarProductos() {
 //        return false;
 
     } else {
-        alertify.error("Debes seleccionar al menos una  marca");
+        alertify.error("Debes seleccionar al menos un producto");
     }
 }
