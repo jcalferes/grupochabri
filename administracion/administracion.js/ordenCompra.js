@@ -138,7 +138,7 @@ $("#folioM").keypress(function(e) {
                         $("#lblemailO").show('show');
                         $("#proveedores").selectpicker('show');
                         $("#guardaEnviaOrden").hide();
-                        $("#CancelarOrden").hide();
+                        $("#CancelarOrden").show();
                         $("#enviarOrdenCompra").show();
                         $("#folioM").prop("disabled", true);
                         $("#codigoProductoEntradas").prop("disabled", true);
@@ -276,6 +276,11 @@ function calculaTotalEntradasManual() {
 }
 
 function calcularDescuentos(id) {
+    if ($("#descuento1" + id).val() == '' || $("#descuento1" + id).val() == '0') {
+        $("#descuento2" + id).val("");
+    } else {
+
+    }
     var importe;
     var nuevoImporte;
     var descuento1 = $("#descuento1" + id).val();
@@ -366,7 +371,7 @@ function calcularIva() {
 }
 
 function validarCampoDesc2(id) {
-    if ($("#descuento1" + id).val() == '') {
+    if ($("#descuento1" + id).val() == '' || $("#descuento1" + id).val() == '0') {
         alertify.error("Error! El descuento 1 requerido");
         $("#descuento1" + id).focus();
     }
@@ -512,7 +517,7 @@ $(document).ready(function() {
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        alert( $("#costoTotal").val());
+        alert($("#costoTotal").val());
         xmlComprobanteManualmente.totalComprobante = $("#costoTotal").val();
         xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
         var conceptos = new Array();
@@ -578,10 +583,10 @@ $(document).ready(function() {
 //        alert(folio);
         if ($("#emailProveedor").val() !== "0") {
             if ($("#folioM").val() != "") {
-                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val()+"&comprobante=Orden Compra";
+                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
                 window.location.href = 'generarReporte.php?' + info;
             } else {
-                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() +"&comprobante=Orden Compra";
+                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
                 window.location.href = 'generarReporte.php?' + info;
             }
         } else {
@@ -700,6 +705,12 @@ $(document).ready(function() {
             $(this).remove();
 
         });
+        $("#proveedores").selectpicker('hide');
+
+        $("#txtEmail").hide();
+        $("#emailProveedor").selectpicker('hide');
+        $("#lblemailP").hide('slow');
+        $("#lblemailO").hide('slow');
         $("#ModificarOrden").hide();
         $("#CancelarOrden").hide();
         $("#guardaEnviaOrden").hide();

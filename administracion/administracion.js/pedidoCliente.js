@@ -503,7 +503,7 @@ $(document).ready(function() {
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.totalComprobante = $("#costoTotal").val();
         xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
         var conceptos = new Array();
         for (var x = 0; x < parseInt(contador); x++) {
@@ -562,10 +562,10 @@ $(document).ready(function() {
         alert(folio);
         if ($("#folioM").val() != "") {
             var info = "valor=" + $("#folioM").val();
-            window.location.href = 'generarReporte.php?' + info;
+            window.location.href = 'generarReporte.php?' + info+'&comprobante=PEDIDO CLIENTE';
         } else {
             var info = "valor=" + folio;
-            window.location.href = 'generarReporte.php?' + info;
+            window.location.href = 'generarReporte.php?' + info+'&comprobante=PEDIDO CLIENTE';
         }
     });
 
@@ -625,7 +625,7 @@ $(document).ready(function() {
         xmlComprobanteManualmente.sdaComprobante = $("#sdaM").val();
         xmlComprobanteManualmente.subTotalComprobante = $("#subTotalM").val();
         xmlComprobanteManualmente.descuentoPorProductoComprobantes = $("#descuentoProductosM").val();
-        xmlComprobanteManualmente.totalComprobante = $("#descuentoTotalM").val();
+        xmlComprobanteManualmente.totalComprobante = $("#costoTotal").val();
         xmlComprobanteManualmente.tipoComprobante = "Entradas Manual";
         var conceptos = new Array();
         for (var x = 0; x < parseInt(contador); x++) {
@@ -657,7 +657,7 @@ $(document).ready(function() {
 //                var probando = $("#proveedores").val();
                 alertify.error(x);
 
-                var info = "valor=" + folio;
+                var info = 'valor=' + folio +'&comprobante=PEDIDO CLIENTE' ;
                 window.location.href = 'generarReporte.php?' + info;
 //                $("#enviarOrdenCompra").show();
 //                $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {

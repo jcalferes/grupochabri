@@ -14,48 +14,47 @@ class Utilerias {
         }
     }
 
-    function genera_md5($clave,$destinos) {
+    function genera_md5($clave, $destinos) {
         $codificado = md5($clave);
         return $codificado;
     }
 
     function enviarCorreoElectronico($correo, $destinos) {
-  include_once ("class.phpmailer.php");
-    include_once ("class.smtp.php");
+        include_once ("class.phpmailer.php");
+        include_once ("class.smtp.php");
 
-    $mail = new PHPMailer(); //Objeto de PHPMailer
-    $mail->IsSMTP(); //Protocolo SMTP
-    $mail->SMTPAuth = true; //Autentificacion de SMTP
+        $mail = new PHPMailer(); //Objeto de PHPMailer
+        $mail->IsSMTP(); //Protocolo SMTP
+        $mail->SMTPAuth = true; //Autentificacion de SMTP
 //    $mail->SMTPSecure = "tls"; //SSL socket layer
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
-    $mail->SMTPSecure = "ssl";
-    $mail->Host = "smtp.gmail.com";
-    $mail->Port = 465;
+        $mail->SMTPSecure = "ssl";
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465;
 
-    $mail->From = "de"; //Remitente (En mi variable)
-    foreach ($destinos as $value) {
-         $mail->AddAddress($value);//Destinatario
-    }
-    
-    $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-    $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
-    $mail->Subject = "asunto"; //El asunto de correo
-    $mail->Body = "mensaje"; //El mensaje de correo
+        $mail->From = "de"; //Remitente (En mi variable)
+        foreach ($destinos as $value) {
+            $mail->AddAddress($value); //Destinatario
+        }
+
+        $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+        $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
+        $mail->Subject = "asunto"; //El asunto de correo
+        $mail->Body = "mensaje"; //El mensaje de correo
 //    $mail->WordWrap = 50; //# de columnas
-    $mail->CharSet = 'UTF-8';
-    $mail->WordWrap = 50;
-    $mail->MsgHTML("mensaje"); //Se indica que el cuerpo del correo tendra formato HTML
-    $mail->AddAttachment("../administracion/reportes/probando.pdf", "nombre.pdf"); //Accedemos al archivo que se subio al servidor y lo adjuntamos
+        $mail->CharSet = 'UTF-8';
+        $mail->WordWrap = 50;
+        $mail->MsgHTML("mensaje"); //Se indica que el cuerpo del correo tendra formato HTML
+        $mail->AddAttachment("../administracion/reportes/probando.pdf", "nombre.pdf"); //Accedemos al archivo que se subio al servidor y lo adjuntamos
 
-    if ($mail->Send()) {//Enviamos el correo por PHPMailer
-        $respuesta = "El mensaje a sido enviado desde tu cuenta de Gmail :)";
-    } else {
-        $respuesta = "El mensaje no a sido enviado :(";
-        $respuesta .= "Error: " . $mail->ErrorInfo;
+        if ($mail->Send()) {//Enviamos el correo por PHPMailer
+            $respuesta = "El mensaje a sido enviado desde tu cuenta de Gmail :)";
+        } else {
+            $respuesta = "El mensaje no a sido enviado :(";
+            $respuesta .= "Error: " . $mail->ErrorInfo;
+        }
     }
-}
-
 
 //------    CONVERTIR NUMEROS A LETRAS         ---------------
 //------    Máxima cifra soportada: 18 dígitos con 2 decimales
@@ -69,7 +68,8 @@ class Utilerias {
 //------    10 de junio de 2009. México, D.F.  ---------------
 //------    PHP Version 4.3.1 o mayores (aunque podría funcionar en versiones anteriores, tendrías que probar)
     function numtoletras($xcifra) {
-      
+
+
         $xarray = array(0 => "Cero",
             1 => "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
             "DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE",
@@ -88,7 +88,7 @@ class Utilerias {
                 $xpos_punto = strpos($xcifra, ".");
             }
             $xaux_int = substr($xcifra, 0, $xpos_punto); // obtengo el entero de la cifra a covertir
-            $xdecimales = substr($xcifra . "00", $xpos_punto + 1, 2); // obtengo los valores decimales
+            $xdecimales = substr($xcifra . "00", $xpos_punto + 1, 4); // obtengo los valores decimales
         }
 
         $XAUX = str_pad($xaux_int, 18, " ", STR_PAD_LEFT); // ajusto la longitud de la cifra, para que sea divisible por centenas de miles (grupos de 6)
@@ -156,7 +156,17 @@ class Utilerias {
                             } else {
                                 $key = (int) substr($xaux, 2, 1);
                                 $xseek = $xarray[$key]; // obtengo directamente el valor de la unidad (del uno al nueve)
-                                $xsub = subfijo($xaux);
+//                                $xsub = subfijo($xaux);
+
+                                $xx = trim($xaux);
+                                $xstrlen = strlen($xx);
+                                if ($xstrlen == 1 || $xstrlen == 2 || $xstrlen == 3)
+                                    $xsub = "";
+                                //
+                                if ($xstrlen == 4 || $xstrlen == 5 || $xstrlen == 6)
+                                    $xsub = "MIL";
+
+
                                 $xcadena = " " . $xcadena . " " . $xseek . " " . $xsub;
                             } // ENDIF (substr($xaux, 2, 1) < 1)
                             break;
@@ -212,7 +222,7 @@ class Utilerias {
     }
 
 // END FUNCTIONsubfijo
-    
+
 
     function subfijo($xx) { // esta función regresa un subfijo para la cifra
         $xx = trim($xx);
@@ -225,8 +235,6 @@ class Utilerias {
         //
         return $xsub;
     }
-
-
 
 }
 
