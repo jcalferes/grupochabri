@@ -1103,7 +1103,7 @@ class dao {
         $cn->Conectarse();
         $MySQLEntradas = "INSERT INTO entradas(usuario, cantidad, fecha, codigoProducto) VALUES ('" . $entradas->getUsuario() . "','" . $entradas->getCantidad() . "','" . $entradas->getFecha() . "','" . trim($entradas->getCodigoProducto()) . "')";
 //        $MySQLExistencias = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('" . $entradas->getCantidad() . "','1', '" . $entradas->getCodigoProducto() . "')";
-        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . $entradas->getCodigoProducto() . "' and idSucursal ='" . $entradas->getIdSucursal() . "'";
+        $mysqlUpdateExistencias = "UPDATE existencias set cantidad = '" . $entradas->getCantidad() . "' WHERE codigoProducto='" . trim($entradas->getCodigoProducto()) . "' and idSucursal ='" . $entradas->getIdSucursal() . "'";
         mysql_query("START TRANSACTION;");
         $entradas = mysql_query($MySQLEntradas);
         if ($entradas == false) {
