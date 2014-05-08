@@ -18,7 +18,8 @@
         <!-- CSS Personalizados-->
     </head>
     <body>
-        <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador" />
+        <button type="button" id="example" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+        <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div class="modal-dialog" style="width: 80%">
                 <div class="modal-content">

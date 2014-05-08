@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    $('#example').tooltip();
+});
+
+$('#example').on('hidden.bs.tooltip', function () {
+  alert(":P");
 });
 
 $("#btnbuscador").click(function() {
