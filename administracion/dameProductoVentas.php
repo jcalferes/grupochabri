@@ -4,6 +4,7 @@ session_start();
 include './administracion.clases/Producto.php';
 include './administracion.dao/dao.php';
 include './administracion.clases/Codigo.php';
+include '../utileriasPhp/Utilerias.php';
 $data = json_decode($_POST['data']);
 $dao = new dao();
 $nuevoArray = Array();
@@ -47,7 +48,14 @@ foreach ($nuevoArray as $lstDatos) {
         $interfaz.="<td>" . $codigo . "</td>";
         $interfaz.="<td>" . $descripcion . "</td>";
         $interfaz.="<td>" . $dat[2] . "</td>";
-        $interfaz.="<td>" . $lstDatos->getCantidad() . "</td>";
+        $utilerias = new Utilerias();
+        $paso = false;
+        $paso = $utilerias->validarProductoGranel($codigo);
+        if ($paso == false) {
+            $interfaz.="<td>" . $lstDatos->getCantidad() . "</td>";
+        } else {
+            $interfaz.="<td><input type='text'/></td>";
+        }
         $interfaz.="<td>";
         $interfaz.="<select class = 'form-control'>";
     }
