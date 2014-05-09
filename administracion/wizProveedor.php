@@ -69,6 +69,48 @@
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-user"/>&numsp;Agentes</h2>
+            <section style="width: 100%">
+                Coming soon..
+                <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+                    <div id="frmprov" class="form-group">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" id="txtnombreproveedor">
+                    </div>
+                    <div id="frmtel" class="form-group">
+                        <label>Telefono:</label>
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
+                        <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
+                        <div id="mastels">
+                        </div>
+                    </div>
+                    <div id="frmemail" class="form-group">
+                        <label>E-mail:</label>
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
+                        <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%"/>
+                        <div id="masemails">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dias de credito:</label>
+                        <input id="txtdiascredito" type="number" class="form-control" style="width: 50%" onpaste="return false">
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Desct. Factura:</label>
+                        <input id="txtdesctpf" type="number" class="form-control" style="width: 20%" onpaste="return false"/>
+                        <label>Desct. Pronto Pago:</label>
+                        <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false"/>
+                    </div>
+
+                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
+                </form>
+            </section>
         </div>
         <!-- Modal  data-backdrop="static"-->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" > 

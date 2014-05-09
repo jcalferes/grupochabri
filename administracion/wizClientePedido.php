@@ -53,29 +53,29 @@
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
-<!--                        <label id="lblproveedor">Proveedor: </label>
-                        <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
-<!--                        <label id="lblemailP">Email: </label>
-                        <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
-                        <label id="lblemailO">Otro email(opcional): </label>
-                        <input id="txtEmail" class="form-control"/>                       -->
+                        <!--                        <label id="lblproveedor">Proveedor: </label>
+                                                <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
+                        <!--                        <label id="lblemailP">Email: </label>
+                                                <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                                                <label id="lblemailO">Otro email(opcional): </label>
+                                                <input id="txtEmail" class="form-control"/>                       -->
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
                     </div>
                     <div class="form-group form-inline">
 
-<!--                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
-                            </label>
-                        </div><br>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
-                            </label>
-                        </div>-->
-                        <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
+                        <!--                        <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
+                                                    </label>
+                                                </div><br>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
+                                                    </label>
+                                                </div>-->
+                                                <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
                     </div>
                     <div class="form-group form-inline">
                         <div class="input-group" id="panelBusqueda">
