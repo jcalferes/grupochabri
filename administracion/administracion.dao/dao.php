@@ -2242,14 +2242,16 @@ class dao {
         return $datos;
     }
 
-    function consultaBuscador() {
+    function consultaBuscador($idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto\n"
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1'";
+                . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
+                . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {
