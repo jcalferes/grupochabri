@@ -63,6 +63,57 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!-- Modal -->
+        <!--Modal Granel-->
+        <input type="submit" value="granel" id="mdlGranelbtn"/>
+        <div class="modal fade" 
+             id="mdlGranel" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="myModalLabel" 
+             aria-hidden="true" >
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Productos. Granel</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="inputEmail3" 
+                                       class="col-sm-4 control-label">
+                                    Cantidad:
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           placeholder="kg"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" 
+                                       class="col-sm-4 control-label">
+                                    Pesos:
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           placeholder="$0.00 mxn."/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' 
+                                class='btn btn-primary' 
+                                id='btnGranel'>
+                            <span class='glyphicon glyphicon-shopping-cart'>
+                            </span> Listar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!--final modalGranel-->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
