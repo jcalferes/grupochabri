@@ -11,12 +11,11 @@ $verificasession->validaSesion();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-            <link rel="shortcut icon" href="">
+        <link rel="shortcut icon" href="">
         <title>Gestion Administrativa - Grupo Chabri  </title>
         <!-- CSS -->
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="../bootstrap/css/simple-sidebar.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
@@ -36,66 +35,59 @@ $verificasession->validaSesion();
                         <span class="icon-bar"></span>
                         <span class="icon-bar" ></span>
                     </button>
-                    <a class="navbar-brand" href="#">Grupo Chabri</a>
+                    <a class="navbar-brand" href="">Grupo Chabri</a>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class=""><a href="#">Inicio</a></li>
-                        <li><a href="#about">Acerca de</a></li>
-                        <li><a href="#contact">Contacto</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Otro link</a></li>
-                                <li><a href="#">Algun link</a></li>
+                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar</a></li>
                                 <li class="divider"></li>
-                                <li class="dropdown-header">Titulo de la seccion</li>
-                                <li><a href="#">Un link</a></li>
-                                <li><a href="#">Otro link</a></li>
+                                <!--<li class="dropdown-header">Otros</li>-->
+                                <li id="12" class=""><a onclick="entroAgranel();">Granel</a></li>
+                                <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
+                                <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
+                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
+                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                                <li class="divider"></li>
+                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra</a></li>
+                                <li id="13" class=""><a onclick="entroClientePedido();">Pedidos de clientes</a></li>
+                                <li id="11" class=""><a onclick="entroTrasferencia();">Transferencias</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
+                                <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
+                                <li id="8" class=""><a onclick="entroUsuarios();">Usuarios del sistema</a></li>
+
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <!--                        <li><a href="#">Un link</a></li>
-                                                <li><a href="#">Otro link</a></li>
-                                                <li class=""><a href="#">Un link mas</a></li>-->
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
                     </ul>
-                </div>
+                </div><!-- /.navbar-collapse -->
             </div>
         </div>
-        <div id="wrapper">
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
-                    <li id="2" class=""><a onclick="entroProducto();">Productos</a></li>
-                    <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                    <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
-                    <li id="4" class=""><a onclick="entroListaPrecio();">Listas</a></li>
-                    <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
-                    <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                    <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
-                    <li id="11" class=""><a onclick="entroTrasferencia();">Transferencia</a></li>
-                    <li id="8" class=""><a onclick="entroUsuarios();">Usuarios</a></li>
-                    <li id="6" class=""><a onclick="ordenCompra();">Orden Compra</a></li>
-                    <li id="12" class=""><a onclick="entroAgranel();">Agranel</a></li>
-                    <li id="13" class=""><a onclick="entroClientePedido();">ClientePedido</a></li>
-                </ul>
-            </div>
-            <div id="page-content-wrapper">
-                <div class="container-fluid">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a style="color: #777777" id="menu-toggle" class="btn btn-xs"><span class="glyphicon glyphicon-align-justify"/></a><span> Gestion Administrativa</span>
-                        </div>
-                        <div class="panel-body">
-                            <div id="mostrar">
-                                <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
-                            </div>
-                            <a href="#" class="scrollUp"></a>
-                        </div>
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span> Gestion Administrativa</span>
+                </div>
+                <div class="panel-body">
+                    <div id="mostrar">
+                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
                     </div>
+                    <a href="#" class="scrollUp"></a>
                 </div>
             </div>
         </div>
