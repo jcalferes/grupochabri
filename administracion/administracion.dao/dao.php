@@ -2,6 +2,15 @@
 
 class dao {
 
+    function consultaOrdenesLista() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlcomprobantes Where tipoComprobante = 'ORDEN COMPRA'";
+        $sql = mysql_query($sql, $cn->Conectarse());
+//        $cn->cerrarBd();
+        return $sql;
+    }
+
     function modificaPedido($folio) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -13,7 +22,7 @@ class dao {
     function consultaEmail($proveedor) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sqlrfc = "SELECT idProveedor FROM PROVEEDORES WHERE rfc = '$proveedor' ";
+        $sqlrfc = "SELECT idProveedor FROM proveedores WHERE rfc = '$proveedor' ";
         $datos = mysql_query($sqlrfc, $cn->Conectarse());
 
         while ($fila = mysql_fetch_array($datos)) {

@@ -1,7 +1,7 @@
 var costo = 0;
 var cantidadRespaldo = 0;
 var costoRespaldo = 0;
-var contador = 0;
+var contador = 1;
 var sumaDescTotal = 0;
 var folio = 0;
 var tr2 = "";
@@ -26,14 +26,14 @@ function seleccionTipo() {
         $(".resultando").val(0);
 //        $("#ModificarOrden").show('slow');
         $("#folioM").prop("disabled", false);
-$("#codigoProductoEntradas").prop("disabled", true);
+        $("#codigoProductoEntradas").prop("disabled", true);
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
 
         });
     } else {
         folio = 0;
-$("#codigoProductoEntradas").prop("disabled", false);
+        $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
 
@@ -71,6 +71,7 @@ $("#folioM").keypress(function(e) {
 
         });
         var info = "folio=" + $("#folioM").val() + "&comprobante=PEDIDO CLIENTE";
+        alert(info);
         $.get('consultaClientePedido.php', info, function(x) {
             if (x == 0) {
                 alertify.error("no hay ese codigo");
@@ -86,10 +87,10 @@ $("#folioM").keypress(function(e) {
                         tr2 = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
-                        <td><span id="codigoM' + contador + '">' + elem[ind].codigoConcepto + '</span></td>\n\
+                        <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' +elem[ind].codigoConcepto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].descripcionConcepto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
                         </td>\n\
                         <td> <input id="cda' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> </td>\n\
                         <td> <input id="importe' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '"> </input> </td></tr>';
@@ -148,6 +149,20 @@ $("#folioM").keypress(function(e) {
 });
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
+        valorando = 0;
+         $('.CProducto').each(function() {
+
+       var  elemento = this;
+       var nombre = elemento.name;
+       var valor = elemento.value;
+        alert(elemento.name);
+        if($("#codigoProductoEntradas").val() == valor && $("#codigoProductoEntradas").val() !== "nada"){
+//            alertify.error("ya existe");
+            valorando = nombre;
+            
+        }
+    });
+    if(valorando == 0){
         var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val();
         $.get('mostrarInformacionProductogral.php', info, function(informacion) {
             if (informacion == 1) {
@@ -161,10 +176,10 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     tr = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
-                        <td><span id="codigoM' + contador + '">' + datosJson[i].codigoProducto + '</span></td>\n\
+                        <td><input type="text" id="codigoM' + contador + '" name="'+contador+'" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades"> </input>\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos"> </input>\n\
                         </td>\n\
                        <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
         <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
@@ -176,6 +191,12 @@ $("#codigoProductoEntradas").keypress(function(e) {
                 $("#CancelarOrden").show();
             }
         });
+    }else{
+        alertify.error("ya existe");
+     sumar=   $("#cant"+valorando).val();
+     total =   1 +parseInt(sumar) ;
+        $("#cant"+valorando).val(total);
+    }
     }
 });
 function validar() {
@@ -562,10 +583,10 @@ $(document).ready(function() {
         alert(folio);
         if ($("#folioM").val() != "") {
             var info = "valor=" + $("#folioM").val();
-            window.location.href = 'generarReporte.php?' + info+'&comprobante=PEDIDO CLIENTE';
+            window.location.href = 'generarReporte.php?' + info + '&comprobante=PEDIDO CLIENTE';
         } else {
             var info = "valor=" + folio;
-            window.location.href = 'generarReporte.php?' + info+'&comprobante=PEDIDO CLIENTE';
+            window.location.href = 'generarReporte.php?' + info + '&comprobante=PEDIDO CLIENTE';
         }
     });
 
@@ -615,6 +636,19 @@ $(document).ready(function() {
         var inf = new Array();
         var lstConceptos = new Array();
         var xmlComprobanteManualmente = new XmlComprobante();
+         $('.costos').each(function() {
+
+       var  elemento = this;
+       var nombre = elemento.name;
+       var valor = elemento.value;
+//        alert(elemento.name);
+        if(valor=="" || valor == 0){
+//            alertify.error("Debes elegir algun valor");
+            bandera = 1;
+            
+        }
+    });
+    if(bandera == 0){
         xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
         xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
         xmlComprobanteManualmente.rfcComprobante = "XXXXXXXXX"; //$("#proveedores").val();
@@ -655,9 +689,8 @@ $(document).ready(function() {
             cache: false,
             success: function(x) {
 //                var probando = $("#proveedores").val();
-                alertify.error(x);
-
-                var info = 'valor=' + folio +'&comprobante=PEDIDO CLIENTE' ;
+                alert(x);
+                var info = 'valor=' + x + '&comprobante=PEDIDO CLIENTE';
                 window.location.href = 'generarReporte.php?' + info;
 //                $("#enviarOrdenCompra").show();
 //                $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
@@ -672,6 +705,9 @@ $(document).ready(function() {
                 alertify.success("Exito! Orden Guardada");
             }
         });
+    }else{
+        alertify.error("debe agregar costo");
+    }
     });
     $("#enviarOrdenCompra").click(function() {
 
@@ -690,4 +726,6 @@ $(document).ready(function() {
         $(".resultando").val(0);
         $("#folioM").prop("disabled", false);
     });
+    
+    $("#tablaOrden").load("consultarPedidosClientes");
 });

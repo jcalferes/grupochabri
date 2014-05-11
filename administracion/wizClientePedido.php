@@ -7,7 +7,7 @@
             <h2><span class="glyphicon glyphicon-th-list" />&numsp;Nada</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label  class="control-label">Codigo:</label>
                         <div class="input-group">
                             <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
@@ -21,17 +21,17 @@
                     <div class="form-group">
                         <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
                         <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
-                    </div>
-                    <div id="datosCaptura">
+                    </div>-->
+<!--                    <div id="datosCaptura">
                         <div class="form-group">
                             <label  class="control-label">Cantidad</label>
                             <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
-                <div id="detalle">
+                <div id="detallesPedido">
                 </div>
-                <table  class="table table-hover" id="tablaEntradas">
+                <table  class="table table-hover" id="tablaOrden">
                 </table>
             </section>
 
@@ -53,6 +53,7 @@
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
+                        <param class="CProducto" hidden="true" value="nada">
 <!--                        <label id="lblproveedor">Proveedor: </label>
                         <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
 <!--                        <label id="lblemailP">Email: </label>
