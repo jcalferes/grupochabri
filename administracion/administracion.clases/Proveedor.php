@@ -16,12 +16,22 @@ class Proveedor {
     private $nombre;
     private $idDireccion;
     private $rfc;
+    private $credito;
     private $diasCredito;
     private $desctfactura;
     private $desctprontopago;
     private $email;
     private $tipoProveedor;
 
+    public function getCredito() {
+        return $this->credito;
+    }
+
+    public function setCredito($credito) {
+        $this->credito = $credito;
+    }
+
+        
     public function getTipoProveedor() {
         return $this->tipoProveedor;
     }

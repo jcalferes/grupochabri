@@ -1810,7 +1810,7 @@ class dao {
             }
         }
         //Guardando Proveedor
-        $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1')";
+        $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus, credito) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1','" . $proveedor->getCredito() . "')";
         $sqlProveedorId = "SELECT LAST_INSERT_ID() ID;";
         $ctrlProveedoGuardar = mysql_query($sqlProveedor);
         if ($ctrlProveedoGuardar == false) {
@@ -1866,7 +1866,7 @@ class dao {
             }
         }
         //Editar Proveedor
-        $sqlEditarProveedor = "UPDATE clientes SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "' WHERE idCliente='$idProveedor'";
+        $sqlEditarProveedor = "UPDATE clientes SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "', credito = '".$proveedor->getCredito()."' WHERE idCliente='$idProveedor'";
         $ctrlEditarProveedor = mysql_query($sqlEditarProveedor);
         if ($ctrlEditarProveedor == false) {
             $ctrlEditarProveedor = mysql_error();
@@ -1912,7 +1912,7 @@ class dao {
 
     //===================Sacando datos cliente =================================
     function cpuleaProveedor($rfc) {
-        $sql = "SELECT nombre, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente FROM clientes WHERE rfc = '$rfc'";
+        $sql = "SELECT nombre, rfc, credito, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente FROM clientes WHERE rfc = '$rfc'";
         $rs = mysql_query($sql);
         $datos = mysql_affected_rows();
         if ($rs == false) {
