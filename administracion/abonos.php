@@ -35,9 +35,28 @@
                             <input type="text" class="form-control" id="txtfolioabonos" style="width: 25%"/>
                         </div>
                         <div id="divabonos">
+                            <div class="form-group form-inline">
+                                <label>Nombre del cliente: </label>
+                                <span id="nombreabono">Nombre</span>
+                                <label>RFC: </label>
+                                <span id="rfcabono">RFC</span>
+                                <label>Limite de credito: </label>
+                                <span id="creditoabono">Credito</span>
+                                <h4>
+                                    <label>Adeudo: </label>
+                                    <span id="adeudoabono" style="text">Adeudo</span>
+                                    &numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;
+                                    <label>Saldo: </label>
+                                    <span id="saldoabono" style="text">Saldo</span>
+                                </h4>
+                            </div>
                             <div class="well well-sm" >
                                 <div id="tblabonos" >
                                 </div>
+                                <h4>
+                                    <label>Total: </label>
+                                    <span id="pagadoabono" style="text">Pagado</span>
+                                </h4>
                             </div>
                             <form class='form-inline'>
                                 <div class="form-group">

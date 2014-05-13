@@ -2274,6 +2274,17 @@ class dao {
         }
     }
 
+    function consultarDatosAbonos($folio, $sucursal) {
+        $sql = "SELECT * FROM xmlComprobantes xc "
+                . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND tipoComprobante = 'CREDITO'";
+        $datos = mysql_query($sql);
+        if ($datos == false) {
+            $datos = 1;
+        } 
+        return $datos;
+    }
+
     function consultarAbonos($folio) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -2281,12 +2292,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = 1;
-        } else {
-            $ctrl = mysql_fetch_array($datos);
-            if ($ctrl == false) {
-                $datos = 1;
-            }
-        }
+        } 
         return $datos;
     }
 
