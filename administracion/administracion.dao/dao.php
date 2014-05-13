@@ -2274,4 +2274,20 @@ class dao {
         }
     }
 
+    function consultarAbonos($folio) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM abonos WHERE folioComprobante = '$folio'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        if ($datos == false) {
+            $datos = 1;
+        } else {
+            $ctrl = mysql_fetch_array($datos);
+            if ($ctrl == false) {
+                $datos = 1;
+            }
+        }
+        return $datos;
+    }
+
 }

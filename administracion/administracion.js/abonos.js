@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    alert("Hola");
+    $("#divabonos").hide();
     $("#slctipopago").load("mostrarTiposPagos.php", function() {
         $("#slctipopago").selectpicker();
     });
@@ -7,4 +7,13 @@ $(document).ready(function() {
 
 $("#btnabonos").click(function() {
     $('#mdlabonos').modal('toggle');
+});
+
+$("#txtfolioabonos").blur(function() {
+    var folio = $("#txtfolioabonos").val();
+    alert(folio);
+    $("#tblabonos").load("consultarAbonos.php?folio=" + folio, function() {
+        $("#dtabonos").dataTable();
+        $("#divabonos").slideDown();
+    });
 });

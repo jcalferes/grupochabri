@@ -12,6 +12,7 @@
         <!-- CSS -->
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
@@ -32,19 +33,21 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Folio:</label>
-                                <input type="text" class="form-control" id="txtfolio" style="width: 25%">
+                                <input type="text" class="form-control" id="txtfolioabonos" style="width: 25%"/>
                             </div>
-                            <div id="tblabonos" >
-                            </div>
-                            <div class="form-group">
-                                <label>Cantidad a abonar:</label>
-                                <input type="text" class="form-control" id="txtcantidadabono" style="width: 25%">
-                            </div>
-                            <div class="form-group">
-                                <label>Tipo de pago:</label><br/>
-                                <select id="slctipopago" class="selectpicker" data-container="body" data-live-search="true">
-                                </select>
-                            </div>
+                            <div id="divabonos">
+                                <div id="tblabonos" >
+                                </div>
+                                <div class="form-group">
+                                    <label>Cantidad a abonar:</label>
+                                    <input type="text" class="form-control" id="txtcantidadabono" style="width: 25%">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo de pago:</label><br/>
+                                    <select id="slctipopago" class="selectpicker" data-container="body" data-live-search="true">
+                                    </select>
+                                </div>
+                            </div><!-- /.divabonos -->
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -59,6 +62,7 @@
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../bootstrap/js/bootstrap-select.js"></script>
+        <script src="../dtbootstrap/jquery.dataTables.js"></script>
         <script src="../administracion/administracion.js/abonos.js"></script>
     </body>
 </html>
