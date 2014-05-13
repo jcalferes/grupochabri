@@ -1174,17 +1174,23 @@ class dao {
         return $rs;
     }
 
-    function buscarProductoGral(Producto $p, $proveedor) {
+    function buscarProductoGral(Producto $p, $proveedor,$idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $MySQL = "SELECT p.codigoproducto, producto, costo  FROM productos p
+        $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad   FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
                inner join marcas m
                on m.idMarca = p.idMarca
 	       inner join costos cost
 	       on p.codigoProducto = cost.codigoProducto
-               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "';";
+               inner join existencias ex
+               on p.codigoProducto = ex.codigoProducto
+               inner join tarifas  tar
+               on p.codigoProducto = tar.codigoProducto
+               inner join listaPrecios li
+               on tar.idListaPrecio = li.idListaPrecio
+               WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'and li.nombreListaPrecio='MENUDEO' and tar.idStatus='1' and tar.idSucursal='1' and cost.idSucursal ='1' and cost.status = '1' and ex.idSucursal= '1'";
         $rs = mysql_query($MySQL, $cn->Conectarse());
         $cn->cerrarBd();
         return $rs;
@@ -1353,7 +1359,7 @@ class dao {
             //==================================================================
             //Comienza validar producto en existencia
             $cantidad = 0;
-
+if($tipo !== "PEDIDO CLIENTE" && $tipo !=="Orden Compra"){
             $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
                     . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
             $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
@@ -1365,6 +1371,7 @@ class dao {
                     $cantidad = $rs["cantidad"];
                 }
             }
+}
             //Terminar validar producto en existencia
             //Variables necesarias: $cantidad
             //==================================================================
@@ -1403,6 +1410,7 @@ class dao {
             //Terminar guardar xml concepto
             //==================================================================
             //Comienza actulizar costo
+            if($tipo !== "PEDIDO CLIENTE" && $tipo !=="Orden Compra"){
             $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
                     . " WHERE codigoProducto = '$cpto->codigoConcepto' AND status = '1' AND idSucursal = '$idSucursal'";
             $ctrlTraerCosto = mysql_query($sqlTraerCosto);
@@ -1459,7 +1467,7 @@ class dao {
                 return false;
             }
             //Terminar guardar entrada
-        }//Cierre FOR
+        }}//Cierre FOR
         mysql_query("COMMIT;");
         error_reporting(0);
         return $idComprobante;
@@ -2251,14 +2259,16 @@ class dao {
         return $datos;
     }
 
-    function consultaBuscador() {
+    function consultaBuscador($idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto\n"
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1'";
+                . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
+                . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {

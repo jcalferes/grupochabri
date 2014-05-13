@@ -1,13 +1,15 @@
 <?php
+session_start();
 
 include './administracion.clases/Producto.php';
 include './administracion.dao/dao.php';
+$idsucursal = $_SESSION["sucursalSesion"];
 $productos = new Producto();
 $productos->setCodigoProducto($_GET["codigoProducto"]);
 $proveedor = $_GET["proveedor"];
 
 $dao = new dao();
-$rs = $dao->buscarProductoGral($productos, $proveedor);
+$rs = $dao->buscarProductoGral($productos, $proveedor,$idsucursal);
 if ($rs == false) {
     echo mysql_error();
 } else {
@@ -17,7 +19,8 @@ if ($rs == false) {
         $arr[] = array(
             'codigoProducto' => $resultSet[0],
             'producto' => $resultSet[1],
-            'costo' => $resultSet[2]
+            'costo' => $resultSet[2],
+            'existencia' => $resultSet[3]
         );
     }
     if ($paso == false) {

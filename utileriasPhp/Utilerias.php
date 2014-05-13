@@ -18,7 +18,20 @@ class Utilerias {
         return number_format($resultado, $digitos);
     }
 
-
+    function validarProductoGranel($codigo) {
+        $paso = false;
+        $cadenaComparar = "-GR";
+        $longitud = strlen($codigo);
+        $empezar = $longitud - 3;
+        $cadena = "";
+        for ($x = $empezar; $x < $longitud; $x++) {
+            $cadena = $cadena . $codigo[$x];
+        }
+        if ($cadenaComparar == $cadena) {
+            $paso = true;
+        }
+        return $paso;
+    }
 
 // END FUNCTION
 }

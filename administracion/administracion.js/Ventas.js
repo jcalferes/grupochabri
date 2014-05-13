@@ -53,6 +53,7 @@ $(document).ready(function() {
         });
         if (info != undefined) {
             cargarProductosCarrito();
+            $('#mdlbuscador').modal('toggle');
         } else {
             alertify.error("Debes seleccionar al menos una  marca");
         }

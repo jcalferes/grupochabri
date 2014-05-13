@@ -6,6 +6,13 @@ var sumaDescTotal = 0;
 var folio = 0;
 var tr2 = "";
 var tr3 = "";
+
+function verOrdenCompra(folio, comprobante){
+    alert("folio:"+folio+" comprobante:" + comprobante);
+    var info = "valor=" + folio + "&comprobante=Orden Compra";
+                window.open( 'generarReporte.php?' + info);
+    
+}
 function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
@@ -549,7 +556,7 @@ $(document).ready(function() {
             var conceptos = new xmlConceptosManualmente();
             conceptos.cantidadConcepto = $("#cant" + x).val();
             conceptos.cdaConcepto = $("#cda" + x).val();
-            conceptos.codigoConcepto = $("#codigoM" + x).text();
+            conceptos.codigoConcepto = $("#codigoM" + x).val();
             conceptos.costoCotizacion = $("#costo" + x).val();
 //            alert($("#codigoM" + x).text());
             conceptos.descripcionConcepto = $("#descripcionM" + x).text();
@@ -558,7 +565,7 @@ $(document).ready(function() {
             conceptos.importeConcepto = $("#importe" + x).val();
             conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
             conceptos.unidadMedidaConcepto = "";
-            if ($("#codigoM" + x).text() !== "") {
+            if ($("#codigoM" + x).val() !== "" && $("#codigoM" + x).val() !== undefined) {
 //                alert("entro" + x)
                 lstConceptos.push(conceptos);
             }
@@ -580,7 +587,7 @@ $(document).ready(function() {
                 data: {data: informacion, band: "modifica", folio: $("#folioM").val()},
                 cache: false,
                 success: function(x) {
-                    window.location.href = 'generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
+                    window.open( 'generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra");
                     alertify.success("Exito! Orden Guardada");
                 }
             });
@@ -608,10 +615,11 @@ $(document).ready(function() {
         if ($("#emailProveedor").val() !== "0") {
             if ($("#folioM").val() != "") {
                 var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
-                window.location.href = 'generarReporte.php?' + info;
+                window.open( 'generarReporte.php?' + info);
             } else {
+                alert(folio);
                 var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
-                window.location.href = 'generarReporte.php?' + info;
+                window.open('generarReporte.php?' + info);
             }
         } else {
             alertify.error("Seleccione almenos un email");
@@ -695,16 +703,16 @@ $(document).ready(function() {
             var conceptos = new xmlConceptosManualmente();
             conceptos.cantidadConcepto = $("#cant" + x).val();
             conceptos.cdaConcepto = $("#cda" + x).val();
-            conceptos.codigoConcepto = $("#codigoM" + x).text();
+            conceptos.codigoConcepto = $("#codigoM" + x).val();
             conceptos.costoCotizacion = $("#costo" + x).val();
-            alert($("#codigoM" + x).text());
+//            alert($("#codigoM" + x).val());
             conceptos.descripcionConcepto = $("#descripcionM" + x).text();
             conceptos.desctUnoConcepto = $("#descuento1" + x).val();
             conceptos.desctDosConcepto = $("#descuento2" + x).val();
             conceptos.importeConcepto = $("#importe" + x).val();
             conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
             conceptos.unidadMedidaConcepto = "";
-            if ($("#codigoM" + x).text() !== "") {
+            if ($("#codigoM" + x).val() !== "" && $("#codigoM" + x).val() !== undefined) {
                 lstConceptos.push(conceptos);
             }
         }

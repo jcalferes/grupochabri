@@ -1,7 +1,7 @@
 <?php
-include '../index/verificaSession.php';
-$verificasession = new verificaSession();
-$verificasession->validaSesion();
+//include '../index/verificaSession.php';
+//$verificasession = new verificaSession();
+//$verificasession->validaSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
@@ -22,7 +22,7 @@ $verificasession->validaSesion();
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
         <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
-        <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
+        <link href="../administracion/administracion.css/gestionAdministrativa.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
     <body>
@@ -39,38 +39,6 @@ $verificasession->validaSesion();
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar</a></li>
-                                <li class="divider"></li>
-                                <!--<li class="dropdown-header">Otros</li>-->
-                                <li id="12" class=""><a onclick="entroAgranel();">Granel</a></li>
-                                <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
-                                <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
-                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
-                                <li class="divider"></li>
-                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra</a></li>
-                                <li id="13" class=""><a onclick="entroClientePedido();">Pedidos de clientes</a></li>
-                                <li id="11" class=""><a onclick="entroTrasferencia();">Transferencias</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
-                                <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                                <li id="8" class=""><a onclick="entroUsuarios();">Usuarios del sistema</a></li>
-
-                            </ul>
-                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
@@ -85,7 +53,6 @@ $verificasession->validaSesion();
                 </div>
                 <div class="panel-body">
                     <div id="mostrar">
-                        <img class="img-responsive " style="margin: 0 auto; width: 25%" src="administracion.imgs/ChabriLogo.png" alt="">
                     </div>
                     <a href="#" class="scrollUp"></a>
                 </div>
@@ -100,6 +67,6 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
-        <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
+        <script src="paginaweb.js/tempCliente.js"></script>
     </body>
 </html>

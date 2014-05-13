@@ -4,24 +4,24 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Nada</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Consulta Orden Compra</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
-<!--                    <div class="form-group">
+                    <div class="form-group">
                         <label  class="control-label">Codigo:</label>
-                        <div class="input-group">
+<!--                        <div class="input-group">
                             <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
                             <span class="input-group-btn">
                                 <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span> 
-                        </div>
+                        </div>-->
                     </div>
                     <div class="form-group">
                         <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
                         <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
-                    </div>-->
+                    </div>
 <!--                    <div id="datosCaptura">
                         <div class="form-group">
                             <label  class="control-label">Cantidad</label>
@@ -94,8 +94,8 @@
                     <th>Cantidad</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Costo Anterior</th>
                     <th>Costo</th>
+                    <th>Existencia</th>
 <!--                    <th>Desct. 1</th>
                     <th>Desct. 2</th>-->
 <!--                    <th>Desct. Total</th>-->
@@ -133,7 +133,7 @@
                 <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
+<!--            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
                     <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
@@ -143,13 +143,13 @@
                     </div>
                 </form>
                 <div id="cargaxml">
-                    <!-- Aqui van los archivos cargados -->
+                     Aqui van los archivos cargados 
                 </div>
                 <form id="validacionentradas">
                     <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
                     <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
-            </section>
+            </section>-->
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

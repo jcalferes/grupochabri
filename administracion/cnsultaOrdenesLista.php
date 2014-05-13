@@ -11,6 +11,6 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td>$rs[totalComprobante]</td>";
     echo"<td>$rs[desctTotalComprobante]</td>";
 //    echo"<td>Nada</td></tr>";
-    echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[idXmlComprobante])'><span class='glyphicon glyphicon-info-sign'></span></button></center></td></tr>";
+    echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[idXmlComprobante],\"ORDEN COMPRA\")'><span class='glyphicon glyphicon-info-sign'></span></button></center></td></tr>";
 }
 echo"</tbody></table></div>";
