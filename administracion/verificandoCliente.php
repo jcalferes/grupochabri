@@ -18,7 +18,7 @@ $emails = [];
 $contema = 0;
 if ($prov != false) {
     while ($pdt = mysql_fetch_array($prov)) {
-        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'diascredito' => $pdt["diasCredito"], 'descuentopf' => $pdt["descuentoPorFactura"], 'descuentopp' => $pdt["descuentoPorProntoPago"], 'tipoproveedor' => $pdt["tipoCliente"]);
+        $arr['proveedor']['datos'] = array('nombre' => $pdt["nombre"], 'rfc' => $pdt["rfc"], 'credito' => $pdt["credito"], 'diascredito' => $pdt["diasCredito"], 'descuentopf' => $pdt["descuentoPorFactura"], 'descuentopp' => $pdt["descuentoPorProntoPago"], 'tipoproveedor' => $pdt["tipoCliente"]);
     }
     while ($ddt = mysql_fetch_array($dire)) {
         $arr['direccion']['datos'] = array('calle' => $ddt["calle"], 'numeroext' => $ddt["numeroExterior"], 'numeroint' => $ddt["numeroInterior"], 'cruzamientos' => $ddt["cruzamientos"], 'postal' => $ddt["postal"], 'colonia' => $ddt["colonia"], 'ciudad' => $ddt["ciudad"], 'estado' => $ddt["estado"]);
