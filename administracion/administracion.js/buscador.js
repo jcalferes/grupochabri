@@ -2,8 +2,8 @@ $(document).ready(function() {
     $('#example').tooltip();
 });
 
-$('#example').on('hidden.bs.tooltip', function () {
-  alert(":P");
+$('#example').on('hidden.bs.tooltip', function() {
+    alert(":P");
 });
 
 $("#btnbuscador").click(function() {
@@ -11,6 +11,10 @@ $("#btnbuscador").click(function() {
         $('#tdProducto').dataTable();
     });
     $('#mdlbuscador').modal('toggle');
+});
+
+$("#mdlGranelbtn").click(function() {
+    $('#mdlGranel').modal('toggle');
 });
 
 function listarProductos() {
@@ -27,21 +31,6 @@ function listarProductos() {
     });
     if (info != undefined) {
         $('#mdlbuscador').modal('toggle');
-//        alertify.confirm("Desea Eliminar las Marcas seleccionadas?", function(e) {
-//            if (e) {
-//                alertify.success("SI");
-//                $.get('eliminaMarca.php', info, function() {
-//                    alertify.success("se han dado de baja de manera correcta");
-//                    $("#consultaMarca").load("consultarMarca.php", function() {
-//                        $('#dtmarca').dataTable();
-//                    });
-//                });
-//            } else {
-//                alertify.error("NO");
-//            }
-//        });
-//        return false;
-
     } else {
         alertify.error("Debes seleccionar al menos un producto");
     }

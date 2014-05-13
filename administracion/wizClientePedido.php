@@ -82,9 +82,8 @@
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" />
                             <span class="input-group-btn">
-                                <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
+                                        <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
+
                             </span> 
                         </div>
                     </div>
@@ -105,7 +104,7 @@
                 </table>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
@@ -115,15 +114,15 @@
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
@@ -152,16 +151,19 @@
             </section>-->
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Buscar ID Producto</h4>
+                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="veridproductos">
+                        <div id="todos" >
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -174,6 +176,7 @@
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
         <script src="../administracion/administracion.js/pedidoCliente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
+        <!--<script src="../administracion/administracion.js/buscador.js"></script>-->
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

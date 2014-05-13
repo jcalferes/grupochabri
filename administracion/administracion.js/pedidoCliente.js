@@ -6,6 +6,91 @@ var sumaDescTotal = 0;
 var folio = 0;
 var tr2 = "";
 var tr3 = "";
+var subtotal = 0;
+function listarProductos() {
+    var idMarcas = new Array();
+    var info;
+    $("#tdProducto").find(':checked').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+//        alert(valor);
+        idMarcas.push(valor);
+        lista = JSON.stringify(idMarcas);
+        info = "codigos=" + lista;
+
+
+
+    });
+    if (info != undefined) {
+        $.get('consultaMasivaProductos.php', info, function(x) {
+            var valorando = 0;
+            lista = JSON.parse(x);
+            console.log(lista);
+            $.each(lista, function(ind, elem) {
+//                alert(elem);
+                $.each(elem, function(ind, elem2) {
+//                    alert(elem2);
+                    $.each(elem, function(ind, elem2) {
+//                        alert(elem[ind].tarifa);
+
+                        $('.CProducto').each(function() {
+
+                            var elemento = this;
+                            var nombre = elemento.name;
+                            var valor = elemento.value;
+//                            alert(elemento.name);
+                            if (valor == elem[ind].codigoproducto && elem[ind].codigoproducto !== "nada") {
+//            alertify.error("ya existe");
+                                valorando = nombre;
+
+                            }
+                        });
+                        if (valorando == '0') {
+                            tr = '<tr>\n\
+                        <td> \n\
+                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
+                        <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
+                        <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\\n\
+                        <td><span id="costoUnitarioM' + contador + '">' + elem[ind].tarifa + '</span></td>\n\
+                        <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + elem[ind].cantidad + '" disabled> </input>\n\
+                        </td>\n\
+                       <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
+        <td> <input id="importe' + contador + '" class="form-control" type= "text" value="' + elem[ind].tarifa + '" disabled="true"> </input> </td></tr>';
+                            $("#tablaDatosEntrada").append(tr);
+                            contador = contador + 1;
+
+                            subtotal = $("#subTotalM").val();
+                            $("#subTotalM").val(parseFloat(subtotal) + parseFloat(elem[ind].tarifa));
+                            var newsubtotal = $("#subTotalM").val();
+                            $("#ivaM").val(parseFloat(newsubtotal) * parseFloat(0.16));
+                            $("#sdaM").val(parseFloat(subtotal) + parseFloat(elem[ind].tarifa));
+                            $("#costoTotal").val(parseFloat($("#ivaM").val()) + parseFloat($("#sdaM").val()));
+                            $(".descuentos").attr('disabled', 'disabled');
+                            $("#guardarOrdenCompra").show();
+                            $("#CancelarOrden").show();
+                        } else {
+                            alertify.error("ya existe");
+                            sumar = $("#cant" + valorando).val();
+                            total = 1 + parseInt(sumar);
+                            $("#cant" + valorando).val(total);
+                            calcularPorCantidad(valorando);
+                            valorando = 0;
+                        }
+                    });
+
+                });
+
+
+            });
+
+        });
+
+        $('#mdlbuscador').modal('toggle');
+    } else {
+        alertify.error("Debes seleccionar al menos un producto");
+    }
+}
+
 function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
@@ -71,7 +156,7 @@ $("#folioM").keypress(function(e) {
 
         });
         var info = "folio=" + $("#folioM").val() + "&comprobante=PEDIDO CLIENTE";
-        alert(info);
+//        alert(info);
         $.get('consultaClientePedido.php', info, function(x) {
             if (x == 0) {
                 alertify.error("no hay ese codigo");
@@ -155,7 +240,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            alert(elemento.name);
+//            alert(elemento.name);
             if ($("#codigoProductoEntradas").val() == valor && $("#codigoProductoEntradas").val() !== "nada") {
 //            alertify.error("ya existe");
                 valorando = nombre;
@@ -504,6 +589,7 @@ function generarDescuentosgenerales() {
     calculaTotalEntradasManual();
 }
 
+
 $(document).ready(function() {
     $("#codigoProductoEntradas").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
@@ -588,7 +674,7 @@ $(document).ready(function() {
     });
 
     $("#enviarOrdenCompra").click(function() {
-        alert(folio);
+//        alert(folio);
         if ($("#folioM").val() != "") {
             var info = "valor=" + $("#folioM").val();
             window.open('generarReporte.php?' + info + '&comprobante=PEDIDO CLIENTE');
@@ -698,7 +784,7 @@ $(document).ready(function() {
                 cache: false,
                 success: function(x) {
 //                var probando = $("#proveedores").val();
-                    alert(x);
+//                    alert(x);
                     var info = 'valor=' + x + '&comprobante=PEDIDO CLIENTE';
                     window.open('generarReporte.php?' + info);
 //                $("#enviarOrdenCompra").show();
@@ -737,4 +823,11 @@ $(document).ready(function() {
     });
 
     $("#tablaOrden").load("consultarPedidosClientes");
+
+    $("#btnbuscador").click(function() {
+        $("#todos").load("consultarBuscador.php", function() {
+            $('#tdProducto').dataTable();
+        });
+        $('#mdlbuscador').modal('toggle');
+    });
 });
