@@ -11,7 +11,6 @@ $("#btnabonos").click(function() {
 
 $("#txtfolioabonos").blur(function() {
     var folio = $("#txtfolioabonos").val();
-    alert(folio);
     $("#tblabonos").load("consultarAbonos.php?folio=" + folio, function() {
         $("#dtabonos").dataTable();
         $("#divabonos").slideDown();

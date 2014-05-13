@@ -24,35 +24,48 @@
         <!--/.modal-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div class="modal-dialog" style="width: 80%">
-                <form>
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Abonos</h4>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Abonos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Folio:</label>
+                            <input type="text" class="form-control" id="txtfolioabonos" style="width: 25%"/>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Folio:</label>
-                                <input type="text" class="form-control" id="txtfolioabonos" style="width: 25%"/>
-                            </div>
-                            <div id="divabonos">
+                        <div id="divabonos">
+                            <div class="well well-sm" >
                                 <div id="tblabonos" >
                                 </div>
+                            </div>
+                            <form class='form-inline'>
                                 <div class="form-group">
-                                    <label>Cantidad a abonar:</label>
-                                    <input type="text" class="form-control" id="txtcantidadabono" style="width: 25%">
+                                    <label>Cantidad a abonar:</label><br>
+                                    <input type="number" class="form-control" id="txtcantidadabono"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>Tipo de pago:</label><br/>
+                                    <label>Tipo de pago:</label><br>
                                     <select id="slctipopago" class="selectpicker" data-container="body" data-live-search="true">
                                     </select>
                                 </div>
-                            </div><!-- /.divabonos -->
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div><!-- /.modal-content -->
-                </form>
+                                <div class="form-group">
+                                    <label>Referencia:</label><br>
+                                    <input type="text" class="form-control" id="txtreferenciaabono" />
+                                </div>
+                            </form>
+                            <div class="form-group">
+                                <label>Observaciones:</label><br/>
+                                <textarea class="form-control" id="txtobservacionesabono"></textarea>
+                            </div>
+                            <hr>
+                            <div class="form-group text-right">
+                                <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar</button>
+                                <button type='button' class='btn btn-primary' id='btnabonar'>Abonar</button>
+                            </div>
+                        </div><!-- /.divabonos -->
+                    </div>
+                </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!-- JSCRIPT -->
