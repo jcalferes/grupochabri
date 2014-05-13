@@ -15,6 +15,7 @@
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
     <body>
@@ -41,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Tipo de pago:</label><br/>
-                                <select id="selectMedida" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                <select id="slctipopago" class="selectpicker" data-container="body" data-live-search="true">
                                 </select>
                             </div>
                         </div>
@@ -57,6 +58,7 @@
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
         <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../administracion/administracion.js/abonos.js"></script>
     </body>
 </html>

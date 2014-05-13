@@ -1866,7 +1866,7 @@ class dao {
             }
         }
         //Editar Proveedor
-        $sqlEditarProveedor = "UPDATE clientes SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "', credito = '".$proveedor->getCredito()."' WHERE idCliente='$idProveedor'";
+        $sqlEditarProveedor = "UPDATE clientes SET nombre='" . $proveedor->getNombre() . "' , diasCredito='" . $proveedor->getDiasCredito() . "' , descuentoPorFactura='" . $proveedor->getDesctfactura() . "' , descuentoPorProntoPago='" . $proveedor->getDesctprontopago() . "', credito = '" . $proveedor->getCredito() . "' WHERE idCliente='$idProveedor'";
         $ctrlEditarProveedor = mysql_query($sqlEditarProveedor);
         if ($ctrlEditarProveedor == false) {
             $ctrlEditarProveedor = mysql_error();
@@ -2258,6 +2258,19 @@ class dao {
             return $datos;
         } else {
             return 0;
+        }
+    }
+
+    //===== Abonos =============================================================
+    function mostrarTiposPagos() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tipospagos";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return $rs;
         }
     }
 
