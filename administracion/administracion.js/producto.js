@@ -1,4 +1,4 @@
-function NumCheck(e, field, tarifa) {
+function NumCheck(e, field) {
     key = e.keyCode ? e.keyCode : e.which
     if (key == 15)
         return true

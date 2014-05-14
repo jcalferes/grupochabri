@@ -9,6 +9,25 @@ $("#btnabonos").click(function() {
     $('#mdlabonos').modal('toggle');
 });
 
+function NumCheck(e, field, tarifa) {
+    key = e.keyCode ? e.keyCode : e.which
+    if (key == 15)
+        return true
+    if (key > 47 && key < 58) {
+        if (field.value == "")
+            return true
+        regexp = /.[0-9]{20}$/
+        return !(regexp.test(field.value))
+    }
+    if (key == 46) {
+        if (field.value == "")
+            return false
+        regexp = /^[0-9]+$/
+        return regexp.test(field.value)
+    }
+    return false
+}
+
 $("#txtfolioabonos").blur(function() {
     var folio = $("#txtfolioabonos").val();
     var info = "folio=" + folio;
@@ -29,7 +48,7 @@ $("#txtfolioabonos").blur(function() {
                 });
                 var saldo = arr.cliente.totalComprobante - pagado;
                 $("#pagadoabono").text("$" + pagado);
-                 $("#saldoabono").text("$" + saldo);
+                $("#saldoabono").text("$" + saldo);
                 $("#divabonos").slideDown();
             });
         }

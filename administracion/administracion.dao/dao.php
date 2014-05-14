@@ -2288,7 +2288,9 @@ class dao {
     function consultarAbonos($folio) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM abonos WHERE folioComprobante = '$folio'";
+        $sql = "SELECT * FROM abonos a "
+                . "INNER JOIN tiposPagos t ON a.idTipoPago = t.idTipoPago "
+                . "WHERE folioComprobante = '$folio'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
             $datos = 1;
