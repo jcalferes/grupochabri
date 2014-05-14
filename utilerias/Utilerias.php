@@ -30,16 +30,16 @@ class Utilerias {
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
         $mail->SMTPSecure = "ssl";
-        $mail->Host = "smtp.gmail.com";
-        $mail->Port = 465;
+        $mail->Host = "mail.grupochabri.mx";
+        $mail->Port = 587;
 
         $mail->From = "de"; //Remitente (En mi variable)
         foreach ($destinos as $value) {
             $mail->AddAddress($value); //Destinatario
         }
 
-        $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-        $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
+        $mail->Username = "ordenes.compra@grupochabri.mx"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+        $mail->Password = "Ordenes13579"; //Aqui va la contraseña valida de tu correo
         $mail->Subject = "asunto"; //El asunto de correo
         $mail->Body = "mensaje"; //El mensaje de correo
 //    $mail->WordWrap = 50; //# de columnas
@@ -113,7 +113,16 @@ class Utilerias {
                                 $key = (int) substr($xaux, 0, 3);
                                 if (TRUE === array_key_exists($key, $xarray)) {  // busco si la centena es número redondo (100, 200, 300, 400, etc..)
                                     $xseek = $xarray[$key];
-                                    $xsub = subfijo($xaux); // devuelve el subfijo correspondiente (Millón, Millones, Mil o nada)
+//                                    $xsub = subfijo($xaux); // devuelve el subfijo correspondiente (Millón, Millones, Mil o nada)
+                                    $xx = trim($xaux);
+                                    $xstrlen = strlen($xx);
+                                    if ($xstrlen == 1 || $xstrlen == 2 || $xstrlen == 3)
+                                        $xsub = "";
+                                    //
+                                    if ($xstrlen == 4 || $xstrlen == 5 || $xstrlen == 6)
+                                        $xsub = "MIL";
+                                    //
+//                                    return $xsub;
                                     if (substr($xaux, 0, 3) == 100)
                                         $xcadena = " " . $xcadena . " CIEN " . $xsub;
                                     else
@@ -134,7 +143,16 @@ class Utilerias {
                                 $key = (int) substr($xaux, 1, 2);
                                 if (TRUE === array_key_exists($key, $xarray)) {
                                     $xseek = $xarray[$key];
-                                    $xsub = subfijo($xaux);
+//                                    $xsub = subfijo($xaux);
+                                    $xx = trim($xaux);
+                                    $xstrlen = strlen($xx);
+                                    if ($xstrlen == 1 || $xstrlen == 2 || $xstrlen == 3)
+                                        $xsub = "";
+                                    //
+                                    if ($xstrlen == 4 || $xstrlen == 5 || $xstrlen == 6)
+                                        $xsub = "MIL";
+                                    //
+//                                    return $xsub;
                                     if (substr($xaux, 1, 2) == 20)
                                         $xcadena = " " . $xcadena . " VEINTE " . $xsub;
                                     else

@@ -4,34 +4,34 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Nada</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Consulta Orden Compra</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label  class="control-label">Codigo:</label>
-                        <div class="input-group">
+<!--                        <div class="input-group">
                             <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
                             <span class="input-group-btn">
                                 <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span> 
-                        </div>
+                        </div>-->
                     </div>
                     <div class="form-group">
                         <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
                         <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
                     </div>
-                    <div id="datosCaptura">
+<!--                    <div id="datosCaptura">
                         <div class="form-group">
                             <label  class="control-label">Cantidad</label>
                             <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
-                <div id="detalle">
+                <div id="detallesPedido">
                 </div>
-                <table  class="table table-hover" id="tablaEntradas">
+                <table  class="table table-hover" id="tablaOrden">
                 </table>
             </section>
 
@@ -53,37 +53,37 @@
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
-                        <!--                        <label id="lblproveedor">Proveedor: </label>
-                                                <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
-                        <!--                        <label id="lblemailP">Email: </label>
-                                                <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
-                                                <label id="lblemailO">Otro email(opcional): </label>
-                                                <input id="txtEmail" class="form-control"/>                       -->
+                        <param class="CProducto" hidden="true" value="nada">
+<!--                        <label id="lblproveedor">Proveedor: </label>
+                        <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
+<!--                        <label id="lblemailP">Email: </label>
+                        <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                        <label id="lblemailO">Otro email(opcional): </label>
+                        <input id="txtEmail" class="form-control"/>                       -->
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
                     </div>
                     <div class="form-group form-inline">
 
-                        <!--                        <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
-                                                    </label>
-                                                </div><br>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
-                                                    </label>
-                                                </div>-->
-                                                <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
+<!--                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
+                            </label>
+                        </div><br>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
+                            </label>
+                        </div>-->
+                        <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
                     </div>
                     <div class="form-group form-inline">
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" />
                             <span class="input-group-btn">
-                                <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
+                                        <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
+
                             </span> 
                         </div>
                     </div>
@@ -93,8 +93,8 @@
                     <th>Cantidad</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
-                    <th>Costo Anterior</th>
                     <th>Costo</th>
+                    <th>Existencia</th>
 <!--                    <th>Desct. 1</th>
                     <th>Desct. 2</th>-->
 <!--                    <th>Desct. Total</th>-->
@@ -104,7 +104,7 @@
                 </table>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
@@ -114,15 +114,15 @@
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
+                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
@@ -132,7 +132,7 @@
                 <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
+<!--            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
                     <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
@@ -142,25 +142,28 @@
                     </div>
                 </form>
                 <div id="cargaxml">
-                    <!-- Aqui van los archivos cargados -->
+                     Aqui van los archivos cargados 
                 </div>
                 <form id="validacionentradas">
                     <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
                     <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
-            </section>
+            </section>-->
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Buscar ID Producto</h4>
+                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="veridproductos">
+                        <div id="todos" >
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -173,6 +176,7 @@
         <script src="../administracion/administracion.js/xmlCalculos.js"></script>
         <script src="../administracion/administracion.js/pedidoCliente.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
+        <!--<script src="../administracion/administracion.js/buscador.js"></script>-->
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

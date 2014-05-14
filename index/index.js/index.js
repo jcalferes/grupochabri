@@ -48,7 +48,7 @@ $("#loginbtn").click(function() {
                 if (respuesta == 7) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = 'paginaweb/tempCliente.php';
+                    alertify.success("ES UN CLIENTE");
                 }
                 if (respuesta == 777) {
                     $("#loginuser").val("");
