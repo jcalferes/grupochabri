@@ -23,7 +23,7 @@
         <input type="button"  class="btn btn-primary" value="Probar" id="btnabonos"/>
         <!--/.modal-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="modal-dialog" style="width: 80%">
+            <div id="mdldialog" class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -32,7 +32,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Folio:</label>
-                            <input type="text" class="form-control" id="txtfolioabonos" style="width: 25%"/>
+                            <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
                         </div>
                         <div id="divabonos">
                             <div class="form-group form-inline">
@@ -42,13 +42,17 @@
                                 <span id="rfcabono">RFC</span>
                                 <label>Limite de credito: </label>
                                 <span id="creditoabono">Credito</span>
-                                <h4>
+                                <br>
+                                <h4 style="display: inline">    
                                     <label>Adeudo: </label>
                                     <span id="adeudoabono" style="text">Adeudo</span>
-                                    &numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;&numsp;
-                                    <label>Saldo: </label>
-                                    <span id="saldoabono" style="text">Saldo</span>
                                 </h4>
+                                <div style="float: right">
+                                    <h4 style="display: inline"> 
+                                        <label>Saldo: </label>
+                                        <span id="saldoabono" style="text">Saldo</span>
+                                    </h4> 
+                                </div>
                             </div>
                             <div class="well well-sm" >
                                 <div id="tblabonos" >

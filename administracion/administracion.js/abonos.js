@@ -49,6 +49,9 @@ $("#txtfolioabonos").blur(function() {
                 var saldo = arr.cliente.totalComprobante - pagado;
                 $("#pagadoabono").text("$" + pagado);
                 $("#saldoabono").text("$" + saldo);
+//                $("#mdldialog").attr("style", "width: 80%");
+                $("#mdldialog").css("width","80%");
+//                document.getElementById("mdldialog").style.width = "80%";
                 $("#divabonos").slideDown();
             });
         }
