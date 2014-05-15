@@ -4,7 +4,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Consulta Orden Compra</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;CONSULTA ORDEN CLIENTE</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
@@ -38,6 +38,9 @@
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Cliente Compra</h2>
             <section>
                 <form class="form-horizontal" role="form">
+                    <select id="sucursal" class="form-control">
+                        <option value="0">Seleccione una Sucursal</option>
+                    </select>
                     <div class="radio-inline" >
                         <span>
                             <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
@@ -82,7 +85,7 @@
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" />
                             <span class="input-group-btn">
-                                        <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
+                                        <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
 
                             </span> 
                         </div>

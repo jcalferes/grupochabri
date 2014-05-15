@@ -5,7 +5,6 @@ include './administracion.dao/dao.php';
 $productos = new Producto();
 $productos->setCodigoProducto($_GET["codigoProducto"]);
 $proveedor = $_GET["proveedor"];
-
 $dao = new dao();
 $rs = $dao->buscarProducto($productos, $proveedor);
 if ($rs == false) {

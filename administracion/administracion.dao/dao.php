@@ -2285,7 +2285,7 @@ class dao {
         $total= count($codigoProducto);
         foreach ($codigoProducto as  $value) {
             
-            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad   FROM productos p
+            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo   FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
                inner join marcas m
@@ -2307,5 +2307,15 @@ class dao {
         $cn->cerrarBd();
         return $datos;
     }
-
+ function mostrarTiposPagos() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tipospagos";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        if ($rs == false) {
+            return 1;
+        } else {
+            return $rs;
+        }
+ }
 }
