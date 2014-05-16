@@ -2344,7 +2344,7 @@ class dao {
         return $datos;
     }
 
-    function guardarAbono() {
+    function guardarAbono($sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $ctrl) {
         
     }
 
