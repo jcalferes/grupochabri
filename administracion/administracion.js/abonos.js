@@ -9,6 +9,7 @@ $("#btnabonos").click(function() {
     $('#mdlabonos').modal('toggle');
 });
 
+//============ UTILIDADES ======================================================
 function NumCheck(e, field, tarifa) {
     key = e.keyCode ? e.keyCode : e.which
     if (key == 15)
@@ -28,10 +29,12 @@ function NumCheck(e, field, tarifa) {
     return false
 }
 
+//=========== TERMINA UTILIDADES ===============================================
+
 $("#txtfolioabonos").blur(function() {
     var folio = $("#txtfolioabonos").val();
     var info = "folio=" + folio;
-    var pagado = 0
+    var pagado = 0;
     $.get('consultarDatosAbonos.php', info, function(rs) {
         if (rs != 0) {
             var arr = $.parseJSON(rs);
@@ -50,10 +53,12 @@ $("#txtfolioabonos").blur(function() {
                 $("#pagadoabono").text("$" + pagado);
                 $("#saldoabono").text("$" + saldo);
 //                $("#mdldialog").attr("style", "width: 80%");
-                $("#mdldialog").css("width","80%");
+                $("#mdldialog").css("width", "80%");
 //                document.getElementById("mdldialog").style.width = "80%";
                 $("#divabonos").slideDown();
             });
+        } else {
+
         }
     });
 });
