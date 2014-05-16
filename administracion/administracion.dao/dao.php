@@ -2344,8 +2344,21 @@ class dao {
         return $datos;
     }
 
-    function guardarAbono($sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $ctrl) {
-        
+    function guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida) {
+        //====================== Sacar rfc del cliente =========================
+        $sql = "SELECT rfcComprobante FROM xmlComprobantes WHERE idSucursal = '$sucursal' AND folioComprobante = '$folio'";
+        $ctrl = mysql_query($sql);
+        mysql_query("START TRANSACTION;");
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $rfc = $rs["rfcComprobante"];
+            }
+        }
+        //====================== Guardando abono ===============================
     }
 
 }

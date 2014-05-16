@@ -76,7 +76,7 @@ $("#btnabonar").click(function() {
     var tipopago = $("#slctipopago").val();
     var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
-    var ctrl = false;
+    var liquida = false;
 
 
     if (monto === "" || /^\s+$/.test(monto) || referencia === "" || /^\s+$/.test(referencia)) {
@@ -96,12 +96,12 @@ $("#btnabonar").click(function() {
     var adeudo = parseFloat($("#adeudoabono").text());
     var pagado = parseFloat($("#pagadoabono").text());
 
-    var liquido = pagado + parseFloat(monto);
-    if (liquido == adeudo) {
+    var liquidado = pagado + parseFloat(monto);
+    if (liquidado == adeudo) {
         ctrl = true;
     }
 
-    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&ctrl=" + ctrl;
+    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&liquida=" + liquida;
     $.get('guardarAbono.php', info, function(rs) {
 
     });

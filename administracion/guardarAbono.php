@@ -14,7 +14,8 @@ $monto = $_GET["monto"];
 $tipopago = $_GET["tipopago"];
 $referencia = $_GET["referencia"];
 $observ = $_GET["observ"];
-$ctrl = $_GET["ctrl"];
+$liquida = $_GET["liquida"];
 
-
-
+$cn->Conectarse();
+$stat = $dao->guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida);
+$cn->cerrarBd();
