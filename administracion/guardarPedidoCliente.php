@@ -14,7 +14,7 @@ session_start();
 $dao = new dao();
 $tipo = "PEDIDO CLIENTE";
 //$idsucursal = $_SESSION["sucursalSesion"];
-$idsucursal = $_GET["sucursal"];
+$idsucursal = $_POST["sucursal"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
 $band = $_POST["band"];

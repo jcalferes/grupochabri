@@ -5,7 +5,7 @@ class dao {
     function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes Where tipoComprobante = '$tipo'";
+        $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
         $sql = mysql_query($sql, $cn->Conectarse());
 //        $cn->cerrarBd();
         return $sql;
