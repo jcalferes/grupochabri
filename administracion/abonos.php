@@ -45,12 +45,12 @@
                                 <br>
                                 <h4 style="display: inline">    
                                     <label>Adeudo: </label>
-                                    <span id="adeudoabono" style="text">Adeudo</span>
+                                    <span id="adeudoabono" >Adeudo</span>
                                 </h4>
                                 <div style="float: right">
                                     <h4 style="display: inline"> 
                                         <label>Saldo: </label>
-                                        <span id="saldoabono" style="text">Saldo</span>
+                                        <span id="saldoabono" >Saldo</span>
                                     </h4> 
                                 </div>
                             </div>
@@ -59,21 +59,21 @@
                                 </div>
                                 <h4>
                                     <label>Total: </label>
-                                    <span id="pagadoabono" style="text">Pagado</span>
+                                    <span id="pagadoabono" >Pagado</span>
                                 </h4>
                             </div>
                             <form class='form-inline'>
                                 <div class="form-group">
-                                    <label>Cantidad a abonar:</label><br>
+                                    <label>*Cantidad a abonar:</label><br>
                                     <input type="number" class="form-control" id="txtcantidadabono" onkeypress="return NumCheck(event, this);" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Tipo de pago:</label><br>
+                                    <label>*Tipo de pago:</label><br>
                                     <select id="slctipopago" class="selectpicker" data-container="body" data-live-search="true">
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Referencia:</label><br>
+                                    <label>*Referencia:</label><br>
                                     <input type="text" class="form-control" id="txtreferenciaabono" />
                                 </div>
                             </form>
@@ -82,6 +82,7 @@
                                 <label>Observaciones:</label><br/>
                                 <textarea class="form-control" id="txtobservacionesabono"></textarea>
                             </div>
+                            <p class="text-muted"><em>*Datos obligatorios para poder abonar</em></p>
                             <hr>
                             <div class="form-group text-right">
                                 <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar</button>
