@@ -229,7 +229,7 @@ $("#folioM").keypress(function(e) {
                         $("#CancelarOrden").show();
 //                        $("#enviarOrdenCompra").hide();
                         $("#folioM").prop("disabled", true);
-                        $("#codigoProductoEntradas").prop("disabled", false);
+                        $("#codigoProductoEntradas").prop("disabled", true);
 
 
 

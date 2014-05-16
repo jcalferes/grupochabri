@@ -144,7 +144,7 @@ function seleccionTipo() {
         $("#proveedores").selectpicker('hide');
         $("#guardarOrdenCompra").hide();
         $("#guardaEnviaOrden").hide();
-
+        $("#folioM").prop('disabled',false);
         $("#folioM").show('slow');
         $("#folio").show('slow');
         $("#folio").val("");
