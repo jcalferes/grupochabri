@@ -86,6 +86,12 @@ $("#btnabonar").click(function() {
         }
     }
 
+    if (observ === "" || /^\s+$/.test(observ)) {
+        observ = "NA";
+    }
+
+    alert(observ);
+
     var info = "monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ;
     $.get('guardarAbono.php', info, function(rs) {
 

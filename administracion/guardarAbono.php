@@ -7,9 +7,10 @@ include './administracion.dao/dao.php';
 $dao = new dao();
 $cn = new coneccion();
 
+$lafecha = date("d-m-Y");
 $monto = $_GET["monto"];
 $tipopago = $_GET["tipopago"];
 $referencia = $_GET["referencia"];
 $observ = $_GET["observ"];
-echo 'asdasds';
+
 

@@ -2344,4 +2344,8 @@ class dao {
         return $datos;
     }
 
+    function guardarAbono() {
+        
+    }
+
 }
