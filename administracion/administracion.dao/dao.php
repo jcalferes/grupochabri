@@ -2282,9 +2282,9 @@ class dao {
     function consultaInformacionProductosMasivos($codigoProducto, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $total= count($codigoProducto);
-        foreach ($codigoProducto as  $value) {
-            
+        $total = count($codigoProducto);
+        foreach ($codigoProducto as $value) {
+
             $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo   FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
@@ -2300,14 +2300,15 @@ class dao {
                on tar.idListaPrecio = li.idListaPrecio
                WHERE p.codigoProducto='" . $value . "'and li.nombreListaPrecio='MENUDEO' and tar.idStatus='1' and tar.idSucursal='1' and cost.idSucursal ='1' and cost.status = '1' and ex.idSucursal= '1'";
             $rs = mysql_query($MySQL, $cn->Conectarse());
-            while ($resultSet = mysql_fetch_array($rs,MYSQL_ASSOC)) {
-                $datos[] = array( $resultSet);
+            while ($resultSet = mysql_fetch_array($rs, MYSQL_ASSOC)) {
+                $datos[] = array($resultSet);
             }
         }
         $cn->cerrarBd();
         return $datos;
     }
- function mostrarTiposPagos() {
+
+    function mostrarTiposPagos() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM tipospagos";
@@ -2317,5 +2318,30 @@ class dao {
         } else {
             return $rs;
         }
- }
+    }
+
+    function consultarDatosAbonos($folio, $sucursal) {
+        $sql = "SELECT * FROM xmlComprobantes xc "
+                . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND tipoComprobante = 'CREDITO'";
+        $datos = mysql_query($sql);
+        if ($datos == false) {
+            $datos = 1;
+        }
+        return $datos;
+    }
+
+    function consultarAbonos($folio) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM abonos a "
+                . "INNER JOIN tiposPagos t ON a.idTipoPago = t.idTipoPago "
+                . "WHERE folioComprobante = '$folio'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        if ($datos == false) {
+            $datos = 1;
+        }
+        return $datos;
+    }
+
 }
