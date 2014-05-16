@@ -45,12 +45,12 @@
                                 <br>
                                 <h4 style="display: inline">    
                                     <label>Adeudo: </label>
-                                    <span id="adeudoabono" style="text">Adeudo</span>
+                                    <span id="adeudoabono" >Adeudo</span>
                                 </h4>
                                 <div style="float: right">
                                     <h4 style="display: inline"> 
                                         <label>Saldo: </label>
-                                        <span id="saldoabono" style="text">Saldo</span>
+                                        <span id="saldoabono" >Saldo</span>
                                     </h4> 
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                 </div>
                                 <h4>
                                     <label>Total: </label>
-                                    <span id="pagadoabono" style="text">Pagado</span>
+                                    <span id="pagadoabono" >Pagado</span>
                                 </h4>
                             </div>
                             <form class='form-inline'>

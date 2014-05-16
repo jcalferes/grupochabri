@@ -43,8 +43,8 @@ $("#txtfolioabonos").blur(function() {
                 var arr = $.parseJSON(rs);
                 $("#nombreabono").text(arr.cliente.nombre);
                 $("#rfcabono").text(arr.cliente.rfc);
-                $("#creditoabono").text("$" + arr.cliente.credito);
-                $("#adeudoabono").text("$" + arr.cliente.totalComprobante);
+                $("#creditoabono").text(arr.cliente.credito);
+                $("#adeudoabono").text(arr.cliente.totalComprobante);
                 $("#tblabonos").load("consultarAbonos.php?folio=" + folio, function() {
                     $("#dtabonos").dataTable();
                     $("#dtabonos").find('.importeabonos').each(function() {
@@ -53,8 +53,8 @@ $("#txtfolioabonos").blur(function() {
                         pagado = pagado + parseFloat(valor);
                     });
                     var saldo = arr.cliente.totalComprobante - pagado;
-                    $("#pagadoabono").text("$" + pagado);
-                    $("#saldoabono").text("$" + saldo);
+                    $("#pagadoabono").text(pagado);
+                    $("#saldoabono").text(saldo);
 //                $("#mdldialog").attr("style", "width: 80%");
                     $("#mdldialog").css("width", "80%");
 //                document.getElementById("mdldialog").style.width = "80%";
@@ -71,10 +71,13 @@ $("#txtfolioabonos").blur(function() {
 });
 
 $("#btnabonar").click(function() {
+    var folio = $("#txtfolioabonos").val();
     var monto = $("#txtcantidadabono").val();
     var tipopago = $("#slctipopago").val();
     var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
+    var ctrl = false;
+
 
     if (monto === "" || /^\s+$/.test(monto) || referencia === "" || /^\s+$/.test(referencia)) {
         alertify.error("Todos los capos con * son abligatorios para poder abonar");
@@ -90,9 +93,15 @@ $("#btnabonar").click(function() {
         observ = "NA";
     }
 
-    alert(observ);
+    var adeudo = parseFloat($("#adeudoabono").text());
+    var pagado = parseFloat($("#pagadoabono").text());
 
-    var info = "monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ;
+    var liquido = pagado + parseFloat(monto);
+    if (liquido == adeudo) {
+        ctrl = true;
+    }
+
+    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&ctrl=" + ctrl;
     $.get('guardarAbono.php', info, function(rs) {
 
     });
