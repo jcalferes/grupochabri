@@ -1,15 +1,19 @@
 <?php
+
 session_start();
 
 include './administracion.clases/Producto.php';
 include './administracion.dao/dao.php';
-$idsucursal = $_SESSION["sucursalSesion"];
 $productos = new Producto();
 $productos->setCodigoProducto($_GET["codigoProducto"]);
 $proveedor = $_GET["proveedor"];
-
+if ($_GET["sucursal"] !== "") {
+    $idsucursal = $_GET["sucursal"];
+} else {
+    $idsucursal = $_SESSION["sucursalSesion"];
+}
 $dao = new dao();
-$rs = $dao->buscarProductoGral($productos, $proveedor,$idsucursal);
+$rs = $dao->buscarProductoGral($productos, $proveedor, $idsucursal);
 if ($rs == false) {
     echo mysql_error();
 } else {
