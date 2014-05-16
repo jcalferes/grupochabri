@@ -9,8 +9,6 @@ function eliminarMaquinas() {
         idMaquina.push(valor);
         lista = JSON.stringify(idMaquina);
         info = "maquinas=" + lista;
-
-
     });
 //    alert(info);
     if (info != undefined) {

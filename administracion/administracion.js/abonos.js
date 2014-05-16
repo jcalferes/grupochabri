@@ -73,14 +73,21 @@ $("#txtfolioabonos").blur(function() {
 $("#btnabonar").click(function() {
     var monto = $("#txtcantidadabono").val();
     var tipopago = $("#slctipopago").val();
-    var referecia = $("#txtreferenciaabono").val();
+    var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
 
-    if (monto === "" || /^\s+$/.test(monto) || referecia === "" || /^\s+$/.test(referecia)) {
+    if (monto === "" || /^\s+$/.test(monto) || referencia === "" || /^\s+$/.test(referencia)) {
         alertify.error("Todos los capos con * son abligatorios para poder abonar");
+        return false;
     } else {
         if (tipopago == 0) {
             alertify.error("No seleccionaste un tipo de pago");
+            return false;
         }
     }
+
+    var info = "monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ;
+    $.get('guardarAbono.php', info, function(rs) {
+
+    });
 });
