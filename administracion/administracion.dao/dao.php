@@ -2,10 +2,10 @@
 
 class dao {
 
-    function consultaOrdenesLista() {
+    function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes Where tipoComprobante = 'ORDEN COMPRA'";
+        $sql = "SELECT * FROM xmlcomprobantes Where tipoComprobante = '$tipo'";
         $sql = mysql_query($sql, $cn->Conectarse());
 //        $cn->cerrarBd();
         return $sql;
@@ -2269,7 +2269,7 @@ class dao {
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2'";
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {

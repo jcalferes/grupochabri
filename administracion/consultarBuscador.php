@@ -2,7 +2,8 @@
 
 session_start();
 include './administracion.dao/dao.php';
-if($_GET["sucursal"]!==""){
+$sucursal = $_GET["sucursal"];
+if($sucursal!==""){
     $idsucursal = $_GET["sucursal"];
 
 }else{

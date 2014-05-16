@@ -22,7 +22,7 @@ function listarProductos() {
 
     });
     if (info != undefined) {
-       $.get('consultaMasivaProductos.php', info, function(x) {
+        $.get('consultaMasivaProductos.php', info, function(x) {
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
@@ -46,9 +46,9 @@ function listarProductos() {
                             }
                         });
                         if (valorando == '0') {
-                            
-                            
-                             tr = '<tr>\n\
+
+
+                            tr = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
@@ -61,10 +61,10 @@ function listarProductos() {
                         <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" /> </td>\n\
                         <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
         <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
-                            
-                            
-                            
-                            
+
+
+
+
 //                            tr = '<tr>\n\
 //                        <td> \n\
 //                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
@@ -81,9 +81,19 @@ function listarProductos() {
 //                        $("#descuentoGeneralM").val(elem[ind].desctGeneralComprobante);
 //                        $("#descuentoProductosM").val(elem[ind].desctPorProductosComprobante);
 //                        $("#descuentoTotalM").val(elem[ind].desctTotalComprobante);
-                        $("#sdaM").val(elem[ind].sdaComprobante);
-                        $("#ivaM").val(elem[ind].ivaComprobante);
-                        $("#costoTotal").val(elem[ind].totalComprobante);
+                            $("#sdaM").val(elem[ind].sdaComprobante);
+                            $("#ivaM").val(elem[ind].ivaComprobante);
+                            $("#costoTotal").val(elem[ind].totalComprobante);
+                            $("#descuentosGlobalesManuales").prop("disabled", false);
+                            $("#descuentosGeneralesM").prop("disabled", false);
+                            if ($("#descuentosGlobalesManuales").is(":checked") == true) {
+                                $(".descuentos").prop("disabled", false);
+                                $(".cantidades").prop("disabled", true);
+
+                            } else {
+                                $(".descuentos").prop("disabled", true);
+                                $(".cantidades").prop("disabled", false);
+                            }
 //                            subtotal = $("#subTotalM").val();
 //                            $("#subTotalM").val(parseFloat(subtotal) + parseFloat(elem[ind].costo));
 //                            var newsubtotal = $("#subTotalM").val();
@@ -257,6 +267,8 @@ $("#folioM").keypress(function(e) {
                         $("#enviarOrdenCompra").show();
                         $("#folioM").prop("disabled", true);
                         $("#codigoProductoEntradas").prop("disabled", true);
+                        $("#descuentosGlobalesManuales").prop("disabled", false);
+                        $("#descuentosGeneralesM").prop("disabled", false);
 
                     });
                 });
@@ -302,19 +314,30 @@ $("#codigoProductoEntradas").keypress(function(e) {
                         <td><span id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</span></td>\n\
                         <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos"> </input>\n\
                         </td>\n\
-                        <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
-                        <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
+                        <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
+                        <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
                         <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" /> </td>\n\
                         <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
         <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
                     }
                     contador = contador + 1;
+
                     $("#tablaDatosEntrada").append(tr);
-                    $(".descuentos").attr('disabled', 'disabled');
+//                    $(".descuentos").attr('disabled', 'disabled');
                     $("#guardarOrdenCompra").show();
                     $("#CancelarOrden").show();
                     $('#proveedores').prop("disabled", true);
+                    $("#descuentosGlobalesManuales").prop("disabled", false);
+                    $("#descuentosGeneralesM").prop("disabled", false);
+//                    alert($("#descuentosGlobalesManuales").is(":checked"))
+                    if ($("#descuentosGlobalesManuales").is(":checked") == true) {
+                        $(".descuentos").prop("disabled", false);
+                        $(".cantidades").prop("disabled", true);
 
+                    } else {
+                        $(".descuentos").prop("disabled", true);
+                        $(".cantidades").prop("disabled", false);
+                    }
                 }
             });
         } else {
@@ -542,7 +565,7 @@ function calcularCda() {
         var cda = 0;
         var desc1 = parseFloat($("#descuento1" + x).val());
         var desc2 = parseFloat($("#descuento2" + x).val());
-        alert(desc1);
+//        alert(desc1);
         if (isNaN(desc1)) {
             desc1 = 0;
         }
@@ -636,6 +659,8 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
+    $("#descuentosGlobalesManuales").prop("disabled", true);
+    $("#descuentosGeneralesM").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
     $("#guardarOrdenCompra").hide();
     $("#CancelarOrden").hide();
@@ -703,6 +728,9 @@ $(document).ready(function() {
                 success: function(x) {
                     window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra");
                     alertify.success("Exito! Orden Guardada");
+                    var tipo = "Orden%20Compra";
+                    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
+
                 }
             });
         } else {
@@ -731,7 +759,7 @@ $(document).ready(function() {
                 var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
                 window.open('generarReporte.php?' + info);
             } else {
-                alert(folio);
+//                alert(folio);
                 var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
                 window.open('generarReporte.php?' + info);
             }
@@ -853,6 +881,9 @@ $(document).ready(function() {
                     $("#txtEmail").show('slow');
                     $("#lblemailO").show('slow');
                     alertify.success("Exito! Orden Guardada");
+                    var tipo = "Orden%20Compra";
+                    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
+
                 }
             });
         } else {
@@ -882,12 +913,15 @@ $(document).ready(function() {
         $("#enviarOrdenCompra").hide();
         $(".resultando").val(0);
         $("#folioM").prop("disabled", false);
-        $("#codigoProductoEntradas").prop("disabled", false)
+        $("#codigoProductoEntradas").prop("disabled", false);
+        $("#descuentosGlobalesManuales").prop("disabled", true);
+        $("#descuentosGeneralesM").prop("disabled", true);
     });
-    $("#tablaOrden").load("cnsultaOrdenesLista.php");
+    var tipo = "Orden%20Compra";
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
     $("#btnbuscador").click(function() {
-        $("#todos").load("consultarBuscador.php", function() {
+        $("#todos").load("consultarBuscador.php?sucursal=", function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
