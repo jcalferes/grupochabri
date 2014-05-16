@@ -8,7 +8,7 @@
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label  class="control-label">Codigo:</label>
+<!--                        <label  class="control-label">Codigo:</label>-->
 <!--                        <div class="input-group">
                             <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
                             <span class="input-group-btn">
@@ -18,10 +18,10 @@
                             </span> 
                         </div>-->
                     </div>
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
                         <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
-                    </div>
+                    </div>-->
 <!--                    <div id="datosCaptura">
                         <div class="form-group">
                             <label  class="control-label">Cantidad</label>
@@ -44,14 +44,13 @@
                     <div class="radio-inline" >
                         <span>
                             <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
-                            Cotizar
+                            Nuevo Pedido
                         </span>
                     </div>
                     <div class="radio-inline" >
                         <span>
                             <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
-                            Cliente Compra
-                        </span>
+Revisar/Modificar Pedido                        </span>
                     </div>
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>

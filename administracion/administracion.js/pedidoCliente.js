@@ -7,6 +7,14 @@ var folio = 0;
 var tr2 = "";
 var tr3 = "";
 var subtotal = 0;
+
+function verOrdenCompra(folio, comprobante) {
+    alert("folio:" + folio + " comprobante:" + comprobante);
+    var info = "valor=" + folio + "&comprobante=PEDIDO CLIENTE";
+    window.open('generarReporte.php?' + info);
+
+}
+
 function listarProductos() {
     var idMarcas = new Array();
     var info;
@@ -104,7 +112,7 @@ function seleccionTipo() {
 //        $("#proveedores").selectpicker('hide');
         $("#guardarOrdenCompra").hide();
         $("#guardaEnviaOrden").hide();
-
+        $("#sucursal").hide("slow");
         $("#folioM").show('slow');
         $("#folio").show('slow');
         $("#folio").val("");
@@ -118,6 +126,7 @@ function seleccionTipo() {
         });
     } else {
         folio = 0;
+        $("#sucursal").show("slow");
         $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
@@ -220,7 +229,7 @@ $("#folioM").keypress(function(e) {
                         $("#CancelarOrden").show();
 //                        $("#enviarOrdenCompra").hide();
                         $("#folioM").prop("disabled", true);
-                        $("#codigoProductoEntradas").prop("disabled", false);
+                        $("#codigoProductoEntradas").prop("disabled", true);
 
 
 
@@ -251,8 +260,13 @@ $("#codigoProductoEntradas").keypress(function(e) {
             var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val() + "&sucursal=" + $("#sucursal").val();
             $.get('mostrarInformacionProductogral.php', info, function(informacion) {
                 if (informacion == 1) {
-                    alertify.error("Error! Producto no dado de alta para este proveedor");
-                    return false;
+                    if ($("#sucursal").val() == '0') {
+                        alertify.error("Seleccione un sucursal");
+                    } else {
+                        alertify.error("Error! Producto no dado de alta para este proveedor");
+                        return false;
+                    }
+
                 }
                 else {
                     var datosJson = eval(informacion);
@@ -280,6 +294,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     $(".descuentos").attr('disabled', 'disabled');
                     $("#guardarOrdenCompra").show();
                     $("#CancelarOrden").show();
+                    $("#sucursal").prop("disabled", true);
                 }
             });
         } else {
@@ -591,6 +606,7 @@ function generarDescuentosgenerales() {
 
 
 $(document).ready(function() {
+    $("#sucursal").hide();
     $("#codigoProductoEntradas").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
     $("#guardarOrdenCompra").hide();
@@ -780,7 +796,7 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "guardarPedidoCliente.php",
-                data: {data: informacion, sucursal: $("#sucursal").val() },
+                data: {data: informacion, sucursal: $("#sucursal").val()},
                 cache: false,
                 success: function(x) {
 //                var probando = $("#proveedores").val();
@@ -798,6 +814,8 @@ $(document).ready(function() {
 //                $("#txtEmail").show('slow');
 //                $("#lblemailO").show('slow');
                     alertify.success("Exito! Orden Guardada");
+                    var tipo = "PEDIDO%20CLIENTE";
+                    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
                 }
             });
         } else {
@@ -813,6 +831,7 @@ $(document).ready(function() {
             $(this).remove();
 
         });
+        $("#sucursal").prop("disabled", false);
         $("#ModificarOrden").hide();
         $("#CancelarOrden").hide();
         $("#guardaEnviaOrden").hide();
@@ -821,13 +840,13 @@ $(document).ready(function() {
         $(".resultando").val(0);
         $("#folioM").prop("disabled", false);
     });
-
-    $("#tablaOrden").load("consultarPedidosClientes");
+    var tipo = "PEDIDO%20CLIENTE";
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
     $("#sucursal").load("sacarSucursales.php?pedidoCliente=pedido");
-    
+
     $("#btnbuscador").click(function() {
-      var  s= $("#sucursal").val();
-        $("#todos").load("consultarBuscador.php?sucursal="+s, function() {
+        var s = $("#sucursal").val();
+        $("#todos").load("consultarBuscador.php?sucursal=" + s, function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
