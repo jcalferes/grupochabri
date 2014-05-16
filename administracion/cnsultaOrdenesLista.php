@@ -17,7 +17,7 @@ while ($rs = mysql_fetch_array($datos)) {
 }
 echo"</tbody></table></div>";
 }else{
-    echo"<div class='table-responsive'><table class='table table-hover' id='dtproveedor'><thead><th>Folio</th><th>Sucursal</th><th>Fecha</th><th>total</th><th>Desct. Gral Total</th></thead><tbody>";
+    echo"<div class='table-responsive'><table class='table table-hover' id='dtproveedor'><thead><th>Folio</th><th>Sucursal</th><th>Fecha</th><th>total</th><th>Detalles</th></thead><tbody>";
 while ($rs = mysql_fetch_array($datos)) {
     echo "<tr><td>$rs[idXmlComprobante]</td>";
     echo"<td>$rs[sucursal]</td>";
@@ -25,7 +25,7 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td>$rs[totalComprobante]</td>";
 //    echo"<td>$rs[desctTotalComprobante]</td>";
 //    echo"<td>Nada</td></tr>";
-    echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[idXmlComprobante],\"ORDEN COMPRA\")'><span class='glyphicon glyphicon-info-sign'></span></button></center></td></tr>";
+    echo"<td><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[idXmlComprobante],\"ORDEN COMPRA\")'><span class='glyphicon glyphicon-info-sign'></span></button></td></tr>";
 }
 echo"</tbody></table></div>";
 }

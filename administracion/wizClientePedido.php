@@ -8,7 +8,7 @@
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label  class="control-label">Codigo:</label>
+<!--                        <label  class="control-label">Codigo:</label>-->
 <!--                        <div class="input-group">
                             <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
                             <span class="input-group-btn">
