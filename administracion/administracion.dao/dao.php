@@ -2359,6 +2359,26 @@ class dao {
             }
         }
         //====================== Guardando abono ===============================
+        $sql = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, observaciones) "
+                . "VALUES ('$rfc', '$monto', '$tipopago', '$referencia', '$sucursal', '$folio', '$fecha', '$observ')";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+
+        if ($liquida == true) {
+            $sql = "UPDATE xmlComprobantes SET statusOrden = '7'";
+            $ctrl = mysql_query($sql);
+            if ($ctrl == false) {
+                $ctrl = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        mysql_query("COMMIT;");
+        return true;
     }
 
 }

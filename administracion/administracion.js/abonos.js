@@ -97,8 +97,8 @@ $("#btnabonar").click(function() {
     var pagado = parseFloat($("#pagadoabono").text());
 
     var liquidado = pagado + parseFloat(monto);
-    if (liquidado == adeudo) {
-        ctrl = true;
+    if (liquidado >= adeudo) {
+        liquida = true;
     }
 
     var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&liquida=" + liquida;
