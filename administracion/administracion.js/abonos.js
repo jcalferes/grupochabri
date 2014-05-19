@@ -58,7 +58,7 @@ $("#txtfolioabonos").blur(function() {
                     $("#saldoabono").text(saldo);
 
                     if (saldo == 0) {
-                        $("#btnabonar").attr("disabled","disabled");
+                        $("#btnabonar").attr("disabled", "disabled");
                         $("#creditopagado").show();
                     }
 
@@ -103,7 +103,7 @@ function ree() {
                     $("#saldoabono").text(saldo);
 
                     if (saldo == 0) {
-                        $("#btnabonar").attr("disabled","disabled");
+                        $("#btnabonar").attr("disabled", "disabled");
                         $("#creditopagado").show();
                     }
                 });
@@ -118,6 +118,7 @@ $("#btnabonar").click(function() {
     var tipopago = $("#slctipopago").val();
     var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
+    var saldoInicial = $("#saldoabono").text()
     var liquida = false;
 
 
@@ -143,11 +144,17 @@ $("#btnabonar").click(function() {
         liquida = true;
     }
 
-    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&liquida=" + liquida;
+    var saldo = saldoInicial - monto;
+
+    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&liquida=" + liquida + "&saldo=" + saldo;
     $.get('guardarAbono.php', info, function(rs) {
         if (rs == 0) {
             alertify.success("Abono registrado");
             ree();
+            $("#txtcantidadabono").val("");
+            $("#slctipopago").selectpicker('val', 0);
+            $("#txtreferenciaabono").val("");
+            $("#txtobservacionesabono").val("");
         } else {
             alert("ERROR: NO SE PUDO REGISTAR ABONO");
         }
