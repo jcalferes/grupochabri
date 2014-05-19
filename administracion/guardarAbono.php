@@ -19,3 +19,10 @@ $liquida = $_GET["liquida"];
 $cn->Conectarse();
 $stat = $dao->guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida);
 $cn->cerrarBd();
+
+if ($stat == true) {
+    $rs = 0;
+} else {
+    $rs = 1;
+}
+echo $rs;

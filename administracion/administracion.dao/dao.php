@@ -2368,8 +2368,8 @@ class dao {
             return false;
         }
 
-        if ($liquida == true) {
-            $sql = "UPDATE xmlComprobantes SET statusOrden = '7'";
+        if ($liquida != "false") {
+            $sql = "UPDATE xmlComprobantes SET statusOrden = '7' WHERE folioComprobante = '$folio'";
             $ctrl = mysql_query($sql);
             if ($ctrl == false) {
                 $ctrl = mysql_error();
