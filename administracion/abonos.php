@@ -23,7 +23,7 @@
         <input type="button"  class="btn btn-primary" value="Probar" id="btnabonos"/>
         <!--/.modal-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div id="mdldialog" class="modal-dialog">
+            <div id="mdldialog" class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -33,6 +33,8 @@
                         <div class="form-group">
                             <label>Folio:</label>
                             <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
+                        </div>
+                        <div id="buscabonos">
                         </div>
                         <div id="divabonos">
                             <div class="form-group">
@@ -55,15 +57,15 @@
                                 <table class="table">
                                     <th>
                                         <label>Credito: </label>
-                                            <span id="adeudoabono" >Adeudo</span>
+                                        <span id="adeudoabono" >Adeudo</span>
                                     </th>
                                     <th>
                                         <label>Abonos: </label>
-                                            <span id="pagadoabono" >Pagado</span>
+                                        <span id="pagadoabono" >Pagado</span>
                                     </th>
                                     <th>
                                         <label>Saldo: </label>
-                                            <span id="saldoabono" >Saldo</span>
+                                        <span id="saldoabono" >Saldo</span>
                                     </th>
                                 </table>
                             </div>
@@ -95,8 +97,8 @@
                             <p class="text-muted"><em>*Datos obligatorios para poder abonar</em></p>
                             <hr>
                             <div class="form-group text-right">
-                                <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar</button>
-                                <button type='button' class='btn btn-primary' id='btnabonar'>Abonar</button>
+                                <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar abono</button>
+                                <button type='button' class='btn btn-primary' id='btnabonar'>Registrar abono</button>
                             </div>
                         </div><!-- /.divabonos -->
                     </div>

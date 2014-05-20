@@ -4,6 +4,9 @@ $(document).ready(function() {
     $("#slctipopago").load("mostrarTiposPagos.php", function() {
         $("#slctipopago").selectpicker();
     });
+    $("#buscabonos").load("consultarDeudoresPV.php", function() {
+        $('#dtdeudores').dataTable();
+    });
 });
 
 $("#btnabonos").click(function() {
@@ -38,9 +41,12 @@ $("#txtfolioabonos").blur(function() {
     var pagado = 0;
     if (folio === "" || /^\s+$/.test(folio)) {
         $("#txtfolioabonos").val("");
+        $("#buscabonos").slideDown();
+        $("#divabonos").slideUp();
     } else {
         $.get('consultarDatosAbonos.php', info, function(rs) {
             if (rs != 0) {
+                $("#buscabonos").slideUp();
                 var arr = $.parseJSON(rs);
                 $("#nombreabono").text(arr.cliente.nombre);
                 $("#rfcabono").text(arr.cliente.rfc);
@@ -63,14 +69,14 @@ $("#txtfolioabonos").blur(function() {
                     }
 
 //                $("#mdldialog").attr("style", "width: 80%");
-                    $("#mdldialog").css("width", "80%");
+//                    $("#mdldialog").css("width", "80%");
 //                document.getElementById("mdldialog").style.width = "80%";
                     $("#divabonos").slideDown();
                 });
             } else {
-                $("#mdldialog").css("width", "");
-                $("#divabonos").slideUp();
                 $("#txtfolioabonos").val("");
+                $("#buscabonos").slideDown();
+                $("#divabonos").slideUp();
                 alertify.error("No hay coincidencias de crédito  con el folio ingresado");
             }
         });
@@ -111,6 +117,12 @@ function ree() {
         });
     }
 }
+
+$("#btncancelarabono").click(function() {
+    $("#txtfolioabonos").val("");
+    $("#buscabonos").slideDown();
+    $("#divabonos").slideUp();
+});
 
 $("#btnabonar").click(function() {
     var folio = $("#txtfolioabonos").val();

@@ -2410,7 +2410,7 @@ class dao {
     }
 
     function consultarDeudores($sucursal) {
-        $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, a.saldo FROM xmlcomprobantes x "
+        $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
                 . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
                 . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
                 . "WHERE x.tipoComprobante = 'CREDITO' AND a.statusSaldo = '1' AND x.statusOrden = '5' AND a.idSucursal = '$sucursal'";

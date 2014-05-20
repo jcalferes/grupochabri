@@ -168,6 +168,7 @@ function verAbonos(folio) {
 
 $(document).ready(function() {
     var saldos = 0;
+    var creditos = 0;
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
@@ -184,7 +185,15 @@ $(document).ready(function() {
             var valor = elemento.value;
             saldos = saldos + parseFloat(valor);
         });
-        $("#deudorestotal").text(saldos);
+        $("#dtdeudores").find('.creditos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            creditos = creditos + parseFloat(valor);
+        });
+        var abonos = creditos - saldos;
+        $("#deudorescreditototal").text(creditos);
+        $("#deudoresabonostotal").text(abonos);
+        $("#deudoressaldototal").text(saldos);
     });
 
     $(function() {

@@ -82,7 +82,13 @@
             </section>
             <h2><span class="glyphicon glyphicon-stats"/>&numsp;Deudores</h2>
             <section >
-                <label style="font-size: large">Saldo total: $</label><span id="deudorestotal" style="font-size: large"><b>:P</b></span><br>
+                <table class="table">
+                    <thead>
+                    <th><label style="font-size: large">Credito otorgado: $</label><span id="deudorescreditototal" style="font-size: large"><b>:P</b></span></th>
+                    <th><label style="font-size: large">Abonos: $</label><span id="deudoresabonostotal" style="font-size: large"><b>:P</b></span></th>
+                    <th><label style="font-size: large">Saldo total: $</label><span id="deudoressaldototal" style="font-size: large"><b>:P</b></span></th>
+                    </thead>
+                </table>
                 <div id="consultadeudores">
                 </div>
             </section>
