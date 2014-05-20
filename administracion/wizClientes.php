@@ -80,6 +80,12 @@
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-stats"/>&numsp;Deudores</h2>
+            <section >
+                <label style="font-size: large">Saldo total: $</label><span id="deudorestotal" style="font-size: large"><b>:P</b></span><br>
+                <div id="consultadeudores">
+                </div>
+            </section>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">

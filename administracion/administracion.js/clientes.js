@@ -160,6 +160,7 @@ $("#btncanceloProveedor").click(function() {
 
 
 $(document).ready(function() {
+    var saldos = 0;
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
@@ -167,6 +168,16 @@ $(document).ready(function() {
 
     $("#consultaCliente").load("consultarCliente.php", function() {
         $('#dtcliente').dataTable();
+    });
+
+    $("#consultadeudores").load("consultarDeudores.php", function() {
+        $('#dtdeudores').dataTable();
+        $("#dtdeudores").find('.saldos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            saldos = saldos + parseFloat(valor);
+        });
+        $("#deudorestotal").text(saldos);
     });
 
     $(function() {
