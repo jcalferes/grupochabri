@@ -158,6 +158,13 @@ $("#btncanceloProveedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
+function verAbonos(folio) {
+    var info = "folio=" + folio;
+    $("#tblabonos").load("consultarAbonos.php", info, function() {
+        $("#dtabonos").dataTable();
+    });
+    $("#mdlverabonos").modal('show');
+}
 
 $(document).ready(function() {
     var saldos = 0;

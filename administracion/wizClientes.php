@@ -204,9 +204,24 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div class="modal fade" id="mdlverabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Detalle de abonos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="tblabonos">
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/clientes.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
     </body>
 </html>
+

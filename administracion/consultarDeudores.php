@@ -19,7 +19,7 @@ if ($datos == 0) {
         echo"<td>$rs[folioComprobante]</td>";
         echo"<td>$rs[credito]</td>";
         echo"<td><input type='text' class='saldos form-control' value='$rs[saldo]' disabled/></td>";
-        echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verAbonos($rs[folioComprobante],\"$rs[rfc]\")'><span class='glyphicon glyphicon-exclamation-sign'></span></button></center></td></tr>";
+        echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verAbonos($rs[folioComprobante])'><span class='glyphicon glyphicon-exclamation-sign'></span></button></center></td></tr>";
     }
     echo"</tbody></table></div>";
 }
