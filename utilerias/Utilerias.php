@@ -29,23 +29,24 @@ class Utilerias {
 //    $mail->SMTPSecure = "tls"; //SSL socket layer
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
+        
         $mail->SMTPSecure = "ssl";
-        $mail->Host = "mail.grupochabri.mx";
-        $mail->Port = 587;
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465;
 
-        $mail->From = "de"; //Remitente (En mi variable)
+        $mail->From = "GrupoChabri"; //Remitente (En mi variable)
         foreach ($destinos as $value) {
             $mail->AddAddress($value); //Destinatario
         }
 
-        $mail->Username = "ordenes.compra@grupochabri.mx"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-        $mail->Password = "Ordenes13579"; //Aqui va la contraseña valida de tu correo
-        $mail->Subject = "asunto"; //El asunto de correo
-        $mail->Body = "mensaje"; //El mensaje de correo
+        $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+        $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
+        $mail->Subject = "Cotizacion"; //El asunto de correo
+        $mail->Body = "Aqui va un mensaje"; //El mensaje de correo
 //    $mail->WordWrap = 50; //# de columnas
         $mail->CharSet = 'UTF-8';
         $mail->WordWrap = 50;
-        $mail->MsgHTML("mensaje"); //Se indica que el cuerpo del correo tendra formato HTML
+        $mail->MsgHTML("Aqui va un mensaje"); //Se indica que el cuerpo del correo tendra formato HTML
         $mail->AddAttachment("../administracion/reportes/probando.pdf", "nombre.pdf"); //Accedemos al archivo que se subio al servidor y lo adjuntamos
 
         if ($mail->Send()) {//Enviamos el correo por PHPMailer
