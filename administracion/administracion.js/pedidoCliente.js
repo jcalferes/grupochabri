@@ -105,6 +105,9 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        $("#descuentosGeneralesM").prop("checked", false);
+        $("#descuentosGlobalesManuales").prop("checked", false);
+        contador = 1;
         folio = 0;
 //        $("#emailProveedor").selectpicker('hide');
 //        $("#lblemailP").hide('slow');
@@ -127,8 +130,11 @@ function seleccionTipo() {
 
         });
     } else {
+        $("#descuentosGeneralesM").prop("checked", false);
+        $("#descuentosGlobalesManuales").prop("checked", false);
+        contador = 1;
         folio = 0;
-         $("#sucursal").prop("disabled", false);
+        $("#sucursal").prop("disabled", false);
         $("#sucursal").show("slow");
         $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function() {

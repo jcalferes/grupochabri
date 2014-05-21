@@ -136,8 +136,11 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
-        folio = 0;
+        $("#descuentosGeneralesM").prop("checked",false);
+        $("#descuentosGlobalesManuales").prop("checked",false);
         contador = 1;
+        folio = 0;
+        
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');
         $("#txtEmail").hide('slow');
