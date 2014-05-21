@@ -28,7 +28,7 @@ $("#btnotroemailagt").click(function() {
 });
 
 $("#btnguardaragt").click(function() {
-    var idproveedor = $("#selectProveedor").val();
+    var idproveedor = $("#selectProveedor").val().toUpperCase();
     var nombre = $("#txtnombreagt").val();
 
     var aemails = [];

@@ -1,53 +1,20 @@
 function NumCheck(e, field) {
-    key = e.keyCode ? e.keyCode : e.which
-    if (key == 15)
-        return true
+    key = e.keyCode ? e.keyCode : e.which;
+    if (key == 15);
+        return true;
     if (key > 47 && key < 58) {
-        if (field.value == "")
-            return true
-        regexp = /.[0-9]{20}$/
-        return !(regexp.test(field.value))
+        if (field.value == "");
+            return true;
+        regexp = /.[0-9]{20}$/;
+        return !(regexp.test(field.value));
     }
     if (key == 46) {
-        if (field.value == "")
-            return false
-        regexp = /^[0-9]+$/
-        return regexp.test(field.value)
+        if (field.value == "");
+            return false;
+        regexp = /^[0-9]+$/;
+        return regexp.test(field.value);
     }
-    return false
-}
-
-function eliminarProductos() {
-    var idProductos = new Array();
-    var info;
-
-    $("#tdProducto").find(':checked').each(function() {
-        var elemento = this;
-        var valor = elemento.value;
-        idProductos.push(valor);
-        lista = JSON.stringify(idProductos);
-        info = "productos=" + lista;
-
-
-    });
-
-    if (info != undefined) {
-        alertify.confirm("Desea Eliminar las productos seleccionadas?", function(e) {
-            if (e) {
-                $.get('eliminaProductos.php', info, function() {
-                    alertify.success("se han dado de baja de manera correcta")
-                    $("#consultaProducto").load("consultarProducto.php", function() {
-                        $('#tdProducto').dataTable();
-                    });
-                });
-            } else {
-            }
-        });
-        return false;
-
-    } else {
-        alertify.error("Debe selecciona al menos una  marca");
-    }
+    return false;
 }
 
 function tester(valor) {
