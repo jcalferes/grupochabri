@@ -3,10 +3,10 @@ function quitarEspacion(cadena) {
     return palabra;
 }
 
-function gestionTarifas(codigoProducto, producto) {
+function gestionTarifas(codigoProducto, producto, costo) {
 
     $('#detalleTarifa').trigger('click');
-    $('#labelTitulo').html('<h4> Tarifas del producto</h4>' + producto);
+    $('#labelTitulo').html('<h4> Tarifas del producto</h4>' + producto + '<span> - Costo:</span>'  + costo);
     $('#mostrarListaPreciosTarifa').load("gestionListaPreciosTarifa.php?codigoProducto=" + codigoProducto);
 }
     
