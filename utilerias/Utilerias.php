@@ -39,8 +39,8 @@ class Utilerias {
             $mail->AddAddress($value); //Destinatario
         }
 
-        $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-        $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
+        $mail->Username = "grupochabri@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+        $mail->Password = "madera65"; //Aqui va la contraseña valida de tu correo
         $mail->Subject = "Cotizacion"; //El asunto de correo
         $mail->Body = "Aqui va un mensaje"; //El mensaje de correo
 //    $mail->WordWrap = 50; //# de columnas
