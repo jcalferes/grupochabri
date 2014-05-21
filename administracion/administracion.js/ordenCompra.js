@@ -137,7 +137,7 @@ function seleccionTipo() {
     var orden = $("#orden").is(":checked");
     if (orden == true) {
         $("#codigoProductoEntradas").val("");
-
+        $("#descuentosGeneralesPorComasM").val("");
         $("#descuentosGeneralesM").prop("checked", false);
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
@@ -166,6 +166,7 @@ function seleccionTipo() {
         folio = 0;
         contador = 1;
         $("#codigoProductoEntradas").val("");
+        $("#descuentosGeneralesPorComasM").val("");
 
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
