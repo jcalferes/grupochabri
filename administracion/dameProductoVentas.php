@@ -47,7 +47,8 @@ while ($dat = mysql_fetch_array($rs)) {
     } else {
         $interfaz.="<td style='width: 150px'>"
                 . "<div class='input-group'>
-                         <input type='text' id='txt" . $codigo->getCodigo() . "' class='form-control'>
+                         <input type='text' id='txt" . $codigo->getCodigo() . "' 
+                             class='form-control' placeholder=''>
                          <span class='input-group-btn'>
                             <button class='btn btn-default' type='button' onclick='modalProductosGranel(" . "\"$codigo1\"" . ")'>
                                 <span class='glyphicon glyphicon-plus'></span>
