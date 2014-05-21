@@ -517,6 +517,7 @@ $("#btnguardarproveedor").click(function() {
     var ctrltelefonos = 0;
     $(".telefono").each(function() {
         var valor = $(this).val();
+        alert(valor);
         if (valor == "" || /^\s+$/.test(valor)) {
             ctrltelefonos = 1;
         } else {

@@ -80,7 +80,7 @@
                         <label>Telefono:</label>
                         <button id="btnverteleagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
                         <input id="btnotrotelagt" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txttelagt" type="email" class="telefono form-control" onblur="" style="width: 50%">
+                        <input id="txttelagt" type="email" class="atelefono form-control" onblur="" style="width: 50%">
                         <div id="mastelsagt">
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <label>E-mail:</label>
                         <button id="btnveremailagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemailagt" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txtemailagt" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%"/>
+                        <input id="txtemailagt" type="email" class="aemail form-control" onblur="validaEmail();" style="width: 50%"/>
                         <div id="masemailsagt">
                         </div>
                     </div>
