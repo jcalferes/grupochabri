@@ -2421,5 +2421,9 @@ class dao {
         }
         return $datos;
     }
+    
+    function guardadorAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails){
+        
+    }
 
 }
