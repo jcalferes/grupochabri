@@ -142,7 +142,8 @@ function seleccionTipo() {
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
         folio = 0;
-
+    $("#descuentosGlobalesManuales").prop("disabled", true);
+    $("#descuentosGeneralesM").prop("disabled", true);
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');
         $("#txtEmail").hide('slow');
@@ -165,6 +166,8 @@ function seleccionTipo() {
     } else {
         folio = 0;
         contador = 1;
+            $("#descuentosGlobalesManuales").prop("disabled", true);
+    $("#descuentosGeneralesM").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesPorComasM").val("");
 
@@ -609,9 +612,9 @@ function calcularDescuentoDeProductos() {
     var descuentoProductos = 0;
     for (var x = 1; x < contador; x++) {
 
-        alert("descTotal");
+//        alert("descTotal");
         descuentoProductos = (parseFloat(descuentoProductos) + parseFloat($("#descTotal" + x).val()));
-        alert($("#descTotal" + x).val());
+//        alert($("#descTotal" + x).val());
 //        alert("mis valores :   "+descuentoProductos+ "micontador esta en : " +contador);
     }
     if (isNaN(descuentoProductos)) {
