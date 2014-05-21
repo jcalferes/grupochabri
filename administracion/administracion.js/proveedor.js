@@ -167,6 +167,10 @@ $(document).ready(function() {
         $('#dtproveedor').dataTable();
     });
 
+    $("#dgproveedor").load("mostrarProveedores.php", function() {
+        $("#selectProveedor").selectpicker();
+    });
+
     $(function() {
         $(".telefono").validCampoFranz('0123456789()');
         $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
@@ -517,7 +521,6 @@ $("#btnguardarproveedor").click(function() {
     var ctrltelefonos = 0;
     $(".telefono").each(function() {
         var valor = $(this).val();
-        alert(valor);
         if (valor == "" || /^\s+$/.test(valor)) {
             ctrltelefonos = 1;
         } else {

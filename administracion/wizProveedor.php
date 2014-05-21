@@ -72,6 +72,11 @@
             <h2><span class="glyphicon glyphicon-user"/>&numsp;Agentes</h2>
             <section style="width: 100%">
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+                    <div id="dgproveedor" class="form-group form-inline">
+                        <label>Proveedor:</label><br>
+                        <select id="selectProveedor" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label>Nombre:</label>
                         <input type="text" class="form-control" id="txtnombreagt">
