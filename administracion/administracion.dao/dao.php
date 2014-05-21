@@ -1034,7 +1034,7 @@ class dao {
     function consultarProveedores() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM proveedores";
+        $sql = "SELECT * FROM proveedores order by nombre  ASC ";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 
@@ -1044,7 +1044,7 @@ class dao {
     function consultarMarcas() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM marcas";
+        $sql = "SELECT * FROM marcas order by marca ASC ";
 
         $datos = mysql_query($sql, $cn->Conectarse());
 
@@ -1188,7 +1188,7 @@ class dao {
                on p.codigoProducto = ex.codigoProducto
                inner join tarifas  tar
                on p.codigoProducto = tar.codigoProducto
-               inner join listaPrecios li
+               inner join listaprecios li
                on tar.idListaPrecio = li.idListaPrecio
                WHERE p.codigoProducto='" . $p->getCodigoProducto() . "'and li.nombreListaPrecio='MENUDEO' and tar.idStatus='1' and tar.idSucursal='$idSucursal' and cost.idSucursal ='$idSucursal' and cost.status = '1' and ex.idSucursal= '$idSucursal'";
         $rs = mysql_query($MySQL, $cn->Conectarse());
@@ -2296,7 +2296,7 @@ class dao {
                on p.codigoProducto = ex.codigoProducto
                inner join tarifas  tar
                on p.codigoProducto = tar.codigoProducto
-               inner join listaPrecios li
+               inner join listaprecios li
                on tar.idListaPrecio = li.idListaPrecio
                WHERE p.codigoProducto='" . $value . "'and li.nombreListaPrecio='MENUDEO' and tar.idStatus='1' and tar.idSucursal='1' and cost.idSucursal ='1' and cost.status = '1' and ex.idSucursal= '1'";
             $rs = mysql_query($MySQL, $cn->Conectarse());

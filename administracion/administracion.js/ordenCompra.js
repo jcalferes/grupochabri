@@ -22,6 +22,7 @@ function listarProductos() {
 
     });
     if (info != undefined) {
+        alert("entro");
         $.get('consultaMasivaProductos.php', info, function(x) {
             var valorando = 0;
             lista = JSON.parse(x);
