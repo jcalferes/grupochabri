@@ -23,7 +23,7 @@
         <input type="button"  class="btn btn-primary" value="Probar" id="btnabonos"/>
         <!--/.modal-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div id="mdldialog" class="modal-dialog">
+            <div id="mdldialog" class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -34,33 +34,45 @@
                             <label>Folio:</label>
                             <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
                         </div>
+                        <div id="buscabonos">
+                        </div>
                         <div id="divabonos">
-                            <div class="form-group form-inline">
-                                <label>Nombre del cliente: </label>
-                                <span id="nombreabono">Nombre</span>
-                                <label>RFC: </label>
-                                <span id="rfcabono">RFC</span>
-                                <label>Limite de credito: </label>
-                                <span id="creditoabono">Credito</span>
-                                <br>
-                                <h4 style="display: inline">    
-                                    <label>Adeudo: </label>
-                                    <span id="adeudoabono" >Adeudo</span>
-                                </h4>
-                                <div style="float: right">
-                                    <h4 style="display: inline"> 
+                            <div class="form-group">
+                                <table class="table" style="width: 50%">
+                                    <tr>
+                                        <td>
+                                            <label>Nombre del cliente: </label>
+                                            <span id="nombreabono">Nombre</span>
+                                        </td>
+                                        <td>
+                                            <label>RFC: </label>
+                                            <span id="rfcabono">RFC</span>
+                                        </td>
+                                        <td>
+                                            <label>Limite de credito: </label>
+                                            <span id="creditoabono">Credito</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="table">
+                                    <th>
+                                        <label>Credito: </label>
+                                        <span id="adeudoabono" >Adeudo</span>
+                                    </th>
+                                    <th>
+                                        <label>Abonos: </label>
+                                        <span id="pagadoabono" >Pagado</span>
+                                    </th>
+                                    <th>
                                         <label>Saldo: </label>
                                         <span id="saldoabono" >Saldo</span>
-                                    </h4> 
-                                </div>
+                                    </th>
+                                </table>
                             </div>
                             <div class="well well-sm" >
+                                <center><span id="creditopagado" style="color: red; font-size: xx-large" ><strong>Pagado</strong></span></center>
                                 <div id="tblabonos" >
                                 </div>
-                                <h4>
-                                    <label>Total: </label>
-                                    <span id="pagadoabono" >Pagado</span>
-                                </h4>
                             </div>
                             <form class='form-inline'>
                                 <div class="form-group">
@@ -85,8 +97,8 @@
                             <p class="text-muted"><em>*Datos obligatorios para poder abonar</em></p>
                             <hr>
                             <div class="form-group text-right">
-                                <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar</button>
-                                <button type='button' class='btn btn-primary' id='btnabonar'>Abonar</button>
+                                <button type='button' class='btn btn-default' id='btncancelarabono'>Cancelar abono</button>
+                                <button type='button' class='btn btn-primary' id='btnabonar'>Registrar abono</button>
                             </div>
                         </div><!-- /.divabonos -->
                     </div>

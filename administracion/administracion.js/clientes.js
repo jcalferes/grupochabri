@@ -158,8 +158,17 @@ $("#btncanceloProveedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
+function verAbonos(folio) {
+    var info = "folio=" + folio;
+    $("#tblabonos").load("consultarAbonos.php", info, function() {
+        $("#dtabonos").dataTable();
+    });
+    $("#mdlverabonos").modal('show');
+}
 
 $(document).ready(function() {
+    var saldos = 0;
+    var creditos = 0;
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
@@ -167,6 +176,24 @@ $(document).ready(function() {
 
     $("#consultaCliente").load("consultarCliente.php", function() {
         $('#dtcliente').dataTable();
+    });
+
+    $("#consultadeudores").load("consultarDeudores.php", function() {
+        $('#dtdeudores').dataTable();
+        $("#dtdeudores").find('.saldos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            saldos = saldos + parseFloat(valor);
+        });
+        $("#dtdeudores").find('.creditos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            creditos = creditos + parseFloat(valor);
+        });
+        var abonos = creditos - saldos;
+        $("#deudorescreditototal").text(creditos);
+        $("#deudoresabonostotal").text(abonos);
+        $("#deudoressaldototal").text(saldos);
     });
 
     $(function() {

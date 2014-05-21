@@ -1,7 +1,11 @@
 $(document).ready(function() {
+    $("#creditopagado").hide();
     $("#divabonos").hide();
     $("#slctipopago").load("mostrarTiposPagos.php", function() {
         $("#slctipopago").selectpicker();
+    });
+    $("#buscabonos").load("consultarDeudoresPV.php", function() {
+        $('#dtdeudores').dataTable();
     });
 });
 
@@ -37,6 +41,54 @@ $("#txtfolioabonos").blur(function() {
     var pagado = 0;
     if (folio === "" || /^\s+$/.test(folio)) {
         $("#txtfolioabonos").val("");
+        $("#buscabonos").slideDown();
+        $("#divabonos").slideUp();
+    } else {
+        $.get('consultarDatosAbonos.php', info, function(rs) {
+            if (rs != 0) {
+                $("#buscabonos").slideUp();
+                var arr = $.parseJSON(rs);
+                $("#nombreabono").text(arr.cliente.nombre);
+                $("#rfcabono").text(arr.cliente.rfc);
+                $("#creditoabono").text(arr.cliente.credito);
+                $("#adeudoabono").text(arr.cliente.totalComprobante);
+                $("#tblabonos").load("consultarAbonos.php?folio=" + folio, function() {
+                    $("#dtabonos").dataTable();
+                    $("#dtabonos").find('.importeabonos').each(function() {
+                        var elemento = this;
+                        var valor = elemento.value;
+                        pagado = pagado + parseFloat(valor);
+                    });
+                    var saldo = arr.cliente.totalComprobante - pagado;
+                    $("#pagadoabono").text(pagado);
+                    $("#saldoabono").text(saldo);
+
+                    if (saldo == 0) {
+                        $("#btnabonar").attr("disabled", "disabled");
+                        $("#creditopagado").show();
+                    }
+
+//                $("#mdldialog").attr("style", "width: 80%");
+//                    $("#mdldialog").css("width", "80%");
+//                document.getElementById("mdldialog").style.width = "80%";
+                    $("#divabonos").slideDown();
+                });
+            } else {
+                $("#txtfolioabonos").val("");
+                $("#buscabonos").slideDown();
+                $("#divabonos").slideUp();
+                alertify.error("No hay coincidencias de crédito  con el folio ingresado");
+            }
+        });
+    }
+});
+
+function ree() {
+    var folio = $("#txtfolioabonos").val();
+    var info = "folio=" + folio;
+    var pagado = 0;
+    if (folio === "" || /^\s+$/.test(folio)) {
+        $("#txtfolioabonos").val("");
     } else {
         $.get('consultarDatosAbonos.php', info, function(rs) {
             if (rs != 0) {
@@ -55,19 +107,21 @@ $("#txtfolioabonos").blur(function() {
                     var saldo = arr.cliente.totalComprobante - pagado;
                     $("#pagadoabono").text(pagado);
                     $("#saldoabono").text(saldo);
-//                $("#mdldialog").attr("style", "width: 80%");
-                    $("#mdldialog").css("width", "80%");
-//                document.getElementById("mdldialog").style.width = "80%";
-                    $("#divabonos").slideDown();
+
+                    if (saldo == 0) {
+                        $("#btnabonar").attr("disabled", "disabled");
+                        $("#creditopagado").show();
+                    }
                 });
-            } else {
-                $("#mdldialog").css("width", "");
-                $("#divabonos").slideUp();
-                $("#txtfolioabonos").val("");
-                alertify.error("No hay coincidencias de crédito  con el folio ingresado");
             }
         });
     }
+}
+
+$("#btncancelarabono").click(function() {
+    $("#txtfolioabonos").val("");
+    $("#buscabonos").slideDown();
+    $("#divabonos").slideUp();
 });
 
 $("#btnabonar").click(function() {
@@ -76,7 +130,8 @@ $("#btnabonar").click(function() {
     var tipopago = $("#slctipopago").val();
     var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
-    var ctrl = false;
+    var saldoInicial = $("#saldoabono").text()
+    var liquida = false;
 
 
     if (monto === "" || /^\s+$/.test(monto) || referencia === "" || /^\s+$/.test(referencia)) {
@@ -96,13 +151,24 @@ $("#btnabonar").click(function() {
     var adeudo = parseFloat($("#adeudoabono").text());
     var pagado = parseFloat($("#pagadoabono").text());
 
-    var liquido = pagado + parseFloat(monto);
-    if (liquido == adeudo) {
-        ctrl = true;
+    var liquidado = pagado + parseFloat(monto);
+    if (liquidado >= adeudo) {
+        liquida = true;
     }
 
-    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&ctrl=" + ctrl;
-    $.get('guardarAbono.php', info, function(rs) {
+    var saldo = saldoInicial - monto;
 
+    var info = "folio=" + folio + "&monto=" + monto + "&tipopago=" + tipopago + "&referencia=" + referencia + "&observ=" + observ + "&liquida=" + liquida + "&saldo=" + saldo;
+    $.get('guardarAbono.php', info, function(rs) {
+        if (rs == 0) {
+            alertify.success("Abono registrado");
+            ree();
+            $("#txtcantidadabono").val("");
+            $("#slctipopago").selectpicker('val', 0);
+            $("#txtreferenciaabono").val("");
+            $("#txtobservacionesabono").val("");
+        } else {
+            alert("ERROR: NO SE PUDO REGISTAR ABONO");
+        }
     });
 });

@@ -2344,8 +2344,82 @@ class dao {
         return $datos;
     }
 
-    function guardarAbono($sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $ctrl) {
-        
+    function guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida, $saldo) {
+        //====================== Sacar rfc del cliente =========================
+        $sql = "SELECT rfcComprobante FROM xmlComprobantes WHERE idSucursal = '$sucursal' AND folioComprobante = '$folio'";
+        $ctrl = mysql_query($sql);
+        mysql_query("START TRANSACTION;");
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $rfc = $rs["rfcComprobante"];
+            }
+        }
+        //====================== Sacar el id del abono anterior ================
+        $sql = "SELECT * FROM abonos WHERE rfcCliente = '$rfc' AND statusSaldo = '1'";
+        $ctrl = mysql_query($sql);
+        $rows = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($rows != 0) {
+                while ($rs = mysql_fetch_array($ctrl)) {
+                    $id = $rs["idAbonos"];
+                }
+                $bandera = 1;
+            } else {
+                $bandera = 0;
+            }
+        }
+        //====================== Actualizar status abono =======================
+        if ($bandera != 0) {
+            $sql = "UPDATE abonos SET statusSaldo = '2' WHERE idAbonos = '$id'";
+            $ctrl = mysql_query($sql);
+            if ($ctrl == false) {
+                $ctrl = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        //====================== Guardando abono ===============================
+        $sql = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, observaciones, saldo, statusSaldo) "
+                . "VALUES ('$rfc', '$monto', '$tipopago', '$referencia', '$sucursal', '$folio', '$fecha', '$observ', '$saldo', '1')";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //====================== Actulizar xmlconceptos ========================
+        if ($liquida != "false") {
+            $sql = "UPDATE xmlComprobantes SET statusOrden = '7' WHERE folioComprobante = '$folio'";
+            $ctrl = mysql_query($sql);
+            if ($ctrl == false) {
+                $ctrl = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        mysql_query("COMMIT;");
+        return true;
+    }
+
+    function consultarDeudores($sucursal) {
+        $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
+                . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
+                . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
+                . "WHERE x.tipoComprobante = 'CREDITO' AND a.statusSaldo = '1' AND x.statusOrden = '5' AND a.idSucursal = '$sucursal'";
+        $datos = mysql_query($sql);
+        if ($datos == false) {
+            $datos = mysql_error();
+            $datos = 0;
+        }
+        return $datos;
     }
 
 }

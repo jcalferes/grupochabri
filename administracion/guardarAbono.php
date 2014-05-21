@@ -14,7 +14,16 @@ $monto = $_GET["monto"];
 $tipopago = $_GET["tipopago"];
 $referencia = $_GET["referencia"];
 $observ = $_GET["observ"];
-$ctrl = $_GET["ctrl"];
+$liquida = $_GET["liquida"];
+$saldo = $_GET["saldo"];
 
+$cn->Conectarse();
+$stat = $dao->guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida, $saldo);
+$cn->cerrarBd();
 
-
+if ($stat == true) {
+    $rs = 0;
+} else {
+    $rs = 1;
+}
+echo $rs;
