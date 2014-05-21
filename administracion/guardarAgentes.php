@@ -16,5 +16,11 @@ $ctrltelefonos = count($telefonos);
 $ctrlemails = count($emails);
 
 $cn->Conectarse();
-$dao->guardadorAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$ctrl = $dao->guardarAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
 $cn->cerrarBd();
+
+if ($ctrl == true) {
+    echo 0;
+} else {
+    echo 1;
+}

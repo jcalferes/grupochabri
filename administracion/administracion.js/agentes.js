@@ -80,6 +80,20 @@ $("#btnguardaragt").click(function() {
 
     var adatosJSON = JSON.stringify(adatos);
     $.post('guardarAgentes.php', {adatos: adatosJSON}, function(rs) {
+        if (rs == 0) {
+            alertify.success("Agente guardado");
+            $("#selectProveedor").selectpicker('val', 0);
+            $("#txtnombreagt").val("");
+            $("#txttelagt").val("");
+            $("#txtemailagt").val("");
 
+            $("#mastelsagt").remove();
+            $("#masemailsagt").remove();
+
+            $("#afrmtel").append("<div id='mastelsagt'></div>");
+            $("#afrmemail").append("<div id='masemailsagt'></div>");
+        } else {
+            alert("ERROR: NO SE PUDO COMPLETAR LA ACCION");
+        }
     });
 });

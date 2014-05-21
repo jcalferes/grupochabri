@@ -2,6 +2,50 @@
 
 class dao {
 
+    function guardarAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
+        $sql = "INSERT INTO agentes (nombre, idProveedor) VALUES ('$nombre','$idproveedor')";
+        $sql2 = "SELECT LAST_INSERT_ID() ID;";
+        $ctrl = mysql_query($sql);
+        mysql_query("START TRANSACTION;");
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrl2 = mysql_query($sql2);
+            if ($ctrl2 == false) {
+                $ctrl2 = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrl2)) {
+                    $idProveedor = $rs["ID"];
+                }
+            }
+        }
+        //Guardando Telefonos
+        for ($i = 0; $i < $ctrltelefonos; $i++) {
+            $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idProveedor','AGENTE')";
+            $ctrlTelefonoGuardar = mysql_query($sqlTelefonos);
+            if ($ctrlTelefonoGuardar == false) {
+                $rs = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        //Guardar Emails
+        for ($i = 0; $i < $ctrlemails; $i++) {
+            $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idProveedor','AGENTE')";
+            $ctrlEmailsGuardar = mysql_query($sqlEmails);
+            if ($ctrlEmailsGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+        }
+        mysql_query("COMMIT;");
+        return true;
+    }
+
     function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -2420,10 +2464,6 @@ class dao {
             $datos = 0;
         }
         return $datos;
-    }
-    
-    function guardadorAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails){
-        
     }
 
 }

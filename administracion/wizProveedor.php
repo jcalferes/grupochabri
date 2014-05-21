@@ -81,7 +81,7 @@
                         <label>Nombre:</label>
                         <input type="text" class="form-control" id="txtnombreagt">
                     </div>
-                    <div id="frmtel" class="form-group">
+                    <div id="afrmtel" class="form-group">
                         <label>Telefono:</label>
                         <button id="btnverteleagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
                         <input id="btnotrotelagt" type="button" class="btn btn-default btn-xs" value="+">
@@ -89,11 +89,11 @@
                         <div id="mastelsagt">
                         </div>
                     </div>
-                    <div id="frmemail" class="form-group">
+                    <div id="afrmemail" class="form-group">
                         <label>E-mail:</label>
                         <button id="btnveremailagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
                         <input id="btnotroemailagt" type="button" class="btn btn-default btn-xs" value="+">
-                        <input id="txtemailagt" type="email" class="aemail form-control" onblur="validaEmail();" style="width: 50%"/>
+                        <input id="txtemailagt" type="email" class="aemail form-control"  style="width: 50%"/>
                         <div id="masemailsagt">
                         </div>
                     </div>
