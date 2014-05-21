@@ -105,6 +105,7 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesM").prop("checked", false);
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
@@ -130,6 +131,8 @@ function seleccionTipo() {
 
         });
     } else {
+        $("#codigoProductoEntradas").val("");
+
         $("#descuentosGeneralesM").prop("checked", false);
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;

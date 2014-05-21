@@ -136,11 +136,13 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
-        $("#descuentosGeneralesM").prop("checked",false);
-        $("#descuentosGlobalesManuales").prop("checked",false);
+        $("#codigoProductoEntradas").val("");
+
+        $("#descuentosGeneralesM").prop("checked", false);
+        $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
         folio = 0;
-        
+
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');
         $("#txtEmail").hide('slow');
@@ -163,6 +165,7 @@ function seleccionTipo() {
     } else {
         folio = 0;
         contador = 1;
+        $("#codigoProductoEntradas").val("");
 
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
