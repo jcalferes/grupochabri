@@ -128,6 +128,7 @@ function seleccionTipo() {
         });
     } else {
         folio = 0;
+         $("#sucursal").prop("disabled", false);
         $("#sucursal").show("slow");
         $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function() {
@@ -176,10 +177,10 @@ $("#folioM").keypress(function(e) {
                 alertify.error("Aqui mostrara Datos");
                 lista = JSON.parse(x);
                 console.log(lista);
-
+                var sucursal;
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
-
+                        sucursal = elem[ind].idSucursal;
                         tr2 = '<tr>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + '),calcularPorCosto(' + contador + ');" class="form-control cantidades pedido" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
@@ -227,6 +228,10 @@ $("#folioM").keypress(function(e) {
 //                        $("#lblemailP").show('show');
 //                        $("#lblemailO").show('show');
 //                        $("#proveedores").selectpicker('show');
+                        $("#sucursal").show();
+                        $("#sucursal").val(sucursal);
+
+                        $("#sucursal").prop("disabled", true);
                         $("#guardaEnviaOrden").hide();
                         $("#CancelarOrden").show();
 //                        $("#enviarOrdenCompra").hide();
@@ -669,7 +674,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "guardarPedidoCliente.php",
-            data: {data: informacion, band: "modifica", folio: $("#folioM").val()},
+            data: {data: informacion, band: "modifica", folio: $("#folioM").val(), sucursal: $("#sucursal").val()},
             cache: false,
             success: function(x) {
                 window.open('generarReporte.php?valor=' + x + '&comprobante=PEDIDO CLIENTE');
