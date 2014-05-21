@@ -45,14 +45,15 @@ if (move_uploaded_file($archivo, $destino)) {
 //    $mail->SMTPSecure = "tls"; //SSL socket layer
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
+    $mail->Mailer= "smtp";
     $mail->SMTPSecure = "ssl";
-    $mail->Host = "smtp.gmail.com";
+    $mail->Host = "mail.grupochabri.mx";
     $mail->Port = 465;
-
+    
     $mail->From = $de; //Remitente (En mi variable)
     $mail->AddAddress($para); //Destinatario
-    $mail->Username = "shanaxchornos@gmail.com"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
-    $mail->Password = "catscagats"; //Aqui va la contraseña valida de tu correo
+    $mail->Username = "envio@grupochabri.mx"; /* Tienes que poner una direccion de correo real y de del servidor SMTP seleccionado */
+    $mail->Password = "madera65"; //Aqui va la contraseña valida de tu correo
     $mail->Subject = $asunto; //El asunto de correo
     $mail->Body = $mensaje; //El mensaje de correo
 //    $mail->WordWrap = 50; //# de columnas
