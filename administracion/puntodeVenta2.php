@@ -22,12 +22,16 @@
                 <br/>
                 <hr>
                 <br>
-                <table class="table table-striped" id="tablaVentas">
+                <table class="table" id="tablaVentas">
                     <thead>
-                    <th>Codigo</th>
-                    <th>Descripcion</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th><center>Codigo</center></th>
+                    <th><center>Descripcion</center></th>
+                    <th><center>Cantidad</center></th>
+                    <th><center>Lst.Precios</center></th>
+                    <th><center>Precio</center></th>
+                    <th><center>Descuentos</center></th>
+                    <th><center>Eliminar</center></th>
+                    <th><center>Total</center></th>
                     </thead>
                 </table>
                 <hr>

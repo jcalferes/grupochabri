@@ -2234,7 +2234,8 @@ class dao {
                 inner join listaprecios lp
                 on lp.idListaPrecio  = t.idListaPrecio
                 where codigoProducto = '" . $c->getCodigo() . "' 
-                and t.idStatus='" . $idSucursal . "'";
+                and t.idStatus='1'
+		and t.idSucursal='" . $idSucursal . "';";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = mysql_error();

@@ -14,8 +14,12 @@ $("#btnbuscador").click(function() {
 });
 
 $("#mdlGranelbtn").click(function() {
-    $('#mdlGranel').modal('toggle');
+   
 });
+
+function modalProductosGranel(codigo){
+     $('#mdlGranel').modal('toggle');
+}
 
 function listarProductos() {
     var idMarcas = new Array();
