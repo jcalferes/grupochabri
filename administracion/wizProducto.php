@@ -53,6 +53,10 @@
                                     </select>
                                     <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
                                 </div>
+                                <div id="divm3" class="form-group form-inline">
+                                    <label>M3:</label><br/>
+                                    <input type="text" class="form-control" id="m3"/>
+                                </div>
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
                                     <div class="input-group" style="width: 60%">

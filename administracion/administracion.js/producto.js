@@ -1,16 +1,19 @@
 function NumCheck(e, field) {
     key = e.keyCode ? e.keyCode : e.which;
-    if (key == 15);
-        return true;
+    if (key == 15)
+        ;
+    return true;
     if (key > 47 && key < 58) {
-        if (field.value == "");
-            return true;
+        if (field.value == "")
+            ;
+        return true;
         regexp = /.[0-9]{20}$/;
         return !(regexp.test(field.value));
     }
     if (key == 46) {
-        if (field.value == "");
-            return false;
+        if (field.value == "")
+            ;
+        return false;
         regexp = /^[0-9]+$/;
         return regexp.test(field.value);
     }
@@ -75,6 +78,7 @@ $(document).ready(function() {
     $("#frmcontenido").hide();
     $("#frmcostopieza").hide();
     $("#editarDatos").hide();
+    $("#divm3").hide();
     $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
     $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
     $("#tablaListaPrecios").load("consultarTarifas.php");
@@ -568,7 +572,7 @@ $('#editarDatos').click(function() {
                 $("#txtNombreProducto").focus();
                 $("#guardarDatos").slideDown();
                 $("#editarDatos").slideUp();
-                
+
                 alertify.success("Producto editado correctamente");
                 return false;
 
@@ -980,47 +984,47 @@ $("#txtCodigoProductoG").blur(function() {
 //                    $("#txtCodigoProductoG").focus("");
 //                    $("#divgrande").slideUp();
 //                } else {
-                    $.get('obtenerDatosAgranel.php', info2, function(rs) {
-                        $("#txtContenido").val(rs);
-                        var costo = $("#txtCostoProducto").val();
-                        var costopieza = costo * rs;
-                        $("#txtCostoPieza").val(costopieza);
-                    });
-                    $.get('obtenerTarifasPorConsulta.php', info2, function(x) {
-                        lista = JSON.parse(x);
-                        console.log(lista);
-                        var provando = 0;
-                        $(".producto").val("");
-                        $(".producto").attr("disabled", true);
-                        $.each(lista, function(indice, elemento) {
-                            $.each(elemento, function(ind, elem) {
-                                if (ind == 0) {
-                                    provando = elem;
-                                }
-                                if (ind == "porcentaUtilidad") {
-                                    provando = provando.replace(" ", "_");
-                                    var costo = $("#txtCostoProducto").val();
-                                    var utilidad = costo * (elem / 100);
-                                    $("#util" + provando).val(utilidad);
-                                    utilidad = parseFloat(utilidad) + parseFloat(costo);
-                                    $("#texto" + provando).val(elem);
-                                    $("#texto" + provando).attr("disabled", false);
-                                    $("#check" + provando).prop({
-                                        disabled: false,
-                                        Checked: true
-                                    });
-                                    $("#tarifa" + provando).val(utilidad);
-                                    provando = 0;
-                                }
-                            });
+                $.get('obtenerDatosAgranel.php', info2, function(rs) {
+                    $("#txtContenido").val(rs);
+                    var costo = $("#txtCostoProducto").val();
+                    var costopieza = costo * rs;
+                    $("#txtCostoPieza").val(costopieza);
+                });
+                $.get('obtenerTarifasPorConsulta.php', info2, function(x) {
+                    lista = JSON.parse(x);
+                    console.log(lista);
+                    var provando = 0;
+                    $(".producto").val("");
+                    $(".producto").attr("disabled", true);
+                    $.each(lista, function(indice, elemento) {
+                        $.each(elemento, function(ind, elem) {
+                            if (ind == 0) {
+                                provando = elem;
+                            }
+                            if (ind == "porcentaUtilidad") {
+                                provando = provando.replace(" ", "_");
+                                var costo = $("#txtCostoProducto").val();
+                                var utilidad = costo * (elem / 100);
+                                $("#util" + provando).val(utilidad);
+                                utilidad = parseFloat(utilidad) + parseFloat(costo);
+                                $("#texto" + provando).val(elem);
+                                $("#texto" + provando).attr("disabled", false);
+                                $("#check" + provando).prop({
+                                    disabled: false,
+                                    Checked: true
+                                });
+                                $("#tarifa" + provando).val(utilidad);
+                                provando = 0;
+                            }
                         });
                     });
+                });
 
-                    $("#divgrande").slideDown();
-                    $("#txtCostoProducto").attr("disabled", "disabled");
-                    $("#txtCostoPieza").attr("disabled", "disabled");
-                    $("#guardarGranel").slideUp();
-                    $("#editarGranel").slideDown();
+                $("#divgrande").slideDown();
+                $("#txtCostoProducto").attr("disabled", "disabled");
+                $("#txtCostoPieza").attr("disabled", "disabled");
+                $("#guardarGranel").slideUp();
+                $("#editarGranel").slideDown();
 //                }
             }
         });
@@ -1186,5 +1190,17 @@ $("#editarGranel").click(function() {
         });
     } else {
         alertify.error("todos los campos deben tener valor");
+    }
+});
+//==============================================================================
+$("#selectGrupo").change(function() {
+    var seleccion = document.getElementById('selectGrupo');
+    var dato = $("#selectGrupo").val();
+    var dato2 = seleccion.options[seleccion.selectedIndex].text;
+
+    if (dato == 1 || dato2 == 'MADERAS') {
+        $("#divm3").slideDown();
+    } else {
+        $("#divm3").slideUp();
     }
 });
