@@ -16,7 +16,7 @@ if ($datos > 0) {
         $comprobar = $rs['codigoProducto'];
         echo"<td>$rs[codigoProducto]</td>";
         echo"<td id='$rs[marca]' >$rs[marca] </td>";
-        echo"<td id='$rs[costo]' >$rs[costo]</td>";
+        echo"<td id='$rs[costo]' style='text-align:right' > $" .number_format($rs['costo'],2). "</td>";
         echo"<td id='$rs[fechaMovimiento]' >$rs[fechaMovimiento] </td>";
         echo"<td id='$rs[cantidad]' >$rs[cantidad] </td>";
         echo "<td><center><button type='button' class='btn btn-xs' value='Detalles' onclick='gestionTarifas(" . "\"$rs[codigoProducto]\"" . "," . "\"$comillas\"" .",". "\"$rs[costo]\"" .")' ><span class='glyphicon glyphicon-info-sign'></span></button></center></td></tr>";

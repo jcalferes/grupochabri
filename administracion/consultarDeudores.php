@@ -18,7 +18,7 @@ if ($datos == 0) {
     while ($rs = mysql_fetch_array($datos)) {
         echo"<td>$rs[nombre]</td>";
         echo"<td>$rs[folioComprobante]</td>";
-        echo"<td>$rs[credito]</td>";
+        echo"<td style='text-align:right'>$".number_format($rs['credito'],2)."</td>";
         echo"<td><input type='text' class='creditos form-control' value='$rs[totalComprobante]' disabled/></td>";
         echo"<td><input type='text' class='saldos form-control' value='$rs[saldo]' disabled/></td>";
         echo"<td><center><button type='button' class='btn btn-xs' id='btnver' onclick='verAbonos($rs[folioComprobante])'><span class='glyphicon glyphicon-exclamation-sign'></span></button></center></td></tr>";
