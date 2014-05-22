@@ -55,7 +55,7 @@
                                 </div>
                                 <div id="divm3" class="form-group form-inline">
                                     <label>M3:</label><br/>
-                                    <input type="text" class="form-control" id="m3"/>
+                                    <input type="text" class="form-control" onkeypress="return NumCheck(event, this);" id="m3"/>
                                 </div>
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
