@@ -191,6 +191,9 @@ $("#finder").blur(function() {
                     if (ind == "cantidadMinima") {
                         $("#txtCantidadMinima").val(elem);
                     }
+                    if (ind == "metrosCubicos") {
+                        $("#m3").val(elem);
+                    }
                 });
                 $.get('obtenerTarifasPorConsulta.php', info, function(x) {
                     var lista = JSON.parse(x);
@@ -450,6 +453,10 @@ $("#guardarDatos").click(function() {
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
     var cbarras = $("#txtCodigoBarras").val();
+
+    var seleccion = document.getElementById('selectGrupo');
+    var dato2 = seleccion.options[seleccion.selectedIndex].text;
+
     var listaPrecios = new Array();
     var listaTarifas = new Array();
 
@@ -481,7 +488,16 @@ $("#guardarDatos").click(function() {
     });
     if (cbarras !== "" && nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
         if (min < max) {
-            var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original;
+            if (grupoProducto == 1 || dato2 == 'MADERAS') {
+                var m3 = $("#m3").val();
+                if (m3 === "" || /^\s+$/.test(m3)) {
+                    alertify.error("Faltan los metros cubicos del prodcuto");
+                    return false;
+                }
+            } else {
+                m3 = 0;
+            }
+            var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
             $.get('guardarProducto.php', info, function(x) {
                 if (x >= 1) {
                     $("#consultaProducto").load("consultarProducto.php", function() {
@@ -546,10 +562,17 @@ $('#editarDatos').click(function() {
 
     if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
         if (min < max) {
-            var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida;
-
+            if (grupoProducto == 1 || dato2 == 'MADERAS') {
+                var m3 = $("#m3").val();
+                if (m3 === "" || /^\s+$/.test(m3)) {
+                    alertify.error("Faltan los metros cubicos del prodcuto");
+                    return false;
+                }
+            } else {
+                m3 = 0;
+            }
+            var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&m3=" + m3;
             $.get('editarProducto.php', info, function(x) {
-
                 $("#consultaProducto").load("consultarProducto.php", function() {
                     $("#tdProducto").dataTable();
                 });
@@ -563,7 +586,6 @@ $('#editarDatos').click(function() {
                 $("#txtCostoProducto").val("");
                 $("#txtCantidadMinima").val("");
                 $("#txtCantidadMaxima").val("");
-//                        $("#txtFolioProducto").val("");
                 $(".producto").val("");
                 $(".neto").val("");
                 $(".producto").attr("disabled", true);
@@ -572,10 +594,8 @@ $('#editarDatos').click(function() {
                 $("#txtNombreProducto").focus();
                 $("#guardarDatos").slideDown();
                 $("#editarDatos").slideUp();
-
                 alertify.success("Producto editado correctamente");
                 return false;
-
             });
         } else {
             alertify.error("la cantidad maxima debe ser mayor a la minima");
@@ -583,7 +603,6 @@ $('#editarDatos').click(function() {
     } else {
         alertify.error("todos los campos deben tener valor");
     }
-
 });
 //    $("#selectTarifa").change(function() {
 //
@@ -958,32 +977,6 @@ $("#txtCodigoProductoG").blur(function() {
 
                 var existencia = parseFloat($("#respaldaExistencia").val());
                 alert("Existencia del producto a granel: " + existencia);
-//                if (existencia == 0) {
-//                    alertify.alert("No hay existencias del producto ingresado, para su venta a granel");
-//                    $("#txtCostoProducto").addClass("disable", "dissable");
-//                    $("#txtNombreProducto").val("");
-//                    $("#txtCodigoBarras").val("");
-//                    $('#selectMarca').selectpicker('val', 0);
-//                    $('#selectProveedor').selectpicker('val', 0);
-//                    $('#selectGrupo').selectpicker('val', 0);
-//                    $('#selectMedida').selectpicker('val', 0);
-//                    $("#txtCostoProducto").val("");
-//                    $("#txtCantidadMinima").val("");
-//                    $("#txtCantidadMaxima").val("");
-//                    $(".producto").val("");
-//                    $(".neto").val("");
-//
-//                    $(".producto").attr("disabled", true);
-//                    $(".checando").attr("disabled", true);
-//                    $(".checando").attr("checked", false);
-//                    $("#selectProducto").load("obtenerProductos.php");
-//
-//                    $("#guardarGranel").slideUp();
-//                    $("#editararGranel").slideUp();
-//                    $("#txtCodigoProductoG").val("");
-//                    $("#txtCodigoProductoG").focus("");
-//                    $("#divgrande").slideUp();
-//                } else {
                 $.get('obtenerDatosAgranel.php', info2, function(rs) {
                     $("#txtContenido").val(rs);
                     var costo = $("#txtCostoProducto").val();
@@ -1025,7 +1018,6 @@ $("#txtCodigoProductoG").blur(function() {
                 $("#txtCostoPieza").attr("disabled", "disabled");
                 $("#guardarGranel").slideUp();
                 $("#editarGranel").slideDown();
-//                }
             }
         });
     }

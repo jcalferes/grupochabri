@@ -21,9 +21,10 @@ $producto->setIdMarca($_GET["marca"]);
 $producto->setIdProveedor($_GET["proveedor"]);
 $producto->setCodigoProducto($_GET["codigoProducto"]);
 $costo->setCosto($_GET["costoProducto"]);
+$m3 = $_GET["m3"];
 //$costo->setFolioProducto($_GET["folio"]);
 $tarifa->setIdListaPrecio($lista);
 
 
-$dao->editarProducto($producto, $costo, $tarifa, $idsucursal);
+$dao->editarProducto($producto, $costo, $tarifa, $idsucursal, $m3);
 

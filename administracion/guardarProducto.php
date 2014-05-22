@@ -21,6 +21,7 @@ $producto->setIdMarca($_GET["marca"]);
 $producto->setIdProveedor($_GET["proveedor"]);
 $producto->setCodigoProducto($_GET["codigoProducto"]);
 $costo->setCosto($_GET["costoProducto"]);
+$m3 = $_GET["m3"];
 //$costo->setFolioProducto($_GET["folio"]);
 $tarifa->setIdListaPrecio($lista);
 $granel = $_GET["granel"];
@@ -30,7 +31,7 @@ $original = $_GET["original"];
 
 $datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
 if ($datos < 1) {
-    $dao->guardarProducto($producto, $costo, $tarifa, $idsucursal);
+    $dao->guardarProducto($producto, $costo, $tarifa, $idsucursal, $m3);
     if ($granel == 1) {
         $dao->actualizaExsitenciaGranel($idsucursal, $producto, $contenido, $cuantos, $original);
     }
