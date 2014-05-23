@@ -686,6 +686,7 @@ $(document).ready(function() {
             data: {data: informacion, band: "modifica", folio: $("#folioM").val(), sucursal: $("#sucursal").val()},
             cache: false,
             success: function(x) {
+                alert(x);
                 window.open('generarReporte.php?valor=' + x + '&comprobante=PEDIDO CLIENTE');
                 alertify.success("Exito! Orden Guardada");
             }
@@ -815,6 +816,7 @@ $(document).ready(function() {
                 data: {data: informacion, sucursal: $("#sucursal").val()},
                 cache: false,
                 success: function(x) {
+//                    alert(x);
 //                var probando = $("#proveedores").val();
 //                    alert(x);
                     var info = 'valor=' + x + '&comprobante=PEDIDO CLIENTE';

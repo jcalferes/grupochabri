@@ -49,12 +49,11 @@ class dao {
     function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        if($tipo == "Orden Compra"){
-        $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo'";
-                    }else{
-                                $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
-
-                    }
+        if ($tipo == "Orden Compra") {
+            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo'";
+        } else {
+            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
+        }
         $sql = mysql_query($sql, $cn->Conectarse());
 //        $cn->cerrarBd();
         return $sql;
@@ -89,7 +88,7 @@ class dao {
         $cn = new coneccion();
 
         $sql = "SELECT * FROM xmlcomprobantes x "
-                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  WHERE x.idXmlComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -1369,8 +1368,22 @@ class dao {
         //Variables necesarias: $idEncabezado
         //======================================================================
         //Empieza guardar comprobante
-        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','$tipo','$lafecha','$idSucursal')";
+        if ($tipo == "PEDIDO CLIENTE") {
+            $sqlfolios = "SELECT max(folioPedidoCliente) as foliomayor FROM folios group by folioPedidoCliente";
+            $sqlfolios = mysql_query($sqlfolios);
+        } else {
+            $sqlfolios = "SELECT max(folioOrdenCompra) as foliomayor FROM folios group by folioOrdenCompra";
+            $sqlfolios = mysql_query($sqlfolios);
+        }
+
+
+        while ($rs = mysql_fetch_array($sqlfolios)) {
+            $sqlfolios = $rs["foliomayor"];
+        }
+        
+        if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+             $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
         $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
         $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
         if ($ctrlComprobanteGuardar == false) {
@@ -1384,9 +1397,60 @@ class dao {
             } else {
                 while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                     $idComprobante = $rs["ID"];
+                    $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                    if ($sqlinsertarfolio == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        
+                    }
                 }
             }
         }
+        }else{
+             $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $sqlfolios . "','$tipo','$lafecha','$idSucursal')";
+        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
+        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
+        if ($ctrlComprobanteGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
+            if ($ctrlComprobanteId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
+                    $idComprobante = $rs["ID"];
+                     if ($tipo == "PEDIDO CLIENTE") {
+                          $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                    if ($sqlinsertarfolio == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        
+                    }
+                     }else{
+                          $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
+                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                    if ($sqlinsertarfolio == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        
+                    }
+                     }
+                   
+                }
+            }
+        }
+        }
+        
+        
+       
         //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
@@ -1520,7 +1584,7 @@ class dao {
         }//Cierre FOR
         mysql_query("COMMIT;");
         error_reporting(0);
-        return $idComprobante;
+        return $sqlfolios;
     }
 
     //============================================== Todo para usuarios ============
