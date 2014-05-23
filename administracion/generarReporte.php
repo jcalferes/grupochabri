@@ -49,7 +49,7 @@ if ($validar > 0) {
 </HEAD>
 <BODY LANG="es-MX" DIR="LTR">
                                                              
- <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN=LEFT HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
+ <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 
 
  <h1>FOLIO NO.-' . $folio . ' </h1>
@@ -80,7 +80,7 @@ if ($validar > 0) {
     $valor .= '
                 </table>';
 
-    $valor .= '<table border = 1><tr><td>Subtotal:</td><td style="text-align: right">$' .number_format($subtotal, 2)  . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2)  . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' .number_format($descTotal, 2)  . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' .number_format($sda, 2)  . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' .number_format($iva, 2)  . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2)  . '</td></tr> </table>
+    $valor .= '<table  border = 1 ><tr><td>Subtotal:</td><td style="text-align: right">$' .number_format($subtotal, 2)  . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2)  . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' .number_format($descTotal, 2)  . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' .number_format($sda, 2)  . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' .number_format($iva, 2)  . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2)  . '</td></tr> </table>
 ';
 
 //$escribio = $utileria->numtoletras($total);
