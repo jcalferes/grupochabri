@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" id="txtnombrelista" placeholder="Ingrese el nombre de la nueva lista de precios">
                     </div>
                     <hr>
-                    <input id="btnguardarLista" type="button" class="btn btn-primary" accesskey="ENTER" value="Guardar"/>
+                    <input id="btnguardarLista" type="button" class="btn btn-primary" value="Guardar"/>
                 </form>
             </section>
         </div>

@@ -3,35 +3,36 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Nada</h2>
+            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Consulta Orden Compra</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label  class="control-label">Codigo:</label>
-                        <div class="input-group">
-                            <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
-                            <span class="input-group-btn">
-                                <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span> 
-                        </div>
+                        <!--<label  class="control-label">Codigo:</label>-->
+                        <!--                        <div class="input-group">
+                                                    <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
+                                                    <span class="input-group-btn">
+                                                        <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                    </span> 
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
+                                                <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
+                                            </div>-->
+                        <!--                    <div id="datosCaptura">
+                                                <div class="form-group">
+                                                    <label  class="control-label">Cantidad</label>
+                                                    <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
+                        
+                                                </div>
+                                            </div>-->
                     </div>
-                    <div class="form-group">
-                        <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
-                        <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
+                    <div id="detallesOrden">
                     </div>
-                    <div id="datosCaptura">
-                        <div class="form-group">
-                            <label  class="control-label">Cantidad</label>
-                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
-                        </div>
-                    </div>
-                </div>
-                <div id="detalle">
-                </div>
-                <table  class="table table-hover" id="tablaEntradas">
-                </table>
+                    <table  class="table table-hover" id="tablaOrden">
+                    </table>
             </section>
 
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden Compra</h2>
@@ -58,6 +59,8 @@
                         <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
                         <label id="lblemailO">Otro email(opcional): </label>
                         <input id="txtEmail" class="form-control"/>                       
+                        <param class="CProducto" hidden="true" value="nada">
+
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
@@ -80,8 +83,9 @@
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
                             <span class="input-group-btn">
-                                <button  id="buscarCodigoEntradas" class="btn btn-default" type="button" title="Buscar" disabled="true">
-                                    <span class="glyphicon glyphicon-search"></span>
+                                <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
+
+                                <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span> 
                         </div>
@@ -131,7 +135,7 @@
                 <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
+<!--            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
                     <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
@@ -141,29 +145,47 @@
                     </div>
                 </form>
                 <div id="cargaxml">
-                    <!-- Aqui van los archivos cargados -->
+                     Aqui van los archivos cargados 
                 </div>
                 <form id="validacionentradas">
                     <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelarentrada"/>
                     <input type="button" class="btn btn-primary" value="Validar" id="validarentrada"/>
                 </form>
-            </section>
+            </section>-->
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <!--        <div class="modal fade" id="mdlconsultaid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Buscar ID Producto</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="veridproductos">
+                                </div>
+                            </div>
+                        </div> /.modal-content 
+                    </div> /.modal-dialog 
+                </div> /.modal -->
+        <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Buscar ID Producto</h4>
+                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="veridproductos">
+                        <div id="todos" >
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

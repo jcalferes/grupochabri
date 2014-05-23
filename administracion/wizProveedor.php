@@ -69,6 +69,38 @@
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
             </section>
+            <h2><span class="glyphicon glyphicon-user"/>&numsp;Agentes</h2>
+            <section style="width: 100%">
+                <form name="formProveedor" style="margin: 0% 25% 0% 25%">
+                    <div id="dgproveedor" class="form-group form-inline">
+                        <label>Proveedor:</label><br>
+                        <select id="selectProveedor" style=" height: 35px" class="selectpicker" data-container="body" data-live-search="true">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" id="txtnombreagt">
+                    </div>
+                    <div id="afrmtel" class="form-group">
+                        <label>Telefono:</label>
+                        <button id="btnverteleagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <input id="btnotrotelagt" type="button" class="btn btn-default btn-xs" value="+">
+                        <input id="txttelagt" type="email" class="atelefono form-control" onblur="" style="width: 50%">
+                        <div id="mastelsagt">
+                        </div>
+                    </div>
+                    <div id="afrmemail" class="form-group">
+                        <label>E-mail:</label>
+                        <button id="btnveremailagt" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <input id="btnotroemailagt" type="button" class="btn btn-default btn-xs" value="+">
+                        <input id="txtemailagt" type="email" class="aemail form-control"  style="width: 50%"/>
+                        <div id="masemailsagt">
+                        </div>
+                    </div>
+                    <input id="btnguardaragt" type="button" class="btn btn-primary"  value="Guardar"/>
+                    <input id="btneditaragt" type="button" class="btn btn-primary"  value="Editar"/>
+                </form>
+            </section>
         </div>
         <!-- Modal  data-backdrop="static"-->
         <div class="modal fade" id="mdlDireccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" > 
@@ -190,6 +222,7 @@
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/proveedor.js"></script>
+        <script src="../administracion/administracion.js/agentes.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
     </body>
 </html>

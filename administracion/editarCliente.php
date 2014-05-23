@@ -18,6 +18,7 @@ $emails = $datos[3];
 
 $proveedor->setTipoProveedor($prov->radios);
 $proveedor->setNombre($prov->nombre);
+$proveedor->setCredito($prov->credito);
 $proveedor->setRfc($prov->rfc);
 $proveedor->setDiasCredito($prov->diascredito);
 $proveedor->setDesctfactura($prov->desctpf);

@@ -40,7 +40,7 @@
                     </div>
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
-                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span> Ver telefonos</button>
                         <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                         <div id="mastels">
@@ -48,11 +48,15 @@
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
-                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span> Ver E-mails</button>
                         <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%">
                         <div id="masemails">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Credito:</label>
+                        <input id="txtcredito" type="number" class="form-control" style="width: 50%" onpaste="return false">
                     </div>
                     <div class="form-group">
                         <label>Dias de credito:</label>
@@ -75,6 +79,18 @@
                     <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
                     <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
                 </form>
+            </section>
+            <h2><span class="glyphicon glyphicon-stats"/>&numsp;Deudores</h2>
+            <section >
+                <table class="table">
+                    <thead>
+                    <th><label style="font-size: large">Credito otorgado: $</label><span id="deudorescreditototal" style="font-size: large"><b>:P</b></span></th>
+                    <th><label style="font-size: large">Abonos: $</label><span id="deudoresabonostotal" style="font-size: large"><b>:P</b></span></th>
+                    <th><label style="font-size: large">Saldo total: $</label><span id="deudoressaldototal" style="font-size: large"><b>:P</b></span></th>
+                    </thead>
+                </table>
+                <div id="consultadeudores">
+                </div>
             </section>
         </div>
         <!-- Modal -->
@@ -194,9 +210,24 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div class="modal fade" id="mdlverabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Detalle de abonos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="tblabonos">
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/clientes.js"></script>
         <script src="../administracion/administracion.js/direccion.js"></script>
     </body>
 </html>
+

@@ -167,6 +167,10 @@ $(document).ready(function() {
         $('#dtproveedor').dataTable();
     });
 
+    $("#dgproveedor").load("mostrarProveedores.php", function() {
+        $("#selectProveedor").selectpicker();
+    });
+
     $(function() {
         $(".telefono").validCampoFranz('0123456789()');
         $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');

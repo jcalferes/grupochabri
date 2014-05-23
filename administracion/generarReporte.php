@@ -5,7 +5,10 @@ include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
 $mipdf = new DOMPDF();
-$escribio ="";
+error_reporting(0);
+$escribio = "";
+$correos = "";
+$correos2 = "";
 $folio = $_GET["valor"];
 $correos = $_GET["correos"];
 $correos2 = $_GET["correos2"];
@@ -17,10 +20,9 @@ if ($correos2 !== "") {
 }
 $dao = new dao();
 $utileria = new Utilerias();
-$datos = $dao->obtenerOrdenCompra($folio, $comprobante);
+$datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
-
     $valor = '
 <HTML>
 <HEAD>
@@ -46,7 +48,7 @@ if ($validar > 0) {
 </HEAD>
 <BODY LANG="es-MX" DIR="LTR">
                                                              
- <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN=LEFT HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
+ <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 
 
  <h1>FOLIO NO.-' . $folio . ' </h1>
@@ -71,17 +73,17 @@ if ($validar > 0) {
         $sda = $datosOrden["sdaComprobante"];
         $iva = $datosOrden["ivaComprobante"];
         $total = $datosOrden["totalComprobante"];
-        $valor .= '<tr><td>' . $datosOrden["cantidadConcepto"] . '</td><td>' . $datosOrden["codigoConcepto"] . '</td><td>' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["precioUnitarioConcepto"] . '</td><td>' . $datosOrden["costoCotizacion"] . '</td><td>' . $datosOrden["desctUnoConcepto"] . '</td><td>' . $datosOrden["desctDosConcepto"] . '</td><td>' . $datosOrden["totalComprobante"] . '</td><td>' . $datosOrden["cdaConcepto"] . '</td><td>' . $datosOrden["importeConcepto"] . '</td></tr>';
+        $valor .= '<tr><td style="text-align: right">$' . number_format($datosOrden["cantidadConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["codigoConcepto"] , 2)  . '</td><td >' . $datosOrden["descripcionConcepto"]  . '</td><td style="text-align: right">$' .number_format( $datosOrden["precioUnitarioConcepto"], 2) . '</td><td style="text-align: right">$' .number_format($datosOrden["costoCotizacion"], 2)  . '</td><td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' .number_format($datosOrden["desctDosConcepto"], 2)  . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td><td style="text-align: right">$' .number_format($datosOrden["cdaConcepto"], 2)  . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
 //        $arr[][] = array('subtotalComprobante' => $datosOrden["subtotalComprobante"], 'sdaComprobante' => $datosOrden["sdaComprobante"], 'rfcComprobante' => $datosOrden["rfcComprobante"], 'desctFacturaComprobante' => $datosOrden["desctFacturaComprobante"], 'desctProntoPagoComprobante' => $datosOrden["desctProntoPagoComprobante"], 'desctTotalComprobante' => $datosOrden["desctTotalComprobante"], 'desctGeneralComprobante' => $datosOrden["desctGeneralComprobante"], 'ivaComprobante' => $datosOrden["ivaComprobante"], 'totalComprobante' => $datosOrden["totalComprobante"], 'folioComprobante' => $datosOrden["folioComprobante"], 'tipoComprobante' => $datosOrden["tipoComprobante"], 'cantidadConcepto' => $datosOrden["cantidadConcepto"], 'descripcionConcepto' => $datosOrden["descripcionConcepto"], 'precioUnitarioConcepto' => $datosOrden["precioUnitarioConcepto"], 'cdaConcepto' => $datosOrden["cdaConcepto"], 'desctUnoConcepto' => $datosOrden["desctUnoConcepto"], 'desctDosConcepto' => $datosOrden["desctDosConcepto"], 'importeConcepto' => $datosOrden["importeConcepto"],'costoCotizacion' => $datosOrden["costoCotizacion"]);
     }
     $valor .= '
                 </table>';
 
-    $valor .= '<table border = 1><tr><td>Subtotal:</td><td>' . $subtotal . '</td></tr><tr><td>  Desc. General :</td><td> ' . $descGral . '</td></tr><tr><td> Desc. Productos: </td><td>' . $descProd . '</td></tr><tr><td>  Desc. Total : </td><td>' . $descTotal . '</td></tr><tr><td> SDA :</td><td>' . $sda . '</td></tr><tr><td>  Iva 16% :</td><td> ' . $iva . '</td></tr><tr><td>  Total :</td><td> ' . $total . '</td></tr> </table>
+    $valor .= '<table  border = 1 ><tr><td>Subtotal:</td><td style="text-align: right">$' .number_format($subtotal, 2)  . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2)  . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' .number_format($descTotal, 2)  . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' .number_format($sda, 2)  . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' .number_format($iva, 2)  . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2)  . '</td></tr> </table>
 ';
-    
+
 //$escribio = $utileria->numtoletras($total);
-    $valor.='Total:'.$utileria->numtoletras($total).'</body></html>';
+    $valor.='Total:' . $utileria->numtoletras($total) . '</body></html>';
 } else {
     echo '0';
 }
@@ -127,8 +129,14 @@ file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
 //$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 //$mipdf->stream('reportes/probando.pdf');
-if ($correos !== "") {
+if ($comprobante !== "PEDIDO CLIENTE") {
+
+
+    if ($correos !== "") {
 //$correo = "shanaxchronos@gmail.com";
-    $utileria->enviarCorreoElectronico($correo, $destinos);
+        $utileria->enviarCorreoElectronico($correo, $destinos);
+        $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+    }
+} else {
     $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 }

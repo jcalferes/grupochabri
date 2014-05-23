@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#btnGuardarGrupo").click(function() {
-        var nombreGrupo = $("#txtnombreGrupo").val();
+        var nombreGrupo = $("#txtnombreGrupo").val().toUpperCase();
         var info = "nombreGrupo=" + nombreGrupo;
         $.get('guardarGrupo.php', info, function(status) {
             alert(status);

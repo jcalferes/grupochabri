@@ -3,7 +3,11 @@
 include_once './administracion.dao/dao.php';
 $dao = new dao();
 session_start();
-$sucursal = $_SESSION["sucursalSesion"];
+if ($validando !== "pedido") {
+    $validando = $_GET["pedidoCliente"];
+} else {
+    $sucursal = $_SESSION["sucursalSesion"];
+}
 
 $datos = $dao->consultaSucursales($sucursal);
 if ($datos != false) {

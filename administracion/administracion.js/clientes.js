@@ -4,9 +4,10 @@ var txttel = "mastel";
 var txtemail = "masemail";
 var cadena = "";
 
-function Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user) {
+function Proveedor(nombre, rfc, credito, diascredito, desctpf, desctpp, radios, pass, user) {
     this.nombre = nombre;
     this.rfc = rfc;
+    this.credito = credito;
     this.diascredito = diascredito;
     this.desctpf = desctpf;
     this.desctpp = desctpp;
@@ -157,8 +158,17 @@ $("#btncanceloProveedor").click(function() {
     $("#mostrarDivProveedor").hide("slow");
 });
 
+function verAbonos(folio) {
+    var info = "folio=" + folio;
+    $("#tblabonos").load("consultarAbonos.php", info, function() {
+        $("#dtabonos").dataTable();
+    });
+    $("#mdlverabonos").modal('show');
+}
 
 $(document).ready(function() {
+    var saldos = 0;
+    var creditos = 0;
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
@@ -168,10 +178,29 @@ $(document).ready(function() {
         $('#dtcliente').dataTable();
     });
 
+    $("#consultadeudores").load("consultarDeudores.php", function() {
+        $('#dtdeudores').dataTable();
+        $("#dtdeudores").find('.saldos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            saldos = saldos + parseFloat(valor);
+        });
+        $("#dtdeudores").find('.creditos').each(function() {
+            var elemento = this;
+            var valor = elemento.value;
+            creditos = creditos + parseFloat(valor);
+        });
+        var abonos = creditos - saldos;
+        $("#deudorescreditototal").text(creditos);
+        $("#deudoresabonostotal").text(abonos);
+        $("#deudoressaldototal").text(saldos);
+    });
+
     $(function() {
         $(".telefono").validCampoFranz('0123456789()');
         $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
         $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
+        $('#txtcredito').validCampoFranz('0123456789');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
@@ -186,6 +215,7 @@ $(document).ready(function() {
 $("#btneditarproveedor").click(function() {
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
+    var credito = $("#txtcredito").val();
     var diascredito = $("#txtdiascredito").val();
     var descuento = $("#txtdescuento").val();
     var desctpf = $("#txtdesctpf").val();
@@ -206,7 +236,7 @@ $("#btneditarproveedor").click(function() {
     var telefonos = [];
     var datos = [];
 
-    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento)) {
+    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento) || credito == "" || /^\s+$/.test(credito)) {
         alertify.error("Todos los campos son obligatorios");
         return false;
     }
@@ -248,7 +278,7 @@ $("#btneditarproveedor").click(function() {
     }
 
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
-    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios);
+    var proveedor = new Proveedor(nombre, rfc, credito, diascredito, desctpf, desctpp, radios);
 
     $(".telefono").each(function() {
         var valor = $(this).val();
@@ -337,6 +367,7 @@ $("#txtrfc").blur(function() {
             $("#btnveremail").attr("disabled", "disabled");
 
             $("#txtnombreproveedor").val("");
+            $("#txtcredito").val("");
             $("#txtdiascredito").val("");
             $("#txtdesctpf").val("");
             $("#txtdesctpp").val("");
@@ -365,6 +396,7 @@ $("#txtrfc").blur(function() {
             $("#btnveremail").removeAttr("disabled", "disabled");
 
             $("#txtnombreproveedor").val(arr.proveedor.datos.nombre);
+            $("#txtcredito").val(arr.proveedor.datos.credito);
             $("#txtdiascredito").val(arr.proveedor.datos.diascredito);
             $("#txtdesctpf").val(arr.proveedor.datos.descuentopf);
             $("#txtdesctpp").val(arr.proveedor.datos.descuentopp);
@@ -456,6 +488,7 @@ $("#btnguardarproveedor").click(function() {
     var repass = $("#txtcrepass").val();
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
+    var credito = $("#txtcredito").val();
     var diascredito = $("#txtdiascredito").val();
     var descuento = $("#txtdescuento").val();
     var desctpf = $("#txtdesctpf").val();
@@ -475,7 +508,7 @@ $("#btnguardarproveedor").click(function() {
     var telefonos = [];
     var datos = [];
 
-    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento) || user == "" || /^\s+$/.test(user) || pass == "" || /^\s+$/.test(pass) || repass == "" || /^\s+$/.test(repass)) {
+    if (nombre == "" || /^\s+$/.test(nombre) || rfc == "" || /^\s+$/.test(rfc) || diascredito == "" || /^\s+$/.test(diascredito) || descuento == "" || /^\s+$/.test(descuento) || user == "" || /^\s+$/.test(user) || pass == "" || /^\s+$/.test(pass) || repass == "" || /^\s+$/.test(repass) || credito == "" || /^\s+$/.test(credito)) {
         alertify.error("Todos los campos son obligatorios");
         return false;
     }
@@ -522,7 +555,7 @@ $("#btnguardarproveedor").click(function() {
     }
 
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
-    var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios, pass, user);
+    var proveedor = new Proveedor(nombre, rfc, credito, diascredito, desctpf, desctpp, radios, pass, user);
     var ctrltelefonos = 0;
     $(".telefono").each(function() {
         var valor = $(this).val();
