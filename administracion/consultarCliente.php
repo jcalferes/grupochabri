@@ -10,7 +10,7 @@ while ($rs = mysql_fetch_array($datos)) {
     echo "<tr><td><center><input class='checkMarcas' type='checkbox' id='eliminar' onclick='eliminar()' value='$rs[idCliente]'></center></td>";
     echo"<td>" . utf8_encode($rs["nombre"]) . "</td>";
     echo"<td>$rs[rfc]</td>";
-    echo"<td>$rs[credito]</td>";
+    echo"<td style='text-align:right'>$".number_format($rs['credito'],2)."</td>";
     echo"<td>$rs[diasCredito]</td>";
     echo"<td>$rs[descuentoPorFactura]</td>";
     echo"<td>$rs[descuentoPorProntoPago]</td>";

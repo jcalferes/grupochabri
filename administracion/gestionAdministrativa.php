@@ -2,8 +2,6 @@
 include '../index/verificaSession.php';
 $verificasession = new verificaSession();
 $verificasession->validaSesion();
-$formatted = number_format(321312213211.213, 2);
-echo $formatted;
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
