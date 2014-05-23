@@ -20,7 +20,7 @@ if ($correos2 !== "") {
 }
 $dao = new dao();
 $utileria = new Utilerias();
-$datos = $dao->obtenerOrdenCompra($folio, $comprobante);
+$datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
 
