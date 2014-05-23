@@ -23,7 +23,6 @@ $utileria = new Utilerias();
 $datos = $dao->obtenerOrdenCompra($folio, $comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
-
     $valor = '
 <HTML>
 <HEAD>
