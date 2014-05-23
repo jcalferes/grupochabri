@@ -48,7 +48,9 @@ while ($dat = mysql_fetch_array($rs)) {
         $interfaz.="<td style='width: 150px'>"
                 . "<div class='input-group'>
                          <input type='text' id='txt" . $codigo->getCodigo() . "' 
-                             class='form-control' placeholder=''>
+                             class='form-control' placeholder='Cant. Kg'
+                             onkeyup='calcularTotal(" . "\"$codigo1\"" . ")'
+                             value='1000'/>
                          <span class='input-group-btn'>
                             <button class='btn btn-default' type='button' onclick='modalProductosGranel(" . "\"$codigo1\"" . ")'>
                                 <span class='glyphicon glyphicon-plus'></span>
@@ -74,7 +76,7 @@ while ($rsDatos = mysql_fetch_array($rsTarifas)) {
 $interfaz.="</select>";
 $interfaz.="</td>";
 $interfaz.="<td><center><span id='precioVnt" . $codigo->getCodigo() . "'>" . $costoMenudeo . "</span></center></td>";
-$interfaz.="<td><input id='txtDescuentos".$codigo1."' onkeyup='calcularDescuentos(" . "\"$codigo1\"" . ")' type='text' class='form-control'/></td>";
+$interfaz.="<td><input id='txtDescuentos" . $codigo1 . "' onkeyup='calcularDescuentos(" . "\"$codigo1\"" . ")' type='text' class='form-control'/></td>";
 $interfaz.="<td><center>"
         . "<button type='submit' class='btn' title='Eliminar Producto' onclick='eliminarProducto(" . "\"$codigo1\"" . ");'>"
         . '<span class="glyphicon glyphicon-trash"></span>'
@@ -82,10 +84,10 @@ $interfaz.="<td><center>"
         . "</center>"
         . "</td>";
 $total = 0.00;
-$total = $codigo->getCantidad()*$costoMenudeo;
-$interfaz.="<td><center><input class='form-control' type='text' id='txtTotal" . $codigo->getCodigo() . "'  value='".$total."'  /></center></td>";
+$total = $codigo->getCantidad() * $costoMenudeo;
+$interfaz.="<td><center><input class='form-control' type='text' id='txtTotal" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
 $interfaz.="<td><center><input disabled= 'true' class='form-control' type='text' id='txtDescuento" . $codigo->getCodigo() . "' /></center></td>";
-$interfaz.="<td><center><input class='form-control' type='text' id='txtTotalDesc" . $codigo->getCodigo() . "'  value='".$total."'  /></center></td>";
+$interfaz.="<td><center><input class='form-control' type='text' id='txtTotalDesc" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
 $interfaz.="</tr>";
 echo $interfaz;
 ?>

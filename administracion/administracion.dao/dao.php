@@ -2262,4 +2262,20 @@ class dao {
         }
     }
 
+    function dameClientes() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT rfc, nombre from clientes";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function dameFolio() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT MAX(folioVenta) from folios";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
 }

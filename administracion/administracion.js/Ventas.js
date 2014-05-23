@@ -1,4 +1,5 @@
 var codigos = new Array();
+var codigoN;
 
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
@@ -7,6 +8,8 @@ $("#codigoProductoEntradas").keypress(function(e) {
 });
 function buscar() {
     var codi = $("#codigoProductoEntradas").val();
+    codigoN = codi;
+//    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
         var cantidad = $("#txt" + codi).val();
@@ -41,6 +44,21 @@ function agregarProducto() {
     buscar();
 }
 
+function verificarProductoGranel(codigo)
+{
+    var paso = false;
+    var granel = "-GR";
+    var longitudCadena = codigo.length;
+    var posision = longitudCadena - 3;
+    var cadenaComparar = codigo.substring(posision, longitudCadena);
+    if (granel == cadenaComparar) {
+        paso = true;
+    }
+    return paso;
+}
+
+
+
 function calcularDescuentos(codigo) {
     var descuentos = $("#txtDescuentos" + codigo).val();
     var total = $("#txtTotal" + codigo).val();
@@ -63,19 +81,47 @@ function sustraerLetras(palabra) {
 }
 
 function cambiarTarifas(codigo) {
-    var valor = $("#cmb" + codigo).val(); 
+    var valor = $("#cmb" + codigo).val();
     $("#precioVnt" + codigo).text(valor);
     calcularTotal(codigo);
 }
 
 function calcularTotal(codigo) {
+    var ok = verificarProductoGranel(codigo);
     var valor = $("#cmb" + codigo).val();
     var cantidad = $("#txt" + codigo).val();
-    var total = valor * cantidad;
-    $("#txtTotal" + codigo).val(total);
+    if (ok == false) {
+        var total = valor * cantidad;
+        $("#txtTotal" + codigo).val(total);
+    }
+    else {
+        var calulandoKg = (cantidad * valor) / 1000;
+        $("#txtTotal" + codigo).val(calulandoKg);
+
+    }
     calcularDescuentos(codigo);
 }
 
+function calcularPorCantidad() {
+    var valor = $("#cmb" + codigoN).val();
+    var cantidad = $("#txtCantidadModal").val();
+    $("#txt" + codigoN).val(cantidad);
+    var calulandoKg = (cantidad * valor) / 1000;
+    $("#txtTotal" + codigoN).val(calulandoKg);
+    calcularDescuentos(codigoN);
+    $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
+}
+
+function calcularPorPrecio() {
+    var precio = $("#txtTotalModal").val();
+    var precioVnt = $("#cmb" + codigoN).val();
+    var kilogramosVnta = (precio * 1000) / precioVnt;
+    $("#txtCantidadModal").val(kilogramosVnta);
+    $("#txtTotal" + codigoN).val(precio);
+    $("#txt" + codigoN).val(kilogramosVnta);
+//  alert(kilogramosVnta);
+    calcularDescuentos(codigoN);
+}
 
 
 function quitarProducto(codigo) {
@@ -97,13 +143,46 @@ function eliminarProducto(codigo) {
     cargarProductosCarrito();
 }
 
+function modalProductosGranel(codigo) {
+    var cantidad = $("#txt" + codigo).val();
+    $("#txtCantidadModal").val(cantidad);
+    var total = $("#txtTotal" + codigo).val();
+    $("#txtTotalModal").val(total);
+    $('#mdlGranel').modal('toggle');
+    codigoN = codigo;
+}
+
+
+//funcion para saber que tecla esta presionada.
+$(document).keydown(function(tecla) {
+    if (tecla.keyCode == 113) {
+        buscarTecla();
+    }
+});
+
+function buscarTecla() {
+    if (isNaN(codigoN)) {
+        codigoN = 0;
+    }
+    if (codigoN != 0) {
+        var cantidad = $("#txt" + codigoN).val();
+        var suma = parseInt(cantidad) + 1;
+        $("#txt" + codigoN).val(suma);
+        calcularTotal(codigoN);
+    }
+}
+
 $(document).ready(function() {
-    $("#precioVnta-12345-gr").val("hola como estas");
-    
     $("#buscarCodigo").click(function() {
         buscar();
     });
 
+    $("#cmbClientes").load("dameClientes.php");
+    $("#folio").load("dameFolio.php");
+    var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    var f = new Date();
+    var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
+    $("#fecha").html(fecha);
     $("#btnver").click(function() {
         var info;
         $("#tdProducto").find(':checked').each(function() {

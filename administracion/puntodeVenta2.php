@@ -8,10 +8,31 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
             <section>
+                <div style="float: right" id="fecha">
+                </div>
                 <br>
+                <div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="cmbClientes">
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="cmbTipoPago">
+                            <option>Tipo de Pago   </option>
+                            <option>Efectivo</option>    
+                            <option>Cheque</option>   
+                        </select>
+                    </div>
+                    <div style="float: right">
+                        <strong><label id="folio"></label> </strong>
+                    </div>
+                </div>
+                <br> <br> 
                 <div class="col-sm-3">
                     <div class="input-group" id="panelBusqueda">
-                        <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo"/>
+                        <input type="text" class="form-control" 
+                               id="codigoProductoEntradas" 
+                               placeholder="Codigo"/>
                         <span class="input-group-btn">
                             <button  class="btn btn-default" type="button" title="Buscar" id="btnbuscador">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -32,6 +53,7 @@
                     <th><center>Descuentos</center></th>
                     <th><center>Eliminar</center></th>
                     <th><center>Total</center></th>
+                    <th><center>Descuentos</center></th>
                     </thead>
                 </table>
                 <hr>
@@ -83,25 +105,34 @@
                     <div class="modal-body">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
-                                <label for="inputEmail3" 
-                                       class="col-sm-4 control-label">
+                                <label class="col-sm-4 control-label">
                                     Cantidad:
                                 </label>
                                 <div class="col-sm-8">
                                     <input type="text" 
                                            class="form-control" 
-                                           placeholder="kg"/>
+                                           placeholder="kg"
+                                           id="txtCantidadModal"
+                                           onkeyup="calcularPorCantidad();"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail3" 
-                                       class="col-sm-4 control-label">
+                                <label class="col-sm-4 control-label">
                                     Pesos:
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" 
-                                           class="form-control" 
-                                           placeholder="$0.00 mxn."/>
+                                    <div class="input-group">
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="txtTotalModal"
+                                               placeholder="$0.00 mxn."
+                                               onkeyup="calcularPorPrecio();"/>
+                                        <span class='input-group-btn'>
+                                            <button class='btn btn-default' type='button'>
+                                                KG
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </form>
