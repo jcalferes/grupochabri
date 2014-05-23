@@ -2551,7 +2551,6 @@ class dao {
             $datos = 0;
         }
         return $datos;
-//>>>>>>> origin/master
     }
 
 }
