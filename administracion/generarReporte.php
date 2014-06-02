@@ -25,6 +25,12 @@ $validar = mysql_affected_rows();
 if ($validar > 0) {
 //========================= Inicia diseño ======================================
     $valor = '
+        <html>
+        <head></head>
+        <body><body>
+        </html>
+
+
 <HTML>
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
@@ -96,8 +102,6 @@ if ($validar > 0) {
 .CSSTableGenerator tr:nth-child(odd){ background-color:#e5e5e5; }
 .CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
 	vertical-align:middle;
-	
-	
 	border:1px solid #000000;
 	border-width:0px 1px 1px 0px;
 	text-align:left;
