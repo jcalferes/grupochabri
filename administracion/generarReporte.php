@@ -153,13 +153,13 @@ if ($validar > 0) {
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">"00000"</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
+        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">'.$folio.'</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
         <tr><td>Direccion:<br> "Poner aqui la direccion del cliente"</td><td>Colonia:<br> "Poner aqui la colonia del cliente"</td><td></td></tr>
         <tr style="background-color: white"><td>Localidad/Municipio:<br> "Poner la localidad del cliente"</td><td>Estado:<br> "Poner aqui el estado del cliente"</td><td>CP:<br>"El numero postal del cliente"</td></tr>
         </table>';
     } else {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">"00000"</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
+        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">'.$folio.'</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
         </table>';
     }
     $valor .= '  <table class="CSSTableGenerator">
