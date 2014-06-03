@@ -77,7 +77,7 @@
                             <form class='form-inline'>
                                 <div class="form-group">
                                     <label>*Cantidad a abonar:</label><br>
-                                    <input type="number" class="form-control" id="txtcantidadabono" onkeypress="return NumCheck(event, this);" />
+                                    <input type="number" class="form-control" id="txtcantidadabono" onkeypress="return NumCheck2(event, this);" />
                                 </div>
                                 <div class="form-group">
                                     <label>*Tipo de pago:</label><br>
