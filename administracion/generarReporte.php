@@ -127,7 +127,7 @@ if ($validar > 0) {
 	background-color:#cccccc;
 	border:0px solid #000000;
 	border-width:0px 0px 1px 1px;
-	font-size:14px;
+	font-size:12px;
 	font-family:Times New Roman;
 	font-weight:bold;
 	color:#000000;
@@ -186,7 +186,7 @@ if ($validar > 0) {
         $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">'. $datosOrden["codigoConcepto"] . '</td><td width="48%">' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
     $valor .= '</table>';
-    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>';
+    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td style="font-weight:normal">Subtotal:</td><td style="text-align: right; font-weight:normal">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td style="font-weight:bold">  Total :</td><td style="text-align: right; font-size:16px; font-weight:bold;"> $' . number_format($total, 2) . '</td></tr> </table>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $utileria->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
     $valor .= '<label style="position:absolute; top:145px; left:490px; font-size: x-small;">Total de m<sup>3</sup> por madera: '.$sacandoMedidas.'</label><br>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:165px;"><tr><td>Informacion del transporte empleado:</td></tr>'
