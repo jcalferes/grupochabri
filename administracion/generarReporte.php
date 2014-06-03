@@ -149,7 +149,7 @@ if ($validar > 0) {
 	</STYLE>
     </head>
     <body LANG="es-MX" DIR="LTR">
-<!--        <IMG SRC="administracion.imgs/encabezados_' . $idsucursal . '.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0> -->
+<img src="administracion.imgs/encabezados_' . $idsucursal . '.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 <!--        <h4>FOLIO NO.-' . $folio . ' </h4> -->';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">
