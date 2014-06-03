@@ -1,11 +1,10 @@
 <?php
 
-session_start();
 include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
-
+session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
 $idsucursal = $_POST["sucursal"];
 $mipdf = new DOMPDF();
@@ -183,7 +182,8 @@ if ($validar > 0) {
         $sda = $datosOrden["sdaComprobante"];
         $iva = $datosOrden["ivaComprobante"];
         $total = $datosOrden["totalComprobante"];
-        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . number_format($datosOrden["codigoConcepto"], 2) . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
+        $sacandoMedidas = $datosOrden["cantidadConcepto"] *
+                $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . number_format($datosOrden["codigoConcepto"], 2) . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
     $valor .= '</table>';
     $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>';
