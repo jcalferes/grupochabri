@@ -4,6 +4,8 @@ include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
+session_start();
+$idsucursal = $_POST["sucursal"];
 $mipdf = new DOMPDF();
 error_reporting(0);
 $escribio = "";
@@ -49,7 +51,7 @@ if ($validar > 0) {
 </HEAD>
 <BODY LANG="es-MX" DIR="LTR">
                                                              
- <IMG SRC="administracion.imgs/titulos.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
+ <IMG SRC="administracion.imgs/titulos_'.$idsucursal.'.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 
 
  <h1>FOLIO NO.-' . $folio . ' </h1>

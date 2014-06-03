@@ -26,7 +26,7 @@ while ($rs = mysql_fetch_array($datos)) {
     echo"<td  style='text-align: right'>$".number_format($rs["totalComprobante"], 2)."</td>";
 //    echo"<td>$rs[desctTotalComprobante]</td>";
 //    echo"<td>Nada</td></tr>";
-    echo"<td><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[folioPedidoCliente],\"$tipo\")'><span class='glyphicon glyphicon-info-sign'></span></button></td></tr>";
+    echo"<td><button type='button' class='btn btn-xs' id='btnver' onclick='verOrdenCompra($rs[folioComprobante],\"$tipo\")'><span class='glyphicon glyphicon-info-sign'></span></button></td></tr>";
 }
 echo"</tbody></table></div>";
 }
