@@ -6,7 +6,6 @@ include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
 session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
-//$idsucursal = $_POST["sucursal"];
 $mipdf = new DOMPDF();
 error_reporting(0);
 $escribio = "";
@@ -149,8 +148,9 @@ if ($validar > 0) {
 	</STYLE>
     </head>
     <body LANG="es-MX" DIR="LTR">
-<img src="administracion.imgs/encabezados_' . $idsucursal . '.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
-<!--        <h4>FOLIO NO.-' . $folio . ' </h4> -->';
+    <center>
+        <img src="administracion.imgs/cabecera_'.$idsucursal.'.png" width="785px"/>
+    </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">
         <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">"00000"</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
