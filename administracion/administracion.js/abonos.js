@@ -14,7 +14,7 @@ $("#btnabonos").click(function() {
 });
 
 //============ UTILIDADES ======================================================
-function NumCheck(e, field, tarifa) {
+function NumCheck2(e, field, tarifa) {
     key = e.keyCode ? e.keyCode : e.which
     if (key == 15)
         return true
