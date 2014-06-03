@@ -139,6 +139,7 @@ $("#finder").blur(function() {
                 $("#txtCostoProducto").val("");
                 $("#txtCantidadMinima").val("");
                 $("#txtCantidadMaxima").val("");
+                $("#m3").val("");
                 $(".producto").val("");
                 $(".neto").val("");
 
