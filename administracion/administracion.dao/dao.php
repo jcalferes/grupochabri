@@ -89,7 +89,7 @@ class dao {
 
         $sql = "SELECT * FROM xmlcomprobantes x "
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
-                . "INNER JOIN productos p ON xc.codigoConcepto = p.codigoProducto WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+                . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;

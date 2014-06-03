@@ -6,7 +6,7 @@ include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
 session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
-$idsucursal = $_POST["sucursal"];
+//$idsucursal = $_POST["sucursal"];
 $mipdf = new DOMPDF();
 error_reporting(0);
 $escribio = "";
@@ -26,7 +26,7 @@ $utileria = new Utilerias();
 $datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
-//========================= Inicia diseño ======================================
+//========================= Inicia diseÃ±o ======================================
     $valor = '
 <html>
     <head>
@@ -149,7 +149,7 @@ if ($validar > 0) {
 	</STYLE>
     </head>
     <body LANG="es-MX" DIR="LTR">
-<!--        <IMG SRC="administracion.imgs/encabezados_' . $idsucursal . '.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0> -->
+<img src="administracion.imgs/encabezados_' . $idsucursal . '.png" NAME="Imagen 1" ALIGN="center" HSPACE=12 WIDTH=650 HEIGHT=182 BORDER=0>
 <!--        <h4>FOLIO NO.-' . $folio . ' </h4> -->';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">
@@ -200,9 +200,9 @@ if ($validar > 0) {
 
 //
 //$resp = $valor . $valor2 . $valor3;
-//Termina Diseño================================================================
-# Definimos el tamaño y orientación del papel que queremos.
-# O por defecto cogerá el que está en el fichero de configuración.
+//Termina DiseÃ±o================================================================
+# Definimos el tamaÃ±o y orientaciÃ³n del papel que queremos.
+# O por defecto cogerÃ¡ el que estÃ¡ en el fichero de configuraciÃ³n.
 $mipdf->set_paper("A4", "portrait");
 
 # Cargamos el contenido HTML.

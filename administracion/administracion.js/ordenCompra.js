@@ -22,7 +22,7 @@ function listarProductos() {
 
     });
     if (info != undefined) {
-        alert("entro");
+//        alert("entro");
         $.get('consultaMasivaProductos.php', info, function(x) {
             var valorando = 0;
             lista = JSON.parse(x);
@@ -127,7 +127,7 @@ function listarProductos() {
     }
 }
 function verOrdenCompra(folio, comprobante) {
-    alert("folio:" + folio + " comprobante:" + comprobante);
+//    alert("folio:" + folio + " comprobante:" + comprobante);
     var info = "valor=" + folio + "&comprobante=Orden Compra";
     window.open('generarReporte.php?' + info);
 
