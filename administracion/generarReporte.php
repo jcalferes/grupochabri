@@ -1,6 +1,7 @@
 <?php
 
 include_once '../dompdf/dompdf_config.inc.php';
+
 include_once './administracion.dao/dao.php';
 include_once '../utilerias/Utilerias.php';
 # Instanciamos un objeto de la clase DOMPDF. 
@@ -147,19 +148,29 @@ if ($validar > 0) {
 }
 	</STYLE>
     </head>
-    <body LANG="es-MX" DIR="LTR">
-    <center>
-        <img src="administracion.imgs/cabecera_'.$idsucursal.'.png" width="785px"/>
+    <body LANG="es-MX" DIR="LTR">';
+    $valor .= '<script type="text/php">
+
+
+if ( isset($pdf) ) {
+
+
+$font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
+
+
+} </script>';
+  $valor .= ' <center>
+        <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/>
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">'.$folio.'</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
+        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
         <tr><td>Direccion:<br> "Poner aqui la direccion del cliente"</td><td>Colonia:<br> "Poner aqui la colonia del cliente"</td><td></td></tr>
         <tr style="background-color: white"><td>Localidad/Municipio:<br> "Poner la localidad del cliente"</td><td>Estado:<br> "Poner aqui el estado del cliente"</td><td>CP:<br>"El numero postal del cliente"</td></tr>
         </table>';
     } else {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">'.$folio.'</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
+        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
         </table>';
     }
     $valor .= '  <table class="CSSTableGenerator">
@@ -183,10 +194,10 @@ if ($validar > 0) {
         $iva = $datosOrden["ivaComprobante"];
         $total = $datosOrden["totalComprobante"];
         $sacandoMedidas += $datosOrden["cantidadConcepto"] * $datosOrden["metrosCubicos"];
-        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . number_format($datosOrden["codigoConcepto"], 2) . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
+        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' .$datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
     $valor .= '</table>';
-    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td >Total metros: </td><td style="text-align: right">'.$sacandoMedidas.'</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>';
+    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td >Total metros: </td><td style="text-align: right">' . $sacandoMedidas . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $utileria->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:160px;"><tr><td>Informacion del transporte empleado:</td></tr>'
             . '<tr><td>Medio de transporte:</td><td>En el caso de camiones:</td></tr>'
@@ -204,6 +215,8 @@ if ($validar > 0) {
 # Definimos el tamaÃ±o y orientaciÃ³n del papel que queremos.
 # O por defecto cogerÃ¡ el que estÃ¡ en el fichero de configuraciÃ³n.
 $mipdf->set_paper("A4", "portrait");
+//$font = Font_Metrics::get_font("verdana", "bold");
+//$mipdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0, 0, 0));
 
 # Cargamos el contenido HTML.
 $mipdf->load_html(utf8_decode($valor));

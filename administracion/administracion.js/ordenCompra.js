@@ -308,7 +308,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
 
             }
         });
-        if (valorando == 0) {
+//        if (valorando == 0) {
             var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val();
             $.get('mostrarInformacionProductoEntradas.php', info, function(informacion) {
                 if (informacion == 1) {
@@ -353,14 +353,14 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     }
                 }
             });
-        } else {
-            alertify.error("ya existe");
-            sumar = $("#cant" + valorando).val();
-            total = 1 + parseInt(sumar);
-
-            $("#cant" + valorando).val(total);
-            calcularPorCantidad(valorando);
-        }
+//        } else {
+//            alertify.error("ya existe");
+//            sumar = $("#cant" + valorando).val();
+//            total = 1 + parseInt(sumar);
+//
+//            $("#cant" + valorando).val(total);
+//            calcularPorCantidad(valorando);
+//        }
     }
 });
 function validar() {
