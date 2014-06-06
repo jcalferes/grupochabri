@@ -732,17 +732,17 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        mysql_query("START TRANSACTION;");
+//        mysql_query("START TRANSACTION;");
         $sql = "INSERT INTO grupoproductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
         $resultado = mysql_query($sql, $cn->Conectarse());
         if ($resultado == false) {
             $resultado = mysql_error();
             echo $resultado;
-            $sql = "ROLLBACK;";
+//            $sql = "ROLLBACK;";
             $resultado = mysql_query($sql, $cn->Conectarse());
         } else {
             echo"OK";
-            mysql_query("COMMIT;");
+//            mysql_query("COMMIT;");
         }
         $cn->cerrarBd();
     }
