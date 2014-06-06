@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include './administracion.clases/Proveedor.php';
 include './administracion.clases/Direccion.php';
@@ -6,7 +7,7 @@ include_once '../daoconexion/daoConeccion.php';
 include './administracion.clases/Usuario.php';
 include '../utileriasPhp/Utilerias.php';
 include './administracion.dao/dao.php';
-
+error_reporting(0);
 $proveedor = new Proveedor();
 $direccion = new Direccion();
 $usuario = new Usuario();
@@ -52,13 +53,13 @@ $ctrltelefonos = count($telefonos);
 $ctrlemails = count($emails);
 
 $cn->Conectarse();
-$control = $dao->superGuardadorClientes($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
-if($control != false){
-    $dao->guardarUsuario($usuario, $idsucursal);
-}
+$control = $dao->superGuardadorClientes($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails, $usuario, $idsucursal);
+//if($control != false){
+//    $dao->guardarUsuario($usuario, $idsucursal);
+//}
 $cn->cerrarBd();
 
-if ($dao != false) {
+if ($control != false) {
     echo 0;
 } else {
     echo 1;

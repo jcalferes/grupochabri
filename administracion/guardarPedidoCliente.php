@@ -12,7 +12,12 @@ error_reporting(0);
 
 session_start();
 $dao = new dao();
+$idCliente = 60;
 $tipo = "PEDIDO CLIENTE";
+$idCliente = $dao->obtenerDatosCliente($idCliente);
+ while ($rs = mysql_fetch_array($idCliente)) {
+$rfcCliente = $rs["rfc"];
+     }
 //$idsucursal = $_SESSION["sucursalSesion"];
 $idsucursal = $_POST["sucursal"];
 $utilerias = new Utilerias();
@@ -39,14 +44,14 @@ $comprobante->setDescuentoTotal($comprobantes->descuentoTotalComprobante);
 $comprobante->setFecha($comprobantes->fechaComprobante);
 $comprobante->setFechaMovimiento();
 $comprobante->setFolio($comprobantes->folioComprobante);
-$comprobante->setRfc($comprobantes->rfcComprobante);
+$comprobante->setRfc($rfcCliente);
 $comprobante->setSda($comprobantes->sdaComprobante);
 $comprobante->setSubtotal($comprobantes->subTotalComprobante);
 $comprobante->setTotal($comprobantes->totalComprobante);
 ////----------------------------------------------------------
 $encabezado->setFecha($comprobantes->fechaComprobante);
 $encabezado->setFolio($comprobantes->folioComprobante);
-$encabezado->setRfc($comprobantes->rfcComprobante);
+$encabezado->setRfc($rfcCliente);
 $encabezado->setSubtotal($comprobantes->subTotalComprobante);
 $encabezado->setTotal($comprobantes->totalComprobante);
 

@@ -2,6 +2,20 @@
 
 class dao {
 
+    function obtenerDatosCliente($idCliente) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM usuarios u
+INNER JOIN clientes c ON c.idUsuario = u.idUsuario
+INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
+WHERE u.idUsuario = '$idCliente'
+";
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
     function guardarAgentes($idproveedor, $nombre, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
         $sql = "INSERT INTO agentes (nombre, idProveedor) VALUES ('$nombre','$idproveedor')";
         $sql2 = "SELECT LAST_INSERT_ID() ID;";
@@ -86,10 +100,19 @@ class dao {
     function obtenerOrdenCompra($folio, $comprobante) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
+        if ($comprobante == "PEDIDO CLIENTE") {
+            $sql = "SELECT * FROM xmlcomprobantes x 
+INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante 
+INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto 
+INNER JOIN clientes c ON c.rfc = x.rfcComprobante
+INNER JOIN direcciones d ON d.idDireccion = c.idDireccion
+WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+        } else {
+            $sql = "SELECT * FROM xmlcomprobantes x "
+                    . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
+                    . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+        }
 
-        $sql = "SELECT * FROM xmlcomprobantes x "
-                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
-                . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -1381,77 +1404,76 @@ class dao {
         while ($rs = mysql_fetch_array($sqlfolios)) {
             $sqlfolios = $rs["foliomayor"];
         }
-        
+
         if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
-             $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
-        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
-        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
-        if ($ctrlComprobanteGuardar == false) {
-            mysql_query("ROLLBACK;");
-            return false;
-        } else {
-            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
-            if ($ctrlComprobanteId == false) {
+            $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
+                    . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
+            $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
+            $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
+            if ($ctrlComprobanteGuardar == false) {
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
-                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
-                    $idComprobante = $rs["ID"];
-                    $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
-                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
-                    if ($sqlinsertarfolio == false) {
-                        mysql_query("ROLLBACK;");
-                        return false;
-                    } else {
-                        
+                $ctrlComprobanteId = mysql_query($sqlComprobanteId);
+                if ($ctrlComprobanteId == false) {
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
+                        $idComprobante = $rs["ID"];
+                        $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                        $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                        if ($sqlinsertarfolio == false) {
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        } else {
+                            
+                        }
+                    }
+                }
+            }
+        } else {
+            $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
+                    . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $sqlfolios . "','$tipo','$lafecha','$idSucursal')";
+            $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
+            $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
+            if ($ctrlComprobanteGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                $ctrlComprobanteId = mysql_query($sqlComprobanteId);
+                if ($ctrlComprobanteId == false) {
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
+                        $idComprobante = $rs["ID"];
+                        if ($tipo == "PEDIDO CLIENTE") {
+                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                            $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                            if ($sqlinsertarfolio == false) {
+                                mysql_query("ROLLBACK;");
+                                return false;
+                            } else {
+                                
+                            }
+                        } else {
+                            $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
+                            $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
+                            if ($sqlinsertarfolio == false) {
+                                mysql_query("ROLLBACK;");
+                                return false;
+                            } else {
+                                
+                            }
+                        }
                     }
                 }
             }
         }
-        }else{
-             $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $sqlfolios . "','$tipo','$lafecha','$idSucursal')";
-        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
-        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
-        if ($ctrlComprobanteGuardar == false) {
-            mysql_query("ROLLBACK;");
-            return false;
-        } else {
-            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
-            if ($ctrlComprobanteId == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
-                    $idComprobante = $rs["ID"];
-                     if ($tipo == "PEDIDO CLIENTE") {
-                          $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
-                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
-                    if ($sqlinsertarfolio == false) {
-                        mysql_query("ROLLBACK;");
-                        return false;
-                    } else {
-                        
-                    }
-                     }else{
-                          $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
-                    $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
-                    if ($sqlinsertarfolio == false) {
-                        mysql_query("ROLLBACK;");
-                        return false;
-                    } else {
-                        
-                    }
-                     }
-                   
-                }
-            }
-        }
-        }
-        
-        
-       
+
+
+
         //Terminar guardar comprobante
         //Variables necesarias: $idComprobante
         //======================================================================
@@ -1921,28 +1943,47 @@ class dao {
     }
 
     //==================Nuevo Guardar Cliente=================================
-    function superGuardadorClientes(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails) {
+    function superGuardadorClientes(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails, Usuario $usuario, $idsucursal) {
+        $sqlUsuario = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal)"
+                . "VALUES ('" . $usuario->getUsuario() . "','" . $usuario->getNombre() . "','" . $usuario->getPaterno() . "','" . $usuario->getMaterno() . "','" . $usuario->getPass() . "','" . $usuario->getTipousuario() . "','$idsucursal')";
+
+        $sqlUsuarioId = "SELECT LAST_INSERT_ID() ID;";
         //Guardando la direccion
         $sqlDireccion = "INSERT INTO direcciones (calle, numeroExterior, numeroInterior, cruzamientos, postal, colonia, ciudad, estado) VALUES ('" . $direccion->getCalle() . "','" . $direccion->getNumeroexterior() . "','" . $direccion->getNumerointerior() . "','" . $direccion->getCruzamientos() . "','" . $direccion->getPostal() . "','" . $direccion->getColonia() . "','" . $direccion->getCiudad() . "','" . $direccion->getEstado() . "')";
         $sqlDireccionId = "SELECT LAST_INSERT_ID() ID;";
         mysql_query("START TRANSACTION;");
-        $ctrlDireccionGuardar = mysql_query($sqlDireccion);
-        if ($ctrlDireccionGuardar == false) {
+        $rs = mysql_query($sqlUsuario);
+        if ($rs == false) {
             mysql_query("ROLLBACK;");
             return false;
         } else {
-            $ctrlDireccionId = mysql_query($sqlDireccionId);
-            if ($ctrlDireccionId == false) {
+            $idUsuario = mysql_query($sqlUsuarioId);
+            while ($rs = mysql_fetch_array($idUsuario)) {
+                $idUsuario = $rs["ID"];
+            }
+            if ($idUsuario == false) {
                 mysql_query("ROLLBACK;");
                 return false;
             } else {
-                while ($rs = mysql_fetch_array($ctrlDireccionId)) {
-                    $idDireccion = $rs["ID"];
+                $ctrlDireccionGuardar = mysql_query($sqlDireccion);
+                if ($ctrlDireccionGuardar == false) {
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    $ctrlDireccionId = mysql_query($sqlDireccionId);
+                    if ($ctrlDireccionId == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        while ($rs = mysql_fetch_array($ctrlDireccionId)) {
+                            $idDireccion = $rs["ID"];
+                        }
+                    }
                 }
             }
         }
         //Guardando Proveedor
-        $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus, credito) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1','" . $proveedor->getCredito() . "')";
+        $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus, credito,idUsuario) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1','" . $proveedor->getCredito() . "','" . $idUsuario . "')";
         $sqlProveedorId = "SELECT LAST_INSERT_ID() ID;";
         $ctrlProveedoGuardar = mysql_query($sqlProveedor);
         if ($ctrlProveedoGuardar == false) {
@@ -2410,6 +2451,7 @@ class dao {
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
+
 //=======
     function consultaInformacionProductosMasivos($codigoProducto, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';

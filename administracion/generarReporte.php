@@ -21,6 +21,19 @@ $destinos[] = $correos;
 if ($correos2 !== "") {
     $destinos[] = $correos2;
 }
+if($idsucursal == 1){
+    $nombreSucursal = "Servicasa";
+    $rfcSucursal = "CABJ830923TW9";
+}
+if($idsucursal == 2){
+    $nombreSucursal = "La abejita";
+    $rfcSucursal = "BIRF560927I37";
+}
+if($idsucursal == 3){
+    $nombreSucursal = "Periferico";
+    $rfcSucursal = "CAME540625J86";
+}
+
 $dao = new dao();
 $utileria = new Utilerias();
 $datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante);
@@ -163,14 +176,16 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(72, 18, "Pa
         <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/>
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
-        $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
-        <tr><td>Direccion:<br> "Poner aqui la direccion del cliente"</td><td>Colonia:<br> "Poner aqui la colonia del cliente"</td><td></td></tr>
-        <tr style="background-color: white"><td>Localidad/Municipio:<br> "Poner la localidad del cliente"</td><td>Estado:<br> "Poner aqui el estado del cliente"</td><td>CP:<br>"El numero postal del cliente"</td></tr>
-        </table>';
+        $valor .= '      <table class="CSSTableGenerator">';
+         while ($datosOrden = mysql_fetch_array($datos)) {
+       $valor .= ' <tr><td>Nombre:<br> "'.$datosOrden["nombre"].'"</td><td>RFC:<br> "'.$datosOrden["rfc"].'"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"'.$datosOrden["fechaMovimiento"].'"</td></tr>
+        <tr><td>Direccion:<br> "Calle'.$datosOrden["calle"].' num ext'.$datosOrden["numeroExterior"].'num int '.$datosOrden["numeroInterior"].'cruzamientos '.$datosOrden["cruzamientos"].'"</td><td>Colonia:<br> "'.$datosOrden["colonia"].'"</td><td></td></tr>
+        <tr style="background-color: white"><td>Localidad/Municipio:<br> "'.$datosOrden["ciudad"].'"</td><td>Estado:<br> "'.$datosOrden["estado"].'"</td><td>CP:<br>"'.$datosOrden["postal"].'"</td></tr>';
+         } 
+$valor .= '</table>';
     } else {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "Poner aqui el nombre del cliente"</td><td>RFC:<br> "Poner aqui el RGF del cliente"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"La decha de emision de la factura"</td></tr>
+        <tr><td>Nombre:<br> "'.$nombreSucursal.'"</td><td>RFC:<br> "'.$rfcSucursal.'"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"'.  date("Y-m-d").'"</td></tr>
         </table>';
     }
     $valor .= '  <table class="CSSTableGenerator">
@@ -185,6 +200,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(72, 18, "Pa
                    <!-- <td>Desct. Total</td>-->
                     <td>CDA</td>
                     <td>Importe</td></tr> ';
+    mysql_data_seek($daros,0);
     while ($datosOrden = mysql_fetch_array($datos)) {
         $subtotal = $datosOrden["subtotalComprobante"];
         $descGral = $datosOrden["desctGeneralComprobante"];
