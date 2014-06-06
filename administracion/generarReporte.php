@@ -168,7 +168,7 @@ if ($validar > 0) {
 if ( isset($pdf) ) {
 
 
-$font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(72, 18, "Pag: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+$font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "Pag: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
 
 
 } </script>';
