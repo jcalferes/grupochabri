@@ -263,7 +263,7 @@ $("#btneditarproveedor").click(function() {
 
     $(".email").each(function() {
         var valor = $(this).val();
-        if (valor.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+        if (valor.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             emails.push(valor);
         }
     });
@@ -535,7 +535,7 @@ $("#btnguardarproveedor").click(function() {
     var ctrlemails = 0;
     $(".email").each(function() {
         var valor = $(this).val();
-        if (valor.match(/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,4}$/)) {
+        if (valor.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             emails.push(valor);
         } else {
             ctrlemails = 1;

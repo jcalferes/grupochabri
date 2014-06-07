@@ -928,7 +928,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         if ($resultado == false) {
             mysql_query("ROLLBACK;");
         } else {
-            $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoBarrasProducto, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus, metrosCubicos)VALUES('" . $p->getProducto() . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCbarras() . "' , '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1', '$m3')";
+            $sql = "INSERT INTO productos(producto, idMarca, idProveedor, codigoBarrasProducto, codigoProducto,cantidadMaxima, cantidadMinima,idGrupoProducto, idUnidadMedida,idStatus, metrosCubicos)VALUES('" . addslashes($p->getProducto()) . "','" . $p->getIdMarca() . "','" . $p->getIdProveedor() . "', '" . $p->getCbarras() . "' , '" . $p->getCodigoProducto() . "', '" . $p->getCantidadMaxima() . "', '" . $p->getCantidadMinima() . "', '" . $p->getIdGrupoProducto() . "', '" . $p->getIdUnidadMedida() . "','1', '$m3')";
             $resultado = mysql_query($sql, $cn->Conectarse());
             if ($resultado == false) {
                 mysql_query("ROLLBACK;");
