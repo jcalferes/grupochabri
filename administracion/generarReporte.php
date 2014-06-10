@@ -173,7 +173,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 } </script>';
   $valor .= ' <center>
-        <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/>
+       <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/>
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">';
@@ -213,9 +213,10 @@ $valor .= '</table>';
         $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' .$datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
     $valor .= '</table>';
-    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td >Total metros: </td><td style="text-align: right">' . $sacandoMedidas . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>';
+    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>'
+            . '<div style="position:absolute; top:150px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: ' . $sacandoMedidas . '</label></div>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $utileria->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
-    $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:160px;"><tr><td>Informacion del transporte empleado:</td></tr>'
+    $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:170px;"><tr><td>Informacion del transporte empleado:</td></tr>'
             . '<tr><td>Medio de transporte:</td><td>En el caso de camiones:</td></tr>'
             . '<tr><td>Marca:</td><td>Modelo:</td><td>Tipo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>'
             . '<tr><td>Capacidad:</td><td>Placas o matricula:</td></tr>'

@@ -22,6 +22,9 @@ $(document).ready(function() {
                     $('#dtmarca').dataTable();
                 });
                 $("#txtnombremarca").focus();
+                $("#consultaMarca").load("consultarMarca.php", function() {
+                    $('#dtmarca').dataTable();
+                });
                 alertify.success("Marca agregada correctamente");
                 return false;
             });
