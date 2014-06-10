@@ -12,6 +12,6 @@ while ($rs = \mysql_fetch_array($datos)) {
     echo"<td >$rs[prr]</td>";
     echo"<td >$rs[fechaRequisicion]</td>";
     echo"<td >$rs[sucursal]</td>";
-    echo"<td ><button type='button' class='btn btn-xs' value='Detalles' onclick='condicionesPeticion($rs[idEncabezadoRequisicion],$rs[idSucursal],$rs[idStatus])'><span class='glyphicon glyphicon-info-sign'></span></button></td></tr>";
+    echo"<td ><button type='button' class='btn btn-xs' value='Detalles' onclick='condicionesPeticion($rs[idEncabezadoRequisicion],$rs[idSucursal],$rs[idStatus],$rs[statusAprobacion])'><span class='glyphicon glyphicon-info-sign'></span></button></td></tr>";
 }
 echo"</tbody></table></div>";

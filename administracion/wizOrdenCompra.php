@@ -83,7 +83,7 @@
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
                             <span class="input-group-btn">
-                                <input type="button"  class="btn btn-primary" value="Probar" id="btnbuscador"/>
+                                <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
 
                                 <span class="glyphicon glyphicon-search"></span>
                                 </button>

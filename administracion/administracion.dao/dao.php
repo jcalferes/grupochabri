@@ -121,7 +121,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     function mostrarDetallesTransferencias2($sucu, $detalle) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoTransaccion = '$detalle' and e.idSucursal = '$sucu' ";
+        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM requisiciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadorequisicion = '$detalle' and e.idSucursal = '$sucu' ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -226,7 +226,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     function consultaPedidosR($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st2.status as plop,st2.idStatus,t.fechaRequisicion,s.sucursal, s.idSucursal FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
+        $sql = "SELECT t.idEncabezadoRequisicion,st.status as prr,st2.status as plop,st2.idStatus,t.fechaRequisicion,s.sucursal, s.idSucursal,t.estatusRequisicion, t.statusAprobacion FROM requisicionencabezados t INNER JOIN sucursales s ON s.idSucursal = t.idSucursalEmisor INNER JOIN status st ON st.idStatus = t.estatusRequisicion INNER JOIN status st2 ON st2.idStatus = t.statusAprobacion INNER JOIN sucursales s2 ON s2.idSucursal = t.idSucursalReceptor   WHERE idSucursalReceptor = $idSucursal  ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -297,6 +297,14 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM requisiciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoRequisicion = '$detalle' and e.idSucursal = '$sucursal' ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+    
+    function mostrarDetallesTransferenciasAceptadas($sucursal, $detalle) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto,p.producto, t.costo, e.cantidad as cantidadTotal, t.cantidad FROM transacciondetalles t INNER JOIN productos p ON p.codigoProducto = t.codigo INNER JOIN existencias e ON p.codigoProducto = e.codigoProducto WHERE  idEncabezadoTransaccion = '$detalle' and e.idSucursal = '$sucursal' ";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }

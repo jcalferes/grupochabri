@@ -5,7 +5,7 @@ include_once './administracion.clases/transaccionEncabezados.php';
 session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
 $sucursal = $_POST["sucursal"];
-$lafecha = date("d/m/Y h:i");
+$lafecha = date("d/m/Y");
 $dao = new dao();
 $datos = json_decode($_POST['datos']);
 

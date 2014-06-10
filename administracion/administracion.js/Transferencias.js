@@ -34,10 +34,10 @@ function detallesTransferencia(transf, sucu, transferir, aceptacion) {
 
 }
 
-function condicionesPeticion(transf, sucu, plop) {
+function condicionesPeticion(transf, sucu, plop, aceptacion) {
     $('#detalleTransferencia').trigger('click');
     $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
-    $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf + "&sucu=" + sucu);
+    $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf + "&sucu=" + sucu + "&aceptacion=" + aceptacion);
     if (plop == 5) {
         $("#mandarRespuesta").show();
         $("#cancelarPedido").show();
