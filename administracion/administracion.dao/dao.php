@@ -2718,7 +2718,12 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         if ($da == false) {
             $error = mysql_error();
             mysql_query("ROLLBACK;");
-        } 
+        }
+//        else{
+////            $sqlInserta = ""
+//        }
+        
+        
         else {
             mysql_query("COMMIT;");
         }
