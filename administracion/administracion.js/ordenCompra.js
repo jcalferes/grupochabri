@@ -7,6 +7,60 @@ var folio = 0;
 var tr2 = "";
 var tr3 = "";
 
+function eliminarFila(fila) {
+    var total = 0;
+    var subtotal = 0;
+    var subtotal = 0;
+    var descgral = 0;
+    var descprod = 0;
+    var importes = 0;
+    $('#fila' + fila + '').each(function() {
+        $(this).remove();
+
+    });
+    $('.totales').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        importes += parseFloat(valor);
+
+    });
+
+//    $('.cdas').each(function() {
+//        var elemento = this;
+//        var valor = elemento.value;
+//        descprod += parseFloat(valor);
+//
+//    });
+
+     $('.costos').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+         var nombre = elemento.name;
+        var cantidad = $("#cant" + nombre).val();
+        var sumaImporte=parseFloat(valor) * parseFloat(cantidad);
+        subtotal += parseFloat(sumaImporte);
+
+    });
+    $('.desct').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        descprod += parseFloat(valor);
+
+    });
+    var descgral = parseFloat(importes) * (parseFloat($("#descuentosGeneralesPorComasM").val() / 100));
+    var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
+    var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);
+    var iva = parseFloat(sdam) * .16;
+    
+    $("#subTotalM").val(subtotal);
+    $("#descuentoGeneralM").val(descgral);
+    $("#descuentoProductosM").val(descprod);
+    $("#descuentoTotalM").val(descuentoTotal);
+    $("#sdaM").val(sdam);
+    $("#ivaM").val(iva);
+    $("#costoTotal").val(sdam + iva);
+}
+
 function listarProductos() {
     var idMarcas = new Array();
     var info;
@@ -49,19 +103,19 @@ function listarProductos() {
                         if (valorando == '0') {
 
 
-                            tr = '<tr>\n\
+                            tr = '<tr  id="fila' + contador + '><td"><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].costo + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos"> </input>\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
-                        <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" /> </td>\n\
-                        <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
-        <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
+                        <td> <input id="descTotal' + contador + '" class="form-control desct" type= "text" disabled="true" /> </td>\n\
+                        <td> <input id="cda' + contador + '" class="form-control cdas" type= "text" value="0" disabled="true"/> </td>\n\
+        <td> <input id="importe' + contador + '" class="form-control totales" type= "text" value="0" disabled="true"> </input> </td></tr>';
 
 
 
@@ -142,8 +196,8 @@ function seleccionTipo() {
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
         folio = 0;
-    $("#descuentosGlobalesManuales").prop("disabled", true);
-    $("#descuentosGeneralesM").prop("disabled", true);
+        $("#descuentosGlobalesManuales").prop("disabled", true);
+        $("#descuentosGeneralesM").prop("disabled", true);
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');
         $("#txtEmail").hide('slow');
@@ -166,8 +220,8 @@ function seleccionTipo() {
     } else {
         folio = 0;
         contador = 1;
-            $("#descuentosGlobalesManuales").prop("disabled", true);
-    $("#descuentosGeneralesM").prop("disabled", true);
+        $("#descuentosGlobalesManuales").prop("disabled", true);
+        $("#descuentosGeneralesM").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesPorComasM").val("");
 
@@ -220,19 +274,19 @@ $("#folioM").keypress(function(e) {
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
 
-                        tr2 = '<tr>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].descripcionConcepto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctUnoConcepto + '" disabled="true"/> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctDosConcepto + '" disabled="true"/> </td>\n\
-                        <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" value="' + elem[ind].desctTotalComprobante + '"/> </td>\n\
-                        <td> <input id="cda' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> </td>\n\
-                        <td> <input id="importe' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '"> </input> </td></tr>';
+                        <td> <input id="descTotal' + contador + '" class="form-control desct" type= "text" disabled="true" value="' + elem[ind].desctTotalComprobante + '"/> </td>\n\
+                        <td> <input id="cda' + contador + '" class="form-control cdas" type= "text"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> </td>\n\
+                        <td> <input id="importe' + contador + '" class="form-control totales" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '"> </input> </td></tr>';
                         contador = contador + 1;
                         tr3 += '<tr>\n\
                         <td> \n\
@@ -319,19 +373,19 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr>\n\
+                        tr = '<tr id="fila' + contador + '" ><td><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos"> </input>\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
-                        <td> <input id="descTotal' + contador + '" class="form-control" type= "text" disabled="true" /> </td>\n\
-                        <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
-        <td> <input id="importe' + contador + '" class="form-control" type= "text" value="0" disabled="true"> </input> </td></tr>';
+                        <td> <input id="descTotal' + contador + '" class="form-control desct" type= "text" disabled="true" /> </td>\n\
+                        <td> <input id="cda' + contador + '" class="form-control cdas" type= "text" value="0" disabled="true"/> </td>\n\
+        <td> <input id="importe' + contador + '" class="form-control totales" type= "text" value="0" disabled="true"> </input> </td></tr>';
                     }
                     contador = contador + 1;
 

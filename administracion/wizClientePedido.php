@@ -91,7 +91,8 @@ Revisar/Modificar Pedido                        </span>
                     </div>
                 </form>
                 <table class="table table-hover" id="tablaDatosEntrada">
-                    <thead>
+                    <thead> 
+                    <th >Eliminar</th>
                     <th>Cantidad</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
@@ -100,7 +101,7 @@ Revisar/Modificar Pedido                        </span>
 <!--                    <th>Desct. 1</th>
                     <th>Desct. 2</th>-->
 <!--                    <th>Desct. Total</th>-->
-                    <th>CDA</th>
+<!--                    <th>CDA</th>-->
                     <th>Importe</th> 
                     </thead>
                 </table>
@@ -116,7 +117,8 @@ Revisar/Modificar Pedido                        </span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>SDA : <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <!--<span>SDA :--> 
+                        <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">

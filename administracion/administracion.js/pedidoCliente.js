@@ -8,6 +8,61 @@ var tr2 = "";
 var tr3 = "";
 var subtotal = 0;
 
+function eliminandoFila(fila) {
+
+    var total = 0;
+    var subtotal = 0;
+    var subtotal = 0;
+    var descgral = 0;
+    var descprod = 0;
+    var importes = 0;
+    $('#fila' + fila + '').each(function() {
+        $(this).remove();
+
+    });
+    $('.totales').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+//        var nombre = elemento.name;
+//        var cantidad = $("#cant" + nombre).val();
+//        var sumaImporte=parseFloat(valor) * parseFloat(cantidad);
+        importes += parseFloat(valor);
+//        alert( " costo="+valor  );
+    });
+
+//    $('.cdas').each(function() {
+//        var elemento = this;
+//        var valor = elemento.value;
+//        descprod += parseFloat(valor);
+//
+//    });
+
+    $('.costos2').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        subtotal += parseFloat(valor);
+
+    });
+//    $('.desct').each(function() {
+//        var elemento = this;
+//        var valor = elemento.value;
+//        descprod += parseFloat(valor);
+//
+//    });
+//    var descgral = parseFloat(importes) * (parseFloat($("#descuentosGeneralesPorComasM").val() / 100));
+//    var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
+//    var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);
+    var iva = parseFloat(importes) * .16;
+
+    $("#subTotalM").val(importes);
+//    $("#descuentoGeneralM").val(descgral);
+//    $("#descuentoProductosM").val(descprod);
+//    $("#descuentoTotalM").val(descuentoTotal);
+//    $("#sdaM").val(sdam);
+    $("#ivaM").val(iva);
+    $("#costoTotal").val(importes + iva);
+}
+
 function verOrdenCompra(folio, comprobante) {
     alert("folio:" + folio + " comprobante:" + comprobante);
     var info = "valor=" + folio + "&comprobante=PEDIDO CLIENTE";
@@ -56,16 +111,16 @@ function listarProductos() {
                             }
                         });
                         if (valorando == '0') {
-                            tr = '<tr>\n\
+                            tr = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\\n\
-                        <td><span id="costoUnitarioM' + contador + '">' + elem[ind].tarifa + '</span></td>\n\
+                        <td><span id="costoUnitarioM' + contador + '" >' + elem[ind].tarifa + '</span></td>\n\
                         <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + elem[ind].cantidad + '" disabled> </input>\n\
                         </td>\n\
-                       <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
-        <td> <input id="importe' + contador + '" class="form-control" type= "text" value="' + elem[ind].tarifa + '" disabled="true"> </input> </td></tr>';
+                       <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + elem[ind].tarifa + '" name="' + contador + '" disabled="true"> </input> </td>\n\
+        <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/> </td></tr>';
                             $("#tablaDatosEntrada").append(tr);
                             contador = contador + 1;
 
@@ -190,16 +245,16 @@ $("#folioM").keypress(function(e) {
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
                         sucursal = elem[ind].idSucursal;
-                        tr2 = '<tr>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + '),calcularPorCosto(' + contador + ');" class="form-control cantidades pedido" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].descripcionConcepto + '</span></td>\n\\n\
-                        <td><span id="costoUnitarioM' + contador + '">' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
+                        <td><span id="costoUnitarioM' + contador + '" >' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
                         <td> <input type="text" id="costo' + contador + '" class="form-control  costos" value="' + elem[ind].costoCotizacion + '" disabled disabled="true"> </input\n\
                         </td>\n\
-                        <td> <input id="cda' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> </td>\n\
-                        <td> <input id="importe' + contador + '" class="form-control" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '"> </input> </td></tr>';
+                        <td><input id="importe' + contador + '" class="form-control totales" type= "text"  disabled="true" value="' + elem[ind].importeConcepto + '" name="' + contador + '"> </input>  </td>\n\
+                        <td><input id="cda' + contador + '" class="form-control" type= "hidden"  disabled="true" value="' + elem[ind].cdaConcepto + '"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/> </td></tr>';
                         contador = contador + 1;
                         tr3 += '<tr>\n\
                         <td> \n\
@@ -288,16 +343,16 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr>\n\
+                        tr = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ')">x</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\\n\
-                        <td><span id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</span></td>\n\
+                        <td><span id="costoUnitarioM' + contador + '" >' + datosJson[i].costo + '</span></td>\n\
                         <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + datosJson[i].existencia + '" disabled> </input>\n\
                         </td>\n\
-                       <td> <input id="cda' + contador + '" class="form-control" type= "text" value="0" disabled="true"/> </td>\n\
-        <td> <input id="importe' + contador + '" class="form-control" type= "text" value="' + datosJson[i].costo + '" disabled="true"> </input> </td></tr>';
+                       <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + datosJson[i].costo + '" name="' + contador + '" disabled="true"> </input>  </td>\n\
+        <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + datosJson[i].costo + '" class="costos2"/></td></tr>';
                     }
                     contador = contador + 1;
                     var subtotal = $("#subTotalM").val();

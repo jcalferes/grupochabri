@@ -93,6 +93,7 @@
                 </form>
                 <table class="table table-hover" id="tablaDatosEntrada">
                     <thead>
+                    <th>Eliminar </th>
                     <th>Cantidad</th>
                     <th>Codigo</th>
                     <th>Descripcion</th>
