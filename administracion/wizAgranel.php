@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos agranel</h2>
+            <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tabla de productos a granel</h2>
             <section>
                 <div id="showGranel" style="margin: 0% 25% 0% 25%">
                 </div>
@@ -12,7 +12,7 @@
             <section>
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-                        <label>Codigo producto padre:</label>
+                        <label>Codigo del producto padre:</label>
                         <input type="text" class="form-control" id="txtcodigogranel">
                     </div>
                     <div id="divincremento">
