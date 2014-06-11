@@ -181,7 +181,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
        $valor .= ' <tr><td>Nombre:<br> "'.$datosOrden["nombre"].'"</td><td>RFC:<br> "'.$datosOrden["rfc"].'"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"'.$datosOrden["fechaMovimiento"].'"</td></tr>
         <tr><td>Direccion:<br> "Calle'.$datosOrden["calle"].' num ext'.$datosOrden["numeroExterior"].'num int '.$datosOrden["numeroInterior"].'cruzamientos '.$datosOrden["cruzamientos"].'"</td><td>Colonia:<br> "'.$datosOrden["colonia"].'"</td><td></td></tr>
         <tr style="background-color: white"><td>Localidad/Municipio:<br> "'.$datosOrden["ciudad"].'"</td><td>Estado:<br> "'.$datosOrden["estado"].'"</td><td>CP:<br>"'.$datosOrden["postal"].'"</td></tr>';
-         } 
+        break; } 
 $valor .= '</table>';
     } else {
         $valor .= '      <table class="CSSTableGenerator">
@@ -200,7 +200,7 @@ $valor .= '</table>';
                    <!-- <td>Desct. Total</td>-->
                     <td>CDA</td>
                     <td>Importe</td></tr> ';
-    mysql_data_seek($daros,0);
+    mysql_data_seek($datos,0);
     while ($datosOrden = mysql_fetch_array($datos)) {
         $subtotal = $datosOrden["subtotalComprobante"];
         $descGral = $datosOrden["desctGeneralComprobante"];
