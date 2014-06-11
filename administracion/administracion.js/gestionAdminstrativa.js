@@ -49,7 +49,7 @@ function entroCliente() {
 }
 
 function entroVentas() {
-    $("#mostrar").load("puntoDeVenta2.php");
+    $("#mostrar").load("wizVentas.php");
 }
 
 function entroTrasferencia() {
