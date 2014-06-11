@@ -877,16 +877,18 @@ $(document).ready(function() {
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
+            $("#descuentosGeneralesPorComasM").val(0);
+
         }
     });
     $("#guardarOrdenCompra").click(function() {
         var inf = new Array();
         var lstConceptos = new Array();
         var bandera = 0;
-        var entro= "0";
+        var entro = "0";
         var xmlComprobanteManualmente = new XmlComprobante();
         $('.costos').each(function() {
-             entro = 1;
+            entro = 1;
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
@@ -894,12 +896,12 @@ $(document).ready(function() {
             if (valor == "" || valor == 0) {
 //            alertify.error("Debes elegir algun valor");
                 bandera = 1;
-                
+
             }
             alert(valor);
         });
         if (bandera == 0 && entro >= 1) {
-            
+
             xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
             xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
             xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();

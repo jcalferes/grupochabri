@@ -809,6 +809,7 @@ $(document).ready(function() {
     $("#descuentosGeneralesM").change(function() {
         if ($("#descuentosGeneralesM").is(':checked')) {
             $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+          
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
