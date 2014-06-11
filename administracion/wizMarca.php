@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de marcas</h2>
+            <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tabla de marcas</h2>
             <section>
                 <div id="consultaMarca" style="margin: 0% 25% 0% 25%">
                 </div>
@@ -13,9 +13,8 @@
                 <form style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Nombre de la marca:</label>
-                        <input type="text" class="form-control" id="txtnombremarca" placeholder="Ingrese el nombre de la nueva marca">
+                        <input type="text" class="form-control" id="txtnombremarca">
                     </div>
-                    <hr>
                     <!--<input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
                     <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar"/>
                 </form>

@@ -9,7 +9,7 @@ $("#btnguardarLista").click(function() {
     if (nombrelista == "" || /^\s+$/.test(nombrelista)) {
         $("#txtnombrelista").val("");
         $("#txtnombrelista").focus();
-        alertify.error("El campo no puede estar vacio");
+        alertify.error("El nombre de la lista de precio no puede estar vacío");
         return false;
     } else {
         var info = "nombrelista=" + nombrelista;

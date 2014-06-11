@@ -8,7 +8,7 @@ $(document).ready(function() {
         if (nombre == "" || /^\s+$/.test(nombre)) {
             $("#txtnombremarca").val("");
             $("#txtnombremarca").focus();
-            alertify.error("El campo no puede estar vacio");
+            alertify.error("El nombre de la marca no puede estar vacío");
             return false;
         }
         else {

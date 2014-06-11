@@ -736,6 +736,7 @@ $('#editarDatos').click(function() {
 function nuevogranel() {
     var chk = $("#chkgranel").is(":checked");
     if (chk == true) {
+        $("#limpiarFormProd").slideUp();
         $("#txtNombreProducto").val("");
         $("#txtCodigoBarras").val("");
         $("#txtCodigoProducto").val("");
@@ -769,6 +770,7 @@ function nuevogranel() {
 
         $("#txtCodigoProductoG").focus();
     } else {
+        $("#limpiarFormProd").slideDown();
         $("#txtNombreProducto").val("");
         $("#txtCodigoBarras").val("");
         $("#txtCodigoProductoG").val("");
