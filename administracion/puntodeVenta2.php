@@ -11,24 +11,29 @@
                 <div style="float: right" id="fecha">
                 </div>
                 <br>
-                <div>
-                    <div class="col-sm-3">
-                        <select class="form-control" id="cmbClientes">
-                        </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-control" id="cmbTipoPago">
-                            <option>Tipo de Pago   </option>
-                            <option>Efectivo</option>    
-                            <option>Cheque</option>   
-                        </select>
-                    </div>
-                    <div style="float: right">
-                        <strong><label id="folio"></label> </strong>
-                    </div>
+                <div style="float: right">
+                    <strong><label style="color: red">Folio: </label><label id="folio"/> 
+                    </strong>
                 </div>
-                <br> <br> 
+                <!--<br/>-->
                 <div class="col-sm-3">
+                    <select class="form-control" 
+                            id="cmbClientes"
+                            style="margin-left: 35px; width: 260px">
+                    </select>
+                </div>
+                <br><br>
+                <!--combo de clientes-->
+                <div class="col-sm-3">
+                    <select class="form-control" id="cmbTipoPago"
+                            style="margin-left: 35px; width: 260px">
+                        <option>Seleccione un Cliente</option>
+                    </select>
+                </div>
+                <br> 
+                <br/>
+                <hr>
+                <div class="col-sm-3" style="margin-left: 35px">
                     <div class="input-group" id="panelBusqueda">
                         <input type="text" class="form-control" 
                                id="codigoProductoEntradas" 
@@ -40,34 +45,44 @@
                         </span> 
                     </div>
                 </div>
-                <br/>
+                <br><br>
+                <div style="overflow-x: auto;  height: 180px">
+                    <table class="table" id="tablaVentas">
+                        <thead>
+                        <th><center>Codigo</center></th>
+                        <th><center>Descripcion</center></th>
+                        <th><center>Cantidad</center></th>
+                        <th><center>Existencia</center></th>
+                        <th><center>Lst. Precio</center></th>
+                        <th><center>Precio c/u</center></th>
+                        <th><center>Desc.</center></th>
+                        <th><center>Eliminar</center></th>
+                        <th><center>total</center></th>
+                        <th><center>$ Desc.</center></th>
+                        <th><center>$ Total c/d.</center></th>
+                        </thead>
+                    </table>
+                </div>
                 <hr>
-                <br>
-                <table class="table" id="tablaVentas">
-                    <thead>
-                    <th><center>Codigo</center></th>
-                    <th><center>Descripcion</center></th>
-                    <th><center>Cantidad</center></th>
-                    <th><center>Lst.Precios</center></th>
-                    <th><center>Precio</center></th>
-                    <th><center>Descuentos</center></th>
-                    <th><center>Eliminar</center></th>
-                    <th><center>Total</center></th>
-                    <th><center>Descuentos</center></th>
-                    </thead>
-                </table>
-                <hr>
                 <form class="form-inline text-right">
-                    <span>Sub Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
-                <br>
-                <form class="form-inline text-right">
-                    <span>IVA : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                <form class="form-inline text-right" style="margin-top: 5px">
+                    <span>Desc. Total : <input type="text" id="descTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
-                <br>
-                <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                <form class="form-inline text-right" style="margin-top: 5px">
+                    <span>SDA :<input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
+                <!--<br>-->
+                <form class="form-inline text-right" style="margin-top: 5px">
+                    <span>IVA : <input type="text" id="ivaTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+                <!--                <br>-->
+                <form class="form-inline text-right" style="margin-top: 5px">
+                    <span>Total : <input type="text" id="totalVenta" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                </form>
+
+                <input  id="guardarVenta"  type="submit" class="btn btn-primary"/>
             </section>
         </div>
         <!--MODAL DE BUSQUEDA-->
@@ -109,11 +124,18 @@
                                     Cantidad:
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" 
-                                           class="form-control" 
-                                           placeholder="kg"
-                                           id="txtCantidadModal"
-                                           onkeyup="calcularPorCantidad();"/>
+                                    <div class="input-group">
+                                        <input type="text" 
+                                               class="form-control" 
+                                               placeholder="kg"
+                                               id="txtCantidadModal"
+                                               onkeyup="calcularPorCantidad();"/>
+                                        <span class='input-group-btn'>
+                                            <button class='btn btn-default' type='button'>
+                                                KG
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -121,18 +143,12 @@
                                     Pesos:
                                 </label>
                                 <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="txtTotalModal"
-                                               placeholder="$0.00 mxn."
-                                               onkeyup="calcularPorPrecio();"/>
-                                        <span class='input-group-btn'>
-                                            <button class='btn btn-default' type='button'>
-                                                KG
-                                            </button>
-                                        </span>
-                                    </div>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="txtTotalModal"
+                                           placeholder="$0.00 mxn."
+                                           onkeyup="calcularPorPrecio();"/>
+
                                 </div>
                             </div>
                         </form>
@@ -148,6 +164,9 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--final modalGranel-->
+        <!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
+        <script src="../administracion/administracion.js/XmlComprobante.js"></script>
+        <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
