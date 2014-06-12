@@ -4,7 +4,7 @@ $("#btnbuscarfoliocancelacion").click(function() {
         alertify.error("El campo folio no puede estar vacio");
     } else {
         $("#showdatoscancelacion").load("buscarFolioCancelacion.php?foliocancelacion=" + foliocancelacion, function() {
-            $("#????").dataTable();
+            $("#dtcancelacion").dataTable();
         });
     }
 });

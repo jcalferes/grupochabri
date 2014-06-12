@@ -2737,10 +2737,10 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     }
 
     //================= Consultar folio para cancelacion =======================
-    function dameInfoCancelacion($foliocancelacion) {
+    function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion'";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
         $controlsql = mysql_query($sql);
         if ($controlsql == false) {
             $controlsql = mysql_error();
