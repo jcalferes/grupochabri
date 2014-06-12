@@ -2700,7 +2700,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                             $nuevaExistencia = $nuevaExistencia / 1000;
                         }
                         if ($nuevaExistencia < 0) {
-                            $error="No tenemos suficiente para el producto :".$detalle[$x]->codigoConcepto;
+                            $error = "No tenemos suficiente para el producto :" . $detalle[$x]->codigoConcepto;
                             mysql_query("ROLLBACK;");
                             break;
                         }
@@ -2734,6 +2734,20 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         }
         $cn->cerrarBd();
         return $error;
+    }
+
+    //================= Consultar folio para cancelacion =======================
+    function dameInfoCancelacion($foliocancelacion) {
+        $sql = "SELECT * FROM xmlcomprobantes xcm "
+                . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$foliocancelacion'";
+        $controlsql = mysql_query($sql);
+        if ($controlsql == false) {
+            $controlsql = mysql_error();
+            return false;
+        } else {
+            return $controlsql;
+        }
     }
 
 }
