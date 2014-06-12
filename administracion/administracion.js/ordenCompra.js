@@ -529,13 +529,13 @@ function calcularDescuentos(id) {
             $("#descuento2" + id).val(descuento2);
         }
         else {
-            if (descuento1 > 0) {
+            if (descuento1 >= 0) {
                 calcularPorCosto(id);
                 importe = $("#importe" + id).val();
                 nuevoImporte = (descuento1 * importe) / 100;
                 nuevoImporte = importe - nuevoImporte;
             }
-            if (descuento2 > 0) {
+            if (descuento2 >= 0) {
                 var respaldoImporte = nuevoImporte;
                 nuevoImporte = (descuento2 * nuevoImporte) / 100;
                 nuevoImporte = respaldoImporte - nuevoImporte;
