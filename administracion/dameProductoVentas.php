@@ -72,9 +72,9 @@ if ($disponibilidad == true) {
         $interfaz.="<option ";
         if ($rsDatos[1] == 'Menudeo') {
             $interfaz.="selected='true'";
-            $costoMenudeo = ($costo * $rsDatos[2]) + $costo;
+            $costoMenudeo = ($costo * ($rsDatos[2]/100)) + $costo;
         }
-        $costoVenta = ($costo * $rsDatos[2]) + $costo;
+        $costoVenta = ($costo * ($rsDatos[2]/100)) + $costo;
         $interfaz .="value='".$rsDatos[0] .",". $costoVenta . "'>" . $rsDatos[1] . ""
                 . "</option>";
     }
