@@ -32,12 +32,12 @@ function eliminarFila(fila) {
 //
 //    });
 
-     $('.costos').each(function() {
+    $('.costos').each(function() {
         var elemento = this;
         var valor = elemento.value;
-         var nombre = elemento.name;
+        var nombre = elemento.name;
         var cantidad = $("#cant" + nombre).val();
-        var sumaImporte=parseFloat(valor) * parseFloat(cantidad);
+        var sumaImporte = parseFloat(valor) * parseFloat(cantidad);
         subtotal += parseFloat(sumaImporte);
 
     });
@@ -51,7 +51,7 @@ function eliminarFila(fila) {
     var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
     var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);
     var iva = parseFloat(sdam) * .16;
-    
+
     $("#subTotalM").val(subtotal);
     $("#descuentoGeneralM").val(descgral);
     $("#descuentoProductosM").val(descprod);
@@ -103,13 +103,13 @@ function listarProductos() {
                         if (valorando == '0') {
 
 
-                            tr = '<tr  id="fila' + contador + '><td"><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
+                            tr = '<tr  id="fila' + contador + '><td"><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].costo + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'"> </input>\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="' + contador + '"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" /> </td>\n\
@@ -274,13 +274,13 @@ $("#folioM").keypress(function(e) {
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
 
-                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + elem[ind].descripcionConcepto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + elem[ind].precioUnitarioConcepto + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="' + contador + '" value="' + elem[ind].costoCotizacion + '" disabled="true"> </input\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctUnoConcepto + '" disabled="true"/> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" value="' + elem[ind].desctDosConcepto + '" disabled="true"/> </td>\n\
@@ -373,13 +373,13 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr id="fila' + contador + '" ><td><a onclick="eliminarFila(' + contador + ')">x</a></td>\n\
+                        tr = '<tr id="fila' + contador + '" ><td><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
                         <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\\n\
                         <td><span id="costoUnitarioM' + contador + '">' + datosJson[i].costo + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="'+ contador +'"> </input>\n\
+                        <td> <input type="text" id="costo' + contador + '" onkeyup ="calcularPorCosto(' + contador + ')" class="form-control cantidades costos" name="' + contador + '"> </input>\n\
                         </td>\n\
                         <td> <input id="descuento1' + contador + '" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
                         <td> <input id="descuento2' + contador + '" onfocus="validarCampoDesc2(' + contador + ');" onkeyup="calcularDescuentos(' + contador + ');" class="form-control descuentos" type= "text" disabled/> </td>\n\
@@ -877,15 +877,18 @@ $(document).ready(function() {
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
+            $("#descuentosGeneralesPorComasM").val(0);
+
         }
     });
     $("#guardarOrdenCompra").click(function() {
         var inf = new Array();
         var lstConceptos = new Array();
         var bandera = 0;
+        var entro = "0";
         var xmlComprobanteManualmente = new XmlComprobante();
         $('.costos').each(function() {
-
+            entro = 1;
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
@@ -895,8 +898,10 @@ $(document).ready(function() {
                 bandera = 1;
 
             }
+            alert(valor);
         });
-        if (bandera == 0) {
+        if (bandera == 0 && entro >= 1) {
+
             xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
             xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
             xmlComprobanteManualmente.rfcComprobante = $("#proveedores").val();
@@ -969,8 +974,8 @@ $(document).ready(function() {
             $(this).remove();
 
         });
-        $("#proveedores").selectpicker('hide');
-
+        $("#proveedores").selectpicker('val', 0);
+        $('#proveedores').prop("disabled", false);
         $("#txtEmail").hide();
         $("#emailProveedor").selectpicker('hide');
         $("#lblemailP").hide('slow');

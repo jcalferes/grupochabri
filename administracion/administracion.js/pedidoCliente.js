@@ -809,6 +809,7 @@ $(document).ready(function() {
     $("#descuentosGeneralesM").change(function() {
         if ($("#descuentosGeneralesM").is(':checked')) {
             $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+          
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
@@ -818,9 +819,10 @@ $(document).ready(function() {
         bandera = 0;
         var inf = new Array();
         var lstConceptos = new Array();
+        var entro = 0;
         var xmlComprobanteManualmente = new XmlComprobante();
         $('.pedido').each(function() {
-
+  entro = 1;
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
@@ -831,7 +833,7 @@ $(document).ready(function() {
 
             }
         });
-        if (bandera == 0) {
+        if (bandera == 0 && entro >= 1) {
             xmlComprobanteManualmente.folioComprobante = $("#folioM").val();
             xmlComprobanteManualmente.fechaComprobante = $("#fechaEmitidaM").val();
             xmlComprobanteManualmente.rfcComprobante = "XXXXXXXXX"; //$("#proveedores").val();
