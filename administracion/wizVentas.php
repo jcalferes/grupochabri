@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
+            <h2><span class="glyphicon glyphicon-shopping-cart"/>&numsp;Ventas</h2>
             <section>
                 <div style="float: right" id="fecha">
                 </div>
@@ -83,6 +83,18 @@
                 </form>
 
                 <input  id="guardarVenta"  type="submit" class="btn btn-primary"/>
+            </section>
+            <!-- CANCELACIONES -->
+            <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cancelaciones</h2>
+            <section>
+                <form style="margin: 0% 25% 0% 25%">
+                    <div class="form-group">
+                        <label>Folio:</label>
+                        <input type="text" class="form-control" id="txtfoliocancelacion">
+                    </div>
+                    <div id="showdatoscancelacion"></div>
+                    <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
+                </form>
             </section>
         </div>
         <!--MODAL DE BUSQUEDA-->
