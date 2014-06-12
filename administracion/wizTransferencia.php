@@ -22,8 +22,7 @@
 
                         <input type="text" class="form-control" id="codigoProductoTranferencia" placeholder="Codigo"/>
                         <span class="input-group-btn">
-                            <button  id="buscarCodigoTransferencia" class="btn btn-default" type="button" title="Buscar">
-                                <span class="glyphicon glyphicon-search"></span>
+                            <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
                             </button>
                         </span> 
 
@@ -91,6 +90,24 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </div>
+        
+         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" style="width: 80%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="todos" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     <script src="../administracion/administracion.js/controlWizard.js"></script>
     <script src="administracion.js/Transferencias.js"></script>
     <script src="administracion.js/requisiciones.js"></script>
