@@ -117,7 +117,7 @@ $(document).ready(function() {
             $("#sucursal").prop('disabled', false);
         });
     });
-    $("#buscarCodigoTransferencia").click(function() {
+    $("#codigoProductoTranferencia").blur(function() {
         var sucursal = $("#sucursal").val();
         var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
         var codigo = $("#codigoProductoTranferencia").val();
@@ -234,5 +234,12 @@ $(document).ready(function() {
 
         }
 
+    });
+     $("#btnbuscador").click(function() {
+         var sucursal = $("#sucursal").val();
+        $("#todos").load("consultarBuscador.php?sucursal="+ sucursal, function() {
+            $('#tdProducto').dataTable();
+        });
+        $('#mdlbuscador').modal('toggle');
     });
 });
