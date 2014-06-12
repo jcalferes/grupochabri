@@ -88,14 +88,15 @@
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cancelaciones</h2>
             <section>
                 <form style="margin: 0% 25% 0% 25%">
-                    <div class="form-group">
+                    <div id="divfoliocancelacion" class="form-group">
                         <label>Folio:</label>
-                        <input type="text" class="form-control" id="txtfoliocancelacion">
+                        <input type="text" class="form-control" id="txtfoliocancelacion"><br>
+                        <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
                     </div>
                     <div id="showdatoscancelacion"></div>
-                    <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
                 </form>
             </section>
+            <!-- TERMINA CACELACIONES -->
         </div>
         <!--MODAL DE BUSQUEDA-->
         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -183,6 +184,7 @@
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
         <script src="../administracion/administracion.js/buscador.js"></script>
+        <script src="../administracion/administracion.js/cancelacion.js"></script>
         <script src="administracion.js/Ventas.js"></script>
     </body>
 </html>

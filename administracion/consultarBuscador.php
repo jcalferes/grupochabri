@@ -2,15 +2,11 @@
 
 session_start();
 include './administracion.dao/dao.php';
-$sucursal = $_GET["sucursal"];
-if($sucursal!==""){
+if (isset($_GET["sucursal"])) {
     $idsucursal = $_GET["sucursal"];
-
-}else{
+} else {
     $idsucursal = $_SESSION["sucursalSesion"];
-
 }
-//$idsucursal = $_SESSION["sucursalSesion"];
 $dao = new dao();
 $datos = $dao->consultaBuscador($idsucursal);
 if ($datos > 0) {

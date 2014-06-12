@@ -2446,7 +2446,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal'";
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {
