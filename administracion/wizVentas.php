@@ -93,8 +93,8 @@
                         <input type="text" class="form-control" id="txtfoliocancelacion"><br>
                         <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
                     </div>
-                    <div id="showdatoscancelacion"></div>
                 </form>
+                <div id="showdatoscancelacion"></div>
             </section>
             <!-- TERMINA CACELACIONES -->
         </div>
