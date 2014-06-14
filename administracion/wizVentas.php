@@ -94,7 +94,9 @@
                         <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
                     </div>
                 </form>
+                <div class="text-center" style="background-color: blue">
                 <div id="showdatoscancelacion"></div>
+                </div>
             </section>
             <!-- TERMINA CACELACIONES -->
         </div>
