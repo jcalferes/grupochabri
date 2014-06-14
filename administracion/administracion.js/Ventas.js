@@ -25,21 +25,24 @@ function buscar() {
     calcularTotal(codi);
 }
 function cargarProductosCarrito() {
+    alert("Entro a cargar Productos al Carrito");
     var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
     $.get('dameProductoVentas.php', info, function(informacion) {
+        alert(informacion);
         var datos = informacion.split(",");
         if (datos[0] == 0) {
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
         }
         else if (datos[0] == 1) {
-            alert(datos.length);
-            alert("entro a una exception");
             alertify.error(datos[1]);
         }
         else {
             $("#tablaVentas").append(informacion);
+            alert("entrando calcular suma total");
             calcularSumaTotal();
+            alert("calculando sub total");
             calcularSubTotal();
+            alert("calculando sumadescTotal");
             sumaDescTotal();
         }
     });
