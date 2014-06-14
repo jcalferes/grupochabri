@@ -2666,72 +2666,81 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             while ($row = mysql_fetch_array($rs)) {
                 $idXmlComprobante = $row["ID"];
             }
-        }
-        for ($x = 0; $x < count($detalle); $x++) {
-            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
-                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
-            $datos = mysql_query($sqlConceptoGuardar);
-            if ($datos == false) {
+            $slqAbonos = "INSERT INTO abonos(rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones,statusSaldo)"
+                    . " VALUES ('" . $encabezado[0]->rfcComprobante . "','0','" . $encabezado[0]->tipoComprobante . "','0','$idSucursal','$folio','" . date("d/m/Y") . "','" . $encabezado[0]->totalComprobante . "','null','1')";
+            $datosAbonos = mysql_query($slqAbonos);
+            if ($datosAbonos == false) {
                 $error = mysql_error();
                 mysql_query("ROLLBACK;");
-                break;
-            } else {
-                $sqlTraerExistencia = "SELECT cantidad  FROM existencias WHERE idSucursal = '$idSucursal' and codigoProducto = '" . $detalle[$x]->codigoConcepto . "'";
-                $dat = mysql_query($sqlTraerExistencia);
-                if ($dat == false) {
-                    $error = mysql_error();
-                    mysql_query("ROLLBACK;");
-                    break;
-                } else {
-                    while ($rs = mysql_fetch_array($dat)) {
-                        $existencia = $rs[0];
-                        $long = $detalle[$x]->codigoConcepto;
-                        $cadena = substr($detalle[$x]->codigoConcepto, strlen($long) - 3, 3);
-                        $ok = false;
-                        if ($cadena == "-GR") {
-                            $cantidad = $rs[0] * 1000;
-                            $ok = true;
-                        }
-                        if ($ok == false) {
-                            $nuevaExistencia = $existencia - $detalle[$x]->cantidadConcepto;
-                        }
-                        if ($ok == true) {
-                            $nuevaExistencia = $cantidad - $detalle[$x]->cantidadConcepto;
-                            $nuevaExistencia = $nuevaExistencia / 1000;
-                        }
-                        if ($nuevaExistencia < 0) {
-                            $error="No tenemos suficiente para el producto :".$detalle[$x]->codigoConcepto;
-                            mysql_query("ROLLBACK;");
-                            break;
-                        }
-                        $sqlActualizar = "UPDATE existencias set cantidad ='$nuevaExistencia' WHERE codigoProducto = '" . $detalle[$x]->codigoConcepto . "' and idSucursal = '$idSucursal'";
-                        $datos = mysql_query($sqlActualizar);
-                        if ($datos == false) {
-                            $error = mysql_error();
-                            mysql_query("ROLLBACK;");
-                            break;
-                        }
-                    }
-                }
-                $sqlInsertarSalidas = "INSERT INTO salidas (usuario, cantidad, fecha, codigoProducto, idSucursal)"
-                        . " VALUES('$usuario','" . $detalle[$x]->cantidadConcepto . "','" . date("d/m/Y") . "','" . $detalle[$x]->codigoConcepto . "','$idSucursal')";
-                $datos = mysql_query($sqlInsertarSalidas);
+            }
+        }
+//        if ($datosAbonos == true) {
+            for ($x = 0; $x < count($detalle); $x++) {
+                $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
+                        . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
+                $datos = mysql_query($sqlConceptoGuardar);
                 if ($datos == false) {
                     $error = mysql_error();
                     mysql_query("ROLLBACK;");
                     break;
+                } else {
+                    $sqlTraerExistencia = "SELECT cantidad  FROM existencias WHERE idSucursal = '$idSucursal' and codigoProducto = '" . $detalle[$x]->codigoConcepto . "'";
+                    $dat = mysql_query($sqlTraerExistencia);
+                    if ($dat == false) {
+                        $error = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        break;
+                    } else {
+                        while ($rs = mysql_fetch_array($dat)) {
+                            $existencia = $rs[0];
+                            $long = $detalle[$x]->codigoConcepto;
+                            $cadena = substr($detalle[$x]->codigoConcepto, strlen($long) - 3, 3);
+                            $ok = false;
+                            if ($cadena == "-GR") {
+                                $cantidad = $rs[0] * 1000;
+                                $ok = true;
+                            }
+                            if ($ok == false) {
+                                $nuevaExistencia = $existencia - $detalle[$x]->cantidadConcepto;
+                            }
+                            if ($ok == true) {
+                                $nuevaExistencia = $cantidad - $detalle[$x]->cantidadConcepto;
+                                $nuevaExistencia = $nuevaExistencia / 1000;
+                            }
+                            if ($nuevaExistencia < 0) {
+                                $error = "No tenemos suficiente para el producto :" . $detalle[$x]->codigoConcepto;
+                                mysql_query("ROLLBACK;");
+                                break;
+                            }
+                            $sqlActualizar = "UPDATE existencias set cantidad ='$nuevaExistencia' WHERE codigoProducto = '" . $detalle[$x]->codigoConcepto . "' and idSucursal = '$idSucursal'";
+                            $datos = mysql_query($sqlActualizar);
+                            if ($datos == false) {
+                                $error = mysql_error();
+                                mysql_query("ROLLBACK;");
+                                break;
+                            }
+                        }
+                    }
+                    $sqlInsertarSalidas = "INSERT INTO salidas (usuario, cantidad, fecha, codigoProducto, idSucursal)"
+                            . " VALUES('$usuario','" . $detalle[$x]->cantidadConcepto . "','" . date("d/m/Y") . "','" . $detalle[$x]->codigoConcepto . "','$idSucursal')";
+                    $datos = mysql_query($sqlInsertarSalidas);
+                    if ($datos == false) {
+                        $error = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        break;
+                    }
                 }
             }
-        }
-        $nuevoFolio = $folio + 1;
-        $sqlActualizarFolio = "UPDATE folios set folioVenta = '$nuevoFolio' ";
-        $da = mysql_query($sqlActualizarFolio);
-        if ($da == false) {
-            $error = mysql_error();
-            mysql_query("ROLLBACK;");
-        } else {
-            mysql_query("COMMIT;");
-        }
+            $nuevoFolio = $folio + 1;
+            $sqlActualizarFolio = "UPDATE folios set folioVenta = '$nuevoFolio' ";
+            $da = mysql_query($sqlActualizarFolio);
+            if ($da == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+            } else {
+                mysql_query("COMMIT;");
+            }
+//        }
         $cn->cerrarBd();
         return $error;
     }

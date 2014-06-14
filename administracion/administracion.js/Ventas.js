@@ -96,7 +96,6 @@ function cambiarTarifas(codigo) {
     var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
     $("#precioVnt" + codigo).text(datos[1]);
-//    alert(datos[1]);
     calcularTotal(codigo);
 }
 
@@ -152,12 +151,10 @@ function calcularPorCantidad() {
     calcularSumaTotal();
     calcularSubTotal();
     sumaDescTotal();
-//    alert("calculando");
 }
 
 function calcularPorPrecio() {
     var precio = parseFloat($("#txtTotalModal").val());
-//    var precioVnt = parseFloat($("#cmb" + codigoN).val());
     var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
     var kilogramosVnta = (precio * 1000) / datos[1];
@@ -218,9 +215,6 @@ function calcularIva(sumaTotalProductos) {
     $("#ivaTotal").val(iva.toFixed(2));
     $("#totalVenta").val(ivaTotal.toFixed(2));
 }
-
-
-
 
 //funcion para saber que tecla esta presionada.
 $(document).keydown(function(tecla) {
@@ -284,11 +278,38 @@ function guardarDatosDetalle() {
     }
 }
 
+function cargarProductosCarritoBusqueda(codigo) {
+    var info = "codigo=" + codigo.toUpperCase();
+    $.get('dameProductoVentas.php', info, function(informacion) {
+        if (informacion == 0) {
+            alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
+        }
+        else {
+            $("#tablaVentas").append(informacion);
+            calcularSumaTotal();
+            calcularSubTotal();
+            sumaDescTotal();
+        }
+    });
+}
 
 
+function eliminar(codigo) {
+    for (var x = 0; x < codigos.length; x++) {
+        if (codigos[x] == codigo) {
+            codigos.splice(x, 1);
+        }
+    }
+    $("#tr" + codigo).remove();
+    calcularSumaTotal();
+    calcularSubTotal();
+    sumaDescTotal();
+    calcularTotal(codigo);
+    return true;
+}
 
 $(document).ready(function() {
-
+    $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
     $("#buscarCodigo").click(function() {
         buscar();
@@ -301,17 +322,6 @@ $(document).ready(function() {
     var f = new Date();
     var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
     $("#fecha").html(fecha);
-
-
-
-
-//    $("#cmbClientes").change(function() {
-//        var cliente = $("#cmbClientes").val();
-    $("#cmbTipoPago").load("dameTiposPagos.php");
-//            $("#infDatos").slideDown('slow');
-//        });
-//    });
-
     $("#guardarVenta").click(function() {
         guardarDatosDetalle();
         guardarDatosEncabezado();
@@ -353,39 +363,10 @@ $(document).ready(function() {
             $('#mdlbuscador').modal('toggle'); 
         }
     });
+    
+    
+    
+    
+    
+    
 });
-
-function cargarProductosCarritoBusqueda(codigo) {
-    var info = "codigo=" + codigo.toUpperCase();
-    $.get('dameProductoVentas.php', info, function(informacion) {
-        if (informacion == 0) {
-            alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
-        }
-        else {
-            $("#tablaVentas").append(informacion);
-            calcularSumaTotal();
-            calcularSubTotal();
-            sumaDescTotal();
-        }
-    });
-}
-
-
-function eliminar(codigo) {
-//    alert(codigo);
-//    alert(codigos.length);
-    for (var x = 0; x < codigos.length; x++) {
-//        alert(codigos[x]);
-        if (codigos[x] == codigo) {
-            codigos.splice(x, 1);
-//          alert("eliminado");
-//          break;
-        }
-    }
-    $("#tr" + codigo).remove();
-    calcularSumaTotal();
-    calcularSubTotal();
-    sumaDescTotal();
-    calcularTotal(codigo);
-    return true;
-}
