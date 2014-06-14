@@ -22,7 +22,7 @@ if ($datos != false) {
     }
     echo "</table></div>";
     mysql_data_seek($datos,0); 
-    echo "<div class='table-responsive'><table class='table table-bordered table-condensed' id='dtcancelacion'><thead><th>Folio</th><th>RFC del cliente</th><th>Desc. Total</th><th>Total</th></thead><tbody>";
+    echo "<div class='table-responsive'><table class='table table-hover table-condensed' id='dtcancelacion'><thead><th>Folio</th><th>RFC del cliente</th><th>Desc. Total</th><th>Total</th></thead><tbody>";
     while ($rs = mysql_fetch_array($datos)) {
         echo "<tr>";
         echo "<td>$rs[folioComprobante]</td>";
