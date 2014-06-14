@@ -1,3 +1,6 @@
+$(document).ready(function() {
+    $("#divvalidacancelacion").hide();
+});
 $("#btnbuscarfoliocancelacion").click(function() {
     var foliocancelacion = $("#txtfoliocancelacion").val();
     if (foliocancelacion === "" || /^\s+$/.test(foliocancelacion)) {
@@ -6,6 +9,14 @@ $("#btnbuscarfoliocancelacion").click(function() {
         $("#showdatoscancelacion").load("buscarFolioCancelacion.php?foliocancelacion=" + foliocancelacion, function() {
             $("#dtcancelacion").dataTable();
             $("#txtfoliocancelacion").val("");
+//            $("#divfoliocancelacion").slideUp();
         });
     }
+});
+$("#btnnocancelacion").click(function(){
+    $('#divvalidacancelacion').slideUp();
+    $("#showdatoscancelacion").remove();
+    $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
+    $("#divfoliocancelacion").slideDown();
+    
 });
