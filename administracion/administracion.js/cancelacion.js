@@ -18,5 +18,8 @@ $("#btnnocancelacion").click(function(){
     $("#showdatoscancelacion").remove();
     $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
     $("#divfoliocancelacion").slideDown();
-    
+});
+$("#btnvalidacancelacion").click(function(){
+    var nose = $('#spnfolio').text();
+    alert(nose);
 });

@@ -15,7 +15,7 @@ if ($datos != false) {
     echo "<table class='table'>";
     while ($rs = mysql_fetch_array($datos)) {
         echo "<tr>";
-        echo "<td><label>Folio: </label>$rs[folioComprobante]<br><label>RFC del cliente: </label>$rs[rfcComprobante]</td>";
+        echo "<td><label>Folio: </label><span id='spnfolio'>$rs[folioComprobante]</span><br><label>RFC del cliente: </label>$rs[rfcComprobante]</td>";
         echo "<td></tr><tr>";
         echo "<td><label>Descuento total: </label>$rs[desctTotalComprobante]</td>";
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
