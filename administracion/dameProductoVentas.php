@@ -79,7 +79,7 @@ if ($error == "") {
         $costoMenudeo = 0.00;
         while ($rsDatos = mysql_fetch_array($rsTarifas)) {
             $interfaz.="<option ";
-            if ($rsDatos[1] == 'Menudeo') {
+            if ($rsDatos[1] == 'MENUDEO') {
                 $interfaz.="selected='true'";
                 $costoMenudeo = ($costo * ($rsDatos[2] / 100)) + $costo;
             }
