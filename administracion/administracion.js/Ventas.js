@@ -14,7 +14,6 @@ function buscar() {
 //    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
-        alert("ya hay este producto");
         var cantidad = $("#txt" + codi).val();
         var suma = parseInt(cantidad) + 1;
         $("#txt" + codi).val(suma.toFixed(2));
@@ -339,21 +338,37 @@ $(document).ready(function() {
         $("#tdProducto").find(':checked').each(function() {
             var elemento = this;
             var valor = elemento.value;
-            codigos.push(valor);
-            lista = JSON.stringify(codigos);
-            info = "marcas=" + lista;
+            var x = validar(valor);
+            if (x == false) {
+                cargarProductosCarritoBusqueda(valor);
+                codigos.push(valor);
+                alertify.succes("Producto Agregado");
+                 $('#mdlbuscador').modal('toggle');
+            }
         });
         if (info != undefined) {
-            cargarProductosCarrito();
             $('#mdlbuscador').modal('toggle');
-        } else {
-            alertify.error("Debes seleccionar al menos una  marca");
+        }
+        else{
+            $('#mdlbuscador').modal('toggle'); 
         }
     });
-
-
 });
 
+function cargarProductosCarritoBusqueda(codigo) {
+    var info = "codigo=" + codigo.toUpperCase();
+    $.get('dameProductoVentas.php', info, function(informacion) {
+        if (informacion == 0) {
+            alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
+        }
+        else {
+            $("#tablaVentas").append(informacion);
+            calcularSumaTotal();
+            calcularSubTotal();
+            sumaDescTotal();
+        }
+    });
+}
 
 
 function eliminar(codigo) {
@@ -371,6 +386,6 @@ function eliminar(codigo) {
     calcularSumaTotal();
     calcularSubTotal();
     sumaDescTotal();
-  calcularTotal(codigo);
+    calcularTotal(codigo);
     return true;
 }
