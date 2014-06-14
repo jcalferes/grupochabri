@@ -27,8 +27,14 @@ function buscar() {
 function cargarProductosCarrito() {
     var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
     $.get('dameProductoVentas.php', info, function(informacion) {
-        if (informacion == 0) {
+        var datos = informacion.split(",");
+        if (datos[0] == 0) {
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
+        }
+        else if (datos[0] == 1) {
+            alert(datos.length);
+            alert("entro a una exception");
+            alertify.error(datos[1]);
         }
         else {
             $("#tablaVentas").append(informacion);
@@ -338,7 +344,13 @@ $(document).ready(function() {
                 if (informacion == 0) {
                     informacion = "Exito Venta Terminada";
                 }
-                alertify.success(informacion);
+                var datos = informacion.split(",");
+                if (datos[0] == 2) {
+                    alert("es dos");
+                }
+                else {
+                    alertify.success(informacion);
+                }
             }
         });
     });
@@ -353,20 +365,20 @@ $(document).ready(function() {
                 cargarProductosCarritoBusqueda(valor);
                 codigos.push(valor);
                 alertify.succes("Producto Agregado");
-                 $('#mdlbuscador').modal('toggle');
+                $('#mdlbuscador').modal('toggle');
             }
         });
         if (info != undefined) {
             $('#mdlbuscador').modal('toggle');
         }
-        else{
-            $('#mdlbuscador').modal('toggle'); 
+        else {
+            $('#mdlbuscador').modal('toggle');
         }
     });
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 });
