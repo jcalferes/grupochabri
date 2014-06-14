@@ -5,6 +5,7 @@ $("#btnbuscarfoliocancelacion").click(function() {
     } else {
         $("#showdatoscancelacion").load("buscarFolioCancelacion.php?foliocancelacion=" + foliocancelacion, function() {
             $("#dtcancelacion").dataTable();
+            $("#txtfoliocancelacion").val("");
         });
     }
 });

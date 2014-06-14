@@ -2742,11 +2742,16 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
                 . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
         $controlsql = mysql_query($sql);
+        $row = mysql_affected_rows();
         if ($controlsql == false) {
             $controlsql = mysql_error();
             return false;
         } else {
-            return $controlsql;
+            if ($row < 1) {
+                return false;
+            } else {
+                return $controlsql;
+            }
         }
     }
 
