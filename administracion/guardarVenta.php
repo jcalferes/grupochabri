@@ -19,7 +19,7 @@ if ($idStatus == 1) {
 }
 $rs = $dao->dameFolio();
 while ($datos = mysql_fetch_array($rs)) {
-    $folio = $rs[0];
+    $folio = $datos[0];
 }
 $error = $dao->guardarventas($encabezado, $detalle, $idSucursal, $usuario, $idStatusOrden, $folio);
 if ($error == "") {
