@@ -13,13 +13,22 @@ $("#btnbuscarfoliocancelacion").click(function() {
         });
     }
 });
-$("#btnnocancelacion").click(function(){
+$("#btnnocancelacion").click(function() {
     $('#divvalidacancelacion').slideUp();
     $("#showdatoscancelacion").remove();
     $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
     $("#divfoliocancelacion").slideDown();
 });
-$("#btnvalidacancelacion").click(function(){
-    var nose = $('#spnfolio').text();
-    alert(nose);
+$("#btnvalidacancelacion").click(function() {
+    var folio = $('#spnfolio').text();
+    var info = "folio=" + folio;
+    alertify.confirm("¿Estas completamente seguro de efectuar la cancelación?, Esta acción no pueden deshacerse. ", function(e) {
+        if (e) {
+            alert("Si");
+            $.get('efectuarCancelacion.php', info, function(r) {
+            });
+        } else {
+            alert("No");
+        }
+    });
 });

@@ -2767,4 +2767,10 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         }
     }
 
+    //================= Efectuar cancelacion ===================================
+    function efectuarCancelacion($folio) {
+        $sql = "";
+        $controlsql = mysql_query($sql);
+    }
+
 }
