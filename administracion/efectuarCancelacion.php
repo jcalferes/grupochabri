@@ -11,7 +11,7 @@ $dao = new dao();
 $cn = new coneccion();
 
 $cn->Conectarse();
-$control = $dao->efectuarCancelacion($folio);
+$control = $dao->efectuarCancelacion($folio, $sucursal);
 
 
 
