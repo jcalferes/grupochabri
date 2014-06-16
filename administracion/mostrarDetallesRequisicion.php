@@ -11,7 +11,7 @@ $sucu = $_GET["sucu"];
 if($aceptacion == "5"){
     
     $datos = $dao->mostrarDetallesTransferencias($sucursal, $transferencia);
-echo"<div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th>codigoProducto</th><th>detalles</th><th>Cantidad aceptada</th><th>Cantidad pedida</th><th>Costo</th><th>cantidad en Inventario</th><th>Costo Total</th></thead><tbody>";
+echo"<div class='table-responsive'><table id='tdProductos'  class='table table-hover'><thead><th>codigoProducto</th><th>detalles</th><th>Cantidad aceptada</th><th>Cantidad pedida</th><th>Costo</th><th>cantidad en Inventario</th><th>Costo Total</th></thead><tbody>";
 while ($rs = \mysql_fetch_array($datos, MYSQL_ASSOC)) {
     $cantidad = $rs["cantidad"];
     $costo = $rs["costo"];
@@ -32,7 +32,7 @@ echo "<div class='form-control'>Total:  <input type='text' id='costoTotal2' clas
 }else{
     
      $datos = $dao->mostrarDetallesTransferenciasAceptadas($sucursal, $transferencia);
-echo"<div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th>codigoProducto</th><th>detalles</th><th>Cantidad aceptada</th><th>Costo</th><th>cantidad en Inventario</th><th>Costo Total</th></thead><tbody>";
+echo"<div class='table-responsive'><table id='tdProductos'  class='table table-hover'><thead><th>codigoProducto</th><th>detalles</th><th>Cantidad aceptada</th><th>Costo</th><th>cantidad en Inventario</th><th>Costo Total</th></thead><tbody>";
 while ($rs = \mysql_fetch_array($datos, MYSQL_ASSOC)) {
     $cantidad = $rs["cantidad"];
     $costo = $rs["costo"];

@@ -2480,7 +2480,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $total = count($codigoProducto);
         foreach ($codigoProducto as $value) {
 
-            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo   FROM productos p
+            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo, p.cantidadMaxima  FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
                inner join marcas m
