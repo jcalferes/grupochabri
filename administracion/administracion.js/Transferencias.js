@@ -1,3 +1,76 @@
+function listarProductos() {
+   
+    var idMarcas = new Array();
+    var info;
+    $('#tdProducto').find(':checked').each(function() {
+
+        var elemento = this;
+        var valor = elemento.value;
+        alert(valor);
+        idMarcas.push(valor);
+        lista = JSON.stringify(idMarcas);
+        info = "codigos=" + lista;
+
+
+
+    });
+    if (info != undefined) {
+        alert("entro");
+        $.get('consultaMasivaProductos.php', info, function(x) {
+            alert(info);
+            var valorando = 0;
+            lista = JSON.parse(x);
+            console.log(lista);
+            $.each(lista, function(ind, elem) {
+                alert(elem);
+                $.each(elem, function(ind, elem2) {
+//                    alert(elem2);
+                    $.each(elem, function(ind, elem2) {
+//                        alert(elem[ind].tarifa);
+
+                        $('.myCodigo').each(function() {
+
+                            var elemento = this;
+                            var nombre = elemento.name;
+                            var valor = elemento.value;
+//                            alert(elemento.name);
+                            if (valor == elem[ind].codigoproducto && elem[ind].codigoproducto !== "inicial") {
+            alertify.error("ya existe");
+                                valorando = nombre;
+
+                            }
+                        });
+                        if (valorando == '0') {
+                            tr = '<tr>\n\
+                          <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoproducto + '" value="' + elem[ind].codigoproducto + '" disabled/></td>\n\
+                          <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
+                          <td><div id="div' + elem[ind].codigoproducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoproducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoproducto + '\')"></div> </td>\n\\n\\n\
+                          <td><input type="text" class ="form-control" id="txtMaxCantidad' + elem[ind].codigoproducto + '" value="' + elem[ind].cantidadMaxima + '" disabled/></td>\n\
+                          <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoproducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
+                        <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoproducto + '"  disabled></td>\n\
+                      </tr>\n\ ';
+                            $("#tablaTransferencias").append(tr);
+                            $("#txtTotal" + elem[ind].codigoproducto).val("0");
+
+//
+                        } else {
+alertify.error("Uno de los productos ya existe");
+                        }
+                    });
+
+                });
+
+//
+            });
+
+        });
+
+        $('#mdlbuscador').modal('toggle');
+    } else {
+        alertify.error("Debes seleccionar al menos un producto");
+    }
+}
+
 function TransaccionDetalles(codigo, cantidad, costo) {
     this.codigo = codigo;
     this.cantidad = cantidad;
@@ -235,11 +308,12 @@ $(document).ready(function() {
         }
 
     });
-     $("#btnbuscador").click(function() {
-         var sucursal = $("#sucursal").val();
-        $("#todos").load("consultarBuscador.php?sucursal="+ sucursal, function() {
+    $("#btnbuscador").click(function() {
+        var sucursal = $("#sucursal").val();
+        $("#todos").load("consultarBuscador.php?sucursal=" + sucursal, function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
     });
+    
 });
