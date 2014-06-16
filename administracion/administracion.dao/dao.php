@@ -2431,9 +2431,9 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 and t.idStatus='1'
 		and t.idSucursal='" . $idSucursal . "';";
         $datos = mysql_query($sql);
-        if ($datos == false) {
-            $datos = mysql_error();
-        }
+//        if ($datos == false) {
+//            $datos = mysql_error();
+//        }
         return $datos;
     }
 
@@ -2666,7 +2666,15 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             while ($row = mysql_fetch_array($rs)) {
                 $idXmlComprobante = $row["ID"];
             }
+            $slqAbonos = "INSERT INTO abonos(rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones,statusSaldo)"
+                    . " VALUES ('" . $encabezado[0]->rfcComprobante . "','0','" . $encabezado[0]->tipoComprobante . "','0','$idSucursal','$folio','" . date("d/m/Y") . "','" . $encabezado[0]->totalComprobante . "','null','1')";
+            $datosAbonos = mysql_query($slqAbonos);
+            if ($datosAbonos == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+            }
         }
+//        if ($datosAbonos == true) {
         for ($x = 0; $x < count($detalle); $x++) {
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
                     . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
@@ -2700,7 +2708,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                             $nuevaExistencia = $nuevaExistencia / 1000;
                         }
                         if ($nuevaExistencia < 0) {
-                            $error="No tenemos suficiente para el producto :".$detalle[$x]->codigoConcepto;
+                            $error = "2," . $detalle[$x]->codigoConcepto;
                             mysql_query("ROLLBACK;");
                             break;
                         }
@@ -2713,27 +2721,56 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                         }
                     }
                 }
-                $sqlInsertarSalidas = "INSERT INTO salidas (usuario, cantidad, fecha, codigoProducto, idSucursal)"
-                        . " VALUES('$usuario','" . $detalle[$x]->cantidadConcepto . "','" . date("d/m/Y") . "','" . $detalle[$x]->codigoConcepto . "','$idSucursal')";
-                $datos = mysql_query($sqlInsertarSalidas);
-                if ($datos == false) {
-                    $error = mysql_error();
-                    mysql_query("ROLLBACK;");
-                    break;
+                if ($error == "") {
+                    $sqlInsertarSalidas = "INSERT INTO salidas (usuario, cantidad, fecha, codigoProducto, idSucursal)"
+                            . " VALUES('$usuario','" . $detalle[$x]->cantidadConcepto . "','" . date("d/m/Y") . "','" . $detalle[$x]->codigoConcepto . "','$idSucursal')";
+                    $datos = mysql_query($sqlInsertarSalidas);
+                    if ($datos == false) {
+                        $error = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        break;
+                    }
                 }
             }
         }
-        $nuevoFolio = $folio + 1;
-        $sqlActualizarFolio = "UPDATE folios set folioVenta = '$nuevoFolio' ";
-        $da = mysql_query($sqlActualizarFolio);
-        if ($da == false) {
-            $error = mysql_error();
-            mysql_query("ROLLBACK;");
-        } else {
-            mysql_query("COMMIT;");
+        if ($error == "") {
+            $nuevoFolio = $folio + 1;
+            $sqlActualizarFolio = "UPDATE folios set folioVenta = '$nuevoFolio' ";
+            $da = mysql_query($sqlActualizarFolio);
+            if ($da == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+            } else {
+                mysql_query("COMMIT;");
+            }
         }
         $cn->cerrarBd();
         return $error;
+    }
+
+    //================= Consultar folio para cancelacion =======================
+    function dameInfoCancelacion($foliocancelacion, $idsucursal) {
+        $sql = "SELECT * FROM xmlcomprobantes xcm "
+                . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
+        $controlsql = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($controlsql == false) {
+            $controlsql = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $controlsql;
+            }
+        }
+    }
+
+    //================= Efectuar cancelacion ===================================
+    function efectuarCancelacion($folio) {
+        $sql = "";
+        $controlsql = mysql_query($sql);
     }
 
 }
