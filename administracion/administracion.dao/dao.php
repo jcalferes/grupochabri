@@ -2641,7 +2641,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         return $datos;
     }
 
-    function guardarventas($encabezado, $detalle, $idSucursal, $usuario, $idStatusOrden, $folio) {
+    function guardarventas($encabezado, $detalle, $idSucursal, $usuario, $idStatusOrden, $folio, $abonos) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cn->Conectarse();
@@ -2666,12 +2666,14 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             while ($row = mysql_fetch_array($rs)) {
                 $idXmlComprobante = $row["ID"];
             }
-            $slqAbonos = "INSERT INTO abonos(rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones,statusSaldo)"
-                    . " VALUES ('" . $encabezado[0]->rfcComprobante . "','0','" . $encabezado[0]->tipoComprobante . "','0','$idSucursal','$folio','" . date("d/m/Y") . "','" . $encabezado[0]->totalComprobante . "','null','1')";
-            $datosAbonos = mysql_query($slqAbonos);
-            if ($datosAbonos == false) {
-                $error = mysql_error();
-                mysql_query("ROLLBACK;");
+            if ($abonos == true) {
+                $slqAbonos = "INSERT INTO abonos(rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones,statusSaldo)"
+                        . " VALUES ('" . $encabezado[0]->rfcComprobante . "','0','" . $encabezado[0]->tipoComprobante . "','0','$idSucursal','$folio','" . date("d/m/Y") . "','" . $encabezado[0]->totalComprobante . "','null','1')";
+                $datosAbonos = mysql_query($slqAbonos);
+                if ($datosAbonos == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                }
             }
         }
 //        if ($datosAbonos == true) {

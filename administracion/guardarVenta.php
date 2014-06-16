@@ -12,16 +12,19 @@ $datos = json_decode(stripslashes($_POST['data']));
 $encabezado = $datos[0];
 $detalle = $datos[1];
 $idStatus = $encabezado[0]->tipoComprobante;
+$abonos = false;
 if ($idStatus == 1) {
+    $abonos = false;
     $idStatusOrden = 7;
 } else {
+    $abonos = true;
     $idStatusOrden = 5;
 }
 $rs = $dao->dameFolio();
 while ($datos = mysql_fetch_array($rs)) {
     $folio = $datos[0];
 }
-$error = $dao->guardarventas($encabezado, $detalle, $idSucursal, $usuario, $idStatusOrden, $folio);
+$error = $dao->guardarventas($encabezado, $detalle, $idSucursal, $usuario, $idStatusOrden, $folio, $abonos);
 if ($error == "") {
     $error = 0;
 }

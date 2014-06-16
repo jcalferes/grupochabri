@@ -374,7 +374,9 @@ $(document).ready(function() {
         }
     });
 
-
+    $("#cmbClientes").change(function() {
+        alert($("#cmbClientes").val());
+    });
 
 
 
