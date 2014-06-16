@@ -18,8 +18,8 @@ if ($datos > 0) {
         echo"<td id='$rs[marca]' >$rs[marca] </td>";
         echo"<td id='$rs[proveedor]' >$rs[proveedor] </td>";
         echo"<td id='$rs[grupoProducto]' >$rs[grupoProducto] </td>";
-        echo"<td id='$rs[existencia]' >$rs[existencia] </td>";
-        echo"<td id='$rs[menudeo]' >$rs[menudeo] </td>";
+        echo"<td id='x' >$rs[existencia] </td>";
+        echo"<td id='x' >$rs[menudeo] </td>";
     }
     echo"</tbody></table></div>";
 } else {

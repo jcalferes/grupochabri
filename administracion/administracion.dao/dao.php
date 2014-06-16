@@ -2480,7 +2480,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         $total = count($codigoProducto);
         foreach ($codigoProducto as $value) {
 
-            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo   FROM productos p
+            $MySQL = "SELECT p.codigoproducto, producto, tar.tarifa ,ex.cantidad, cost.costo, p.cantidadMaxima  FROM productos p
                inner join proveedores pr
                on p.idProveedor = pr.idProveedor
                inner join marcas m
@@ -2748,6 +2748,31 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         }
         $cn->cerrarBd();
         return $error;
+    }
+
+    //================= Consultar folio para cancelacion =======================
+    function dameInfoCancelacion($foliocancelacion, $idsucursal) {
+        $sql = "SELECT * FROM xmlcomprobantes xcm "
+                . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
+        $controlsql = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($controlsql == false) {
+            $controlsql = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $controlsql;
+            }
+        }
+    }
+
+    //================= Efectuar cancelacion ===================================
+    function efectuarCancelacion($folio) {
+        $sql = "";
+        $controlsql = mysql_query($sql);
     }
 
 }

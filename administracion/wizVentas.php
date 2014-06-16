@@ -106,8 +106,14 @@
                         <input type="text" class="form-control" id="txtfoliocancelacion"><br>
                         <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
                     </div>
-                    <div id="showdatoscancelacion"></div>
                 </form>
+                <div id="basedatoscancelacion">
+                <div id="showdatoscancelacion"></div>
+                </div>
+                <div id="divvalidacancelacion">
+                <input type="button" class="btn btn-primary" id="btnvalidacancelacion" value="Efectuar cancelacion">
+                    <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
+                </div>
             </section>
             <!-- TERMINA CACELACIONES -->
         </div>

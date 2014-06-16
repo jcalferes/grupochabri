@@ -11,10 +11,10 @@ $dire = $dao->cpuleaDireccion($rfc);
 $tele = $dao->cpuleaTelefono($rfc);
 $emai = $dao->cpuleaEmails($rfc);
 
-$telefonos = [];
+$telefonos;
 $conttel = 0;
 
-$emails = [];
+$emails;
 $contema = 0;
 if ($prov != false) {
     while ($pdt = mysql_fetch_array($prov)) {

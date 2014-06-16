@@ -14,13 +14,13 @@ $cn = new coneccion();
 $cn->Conectarse();
 $contador = 0;
 $interfaz = "";
-$error="";
+$error = "";
 $rs = $dao->buscarProductoVentas($codigo, $id);
-if($rs == false){
-    $error= mysql_error();
+if ($rs == false) {
+    $error = mysql_error();
 }
 $rsTarifas = $dao->dameTarifas($codigo, $id);
-if($rsTarifas== false){
+if ($rsTarifas == false) {
     $error = mysql_error();
 }
 $codigo1 = 0;
