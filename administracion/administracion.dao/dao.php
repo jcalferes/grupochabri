@@ -3024,9 +3024,57 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     }
 
     //================= Efectuar cancelacion ===================================
-    function efectuarCancelacion($folio) {
-        $sql = "";
-        $controlsql = mysql_query($sql);
+    function efectuarCancelacion($folio, $sucursal) {
+        //============= Sacar los productos de la venta ========================
+        $sql = "SELECT xcp.cantidadConcepto, xcp.codigoConcepto FROM xmlconceptos xcp "
+                . "INNER JOIN xmlcomprobantes xcm ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$folio' AND xcm.idSucursal = '$sucursal'";
+        mysql_query("START TRANSACTION;");
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($row < 1) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrl)) {
+                    //= Sacar existencia actual ================================
+                    $sqlextactual = "SELECT cantidad FROM existencias WHERE codigoProducto = '" . $rs[1] . "' AND idSucursal = '$sucursal'";
+                    $ctrlextactual = mysql_query($sqlextactual);
+                    $rowextactual = mysql_affected_rows();
+                    if ($ctrlextactual == false) {
+                        $ctrlextactual = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        if ($rowextactual < 1) {
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        } else {
+                            while ($ext = mysql_fetch_array($ctrlextactual)) {
+                                $extactual = $ext["cantidad"];
+                            }
+                        }
+                    }
+                    //= Sumar las dos existencias ==============================
+                    $extnueva = $extactual + $rs["cantidadConcepto"];
+                    //Actualizar existencias ===================================
+                    $sqlexistencia = "UPDATE existencias SET cantidad = '$extnueva' "
+                            . "WHERE codigoProducto = '" . $rs[1] . "' AND idSucursal = '$sucursal'";
+                    $ctrlexistencia = mysql_query($sqlexistencia);
+                    if ($ctrlexistencia == false) {
+                        $ctrlexistencia = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            }
+        }
+        //================= Cambiar status comprobante =========================
     }
 
 }
