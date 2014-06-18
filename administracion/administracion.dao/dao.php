@@ -2928,7 +2928,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden <> 3";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {
@@ -2944,7 +2944,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     }
 
     //================= Efectuar cancelacion ===================================
-    function efectuarCancelacion($folio, $sucursal, $observ) {
+    function efectuarCancelacion($folio, $sucursal, $observ, $usuario) {
         //============= Sacar los productos de la venta ========================
         $sql = "SELECT xcp.cantidadConcepto, xcp.codigoConcepto FROM xmlconceptos xcp "
                 . "INNER JOIN xmlcomprobantes xcm ON xcm.idXmlComprobante = xcp.idXmlComprobante "
@@ -3003,7 +3003,15 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             return false;
         }
         //================= Insertar datos en cancelacion ======================
-        
+        $sqlcancel = "INSERT INTO cancelaciones(folio, observaciones, usuario) VALUES ('$folio', '$observ', '$usuario')";
+        $ctrlcancel = mysql_query($sqlcancel);
+        if ($ctrlcancel == false) {
+            $ctrlcancel = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        mysql_query("COMMIT;");
+        return true;
     }
 
 }

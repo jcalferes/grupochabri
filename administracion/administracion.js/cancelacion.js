@@ -29,6 +29,15 @@ $("#btnvalidacancelacion").click(function() {
     alertify.confirm("¿Estas completamente seguro de efectuar la cancelación?, Esta acción no pueden deshacerse. ", function(e) {
         if (e) {
             $.get('efectuarCancelacion.php', info, function(r) {
+                if (r == 0) {
+                    alertify.success("Cancelaion realizada con exito");
+                    $('#divvalidacancelacion').slideUp();
+                    $("#showdatoscancelacion").remove();
+                    $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
+                    $("#divfoliocancelacion").slideDown();
+                } else {
+                    alertify.error("No se pudo realizar la cancelacion");
+                }
             });
         } else {
             alert("No");
