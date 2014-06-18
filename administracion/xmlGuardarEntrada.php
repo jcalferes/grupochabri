@@ -139,7 +139,6 @@ include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
 
 $idsucursal = $_SESSION["sucursalSesion"];
-$usuario = $_SESSION["usuarioSesion"];
 
 $detalle = new Detalle();
 $encabezado = new Encabezado();
@@ -150,7 +149,7 @@ $dao = new dao();
 $cn = new coneccion();
 $cn->Conectarse();
 
-$lafecha = date("d-m-Y");
+$lafecha = date("d/m/Y h:i");
 
 $encabezado = $_SESSION['objEncabezadoEntrada'];
 $arrayDetalleEntrada = $_SESSION['arrayDetalleEntrada'];
@@ -176,10 +175,10 @@ if ($valido == false) {
     $validaCodigo = 1;
     $rechazaCodigo = 0;
     foreach ($conceptos as $concepto) {
-        $ads = $concepto->codigoConcepto;
+        $ads = $concepto->codigo;
         while ($rs = mysql_fetch_array($valido)) {
             if ($ads != $rs['codigoProducto']) {
-                $rechazaCodigo = $concepto->codigoConcepto;
+                $rechazaCodigo = $concepto->codigo;
             } else {
                 $validaCodigo = 0;
             }
@@ -192,8 +191,7 @@ if ($valido == false) {
         }
     }
     $control = count($conceptos);
-    $tipo = 'XML';
-    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal, $tipo, $usuario);
+    $paso = $dao->superMegaGuardadorEntradas($lafecha, $encabezado, $arrayDetalleEntrada, $comprobante, $conceptos, $control, $idsucursal);
     $cn->cerrarBd();
     if ($paso == false) {
         echo 1;
