@@ -3,7 +3,7 @@
 include_once './administracion.dao/dao.php';
 $dao = new dao();
 session_start();
-if ($validando !== "pedido") {
+if (isset($_GET["pedidoCliente"])) {
     $validando = $_GET["pedidoCliente"];
 } else {
     $sucursal = $_SESSION["sucursalSesion"];

@@ -917,7 +917,7 @@ $(document).ready(function() {
     });
     var tipo = "PEDIDO%20CLIENTE";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
-    $("#sucursal").load("sacarSucursales.php?pedidoCliente=pedido");
+    $("#sucursal").load("sacarSucursales.php?pedidoCliente='pedido'");
 
     $("#btnbuscador").click(function() {
         var s = $("#sucursal").val();
