@@ -10,11 +10,11 @@ function Comprobante(desctFactura, desctProntoPago, desctGeneral, desctPorProduc
 }
 
 function Concepto(importe, codigo, cda, desctuno, desctdos) {
-    this.importe = importe;
-    this.codigo = codigo;
-    this.cda = cda;
-    this.desctuno = desctuno;
-    this.desctdos = desctdos;
+    this.importeConcepto = importe;
+    this.codigoConcepto = codigo;
+    this.cdaConcepto = cda;
+    this.desctUnoConcepto = desctuno;
+    this.desctDosConcepto = desctdos;
 }
 
 function consultarProductoId() {

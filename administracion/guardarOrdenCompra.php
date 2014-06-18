@@ -63,5 +63,5 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
+$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
 echo $paso;
