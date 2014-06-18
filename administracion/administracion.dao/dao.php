@@ -1375,7 +1375,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         mysql_query("COMMIT;");
     }
 
-     function superMegaGuardadorOrdenes($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario) {
+    function superMegaGuardadorOrdenes($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -1629,10 +1629,9 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         }
         return $sqlfolios;
     }
-    
-    
+
     function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal) {
-         $detalle = new Detalle();
+        $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
         $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento, idTipoMovimiento, idSucursal)"
@@ -2945,7 +2944,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     }
 
     //================= Efectuar cancelacion ===================================
-    function efectuarCancelacion($folio, $sucursal) {
+    function efectuarCancelacion($folio, $sucursal, $observ) {
         //============= Sacar los productos de la venta ========================
         $sql = "SELECT xcp.cantidadConcepto, xcp.codigoConcepto FROM xmlconceptos xcp "
                 . "INNER JOIN xmlcomprobantes xcm ON xcm.idXmlComprobante = xcp.idXmlComprobante "
@@ -2996,6 +2995,15 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             }
         }
         //================= Cambiar status comprobante =========================
+        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
+        $ctrlstatus = mysql_query($sqlstatus);
+        if ($ctrlstatus == false) {
+            $ctrlstatus = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //================= Insertar datos en cancelacion ======================
+        
     }
 
 }
