@@ -63,7 +63,7 @@ WHERE u.idUsuario = '$idCliente'
     function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        if ($tipo == "Orden Compra") {
+        if ($tipo == "ORDEN COMPRA") {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo'";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
@@ -1424,7 +1424,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 $sqlfolios = "No hay Folio";
             }
 
-            if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+            if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                 $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
                         . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
                 $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
@@ -1514,7 +1514,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 //==================================================================
                 //Comienza validar producto en existencia
                 $cantidad = 0;
-                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                     $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
                             . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
                     $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
@@ -1565,7 +1565,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 //Terminar guardar xml concepto
                 //==================================================================
                 //Comienza actulizar costo
-                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                     $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
                             . " WHERE codigoProducto = '$cpto->codigoConcepto' AND status = '1' AND idSucursal = '$idSucursal'";
                     $ctrlTraerCosto = mysql_query($sqlTraerCosto);

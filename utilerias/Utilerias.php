@@ -19,7 +19,7 @@ class Utilerias {
         return $codificado;
     }
 
-    function enviarCorreoElectronico($correo, $destinos) {
+    function enviarCorreoElectronico($destinos) {
         include_once ("class.phpmailer.php");
         include_once ("class.smtp.php");
 

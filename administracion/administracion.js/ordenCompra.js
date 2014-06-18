@@ -182,7 +182,7 @@ function listarProductos() {
 }
 function verOrdenCompra(folio, comprobante) {
 //    alert("folio:" + folio + " comprobante:" + comprobante);
-    var info = "valor=" + folio + "&comprobante=Orden Compra";
+    var info = "valor=" + folio + "&comprobante=ORDEN COMPRA";
     window.open('generarReporte.php?' + info);
 
 }
@@ -261,7 +261,7 @@ $("#folioM").keypress(function(e) {
             $(this).remove();
 
         });
-        var info = "folio=" + $("#folioM").val() + "&comprobante=Orden Compra";
+        var info = "folio=" + $("#folioM").val() + "&comprobante=ORDEN COMPRA";
         $.get('consultaOrdenCompra.php', info, function(x) {
             if (x == 0) {
                 alertify.error("no hay ese codigo");
@@ -795,7 +795,7 @@ $(document).ready(function() {
                 data: {data: informacion, band: "modifica", folio: $("#folioM").val()},
                 cache: false,
                 success: function(x) {
-                    window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra");
+                    window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA");
                     alertify.success("Exito! Orden Guardada");
                     var tipo = "Orden%20Compra";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
@@ -825,11 +825,11 @@ $(document).ready(function() {
 //        alert(folio);
         if ($("#emailProveedor").val() !== "0") {
             if ($("#folioM").val() != "") {
-                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
+                var info = "valor=" + $("#folioM").val() + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA";
                 window.open('generarReporte.php?' + info);
             } else {
 //                alert(folio);
-                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=Orden Compra";
+                var info = "valor=" + folio + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA";
                 window.open('generarReporte.php?' + info);
             }
         } else {

@@ -12,7 +12,7 @@ include './administracion.clases/Detalle.php';
 error_reporting(0);
 
 session_start();
-$tipo = "Orden Compra";
+$tipo = "ORDEN COMPRA";
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
