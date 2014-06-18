@@ -96,10 +96,8 @@
                 </form>
                 <div id="basedatoscancelacion">
                     <div id="showdatoscancelacion"></div>
-
                 </div>
                 <div id="divvalidacancelacion">
-                   
                     <input type="button" class="btn btn-primary" id="btnvalidacancelacion" value="Efectuar cancelacion">
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>

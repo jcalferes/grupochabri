@@ -21,7 +21,7 @@ if ($datos != false) {
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
     }
     echo "</table>";
-    mysql_data_seek($datos,0); 
+    mysql_data_seek($datos, 0);
     echo "<div class='well well-sm'><div class='table-responsive'><table class='table table-hover table-condensed' id='dtcancelacion'><thead><th>Codigo</th><th>Descripcion</th><th>Cantidad</th><th>Importe</th></thead><tbody>";
     while ($rs = mysql_fetch_array($datos)) {
         echo "<tr>";
@@ -31,7 +31,7 @@ if ($datos != false) {
         echo "<td>$rs[importeConcepto]</td>";
     }
     echo "</tbody></table></div></div>"
-    . "<label>Observaciones:</label><br/><textarea></textarea>";
+    . "<label>Observaciones:</label><br/><textarea class='form-control' id='txaobscancelacion'></textarea><br>";
     echo "<script> $('#divfoliocancelacion').slideUp(); $('#divvalidacancelacion').slideDown();</script>";
 } else {
     echo "<script> alertify.error('El folio no existe o no se encontraron datos para el mismo');</script>";

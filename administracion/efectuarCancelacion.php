@@ -6,12 +6,13 @@ include_once '../daoconexion/daoConeccion.php';
 
 $sucursal = $_SESSION["sucursalSesion"];
 $folio = $_GET["folio"];
+$observ = $_GET["observcancelacion"];
 
 $dao = new dao();
 $cn = new coneccion();
 
 $cn->Conectarse();
-$control = $dao->efectuarCancelacion($folio, $sucursal);
+$control = $dao->efectuarCancelacion($folio, $sucursal, $observ);
 
 
 

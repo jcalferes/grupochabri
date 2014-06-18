@@ -130,7 +130,7 @@ $("#btnabonar").click(function() {
     var tipopago = $("#slctipopago").val();
     var referencia = $("#txtreferenciaabono").val();
     var observ = $("#txtobservacionesabono").val();
-    var saldoInicial = $("#saldoabono").text()
+    var saldoInicial = $("#saldoabono").text();
     var liquida = false;
 
 
@@ -145,7 +145,7 @@ $("#btnabonar").click(function() {
     }
 
     if (observ === "" || /^\s+$/.test(observ)) {
-        observ = "NA";
+        observ = "";
     }
 
     var adeudo = parseFloat($("#adeudoabono").text());
