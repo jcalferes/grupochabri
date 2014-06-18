@@ -1,3 +1,16 @@
+function eliminarFila(fila){
+    var   mientras = 0;
+     $("#fila" + fila).remove();
+     $('.transferencia').each(function() {
+
+      var  elemento = $(this).val();
+               
+     mientras = parseFloat(mientras) + parseFloat(elemento);
+      alert(mientras);
+    });
+    $("#costoTotal").val(mientras);
+}
+
 function listarProductos() {
    
     var idMarcas = new Array();
@@ -41,7 +54,8 @@ function listarProductos() {
                             }
                         });
                         if (valorando == '0') {
-                            tr = '<tr>\n\
+                            tr = '<tr id="fila'+elem[ind].codigoProducto+'">\n\
+<td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoproducto + '\')">Eliminar</button></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoproducto + '" value="' + elem[ind].codigoproducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
                           <td><div id="div' + elem[ind].codigoproducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoproducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoproducto + '\')"></div> </td>\n\\n\\n\
@@ -210,7 +224,8 @@ $(document).ready(function() {
                         var tr = "";
                         $.each(lista, function(ind, elem) {
                             $.each(elem, function(ind, elem2) {
-                                tr = '<tr>\n\
+                                tr = '<tr id="fila'+elem[ind].codigoProducto+'">\n\
+<td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')">Eliminar</button></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
                           <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
