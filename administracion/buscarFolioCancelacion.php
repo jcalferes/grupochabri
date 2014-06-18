@@ -30,7 +30,8 @@ if ($datos != false) {
         echo "<td>$rs[cantidadConcepto]</td>";
         echo "<td>$rs[importeConcepto]</td>";
     }
-    echo "</tbody></table></div>";
+    echo "</tbody></table></div></div>"
+    . "<label>Observaciones:</label><br/><textarea></textarea>";
     echo "<script> $('#divfoliocancelacion').slideUp(); $('#divvalidacancelacion').slideDown();</script>";
 } else {
     echo "<script> alertify.error('El folio no existe o no se encontraron datos para el mismo');</script>";

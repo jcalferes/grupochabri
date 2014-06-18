@@ -2819,6 +2819,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             }
         }
         //================= Cambiar status comprobante =========================
+        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' ";
     }
 
 }
