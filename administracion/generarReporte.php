@@ -173,7 +173,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 } </script>';
   $valor .= ' <center>
-       <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/>
+   <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">';
@@ -247,12 +247,14 @@ file_put_contents("reportes/probando.pdf", $mipdf->output());
 //$mipdf->stream('reportes/probando.pdf');
 if ($comprobante !== "PEDIDO CLIENTE") {
 
-
-    if ($correos !== "") {
+//sleep(2);
+    if ($correos == "" || $correos == null) {
+            $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+            unlink("reportes/probando.pdf");
 //$correo = "shanaxchronos@gmail.com";
-        $utileria->enviarCorreoElectronico($correo, $destinos);
-        $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+       
     }
 } else {
-    $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+     $utileria->enviarCorreoElectronico($correo, $destinos);
+        $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 }

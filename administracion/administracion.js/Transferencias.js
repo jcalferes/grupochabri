@@ -6,7 +6,6 @@ function eliminarFila(fila){
       var  elemento = $(this).val();
                
      mientras = parseFloat(mientras) + parseFloat(elemento);
-      alert(mientras);
     });
     $("#costoTotal").val(mientras);
 }
@@ -19,7 +18,7 @@ function listarProductos() {
 
         var elemento = this;
         var valor = elemento.value;
-        alert(valor);
+//        alert(valor);
         idMarcas.push(valor);
         lista = JSON.stringify(idMarcas);
         info = "codigos=" + lista;
@@ -28,14 +27,14 @@ function listarProductos() {
 
     });
     if (info != undefined) {
-        alert("entro");
+//        alert("entro");
         $.get('consultaMasivaProductos.php', info, function(x) {
             alert(info);
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
             $.each(lista, function(ind, elem) {
-                alert(elem);
+//                alert(elem);
                 $.each(elem, function(ind, elem2) {
 //                    alert(elem2);
                     $.each(elem, function(ind, elem2) {
