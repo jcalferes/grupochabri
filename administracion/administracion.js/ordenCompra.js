@@ -174,7 +174,8 @@ function listarProductos() {
             });
 
         });
-
+        $("#guardarOrdenCompra").show();
+        $("#CancelarOrden").show();
         $('#mdlbuscador').modal('toggle');
     } else {
         alertify.error("Debes seleccionar al menos un producto");
@@ -190,6 +191,7 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        $("#btnbuscador").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesPorComasM").val("");
         $("#descuentosGeneralesM").prop("checked", false);
@@ -218,6 +220,7 @@ function seleccionTipo() {
 
         });
     } else {
+          $("#btnbuscador").prop("disabled", false);
         folio = 0;
         contador = 1;
         $("#descuentosGlobalesManuales").prop("disabled", true);
@@ -728,6 +731,7 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
+     $("#btnbuscador").prop("disabled", true);
     $("#descuentosGlobalesManuales").prop("disabled", true);
     $("#descuentosGeneralesM").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
@@ -995,7 +999,7 @@ $(document).ready(function() {
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
     $("#btnbuscador").click(function() {
-        $("#todos").load("consultarBuscador.php?sucursal=", function() {
+        $("#todos").load("consultarBuscador.php", function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');

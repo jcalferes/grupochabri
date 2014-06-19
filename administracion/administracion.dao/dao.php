@@ -8,7 +8,7 @@ class dao {
 
         $sql = "SELECT * FROM usuarios u
 INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
+INNER JOIN	direcciones d ON c.idDireccion = supermegad.idDireccion 
 WHERE u.idUsuario = '$idCliente'
 ";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -1440,7 +1440,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                     } else {
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
-                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                             $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                             if ($sqlinsertarfolio == false) {
                                 mysql_query("ROLLBACK;");
