@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include '../daoconexion/daoConeccion.php';
 include './administracion.dao/dao.php';
@@ -13,14 +12,8 @@ $encabezado = $datos[0];
 $detalle = $datos[1];
 $idStatus = $encabezado[0]->tipoComprobante;
 $abonos = false;
-if ($idStatus == 1) {
-    $abonos = false;
-    $idStatusOrden = 7;
-} else {
-    $abonos = true;
-    $idStatusOrden = 5;
-}
-$rs = $dao->dameFolio();
+$idStatusOrden = 5;
+$rs = $dao->dameFolioOrdenCompra($idSucursal);
 while ($datos = mysql_fetch_array($rs)) {
     $folio = $datos[0];
 }

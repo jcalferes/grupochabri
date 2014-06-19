@@ -25,17 +25,10 @@
                 <br>
                 <br>
                 <form class="form-horizontal" role="form" style="margin-left: 20px">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-1 control-label">Desc. Factura</label>
-                        <div class="col-sm-1">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                        </div>
-                        <label for="inputEmail3" class="col-sm-2 control-label" style="margin-left: -80px">Desc. Pront.Pag </label>
-                        <div class="col-sm-1">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                        </div>
+                    <div id="descuentosV">
                     </div>
                 </form>
+                <br>
                 <br>
                 <!--combo de clientes-->
                 <div class="col-sm-3" style="margin-top: -30px">
@@ -43,8 +36,9 @@
                             style="margin-left: 35px; width: 260px">
                         <option></option>
                     </select>
+                    <div id="creditoCliente" style="margin-left: 35px"></div>
                 </div>
-                <!--<br/>-->
+                <br/>
                 <hr>
                 <div class="col-sm-3" style="margin-left: 35px">
                     <div class="input-group" id="panelBusqueda">
@@ -108,10 +102,10 @@
                     </div>
                 </form>
                 <div id="basedatoscancelacion">
-                <div id="showdatoscancelacion"></div>
+                    <div id="showdatoscancelacion"></div>
                 </div>
                 <div id="divvalidacancelacion">
-                <input type="button" class="btn btn-primary" id="btnvalidacancelacion" value="Efectuar cancelacion">
+                    <input type="button" class="btn btn-primary" id="btnvalidacancelacion" value="Efectuar cancelacion">
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>
             </section>

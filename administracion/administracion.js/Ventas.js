@@ -24,11 +24,27 @@ function buscar() {
     }
     calcularTotal(codi);
 }
+
+function validarCredito() {
+    var paso = false;
+    var credito = parseFloat($("#credito").text());
+    var totalVenta = parseFloat($("#totalVenta").val());
+    if (totalVenta <= credito) {
+        paso = true;
+    }
+    return paso;
+}
+
+
+
+
+
 function cargarProductosCarrito() {
     var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
     $.get('dameProductoVentas.php', info, function(informacion) {
         var datos = informacion.split(",");
         if (datos[0] == 0) {
+            eliminarProducto($("#codigoProductoEntradas").val().toUpperCase());
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
         }
         else if (datos[0] == 1) {
@@ -186,7 +202,10 @@ function eliminarProducto(codigo) {
             longitud = codigos.length;
         }
     }
-    cargarProductosCarrito();
+    calcularSumaTotal();
+    calcularSubTotal();
+    sumaDescTotal();
+//  cargarProductosCarrito();
 }
 
 function modalProductosGranel(codigo) {
@@ -319,38 +338,53 @@ $(document).ready(function() {
         buscar();
     });
     $("#cmbClientes").load("dameClientes.php");
-    $("#folio").load("dameFolio.php", function() {
+    $("#folio").load("dameFolioPedidos.php", function() {
 
     });
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var f = new Date();
     var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
     $("#fecha").html(fecha);
+
+
+
+
+
     $("#guardarVenta").click(function() {
-        guardarDatosDetalle();
-        guardarDatosEncabezado();
-        var inf = new Array();
-        inf.push(arrayEncabezadoVenta);
-        inf.push(arrayDetalleVenta);
-        var informacion = JSON.stringify(inf);
-        $.ajax({
-            type: "POST",
-            url: "guardarVenta.php",
-            data: {data: informacion},
-            cache: false,
-            success: function(informacion) {
-                if (informacion == 0) {
-                    informacion = "Exito Venta Terminada";
+        var paso = true;
+        if ($("#cmbTipoPago").val() == 2) {
+            paso = validarCredito();
+        }
+        if (paso == true) {
+            guardarDatosDetalle();
+            guardarDatosEncabezado();
+            var inf = new Array();
+            inf.push(arrayEncabezadoVenta);
+            inf.push(arrayDetalleVenta);
+            var informacion = JSON.stringify(inf);
+            $.ajax({
+                type: "POST",
+                url: "guardarVenta.php",
+                data: {data: informacion},
+                cache: false,
+                success: function(informacion) {
+                    if (informacion == 0) {
+                        informacion = "Exito Venta Terminada";
+                    }
+                    var datos = informacion.split(",");
+                    if (datos[0] == 2) {
+                        $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
+                        alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
+                    }
+                    else {
+                        alertify.success(informacion);
+                    }
                 }
-                var datos = informacion.split(",");
-                if (datos[0] == 2) {
-                    alert("es dos");
-                }
-                else {
-                    alertify.success(informacion);
-                }
-            }
-        });
+            });
+        }
+        else {
+            alertify.error("El total de Productos rebasa tu credito. Elimina productos de tu carrito");
+        }
     });
 
     $("#btnver").click(function() {
@@ -375,10 +409,29 @@ $(document).ready(function() {
     });
 
     $("#cmbClientes").change(function() {
-        alert($("#cmbClientes").val());
+        var rfc = $("#cmbClientes").val();
+        if ($("#cmbClientes").val() == 0) {
+        }
+        else {
+            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
+        }
     });
 
-
-
-
+    $("#cmbTipoPago").change(function() {
+        var dato = $("#cmbTipoPago").val();
+        var rfc = $("#cmbClientes").val();
+        $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
+        if (dato == 2) {
+            if (rfc != 0) {
+                $("#creditoCliente").load("dameCredito.php?rfc=" + rfc);
+            }
+            else {
+                $("#cmbTipoPago option[value='1']").attr("selected", true);
+                alertify.error("Seleccione un cliente");
+            }
+        }
+    });
+    function finalizar() {
+        $("#cmbClientes option[value='0']").attr("selected", true);
+    }
 });
