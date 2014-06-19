@@ -174,6 +174,7 @@ function listarProductos() {
             });
 
         });
+        $("#proveedores").selectpicker("disabled", true);
         $("#guardarOrdenCompra").show();
         $("#CancelarOrden").show();
         $('#mdlbuscador').modal('toggle');
@@ -323,8 +324,9 @@ $("#folioM").keypress(function(e) {
 
 
                         $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + elem[ind].rfcComprobante, function() {
-                            $("#emailProveedor").selectpicker();
-                            $("#emailProveedor").selectpicker('show');
+                           $("#emailProveedor").selectpicker();
+                        $("#emailProveedor").selectpicker('refresh');
+                        $("#emailProveedor").selectpicker('show');
 
                         });
                         $("#txtEmail").show('slow');
