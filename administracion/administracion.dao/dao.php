@@ -2631,6 +2631,24 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             return 0;
         }
     }
+     function consultaBuscadorPorProveedor($idsucursal,$proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
+                . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1' and pr.rfc='$proveedor'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $validando = mysql_affected_rows();
+        if ($validando >= 0) {
+            return $datos;
+        } else {
+            return 0;
+        }
+    }
 
 //<<<<<<< HEAD
     function dameClientes() {

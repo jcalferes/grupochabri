@@ -997,9 +997,10 @@ $(document).ready(function() {
     });
     var tipo = "Orden%20Compra";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
-
     $("#btnbuscador").click(function() {
-        $("#todos").load("consultarBuscador.php", function() {
+         var proveedores = $("#proveedores").val();
+
+        $("#todos").load("consultarBuscadorProveedor.php?proveedores="+proveedores, function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
