@@ -8,7 +8,7 @@ class dao {
 
         $sql = "SELECT * FROM usuarios u
 INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-INNER JOIN	direcciones d ON c.idDireccion = supermegad.idDireccion 
+INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
 WHERE u.idUsuario = '$idCliente'
 ";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -106,7 +106,7 @@ INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante
 INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto 
 INNER JOIN clientes c ON c.rfc = x.rfcComprobante
 INNER JOIN direcciones d ON d.idDireccion = c.idDireccion
-WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x "
                     . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
@@ -1468,7 +1468,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
                             if ($tipo == "PEDIDO CLIENTE") {
-                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
@@ -1477,7 +1477,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                                     
                                 }
                             } else {
-                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
