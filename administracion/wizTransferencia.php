@@ -35,6 +35,7 @@
 
                     <table class="table table-striped" id="tablaTransferencias">
                         <thead>
+                        <th></th>
                         <th>Codigo</th>
                         <th>Descripcion</th>
                         <th>Cantidad</th>

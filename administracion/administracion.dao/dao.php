@@ -6,11 +6,17 @@ class dao {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 
-        $sql = "SELECT * FROM usuarios u
-        INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-        INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
-        WHERE u.idUsuario = '$idCliente'
-        ";
+        $sql = "SELECT * FROM usuarios uINNER JOIN clientes c ON c.idUsuario = u.idUsuario
+INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
+WHERE u.idUsuario = '$idCliente'
+";
+//<<<<<<< HEAD
+//        INNER JOIN clientes c ON c.idUsuario = u.idUsuario
+//        INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
+//        WHERE u.idUsuario = '$idCliente'
+//        ";
+//=======
+//>>>>>>> origin/master
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -63,7 +69,7 @@ class dao {
     function consultaOrdenesLista($tipo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        if ($tipo == "Orden Compra") {
+        if ($tipo == "ORDEN COMPRA") {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo'";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
@@ -106,7 +112,7 @@ INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante
 INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto 
 INNER JOIN clientes c ON c.rfc = x.rfcComprobante
 INNER JOIN direcciones d ON d.idDireccion = c.idDireccion
-WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x "
                     . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
@@ -1375,7 +1381,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         mysql_query("COMMIT;");
     }
 
-    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario) {
+    function superMegaGuardadorOrdenes($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -1424,7 +1430,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 $sqlfolios = "No hay Folio";
             }
 
-            if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+            if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                 $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
                         . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
                 $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
@@ -1440,7 +1446,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                     } else {
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
-                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                             $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                             if ($sqlinsertarfolio == false) {
                                 mysql_query("ROLLBACK;");
@@ -1468,7 +1474,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
                             if ($tipo == "PEDIDO CLIENTE") {
-                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
@@ -1477,7 +1483,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                                     
                                 }
                             } else {
-                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
@@ -1514,7 +1520,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 //==================================================================
                 //Comienza validar producto en existencia
                 $cantidad = 0;
-                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                     $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
                             . " WHERE codigoProducto = '$cpto->codigoConcepto' AND idSucursal = '$idSucursal'";
                     $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
@@ -1565,7 +1571,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 //Terminar guardar xml concepto
                 //==================================================================
                 //Comienza actulizar costo
-                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "Orden Compra") {
+                if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
                     $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
                             . " WHERE codigoProducto = '$cpto->codigoConcepto' AND status = '1' AND idSucursal = '$idSucursal'";
                     $ctrlTraerCosto = mysql_query($sqlTraerCosto);
@@ -1628,6 +1634,182 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
             error_reporting(0);
         }
         return $sqlfolios;
+    }
+
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal) {
+        $detalle = new Detalle();
+        //======================================================================
+        //Empieza guardar encabezado
+        $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento, idTipoMovimiento, idSucursal)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha','1','$idSucursal')";
+        $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
+        mysql_query("START TRANSACTION;");
+        $ctrlEnzabezadoGuardar = mysql_query($sqlEncabezadoGuardar);
+        if ($ctrlEnzabezadoGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlEncabezadoId = mysql_query($sqlEncabezadoId);
+            if ($ctrlEncabezadoId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlEncabezadoId)) {
+                    $idEncabezado = $rs["ID"];
+                }
+            }
+        }
+        //Terminar guardar encabezado
+        //Variables necesarias: $idEncabezado
+        //======================================================================
+        //Empieza guardar comprobante
+        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
+                . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $encabezado->getFolio() . "','XML','$lafecha','$idSucursal')"; //Forzado TIPO
+        $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
+        $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
+        if ($ctrlComprobanteGuardar == false) {
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlComprobanteId = mysql_query($sqlComprobanteId);
+            if ($ctrlComprobanteId == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
+                    $idComprobante = $rs["ID"];
+                }
+            }
+        }
+        //Terminar guardar comprobante
+        //Variables necesarias: $idComprobante
+        //======================================================================
+        for ($i = 0; $i < $control; $i++) {
+            //Comienza guardar detalle
+            $detalle = $arrayDetalleEntrada[$i];
+            $sqlDetalleGuardar = "INSERT INTO facturadetalles (unidadMedidaDetalle, importeDetalle, cantidadDetalle, codigoDetalle, descripcionDetalle, costoDetalle, idFacturaEncabezados) "
+                    . "VALUES ('" . $detalle->getUnidadmedida() . "','" . $detalle->getImporte() . "','" . $detalle->getCantidad() . "','" . $detalle->getCodigo() . "','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idEncabezado')";
+            $ctrlDetalleGuardar = mysql_query($sqlDetalleGuardar);
+            if ($ctrlDetalleGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                
+            }
+            //Terminar guardar detalle
+            //==================================================================
+            //Comienza validar producto en existencia
+            $cantidad = 0;
+            $cpto = $conceptos[$i];
+            $sqlConceptoValidarExistencia = "SELECT cantidad FROM existencias"
+                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal'";
+            $ctrlConceptoValidarExistencia = mysql_query($sqlConceptoValidarExistencia);
+            if ($ctrlConceptoValidarExistencia == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlConceptoValidarExistencia)) {
+                    $cantidad = $rs["cantidad"];
+                }
+            }
+            //Terminar validar producto en existencia
+            //Variables necesarias: $cantidad
+            //==================================================================
+            //Comienza guardar xml concepto
+            $importe = 0;
+            $codigo = 0;
+            $cda = 0;
+            $desctuno = 0;
+            $desctdos = 0;
+
+            if (isset($cpto->importe)) {
+                $importe = $cpto->importe;
+            }
+            if (isset($cpto->codigo)) {
+                $codigo = $cpto->codigo;
+            }
+            if (isset($cpto->cda)) {
+                $cda = $cpto->cda;
+            }
+            if (isset($cpto->desctuno)) {
+                $desctuno = $cpto->desctuno;
+            }
+            if (isset($cpto->desctdos)) {
+                $desctdos = $cpto->desctdos;
+            }
+            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto)"
+                    . " VALUES ('" . $detalle->getUnidadmedida() . "','$importe','" . $detalle->getCantidad() . "','$codigo','" . $detalle->getDescripcion() . "','" . $detalle->getCosto() . "','$idComprobante','$cda','$desctuno','$desctdos')";
+            $ctrlConceptoGuardar = mysql_query($sqlConceptoGuardar);
+            if ($ctrlConceptoGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //Terminar guardar xml concepto
+            //==================================================================
+            //Comienza actulizar costo
+            $sqlTraerCosto = "SELECT costo, idCosto FROM costos "
+                    . " WHERE codigoProducto = '$cpto->codigo' AND status = '1' AND idSucursal = '$idSucursal'";
+            $ctrlTraerCosto = mysql_query($sqlTraerCosto);
+            if ($ctrlTraerCosto == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrlTraerCosto)) {
+                    $costoViejo = $rs["costo"];
+                    $idDondeSalioCosto = $rs["idCosto"];
+                }
+            }
+            if ($costoViejo != $cpto->cda) {
+
+                $totalViejo = $cantidad * $costoViejo;
+                $totalNuevo = $cpto->cda * $detalle->getCantidad();
+
+                $totalFinal = $totalViejo + $totalNuevo;
+                $cantidadFinal = $cantidad + $detalle->getCantidad();
+
+                $costoPromedio = $totalFinal / $cantidadFinal;
+
+                $sqlInsertaNuevoCosto = "INSERT INTO costos (costo, codigoProducto, fechaMovimiento, status,idSucursal)"
+                        . " VALUES ('$costoPromedio','$cpto->codigo','$lafecha','1','$idSucursal')";
+                $sqlActulizarViejoCosto = "UPDATE costos SET status = '2'"
+                        . " WHERE codigoProducto = '$cpto->codigo' AND idCosto = '$idDondeSalioCosto' AND idSucursal = '$idSucursal'";
+                $ctrlInsertaNuevoCosto = mysql_query($sqlInsertaNuevoCosto);
+                if ($ctrlInsertaNuevoCosto == false) {
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    $ctrlActulizarViejoCosto = mysql_query($sqlActulizarViejoCosto);
+                    if ($ctrlActulizarViejoCosto == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            }
+            //Terminar actulizar costo
+            //==================================================================
+            //Comienza Actulizar existencia
+            $nuevacantidad = $cantidad + $detalle->getCantidad();
+            $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
+                    . " WHERE codigoProducto = '$cpto->codigo' AND idSucursal = '$idSucursal' ";
+            $ctrlActulizaExistencia = mysql_query($sqlActulizaExistencia);
+            if ($ctrlActulizaExistencia == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //Terminar Actulizar existencia
+            //==================================================================
+            //Comienza guardar entrada
+            $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
+                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
+            $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
+            if ($ctrlEntradasGuardar == false) {
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //Terminar guardar entrada
+        }//Cierre FOR
+        mysql_query("COMMIT;");
+        return true;
     }
 
     //============================================== Todo para usuarios ============
@@ -2456,6 +2638,25 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
         }
     }
 
+    function consultaBuscadorPorProveedor($idsucursal, $proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
+                . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1' and pr.rfc='$proveedor'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $validando = mysql_affected_rows();
+        if ($validando >= 0) {
+            return $datos;
+        } else {
+            return 0;
+        }
+    }
+
 //<<<<<<< HEAD
     function dameClientes() {
         include_once '../daoconexion/daoConeccion.php';
@@ -2753,9 +2954,6 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 $error = mysql_error();
                 mysql_query("ROLLBACK;");
             } else {
-
-
-
                 mysql_query("COMMIT;");
             }
         }
@@ -2767,7 +2965,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal'";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden <> 3";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {
@@ -2783,9 +2981,74 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
     }
 
     //================= Efectuar cancelacion ===================================
-    function efectuarCancelacion($folio) {
-        $sql = "";
-        $controlsql = mysql_query($sql);
+    function efectuarCancelacion($folio, $sucursal, $observ, $usuario) {
+        //============= Sacar los productos de la venta ========================
+        $sql = "SELECT xcp.cantidadConcepto, xcp.codigoConcepto FROM xmlconceptos xcp "
+                . "INNER JOIN xmlcomprobantes xcm ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$folio' AND xcm.idSucursal = '$sucursal'";
+        mysql_query("START TRANSACTION;");
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($row < 1) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($rs = mysql_fetch_array($ctrl)) {
+                    //= Sacar existencia actual ================================
+                    $sqlextactual = "SELECT cantidad FROM existencias WHERE codigoProducto = '" . $rs[1] . "' AND idSucursal = '$sucursal'";
+                    $ctrlextactual = mysql_query($sqlextactual);
+                    $rowextactual = mysql_affected_rows();
+                    if ($ctrlextactual == false) {
+                        $ctrlextactual = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        if ($rowextactual < 1) {
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        } else {
+                            while ($ext = mysql_fetch_array($ctrlextactual)) {
+                                $extactual = $ext["cantidad"];
+                            }
+                        }
+                    }
+                    //= Sumar las dos existencias ==============================
+                    $extnueva = $extactual + $rs["cantidadConcepto"];
+                    //Actualizar existencias ===================================
+                    $sqlexistencia = "UPDATE existencias SET cantidad = '$extnueva' "
+                            . "WHERE codigoProducto = '" . $rs[1] . "' AND idSucursal = '$sucursal'";
+                    $ctrlexistencia = mysql_query($sqlexistencia);
+                    if ($ctrlexistencia == false) {
+                        $ctrlexistencia = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            }
+        }
+        //================= Cambiar status comprobante =========================
+        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
+        $ctrlstatus = mysql_query($sqlstatus);
+        if ($ctrlstatus == false) {
+            $ctrlstatus = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //================= Insertar datos en cancelacion ======================
+        $sqlcancel = "INSERT INTO cancelaciones(folio, observaciones, usuario) VALUES ('$folio', '$observ', '$usuario')";
+        $ctrlcancel = mysql_query($sqlcancel);
+        if ($ctrlcancel == false) {
+            $ctrlcancel = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        mysql_query("COMMIT;");
+        return true;
     }
 
     function dameDescuentosClientes($rfc) {

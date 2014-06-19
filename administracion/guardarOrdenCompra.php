@@ -12,7 +12,7 @@ include './administracion.clases/Detalle.php';
 error_reporting(0);
 
 session_start();
-$tipo = "Orden Compra";
+$tipo = "ORDEN COMPRA";
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
@@ -63,5 +63,5 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorEntradas($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
+$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
 echo $paso;

@@ -21,11 +21,23 @@ $("#btnnocancelacion").click(function() {
 });
 $("#btnvalidacancelacion").click(function() {
     var folio = $('#spnfolio').text();
-    var info = "folio=" + folio;
+    var observcancelacion = $('#txaobscancelacion').val();
+    if (observcancelacion === "" || /^\s+$/.test(observcancelacion)) {
+        observcancelacion = "";
+    }
+    var info = "folio=" + folio + "&observcancelacion=" + observcancelacion;
     alertify.confirm("¿Estas completamente seguro de efectuar la cancelación?, Esta acción no pueden deshacerse. ", function(e) {
         if (e) {
-            alert("Si");
             $.get('efectuarCancelacion.php', info, function(r) {
+                if (r == 0) {
+                    alertify.success("Cancelaion realizada con exito");
+                    $('#divvalidacancelacion').slideUp();
+                    $("#showdatoscancelacion").remove();
+                    $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
+                    $("#divfoliocancelacion").slideDown();
+                } else {
+                    alertify.error("No se pudo realizar la cancelacion");
+                }
             });
         } else {
             alert("No");
