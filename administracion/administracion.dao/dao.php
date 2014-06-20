@@ -1131,6 +1131,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         return $datos;
     }
 
+    function mostrarClientes() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM clientes order by nombre ASC ";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function guardarMarca(Marca $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -2631,7 +2639,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
             return 0;
         }
     }
-     function consultaBuscadorPorProveedor($idsucursal,$proveedor) {
+
+    function consultaBuscadorPorProveedor($idsucursal, $proveedor) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
