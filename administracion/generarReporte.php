@@ -172,9 +172,9 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 
 } </script>';
-  $valor .= ' <center>
-   <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
-    </center>';
+//  $valor .= ' <center>
+//   <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
+//    </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">';
          while ($datosOrden = mysql_fetch_array($datos)) {
@@ -245,16 +245,21 @@ file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
 //$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 //$mipdf->stream('reportes/probando.pdf');
-if ($comprobante !== "PEDIDO CLIENTE") {
+if ($comprobante == "PEDIDO CLIENTE") {
 
 //sleep(2);
-    if ($correos == "" || $correos == null) {
+//    if ($destinos == "" || $destinos == null) {
             $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
             unlink("reportes/probando.pdf");
 //$correo = "shanaxchronos@gmail.com";
        
-    }
+//    }
 } else {
-     $utileria->enviarCorreoElectronico($correo, $destinos);
-        $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+    if ($destinos !== "" || $destinos !== null) {
+        $utileria->enviarCorreoElectronico( $destinos);
+    }
+    $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+     unlink("reportes/probando.pdf");
+     
+        
 }
