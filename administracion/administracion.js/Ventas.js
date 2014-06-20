@@ -55,7 +55,7 @@ function cargarProductosCarrito() {
         }
         else {
             $("#tablaVentas").append(informacion);
-              $("#codigoProductoEntradas").val("");
+            $("#codigoProductoEntradas").val("");
             calcularSumaTotal();
             calcularSubTotal();
             sumaDescTotal();
@@ -343,7 +343,7 @@ function validarUsuario(usuario, password) {
 //        alert(autorizacion);
         if (autorizacion == 1) {
             $(".autorizar").removeAttr('disabled');
-             $("#mdlAutorizacion").modal("hide");
+            $("#mdlAutorizacion").modal("hide");
         }
         else {
             alertify.error(autorizacion);
@@ -468,15 +468,29 @@ $(document).ready(function() {
 
 });
 function finalizar() {
+    alert("entro a finalizar");
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
     $("#cmbTipoPago option[value='1']").attr("selected", true);
-    for (var x = 0; x < codigos.length; x++) {
-        eliminar(codigos[X]);
-    }
+    $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
+            + ' <th><center>Descripcion</center></th>'
+            + ' <th><center>Cantidad</center></th>'
+            + ' <th><center>Existencia</center></th>'
+            + ' <th><center>Lst. Precio</center></th>'
+            + ' <th><center>Precio c/u</center></th>'
+            + ' <th><center>Desc.</center></th>'
+            + ' <th><center>Eliminar</center></th>'
+            + ' <th><center>total</center></th>'
+            + ' <th><center>$ Desc.</center></th>'
+            + ' <th><center>$ Total c/d.</center></th>'
+            + ' </thead>'
+            + ' </table>');
     $("#codigoProductoEntradas").val("");
     codigos = new Array();
     arrayDetalleVenta = new Array();
     arrayEncabezadoVenta = new Array();
     $("#folio").load("dameFolioPedidos.php");
+    $("#descuentosV").html('<div id="descuentosV"></div>');
+    $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
+    alert("finalizo finalizar");
 }

@@ -2936,15 +2936,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
                             $error = "2," . $detalle[$x]->codigoConcepto;
                             mysql_query("ROLLBACK;");
                             break;
+                        } else {
+                            $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $nuevoFolio . "','" . $cantidadPedida . "','" . $idSucursal . "')";
+                            $datosT = mysql_query($sqlInsertarTablaTemporal);
+                            if ($datosT == false) {
+                                $error = mysql_error();
+                                mysql_query("ROLLBACK;");
+                                break;
+                            }
                         }
                     }
-                }
-                $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $nuevoFolio . "','" . $cantidadPedida . "','" . $idSucursal . "')";
-                $datosT = mysql_query($sqlInsertarTablaTemporal);
-                if ($datosT == false) {
-                    $error = mysql_error();
-                    mysql_query("ROLLBACK;");
-                    break;
                 }
             }
         }
