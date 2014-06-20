@@ -202,8 +202,10 @@ $(document).ready(function() {
             $(this).remove();
             $("#sucursal").prop('disabled', false);
         });
+        $("#costoTotal").val(0);
     });
-    $("#codigoProductoTranferencia").blur(function() {
+    $("#codigoProductoTranferencia").keypress(function(e) {
+         if (e.which == 13) {
         var sucursal = $("#sucursal").val();
         var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
         var codigo = $("#codigoProductoTranferencia").val();
@@ -245,6 +247,7 @@ $(document).ready(function() {
         } else {
             alertify.error("Debe seleccionar una sucursal");
         }
+         }
     });
 
     $("#mandarPedido").click(function() {
