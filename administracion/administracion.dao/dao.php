@@ -3040,5 +3040,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         mysql_query("COMMIT;");
         return true;
     }
+    //==========================================================================
+    function guardarNotasCredito($idcliente, $cantidad, $sucursal){
+        
+    }
 
 }
