@@ -11,6 +11,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
 function buscar() {
     var codi = $("#codigoProductoEntradas").val();
     codigoN = codi;
+
 //    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
@@ -22,6 +23,7 @@ function buscar() {
         cargarProductosCarrito();
         codigos.push($("#codigoProductoEntradas").val().toUpperCase());
     }
+
     calcularTotal(codi);
 }
 
@@ -46,12 +48,14 @@ function cargarProductosCarrito() {
         if (datos[0] == 0) {
             eliminarProducto($("#codigoProductoEntradas").val().toUpperCase());
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
+            $("#codigoProductoEntradas").val("");
         }
         else if (datos[0] == 1) {
             alertify.error(datos[1]);
         }
         else {
             $("#tablaVentas").append(informacion);
+              $("#codigoProductoEntradas").val("");
             calcularSumaTotal();
             calcularSubTotal();
             sumaDescTotal();
@@ -331,6 +335,26 @@ function eliminar(codigo) {
     return true;
 }
 
+
+
+function validarUsuario(usuario, password) {
+    var informacion = "usuario=" + usuario + "&pass=" + password;
+    $.get('validarAdministrador.php', informacion, function(autorizacion) {
+//        alert(autorizacion);
+        if (autorizacion == 1) {
+            $(".autorizar").removeAttr('disabled');
+             $("#mdlAutorizacion").modal("hide");
+        }
+        else {
+            alertify.error(autorizacion);
+        }
+    });
+}
+
+
+
+
+
 $(document).ready(function() {
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
@@ -338,15 +362,17 @@ $(document).ready(function() {
         buscar();
     });
     $("#cmbClientes").load("dameClientes.php");
-    $("#folio").load("dameFolioPedidos.php", function() {
-
-    });
+    $("#folio").load("dameFolioPedidos.php");
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var f = new Date();
     var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
     $("#fecha").html(fecha);
 
-
+    $("#btnAutorizar").click(function() {
+        var usuario = $("#txtusuario").val();
+        var pass = $("#txtPass").val();
+        validarUsuario(usuario, pass);
+    });
 
 
 
@@ -370,6 +396,7 @@ $(document).ready(function() {
                 success: function(informacion) {
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
+                        finalizar();
                     }
                     var datos = informacion.split(",");
                     if (datos[0] == 2) {
@@ -408,9 +435,16 @@ $(document).ready(function() {
         }
     });
 
+    $("#btnAutorizacion").click(function() {
+        $("#mdlAutorizacion").modal("show");
+    });
+
+
+
     $("#cmbClientes").change(function() {
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
+            $("#descuentosV").html('<div id="descuentosV"></div>');
         }
         else {
             $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
@@ -431,7 +465,18 @@ $(document).ready(function() {
             }
         }
     });
-    function finalizar() {
-        $("#cmbClientes option[value='0']").attr("selected", true);
-    }
+
 });
+function finalizar() {
+    codigoN = 0;
+    $("#cmbClientes option[value='0']").attr("selected", true);
+    $("#cmbTipoPago option[value='1']").attr("selected", true);
+    for (var x = 0; x < codigos.length; x++) {
+        eliminar(codigos[X]);
+    }
+    $("#codigoProductoEntradas").val("");
+    codigos = new Array();
+    arrayDetalleVenta = new Array();
+    arrayEncabezadoVenta = new Array();
+    $("#folio").load("dameFolioPedidos.php");
+}

@@ -8,6 +8,23 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-shopping-cart"/>&numsp;Ventas</h2>
             <section>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
+                                    <strong>Autorización</strong>
+                                    <span style="float: right" class="glyphicon glyphicon-chevron-down"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                            <div class="panel-body">
+                                <input id="btnAutorizacion" class="btn btn-default" type="button" value="Descuentos"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div style="float: right" id="fecha">
                 </div>
                 <br>
@@ -38,6 +55,7 @@
                     </select>
                     <div id="creditoCliente" style="margin-left: 35px"></div>
                 </div>
+                <br/>
                 <br/>
                 <hr>
                 <div class="col-sm-3" style="margin-left: 35px">
@@ -135,7 +153,7 @@
              id="mdlGranel" 
              tabindex="-1" 
              role="dialog" 
-             aria-labelledby="myModalLabel" 
+             aria-labelledby="modalAutorizacion" 
              aria-hidden="true" >
             <div class="modal-dialog" style="width: 300px">
                 <div class="modal-content">
@@ -190,7 +208,78 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--final modalGranel-->
-        <!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
+
+
+        <!--MODAL DE AUTORIZACION-->
+
+        <div class="modal fade" 
+             id="mdlAutorizacion" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalAutorizacion" 
+             aria-hidden="true" >
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Autorización</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">
+                                    Usuario
+                                </label>
+                                <div class="col-sm-8">
+                                    <!--<div class="input-group">-->
+                                    <input type="text" 
+                                           class="form-control" 
+                                           placeholder="Usuario"
+                                           id="txtusuario"
+                                           />
+                                    <!--<span class='input-group-btn'>-->
+                                    <!--                                            <button class='btn btn-default' type='button'>
+                                                                                    KG
+                                                                                </button>-->
+                                    <!--</span>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">
+                                    Password:
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="txtPass"
+                                           placeholder="Password"
+                                           />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' 
+                                class='btn btn-primary' 
+                                id='btnAutorizar'>
+                             Autorizar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

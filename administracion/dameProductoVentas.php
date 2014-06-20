@@ -89,8 +89,8 @@ if ($error == "") {
                     . "</td>";
         }
         $interfaz.="<td><center><span id='txtExistencia" . $codigo->getCodigo() . "'>" . $nuevaExistencia . "</span></center></td>";
-        $interfaz.="<td>";
-        $interfaz.="<select class = 'form-control' id='cmb" . $codigo1 . "' onchange='cambiarTarifas(" . "\"$codigo1\"" . ");'>";
+        $interfaz.="<td>"; 
+        $interfaz.="<select  disabled='true' class = 'form-control autorizar' id='cmb" . $codigo1 . "' onchange='cambiarTarifas(" . "\"$codigo1\"" . ");'>";
     }
 
     if ($disponibilidad == true) {
@@ -109,7 +109,7 @@ if ($error == "") {
         $interfaz.="</select>";
         $interfaz.="</td>";
         $interfaz.="<td><center><span id='precioVnt" . $codigo->getCodigo() . "'>" . $costoMenudeo . "</span></center></td>";
-        $interfaz.="<td><input style='width:60px' id='txtDescuentos" . $codigo1 . "' onkeyup='calcularDescuentos(" . "\"$codigo1\"" . ")' type='text'  class='form-control'/></td>";
+        $interfaz.="<td><input disabled='true' style='width:60px' id='txtDescuentos" . $codigo1 . "' onkeyup='calcularDescuentos(" . "\"$codigo1\"" . ")' type='text'  class='form-control autorizar'/></td>";
         $interfaz.="<td><center>"
                 . "<input type='button' onclick='eliminar(" . "\"$codigo1\"" . ");' class='btn' "
                 . "title='Eliminar Producto' value='Eliminar'/>"
@@ -117,9 +117,9 @@ if ($error == "") {
                 . "</td>";
         $total = 0.00;
         $total = $codigo->getCantidad() * $costoMenudeo;
-        $interfaz.="<td><center><input class='form-control' type='text' id='txtTotal" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
-        $interfaz.="<td><center><input disabled= 'true' class='form-control' type='text' id='txtDescuento" . $codigo->getCodigo() . "' value='0.00' /></center></td>";
-        $interfaz.="<td><center><input class='form-control' type='text' id='txtTotalDesc" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
+        $interfaz.="<td><center><input disabled='true' class='form-control' type='text' id='txtTotal" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
+        $interfaz.="<td><center><input disabled='true' class='form-control' type='text' id='txtDescuento" . $codigo->getCodigo() . "' value='0.00' /></center></td>";
+        $interfaz.="<td><center><input disabled='true' class='form-control' type='text' id='txtTotalDesc" . $codigo->getCodigo() . "'  value='" . $total . "'  /></center></td>";
         $interfaz.="</tr>";
     } else {
 //    $interfaz = "";

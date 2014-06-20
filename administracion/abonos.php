@@ -20,7 +20,7 @@
         <!-- CSS Personalizados-->
     </head>
     <body>
-        <input type="button"  class="btn btn-primary" value="Probar" id="btnabonos"/>
+        <input  type="button"  class="btn btn-primary" value="Probar" id="btnabonos"/>
         <!--/.modal-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div id="mdldialog" class="modal-dialog" style="width: 80%">

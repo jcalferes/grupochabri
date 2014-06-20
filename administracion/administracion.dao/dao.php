@@ -10,13 +10,6 @@ class dao {
 INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
 WHERE u.idUsuario = '$idCliente'
 ";
-//<<<<<<< HEAD
-//        INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-//        INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
-//        WHERE u.idUsuario = '$idCliente'
-//        ";
-//=======
-//>>>>>>> origin/master
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -3085,9 +3078,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
     }
 
     function dameTotalCredito($idSucursal, $rfc) {
-//        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "select sum(totalComprobante) from xmlcomprobantes where idTipoPago =2 and statusOrden = 5 and idSucursal = '$idSucursal' and rfcComprobante= '$rfc'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function validarUsuario(Usuario $u) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios WHERE usuario = '" . $u->getUsuario() . "' and password ='" . $u->getPass() . "' and idtipousuario = 2";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
