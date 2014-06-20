@@ -163,6 +163,9 @@ $("#btnabonar").click(function() {
         if (rs == 0) {
             alertify.success("Abono registrado");
             ree();
+            $("#buscabonos").load("consultarDeudoresPV.php", function() {
+                $('#dtdeudores').dataTable();
+            });
             $("#txtcantidadabono").val("");
             $("#slctipopago").selectpicker('val', 0);
             $("#txtreferenciaabono").val("");
