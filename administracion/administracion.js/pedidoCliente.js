@@ -160,6 +160,7 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        $("#btnbuscador").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesM").prop("checked", false);
         $("#descuentosGlobalesManuales").prop("checked", false);
@@ -186,6 +187,7 @@ function seleccionTipo() {
 
         });
     } else {
+        $("#btnbuscador").prop("disabled", false);
         $("#codigoProductoEntradas").val("");
 
         $("#descuentosGeneralesM").prop("checked", false);
@@ -194,6 +196,7 @@ function seleccionTipo() {
         folio = 0;
         $("#sucursal").prop("disabled", false);
         $("#sucursal").show("slow");
+         $("#sucursal").val("0");
         $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function() {
             $(this).remove();
@@ -677,6 +680,7 @@ function generarDescuentosgenerales() {
 
 
 $(document).ready(function() {
+    $("#btnbuscador").prop("disabled", true);
     $("#sucursal").hide();
     $("#codigoProductoEntradas").prop("disabled", true);
     $("#enviarOrdenCompra").hide();

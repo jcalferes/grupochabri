@@ -8,7 +8,7 @@ class dao {
 
         $sql = "SELECT * FROM usuarios u
 INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-INNER JOIN	direcciones d ON c.idDireccion = d.idDireccion 
+INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
 WHERE u.idUsuario = '$idCliente'
 ";
         $datos = mysql_query($sql, $cn->Conectarse());
@@ -106,7 +106,7 @@ INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante
 INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto 
 INNER JOIN clientes c ON c.rfc = x.rfcComprobante
 INNER JOIN direcciones d ON d.idDireccion = c.idDireccion
-WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
+WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x "
                     . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante  "
@@ -1440,7 +1440,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                     } else {
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
-                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                            $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                             $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                             if ($sqlinsertarfolio == false) {
                                 mysql_query("ROLLBACK;");
@@ -1468,7 +1468,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                         while ($rs = mysql_fetch_array($ctrlComprobanteId)) {
                             $idComprobante = $rs["ID"];
                             if ($tipo == "PEDIDO CLIENTE") {
-                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
@@ -1477,7 +1477,7 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                                     
                                 }
                             } else {
-                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 ";
+                                $sqlinsertarfolio = "UPDATE folios SET folioOrdenCompra= folioOrdenCompra + 1 WHERE idSucursal = '$idSucursal'";
                                 $sqlinsertarfolio = mysql_query($sqlinsertarfolio);
                                 if ($sqlinsertarfolio == false) {
                                     mysql_query("ROLLBACK;");
@@ -2623,6 +2623,24 @@ WHERE x.folioComprobante = '$folio' AND tipoComprobante = '$comprobante' ";
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $validando = mysql_affected_rows();
+        if ($validando >= 0) {
+            return $datos;
+        } else {
+            return 0;
+        }
+    }
+     function consultaBuscadorPorProveedor($idsucursal,$proveedor) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
+                . "FROM productos p\n"
+                . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
+                . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1' and pr.rfc='$proveedor'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validando = mysql_affected_rows();
         if ($validando >= 0) {

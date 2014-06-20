@@ -174,7 +174,9 @@ function listarProductos() {
             });
 
         });
-
+        $("#proveedores").selectpicker("disabled", true);
+        $("#guardarOrdenCompra").show();
+        $("#CancelarOrden").show();
         $('#mdlbuscador').modal('toggle');
     } else {
         alertify.error("Debes seleccionar al menos un producto");
@@ -190,6 +192,7 @@ function seleccionTipo() {
     var cotizar = $("#cotizar").is(":checked");
     var orden = $("#orden").is(":checked");
     if (orden == true) {
+        $("#btnbuscador").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesPorComasM").val("");
         $("#descuentosGeneralesM").prop("checked", false);
@@ -218,6 +221,7 @@ function seleccionTipo() {
 
         });
     } else {
+          $("#btnbuscador").prop("disabled", false);
         folio = 0;
         contador = 1;
         $("#descuentosGlobalesManuales").prop("disabled", true);
@@ -320,8 +324,9 @@ $("#folioM").keypress(function(e) {
 
 
                         $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + elem[ind].rfcComprobante, function() {
-                            $("#emailProveedor").selectpicker();
-                            $("#emailProveedor").selectpicker('show');
+                           $("#emailProveedor").selectpicker();
+                        $("#emailProveedor").selectpicker('refresh');
+                        $("#emailProveedor").selectpicker('show');
 
                         });
                         $("#txtEmail").show('slow');
@@ -728,6 +733,7 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
+     $("#btnbuscador").prop("disabled", true);
     $("#descuentosGlobalesManuales").prop("disabled", true);
     $("#descuentosGeneralesM").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
@@ -993,9 +999,10 @@ $(document).ready(function() {
     });
     var tipo = "Orden%20Compra";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
-
     $("#btnbuscador").click(function() {
-        $("#todos").load("consultarBuscador.php?sucursal=", function() {
+         var proveedores = $("#proveedores").val();
+
+        $("#todos").load("consultarBuscadorProveedor.php?proveedores="+proveedores, function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
