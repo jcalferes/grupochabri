@@ -14,10 +14,12 @@ if ($datos == 1) {
 } else {
     echo"<div class='table-responsive' ><table class='table table-hover' id='dtabonos'><thead><th>Importe</th><th>Referencia</th><th>Tipo de Pago</th><th>Fecha de pago</th></thead><tbody>";
     while ($rs = mysql_fetch_array($datos)) {
-        echo"<tr><td><input type='number' class='importeabonos form-control' value='$rs[importe]' disabled/></td>";
-        echo"<td>$rs[referencia]</td>";
-        echo"<td>$rs[tipoPago]</td>";
-        echo"<td>$rs[fechaAbono]</td></tr>";
+        if ($rs['importe'] != 0) {
+            echo"<tr><td><input type='number' class='importeabonos form-control' value='$rs[importe]' disabled/></td>";
+            echo"<td>$rs[referencia]</td>";
+            echo"<td>$rs[tipoPago]</td>";
+            echo"<td>$rs[fechaAbono]</td></tr>";
+        }
     }
     echo"</tbody></table></div>";
 }
