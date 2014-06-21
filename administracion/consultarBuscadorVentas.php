@@ -18,8 +18,13 @@ if ($datos > 0) {
         $existenciaDisponible = 0;
         $existenciaFisica = $rs["existencia"];
         $rsDatosTemporales = $dao->dameExistenciaTemporal($rs["codigoProducto"], $idsucursal);
-        while ($rs2 = mysql_fetch_array($rsDatosTemporales)) {
-            $existenciaTemporal = $rs2["cantidad"];
+        if ($rsDatosTemporales == false) {
+            echo mysql_error();
+        } else {
+
+            while ($rs2 = mysql_fetch_array($rsDatosTemporales)) {
+                $existenciaTemporal = $rs2["cantidad"];
+            }
         }
         if ($existenciaTemporal == null) {
             $existenciaTemporal = 0;
@@ -40,4 +45,3 @@ if ($datos > 0) {
     echo"<center><button type='button' class='btn btn-xs btn-default' id='btnver' onclick='eliminarProductos()'><span class='glyphicon glyphicon-trash'></span></button></cente><div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Costo</th><th>Fecha Mov.</th><th>Existencia</th><th>List. Precios</th></thead><tbody>";
     echo"</tbody></table></div>";
 }
-
