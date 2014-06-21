@@ -424,9 +424,8 @@ $(document).ready(function() {
                 cargarProductosCarritoBusqueda(valor);
                 codigos.push(valor);
             }
-//            $('#mdlbuscador').modal('toggle');
-          
-        }); 
+
+        });
         alertify.success("Producto Agregado");
         if (info != undefined) {
             $('#mdlbuscador').modal('toggle');

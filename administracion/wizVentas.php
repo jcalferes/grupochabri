@@ -74,7 +74,6 @@
                     </div>
                 </div>
                 <br><br>
-                <div style="overflow-x: auto;  height: 180px">
                     <table class="table" id="tablaVentas">
                         <thead>
                         <th><center>Codigo</center></th>
@@ -90,7 +89,6 @@
                         <th><center>$ Total c/d.</center></th>
                         </thead>
                     </table>
-                </div>
                 <hr>
                 <form class="form-inline text-right">
                     <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
