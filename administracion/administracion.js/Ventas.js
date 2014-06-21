@@ -420,12 +420,13 @@ $(document).ready(function() {
             var elemento = this;
             var valor = elemento.value;
             var x = validar(valor);
+            alert(x);
             if (x == false) {
                 cargarProductosCarritoBusqueda(valor);
                 codigos.push(valor);
-                alertify.succes("Producto Agregado");
-                $('#mdlbuscador').modal('toggle');
             }
+            $('#mdlbuscador').modal('toggle');
+            alertify.success("Producto Agregado");
         });
         if (info != undefined) {
             $('#mdlbuscador').modal('toggle');
