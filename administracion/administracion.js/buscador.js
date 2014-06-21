@@ -8,10 +8,27 @@ $('#example').on('hidden.bs.tooltip', function() {
 
 $("#btnbuscador").click(function() {
     $("#todos").load("consultarBuscador.php", function() {
-        $('#tdProducto').dataTable();
+        $('#tdProducto').dataTable(); 
+        $('#mdlbuscador').modal('toggle');
     });
-    $('#mdlbuscador').modal('toggle');
 });
+
+
+
+$("#btnbuscadorVentas").click(function() {
+    $("#todos").load("consultarBuscadorVentas.php", function() {
+        $('#tdProducto').dataTable(); 
+        $('#mdlbuscador').modal('toggle');
+    });
+});
+
+
+
+
+
+
+
+
 
 $("#mdlGranelbtn").click(function() {
    
