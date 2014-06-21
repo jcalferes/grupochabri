@@ -112,7 +112,7 @@ $(document).ready(function() {
     });
 });
 
-$("#limpiarFormProd").click(function(){
+$("#limpiarFormProd").click(function() {
     limpiarProductos();
 });
 
@@ -541,6 +541,10 @@ $("#guardarDatos").click(function() {
 });
 
 $('#editarDatos').click(function() {
+    var dato2 = $("#selectGrupo").val();
+    if (dato2 == 1){
+        dato2="MADERAS";
+    }
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
     var marca = $("#selectMarca").val();
@@ -567,7 +571,6 @@ $('#editarDatos').click(function() {
 
 
     });
-
     if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
         if (min < max) {
             if (grupoProducto == 1 || dato2 == 'MADERAS') {
