@@ -10,7 +10,7 @@ if (isset($_GET["sucursal"])) {
 $dao = new dao();
 $datos = $dao->consultaBuscador($idsucursal);
 
-if ($datos > 0) {
+if ($datos ==true) {
     echo"<div class='table-responsive'>"
     . "<table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Proveedor</th><th>Grupo</th><th>Existencia</th><th>Existencia Proceso</th><th>Existencia Real</th><th>Menudeo</th></thead><tbody>";
     while ($rs = mysql_fetch_assoc($datos)) {
@@ -20,8 +20,8 @@ if ($datos > 0) {
         $rsDatosTemporales = $dao->dameExistenciaTemporal($rs["codigoProducto"], $idsucursal);
         if ($rsDatosTemporales == false) {
             echo mysql_error();
+            break;
         } else {
-
             while ($rs2 = mysql_fetch_array($rsDatosTemporales)) {
                 $existenciaTemporal = $rs2["cantidad"];
             }
@@ -42,6 +42,7 @@ if ($datos > 0) {
     }
     echo"</tbody></table></div>";
 } else {
-    echo"<center><button type='button' class='btn btn-xs btn-default' id='btnver' onclick='eliminarProductos()'><span class='glyphicon glyphicon-trash'></span></button></cente><div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Costo</th><th>Fecha Mov.</th><th>Existencia</th><th>List. Precios</th></thead><tbody>";
-    echo"</tbody></table></div>";
+    echo mysql_error();
+//    echo"<center><button type='button' class='btn btn-xs btn-default' id='btnver' onclick='eliminarProductos()'><span class='glyphicon glyphicon-trash'></span></button></cente><div class='table-responsive'><table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Costo</th><th>Fecha Mov.</th><th>Existencia</th><th>List. Precios</th></thead><tbody>";
+//    echo"</tbody></table></div>";
 }
