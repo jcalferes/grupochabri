@@ -3101,4 +3101,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         return $rs;
     }
 
+    function obtenerOrdenCompraClientes($rfc, $idSucursal) {
+        $sql = "";
+    }
+
 }

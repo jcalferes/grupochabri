@@ -38,6 +38,9 @@
                             id="cmbClientes"
                             style="margin-left: 35px; width: 260px; float: left">
                     </select>
+                    <div id="ordenesCompra" style="float: left; width: 260px; background-color: red">
+                        <br>
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -64,7 +67,7 @@
                                id="codigoProductoEntradas" 
                                placeholder="Codigo"/>
                         <span class="input-group-btn">
-                            <button  class="btn btn-default" type="button" title="Buscar" id="btnbuscador">
+                            <button  class="btn btn-default" type="button" title="Buscar" id="btnbuscadorVentas">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span> 
@@ -263,7 +266,7 @@
                         <button type='button' 
                                 class='btn btn-primary' 
                                 id='btnAutorizar'>
-                             Autorizar</button>
+                            Autorizar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

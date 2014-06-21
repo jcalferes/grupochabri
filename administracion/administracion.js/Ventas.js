@@ -445,9 +445,11 @@ $(document).ready(function() {
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
             $("#descuentosV").html('<div id="descuentosV"></div>');
+            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
         }
         else {
             $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
+            $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc);
         }
     });
 
