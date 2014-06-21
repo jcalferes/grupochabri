@@ -33,11 +33,26 @@ $("#btnnotascredito").click(function() {
 $("#btnguardanotacredito").click(function() {
     var cantidad = $("#txtcantidadnotacredito").val();
     var idcliente = $("#slccliente").val();
-
+    if (idcliente == 0) {
+        alertify.error("No seleccionaste un cliente");
+        return false;
+    }
+    if (cantidad === "" || /^\s+$/.test(cantidad)) {
+        alertify.error("No agregaste una cantidad");
+        $("#txtcantidadnotacredito").val("");
+        return false;
+    }
     var info = "cantidad=" + cantidad + "&idcliente=" + idcliente;
-
     $.get('guardarNotasCredito.php', info, function(r) {
-
+        if (r == 0) {
+            alertify.success("All good");
+        }
+        if (r == 1) {
+            alertify.error("No se pudo completar el proceso");
+        }
+        if(r == 2){
+            
+        }
     });
 
 });

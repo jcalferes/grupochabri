@@ -3040,9 +3040,42 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         mysql_query("COMMIT;");
         return true;
     }
+
     //==========================================================================
-    function guardarNotasCredito($idcliente, $cantidad, $sucursal){
-        
+    function guardarNotasCredito($idcliente, $cantidad, $sucursal) {
+        $sql = "INSERT INTO notascredito (idcliente, monto, idSucursal, status) VALUES ('$idcliente', '$cantidad', '$sucursal', '1')";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function revisarExistenciaNotaCredito($idcliente, $sucursal) {
+        $sql = "SELECT * FROM notascredito WHERE idCliente = '$idcliente' AND idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row >= 1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    function incrementarNotaCredito($idcliente, $cantidad, $sucursal) {
+        $sql = "SELECT monto FROM notascredito WHERE idCliente  = '$idcliente' AND idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        }
     }
 
 }
