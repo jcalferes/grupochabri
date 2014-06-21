@@ -1296,7 +1296,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
                   WHERE p.codigoProducto='" . $c->getCodigo() . "'"
                 . " and  cost.idSucursal  = '" . $idSucursal . "' "
                 . " and cost.status = 1"
-                . "and cost.codigoProducto= '".$c->getCodigo()."'"
+                . " and cost.codigoProducto= '".$c->getCodigo()."'"
                 . " and exi.cantidad > 0";
         $rs = mysql_query($MySQL);
         return $rs;
