@@ -1296,8 +1296,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
                   WHERE p.codigoProducto='" . $c->getCodigo() . "'"
                 . " and  cost.idSucursal  = '" . $idSucursal . "' "
                 . " and cost.status = 1"
-                . "and cost.codigoProducto= '".$c->getCodigo()."'"
-                . " and exi.cantidad > 0";
+                . " and cost.codigoProducto= '".$c->getCodigo()."'"
+                . " and exi.cantidad > 0"
+                . " and exi.idSucursal = '$idSucursal'";
         $rs = mysql_query($MySQL);
         return $rs;
     }
@@ -2630,14 +2631,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '2' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '1' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        $validando = mysql_affected_rows();
-        if ($validando >= 0) {
-            return $datos;
-        } else {
-            return 0;
-        }
+//        $validando = mysql_affected_rows();
+//        if ($validando >= 0) {
+//            return $datos;
+//        } else {
+//            return 0;
+//        }
+        
+       return $datos; 
     }
 
     function consultaBuscadorPorProveedor($idsucursal, $proveedor) {
