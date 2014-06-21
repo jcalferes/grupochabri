@@ -469,7 +469,7 @@ $(document).ready(function() {
 
 });
 function finalizar() {
-    alert("entro a finalizar");
+//    alert("entro a finalizar");
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
     $("#cmbTipoPago option[value='1']").attr("selected", true);
@@ -493,5 +493,5 @@ function finalizar() {
     $("#folio").load("dameFolioPedidos.php");
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
-    alert("finalizo finalizar");
+//    alert("finalizo finalizar");
 }
