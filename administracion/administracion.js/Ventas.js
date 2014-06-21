@@ -494,4 +494,9 @@ function finalizar() {
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
 //    alert("finalizo finalizar");
+$("#subTotalV").val("0.00");
+$("#costoTotal").val("0.00");
+$("#totalVenta").val("0.00");
+$("#ivaTotal").val("0.00");
+$("#descTotalV").val("0.00");
 }
