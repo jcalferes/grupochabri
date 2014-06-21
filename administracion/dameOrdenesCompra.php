@@ -5,4 +5,4 @@ $dao = new dao();
 $rfc = "";
 $rfc = $_GET["rfc"];
 $idSucursal = $_SESSION["sucursalSesion"];
-$dao->obtenerOrdenCompraClientes($rfc, $id);
+$dao->obtenerOrdenCompraClientes($rfc, $idSucursal);
