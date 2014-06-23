@@ -181,7 +181,7 @@ $(document).ready(function() {
         $("#txtnombreproveedor").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|° ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
         $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
-        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz 1234567890');
         $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
     });
 });

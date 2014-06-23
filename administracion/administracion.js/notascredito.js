@@ -5,22 +5,22 @@ function NumCheck2(e, field, tarifa) {
         return true
     if (key > 47 && key < 58) {
         if (field.value == "")
-            return true
+            return true;
         regexp = /.[0-9]{20}$/
         return !(regexp.test(field.value))
     }
     if (key == 46) {
         if (field.value == "")
-            return false
+            return false;
         regexp = /^[0-9]+$/
         return regexp.test(field.value)
     }
-    return false
+    return false;
 }
-
 //=========== TERMINA UTILIDADES ===============================================
 
 $(document).ready(function() {
+    $("#nuevanotacredito").hide();
     $("#slccliente").load("mostrarClientes.php", function() {
         $("#slccliente").selectpicker();
     });
@@ -28,4 +28,36 @@ $(document).ready(function() {
 
 $("#btnnotascredito").click(function() {
     $('#mdlnotascredito').modal('toggle');
+});
+
+$("#btnguardanotacredito").click(function() {
+    var cantidad = $("#txtcantidadnotacredito").val();
+    var idcliente = $("#slccliente").val();
+    if (idcliente == 0) {
+        alertify.error("No seleccionaste un cliente");
+        return false;
+    }
+    if (cantidad === "" || /^\s+$/.test(cantidad)) {
+        alertify.error("No agregaste una cantidad");
+        $("#txtcantidadnotacredito").val("");
+        return false;
+    }
+    var info = "cantidad=" + cantidad + "&idcliente=" + idcliente;
+    $.get('guardarNotasCredito.php', info, function(r) {
+        if (r == 0) {
+            alertify.success("All good");
+        }
+        if (r == 1) {
+            alertify.error("No se pudo completar el proceso");
+        }
+        if(r == 2){
+            
+        }
+    });
+
+});
+
+$("#btnnuevanotacredito").click(function() {
+    $("#vernotascredito").slideUp();
+    $("#nuevanotacredito").slideDown();
 });

@@ -30,7 +30,11 @@
                         <h4 class="modal-title" id="myModalLabel">Notas de credito</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="buscanotascredito">
+                        <div id="vernotascredito">
+                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/>
+                            <div id="buscanotascredito">
+                                CONTENIDO MUY BIEN
+                            </div>
                         </div>
                         <div id="nuevanotacredito">
                             <form>
@@ -39,8 +43,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Monto:</label>
-                                    <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
+                                    <label>Cantidad en pesos:</label>
+                                    <input type="text" class="form-control" id="txtcantidadnotacredito" onkeypress="return NumCheck2(event, this);"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary" id="btnguardanotacredito" value="Guardar nota de credito"/>
                                 </div>
                             </form>
                         </div>

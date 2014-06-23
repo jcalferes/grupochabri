@@ -207,7 +207,7 @@ $(document).ready(function() {
         $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
         $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
-        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz 1234567890');
         $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
     });
 });
@@ -594,6 +594,7 @@ $("#btnguardarproveedor").click(function() {
         if (rs == 0) {
             $("#txtnombreproveedor").val("");
             $("#txtrfc").val("");
+            $("#txtcredito").val("");
             $("#txtdiascredito").val("");
             $("#txtdescuento").val("");
             $("#txttel").val("");
@@ -609,6 +610,10 @@ $("#btnguardarproveedor").click(function() {
             $("#txtestado").val("");
             $("#BuscarCodigo").val("");
             $("#txtciudad").val("");
+            
+            $("#txtcuser").val("");
+            $("#txtcpass").val("");
+            $("#txtcrepass").val("");
 
             $("#btnvertele").attr("disabled", "disabled");
             $("#btnveremail").attr("disabled", "disabled");

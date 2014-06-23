@@ -55,9 +55,6 @@ function validar() {
 
 function calcularPorCosto(id) {
     var costoPorCantidad = $("#costo" + id).val();
-//    if (isNaN(costoPorCantidad)) {
-//        costoPorCantidad = 0;
-//    }
     if (costoPorCantidad == '-' || costoPorCantidad == '+') {
     }
     else {
