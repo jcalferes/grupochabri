@@ -905,7 +905,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
     }
 
     function guardarProducto(Producto $p, Costo $c, Tarifa $t, $idSucursal, $m3) {
-
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
@@ -916,7 +915,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         while ($rs = mysql_fetch_assoc($sucursales)) {
             $sucursal = $rs["idSucursal"];
             $sqlexistencias = "INSERT INTO existencias(cantidad,codigoProducto,idSucursal)VALUES('0','" . $p->getCodigoProducto() . "','$sucursal')";
-            $fecha = date("d/m/Y h:i");
+            $fecha = date("d/m/Y");
             $sqlcostos = "INSERT INTO costos(costo, codigoProducto,fechaMovimiento, status, idSucursal)VALUES('" . $c->getCosto() . "','" . $p->getCodigoProducto() . "','$fecha','1','$sucursal')";
             $sqlexistencias = mysql_query($sqlexistencias, $cn->Conectarse());
             if ($sqlexistencias == false) {
