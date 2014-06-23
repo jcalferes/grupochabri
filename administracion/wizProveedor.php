@@ -40,7 +40,7 @@
                     </div>
                     <div id="frmtel" class="form-group">
                         <label>Telefono:</label>
-                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span></button>
+                        <button id="btnvertele" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-earphone"></span> Ver telefonos</button>
                         <input id="btnotrotel" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txttel" type="email" class="telefono form-control" onblur="" style="width: 50%">
                         <div id="mastels">
@@ -48,7 +48,7 @@
                     </div>
                     <div id="frmemail" class="form-group">
                         <label>E-mail:</label>
-                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <button id="btnveremail" type="button" disabled="false" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-envelope"></span> Ver E-mails</button>
                         <input id="btnotroemail" type="button" class="btn btn-default btn-xs" value="+">
                         <input id="txtemail" type="email" class="email form-control" onblur="validaEmail();" style="width: 50%"/>
                         <div id="masemails">
