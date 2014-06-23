@@ -875,6 +875,15 @@ $(document).ready(function() {
         else {
             $(".descuentos").attr('disabled', 'disabled');
             $(".cantidades").removeAttr('disabled');
+           $(".descuentos").val("");
+            $(".desct").val("");
+            $("#descuentoProductosM").val(0);
+            $("#descuentoTotalM").val($("#descuentoGeneralM").val())
+             for (var x = 0; x < contador; x++) {
+              var costo = $("#costo" + x).val(); 
+                   $("#cda" + x).val(costo);
+                $("#importe" + x).val(costo);
+            }
         }
     });
     $("#descuentosGeneralesM").change(function() {
@@ -884,7 +893,8 @@ $(document).ready(function() {
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
             $("#descuentosGeneralesPorComasM").val(0);
-
+$("#descuentoGeneralM").val(0);
+$("#descuentoTotalM").val($("#descuentoProductosM").val());
         }
     });
     $("#guardarOrdenCompra").click(function() {

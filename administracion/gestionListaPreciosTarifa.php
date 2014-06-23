@@ -40,5 +40,5 @@ if ($datos !== 0) {
 } else {
     echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Tarifa</th></thead><tbody>";
     echo '</tbody></table></div>';
-    echo 'prr';
+    echo 'No hay tarifas para este producto';
 }
