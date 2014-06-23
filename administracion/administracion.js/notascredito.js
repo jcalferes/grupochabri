@@ -24,6 +24,9 @@ $(document).ready(function() {
     $("#slccliente").load("mostrarClientes.php", function() {
         $("#slccliente").selectpicker();
     });
+    $("#buscanotascredito").load("consultarNotasCredito.php", function() {
+       $('#dtnotascredito').dataTable();
+    });
 });
 
 $("#btnnotascredito").click(function() {

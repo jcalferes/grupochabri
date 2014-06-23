@@ -3113,6 +3113,22 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         }
     }
 
+    function consultarNotasCredito($sucursal) {
+        $sql = "SELECT * FROM notascredito WHERE idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
 //==============================================================================
     function dameDescuentosClientes($rfc) {
         include_once '../daoconexion/daoConeccion.php';
