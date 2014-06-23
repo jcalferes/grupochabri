@@ -8,7 +8,7 @@
                 <div id="consultatransferencias">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Mis Transferencias</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Realizar Transferencias</h2>
             <section>
                 <br>
                 <select id="sucursal" class="form-control" style="">
@@ -20,7 +20,7 @@
                     <div class="input-group" id="panelBusqueda">
 
 
-                        <input type="text" class="form-control" id="codigoProductoTranferencia" placeholder="Codigo"/>
+                        <input type="text" class="form-control" id="codigoProductoTranferencia" placeholder="Codigo" />
                         <span class="input-group-btn">
                             <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
                             </button>

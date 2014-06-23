@@ -57,7 +57,7 @@ function listarProductos() {
 <td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoproducto + '\')">Eliminar</button></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoproducto + '" value="' + elem[ind].codigoproducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
-                          <td><div id="div' + elem[ind].codigoproducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoproducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoproducto + '\')"></div> </td>\n\\n\\n\
+                          <td><div id="div' + elem[ind].codigoproducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoproducto + '" value= "0"  onkeyup="sacarTotal(\'' + elem[ind].codigoproducto + '\')"></div> </td>\n\\n\\n\
                           <td><input type="text" class ="form-control" id="txtMaxCantidad' + elem[ind].codigoproducto + '" value="' + elem[ind].cantidadMaxima + '" disabled/></td>\n\
                           <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoproducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
                         <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoproducto + '"  disabled></td>\n\
@@ -229,7 +229,7 @@ $(document).ready(function() {
 <td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')">Eliminar</button></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
-                          <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onblur="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
+                          <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onkeyup="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
                           <td><input type="text" class ="form-control" id="txtMaxCantidad' + elem[ind].codigoProducto + '" value="' + elem[ind].cantidad + '" disabled/></td>\n\
                           <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoProducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
                         <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoProducto + '"  disabled></td>\n\
