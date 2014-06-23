@@ -16,12 +16,17 @@ $valida = $dao->revisarExistenciaNotaCredito($idcliente, $sucursal);
 if ($valida == 0) {
     $ctrl1 = $dao->guardarNotasCredito($idcliente, $cantidad, $sucursal);
     if ($ctrl1 != true) {
-        echo '1';
+        echo 1;
     } else {
-        echo '0';
+        echo 0;
     }
 } else {
-    $ctrl2; 
+    $ctrl2 = $dao->incrementarNotaCredito($idcliente, $cantidad, $sucursal);
+    if ($ctrl2 != true) {
+        echo 1;
+    } else {
+        echo 0;
+    }
 }
 
 

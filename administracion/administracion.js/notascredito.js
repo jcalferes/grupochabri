@@ -45,16 +45,14 @@ $("#btnguardanotacredito").click(function() {
     var info = "cantidad=" + cantidad + "&idcliente=" + idcliente;
     $.get('guardarNotasCredito.php', info, function(r) {
         if (r == 0) {
-            alertify.success("All good");
+            alertify.success("Se ha creado/actulizado la nota de credito para el cliente seleccionado");
+            $("#txtcantidadnotacredito").val("");
+            $("#slccliente").selectpicker('val', 0);
         }
         if (r == 1) {
             alertify.error("No se pudo completar el proceso");
         }
-        if (r == 2) {
-
-        }
     });
-
 });
 
 $("#btnnuevanotacredito").click(function() {

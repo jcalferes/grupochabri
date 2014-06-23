@@ -31,7 +31,7 @@
                     </div>
                     <div class="modal-body">
                         <div id="vernotascredito">
-                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/>
+                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/><br>
                             <div id="buscanotascredito">
                                 CONTENIDO MUY BIEN
                             </div>
