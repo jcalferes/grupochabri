@@ -48,6 +48,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="button" class="btn btn-primary" id="btnguardanotacredito" value="Guardar nota de credito"/>
+                                    <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
                                 </div>
                             </form>
                         </div>

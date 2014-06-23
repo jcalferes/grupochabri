@@ -50,8 +50,8 @@ $("#btnguardanotacredito").click(function() {
         if (r == 1) {
             alertify.error("No se pudo completar el proceso");
         }
-        if(r == 2){
-            
+        if (r == 2) {
+
         }
     });
 
@@ -60,4 +60,11 @@ $("#btnguardanotacredito").click(function() {
 $("#btnnuevanotacredito").click(function() {
     $("#vernotascredito").slideUp();
     $("#nuevanotacredito").slideDown();
+});
+
+$("#btncancelarnotacredito").click(function() {
+    $("#vernotascredito").slideDown();
+    $("#nuevanotacredito").slideUp();
+    $("#txtcantidadnotacredito").val("");
+    $("#slccliente").selectpicker('val', 0);
 });
