@@ -3071,7 +3071,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return true;
     }
 
-    //==========================================================================
+    //===================== Notas de credito ===================================
     function guardarNotasCredito($idcliente, $cantidad, $sucursal) {
         $sql = "INSERT INTO notascredito (idcliente, monto, idSucursal, status) VALUES ('$idcliente', '$cantidad', '$sucursal', '1')";
         $ctrl = mysql_query($sql);
@@ -3101,13 +3101,49 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function incrementarNotaCredito($idcliente, $cantidad, $sucursal) {
         $sql = "SELECT monto FROM notascredito WHERE idCliente  = '$idcliente' AND idSucursal = '$sucursal'";
+        mysql_query("START TRANSACTION;");
         $ctrl = mysql_query($sql);
         if ($ctrl == false) {
             $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
             return false;
+        } else {
+            while ($rs = mysql_fetch_array($ctrl)) {
+                $monto = $rs["monto"];
+            }
+        }
+        //Se suma el monto y la nueva cantidad =================================
+        $nuevacantidad = $monto + $cantidad;
+        //Se actualiza el monot en notascredito ================================
+        $sql = "UPDATE notascredito SET monto = '$nuevacantidad'  WHERE idCliente = '$idcliente' AND idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            mysql_query("COMMIT;");
+            return true;
         }
     }
 
+    function consultarNotasCredito($sucursal) {
+        $sql = "SELECT * FROM notascredito WHERE idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
+//==============================================================================
     function dameDescuentosClientes($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

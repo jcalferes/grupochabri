@@ -24,6 +24,9 @@ $(document).ready(function() {
     $("#slccliente").load("mostrarClientes.php", function() {
         $("#slccliente").selectpicker();
     });
+    $("#buscanotascredito").load("consultarNotasCredito.php", function() {
+        $('#dtnotascredito').dataTable();
+    });
 });
 
 $("#btnnotascredito").click(function() {
@@ -45,19 +48,31 @@ $("#btnguardanotacredito").click(function() {
     var info = "cantidad=" + cantidad + "&idcliente=" + idcliente;
     $.get('guardarNotasCredito.php', info, function(r) {
         if (r == 0) {
-            alertify.success("All good");
+            $("#txtcantidadnotacredito").val("");
+            $("#slccliente").selectpicker('val', 0);
+            alertify.confirm("Se ha creado/actulizado la nota de credito para el cliente seleccionado. ¿Deseas imprimir la nota de crédito?", function(e) {
+                if (e) {
+                    $.get('generarNotaCredito.php', info, function(r2) {
+                    });
+                } else {
+                }
+            });
+
         }
         if (r == 1) {
             alertify.error("No se pudo completar el proceso");
         }
-        if(r == 2){
-            
-        }
     });
-
 });
 
 $("#btnnuevanotacredito").click(function() {
     $("#vernotascredito").slideUp();
     $("#nuevanotacredito").slideDown();
+});
+
+$("#btncancelarnotacredito").click(function() {
+    $("#vernotascredito").slideDown();
+    $("#nuevanotacredito").slideUp();
+    $("#txtcantidadnotacredito").val("");
+    $("#slccliente").selectpicker('val', 0);
 });

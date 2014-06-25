@@ -31,9 +31,8 @@
                     </div>
                     <div class="modal-body">
                         <div id="vernotascredito">
-                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/>
+                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/><hr>
                             <div id="buscanotascredito">
-                                CONTENIDO MUY BIEN
                             </div>
                         </div>
                         <div id="nuevanotacredito">
@@ -48,6 +47,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="button" class="btn btn-primary" id="btnguardanotacredito" value="Guardar nota de credito"/>
+                                    <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
                                 </div>
                             </form>
                         </div>
