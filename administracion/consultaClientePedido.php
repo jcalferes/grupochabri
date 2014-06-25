@@ -1,10 +1,11 @@
 <?php
-
+session_start();
 include_once './administracion.dao/dao.php';
 $dao = new dao();
 $folio = $_GET["folio"];
+$idsucursal= $_SESSION["sucursalSesion"];
 $comprobante = $_GET["comprobante"];
-$datos = $dao->obtenerOrdenCompra($folio, $comprobante);
+$datos = $dao->obtenerOrdenCompra($folio, $comprobante,$idsucursal);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
 

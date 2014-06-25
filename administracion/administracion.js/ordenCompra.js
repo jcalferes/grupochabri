@@ -798,7 +798,7 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "guardarOrdenCompra.php",
-                data: {data: informacion, band: "modifica", folio: $("#folioM").val()},
+                data: {data: informacion, band: "envia", folio: $("#folioM").val()},
                 cache: false,
                 success: function(x) {
                     window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA");
@@ -873,6 +873,7 @@ $(document).ready(function() {
             $(".cantidades").attr('disabled', 'disabled');
         }
         else {
+            
             $(".descuentos").attr('disabled', 'disabled');
             $(".cantidades").removeAttr('disabled');
            $(".descuentos").val("");
@@ -880,10 +881,25 @@ $(document).ready(function() {
             $("#descuentoProductosM").val(0);
             $("#descuentoTotalM").val($("#descuentoGeneralM").val())
              for (var x = 0; x < contador; x++) {
+                 var cantidad = $("#cant" + x).val();
               var costo = $("#costo" + x).val(); 
-                   $("#cda" + x).val(costo);
-                $("#importe" + x).val(costo);
+              $("#cda" + x).val(costo);
+                   $("#importe" + x).val(costo * cantidad);
+               
             }
+            var importes = 0.0;
+             $('.totales').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+//        alert(valor);
+        importes += parseFloat(valor);
+
+    });
+  var  iva= importes * .16;
+  var total = parseFloat(iva) + importes;
+    $("#sdaM").val(importes);
+    $("#ivaM").val(iva);
+    $("#costoTotal").val(parseFloat(total));
         }
     });
     $("#descuentosGeneralesM").change(function() {
@@ -954,7 +970,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
             $.ajax({
                 type: "POST",
                 url: "guardarOrdenCompra.php",
-                data: {data: informacion},
+                data: {data: informacion, cotiza: "cotiza"},
                 cache: false,
                 success: function(x) {
                     var probando = $("#proveedores").val();
