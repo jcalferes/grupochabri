@@ -1,20 +1,27 @@
 <?php
 
 session_start();
+include_once '../utilerias/Utilerias.php';
 include_once '../dompdf/dompdf_config.inc.php';
 include_once './administracion.dao/dao.php';
+include_once '../daoconexion/daoConeccion.php';
 
 # Instanciamos un objeto de la clase DOMPDF. 
 
-$idsucursal = 1;
+$sucursal = 1;
+$idcliente = $_GET["idcliente"];
 $mipdf = new DOMPDF();
 error_reporting(0);
-
+$cn = new coneccion();
 $dao = new dao();
+$util = new Utilerias();
+$cn->Conectarse();
+$datos = $dao->obtenerTodosLosDatosClienteNotaCredtio($idcliente, $sucursal);
+$folio = $dao->obtenerFolioNotaCredtio($sucursal);
+$lafecha = date("d/m/Y");
 
 
-
-//========================= Inicia diseÃ±o ======================================
+//========================= Inicia diseño ======================================
 $valor = '
 <html>
     <head>
@@ -148,15 +155,16 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 } </script>';
 $valor .= ' <center>
-   <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
+   <img src="administracion.imgs/cabecera_' . $sucursal . '.png" width="785px"/> 
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
-//while ($datoscliente = mysql_fetch_array($datos)) {
-$valor .= ' <tr><td>Nombre:<br> NULL </td><td>RFC:<br> NULL </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">NULL</label><br>Fecha de emision:<br>NULL</td></tr>
-        <tr><td>Direccion:<br> "Calle NULL num ext NULL num int NULL cruzamientos NULL </td><td>Colonia:<br> NULL</td><td></td></tr>
-        <tr style="background-color: white"><td>Localidad/Municipio:<br>NULL</td><td>Estado:<br> NULL</td><td>CP:<br>NULL</td></tr>';
-//    break;
-//}
+while ($data = mysql_fetch_array($datos)) {
+    $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>' . $lafecha . '</td></tr>
+        <tr><td>Direccion:<br> Calle ' . $data["calle"] . ' num ext ' . $data["numeroExterior"] . ' num int ' . $data["numeroInterior"] . ' cruzamientos ' . $data["cruzamientos"] . ' </td><td>Colonia:<br> ' . $data["colonia"] . '</td><td></td></tr>
+        <tr style="background-color: white"><td>Localidad/Municipio:<br>' . $data["ciudad"] . '</td><td>Estado:<br> ' . $data["estado"] . '</td><td>CP:<br>' . $data["postal"] . '</td></tr>';
+    break;
+}
+
 $valor .= '</table>';
 
 $valor .= '  <table class="CSSTableGenerator">
@@ -172,12 +180,18 @@ $valor .= '  <table class="CSSTableGenerator">
                     <td>CDA</td>
                     <td>Importe</td></tr> ';
 
+mysql_data_seek($datos, 0);
+while ($data = mysql_fetch_array($datos)) {
+    $monto = $data["monto"];
+    break;
+}
 
-//        $valor .= '<tr><td style="text-align: right">' . $datoscliente["cantidadConcepto"] . '</td><td style="text-align: right">' . $datoscliente["codigoConcepto"] . '</td><td >' . $datoscliente["descripcionConcepto"] . '</td><td>' . $datoscliente["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datoscliente["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datoscliente["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datoscliente["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datoscliente["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datoscliente["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datoscliente["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datoscliente["importeConcepto"], 2) . '</td></tr>';
+$valor .= '<tr><td style="text-align: right">0</td><td style="text-align: right">0</td><td >Nota de credito a cliente</td><td>0</td><!--<td style="text-align: right">$0</td>--><td style="text-align: right">$0</td><!--<td style="text-align: right">$0</td><td style="text-align: right">$0</td><td style="text-align: right">$' . $monto . '</td>--><td style="text-align: right">$0</td><td style="text-align: right">$' . $monto . '</td></tr>';
+
 $valor .= '</table>';
-$valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$NULL</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $NULL</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$NULL</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$NULL</td></tr><tr><td> SDA :</td><td style="text-align: right">$NULL</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $NULL</td></tr><tr><td>  Total :</td><td style="text-align: right"> $NULL</td></tr> </table>'
-        . '<div style="position:absolute; top:150px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: NULL </label></div>';
-$valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: NULL </td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
+$valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . $monto . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $0</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$0</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$0</td></tr><tr><td> SDA :</td><td style="text-align: right">$0</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $0</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . $monto . '</td></tr> </table>'
+        . '<div style="position:absolute; top:150px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: 0 </label></div>';
+$valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $util->numtoletras($monto) . ' </td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
 $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:170px;"><tr><td>Informacion del transporte empleado:</td></tr>'
         . '<tr><td>Medio de transporte:</td><td>En el caso de camiones:</td></tr>'
         . '<tr><td>Marca:</td><td>Modelo:</td><td>Tipo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>'

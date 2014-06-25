@@ -1,9 +1,9 @@
 <?php
 
 class dao {
-    
-    function actualizarOrdenCompra($folio, $comprobante,$idSucursal){
-         include_once '../daoconexion/daoConeccion.php';
+
+    function actualizarOrdenCompra($folio, $comprobante, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "UPDATE xmlcomprobantes set statusOrden = '6' WHERE idXmlComprobante = '$folio' AND tipoCOmprobante='$comprobante' AND idSucursal = '$idSucursal'";
         $sql = mysql_query($sql, $cn->Conectarse());
@@ -104,7 +104,7 @@ WHERE u.idUsuario = '$idCliente'
         return $datos;
     }
 
-    function obtenerOrdenCompra($folio, $comprobante,$idsucursal) {
+    function obtenerOrdenCompra($folio, $comprobante, $idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         if ($comprobante == "PEDIDO CLIENTE") {
@@ -1396,12 +1396,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
-        if($usuario == "envia"){
+        if ($usuario == "envia") {
             $estatus = 6;
-        }else{
+        } else {
             $estatus = 5;
         }
-        
+
         $sqlEncabezadoGuardar = "INSERT INTO facturaencabezados (fechaEncabezado, subtotalEncabezado, totalEncabezado, rfcEncabezado, folioEncabezado, fechaMovimiento, idTipoMovimiento, idSucursal)"
                 . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $encabezado->getTotal() . "','" . $encabezado->getRfc() . "','" . $encabezado->getFolio() . "','$lafecha','1','$idSucursal')";
         $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
@@ -3071,7 +3071,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return true;
     }
 
-    //===================== Notas de credito ===================================
+    //===================== NOTAS CREDITO ===================================
     function guardarNotasCredito($idcliente, $cantidad, $sucursal) {
         $sql = "INSERT INTO notascredito (idcliente, monto, idSucursal, status) VALUES ('$idcliente', '$cantidad', '$sucursal', '1')";
         $ctrl = mysql_query($sql);
@@ -3143,7 +3143,62 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
     }
 
-//==============================================================================
+    function obtenerTodosLosDatosClienteNotaCredtio($idcliente, $sucursal) {
+        $sql = "SELECT * from clientes c "
+                . "INNER JOIN notascredito nc ON c.idCliente = nc.idCliente "
+                . "INNER JOIN direcciones d ON c.idDireccion = d.idDireccion "
+                . "WHERE c.idCliente = '$idcliente' AND nc.idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
+    function obtenerFolioNotaCredtio($sucursal) {
+
+        $sql = "SELECT max(folioPedidoCliente) as foliomayor FROM folios WHERE idSucursal = '$sucursal' group by folioNotaCredito";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                while ($data = mysql_fetch_array($ctrl)) {
+                    $foliomayor = $data["foliomayor"];
+                }
+                return $foliomayor;
+            }
+        }
+    }
+
+    function actualizarFolioNotaCredtio($sucursal) {
+        $sql = "UPDATE folios SET folioPedidoCliente= folioPedidoCliente + 1 WHERE idSucursal = '$sucursal'";
+        $ctrl = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
+//====================== TERMINA NOTAS CREDITO =================================
     function dameDescuentosClientes($rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

@@ -42,7 +42,7 @@ if ($correos !== "") {
 $datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante, $idsucursal);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
-//========================= Inicia diseÃ±o ======================================
+//========================= Inicia diseÃ±o =====================================
     $valor = '
 <html>
     <head>

@@ -52,9 +52,7 @@ $("#btnguardanotacredito").click(function() {
             $("#slccliente").selectpicker('val', 0);
             alertify.confirm("Se ha creado/actulizado la nota de credito para el cliente seleccionado. ¿Deseas imprimir la nota de crédito?", function(e) {
                 if (e) {
-                    $.get('generarNotaCredito.php', info, function(r2) {
-                    });
-                } else {
+                    window.open('generarNotaCredito.php?idcliente=' + idcliente);
                 }
             });
 
