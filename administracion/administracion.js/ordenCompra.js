@@ -103,7 +103,7 @@ function listarProductos() {
                         if (valorando == '0') {
 
 
-                            tr = '<tr  id="fila' + contador + '><td"><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
+                            tr = '<tr  id="fila' + contador + '><td><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\

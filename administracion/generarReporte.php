@@ -16,7 +16,7 @@ $folio = $_GET["valor"];
 $correos = $_GET["correos"];
 $correos2 = $_GET["correos2"];
 $comprobante = $_GET["comprobante"];
-
+// unlink("reportes/probando.pdf");
 $destinos[] = $correos;
 if ($correos2 !== "") {
     $destinos[] = $correos2;
@@ -253,7 +253,7 @@ if ($comprobante == "PEDIDO CLIENTE") {
 //sleep(2);
 //    if ($destinos == "" || $destinos == null) {
     $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
-    unlink("reportes/probando.pdf");
+//    unlink("reportes/probando.pdf");
 //$correo = "shanaxchronos@gmail.com";
 //    }
 } else {
@@ -261,5 +261,5 @@ if ($comprobante == "PEDIDO CLIENTE") {
         $utileria->enviarCorreoElectronico($destinos);
     }
     $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
-    unlink("reportes/probando.pdf");
+//    unlink("reportes/probando.pdf");
 }
