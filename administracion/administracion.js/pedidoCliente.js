@@ -337,7 +337,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     if ($("#sucursal").val() == '0') {
                         alertify.error("Seleccione un sucursal");
                     } else {
-                        alertify.error("Error! Producto no dado de alta para este proveedor");
+                        alertify.error("Error! Producto no dado de alta en ventas online");
                         return false;
                     }
 
