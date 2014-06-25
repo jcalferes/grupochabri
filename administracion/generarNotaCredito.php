@@ -11,6 +11,9 @@ $mipdf = new DOMPDF();
 error_reporting(0);
 
 $dao = new dao();
+
+
+
 //========================= Inicia diseÃ±o ======================================
 $valor = '
 <html>
