@@ -149,9 +149,9 @@ $valor .= ' <center>
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
 //while ($datoscliente = mysql_fetch_array($datos)) {
-//    $valor .= ' <tr><td>Nombre:<br> "' . $datoscliente["nombre"] . '"</td><td>RFC:<br> "' . $datoscliente["rfc"] . '"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"' . $datoscliente["fechaMovimiento"] . '"</td></tr>
-//        <tr><td>Direccion:<br> "Calle' . $datoscliente["calle"] . ' num ext' . $datoscliente["numeroExterior"] . 'num int ' . $datoscliente["numeroInterior"] . 'cruzamientos ' . $datoscliente["cruzamientos"] . '"</td><td>Colonia:<br> "' . $datoscliente["colonia"] . '"</td><td></td></tr>
-//        <tr style="background-color: white"><td>Localidad/Municipio:<br> "' . $datoscliente["ciudad"] . '"</td><td>Estado:<br> "' . $datoscliente["estado"] . '"</td><td>CP:<br>"' . $datoscliente["postal"] . '"</td></tr>';
+$valor .= ' <tr><td>Nombre:<br> NULL </td><td>RFC:<br> NULL </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">NULL</label><br>Fecha de emision:<br>NULL</td></tr>
+        <tr><td>Direccion:<br> "Calle NULL num ext NULL num int NULL cruzamientos NULL </td><td>Colonia:<br> NULL</td><td></td></tr>
+        <tr style="background-color: white"><td>Localidad/Municipio:<br>NULL</td><td>Estado:<br> NULL</td><td>CP:<br>NULL</td></tr>';
 //    break;
 //}
 $valor .= '</table>';
