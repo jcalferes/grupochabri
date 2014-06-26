@@ -216,3 +216,5 @@ file_put_contents("reportes/NotaCredito.pdf", $mipdf->output());
 //$mipdf->stream('reportes/NotaCredito.pdf');
 $mipdf->stream('reportes/NotaCredito.pdf', array("Attachment" => 0));
 unlink("reportes/NotaCredito.pdf");
+$dao->actualizarFolioNotaCredtio($sucursal);
+$cn->cerrarBd();

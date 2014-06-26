@@ -9,24 +9,15 @@ $dao = new dao();
 
 $cantidad = $_GET["cantidad"];
 $idcliente = $_GET["idcliente"];
+$foliocancelacion = $_GET["foliocancelacion"];
 $sucursal = $_SESSION["sucursalSesion"];
 $cn->Conectarse();
 
-$valida = $dao->revisarExistenciaNotaCredito($idcliente, $sucursal);
-if ($valida == 0) {
-    $ctrl1 = $dao->guardarNotasCredito($idcliente, $cantidad, $sucursal);
-    if ($ctrl1 != true) {
-        echo 1;
-    } else {
-        echo 0;
-    }
+$ctrl = $dao->guardarNotasCredito($idcliente, $cantidad, $sucursal, $foliocancelacion);
+if ($ctrl != true) {
+    echo 1;
 } else {
-    $ctrl2 = $dao->incrementarNotaCredito($idcliente, $cantidad, $sucursal);
-    if ($ctrl2 != true) {
-        echo 1;
-    } else {
-        echo 0;
-    }
+    echo 0;
 }
 
 
