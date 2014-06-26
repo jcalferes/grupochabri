@@ -17,7 +17,7 @@ $dao = new dao();
 $util = new Utilerias();
 $cn->Conectarse();
 $datos = $dao->obtenerTodosLosDatosClienteNotaCredtio($idcliente, $sucursal);
-$lafecha = date("d/m/Y");
+
 
 
 //========================= Inicia diseño ======================================
@@ -158,7 +158,7 @@ $valor .= ' <center>
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
 while ($data = mysql_fetch_array($datos)) {
-    $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $data[16] . '</label><br>Fecha de emision:<br>' . $lafecha . '</td></tr>
+    $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $data[16] . '</label><br>Fecha de emision:<br>' . $data["fecha"] . '</td></tr>
         <tr><td>Direccion:<br> Calle ' . $data["calle"] . ' num ext ' . $data["numeroExterior"] . ' num int ' . $data["numeroInterior"] . ' cruzamientos ' . $data["cruzamientos"] . ' </td><td>Colonia:<br> ' . $data["colonia"] . '</td><td></td></tr>
         <tr style="background-color: white"><td>Localidad/Municipio:<br>' . $data["ciudad"] . '</td><td>Estado:<br> ' . $data["estado"] . '</td><td>CP:<br>' . $data["postal"] . '</td></tr>';
     break;

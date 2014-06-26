@@ -3102,6 +3102,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         //Variable util $montold
         //Sumar el monto viejo y el nuevo
         $montnew = $montold + $cantidad;
+        //Fecha
+        $lafecha = date("d/m/Y");
         //Sacar folio para la nota de credito
         $sql2 = "SELECT max(folioNotaCredito) as foliomayor FROM folios WHERE idSucursal = '$sucursal' group by folioNotaCredito";
         $ctrl2 = mysql_query($sql2);
@@ -3122,7 +3124,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         //Variable util $foliomayor
         //Guardar la nota de credito
-        $sql3 = "INSERT INTO notascredito (idcliente, monto, idSucursal, status, folioNotaCredito, folioCancelacion) VALUES ('$idcliente', '$montnew', '$sucursal', '1', '$foliomayor', '$foliocancelacion')";
+        $sql3 = "INSERT INTO notascredito (idcliente, monto, idSucursal, status, folioNotaCredito, folioCancelacion, fecha) VALUES ('$idcliente', '$montnew', '$sucursal', '1', '$foliomayor', '$foliocancelacion', '$lafecha')";
         $ctrl3 = mysql_query($sql3);
         if ($ctrl3 == false) {
             $ctrl3 = mysql_error();
@@ -3143,7 +3145,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function consultarNotasCredito($sucursal) {
-        $sql = "SELECT * FROM notascredito WHERE idSucursal = '$sucursal' AND status = '1'";
+        $sql = "SELECT * FROM notascredito nt "
+                . "INNER JOIN clientes c ON nt.idCliente = c. idCliente "
+                . "WHERE nt.idSucursal = '$sucursal' AND nt.status = '1'";
         $ctrl = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($ctrl == false) {

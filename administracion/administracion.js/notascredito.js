@@ -67,12 +67,15 @@ $("#btnguardanotacredito").click(function() {
             $("#divfoliocancelacion").slideUp();
             $("#txtcantidadnotacredito").val("");
             $("#slccliente").selectpicker('val', 0);
+
             alertify.confirm("Se ha creado/actulizado la nota de credito para el cliente seleccionado. ¿Deseas imprimir la nota de crédito?", function(e) {
                 if (e) {
                     window.open('generarNotaCredito.php?idcliente=' + idcliente);
                 }
             });
-
+            $("#buscanotascredito").load("consultarNotasCredito.php", function() {
+                $('#dtnotascredito').dataTable();
+            });
         }
         if (r == 1) {
             alertify.error("No se pudo completar el proceso");
@@ -99,4 +102,8 @@ function vincularcancelacion() {
     } else {
         $("#divfoliocancelacion").slideUp();
     }
+}
+
+function imprimirnotacredito(idcliente) {
+    window.open('generarNotaCredito.php?idcliente=' + idcliente);
 }
