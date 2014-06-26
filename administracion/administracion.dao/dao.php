@@ -3162,7 +3162,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * from clientes c "
                 . "INNER JOIN notascredito nc ON c.idCliente = nc.idCliente "
                 . "INNER JOIN direcciones d ON c.idDireccion = d.idDireccion "
-                . "WHERE c.idCliente = '$idcliente' AND nc.idSucursal = '$sucursal'";
+                . "WHERE c.idCliente = '$idcliente' AND nc.idSucursal = '$sucursal' AND nc.status = '1'";
         $ctrl = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($ctrl == false) {
