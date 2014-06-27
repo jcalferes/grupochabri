@@ -282,11 +282,11 @@ $("#folioM").keypress(function(e) {
                         <td> ' + elem[ind].importeConcepto + '</td></tr>';
 
                         $("#tablaDatosEntrada").append(tr2);
-                        $("#subTotalM").val(elem[ind].subtotalComprobante);
+                        $("#subTotalM").val(parseFloat(elem[ind].subtotalComprobante));
 
-                        $("#sdaM").val(elem[ind].sdaComprobante);
-                        $("#ivaM").val(elem[ind].ivaComprobante);
-                        $("#costoTotal").val(elem[ind].totalComprobante);
+                        $("#sdaM").val(parseFloat(elem[ind].sdaComprobante));
+                        $("#ivaM").val(parseFloat(elem[ind].ivaComprobante));
+                        $("#costoTotal").val(parseFloat(elem[ind].totalComprobante));
 
                         $('#rfcComprobante').selectpicker("val", "\"" + elem[ind].rfcComprobante + "\"");
 

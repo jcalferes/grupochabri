@@ -319,13 +319,13 @@ $("#folioM").keypress(function(e) {
                         <td> ' + elem[ind].importeConcepto + '</td></tr>';
 
                         $("#tablaDatosEntrada").append(tr2);
-                        $("#subTotalM").val(elem[ind].subtotalComprobante);
-                        $("#descuentoGeneralM").val(elem[ind].desctGeneralComprobante);
-                        $("#descuentoProductosM").val(elem[ind].desctPorProductosComprobante);
-                        $("#descuentoTotalM").val(elem[ind].desctTotalComprobante);
-                        $("#sdaM").val(elem[ind].sdaComprobante);
-                        $("#ivaM").val(elem[ind].ivaComprobante);
-                        $("#costoTotal").val(elem[ind].totalComprobante);
+                        $("#subTotalM").val(parseFloat(elem[ind].subtotalComprobante));
+                        $("#descuentoGeneralM").val(parseFloat(elem[ind].desctGeneralComprobante));
+                        $("#descuentoProductosM").val(parseFloat(elem[ind].desctPorProductosComprobante));
+                        $("#descuentoTotalM").val(parseFloat(elem[ind].desctTotalComprobante));
+                        $("#sdaM").val(parseFloat(elem[ind].sdaComprobante));
+                        $("#ivaM").val(parseFloat(elem[ind].ivaComprobante));
+                        $("#costoTotal").val(parseFloat(elem[ind].totalComprobante));
 
                         $('#rfcComprobante').selectpicker("val", "\"" + elem[ind].rfcComprobante + "\"");
 
