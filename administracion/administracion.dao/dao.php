@@ -1178,15 +1178,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function guardarListaPrecio(ListaPrecio $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO listaprecios (nombreListaPrecio,idStatus) VALUES ('" . $t->getNombreListaPrecio() . "','1')";
-        $vl = mysql_query($sql, $cn->Conectarse());
-        if ($vl === false) {
-            $control = 0;
+        $cn->Conectarse();
+
+        $sqlvalidar = "SELECT * FROM listaprecios WHERE nombreListaPrecio = '" . $t->getNombreListaPrecio() . "' ";
+        $ctrlvalidar = mysql_query($sqlvalidar);
+        $rowsvalidar = mysql_affected_rows();
+        if ($ctrlvalidar == false) {
+            $ctrlvalidar = mysql_error();
         } else {
-            $control = 1;
+            if ($rowsvalidar > 0) {
+                return 999;
+            } else {
+                $sql = "INSERT INTO listaprecios (nombreListaPrecio,idStatus) VALUES ('" . $t->getNombreListaPrecio() . "','1')";
+                $vl = mysql_query($sql);
+                if ($vl === false) {
+                    $control = 0;
+                } else {
+                    $control = 1;
+                }
+                $cn->cerrarBd();
+                return $control;
+            }
         }
-        $cn->cerrarBd();
-        return $control;
     }
 
     function obtieneDireccion($t) {

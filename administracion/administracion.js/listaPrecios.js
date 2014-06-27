@@ -5,7 +5,7 @@ $(document).ready(function() {
 });
 
 $("#btnguardarLista").click(function() {
-    var nombrelista = $("#txtnombrelista").val();
+    var nombrelista = $.trim($("#txtnombrelista").val().toUpperCase());
     if (nombrelista == "" || /^\s+$/.test(nombrelista)) {
         $("#txtnombrelista").val("");
         $("#txtnombrelista").focus();
@@ -15,6 +15,10 @@ $("#btnguardarLista").click(function() {
         var info = "nombrelista=" + nombrelista;
         $.get('guardaListaPrecio.php', info, function(respuesta) {
             var control = respuesta;
+            if (control == 999) {
+                alertify.error("Ya existe la lista precio");
+                return false;
+            }
             if (control == 0) {
                 alertify.error("Error al guardar");
                 return false;
