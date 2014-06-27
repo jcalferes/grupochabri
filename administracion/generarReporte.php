@@ -16,30 +16,33 @@ $folio = $_GET["valor"];
 $correos = $_GET["correos"];
 $correos2 = $_GET["correos2"];
 $comprobante = $_GET["comprobante"];
-
+ unlink("reportes/probando.pdf");
 $destinos[] = $correos;
 if ($correos2 !== "") {
     $destinos[] = $correos2;
 }
-if($idsucursal == 1){
+if ($idsucursal == 1) {
     $nombreSucursal = "Servicasa";
     $rfcSucursal = "CABJ830923TW9";
 }
-if($idsucursal == 2){
+if ($idsucursal == 2) {
     $nombreSucursal = "La abejita";
     $rfcSucursal = "BIRF560927I37";
 }
-if($idsucursal == 3){
+if ($idsucursal == 3) {
     $nombreSucursal = "Periferico";
     $rfcSucursal = "CAME540625J86";
 }
 
 $dao = new dao();
 $utileria = new Utilerias();
-$datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante);
+if ($correos !== "") {
+    $dao->actualizarOrdenCompra(trim($folio), $comprobante, $idsucursal);
+}
+$datos = $dao->obtenerOrdenCompra(trim($folio), $comprobante, $idsucursal);
 $validar = mysql_affected_rows();
 if ($validar > 0) {
-//========================= Inicia diseÃ±o ======================================
+//========================= Inicia diseÃ±o =====================================
     $valor = '
 <html>
     <head>
@@ -172,20 +175,21 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
 
 
 } </script>';
-  $valor .= ' <center>
+    $valor .= ' <center>
    <img src="administracion.imgs/cabecera_' . $idsucursal . '.png" width="785px"/> 
     </center>';
     if ($comprobante == "PEDIDO CLIENTE") {
         $valor .= '      <table class="CSSTableGenerator">';
-         while ($datosOrden = mysql_fetch_array($datos)) {
-       $valor .= ' <tr><td>Nombre:<br> "'.$datosOrden["nombre"].'"</td><td>RFC:<br> "'.$datosOrden["rfc"].'"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"'.$datosOrden["fechaMovimiento"].'"</td></tr>
-        <tr><td>Direccion:<br> "Calle'.$datosOrden["calle"].' num ext'.$datosOrden["numeroExterior"].'num int '.$datosOrden["numeroInterior"].'cruzamientos '.$datosOrden["cruzamientos"].'"</td><td>Colonia:<br> "'.$datosOrden["colonia"].'"</td><td></td></tr>
-        <tr style="background-color: white"><td>Localidad/Municipio:<br> "'.$datosOrden["ciudad"].'"</td><td>Estado:<br> "'.$datosOrden["estado"].'"</td><td>CP:<br>"'.$datosOrden["postal"].'"</td></tr>';
-        break; } 
-$valor .= '</table>';
+        while ($datosOrden = mysql_fetch_array($datos)) {
+            $valor .= ' <tr><td>Nombre:<br> "' . $datosOrden["nombre"] . '"</td><td>RFC:<br> "' . $datosOrden["rfc"] . '"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"' . $datosOrden["fechaMovimiento"] . '"</td></tr>
+        <tr><td>Direccion:<br> "Calle' . $datosOrden["calle"] . ' num ext' . $datosOrden["numeroExterior"] . 'num int ' . $datosOrden["numeroInterior"] . 'cruzamientos ' . $datosOrden["cruzamientos"] . '"</td><td>Colonia:<br> "' . $datosOrden["colonia"] . '"</td><td></td></tr>
+        <tr style="background-color: white"><td>Localidad/Municipio:<br> "' . $datosOrden["ciudad"] . '"</td><td>Estado:<br> "' . $datosOrden["estado"] . '"</td><td>CP:<br>"' . $datosOrden["postal"] . '"</td></tr>';
+            break;
+        }
+        $valor .= '</table>';
     } else {
         $valor .= '      <table class="CSSTableGenerator">
-        <tr><td>Nombre:<br> "'.$nombreSucursal.'"</td><td>RFC:<br> "'.$rfcSucursal.'"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"'.  date("Y-m-d").'"</td></tr>
+        <tr><td>Nombre:<br> "' . $nombreSucursal . '"</td><td>RFC:<br> "' . $rfcSucursal . '"</td><td>Factura:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>"' . date("Y-m-d") . '"</td></tr>
         </table>';
     }
     $valor .= '  <table class="CSSTableGenerator">
@@ -200,7 +204,7 @@ $valor .= '</table>';
                    <!-- <td>Desct. Total</td>-->
                     <td>CDA</td>
                     <td>Importe</td></tr> ';
-    mysql_data_seek($datos,0);
+    mysql_data_seek($datos, 0);
     while ($datosOrden = mysql_fetch_array($datos)) {
         $subtotal = $datosOrden["subtotalComprobante"];
         $descGral = $datosOrden["desctGeneralComprobante"];
@@ -210,7 +214,7 @@ $valor .= '</table>';
         $iva = $datosOrden["ivaComprobante"];
         $total = $datosOrden["totalComprobante"];
         $sacandoMedidas += $datosOrden["cantidadConcepto"] * $datosOrden["metrosCubicos"];
-        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' .$datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
+        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . $datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
     $valor .= '</table>';
     $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>'
@@ -234,7 +238,6 @@ $valor .= '</table>';
 $mipdf->set_paper("A4", "portrait");
 //$font = Font_Metrics::get_font("verdana", "bold");
 //$mipdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0, 0, 0));
-
 # Cargamos el contenido HTML.
 $mipdf->load_html(utf8_decode($valor));
 
@@ -249,17 +252,14 @@ if ($comprobante == "PEDIDO CLIENTE") {
 
 //sleep(2);
 //    if ($destinos == "" || $destinos == null) {
-            $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
-            unlink("reportes/probando.pdf");
+    $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
+//    unlink("reportes/probando.pdf");
 //$correo = "shanaxchronos@gmail.com";
-       
 //    }
 } else {
     if ($destinos !== "" || $destinos !== null) {
-        $utileria->enviarCorreoElectronico( $destinos);
+        $utileria->enviarCorreoElectronico($destinos);
     }
     $mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
-     unlink("reportes/probando.pdf");
-     
-        
+//    unlink("reportes/probando.pdf");
 }

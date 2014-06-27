@@ -36,13 +36,16 @@ $ctrltelefonos = count($telefonos);
 $ctrlemails = count($emails);
 
 $cn->Conectarse();
-$dao->superGuardadorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
+$ctrl = $dao->superGuardadorProveedores($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails);
 $cn->cerrarBd();
-
-if ($dao == true) {
+if ($ctrl === true) {
     echo 0;
-} else {
+}
+if ($ctrl === false) {
     echo 1;
+}
+if ($ctrl === 999) {
+    echo 999;
 }
 
 

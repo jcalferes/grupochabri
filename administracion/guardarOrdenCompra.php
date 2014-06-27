@@ -16,6 +16,7 @@ $tipo = "ORDEN COMPRA";
 $idsucursal = $_SESSION["sucursalSesion"];
 $utilerias = new Utilerias();
 $datos = json_decode(stripslashes($_POST['data']));
+$evento = $_POST['band'];
 //$datosM = json_decode('data');
 $comprobantes = $datos[0];
 $conceptos = $datos[1];
@@ -63,5 +64,5 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
+$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo, $evento);
 echo $paso;

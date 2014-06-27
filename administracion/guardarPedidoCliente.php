@@ -12,7 +12,7 @@ error_reporting(0);
 
 session_start();
 $dao = new dao();
-$idCliente = 60;
+$idCliente = 2;
 $tipo = "PEDIDO CLIENTE";
 $idCliente = $dao->obtenerDatosCliente($idCliente);
  while ($rs = mysql_fetch_array($idCliente)) {

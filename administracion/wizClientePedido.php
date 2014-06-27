@@ -132,7 +132,7 @@ Revisar/Modificar Pedido                        </span>
                 <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
                 <input type="button" class="btn btn-primary" value="Guardar Cambios Compra" id="enviarOrdenCompra"/>
                 <input type="button" class="btn btn-primary" value="Modificar Orden" id="ModificarOrden"/>
-                <input type="button" class="btn btn-primary" value="Cancelar Orden" id="CancelarOrden"/>
+                <input type="button" class="btn btn-primary" value="Limpiar Orden" id="CancelarOrden"/>
                 <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 

@@ -610,7 +610,7 @@ $("#btnguardarproveedor").click(function() {
             $("#txtestado").val("");
             $("#BuscarCodigo").val("");
             $("#txtciudad").val("");
-            
+
             $("#txtcuser").val("");
             $("#txtcpass").val("");
             $("#txtcrepass").val("");
@@ -632,6 +632,12 @@ $("#btnguardarproveedor").click(function() {
         }
         if (rs == 1) {
             alertify.error("Error al guardar");
+        }
+        if (rs == 999) {
+            alertify.error("Este cliente ya existe");
+        }
+        if (rs == 777) {
+            alertify.error("El nombre de usuario ya existe");
         }
     });
 });
