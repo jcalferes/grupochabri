@@ -827,13 +827,13 @@ $(document).ready(function() {
 
     $("#ModificarOrden").click(function() {
         $(".cantidades").prop("disabled", false);
-        $(".descuentos").prop("disabled", false);
+//        $(".descuentos").prop("disabled", false);
         $("#guardaEnviaOrden").show();
         $("#CancelarOrden").show();
         $("#enviarOrdenCompra").hide();
 //        $("#emailProveedor").load("mostrarEmailsProveedor.php");
 //        $("#emailProveedor").show();
-        $("#descuentosGlobalesManuales").prop('checked', true);
+//        $("#descuentosGlobalesManuales").prop('checked', true);
         $("#codigoProductoEntradas").prop("disabled", false);
 
 
