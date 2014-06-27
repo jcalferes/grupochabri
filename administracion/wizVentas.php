@@ -74,21 +74,21 @@
                     </div>
                 </div>
                 <br><br>
-                    <table class="table" id="tablaVentas">
-                        <thead>
-                        <th><center>Codigo</center></th>
-                        <th><center>Descripcion</center></th>
-                        <th><center>Cantidad</center></th>
-                        <th><center>Existencia</center></th>
-                        <th><center>Lst. Precio</center></th>
-                        <th><center>Precio c/u</center></th>
-                        <th><center>Desc.</center></th>
-                        <th><center>Eliminar</center></th>
-                        <th><center>total</center></th>
-                        <th><center>$ Desc.</center></th>
-                        <th><center>$ Total c/d.</center></th>
-                        </thead>
-                    </table>
+                <table class="table" id="tablaVentas">
+                    <thead>
+                    <th><center>Codigo</center></th>
+                    <th><center>Descripcion</center></th>
+                    <th><center>Cantidad</center></th>
+                    <th><center>Existencia</center></th>
+                    <th><center>Lst. Precio</center></th>
+                    <th><center>Precio c/u</center></th>
+                    <th><center>Desc.</center></th>
+                    <th><center>Eliminar</center></th>
+                    <th><center>total</center></th>
+                    <th><center>$ Desc.</center></th>
+                    <th><center>$ Total c/d.</center></th>
+                    </thead>
+                </table>
                 <hr>
                 <form class="form-inline text-right">
                     <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
@@ -130,7 +130,40 @@
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>
             </section>
-            <!-- TERMINA CACELACIONES -->
+
+            <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cobranzas</h2>
+            <section>
+                <div>
+                    <div style="width: 20%; float: left">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+                                            Cobrar
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <input  type="submit" value="Cobrar" class="btn btn-default"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float: right; width: 80%">
+                        <div class="input-group" style="width: 20%; float: right">
+                            <input type="text" placeholder="N° de folio" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="mdlBuscadorOrdenesCompra" type="button" title="Buscar Ordenes de Compra">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <!--MODAL DE BUSQUEDA-->
         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -211,10 +244,7 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--final modalGranel-->
-
-
         <!--MODAL DE AUTORIZACION-->
-
         <div class="modal fade" 
              id="mdlAutorizacion" 
              tabindex="-1" 
@@ -271,17 +301,31 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
-
-
-
-
-
-
-
-
-
-
+        <!------------------------------------------------------------------>
+        <!--Modal de busqueda de ordenes de Compra-->
+        <div class="modal fade" 
+             id="mdlBusquedaOrdenCompra" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover" id="tableOrdenesCompra">
+                           
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                       
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
 <!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
@@ -291,6 +335,7 @@
         <script src="../administracion/administracion.js/buscador.js"></script>
         <script src="../administracion/administracion.js/cancelacion.js"></script>
         <script src="administracion.js/Ventas.js"></script>
+         <script src="administracion.js/pagos.js"></script>
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

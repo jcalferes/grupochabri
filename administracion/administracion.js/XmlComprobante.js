@@ -12,5 +12,4 @@ function XmlComprobante() {
     this.folioComprobante = 0.00;
     this.tipoComprobante = 0.00;
     this.fechaMovimiento = "";
-    
 }

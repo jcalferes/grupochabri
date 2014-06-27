@@ -2,7 +2,7 @@ var codigos = new Array();
 var arrayDetalleVenta = new Array();
 var arrayEncabezadoVenta = new Array();
 var codigoN;
-
+var inf = new Array();
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
         buscar();
@@ -285,24 +285,29 @@ function guardarDatosEncabezado() {
 }
 
 function guardarDatosDetalle() {
-
+//    alert("ejecutando guardando detalle");
     for (var x = 0; x < codigos.length; x++) {
         var valor = $("#cmb" + codigos[x]).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
-        detalleVenta.unidadMedidaConcepto = "0";
+        detalleVenta.unidadMedidaConcepto = "KG";
         detalleVenta.importeConcepto = $("#txtTotalDesc" + codigos[x]).val();
         detalleVenta.cantidadConcepto = $("#txt" + codigos[x]).val();
         detalleVenta.codigoConcepto = $("#codigo" + codigos[x]).text();
+
         detalleVenta.descripcionConcepto = $("#descripcion" + codigos[x]).text();
+
         detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigos[x]).text();
         detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigos[x]).val();
         detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigos[x]).val();
-        detalleVenta.desctDosConcepto = 0.00;
-        detalleVenta.costoCotizacion = 0.00;
-        detalleVenta.idListaPrecio = datos[0];
+//      detalleVenta.desctDosConcepto = 0.00;
+//      detalleVenta.costoCotizacion = 0.00;
+        detalleVenta.idListaPrecio = parseInt(datos[0]);
         arrayDetalleVenta.push(detalleVenta);
     }
+//    alert(detalleVenta.unidadMedidaConcepto);
+    inf.push(arrayDetalleVenta);
+//    alert("metio la inf el array de detalle venta");
 }
 
 function cargarProductosCarritoBusqueda(codigo) {
@@ -384,9 +389,7 @@ $(document).ready(function() {
         if (paso == true) {
             guardarDatosDetalle();
             guardarDatosEncabezado();
-            var inf = new Array();
             inf.push(arrayEncabezadoVenta);
-            inf.push(arrayDetalleVenta);
             var informacion = JSON.stringify(inf);
             $.ajax({
                 type: "POST",
@@ -402,6 +405,10 @@ $(document).ready(function() {
                     if (datos[0] == 2) {
                         $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
                         alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
+                        ifn = new Array();
+                        arrayDetalleVenta.length = 0;
+                        arrayEncabezadoVenta.length = 0;
+                        alert("finalizo");
                     }
                     else {
                         alertify.success(informacion);
@@ -470,7 +477,6 @@ $(document).ready(function() {
 
 });
 function finalizar() {
-//    alert("entro a finalizar");
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
     $("#cmbTipoPago option[value='1']").attr("selected", true);
@@ -489,8 +495,8 @@ function finalizar() {
             + ' </table>');
     $("#codigoProductoEntradas").val("");
     codigos = new Array();
-    arrayDetalleVenta = new Array();
-    arrayEncabezadoVenta = new Array();
+    arrayDetalleVenta.length = 0;
+    arrayEncabezadoVenta.length = 0;
     $("#folio").load("dameFolioPedidos.php");
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');

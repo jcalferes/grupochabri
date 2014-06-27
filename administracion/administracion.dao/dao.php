@@ -2952,9 +2952,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
                     }
                 }
             }
+            if ($error != "") {
+                break;
+            }
         }
         if ($error == "") {
-            $sqlActualizarFolio = "UPDATE folios set folioOrdenCompra = '$nuevoFolio' ";
+            $sqlActualizarFolio = "UPDATE folios set folioOrdenCompra = '$nuevoFolio' WHERE idSucursal = '$idSucursal' ";
             $da = mysql_query($sqlActualizarFolio);
             if ($da == false) {
                 $error = mysql_error();
@@ -3178,7 +3181,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' ";
         return $rs;
     }
 
-    function obtenerOrdenCompraClientes($rfc, $idSucursal) {
+    function obtenerOrdenesCompraTodas($idSucursal) {
         $sql = "";
     }
 
