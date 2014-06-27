@@ -747,19 +747,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-//        mysql_query("START TRANSACTION;");
-        $sql = "INSERT INTO grupoproductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
-        $resultado = mysql_query($sql, $cn->Conectarse());
-        if ($resultado == false) {
-            $resultado = mysql_error();
-            echo $resultado;
-//            $sql = "ROLLBACK;";
-            $resultado = mysql_query($sql, $cn->Conectarse());
+        $cn->Conectarse();
+
+        $sqlvalidar = "SELECT * FROM grupoproductos WHERE grupoProducto = '" . $g->getGrupoProducto() . "' ";
+        $ctrlvalidar = mysql_query($sqlvalidar);
+        $rowsvalidar = mysql_affected_rows();
+        if ($ctrlvalidar == false) {
+            $ctrlvalidar = mysql_error();
         } else {
-            echo"OK";
-//            mysql_query("COMMIT;");
+            if ($rowsvalidar > 0) {
+                return 999;
+                $cn->cerrarBd();
+            } else {
+                $sql = "INSERT INTO grupoproductos(grupoProducto)VALUES ('" . $g->getGrupoProducto() . "')";
+                $resultado = mysql_query($sql);
+                if ($resultado == false) {
+                    $resultado = mysql_error();
+                } else {
+                    return 0;
+                    $cn->cerrarBd();
+                }
+            }
         }
-        $cn->cerrarBd();
     }
 
     function consultarGrupos() {

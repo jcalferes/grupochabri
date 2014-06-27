@@ -3,15 +3,18 @@ $(document).ready(function() {
         var nombreGrupo = $("#txtnombreGrupo").val().toUpperCase();
         var info = "nombreGrupo=" + nombreGrupo;
         $.get('guardarGrupo.php', info, function(status) {
-            if (status == "OK") {
-                $("#selectGrupo").load("mostrarGrupos.php",function(){
+            if (status == 0) {
+                $("#selectGrupo").load("mostrarGrupos.php", function() {
                     $("#selectGrupo").selectpicker('refresh');
                 });
                 alertify.success("Se guardo el grupo exitosamente");
                 $("#txtnombreGrupo").val("");
-            } else {
-                alertify.error("No se pudo guardar el grupo");
             }
+            if (status == 999) {
+                $("#txtnombreGrupo").val("");
+                alertify.error("Ya existe el grupo");
+            }
+
         });
     });
 
