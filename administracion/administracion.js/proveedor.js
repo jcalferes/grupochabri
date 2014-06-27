@@ -553,6 +553,7 @@ $("#btnguardarproveedor").click(function() {
 
     var datosJSON = JSON.stringify(datos);
     $.post('guardaProveedor.php', {datos: datosJSON}, function(rs) {
+        alert(rs);
         if (rs == 0) {
             $("#txtnombreproveedor").val("");
             $("#txtrfc").val("");
@@ -589,6 +590,9 @@ $("#btnguardarproveedor").click(function() {
         }
         if (rs == 1) {
             alertify.error("Error al guardar");
+        }
+        if (rs == 999) {
+            alertify.error("Este proveedor ya existe");
         }
         $("#selectProveedor").load("mostrarProveedores.php", function() {
             $("#selectProveedor").selectpicker('refresh');
