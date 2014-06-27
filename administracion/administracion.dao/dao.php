@@ -925,6 +925,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
+
         mysql_query("START TRANSACTION;");
 
         $sucursales = "SELECT * FROM sucursales WHERE idSucursal <> '$idSucursal'";
