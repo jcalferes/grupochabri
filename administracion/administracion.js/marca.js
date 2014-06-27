@@ -13,20 +13,25 @@ $(document).ready(function() {
         }
         else {
             var info = "nombre=" + nombre;
-            $.get('guardaMarca.php', info, function() {
-                $("#txtnombremarca").val("");
-                $("#selectMarca").load("mostrarMarcas.php", function() {
-                    $("#selectMarca").selectpicker('refresh');
-                });
-                $("#consultaMarca").load("consultarMarca.php", function() {
-                    $('#dtmarca').dataTable();
-                });
-                $("#txtnombremarca").focus();
-                $("#consultaMarca").load("consultarMarca.php", function() {
-                    $('#dtmarca').dataTable();
-                });
-                alertify.success("Marca agregada correctamente");
-                return false;
+            $.get('guardaMarca.php', info, function(rs) {
+                if (rs == 0) {
+                    $("#txtnombremarca").val("");
+                    $("#selectMarca").load("mostrarMarcas.php", function() {
+                        $("#selectMarca").selectpicker('refresh');
+                    });
+                    $("#consultaMarca").load("consultarMarca.php", function() {
+                        $('#dtmarca').dataTable();
+                    });
+                    $("#txtnombremarca").focus();
+                    $("#consultaMarca").load("consultarMarca.php", function() {
+                        $('#dtmarca').dataTable();
+                    });
+                    alertify.success("Marca agregada correctamente");
+                }
+                if (rs == 999) {
+                    alertify.error("Ya existe la marca");
+                }
+
             });
         }
     });

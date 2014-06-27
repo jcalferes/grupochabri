@@ -1148,9 +1148,23 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function guardarMarca(Marca $t) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "INSERT INTO marcas(marca,idStatus)VALUES ('" . $t->getMarca() . "','1')";
-        mysql_query($sql, $cn->Conectarse());
-        $cn->cerrarBd();
+        $cn->Conectarse();
+        $sqlvalidar = "SELECT * FROM marcas WHERE marca = '" . $t->getMarca() . "' ";
+        $ctrlvalidar = mysql_query($sqlvalidar);
+        $rowsvalidar = mysql_affected_rows();
+        if ($ctrlvalidar == false) {
+            $ctrlvalidar = mysql_error();
+        } else {
+            if ($rowsvalidar > 0) {
+                return 999;
+                $cn->cerrarBd();
+            } else {
+                $sql = "INSERT INTO marcas(marca,idStatus)VALUES ('" . $t->getMarca() . "','1')";
+                mysql_query($sql);
+                $cn->cerrarBd();
+                return true;
+            }
+        }
     }
 
     function guardarProveedor(Proveedor $t) {
