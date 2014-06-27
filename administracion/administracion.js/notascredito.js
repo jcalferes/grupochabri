@@ -27,6 +27,7 @@ $(document).ready(function() {
     $("#buscanotascredito").load("consultarNotasCredito.php", function() {
         $('#dtnotascredito').dataTable();
     });
+    $("#divfoliocancelacion").hide();
 });
 
 $("#btnnotascredito").click(function() {
@@ -36,28 +37,45 @@ $("#btnnotascredito").click(function() {
 $("#btnguardanotacredito").click(function() {
     var cantidad = $("#txtcantidadnotacredito").val();
     var idcliente = $("#slccliente").val();
+    var foliocancelacion = $("#txtfoliocancelacion").val();
+    var chkfoliocancelacion = $("#chkfoliocancelacion").is(":checked");
+
+    if (chkfoliocancelacion == true) {
+        if (foliocancelacion === "" || /^\s+$/.test(foliocancelacion)) {
+            alertify.error("No agregaste el folio de la cancelación");
+            $("#txtfoliocancelacion").val("");
+            return false;
+        }
+    } else {
+        foliocancelacion = 0;
+    }
+
     if (idcliente == 0) {
         alertify.error("No seleccionaste un cliente");
         return false;
     }
+
     if (cantidad === "" || /^\s+$/.test(cantidad)) {
         alertify.error("No agregaste una cantidad");
         $("#txtcantidadnotacredito").val("");
         return false;
     }
-    var info = "cantidad=" + cantidad + "&idcliente=" + idcliente;
+    var info = "cantidad=" + cantidad + "&idcliente=" + idcliente + "&foliocancelacion=" + foliocancelacion;
     $.get('guardarNotasCredito.php', info, function(r) {
         if (r == 0) {
+            $("#txtfoliocancelacion").val("");
+            $("#divfoliocancelacion").slideUp();
             $("#txtcantidadnotacredito").val("");
             $("#slccliente").selectpicker('val', 0);
+
             alertify.confirm("Se ha creado/actulizado la nota de credito para el cliente seleccionado. ¿Deseas imprimir la nota de crédito?", function(e) {
                 if (e) {
-                    $.get('generarNotaCredito.php', info, function(r2) {
-                    });
-                } else {
+                    window.open('generarNotaCredito.php?idcliente=' + idcliente);
                 }
             });
-
+            $("#buscanotascredito").load("consultarNotasCredito.php", function() {
+                $('#dtnotascredito').dataTable();
+            });
         }
         if (r == 1) {
             alertify.error("No se pudo completar el proceso");
@@ -76,3 +94,16 @@ $("#btncancelarnotacredito").click(function() {
     $("#txtcantidadnotacredito").val("");
     $("#slccliente").selectpicker('val', 0);
 });
+
+function vincularcancelacion() {
+    var chkfoliocancelacion = $("#chkfoliocancelacion").is(":checked");
+    if (chkfoliocancelacion == true) {
+        $("#divfoliocancelacion").slideDown();
+    } else {
+        $("#divfoliocancelacion").slideUp();
+    }
+}
+
+function imprimirnotacredito(idcliente) {
+    window.open('generarNotaCredito.php?idcliente=' + idcliente);
+}

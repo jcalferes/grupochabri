@@ -38,12 +38,25 @@
                         <div id="nuevanotacredito">
                             <form>
                                 <div class="form-group">
-                                    <select id="slccliente" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                    <select id="slccliente" class="selectpicker selectores" data-width="auto" data-container="body" data-live-search="true">
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Cantidad en pesos:</label>
                                     <input type="text" class="form-control" id="txtcantidadnotacredito" onkeypress="return NumCheck2(event, this);"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="chkfoliocancelacion" onclick="vincularcancelacion();"> Vincular a una cancelacion
+                                        </label>
+                                    </div>
+                                    <div id="divfoliocancelacion">
+                                        <div class="well well-sm">
+                                            <label>Folio  de la cancelación a vincular:</label>
+                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacion"/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="button" class="btn btn-primary" id="btnguardanotacredito" value="Guardar nota de credito"/>
