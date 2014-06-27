@@ -2163,84 +2163,106 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     //==================Nuevo Guardar Cliente=================================
     function superGuardadorClientes(Proveedor $proveedor, Direccion $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails, Usuario $usuario, $idsucursal) {
-        $sqlUsuario = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal)"
-                . "VALUES ('" . $usuario->getUsuario() . "','" . $usuario->getNombre() . "','" . $usuario->getPaterno() . "','" . $usuario->getMaterno() . "','" . $usuario->getPass() . "','" . $usuario->getTipousuario() . "','$idsucursal')";
-
-        $sqlUsuarioId = "SELECT LAST_INSERT_ID() ID;";
-        //Guardando la direccion
-        $sqlDireccion = "INSERT INTO direcciones (calle, numeroExterior, numeroInterior, cruzamientos, postal, colonia, ciudad, estado) VALUES ('" . $direccion->getCalle() . "','" . $direccion->getNumeroexterior() . "','" . $direccion->getNumerointerior() . "','" . $direccion->getCruzamientos() . "','" . $direccion->getPostal() . "','" . $direccion->getColonia() . "','" . $direccion->getCiudad() . "','" . $direccion->getEstado() . "')";
-        $sqlDireccionId = "SELECT LAST_INSERT_ID() ID;";
-        mysql_query("START TRANSACTION;");
-        $rs = mysql_query($sqlUsuario);
-        if ($rs == false) {
-            mysql_query("ROLLBACK;");
-            return false;
+        $sqlvalidar = "SELECT * FROM clientes WHERE rfc = '" . $proveedor->getRfc() . "' ";
+        $ctrlvalidar = mysql_query($sqlvalidar);
+        $rowsvalidar = mysql_affected_rows();
+        if ($ctrlvalidar == false) {
+            $ctrlvalidar = mysql_error();
         } else {
-            $idUsuario = mysql_query($sqlUsuarioId);
-            while ($rs = mysql_fetch_array($idUsuario)) {
-                $idUsuario = $rs["ID"];
-            }
-            if ($idUsuario == false) {
-                mysql_query("ROLLBACK;");
-                return false;
+            if ($rowsvalidar > 0) {
+                return 999;
             } else {
-                $ctrlDireccionGuardar = mysql_query($sqlDireccion);
-                if ($ctrlDireccionGuardar == false) {
+                $sqlUsuario = "INSERT INTO usuarios (usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal)"
+                        . "VALUES ('" . $usuario->getUsuario() . "','" . $usuario->getNombre() . "','" . $usuario->getPaterno() . "','" . $usuario->getMaterno() . "','" . $usuario->getPass() . "','" . $usuario->getTipousuario() . "','$idsucursal')";
+                $sqlUsuarioId = "SELECT LAST_INSERT_ID() ID;";
+                //Guardando la direccion
+                $sqlDireccion = "INSERT INTO direcciones (calle, numeroExterior, numeroInterior, cruzamientos, postal, colonia, ciudad, estado) VALUES ('" . $direccion->getCalle() . "','" . $direccion->getNumeroexterior() . "','" . $direccion->getNumerointerior() . "','" . $direccion->getCruzamientos() . "','" . $direccion->getPostal() . "','" . $direccion->getColonia() . "','" . $direccion->getCiudad() . "','" . $direccion->getEstado() . "')";
+                $sqlDireccionId = "SELECT LAST_INSERT_ID() ID;";
+                mysql_query("START TRANSACTION;");
+
+
+                $sqlchkuser = "SELECT * FROM usuarios WHERE usuario = '" . $usuario->getUsuario() . "' AND idtipousuario = '" . $usuario->getTipousuario() . "' AND idSucursal = '$idsucursal'";
+                $ctrlchkuser = mysql_query($sqlchkuser);
+                $rowschkuser = mysql_affected_rows();
+                if ($ctrlchkuser == false) {
+                    $ctrlchkuser = mysql_error();
+                } else {
+                    if ($rowschkuser > 0) {
+                        return 777;
+                    }
+                }
+                $rs = mysql_query($sqlUsuario);
+                if ($rs == false) {
                     mysql_query("ROLLBACK;");
                     return false;
                 } else {
-                    $ctrlDireccionId = mysql_query($sqlDireccionId);
-                    if ($ctrlDireccionId == false) {
+                    $idUsuario = mysql_query($sqlUsuarioId);
+                    while ($rs = mysql_fetch_array($idUsuario)) {
+                        $idUsuario = $rs["ID"];
+                    }
+                    if ($idUsuario == false) {
                         mysql_query("ROLLBACK;");
                         return false;
                     } else {
-                        while ($rs = mysql_fetch_array($ctrlDireccionId)) {
-                            $idDireccion = $rs["ID"];
+                        $ctrlDireccionGuardar = mysql_query($sqlDireccion);
+                        if ($ctrlDireccionGuardar == false) {
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        } else {
+                            $ctrlDireccionId = mysql_query($sqlDireccionId);
+                            if ($ctrlDireccionId == false) {
+                                mysql_query("ROLLBACK;");
+                                return false;
+                            } else {
+                                while ($rs = mysql_fetch_array($ctrlDireccionId)) {
+                                    $idDireccion = $rs["ID"];
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
-        //Guardando Proveedor
-        $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus, credito,idUsuario) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1','" . $proveedor->getCredito() . "','" . $idUsuario . "')";
-        $sqlProveedorId = "SELECT LAST_INSERT_ID() ID;";
-        $ctrlProveedoGuardar = mysql_query($sqlProveedor);
-        if ($ctrlProveedoGuardar == false) {
-            $ctrlProveedoGuardar = mysql_error();
-            mysql_query("ROLLBACK;");
-            return false;
-        } else {
-            $ctrlProveedorId = mysql_query($sqlProveedorId);
-            if ($ctrlProveedorId == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            } else {
-                while ($rs = mysql_fetch_array($ctrlProveedorId)) {
-                    $idCliente = $rs["ID"];
+                //Guardando Proveedor
+                $sqlProveedor = "INSERT INTO clientes (nombre, idDireccion, rfc, diasCredito, descuentoPorFactura, descuentoPorProntoPago, tipoCliente, idStatus, credito,idUsuario) VALUES ('" . $proveedor->getNombre() . "','$idDireccion','" . $proveedor->getRfc() . "','" . $proveedor->getDiasCredito() . "','" . $proveedor->getDesctfactura() . "','" . $proveedor->getDesctprontopago() . "','" . $proveedor->getTipoProveedor() . "','1','" . $proveedor->getCredito() . "','" . $idUsuario . "')";
+                $sqlProveedorId = "SELECT LAST_INSERT_ID() ID;";
+                $ctrlProveedoGuardar = mysql_query($sqlProveedor);
+                if ($ctrlProveedoGuardar == false) {
+                    $ctrlProveedoGuardar = mysql_error();
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } else {
+                    $ctrlProveedorId = mysql_query($sqlProveedorId);
+                    if ($ctrlProveedorId == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    } else {
+                        while ($rs = mysql_fetch_array($ctrlProveedorId)) {
+                            $idCliente = $rs["ID"];
+                        }
+                    }
                 }
+                //Guardando Telefonos
+                for ($i = 0; $i < $ctrltelefonos; $i++) {
+                    $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idCliente','CLIENTE')";
+                    $ctrlTelefonoGuardar = mysql_query($sqlTelefonos);
+                    if ($ctrlTelefonoGuardar == false) {
+                        $rs = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+                //Guardar Emails
+                for ($i = 0; $i < $ctrlemails; $i++) {
+                    $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idCliente','CLIENTE')";
+                    $ctrlEmailsGuardar = mysql_query($sqlEmails);
+                    if ($ctrlEmailsGuardar == false) {
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+                mysql_query("COMMIT;");
+                return true;
             }
         }
-        //Guardando Telefonos
-        for ($i = 0; $i < $ctrltelefonos; $i++) {
-            $sqlTelefonos = "INSERT INTO telefonos (telefono, idPropietario, tipoPropietario) VALUES ('$telefonos[$i]','$idCliente','CLIENTE')";
-            $ctrlTelefonoGuardar = mysql_query($sqlTelefonos);
-            if ($ctrlTelefonoGuardar == false) {
-                $rs = mysql_error();
-                mysql_query("ROLLBACK;");
-                return false;
-            }
-        }
-        //Guardar Emails
-        for ($i = 0; $i < $ctrlemails; $i++) {
-            $sqlEmails = "INSERT INTO emails (email, idPropietario, tipoPropietario) VALUES ('$emails[$i]','$idCliente','CLIENTE')";
-            $ctrlEmailsGuardar = mysql_query($sqlEmails);
-            if ($ctrlEmailsGuardar == false) {
-                mysql_query("ROLLBACK;");
-                return false;
-            }
-        }
-        mysql_query("COMMIT;");
-        return true;
     }
 
     //==========================================================================

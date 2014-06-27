@@ -54,15 +54,19 @@ $ctrlemails = count($emails);
 
 $cn->Conectarse();
 $control = $dao->superGuardadorClientes($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails, $usuario, $idsucursal);
-//if($control != false){
-//    $dao->guardarUsuario($usuario, $idsucursal);
-//}
 $cn->cerrarBd();
 
-if ($control != false) {
-    echo 0;
-} else {
+if ($control == false) {
     echo 1;
+}
+if ($control == true) {
+    echo 0;
+}
+if ($control == 999) {
+    echo 999;
+} 
+if ($control == 777) {
+    echo 777;
 }
 
 
