@@ -7,13 +7,25 @@ var folio = 0;
 var tr2 = "";
 var tr3 = "";
 
-function eliminarFila(fila) {
+function eliminarFila(fila, bandera) {
     var total = 0;
     var subtotal = 0;
     var subtotal = 0;
     var descgral = 0;
     var descprod = 0;
     var importes = 0;
+    if(bandera == 1){
+     $(".cantidades").prop("disabled", false);
+//        $(".descuentos").prop("disabled", false);
+        $("#guardaEnviaOrden").show();
+        $("#CancelarOrden").show();
+        $("#enviarOrdenCompra").hide();
+//        $("#emailProveedor").load("mostrarEmailsProveedor.php");
+//        $("#emailProveedor").show();
+//        $("#descuentosGlobalesManuales").prop('checked', true);
+$("#btnbuscador").prop("disabled",false);
+        $("#codigoProductoEntradas").prop("disabled", false);
+    }
     $('#fila' + fila + '').each(function() {
         $(this).remove();
 
@@ -278,7 +290,7 @@ $("#folioM").keypress(function(e) {
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
 
-                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ',1)">X</a></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
@@ -724,7 +736,7 @@ function generarDescuentosgenerales() {
         else {
             descuent = parseFloat(descuent) + (parseFloat(misDescuentos[x]) * parseFloat(sda)) / 100;
         }
-        $("#descuentoGeneralM").val(parseFloat(descuent));
+        $("#descuentoGeneralM").val(parseFloat(descuent).toFixed(2));
         calcularDescTotal();
         calcularSDA();
     }
