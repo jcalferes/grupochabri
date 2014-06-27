@@ -56,16 +56,16 @@ $cn->Conectarse();
 $control = $dao->superGuardadorClientes($proveedor, $direccion, $telefonos, $emails, $ctrltelefonos, $ctrlemails, $usuario, $idsucursal);
 $cn->cerrarBd();
 
-if ($control == false) {
+if ($control === false) {
     echo 1;
 }
-if ($control == true) {
+if ($control === true) {
     echo 0;
 }
-if ($control == 999) {
+if ($control === 999) {
     echo 999;
 } 
-if ($control == 777) {
+if ($control === 777) {
     echo 777;
 }
 
