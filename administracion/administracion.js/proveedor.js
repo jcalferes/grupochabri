@@ -594,6 +594,12 @@ $("#btnguardarproveedor").click(function() {
             alertify.error("Error al guardar");
         }
         if (rs == 999) {
+            $("#consultaProveedor").load("consultarProveedor.php", function() {
+                $('#dtproveedor').dataTable();
+            });
+            $("#selectProveedor").load("mostrarProveedores.php", function() {
+                $("#selectProveedor").selectpicker('refresh');
+            });
             alertify.error("Este proveedor ya existe");
         }
         $("#selectProveedor").load("mostrarProveedores.php", function() {

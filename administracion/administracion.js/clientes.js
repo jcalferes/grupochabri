@@ -634,6 +634,9 @@ $("#btnguardarproveedor").click(function() {
             alertify.error("Error al guardar");
         }
         if (rs == 999) {
+            $("#consultaCliente").load("consultarCliente.php", function() {
+                $('#dtcliente').dataTable();
+            });
             alertify.error("Este cliente ya existe");
         }
         if (rs == 777) {
