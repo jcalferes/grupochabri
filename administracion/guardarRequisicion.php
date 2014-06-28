@@ -7,7 +7,7 @@ session_start();
 $idsucursal = $_SESSION["sucursalSesion"];
 $sucursal = $_POST["sucursal"];
 $transf = $_POST["transf"];
-$lafecha = date("d/m/Y h:i");
+$lafecha = date("d/m/Y");
 $dao = new dao();
 $datos = json_decode($_POST['datos']);
 
