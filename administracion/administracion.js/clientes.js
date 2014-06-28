@@ -206,9 +206,9 @@ $(document).ready(function() {
         $('#txtdesctpp').validCampoFranz('0123456789');
         $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
-        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+//        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
         $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz 1234567890');
-        $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+//        $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
     });
 });
 
