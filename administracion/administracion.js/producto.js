@@ -546,7 +546,9 @@ $('#editarDatos').click(function() {
         dato2="MADERAS";
     }
     var lista;
-    var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
+    
+    var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
+    alert(nombreProducto);
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $("#txtCodigoProducto").val();
