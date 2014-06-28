@@ -3304,7 +3304,36 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function obtenerOrdenesCompraTodas($idSucursal) {
-        $sql = "";
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlcomprobantes WHERE statusOrden = '5' and idSucursal = '$idSucursal'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
+    function dameProductos() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT codigoProducto FROM productos";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function insertarExistencias($codigo, $idSucursal) {
+//        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO existencias (cantidad, idSucursal, codigoProducto) VALUES ('0', '$idSucursal', '$codigo')";
+        $datos = mysql_query($sql, $cn->Conectarse());
+
+        return $datos;
+    }
+
+    function insertarCostos($codigoProducto, $idSucursal) {
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "INSERT INTO costos(costo, codigoproducto, fechaMovimiento, status, idSucursal) VALUES ('0', '$codigoProducto','$fecha','1','$idSucursal' )";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
 }

@@ -130,17 +130,17 @@
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>
             </section>
-
+            <!--Seccion de Cobranzas-->
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cobranzas</h2>
             <section>
                 <div>
-                    <div style="width: 20%; float: left">
+                    <div style="width: 20%; float: left" class="well">
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                            Cobrar
+                                            <center>Cobrar</center>
                                         </a>
                                     </h4>
                                 </div>
@@ -160,6 +160,11 @@
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span>
+                        </div>
+                        <br>
+                        <br>
+                        <div style="width: 100%" id="informacionPagos">
+                            sad
                         </div>
                     </div>
                 </div>
@@ -317,11 +322,11 @@
                     </div>
                     <div class="modal-body">
                         <table class="table table-hover" id="tableOrdenesCompra">
-                           
+
                         </table>
                     </div>
                     <div class="modal-footer">
-                       
+
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -335,7 +340,7 @@
         <script src="../administracion/administracion.js/buscador.js"></script>
         <script src="../administracion/administracion.js/cancelacion.js"></script>
         <script src="administracion.js/Ventas.js"></script>
-         <script src="administracion.js/pagos.js"></script>
+        <script src="administracion.js/pagos.js"></script>
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

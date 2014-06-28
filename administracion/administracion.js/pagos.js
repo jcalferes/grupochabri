@@ -5,3 +5,7 @@ $(document).ready(function() {
         });
     });
 });
+
+function cargarInformacion(folio) {
+   $("#informacionPagos").load("dameInformacion.php?id="+folio);
+}
