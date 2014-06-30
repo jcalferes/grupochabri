@@ -13,14 +13,13 @@
         <link href="alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="index/index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
-
         <title>Grupo Chabri</title>
     </head>
     <body>
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="index/index.img/czsale_logo.png"></a>
+                <a href="index.html"><img class="img-responsive" src="index/index.img/czsale_logo.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -49,7 +48,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <!--<li><a href="">Ayuda</a></li>-->
+                        <li><a href="index/ayuda.php">Ayuda</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
@@ -92,7 +91,7 @@
                                                 </fieldset>
                                             </form>
                                         </div>-->
-                    <h4>Categories</h4>
+                    <h4>Categorias</h4>
                     <div class="list-group categories">
                         <a href="#" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
                         <a href="#" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -104,7 +103,7 @@
                         <a href="#" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
                         <a href="#" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
-                    <h4>Newest classifieds</h4>
+                    <h4>Novedades</h4>
                     <div class="newest-classifieds">
                         <div class="media">
                             <a class="pull-left" href="#">
@@ -137,7 +136,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 content-right">
-                    <h4>Featured</h4>
+                    <h4>Novedades</h4>
                     <div id="slides">
                         <img src="index/index.img/slides/slide-00.jpg">
                         <img src="index/index.img/slides/slide-01.jpg">
@@ -145,7 +144,7 @@
                         <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
                         <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
                     </div>
-                    <h4>Recommended</h4>
+                    <h4>Recomendado</h4>
                     <div class="row selected-classifieds">
                         <div class="col-lg-3">
                             <div class="thumbnail">
