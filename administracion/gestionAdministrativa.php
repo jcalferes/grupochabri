@@ -14,7 +14,7 @@ $verificasession->validaSesion();
         <link rel="shortcut icon" href="">
         <title>Gestion Administrativa - Grupo Chabri  </title>
         <!-- CSS -->
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
