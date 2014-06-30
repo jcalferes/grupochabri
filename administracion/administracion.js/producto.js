@@ -498,7 +498,7 @@ $("#guardarDatos").click(function() {
             if (grupoProducto == 1 || dato2 == 'MADERAS') {
                 var m3 = $("#m3").val();
                 if (m3 === "" || /^\s+$/.test(m3)) {
-                    alertify.error("Faltan los metros cubicos del prodcuto");
+                    alertify.error("Faltan los metros cubicos del producto");
                     return false;
                 }
             } else {

@@ -29,7 +29,7 @@ function listarProductos() {
     if (info != undefined) {
 //        alert("entro");
         $.get('consultaMasivaProductos.php', info, function(x) {
-            alert(info);
+//            alert(info);
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
@@ -215,10 +215,10 @@ $(document).ready(function() {
                 $.get('listaTrasferencia.php', info, function(x) {
 
                     if (x == 0) {
-                        alertify.error("no hay ese codigo");
+                        alertify.error("No existe ese codigo");
                     } else {
                         $("#sucursal").prop('disabled', true);
-                        alertify.success("producto agregado a la lista");
+                        alertify.success("Producto agregado a la lista");
                         $("#codigoProductoTranferencia").val("");
                         lista = JSON.parse(x);
 //                    console.log(lista);
@@ -276,7 +276,7 @@ $(document).ready(function() {
             }
         });
         if (fallo == 1) {
-            alertify.error("las cantidades a pedir deben ser menores a las que hay en el invenario actual");
+            alertify.error("Las cantidades a pedir deben ser menores a las que hay en el inventario actual");
         } else {
             var arreglo = [];
             $('.myCodigo').each(function() {
