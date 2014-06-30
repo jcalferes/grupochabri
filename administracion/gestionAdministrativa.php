@@ -23,6 +23,7 @@ $verificasession->validaSesion();
         <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
         <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
         <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
+        <link href="administracion.css/bootstrap-reedit.css" rel="stylesheet">
         <!-- CSS Personalizados-->
     </head>
     <body>

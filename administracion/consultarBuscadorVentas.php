@@ -34,7 +34,7 @@ if ($datos ==true) {
         if ($existenciaTemporal == null) {
             $existenciaTemporal = 0;
         }
-        echo"<tr><td><center><input type='checkbox' id='eliminar' value='$rs[codigoProducto]'><input  type='button' id ='detalleTarifa' class='btn btn-primary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'/></center></td> ";
+        echo"<tr><td><center><input type='checkbox' id='eliminar' value='$rs[codigoProducto]'><input  type='button' id ='detalleTarifa' class='btn btn-cprimary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'/></center></td> ";
         echo"<td>$rs[codigoProducto]</td>";
         echo"<td >$rs[producto]</td>";
         echo"<td id='$rs[marca]' >$rs[marca] </td>";

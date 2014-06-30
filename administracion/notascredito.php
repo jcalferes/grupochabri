@@ -20,7 +20,7 @@
         <!-- CSS Personalizados-->
     </head>
     <body>
-        <input type="button"  class="btn btn-primary" value="Probar" id="btnnotascredito"/>
+        <input type="button"  class="btn btn-cprimary" value="Probar" id="btnnotascredito"/>
         <!--/.modal-->
         <div class="modal fade" id="mdlnotascredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div id="mdldialog" class="modal-dialog" >
@@ -31,7 +31,7 @@
                     </div>
                     <div class="modal-body">
                         <div id="vernotascredito">
-                            <input type="button" class="btn btn-primary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/><hr>
+                            <input type="button" class="btn btn-cprimary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/><hr>
                             <div id="buscanotascredito">
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="button" class="btn btn-primary" id="btnguardanotacredito" value="Guardar nota de credito"/>
+                                    <input type="button" class="btn btn-cprimary" id="btnguardanotacredito" value="Guardar nota de credito"/>
                                     <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
                                 </div>
                             </form>

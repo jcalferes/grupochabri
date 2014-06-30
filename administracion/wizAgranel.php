@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <hr>
-                        <input id="btnvalidar" type="button" class="btn btn-primary" value="Incrementear producto a granel"/>
+                        <input id="btnvalidar" type="button" class="btn btn-cprimary" value="Incrementear producto a granel"/>
                     </div>
                 </form>
             </section>

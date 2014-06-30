@@ -22,7 +22,7 @@
 
                         <input type="text" class="form-control" id="codigoProductoTranferencia" placeholder="Codigo" />
                         <span class="input-group-btn">
-                            <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
+                            <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
                             </button>
                         </span> 
 
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

@@ -83,7 +83,7 @@
                         <div class="input-group" id="panelBusqueda">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
                             <span class="input-group-btn">
-                                <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
+                                <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
 
                                 <span class="glyphicon glyphicon-search"></span>
                                 </button>
@@ -129,11 +129,11 @@
                     <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true"/></span>
                 </form>
                 <br>
-                <input type="button" class="btn btn-primary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
-                <input type="button" class="btn btn-primary" value="Enviar Orden de Compra" id="enviarOrdenCompra"/>
-                <input type="button" class="btn btn-primary" value="Modificar Orden" id="ModificarOrden"/>
-                <input type="button" class="btn btn-primary" value="Limpiar Orden" id="CancelarOrden"/>
-                <input type="button" class="btn btn-primary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
+                <input type="button" class="btn btn-cprimary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
+                <input type="button" class="btn btn-cprimary" value="Enviar Orden de Compra" id="enviarOrdenCompra"/>
+                <input type="button" class="btn btn-cprimary" value="Modificar Orden" id="ModificarOrden"/>
+                <input type="button" class="btn btn-cprimary" value="Limpiar Orden" id="CancelarOrden"/>
+                <input type="button" class="btn btn-cprimary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
 
 <!--            <h2><span class="glyphicon glyphicon-upload"/>&numsp;nada</h2>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
