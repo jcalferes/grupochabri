@@ -6,7 +6,7 @@
         <meta name="description" content="...">
         <meta name="keywords" content="...">
         <meta name="author" content="...">
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
         <link href="index/index.css/czsale.css" rel="stylesheet" media="screen">
         <link href="index/index.css/czsale-responsive.css" rel="stylesheet" media="screen">
