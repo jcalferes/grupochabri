@@ -67,11 +67,11 @@ WHERE u.idUsuario = '$idCliente'
         return true;
     }
 
-    function consultaOrdenesLista($tipo) {
+    function consultaOrdenesLista($tipo, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         if ($tipo == "ORDEN COMPRA") {
-            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo'";
+            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo' and s.idSucursal = '$idSucursal'";
         } else {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
         }

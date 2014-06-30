@@ -1,8 +1,10 @@
 <?php
+session_start();
 include_once './administracion.dao/dao.php';
 $dao= new dao();
 $tipo = $_GET["tipo"];
-$datos=$dao->consultaOrdenesLista($tipo);
+$idsucursal = $_SESSION["sucursalSesion"];
+$datos=$dao->consultaOrdenesLista($tipo,$idsucursal);
 //echo "<center><button type='button' class='btn btn-xs btn-default' id='btnver' onclick='eliminarProveedores()'><span class='glyphicon glyphicon-trash'></span></button></center>";
 if($tipo == "ORDEN COMPRA"){
     echo"<div class='table-responsive'><table class='table table-hover' id='dtproveedor'><thead><th>Folio</th><th>rfc</th><th>Proveedor</th><th>Fecha</th><th>total</th><th>Desct. Gral Total</th><th>Detalles</th></thead><tbody>";
