@@ -815,7 +815,7 @@ $(document).ready(function() {
                 success: function(x) {
                     window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA");
                     alertify.success("Exito! Orden Guardada");
-                    var tipo = "Orden%20Compra";
+                    var tipo = "ORDEN%20COMPRA";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
                 }
@@ -999,7 +999,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                     $("#txtEmail").show('slow');
                     $("#lblemailO").show('slow');
                     alertify.success("Exito! Orden Guardada con el folio No.-"+ x);
-                    var tipo = "Orden%20Compra";
+                    var tipo = "ORDEN%20COMPRA";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
                 }
@@ -1035,8 +1035,10 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
         $("#descuentosGlobalesManuales").prop("disabled", true);
         $("#descuentosGeneralesM").prop("disabled", true);
     });
-    var tipo = "Orden%20Compra";
-    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
+    var tipo = "ORDEN%20COMPRA";
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo,function(){
+         $('#dtproveedor').dataTable(); 
+    });
     $("#btnbuscador").click(function() {
          var proveedores = $("#proveedores").val();
 
