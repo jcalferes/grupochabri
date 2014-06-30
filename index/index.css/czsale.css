@@ -34,7 +34,7 @@ a:hover {
 
 a.list-group-item:hover, a.list-group-item.active, a.list-group-item.active:hover {
   border-color: #ddd;
-  background-color: #ED8709;
+  background-color:  #F77000;
   /*EDIT d9534f*/
   color: #fff;
 }
