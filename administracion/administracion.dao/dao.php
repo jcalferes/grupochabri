@@ -327,7 +327,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultaSucursales($sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM sucursales WHERE idSucursal <> '$sucursal'";
+        $sql = "SELECT * FROM sucursales WHERE idSucursal <> '$sucursal' Order by idSucursal ASC";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -848,6 +848,15 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn->cerrarBd();
     }
 
+    function consultaExistenciasgral($cp,$idSucursal){
+         include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM existencias  WHERE codigoProducto = '$cp' and idSucursal <> '$idSucursal' Order by idSucursal ASC";
+        $resultado = mysql_query($sql, $cn->Conectarse());
+
+
+        return $resultado;
+    }
     function consultaExistencia($producto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
