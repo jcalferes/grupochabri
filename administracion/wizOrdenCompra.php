@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Consulta Orden Compra</h2>
+            <h2><span class="glyphicon glyphicon-list-alt" />&numsp;Consulta Orden Compra</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
@@ -35,20 +35,22 @@
                     </table>
             </section>
 
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden Compra</h2>
+            <h2><span class="glyphicon glyphicon-file"/>&numsp;Orden de compra / Cotizaciones</h2>
             <section>
                 <form class="form-horizontal" role="form">
-                    <div class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
-                            Cotizar
-                        </span>
-                    </div>
-                    <div class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
-                            Orden Compra
-                        </span>
+                    <div class="form-group">
+                        <label class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
+                                Cotizar
+                            </span>
+                        </label>
+                        <label class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
+                                Orden Compra
+                            </span>
+                        </label>
                     </div>
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>
@@ -79,14 +81,11 @@
                         </div>
                         <input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>
                     </div>
-                    <div class="form-group form-inline">
-                        <div class="input-group" id="panelBusqueda">
-                            <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" disabled="true"/>
+                    <div class="form-group">
+                        <div class="input-group" style="width: 30%" id="panelBusqueda">
+                            <input type="text" class="form-control" id="codigoProductoEntradas"  placeholder="Codigo" disabled="true"/>
                             <span class="input-group-btn">
-                                <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
-
-                                <span class="glyphicon glyphicon-search"></span>
-                                </button>
+                                <button type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"><span class="glyphicon glyphicon-search"></span> Buscar productos</button>
                             </span> 
                         </div>
                     </div>
@@ -181,7 +180,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'>Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
