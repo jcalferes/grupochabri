@@ -167,7 +167,7 @@ echo "<hr>";
 
 echo "<table id='tblconceptos' class='table table-hover'>";
 echo "<thead>";
-echo "<th>Cantidad</th><th>Codigo <button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
+echo "<th>Cantidad</th><th>Codigo <button type='button' class='btn btn-xs btn-default' id='btnbuscar' onclick='consultarProductoId()' data-toggle='modal' data-target='#mdlconsultaid'><span class='glyphicon glyphicon-search'></span></button></th><th>Nombre</th><th>Costo</th><th>Desct. 1</th><th>Desct. 2</th><th>Desct. Total</th><th>CDA</th><th>Importe</th>";
 echo "</thead>";
 echo "<tbody>";
 //$arrayDetalleEntrada = [];
@@ -188,7 +188,7 @@ foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Co
     echo "<td><input type='text' class='form-control' id='cantidad$cuentaid' disabled='false' value='" . $Concepto['cantidad'] . "' /></td>";
 //    echo "<td>" . $Concepto['unidad'] . "</td>";
     echo "<td><input type='text' class='form-control' id='id$cuentaid'  value='" . $Concepto['noIdentificacion'] . "' /></td>";
-//    echo "<td>" . $Concepto['descripcion'] . "</td>";
+    echo "<td>" . $Concepto['descripcion'] . "</td>";
     echo "<td><input type='text' class='form-control' id='valorunitario$cuentaid' disabled='false' value='" . $Concepto['valorUnitario'] . "' /></td>";
     if ($cdao == $valorunnitario) {
         echo "<td><input type='text' maxlength='6' class='form-control' id='unodct$cuentaid'  onkeyup=' dameValorDescuento1($cuentaid)' /></td>";

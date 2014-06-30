@@ -76,8 +76,8 @@ $(document).ready(function() {
     $("#frmcostopieza").hide();
     $("#editarDatos").hide();
     $("#divm3").hide();
-    $('#txtCodigoProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890."%()');
+    $('#txtCodigoProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php", function() {
@@ -526,10 +526,28 @@ $("#guardarDatos").click(function() {
                     $(".producto").attr("disabled", true);
                     $(".checando").attr("checked", false);
                     $("#selectProducto").load("obtenerProductos.php");
-                    alertify.success("Producto agregada correctamente");
+                    alertify.success("Producto agregado correctamente");
                     return false;
                 } else {
-                    alertify.error("El codigo ya existe");
+                    $("#consultaProducto").load("consultarProducto.php", function() {
+                        $("#tdProducto").dataTable();
+                    });
+                    $("#txtNombreProducto").val("");
+                    $("#txtCodigoBarras").val("");
+                    $("#txtCodigoProducto").val("");
+                    $('#selectMarca').selectpicker('val', 0);
+                    $('#selectProveedor').selectpicker('val', 0);
+                    $('#selectGrupo').selectpicker('val', 0);
+                    $('#selectMedida').selectpicker('val', 0);
+                    $("#txtCostoProducto").val("");
+                    $("#txtCantidadMinima").val("");
+                    $("#txtCantidadMaxima").val("");
+                    $(".producto").val("");
+                    $(".neto").val("");
+                    $(".producto").attr("disabled", true);
+                    $(".checando").attr("checked", false);
+                    $("#selectProducto").load("obtenerProductos.php");
+                    alertify.error("Este producto ya fue agregado");
                 }
             });
         } else {
@@ -542,8 +560,8 @@ $("#guardarDatos").click(function() {
 
 $('#editarDatos').click(function() {
     var dato2 = $("#selectGrupo").val();
-    if (dato2 == 1){
-        dato2="MADERAS";
+    if (dato2 == 1) {
+        dato2 = "MADERAS";
     }
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
@@ -576,7 +594,7 @@ $('#editarDatos').click(function() {
             if (grupoProducto == 1 || dato2 == 'MADERAS') {
                 var m3 = $("#m3").val();
                 if (m3 === "" || /^\s+$/.test(m3)) {
-                    alertify.error("Faltan los metros cubicos del prodcuto");
+                    alertify.error("Faltan los metros cubicos del producto");
                     return false;
                 }
             } else {
@@ -609,10 +627,10 @@ $('#editarDatos').click(function() {
                 return false;
             });
         } else {
-            alertify.error("la cantidad maxima debe ser mayor a la minima");
+            alertify.error("La cantidad maxima debe ser mayor a la minima");
         }
     } else {
-        alertify.error("todos los campos deben tener valor");
+        alertify.error("Todos los campos deben tener valor");
     }
 });
 //    $("#selectTarifa").change(function() {
@@ -866,7 +884,7 @@ $("#txtCodigoProductoG").blur(function() {
                         $("#txtCodigoProductoG").val("");
                         $("#txtCodigoProductoG").focus("");
                         $("#divgrande").slideUp();
-                        alertify.error("Deber existir el producto");
+                        alertify.error("Debe existir el producto");
                     } else {
                         //Existe el producto====================================
                         $("#txtCostoProducto").addClass("disable", "dissable");
@@ -1125,10 +1143,28 @@ $("#guardarGranel").click(function() {
                     $(".producto").attr("disabled", true);
                     $(".checando").attr("checked", false);
                     $("#selectProducto").load("obtenerProductos.php");
-                    alertify.success("Producto agregada correctamente");
+                    alertify.success("Producto agregado correctamente");
                     return false;
                 } else {
-                    alertify.error("El codigo ya existe");
+                    $("#consultaProducto").load("consultarProducto.php", function() {
+                        $("#tdProducto").dataTable();
+                    });
+                    $("#txtNombreProducto").val("");
+                    $("#txtCodigoBarras").val("");
+                    $("#txtCodigoProducto").val("");
+                    $('#selectMarca').selectpicker('val', 0);
+                    $('#selectProveedor').selectpicker('val', 0);
+                    $('#selectGrupo').selectpicker('val', 0);
+                    $('#selectMedida').selectpicker('val', 0);
+                    $("#txtCostoProducto").val("");
+                    $("#txtCantidadMinima").val("");
+                    $("#txtCantidadMaxima").val("");
+                    $(".producto").val("");
+                    $(".neto").val("");
+                    $(".producto").attr("disabled", true);
+                    $(".checando").attr("checked", false);
+                    $("#selectProducto").load("obtenerProductos.php");
+                    alertify.error("Este producto ya fue agregado");
                 }
             });
         } else {
@@ -1190,11 +1226,11 @@ $("#editarGranel").click(function() {
             $("#txtCodigoProductoG").val("");
             $("#txtCodigoProductoG").focus("");
             $("#divgrande").slideUp();
-            alertify.success("Producto agregada correctamente");
+            alertify.success("Producto agregado correctamente");
             return false;
         });
     } else {
-        alertify.error("todos los campos deben tener valor");
+        alertify.error("Todos los campos deben tener valor");
     }
 });
 //==============================================================================
