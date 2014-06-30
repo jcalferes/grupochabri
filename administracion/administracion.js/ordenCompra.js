@@ -942,7 +942,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                 bandera = 1;
 
             }
-            alert(valor);
+//            alert(valor);
         });
         if (bandera == 0 && entro >= 1) {
 
@@ -986,7 +986,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                 cache: false,
                 success: function(x) {
                     var probando = $("#proveedores").val();
-                    alertify.error(x);
+//                    alertify.success(x);
                     folio = x;
                     $("#enviarOrdenCompra").show();
                     $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
@@ -998,14 +998,14 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                     $("#lblemailP").show('slow');
                     $("#txtEmail").show('slow');
                     $("#lblemailO").show('slow');
-                    alertify.success("Exito! Orden Guardada");
+                    alertify.success("Exito! Orden Guardada con el folio No.-"+ x);
                     var tipo = "Orden%20Compra";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
                 }
             });
         } else {
-            alertify.error("debes seleccionar un costo");
+            alertify.error("Debes seleccionar un costo");
         }
     });
 

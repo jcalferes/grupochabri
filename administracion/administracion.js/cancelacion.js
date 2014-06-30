@@ -30,7 +30,7 @@ $("#btnvalidacancelacion").click(function() {
         if (e) {
             $.get('efectuarCancelacion.php', info, function(r) {
                 if (r == 0) {
-                    alertify.success("Cancelaion realizada con exito");
+                    alertify.success("Cancelación realizada con exito");
                     $('#divvalidacancelacion').slideUp();
                     $("#showdatoscancelacion").remove();
                     $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');

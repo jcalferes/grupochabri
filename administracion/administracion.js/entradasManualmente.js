@@ -428,7 +428,7 @@ $(document).ready(function() {
                 conceptos.cantidadConcepto = $("#cant" + x).val();
                 conceptos.cdaConcepto = $("#cda" + x).val();
                 conceptos.codigoConcepto = $("#codigoM" + x).text();
-                alert($("#codigoM" + x).text());
+//                alert($("#codigoM" + x).text());
                 conceptos.descripcionConcepto = $("#descripcionM" + x).text();
                 conceptos.desctUnoConcepto = $("#descuento1" + x).val();
                 conceptos.desctDosConcepto = $("#descuento2" + x).val();

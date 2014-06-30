@@ -15,7 +15,7 @@ $(document).ready(function() {
                     $("#selectGrupo").selectpicker('refresh');
                 });
                 $("#txtnombreGrupo").val("");
-                alertify.error("Ya existe el grupo");
+                alertify.error("Ya existe eleste grupo");
             }
 
         });

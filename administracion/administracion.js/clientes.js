@@ -99,7 +99,7 @@ function verficaPostal2() {
                     contenido += "<option value='" + dataJson[i].asenta + "'>" + dataJson[i].asenta + "</option>";
 
                 }
-                alert(contenido);
+//                alert(contenido);
                 return contenido;
             });
         });
@@ -660,7 +660,7 @@ function eliminardatoscontacto(id, tipo) {
                     alertify.success("Datos eliminados");
                     actualizaTablasTelMail();
                 } else {
-                    alert(rs);
+//                    alert(rs);
                 }
             });
         }
@@ -679,7 +679,7 @@ function eliminardatoscontacto(id, tipo) {
                     actualizaTablasTelMail();
                     alertify.success("Datos eliminados");
                 } else {
-                    alert(rs);
+//                    alert(rs);
                 }
             });
         }

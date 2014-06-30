@@ -54,7 +54,7 @@ $(document).ready(function() {
             }
         });
         if (fallo == 1) {
-            alertify.error("las cantidades a pedir deben ser menores a las que hay en el invenario actual");
+            alertify.error("Las cantidades a pedir deben ser menores a las que hay en el inventario actual");
         } else {
 
             var arreglo = [];

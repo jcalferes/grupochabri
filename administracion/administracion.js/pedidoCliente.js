@@ -75,7 +75,7 @@ function eliminandoFila(fila, bandera) {
 }
 
 function verOrdenCompra(folio, comprobante) {
-    alert("folio:" + folio + " comprobante:" + comprobante);
+//    alert("folio:" + folio + " comprobante:" + comprobante);
     var info = "valor=" + folio + "&comprobante=PEDIDO CLIENTE";
     window.open('generarReporte.php?' + info);
 
@@ -96,7 +96,7 @@ function listarProductos() {
 
     });
     if (info != undefined) {
-        alert("entro");
+//        alert("entro");
 
         $.get('consultaMasivaProductos.php', info, function(x) {
             var valorando = 0;
@@ -145,7 +145,7 @@ function listarProductos() {
                             $("#guardarOrdenCompra").show();
                             $("#CancelarOrden").show();
                         } else {
-                            alertify.error("ya existe");
+                            alertify.error("Se sumo producto con exito");
                             sumar = $("#cant" + valorando).val();
                             total = 1 + parseInt(sumar);
                             $("#cant" + valorando).val(total);
@@ -249,7 +249,7 @@ $("#folioM").keypress(function(e) {
 //        alert(info);
         $.get('consultaClientePedido.php', info, function(x) {
             if (x == 0) {
-                alertify.error("no hay ese codigo");
+                alertify.error("No existe este codigo");
             } else {
 
                 alertify.error("Aqui mostrara Datos");
@@ -346,7 +346,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
             $.get('mostrarInformacionProductogral.php', info, function(informacion) {
                 if (informacion == 1) {
                     if ($("#sucursal").val() == '0') {
-                        alertify.error("Seleccione un sucursal");
+                        alertify.error("Seleccione una sucursal");
                     } else {
                         alertify.error("Error! Producto no dado de alta en ventas online");
                         return false;
@@ -387,7 +387,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
                 }
             });
         } else {
-            alertify.error("ya existe");
+            alertify.error("Se sumo el producto de manera exitosa");
             sumar = $("#cant" + valorando).val();
             total = 1 + parseInt(sumar);
             $("#cant" + valorando).val(total);
@@ -760,7 +760,7 @@ $(document).ready(function() {
             data: {data: informacion, band: "modifica", folio: $("#folioM").val(), sucursal: $("#sucursal").val()},
             cache: false,
             success: function(x) {
-                alert(x);
+//                alert(x);
                 window.open('generarReporte.php?valor=' + x + '&comprobante=PEDIDO CLIENTE');
                 alertify.success("Exito! Orden Guardada");
             }
