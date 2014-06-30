@@ -15,7 +15,7 @@
                     <input type="file" id="buscaxml" name="buscaxml[]"  accept="application/xml" title="Buscar XML">
                     <hr>
                     <div id="uno">
-                        <input type="button" id="cargar" class="btn btn-primary " value="Cargar archivo" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
+                        <input type="button" id="cargar" class="btn btn-cprimary " value="Cargar archivo" onclick="comprueba_extension(this.form, this.form.buscaxml.value)">
                     </div>
                 </form>
                 <div id="cargados">
@@ -23,7 +23,7 @@
                 </div>
                 <form id="validacion">
                     <input type="button" class="btn btn-default" value="Nuevo XML" id="cancelar"/>
-                    <input type="button" class="btn btn-primary" value="Validar" id="validar"/>
+                    <input type="button" class="btn btn-cprimary" value="Validar" id="validar"/>
                 </form>
                 <!--==============================-->
             </section>
