@@ -35,52 +35,42 @@
                 <div class="collapse navbar-collapse" id="czsale-navbar">
                     <a href="addClassified.html" class="btn btn-success navbar-btn add-classified-btn navbar-left" role="button">Add classified</a>
                     <ul class="nav navbar-nav navbar-right">
+                        <!--                        <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="index.html">Home page</a></li>
+                                                        <li><a href="addClassified.html">Add classified</a></li>
+                                                        <li><a href="category.html">Category page</a></li>
+                                                        <li><a href="detail.html">Classified detail</a></li>
+                                                        <li><a href="conditions.html">Rules & Conditions</a></li>
+                                                        <li><a href="help.html">Help (FAQ)</a></li>
+                                                        <li><a href="contact.html">Contact</a></li>
+                                                        <li><a href="signUp.html">Sign Up</a></li>
+                                                    </ul>
+                                                </li>-->
+                        <li><a href="help.html">Ayuda</a></li>
+                        <li><a href="signUp.html">Iniciar Sesion</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index.html">Home page</a></li>
-                                <li><a href="addClassified.html">Add classified</a></li>
-                                <li><a href="category.html">Category page</a></li>
-                                <li><a href="detail.html">Classified detail</a></li>
-                                <li><a href="conditions.html">Rules & Conditions</a></li>
-                                <li><a href="help.html">Help (FAQ)</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="signUp.html">Sign Up</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="help.html">Help</a></li>
-                        <li><a href="signUp.html">Sign Up</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
                             <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
                                 <li>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                            <form class="form" role="form" accept-charset="UTF-8" id="login-nav">
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                                    <label class="sr-only" for="exampleInputEmail2">Usuario</label>
+                                                    <input type="text" class="form-control" id="loginuser" placeholder="Usuario" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Remember me
-                                                    </label>
+                                                    <label class="sr-only" for="exampleInputPassword2">Contraseña</label>
+                                                    <input type="password" class="form-control" id="loginpass" placeholder="Contraseña" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                                    <button type="button" class="btn btn-cprimary btn-block" id="loginbtn">Acceder</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
-                                    <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
                                 </li>
                             </ul>
                         </li>
