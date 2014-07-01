@@ -16,7 +16,7 @@ a:hover {
 }
 
 .logo {
-  position: absolute;
+  /*position: absolute;*/
   top: 2px;
   left: 20px;
   z-index: 9999;
