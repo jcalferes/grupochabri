@@ -4,30 +4,30 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;CONSULTA ORDEN CLIENTE</h2>
+            <h2><span class="glyphicon glyphicon-list-alt" />&numsp;Tabla ordenes de clientes</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
-<!--                        <label  class="control-label">Codigo:</label>-->
-<!--                        <div class="input-group">
-                            <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
-                            <span class="input-group-btn">
-                                <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span> 
-                        </div>-->
+                        <!--                        <label  class="control-label">Codigo:</label>-->
+                        <!--                        <div class="input-group">
+                                                    <input  type="text" class="form-control" id="codigoProducto" placeholder="Codigo"/>
+                                                    <span class="input-group-btn">
+                                                        <button  id="buscarCodigo" class="btn btn-default" type="button" title="Buscar">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                    </span> 
+                                                </div>-->
                     </div>
-<!--                    <div class="form-group">
-                        <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
-                        <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
-                    </div>-->
-<!--                    <div id="datosCaptura">
-                        <div class="form-group">
-                            <label  class="control-label">Cantidad</label>
-                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="form-group">
+                                            <input id="guardarEntradas" type="submit" class=" btn btn-primary" value="Guardar"/>
+                                            <input  id="cancelarEntradas" type="submit" class="btn btn-default" value="Cancelar"/>
+                                        </div>-->
+                    <!--                    <div id="datosCaptura">
+                                            <div class="form-group">
+                                                <label  class="control-label">Cantidad</label>
+                                                <input type="text" class="form-control" id="cantidad" placeholder="Cantidad"/>
+                                            </div>
+                                        </div>-->
                 </div>
                 <div id="detallesPedido">
                 </div>
@@ -35,56 +35,60 @@
                 </table>
             </section>
 
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Cliente Compra</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden de compra para clientes</h2>
             <section>
                 <form class="form-horizontal" role="form">
-                    <select id="sucursal" class="form-control">
-                        <option value="0">Seleccione una Sucursal</option>
-                    </select>
-                    <div class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
-                            Nuevo Pedido
-                        </span>
+                    <div class="form-group">
+                        <select id="sucursal" class="form-control" style="width: 50%">
+                            <option value="0">Seleccione una Sucursal</option>
+                        </select>
                     </div>
-                    <div class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
-Revisar/Modificar Pedido                        </span>
+                    <div class="form-group">
+                        <label class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
+                                Nuevo Pedido
+                            </span>
+                        </label>
+                        <label class="radio-inline" >
+                            <span>
+                                <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
+                                Revisar/Modificar Pedido                        </span>
+                        </label>
                     </div>
                     <div class="form-group form-inline" >
                         <label id="folio">Folio: </label>
                         <input id="folioM" type="number" class="form-control"  placeholder="Folio">&numsp;   
-                        <param class="CProducto" hidden="true" value="nada">
-<!--                        <label id="lblproveedor">Proveedor: </label>
-                        <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
-<!--                        <label id="lblemailP">Email: </label>
-                        <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
-                        <label id="lblemailO">Otro email(opcional): </label>
-                        <input id="txtEmail" class="form-control"/>                       -->
+                        <!--<param class="CProducto" hidden="true" value="nada">-->
+                        <!--                        <label id="lblproveedor">Proveedor: </label>
+                                                <select id="proveedores" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;-->
+                        <!--                        <label id="lblemailP">Email: </label>
+                                                <select id="emailProveedor" class="selectpicker" data-container="body" data-live-search="true" data-style="btn-default"></select>&numsp;
+                                                <label id="lblemailO">Otro email(opcional): </label>
+                                                <input id="txtEmail" class="form-control"/>                       -->
                         <!--
             <label>Fecha Emitida: </label>
             <input id="fechaEmitidaM" type="date" class="form-control" />-->
                     </div>
                     <div class="form-group form-inline">
 
-<!--                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
-                            </label>
-                        </div><br>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
-                            </label>
-                        </div>-->
-                        <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
+                        <!--                        <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="descuentosGlobalesManuales"> Desct. por producto
+                                                    </label>
+                                                </div><br>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" id="descuentosGeneralesM"> Desct. Generales: 
+                                                    </label>
+                                                </div>-->
+                                                <!--<input type="text" disabled="true" id="descuentosGeneralesPorComasM" onkeyup="generarDescuentosgenerales()" class="form-control input-sm"/>-->
                     </div>
                     <div class="form-group form-inline">
-                        <div class="input-group" id="panelBusqueda">
+                        <div class="input-group" id="panelBusqueda" style="width: 30%">
                             <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" />
                             <span class="input-group-btn">
-                                        <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
+                                <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
 
                             </span> 
                         </div>
@@ -118,7 +122,7 @@ Revisar/Modificar Pedido                        </span>
                 <br>
                 <form class="form-inline text-right">
                     <!--<span>SDA :--> 
-                        <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
                 <br>
                 <form class="form-inline text-right">
@@ -167,7 +171,7 @@ Revisar/Modificar Pedido                        </span>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'>Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

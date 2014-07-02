@@ -13,18 +13,18 @@
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
                     <div id="frmtipo" class="form-group">
                         <label>Tipo:</label><br>
-                        <div class="radio-inline" >
+                        <label class="radio-inline" >
                             <span>
                                 <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked/>
                                 Fisica
                             </span>
-                        </div>
-                        <div class="radio-inline" >
+                        </label>
+                        <label class="radio-inline" >
                             <span>
                                 <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL"/>
                                 Moral
                             </span>
-                        </div>
+                        </label>
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>

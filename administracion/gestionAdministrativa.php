@@ -14,39 +14,39 @@ $verificasession->validaSesion();
         <link rel="shortcut icon" href="">
         <title>Gestion Administrativa - Grupo Chabri  </title>
         <!-- CSS -->
-        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
-        <link href="../jsteps/css/jquery.steps.css" rel="stylesheet">
-        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
-        <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet">
-        <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet">
-        <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet">
-        <link href="administracion.css/bootstrap-reedit.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.core.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.default.css" rel="stylesheet" media="screen">
+        <link href="../jsteps/css/jquery.steps.css" rel="stylesheet" media="screen">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap-select.css" rel="stylesheet" media="screen">
+        <link href="../switchboostrap/css/bootstrap-switch.css" rel="stylesheet" media="screen">
+        <link href="administracion.css/gestionAdministrativa.css" rel="stylesheet" media="screen">
+        <link href="administracion.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
         <!-- CSS Personalizados-->
     </head>
     <body>
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navgestion">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar" ></span>
                     </button>
-                    <a class="navbar-brand" href="">Grupo Chabri</a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav" id="navgestion">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar</a></li>
+                                <li class="dropdown-header"></li>
+                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar productos</a></li>
                                 <li class="divider"></li>
-                                <!--<li class="dropdown-header">Otros</li>-->
-                                <li id="12" class=""><a onclick="entroAgranel();">Granel</a></li>
+                                <li class="dropdown-header"></li>
+                                <li id="12" class=""><a onclick="entroAgranel();">Incrementar productos a granel</a></li>
                                 <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
                                 <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
                             </ul>
@@ -54,11 +54,13 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas</a></li>
-                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas</a></li>
+                                <li class="dropdown-header"></li>
+                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de producto</a></li>
+                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas de producto</a></li>
                                 <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
                                 <li class="divider"></li>
-                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra</a></li>
+                                <li class="dropdown-header"></li>
+                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra y cotizaciones</a></li>
                                 <li id="13" class=""><a onclick="entroClientePedido();">Pedidos de clientes</a></li>
                                 <li id="11" class=""><a onclick="entroTrasferencia();">Transferencias</a></li>
                             </ul>
@@ -66,6 +68,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li class="dropdown-header"></li>
                                 <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
                                 <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
                                 <li id="8" class=""><a onclick="entroUsuarios();">Usuarios del sistema</a></li>
@@ -78,7 +81,7 @@ $verificasession->validaSesion();
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
-        </div>
+        </nav>
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">

@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'>Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

@@ -2,7 +2,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
+            <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tabla de productos</h2>
             <section style="width: 100%">
                 <div id="consultaProducto" ></div>
             </section>

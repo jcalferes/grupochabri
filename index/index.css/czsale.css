@@ -16,8 +16,8 @@ a:hover {
 }
 
 .logo {
-  position: absolute;
-  top: 0;
+  /*position: absolute;*/
+  top: 2px;
   left: 20px;
   z-index: 9999;
 }
@@ -34,7 +34,8 @@ a:hover {
 
 a.list-group-item:hover, a.list-group-item.active, a.list-group-item.active:hover {
   border-color: #ddd;
-  background-color: #d9534f;
+  background-color:  #F77000;
+  /*EDIT d9534f*/
   color: #fff;
 }
 

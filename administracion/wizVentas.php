@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-cprimary' id='btnver'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver'>Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -204,8 +204,7 @@
                         <button type='button' 
                                 class='btn btn-cprimary' 
                                 id='btnGranel'>
-                            <span class='glyphicon glyphicon-shopping-cart'>
-                            </span> Listar</button>
+                            Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

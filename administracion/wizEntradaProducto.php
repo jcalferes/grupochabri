@@ -3,7 +3,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list" />&numsp;Tabla de Inventarios</h2>
+            <h2><span class="glyphicon glyphicon-list-alt" />&numsp;Tabla de Inventarios</h2>
             <section>
                 <div class="form"  style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
@@ -34,7 +34,7 @@
                 </table>
             </section>
 
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manualmente</h2>
+            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Entradas Manuales</h2>
             <section>
                 <form class="form-horizontal" role="form">
                     <div class="form-group form-inline" >
@@ -110,7 +110,7 @@
                 <input type="button" class="btn btn-cprimary" value="Guardar" id="guardarEntradasManualmente"/>
             </section>
             
-            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Subir XML</h2>
+            <h2><span class="glyphicon glyphicon-upload"/>&numsp;Entradas por XML</h2>
             <section>
                 <form id="xmlenrada" style="margin: 0% 25% 0% 25%">
                     <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
