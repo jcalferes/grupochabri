@@ -35,7 +35,6 @@ function comprueba_extension_xmlentrada(formulario, archivo) {
             //que no se repita, si no lo usamos solo tendra el valor de la ultima iteracion
             for (i = 0; i < archivo.length; i++) {
                 data.append('archivo' + i, archivo[i]);
-                alert(archivo[i]);
             }
             $.ajax({
                 url: 'xmlCargarEntrada.php', //Url a donde la enviaremos
