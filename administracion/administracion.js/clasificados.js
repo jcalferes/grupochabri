@@ -1,40 +1,32 @@
-function comprueba_extension_imagenes(formulario, archivo) {
-    alert("entro");
-    extensiones_permitidas = new Array(".jpg"); //".gif", ".jpg", ".doc", ".pdf", 
-    mierror = "";
-    if (!archivo) {
-        //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario
-        //mierror = "No has seleccionado ningún archivo";
-        alertify.error("No has seleccionado ningún archivo");
-    } else {
-        //recupero la extensión de este nombre de archivo
-        extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase();
-        //alert (extension);
-        //compruebo si la extensión está entre las permitidas
-        permitida = false;
-        for (var i = 0; i < extensiones_permitidas.length; i++) {
-            if (extensiones_permitidas[i] == extension) {
-                permitida = true;
-                break;
+var archivos;
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+ archivos = files;
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+       var fileName = f.name;
+       
+      var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+      output.push('<li><strong>', escape(f.name), '</strong> (', fileExtension || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate.toLocaleDateString(), '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+$(document).ready(function() {
+       
+    $("#subirImagenes").click(function(){
+//        alert(archivos);
+        var data = new FormData();
+         for (i = 0; i < archivos.length; i++) {
+                data.append('archivo' + i, archivos[i]);
+//                alert(archivos[i]);
             }
-        }
-        if (!permitida) {
-            //mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
-            alertify.error("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join());
-        } else {
-            var archivos = document.getElementById("buscaxmlentrada");//Damos el valor del input tipo file
-            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
-            //var texto = document.getElementById("texto").value;
-            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo 
-            var data = new FormData();
-            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al 
-            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
-            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteracion
-            for (i = 0; i < archivo.length; i++) {
-                data.append('archivo' + i, archivo[i]);
-alert("alalala");
-            }
-            $.ajax({
+        $.ajax({
                 url: 'guardandoImagenes.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
@@ -42,11 +34,11 @@ alert("alalala");
                 processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
                 cache: false //Para que el formulario no guarde cache
             }).done(function(msg) {
-               
+//                $("#xmlenrada").slideUp();
+//                $("#validacionentradas").slideDown();
+//                $("#cargaxml").slideDown();
                 $("#cargaxml").append(msg); //Mostrara los archivos cargados en el div con el id "Cargados"
             });
-
-        }
-    }
-    return 0;
-}
+        
+    });
+});
