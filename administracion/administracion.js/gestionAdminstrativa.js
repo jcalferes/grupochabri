@@ -21,6 +21,10 @@ $(document).ready(function() {
     });
 });
 
+//$("#donde").click(function(){
+//    alert("Entre");
+//});
+
 function entroMarca() {
     $("#mostrar").load("wizMarca.php");
 }
@@ -67,4 +71,8 @@ function entroAgranel() {
 
 function entroClientePedido() {
     $("#mostrar").load("wizClientePedido.php");
+}
+
+function entroClasificados() {
+    $("#mostrar").load("wizClasificados.php");
 }

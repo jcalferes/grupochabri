@@ -30,7 +30,7 @@ $verificasession->validaSesion();
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navgestion">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -38,7 +38,7 @@ $verificasession->validaSesion();
                     </button>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav" id="navgestion">
+                    <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -75,9 +75,17 @@ $verificasession->validaSesion();
 
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Publicar<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="15" class=""><a onclick="entroClasificados();">Clasificados</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
+<!--<li><a id="donde"></a></li>-->
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
