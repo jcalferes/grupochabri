@@ -15,9 +15,8 @@ class dao {
         $cn = new coneccion();
 
         $sql = "SELECT * FROM usuarios u INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
-WHERE u.idUsuario = '$idCliente'
-";
+                INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
+                WHERE u.idUsuario = '$idCliente'";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -2824,9 +2823,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function consultarDatosAbonos($folio, $sucursal) {
-        $sql = "SELECT * FROM xmlComprobantes xc "
+        $sql = "SELECT * FROM xmlcomprobantes xc "
                 . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
-                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND tipoComprobante = 'CREDITO'";
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = 1;
@@ -2916,7 +2915,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
                 . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
                 . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
-                . "WHERE x.tipoComprobante = 'CREDITO' AND a.statusSaldo = '1' AND x.idPagos = '2' AND a.idSucursal = '$sucursal'";
+                . "WHERE x.statusOrden = '8' AND a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = mysql_error();
@@ -3300,7 +3299,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function dameTotalCredito($idSucursal, $rfc) {
         $cn = new coneccion();
-        $sql = "select sum(totalComprobante) from xmlcomprobantes where idTipoPago =2 and statusOrden = 5 and idSucursal = '$idSucursal' and rfcComprobante= '$rfc'";
+        $sql = "select sum(totalComprobante) from xmlcomprobantes where idTipoPago =2 and statusOrden = 8 and idSucursal = '$idSucursal' and rfcComprobante= '$rfc'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -3423,7 +3422,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             if ($error == "") {
                 $status = 0;
                 if ($idTipoPago == 2) {
-                    $status = 5;
+                    $status = 8;
                 } else {
                     $status = 7;
                 }
@@ -3447,20 +3446,37 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             } else {
                                 while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
                                     $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
-                                            . " VALUES ('" . $r2["rfcComprobante"] . "',0,0,0,'$idSucursal', $folio, '$fecha', '0','','0')";
+                                            . " VALUES ('" . $r2["rfcComprobante"] . "',0,0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
                                     $rsAbonos = mysql_query($sqlAbonos);
-                                    if($rsAbonos == false){
+                                    if ($rsAbonos == false) {
                                         $error = mysql_error();
+                                        mysql_query("ROLLBACK;");
                                     }
                                 }
                             }
                         }
-                        mysql_query("COMMIT;");
+                        $folio = $folio + 1;
+                        $sqlUpadteFolio = "UPDATE folios set folioVenta = '$folio' WHERE idSucursal = '$idSucursal'";
+                        $rsUpdateFolio = mysql_query($sqlUpadteFolio);
+                        if ($rsUpdateFolio == false) {
+                            $error = mysql_error();
+                            mysql_query("ROLLBACK;");
+                        } else {
+                            mysql_query("COMMIT;");
+                        }
                     }
                 }
             }
         }
         return $error;
+    }
+
+    function obtenerOrdenCompraClientes($rfc, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT idXmlComprobante, fechaMovimiento FROM xmlcomprobantes  WHERE idSucursal ='$idSucursal' and statusOrden = 5 and rfcComprobante = '$rfc'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
     }
 
 }
