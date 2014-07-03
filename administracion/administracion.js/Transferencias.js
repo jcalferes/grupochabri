@@ -1,17 +1,17 @@
-function eliminarFila(fila){
-    var   mientras = 0;
-     $("#fila" + fila).remove();
-     $('.transferencia').each(function() {
+function eliminarFila(fila) {
+    var mientras = 0;
+    $("#fila" + fila).remove();
+    $('.transferencia').each(function() {
 
-      var  elemento = $(this).val();
-               
-     mientras = parseFloat(mientras) + parseFloat(elemento);
+        var elemento = $(this).val();
+
+        mientras = parseFloat(mientras) + parseFloat(elemento);
     });
     $("#costoTotal").val(mientras);
 }
 
 function listarProductos() {
-   
+
     var idMarcas = new Array();
     var info;
     $('#tdProducto').find(':checked').each(function() {
@@ -47,14 +47,12 @@ function listarProductos() {
                             var valor = elemento.value;
 //                            alert(elemento.name);
                             if (valor == elem[ind].codigoproducto && elem[ind].codigoproducto !== "inicial") {
-            alertify.error("ya existe");
                                 valorando = nombre;
-
                             }
                         });
                         if (valorando == '0') {
-                            tr = '<tr id="fila'+elem[ind].codigoProducto+'">\n\
-<td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoproducto + '\')">Eliminar</button></td>\n\
+                            tr = '<tr id="fila' + elem[ind].codigoProducto + '">\n\
+<td ></center><button type="button"  class="btn btn-xs" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoproducto + '" value="' + elem[ind].codigoproducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
                           <td><div id="div' + elem[ind].codigoproducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoproducto + '" value= "0"  onkeyup="sacarTotal(\'' + elem[ind].codigoproducto + '\')"></div> </td>\n\\n\\n\
@@ -67,7 +65,7 @@ function listarProductos() {
 
 //
                         } else {
-alertify.error("Uno de los productos ya existe");
+                            alertify.error("El producto ya esta en la lista");
                         }
                     });
 
@@ -205,28 +203,27 @@ $(document).ready(function() {
         $("#costoTotal").val(0);
     });
     $("#codigoProductoTranferencia").keypress(function(e) {
-         if (e.which == 13) {
-        var sucursal = $("#sucursal").val();
-        var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
-        var codigo = $("#codigoProductoTranferencia").val();
-        var comprobar = recorrerTabla(codigo);
-        if (sucursal > 0) {
-            if (comprobar == 0) {
-                $.get('listaTrasferencia.php', info, function(x) {
+        if (e.which == 13) {
+            var sucursal = $("#sucursal").val();
+            var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
+            var codigo = $("#codigoProductoTranferencia").val();
+            var comprobar = recorrerTabla(codigo);
+            if (sucursal > 0) {
+                if (comprobar == 0) {
+                    $.get('listaTrasferencia.php', info, function(x) {
 
-                    if (x == 0) {
-                        alertify.error("No existe ese codigo");
-                    } else {
-                        $("#sucursal").prop('disabled', true);
-                        alertify.success("Producto agregado a la lista");
-                        $("#codigoProductoTranferencia").val("");
-                        lista = JSON.parse(x);
+                        if (x == 0) {
+                            alertify.error("No existe ese codigo");
+                        } else {
+                            $("#sucursal").prop('disabled', true);
+                            $("#codigoProductoTranferencia").val("");
+                            lista = JSON.parse(x);
 //                    console.log(lista);
-                        var tr = "";
-                        $.each(lista, function(ind, elem) {
-                            $.each(elem, function(ind, elem2) {
-                                tr = '<tr id="fila'+elem[ind].codigoProducto+'">\n\
-<td ><button type="button" value="eliminar" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')">Eliminar</button></td>\n\
+                            var tr = "";
+                            $.each(lista, function(ind, elem) {
+                                $.each(elem, function(ind, elem2) {
+                                    tr = '<tr id="fila' + elem[ind].codigoProducto + '">\n\
+<td></center><button type="button"  class="btn btn-xs" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
                           <td><input type="text" class="form-control" value="' + elem[ind].producto + '" disabled/></td>\n\\n\\n\\n\
                           <td><div id="div' + elem[ind].codigoProducto + '" class="form-group "><input type= "text" class="form-control guardar" id="txtCantidad' + elem[ind].codigoProducto + '" value= "0"  onkeyup="sacarTotal(\'' + elem[ind].codigoProducto + '\')"></div> </td>\n\\n\\n\
@@ -234,20 +231,20 @@ $(document).ready(function() {
                           <td><input type="text" class="form-control guardar" id="costoUnitario' + elem[ind].codigoProducto + '" value = "' + elem[ind].costo + '" disabled></td>\n\\n\
                         <td><input type="text" class="transferencia form-control" id="txtTotal' + elem[ind].codigoProducto + '"  disabled></td>\n\
                       </tr>\n\ ';
-                                $("#tablaTransferencias").append(tr);
-                                $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                                    $("#tablaTransferencias").append(tr);
+                                    $("#txtTotal" + elem[ind].codigoProducto).val("0");
+                                });
                             });
-                        });
 
-                    }
-                });
+                        }
+                    });
+                } else {
+                    alertify.error("El producto ya esta en la lista");
+                }
             } else {
-                alertify.error("ya se a agregado este producto en la lista");
+                alertify.error("Debe seleccionar una sucursal");
             }
-        } else {
-            alertify.error("Debe seleccionar una sucursal");
         }
-         }
     });
 
     $("#mandarPedido").click(function() {
@@ -332,5 +329,5 @@ $(document).ready(function() {
         });
         $('#mdlbuscador').modal('toggle');
     });
-    
+
 });

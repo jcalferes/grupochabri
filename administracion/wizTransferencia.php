@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <form>
-                    <table class="table table-striped" id="tablaTransferencias">
+                    <table class="table table-hover table-responsive" id="tablaTransferencias">
                         <thead>
                         <th></th>
                         <th>Codigo</th>

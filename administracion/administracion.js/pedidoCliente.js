@@ -934,7 +934,9 @@ $(document).ready(function() {
         $("#folioM").prop("disabled", false);
     });
     var tipo = "PEDIDO%20CLIENTE";
-    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function() {
+        $('#dtproveedor').dataTable();
+    });
     $("#sucursal").load("sacarSucursales.php?pedidoCliente='pedido'");
 
     $("#btnbuscador").click(function() {
