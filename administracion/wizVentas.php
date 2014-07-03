@@ -110,7 +110,7 @@
                     <span>Total : <input type="text" id="totalVenta" class="form-control text-right" style="width: 20%" disabled="true"/></span>
                 </form>
 
-                <input  id="guardarVenta"  type="submit" class="btn btn-primary"/>
+                <input  id="guardarVenta"  type="submit" class="btn btn-cprimary"/>
             </section>
             <!-- CANCELACIONES -->
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cancelaciones</h2>
@@ -120,7 +120,7 @@
                     <div id="divfoliocancelacion" class="form-group">
                         <label>Folio:</label>
                         <input type="text" class="form-control" id="txtfoliocancelacion"><br>
-                        <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-primary" data-dismiss="modal" value="Buscar"/>
+                        <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Buscar"/>
                     </div>
                     <!--</form>-->
                 </div>
@@ -128,7 +128,7 @@
                     <div id="showdatoscancelacion"></div>
                 </div>
                 <div id="divvalidacancelacion">
-                    <input type="button" class="btn btn-primary" id="btnvalidacancelacion" value="Efectuar cancelacion">
+                    <input type="button" class="btn btn-cprimary" id="btnvalidacancelacion" value="Efectuar cancelacion">
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>
             </section>
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class='btn btn-primary' id='btnver'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
+                        <button type='button' class='btn btn-cprimary' id='btnver'>Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -232,10 +232,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type='button' 
-                                class='btn btn-primary' 
+                                class='btn btn-cprimary' 
                                 id='btnGranel'>
-                            <span class='glyphicon glyphicon-shopping-cart'>
-                            </span> Listar</button>
+                            Agregar productos seleccionados a la lista</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -291,7 +290,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type='button' 
-                                class='btn btn-primary' 
+                                class='btn btn-cprimary' 
                                 id='btnAutorizar'>
                             Autorizar</button>
                     </div>

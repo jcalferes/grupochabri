@@ -33,7 +33,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input id="btncanceloProvedor" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input id="btnguardarproveedor" type="button" class="btn btn-primary"  data-dismiss="modal" value="Guardar"/>
+                                <input id="btnguardarproveedor" type="button" class="btn btn-cprimary"  data-dismiss="modal" value="Guardar"/>
                             </div>
                         </div>
                     </form>

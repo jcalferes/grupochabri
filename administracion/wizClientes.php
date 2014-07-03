@@ -13,18 +13,18 @@
                 <form name="formProveedor" style="margin: 0% 25% 0% 25%">
                     <div id="frmtipo" class="form-group">
                         <label>Tipo:</label><br>
-                        <div class="radio-inline" >
+                        <label class="radio-inline" >
                             <span>
                                 <input type="radio" name="tipo" id="fisica" value="FISICA" onclick="focusRFC();" checked/>
                                 Fisica
                             </span>
-                        </div>
-                        <div class="radio-inline" >
+                        </label>
+                        <label class="radio-inline" >
                             <span>
                                 <input type="radio" name="tipo" id="moral" onclick="focusRFC();" value="MORAL"/>
                                 Moral
                             </span>
-                        </div>
+                        </label>
                     </div>
                     <div id="frmrfc" class="form-group">
                         <label>RFC:</label>
@@ -76,8 +76,8 @@
                         <label>Repetir contraseña:</label>
                         <input id="txtcrepass" type="password" class="form-control" style="width: 50%">
                     </div>
-                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
-                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
+                    <input id="btnguardarproveedor" type="button" class="btn btn-cprimary"  value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-cprimary"  value="Editar"/>
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-stats"/>&numsp;Deudores</h2>
@@ -141,9 +141,9 @@
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>
-                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-primary" value="Guardar"/>
-                                <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  value="Confirmar"/>
-                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
+                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-cprimary" value="Guardar"/>
+                                <input id="btneditardireccionproveedor" type="button" class="btn btn-cprimary"  value="Confirmar"/>
+                                <input type="button" id="botonNinja" class="btn btn-cprimary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
                     </form>

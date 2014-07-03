@@ -2,7 +2,7 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Tabla de productos</h2>
+            <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tabla de productos</h2>
             <section style="width: 100%">
                 <div id="consultaProducto" ></div>
             </section>
@@ -51,7 +51,7 @@
                                     <label>Grupo de producto:</label><br/>
                                     <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                     </select>
-                                    <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
+                                    <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
                                 </div>
                                 <div id="divm3" class="form-group form-inline">
                                     <label>M3:</label><br/>
@@ -78,13 +78,13 @@
                                         <label>Marca:</label><br>
                                         <select id="selectMarca" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                         </select>
-                                        <input type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+"/>
+                                        <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlMarca" value="+"/>
                                     </div>
                                     <div class="form-group form-inline">
                                         <label>Proveedor:</label><br>
                                         <select id="selectProveedor" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                         </select>
-                                        <input  type="button" class="btn btn-primary" value="+" id="agregarProveedor"/>
+                                        <input  type="button" class="btn btn-cprimary" value="+" id="agregarProveedor"/>
                                     </div>
                                     <div class="form-group" id="frmcantmin">
                                         <label>Cantidad minima</label>
@@ -103,10 +103,10 @@
                                 </div>
                                 <hr>
                             </div>
-                            <input type="button" class="btn btn-primary" value="Guardar" id="guardarDatos"/>
-                            <input type="button" class="btn btn-primary" value="Editar" id="editarDatos"/>
-                            <input type="button" class="btn btn-primary" value="Guardar Granel" id="guardarGranel"/>
-                            <input type="button" class="btn btn-primary" value="Editar Granel" id="editarGranel"/>
+                            <input type="button" class="btn btn-cprimary" value="Guardar" id="guardarDatos"/>
+                            <input type="button" class="btn btn-cprimary" value="Editar" id="editarDatos"/>
+                            <input type="button" class="btn btn-cprimary" value="Guardar Granel" id="guardarGranel"/>
+                            <input type="button" class="btn btn-cprimary" value="Editar Granel" id="editarGranel"/>
                             <input type="button" class="btn btn-default" value="Limpiar formulario" id="limpiarFormProd"/>
                         </div>
                     </form>
@@ -164,8 +164,8 @@
                             </div>
 
                             <input id="btncanceloProveedor" type="button" class="btn btn-default"   value="Cancelar"/>
-                            <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
-                            <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
+                            <input id="btnguardarproveedor" type="button" class="btn btn-cprimary"  value="Guardar"/>
+                            <input id="btneditarproveedor" type="button" class="btn btn-cprimary"  value="Editar"/>
                         </form>
                     </div>  
                 </div>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="modal-footer">
                             <input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                            <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" />
+                            <input id="btnguardarMarca" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Guardar" />
                         </div>
                     </form>
                 </div><!-- /.modal-content -->
@@ -210,7 +210,7 @@
                         </div>
                         <div class="modal-footer">
                             <input id="cancelGrupo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                            <input id="btnGuardarGrupo" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" />
+                            <input id="btnGuardarGrupo" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Guardar" />
                         </div>
                     </form>
                 </div><!-- /.modal-content -->
@@ -263,9 +263,9 @@
                             </div>
                             <div class="modal-footer">
                                 <input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>
-                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-primary" value="Guardar"/>
-                                <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  value="Confirmar"/>
-                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
+                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-cprimary" value="Guardar"/>
+                                <input id="btneditardireccionproveedor" type="button" class="btn btn-cprimary"  value="Confirmar"/>
+                                <input type="button" id="botonNinja" class="btn btn-cprimary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
                     </form>

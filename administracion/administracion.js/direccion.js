@@ -49,7 +49,7 @@ $("#Buscar").click(function(){
         var colonia = $("#BuscarCodigo").val();
         var ciudad = $("#txtciudad").val();
         var estado = $("#txtestado").val();
-        alert(colonia);
+//        alert(colonia);
         if (calle == "" || numeroexterior == "" || numerointerior == "" || postal == "" ||  cruzamientos == "" || /^\s+$/.test(calle) || /^\s+$/.test(numeroexterior) || /^\s+$/.test(numerointerior) || /^\s+$/.test(postal) || /^\s+$/.test(cruzamientos) || colonia == "" || ciudad == "" || estado == "") {
             alertify.error("Todos los campos son obligatorios");
             return false;
@@ -70,14 +70,12 @@ $("#Buscar").click(function(){
     });
     $("#btneditardireccion").click(function() {
         $("#txtpostal").blur();
-        
         var calle = $.trim($("#txtcalle").val().toUpperCase());
         var postal = $.trim($("#txtpostal").val());
         var numeroexterior = $.trim($("#txtnumeroexterior").val().toUpperCase());
         var numerointerior = $.trim($("#txtnumerointerior").val().toUpperCase());
         var cruzamientos = $.trim($("#txtcruzamientos").val().toUpperCase());
         var colonia = $("#BuscarCodigo").val();
-        alert(colonia);
         var ciudad = $("#txtciudad").val();
         var estado = $("#txtestado").val();
 //        var idcpostales = $("#selectColonia").val();

@@ -36,7 +36,7 @@ $("#btnotrotel").click(function() {
 
 function aplicarValidacion() {
     $(".telefono").validCampoFranz('0123456789()');
-    $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
+    $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
 }
 
 $("#btnotroemail").click(function() {
@@ -99,7 +99,7 @@ function verficaPostal2() {
                     contenido += "<option value='" + dataJson[i].asenta + "'>" + dataJson[i].asenta + "</option>";
 
                 }
-                alert(contenido);
+//                alert(contenido);
                 return contenido;
             });
         });
@@ -198,17 +198,17 @@ $(document).ready(function() {
 
     $(function() {
         $(".telefono").validCampoFranz('0123456789()');
-        $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
-        $('#txtrfc').validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou.');
-        $('#txtcredito').validCampoFranz('0123456789');
+        $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
+        $('#txtrfc').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $('#txtcredito').validCampoFranz('0123456789.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz('0123456789abcdefghijklmnñopqrstuvwxyzáéiou. ');
-        $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#"!|°');
-        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
-        $("#BuscarCodigo").validCampoFranz('abcdefghijklmnñopqrstuvwxyz 1234567890');
-        $("#txtciudad").validCampoFranz('abcdefghijklmnñopqrstuvwxyz ');
+        $("#txtnombreproveedor").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
+        $("#txtestado").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $("#BuscarCodigo").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $("#txtciudad").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
     });
 });
 
@@ -634,6 +634,9 @@ $("#btnguardarproveedor").click(function() {
             alertify.error("Error al guardar");
         }
         if (rs == 999) {
+            $("#consultaCliente").load("consultarCliente.php", function() {
+                $('#dtcliente').dataTable();
+            });
             alertify.error("Este cliente ya existe");
         }
         if (rs == 777) {
@@ -657,7 +660,7 @@ function eliminardatoscontacto(id, tipo) {
                     alertify.success("Datos eliminados");
                     actualizaTablasTelMail();
                 } else {
-                    alert(rs);
+//                    alert(rs);
                 }
             });
         }
@@ -676,7 +679,7 @@ function eliminardatoscontacto(id, tipo) {
                     actualizaTablasTelMail();
                     alertify.success("Datos eliminados");
                 } else {
-                    alert(rs);
+//                    alert(rs);
                 }
             });
         }

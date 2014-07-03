@@ -65,8 +65,8 @@
                         <input id="txtdesctpp" type="number" class="form-control" style="width: 20%" onpaste="return false"/>
                     </div>
 
-                    <input id="btnguardarproveedor" type="button" class="btn btn-primary"  value="Guardar"/>
-                    <input id="btneditarproveedor" type="button" class="btn btn-primary"  value="Editar"/>
+                    <input id="btnguardarproveedor" type="button" class="btn btn-cprimary"  value="Guardar"/>
+                    <input id="btneditarproveedor" type="button" class="btn btn-cprimary"  value="Editar"/>
                 </form>
             </section>
             <h2><span class="glyphicon glyphicon-user"/>&numsp;Agentes</h2>
@@ -97,8 +97,8 @@
                         <div id="masemailsagt">
                         </div>
                     </div>
-                    <input id="btnguardaragt" type="button" class="btn btn-primary"  value="Guardar"/>
-                    <input id="btneditaragt" type="button" class="btn btn-primary"  value="Editar"/>
+                    <input id="btnguardaragt" type="button" class="btn btn-cprimary"  value="Guardar"/>
+                    <input id="btneditaragt" type="button" class="btn btn-cprimary"  value="Editar"/>
                 </form>
             </section>
         </div>
@@ -150,9 +150,9 @@
                             </div>
                             <div class="modal-footer">
                                 <!--<input id="canceloDireccion" type="button" class="btn btn-default" value="Cancelar"/>-->
-                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-primary" value="Guardar"/>
-                                <input id="btneditardireccionproveedor" type="button" class="btn btn-primary"  value="Confirmar"/>
-                                <input type="button" id="botonNinja" class="btn btn-primary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
+                                <input id="btnguardardireccionproveedor" type="button" class="btn btn-cprimary" value="Guardar"/>
+                                <input id="btneditardireccionproveedor" type="button" class="btn btn-cprimary"  value="Confirmar"/>
+                                <input type="button" id="botonNinja" class="btn btn-cprimary"  data-dismiss="modal" value="NInja" onclick="verficaPostal2()">
                             </div>
                         </div>
                     </form>

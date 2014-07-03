@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-include './index.clases/Sesion.php';
-include './index.dao/dao.php';
+include './index.clases/sesion.php';
+include './index.dao/index.dao.php';
 include '../utileriasPhp/Utilerias.php';
 include_once '../daoconexion/daoConeccion.php';
 $dao = new dao();

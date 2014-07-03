@@ -15,7 +15,7 @@
                         <label>Nombre de la lista de precio:</label>
                         <input type="text" class="form-control" id="txtnombrelista">
                     </div>
-                    <input id="btnguardarLista" type="button" class="btn btn-primary" value="Guardar"/>
+                    <input id="btnguardarLista" type="button" class="btn btn-cprimary" value="Guardar"/>
                 </form>
             </section>
         </div>

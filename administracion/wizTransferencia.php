@@ -3,37 +3,29 @@
 <html lang="es">
     <body>
         <div id="wizard">
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Lista de Transferencias</h2>
+            <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tranferencias solicitadas</h2>
             <section style="width: 100%">
                 <div id="consultatransferencias">
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Realizar Transferencias</h2>
+            <h2><span class="glyphicon glyphicon-refresh"/>&numsp;Nueva solicitud de transferencia</h2>
             <section>
-                <br>
-                <select id="sucursal" class="form-control" style="">
-                    <option value="0"> Seleccione una Sucursal</option>
-                </select>
-                <br>
-                <div class="col-sm-3">
-
-                    <div class="input-group" id="panelBusqueda">
-
-
+                <div class="form-group">
+                    <select id="sucursal" class="form-control" style="width: 30%">
+                        <option value="0"> Seleccione una Sucursal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="input-group" id="panelBusqueda" style="width: 30%">
                         <input type="text" class="form-control" id="codigoProductoTranferencia" placeholder="Codigo" />
                         <span class="input-group-btn">
-                            <input type="button"  class="btn btn-primary" value="Busqueda Rapida" id="btnbuscador"/>
+                            <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
                             </button>
                         </span> 
-
                     </div>
                 </div>
-                <br/>
-                <hr>
-                <br>
                 <form>
-
-                    <table class="table table-striped" id="tablaTransferencias">
+                    <table class="table table-hover table-responsive" id="tablaTransferencias">
                         <thead>
                         <th></th>
                         <th>Codigo</th>
@@ -46,23 +38,18 @@
                     </table>
                 </form>
                 <hr>
-                <form class="form-inline text-right">
+                <div class="form-inline text-right">
                     <param class="myCodigo" value="inicial">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true" value="0"/></span>
-                </form>
-                <form class="form-inline text-right">
-                    <input type="button" id="mandarPedido" value="Aceptar"/>
-                    <input type="button" id="CancelarPedido" value="Cancelar"/>
-                </form>
-            </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;peticiones a transferir</h2>
-            <section style="width: 100%">
-                <div id="consultapedidos">
+                    <label>Total :</label><input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true" value="0"/>
+                </div>
+                <div class="form-group">
+                    <input type="button" class="btn btn-cprimary" id="mandarPedido" value="Aceptar"/>
+                    <input type="button" class="btn btn-default" id="CancelarPedido" value="Cancelar"/>
                 </div>
             </section>
-            <h2><span class="glyphicon glyphicon-th-list"/>&numsp;Historial de peticiones </h2>
+            <h2><span class="glyphicon glyphicon-bullhorn"/>&numsp;Autorización de transferencias</h2>
             <section style="width: 100%">
-                <div id="x">
+                <div id="consultapedidos">
                 </div>
             </section>
         </div>
@@ -91,24 +78,24 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </div>
-        
-         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="modal-dialog" style="width: 80%">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
+
+    <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" style="width: 80%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="todos" >
                     </div>
-                    <div class="modal-body">
-                        <div id="todos" >
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type='button' class='btn btn-primary' id='btnver' onclick='listarProductos()'><span class='glyphicon glyphicon-shopping-cart'></span> Listar</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+                <div class="modal-footer">
+                    <button type='button' class='btn btn-cprimary' id='btnver' onclick='listarProductos()'>Agregar productos seleccionados a la lista</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <script src="../administracion/administracion.js/controlWizard.js"></script>
     <script src="administracion.js/Transferencias.js"></script>
     <script src="administracion.js/requisiciones.js"></script>

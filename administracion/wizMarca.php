@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" id="txtnombremarca">
                     </div>
                     <!--<input id="canceloMarca" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>-->
-                    <input id="btnguardarMarca" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar"/>
+                    <input id="btnguardarMarca" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Guardar"/>
                 </form>
             </section>
         </div>

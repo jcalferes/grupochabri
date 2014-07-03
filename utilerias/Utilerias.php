@@ -89,7 +89,7 @@ class Utilerias {
                 $xpos_punto = strpos($xcifra, ".");
             }
             $xaux_int = substr($xcifra, 0, $xpos_punto); // obtengo el entero de la cifra a covertir
-            $xdecimales = substr($xcifra . "", $xpos_punto + 1, 4); // obtengo los valores decimales
+            $xdecimales = substr($xcifra . "", $xpos_punto + 1, 2); // obtengo los valores decimales
         }
 
         $XAUX = str_pad($xaux_int, 18, " ", STR_PAD_LEFT); // ajusto la longitud de la cifra, para que sea divisible por centenas de miles (grupos de 6)

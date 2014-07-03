@@ -29,6 +29,9 @@ $(document).ready(function() {
                     alertify.success("Marca agregada correctamente");
                 }
                 if (rs == 999) {
+                    $("#selectMarca").load("mostrarMarcas.php", function() {
+                        $("#selectMarca").selectpicker('refresh');
+                    });
                     alertify.error("Ya existe la marca");
                 }
 

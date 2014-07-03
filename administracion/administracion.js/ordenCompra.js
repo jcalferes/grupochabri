@@ -14,8 +14,8 @@ function eliminarFila(fila, bandera) {
     var descgral = 0;
     var descprod = 0;
     var importes = 0;
-    if(bandera == 1){
-     $(".cantidades").prop("disabled", false);
+    if (bandera == 1) {
+        $(".cantidades").prop("disabled", false);
 //        $(".descuentos").prop("disabled", false);
         $("#guardaEnviaOrden").show();
         $("#CancelarOrden").show();
@@ -23,7 +23,7 @@ function eliminarFila(fila, bandera) {
 //        $("#emailProveedor").load("mostrarEmailsProveedor.php");
 //        $("#emailProveedor").show();
 //        $("#descuentosGlobalesManuales").prop('checked', true);
-$("#btnbuscador").prop("disabled",false);
+        $("#btnbuscador").prop("disabled", false);
         $("#codigoProductoEntradas").prop("disabled", false);
     }
     $('#fila' + fila + '').each(function() {
@@ -115,7 +115,7 @@ function listarProductos() {
                         if (valorando == '0') {
 
 
-                            tr = '<tr  id="fila' + contador + '><td><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
+                            tr = '<tr  id="fila' + contador + '"><td><center><button type="button" class="btn btn-xs" onclick="eliminarFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
@@ -233,7 +233,7 @@ function seleccionTipo() {
 
         });
     } else {
-          $("#btnbuscador").prop("disabled", false);
+        $("#btnbuscador").prop("disabled", false);
         folio = 0;
         contador = 1;
         $("#descuentosGlobalesManuales").prop("disabled", true);
@@ -283,14 +283,13 @@ $("#folioM").keypress(function(e) {
                 alertify.error("no hay ese codigo");
             } else {
 
-                alertify.error("Aqui mostrara Datos");
                 lista = JSON.parse(x);
                 console.log(lista);
 
                 $.each(lista, function(ind, elem) {
                     $.each(elem, function(ind, elem2) {
 
-                        tr2 = '<tr id="fila' + contador + '"><td ><a onclick="eliminarFila(' + contador + ',1)">X</a></td>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td><center><button type="button" class="btn btn-xs" onclick="eliminarFila(' + contador + ',1)"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
@@ -336,9 +335,9 @@ $("#folioM").keypress(function(e) {
 
 
                         $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + elem[ind].rfcComprobante, function() {
-                           $("#emailProveedor").selectpicker();
-                        $("#emailProveedor").selectpicker('refresh');
-                        $("#emailProveedor").selectpicker('show');
+                            $("#emailProveedor").selectpicker();
+                            $("#emailProveedor").selectpicker('refresh');
+                            $("#emailProveedor").selectpicker('show');
 
                         });
                         $("#txtEmail").show('slow');
@@ -390,7 +389,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr id="fila' + contador + '" ><td><a onclick="eliminarFila(' + contador + ')">X</a></td>\n\
+                        tr = '<tr id="fila' + contador + '" ><td><center><button type="button" class="btn btn-xs" onclick="eliminarFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades" type= "text" value="1"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
@@ -745,7 +744,7 @@ function generarDescuentosgenerales() {
 }
 
 $(document).ready(function() {
-     $("#btnbuscador").prop("disabled", true);
+    $("#btnbuscador").prop("disabled", true);
     $("#descuentosGlobalesManuales").prop("disabled", true);
     $("#descuentosGeneralesM").prop("disabled", true);
     $("#enviarOrdenCompra").hide();
@@ -815,7 +814,7 @@ $(document).ready(function() {
                 success: function(x) {
                     window.open('generarReporte.php?valor=' + x + "&correos=" + $("#emailProveedor").val() + "&correos2=" + $("#txtEmail").val() + "&comprobante=ORDEN COMPRA");
                     alertify.success("Exito! Orden Guardada");
-                    var tipo = "Orden%20Compra";
+                    var tipo = "ORDEN%20COMPRA";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
                 }
@@ -885,33 +884,33 @@ $(document).ready(function() {
             $(".cantidades").attr('disabled', 'disabled');
         }
         else {
-            
+
             $(".descuentos").attr('disabled', 'disabled');
             $(".cantidades").removeAttr('disabled');
-           $(".descuentos").val("");
+            $(".descuentos").val("");
             $(".desct").val("");
             $("#descuentoProductosM").val(0);
             $("#descuentoTotalM").val($("#descuentoGeneralM").val())
-             for (var x = 0; x < contador; x++) {
-                 var cantidad = $("#cant" + x).val();
-              var costo = $("#costo" + x).val(); 
-              $("#cda" + x).val(costo);
-                   $("#importe" + x).val(costo * cantidad);
-               
+            for (var x = 0; x < contador; x++) {
+                var cantidad = $("#cant" + x).val();
+                var costo = $("#costo" + x).val();
+                $("#cda" + x).val(costo);
+                $("#importe" + x).val(costo * cantidad);
+
             }
             var importes = 0.0;
-             $('.totales').each(function() {
-        var elemento = this;
-        var valor = elemento.value;
+            $('.totales').each(function() {
+                var elemento = this;
+                var valor = elemento.value;
 //        alert(valor);
-        importes += parseFloat(valor);
+                importes += parseFloat(valor);
 
-    });
-  var  iva= importes * .16;
-  var total = parseFloat(iva) + importes;
-    $("#sdaM").val(importes);
-    $("#ivaM").val(iva);
-    $("#costoTotal").val(parseFloat(total));
+            });
+            var iva = importes * .16;
+            var total = parseFloat(iva) + importes;
+            $("#sdaM").val(importes);
+            $("#ivaM").val(iva);
+            $("#costoTotal").val(parseFloat(total));
         }
     });
     $("#descuentosGeneralesM").change(function() {
@@ -921,8 +920,8 @@ $(document).ready(function() {
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
             $("#descuentosGeneralesPorComasM").val(0);
-$("#descuentoGeneralM").val(0);
-$("#descuentoTotalM").val($("#descuentoProductosM").val());
+            $("#descuentoGeneralM").val(0);
+            $("#descuentoTotalM").val($("#descuentoProductosM").val());
         }
     });
     $("#guardarOrdenCompra").click(function() {
@@ -942,7 +941,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                 bandera = 1;
 
             }
-            alert(valor);
+//            alert(valor);
         });
         if (bandera == 0 && entro >= 1) {
 
@@ -986,7 +985,7 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                 cache: false,
                 success: function(x) {
                     var probando = $("#proveedores").val();
-                    alertify.error(x);
+//                    alertify.success(x);
                     folio = x;
                     $("#enviarOrdenCompra").show();
                     $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
@@ -998,14 +997,14 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
                     $("#lblemailP").show('slow');
                     $("#txtEmail").show('slow');
                     $("#lblemailO").show('slow');
-                    alertify.success("Exito! Orden Guardada");
-                    var tipo = "Orden%20Compra";
+                    alertify.success("Exito! Orden Guardada con el folio No.-" + x);
+                    var tipo = "ORDEN%20COMPRA";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
 
                 }
             });
         } else {
-            alertify.error("debes seleccionar un costo");
+            alertify.error("Debes seleccionar un costo");
         }
     });
 
@@ -1035,12 +1034,14 @@ $("#descuentoTotalM").val($("#descuentoProductosM").val());
         $("#descuentosGlobalesManuales").prop("disabled", true);
         $("#descuentosGeneralesM").prop("disabled", true);
     });
-    var tipo = "Orden%20Compra";
-    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
+    var tipo = "ORDEN%20COMPRA";
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function() {
+        $('#dtproveedor').dataTable();
+    });
     $("#btnbuscador").click(function() {
-         var proveedores = $("#proveedores").val();
+        var proveedores = $("#proveedores").val();
 
-        $("#todos").load("consultarBuscadorProveedor.php?proveedores="+proveedores, function() {
+        $("#todos").load("consultarBuscadorProveedor.php?proveedores=" + proveedores, function() {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');

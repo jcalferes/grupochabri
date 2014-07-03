@@ -11,8 +11,11 @@ $(document).ready(function() {
                 $("#txtnombreGrupo").val("");
             }
             if (status == 999) {
+                $("#selectGrupo").load("mostrarGrupos.php", function() {
+                    $("#selectGrupo").selectpicker('refresh');
+                });
                 $("#txtnombreGrupo").val("");
-                alertify.error("Ya existe el grupo");
+                alertify.error("Ya existe eleste grupo");
             }
 
         });

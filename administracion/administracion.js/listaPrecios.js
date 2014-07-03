@@ -16,7 +16,7 @@ $("#btnguardarLista").click(function() {
         $.get('guardaListaPrecio.php', info, function(respuesta) {
             var control = respuesta;
             if (control == 999) {
-                alertify.error("Ya existe la lista precio");
+                alertify.error("Ya existe esta lista precio");
                 return false;
             }
             if (control == 0) {

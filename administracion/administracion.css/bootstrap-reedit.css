@@ -1,0 +1,50 @@
+/*INICIA CLASES PRIMARY*/
+.btn-cprimary { 
+    color: #ffffff; 
+    background-color: #F77000; 
+    border-color: #F77000; 
+} 
+
+.btn-cprimary:hover, 
+.btn-cprimary:focus, 
+.btn-cprimary:active, 
+.btn-cprimary.active, 
+.open .dropdown-toggle.btn-cprimary { 
+    color: #ffffff; 
+    background-color: #D15E00; 
+    border-color: #F77000; 
+} 
+
+.btn-cprimary:active, 
+.btn-cprimary.active, 
+.open .dropdown-toggle.btn-cprimary { 
+    background-image: none; 
+} 
+
+.btn-cprimary.disabled, 
+.btn-cprimary[disabled], 
+fieldset[disabled] .btn-cprimary, 
+.btn-cprimary.disabled:hover, 
+.btn-cprimary[disabled]:hover, 
+fieldset[disabled] .btn-cprimary:hover, 
+.btn-cprimary.disabled:focus, 
+.btn-cprimary[disabled]:focus, 
+fieldset[disabled] .btn-cprimary:focus, 
+.btn-cprimary.disabled:active, 
+.btn-cprimary[disabled]:active, 
+fieldset[disabled] .btn-cprimary:active, 
+.btn-cprimary.disabled.active, 
+.btn-cprimary[disabled].active, 
+fieldset[disabled] .btn-cprimary.active { 
+    background-color: #F77000; 
+    border-color: #F77000; 
+} 
+
+.btn-cprimary .badge { 
+    color: #F77000; 
+    background-color: #ffffff; 
+}
+/*TERMINAR CLASES PRIMARY*/
+
+
+
