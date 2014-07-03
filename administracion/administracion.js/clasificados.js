@@ -20,12 +20,15 @@ function handleFileSelect(evt) {
 $(document).ready(function() {
        
     $("#subirImagenes").click(function(){
-//        alert(archivos);
+//       alert(archivos);
         var data = new FormData();
+//        alert(archivos.length);
          for (i = 0; i < archivos.length; i++) {
                 data.append('archivo' + i, archivos[i]);
 //                alert(archivos[i]);
             }
+            data.append('descripcion', probando = $("#descripcion").val());
+//            alert(data);
         $.ajax({
                 url: 'guardandoImagenes.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
@@ -37,7 +40,7 @@ $(document).ready(function() {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
-                $("#cargaxml").append(msg); //Mostrara los archivos cargados en el div con el id "Cargados"
+               alertify.error(msg);
             });
         
     });

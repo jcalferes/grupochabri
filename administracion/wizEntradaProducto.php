@@ -116,7 +116,7 @@
                     <input type="file" id="buscaxmlentrada" name="buscaxmlentrada[]"  accept="application/xml" title="Buscar XML">
                     <hr>
                     <div>
-                        <input type="button" id="cargar" class="btn btn-cprimary " value="Cargar archivo" onclick="comprueba_extension_xmlentrada(this.form, this.form.buscaxmlentrada.value)">
+                        <input type="button" id="cargar" class="btn btn-cprimary " value="Cargar archivo"  onclick="comprueba_extension_xmlentrada(this.form, this.form.buscaxmlentrada.value)">
                     </div>
                 </form>
                 <div id="cargaxml">
