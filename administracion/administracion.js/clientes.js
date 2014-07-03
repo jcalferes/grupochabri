@@ -341,7 +341,7 @@ $("#btneditarproveedor").click(function() {
                 $('#dtcliente').dataTable();
             });
 
-            alertify.success("Proveedor editado correctamente");
+            alertify.success("Cliente editado correctamente");
         }
         if (rs == 1) {
             alertify.error("Error al guardar");
@@ -628,7 +628,7 @@ $("#btnguardarproveedor").click(function() {
                 $('#dtcliente').dataTable();
             });
 
-            alertify.success("Proveedor agregador correctamente");
+            alertify.success("Cliente agregador correctamente");
         }
         if (rs == 1) {
             alertify.error("Error al guardar");
@@ -652,7 +652,7 @@ function eliminardatoscontacto(id, tipo) {
             contartels++;
         });
         if (contartels <= 1) {
-            alertify.error("Imposible eliminar, debe existir al menos un telefono para este proveedor");
+            alertify.error("Imposible eliminar, debe existir al menos un telefono para este Cliente");
         } else {
             var info = "id=" + id + "&tipo=" + tipo;
             $.get('eliminarContactos.php', info, function(rs) {
@@ -671,7 +671,7 @@ function eliminardatoscontacto(id, tipo) {
             contaremas++;
         });
         if (contaremas <= 1) {
-            alertify.error("Imposible eliminar, debe existir al menos un email para este proveedor");
+            alertify.error("Imposible eliminar, debe existir al menos un email para este cliente");
         } else {
             var info = "id=" + id + "&tipo=" + tipo;
             $.get('eliminarContactos.php', info, function(rs) {
