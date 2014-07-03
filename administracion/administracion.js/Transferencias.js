@@ -191,8 +191,12 @@ function recorrerTabla(codigo) {
     return band;
 }
 $(document).ready(function() {
-    $("#consultapedidos").load("consultaPedidos.php");
-    $("#consultatransferencias").load("consultaTransferencias.php");
+    $("#consultatransferencias").load("consultaTransferencias.php", function() {
+        $('#tdconstrans').dataTable();
+    });
+    $("#consultapedidos").load("consultaPedidos.php", function() {
+        $('#tdconsped').dataTable();
+    });
     $("#sucursal").load("sacarSucursales.php");
 
     $("#CancelarPedido").click(function() {
