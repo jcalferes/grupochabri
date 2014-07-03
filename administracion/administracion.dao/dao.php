@@ -33,8 +33,24 @@ class dao {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+         
         $datos = mysql_query($sql, $cn->Conectarse());
-        return $datos;
+      $contando =  mysql_affected_rows();
+      if($contando >0){
+           $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto WHERE p.codigoProducto = '$codigo'";
+            $datos2 = mysql_query($sql, $cn->Conectarse());
+             $contando =  mysql_affected_rows();
+             if($contando >0){
+                 return $datos2;
+             }else{
+                 return $datos;
+             }
+            return $datos2;
+      }else{
+          return 0;
+      }
+        
+       
     }
     function consultarTiposProducto($idGrupo) {
         include_once '../daoconexion/daoConeccion.php';

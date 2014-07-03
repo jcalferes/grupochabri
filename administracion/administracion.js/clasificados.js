@@ -56,11 +56,21 @@ $(document).ready(function() {
          if (e.which == 13) {
           var   info="codigoProducto=" + $("#clascodigoproducto").val();
             $.get("verificarExistenciaProducto.php",info,function(x){
-                grupo = x;
-               if(x !==""){
+                 lista = JSON.parse(x);
+                console.log(lista);
+
+                 $.each(lista, function(ind, elem) {
+                      $.each(elem, function(ind, elem2) {
+                     grupo = elem[ind].idGrupoProducto;
+                       
+                 });
+                 });
+//                grupo = x;
+               if(grupo !==""){
+                    alert(grupo);
                   $("#mostrando").show();
                   $("#clascodigoproducto").prop("disabled", true);
-                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + x, function() {
+                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
                 $("#selectTipo").selectpicker();
                 $("#selectTipo").selectpicker('refresh');
                 $("#selectTipo").selectpicker('show');
