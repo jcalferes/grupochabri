@@ -68,3 +68,7 @@ function entroAgranel() {
 function entroClientePedido() {
     $("#mostrar").load("wizClientePedido.php");
 }
+
+function entroClasificados() {
+    $("#mostrar").load("wizClasificados.php");
+}
