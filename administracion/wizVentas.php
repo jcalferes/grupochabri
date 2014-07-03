@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet"/>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <!--<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
     </head>
     <body>
         <div id="wizard">
@@ -133,26 +135,17 @@
             <!--Seccion de Cobranzas-->
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cobranzas</h2>
             <section>
+
                 <div>
-                    <div style="width: 20%; float: left" class="well">
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                            <center>Cobrar</center>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <input  type="submit" value="Cobrar" class="btn btn-default"/>
-                                    </div>
-                                </div>
+                    <div style="width: 100%; float: left; margin-left: -10px">
+                        <div class="btn-toolbar" role="toolbar" style="float: left">
+                            <div class="btn-group">
+                                <button class="btn btn-default" title="Abonar Compra"><i class="fa fa-dollar fa-lg"></i> Abonos</button>
+                                <button class="btn btn-default" title="Cancelar Compra"> <i class="fa fa-thumbs-o-down"></i> Cancelaciones</button> 
+                                <button class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
+                                <button class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
                             </div>
                         </div>
-                    </div>
-                    <div style="float: right; width: 80%">
                         <div class="input-group" style="width: 20%; float: right">
                             <input type="text" placeholder="N° de folio" class="form-control"/>
                             <span class="input-group-btn">
@@ -164,7 +157,6 @@
                         <br>
                         <br>
                         <div style="width: 100%" id="informacionPagos">
-                            sad
                         </div>
                     </div>
                 </div>
@@ -331,7 +323,33 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-<!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
+
+        <!--Modal de cobranza-->
+        <div class="modal fade" 
+             id="mdlPagar" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
+                    </div>
+                    <div class="modal-body">
+                        Cantiad Ingresada :
+                        <center>
+                            <input id="txtCantidad" class="form-control" type="text" style="padding: 20px" placeholder="$9999.99 mxn"/>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="btnPagar" type="submit" value="Cobrar" class="btn btn-default"/>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!--fin del modal de cobranzas-->
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

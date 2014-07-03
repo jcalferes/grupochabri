@@ -2755,10 +2755,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $datos;
     }
 
-    function dameFolio() {
+    function dameFolio($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT MAX(folioVenta) folio from folios";
+        $sql = "SELECT MAX(folioVenta) folio from folios WHERE idSucursal = '$idSucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -2766,7 +2766,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameFolioOrdenCompra($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT MAX(folioOrdenCompra) folio from folios WHERE idSucursal = $idSucursal";
+        $sql = "SELECT MAX(folioOrdenCompra) folio from folios WHERE idSucursal = '$idSucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -3025,7 +3025,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             mysql_query("ROLLBACK;");
                             break;
                         } else {
-                            $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $nuevoFolio . "','" . $cantidadPedida . "','" . $idSucursal . "')";
+                            $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $idXmlComprobante . "','" . $cantidadPedida . "','" . $idSucursal . "')";
                             $datosT = mysql_query($sqlInsertarTablaTemporal);
                             if ($datosT == false) {
                                 $error = mysql_error();
@@ -3306,7 +3306,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function obtenerOrdenesCompraTodas($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes WHERE statusOrden = '5' and idSucursal = '$idSucursal'";
+        $fecha = date("d/m/Y");
+        $sql = "SELECT * FROM xmlcomprobantes xp"
+                . " inner join tipospagos tp "
+                . "on xp.idTipoPago = tp.idTipoPago"
+                . " WHERE statusOrden = '5' and idSucursal = '$idSucursal' and fechamovimiento = '$fecha'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
@@ -3334,6 +3338,115 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "INSERT INTO costos(costo, codigoproducto, fechaMovimiento, status, idSucursal) VALUES ('0', '$codigoProducto','$fecha','1','$idSucursal' )";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
+    }
+
+    function traerEncabezadoPedios($idEncabezado, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "SELECT * FROM xmlcomprobantes x "
+                . "inner join tipospagos tp "
+                . "on tp.idTipoPago = x.idTipoPago "
+                . "WHERE idSucursal = '$idSucursal' and statusOrden = '5' and  folioComprobante ='$idEncabezado' and fechamovimiento = '$fecha'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameDetallePedidos($idXmlComprobante) {
+        $sql = "SELECT * FROM xmlconceptos WHERE idXmlComprobante = '$idXmlComprobante'";
+        $cn = new coneccion();
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $cn->Conectarse();
+        $error = "";
+        mysql_query("START TRANSACTION;");
+        $existenciaTemporal = 0;
+        $existenciaFisica = 0;
+        $codigo = "";
+        $nuevaExistencia = 0;
+        $fecha = date("d/m/Y");
+        $sqlexistenciasTmp = "SELECT * FROM existenciastemporales where folioPedido = '$idXmlComprobante' and idSucursal ='$idSucursal'";
+        $rs = mysql_query($sqlexistenciasTmp);
+        if ($rs == false) {
+            $error = mysql_error();
+            mysql_query("ROLLBACK;");
+        } else {
+            while ($datosTmp = mysql_fetch_array($rs)) {
+                $codigo = $datosTmp["codigo"];
+                $existenciaTemporal = $datosTmp["cantidad"];
+                $sqlExistencias = "SELECT cantidad FROM existencias WHERE codigoProducto = '" . $datosTmp["codigo"] . "' and idSucursal ='$idSucursal'";
+                $datosExistencias = mysql_query($sqlExistencias);
+                if ($datosExistencias == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                    break;
+                } else {
+                    while ($rs1 = mysql_fetch_array($datosExistencias)) {
+                        $existenciaFisica = $rs1["cantidad"];
+                    }
+                    $nuevaExistencia = $existenciaFisica - $existenciaTemporal;
+                    $datosExistencias = "UPDATE existencias set cantidad ='$nuevaExistencia' WHERE idSucursal = '$idSucursal' and codigoProducto ='$codigo'";
+                    $rsExistencia = mysql_query($datosExistencias);
+                    if ($rsExistencia == false) {
+                        $error = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        break;
+                    } else {
+                        $sqlSalidas = "INSERT INTO salidas (usuario, cantidad, fecha , codigoProducto, idSucursal) VALUES ('$usuarios', '$existenciaTemporal', '$fecha', '$codigo', '$idSucursal')";
+                        $rsSalidas = mysql_query($sqlSalidas);
+                        if ($rsSalidas == false) {
+                            $error = mysql_error();
+                            mysql_query("ROLLBACK;");
+                            break;
+                        }
+                    }
+                }
+                if ($error != "") {
+                    break;
+                }
+            }
+            if ($error == "") {
+                $status = 0;
+                if ($idTipoPago == 2) {
+                    $status = 5;
+                } else {
+                    $status = 7;
+                }
+                $sql = "UPDATE xmlcomprobantes set folioComprobante = '$folio', statusOrden = '$status' where idXmlComprobante = '$idXmlComprobante'";
+                $rsxmlComprobante = mysql_query($sql);
+                if ($rsxmlComprobante == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                } else {
+                    $sqlEliminarExistenciasTmp = "DELETE FROM  existenciastemporales WHERE folioPedido = '$idXmlComprobante' and idSucursal =' $idSucursal' ";
+                    $rsEliminarExittmp = mysql_query($sqlEliminarExistenciasTmp);
+                    if ($rsEliminarExittmp == false) {
+                        $error = mysql_error();
+                        mysql_query("ROLLBACK;");
+                    } else {
+                        if ($idTipoPago == 2) {
+                            $sqlXmlComprobantes = "SELECT rfcComprobante FROM xmlcomprobantes WHERE idXmlComprobante ='$idXmlComprobante'";
+                            $rsXmComprobantes = mysql_query($sqlXmlComprobantes);
+                            if ($rsXmComprobantes == false) {
+                                $error = mysql_error();
+                            } else {
+                                while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
+                                    $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
+                                            . " VALUES ('".$r2["rfcComprobante"]."',0,0,0,'$idSucursal')";
+                                }
+                            }
+                        }
+                        mysql_query("COMMIT;");
+                    }
+                }
+            }
+        }
+        return $error;
     }
 
 }

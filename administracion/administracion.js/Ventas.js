@@ -294,20 +294,14 @@ function guardarDatosDetalle() {
         detalleVenta.importeConcepto = $("#txtTotalDesc" + codigos[x]).val();
         detalleVenta.cantidadConcepto = $("#txt" + codigos[x]).val();
         detalleVenta.codigoConcepto = $("#codigo" + codigos[x]).text();
-
         detalleVenta.descripcionConcepto = $("#descripcion" + codigos[x]).text();
-
         detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigos[x]).text();
         detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigos[x]).val();
         detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigos[x]).val();
-//      detalleVenta.desctDosConcepto = 0.00;
-//      detalleVenta.costoCotizacion = 0.00;
         detalleVenta.idListaPrecio = parseInt(datos[0]);
         arrayDetalleVenta.push(detalleVenta);
     }
-//    alert(detalleVenta.unidadMedidaConcepto);
     inf.push(arrayDetalleVenta);
-//    alert("metio la inf el array de detalle venta");
 }
 
 function cargarProductosCarritoBusqueda(codigo) {
@@ -321,6 +315,7 @@ function cargarProductosCarritoBusqueda(codigo) {
             calcularSumaTotal();
             calcularSubTotal();
             sumaDescTotal();
+            alertify.success("Producto Agregado");
         }
     });
 }
@@ -430,10 +425,11 @@ $(document).ready(function() {
             if (x == false) {
                 cargarProductosCarritoBusqueda(valor);
                 codigos.push(valor);
+
             }
 
         });
-        alertify.success("Producto Agregado");
+
         if (info != undefined) {
             $('#mdlbuscador').modal('toggle');
         }
@@ -445,7 +441,6 @@ $(document).ready(function() {
     $("#btnAutorizacion").click(function() {
         $("#mdlAutorizacion").modal("show");
     });
-
 
 
     $("#cmbClientes").change(function() {
