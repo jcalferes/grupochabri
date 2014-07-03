@@ -450,7 +450,7 @@ $(document).ready(function() {
             $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
         }
         else {
-            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
+//            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
             $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc);
         }
     });

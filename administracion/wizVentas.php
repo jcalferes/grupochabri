@@ -40,7 +40,7 @@
                             id="cmbClientes"
                             style="margin-left: 35px; width: 260px; float: left">
                     </select>
-                    <div id="ordenesCompra" style="float: left; width: 260px; background-color: red">
+                    <div id="ordenesCompra" style="float: left; width: 260px;">
                         <br>
                     </div>
                 </div>
