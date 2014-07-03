@@ -27,7 +27,7 @@ if ($dato == false) {
         while ($dat = mysql_fetch_array($rs)) {
             $idFolio = $dat[0];
         }
-        $idXmlComprobante = $_GET["sudo /opt/lampp/lampp startfolioComprobante"];
+        $idXmlComprobante = $_GET["folioComprobante"];
         $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago);
         if ($mensaje == "") {
             $mensaje = "Exito Venta Concretada";

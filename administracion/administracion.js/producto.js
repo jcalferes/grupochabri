@@ -130,7 +130,6 @@ function limpiarProductos() {
     $("#m3").val("");
     $(".producto").val("");
     $(".neto").val("");
-
     $(".producto").attr("disabled", true);
     $(".checando").attr("disabled", true);
     $(".checando").attr("checked", false);
@@ -138,6 +137,8 @@ function limpiarProductos() {
     $("#guardarDatos").show();
     $("#editarDatos").hide();
     $("#finder").val("");
+    $("#txtCodigoProducto").prop('disabled', false);
+    $("#txtCodigoBarras").prop('disabled', false);
 }
 $("#finder").blur(function() {
 
@@ -232,6 +233,11 @@ $("#finder").blur(function() {
                     });
                 });
                 $("#finder").val("");
+                $("#txtCodigoBarras").prop('disabled', true);
+                $("#txtCodigoProducto").prop('disabled', true);
+
+
+
                 $("#guardarDatos").hide();
                 $("#editarDatos").show();
             }
@@ -564,7 +570,7 @@ $('#editarDatos').click(function() {
         dato2 = "MADERAS";
     }
     var lista;
-    
+
     var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
@@ -625,6 +631,8 @@ $('#editarDatos').click(function() {
                 $("#guardarDatos").slideDown();
                 $("#editarDatos").slideUp();
                 alertify.success("Producto editado correctamente");
+                $("#txtCodigoProducto").prop('disabled', false);
+                $("#txtCodigoBarras").prop('disabled', false);
                 return false;
             });
         } else {

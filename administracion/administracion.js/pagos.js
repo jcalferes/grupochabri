@@ -14,36 +14,36 @@ $(document).ready(function() {
     $("#btnPagar").click(function() {
         var datos = parseFloat($("#txtCantidad").val());
         var total = parseFloat($("#totalV").text());
-        alert(total);
-        if (isNaN(datos)) {
-            alertify.error("Ingrese solo numeros");
-        }
-        else {
-            if (datos == 0) {
-                alertify.error("Ingrese un valor mayor");
-            }
-            else if (datos < total) {
-                alertify.error("Ingrese una cantidad mayor");
+        if (idTipoPago != 2) {
+            if (isNaN(datos)) {
+                alertify.error("Ingrese solo numeros");
             }
             else {
-                var folio = $("#xmlComprobante").text();
-                var informacion = "folioComprobante=" + folio+"&idTipoPago="+idTipoPago;
-
-//                if (idTipoPago == 1) {
+                if (datos == 0) {
+                    alertify.error("Ingrese un valor mayor");
+                }
+                else if (datos < total) {
+                    alertify.error("Ingrese una cantidad mayor");
+                }
+                else {
+                    var folio = $("#xmlComprobante").text();
+                    var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago;
                     $.get('guardarPagos.php', informacion, function(respuesta) {
                         alertify.success(respuesta);
                         var cambio = datos - total;
                         alert(cambio);
                     });
-//                }
-//                else if (idTipoPago == 2) {
-//                    $.get('guardarPagosCredito.php', informacion, function(respuesta) {
-//                        alertify.success(respuesta);
-//                        var cambio = datos - total;
-//                        alert(cambio);
-//                    });
-//                }
+                }
             }
+        }
+        else {
+            var folio = $("#xmlComprobante").text();
+            var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago;
+            $.get('guardarPagos.php', informacion, function(respuesta) {
+                alertify.success(respuesta);
+                var cambio = datos - total;
+                alert(cambio);
+            });
         }
     });
 });

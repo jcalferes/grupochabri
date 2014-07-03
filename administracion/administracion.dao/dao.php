@@ -848,8 +848,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn->cerrarBd();
     }
 
-    function consultaExistenciasgral($cp,$idSucursal){
-         include_once '../daoconexion/daoConeccion.php';
+    function consultaExistenciasgral($cp, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM existencias  WHERE codigoProducto = '$cp' and idSucursal <> '$idSucursal' Order by idSucursal ASC";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -857,6 +857,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
         return $resultado;
     }
+
     function consultaExistencia($producto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -3446,7 +3447,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             } else {
                                 while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
                                     $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
-                                            . " VALUES ('".$r2["rfcComprobante"]."',0,0,0,'$idSucursal')";
+                                            . " VALUES ('" . $r2["rfcComprobante"] . "',0,0,0,'$idSucursal', $folio, '$fecha', '0','','0')";
+                                    $rsAbonos = mysql_query($sqlAbonos);
+                                    if($rsAbonos == false){
+                                        $error = mysql_error();
+                                    }
                                 }
                             }
                         }
