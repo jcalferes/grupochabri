@@ -51,34 +51,34 @@ function borraemail(cadena) {
     $("#" + cadena).remove();
 }
 
-function eliminarProveedores() {
-    var idProveedor = new Array();
-    var info;
-
-    $("#dtproveedor").find(':checked').each(function() {
-        var elemento = this;
-        var valor = elemento.value;
-        idProveedor.push(valor);
-        lista = JSON.stringify(idProveedor);
-        info = "proveedor=" + lista;
-    });
-    if (info != undefined) {
-        alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
-            if (e) {
-                $.get('eliminaProveedor.php', info, function() {
-                    alertify.success("se han dado de baja de manera correcta")
-                    $("#consultaProveedor").load("consultarProveedor.php", function() {
-                        $('#dtProveedor').dataTable();
-                    });
-                });
-            } else {
-            }
-        });
-        return false;
-    } else {
-        alertify.error("Debe selecciona al menos un proveedor");
-    }
-}
+//function eliminarProveedores() {
+//    var idProveedor = new Array();
+//    var info;
+//
+//    $("#dtproveedor").find(':checked').each(function() {
+//        var elemento = this;
+//        var valor = elemento.value;
+//        idProveedor.push(valor);
+//        lista = JSON.stringify(idProveedor);
+//        info = "proveedor=" + lista;
+//    });
+//    if (info != undefined) {
+//        alertify.confirm("Desea Eliminar los proveedores seleccionadas?", function(e) {
+//            if (e) {
+//                $.get('eliminaProveedor.php', info, function() {
+//                    alertify.success("se han dado de baja de manera correcta")
+//                    $("#consultaProveedor").load("consultarProveedor.php", function() {
+//                        $('#dtProveedor').dataTable();
+//                    });
+//                });
+//            } else {
+//            }
+//        });
+//        return false;
+//    } else {
+//        alertify.error("Debe selecciona al menos un proveedor");
+//    }
+//}
 
 function verficaPostal2() {
     $("#txtestado").val("");

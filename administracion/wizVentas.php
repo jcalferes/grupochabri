@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet"/>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <!--<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
     </head>
     <body>
         <div id="wizard">
@@ -74,21 +76,21 @@
                     </div>
                 </div>
                 <br><br>
-                    <table class="table" id="tablaVentas">
-                        <thead>
-                        <th><center>Codigo</center></th>
-                        <th><center>Descripcion</center></th>
-                        <th><center>Cantidad</center></th>
-                        <th><center>Existencia</center></th>
-                        <th><center>Lst. Precio</center></th>
-                        <th><center>Precio c/u</center></th>
-                        <th><center>Desc.</center></th>
-                        <th><center>Eliminar</center></th>
-                        <th><center>total</center></th>
-                        <th><center>$ Desc.</center></th>
-                        <th><center>$ Total c/d.</center></th>
-                        </thead>
-                    </table>
+                <table class="table" id="tablaVentas">
+                    <thead>
+                    <th><center>Codigo</center></th>
+                    <th><center>Descripcion</center></th>
+                    <th><center>Cantidad</center></th>
+                    <th><center>Existencia</center></th>
+                    <th><center>Lst. Precio</center></th>
+                    <th><center>Precio c/u</center></th>
+                    <th><center>Desc.</center></th>
+                    <th><center>Eliminar</center></th>
+                    <th><center>total</center></th>
+                    <th><center>$ Desc.</center></th>
+                    <th><center>$ Total c/d.</center></th>
+                    </thead>
+                </table>
                 <hr>
                 <form class="form-inline text-right">
                     <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
@@ -130,7 +132,35 @@
                     <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
                 </div>
             </section>
-            <!-- TERMINA CACELACIONES -->
+            <!--Seccion de Cobranzas-->
+            <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cobranzas</h2>
+            <section>
+
+                <div>
+                    <div style="width: 100%; float: left; margin-left: -10px">
+                        <div class="btn-toolbar" role="toolbar" style="float: left">
+                            <div class="btn-group">
+                                <button class="btn btn-default" title="Abonar Compra"><i class="fa fa-dollar fa-lg"></i> Abonos</button>
+                                <button class="btn btn-default" title="Cancelar Compra"> <i class="fa fa-thumbs-o-down"></i> Cancelaciones</button> 
+                                <button class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
+                                <button class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
+                            </div>
+                        </div>
+                        <div class="input-group" style="width: 20%; float: right">
+                            <input type="text" placeholder="N° de folio" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="mdlBuscadorOrdenesCompra" type="button" title="Buscar Ordenes de Compra">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <br>
+                        <br>
+                        <div style="width: 100%" id="informacionPagos">
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <!--MODAL DE BUSQUEDA-->
         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -210,10 +240,7 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--final modalGranel-->
-
-
         <!--MODAL DE AUTORIZACION-->
-
         <div class="modal fade" 
              id="mdlAutorizacion" 
              tabindex="-1" 
@@ -270,18 +297,58 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
+        <!------------------------------------------------------------------>
+        <!--Modal de busqueda de ordenes de Compra-->
+        <div class="modal fade" 
+             id="mdlBusquedaOrdenCompra" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover" id="tableOrdenesCompra">
 
+                        </table>
+                    </div>
+                    <div class="modal-footer">
 
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
 
-
-
-
-
-
-
-
-
-<!--<script src="../administracion/administracion.js/jqueryui.js"></script>-->
+        <!--Modal de cobranza-->
+        <div class="modal fade" 
+             id="mdlPagar" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
+                    </div>
+                    <div class="modal-body">
+                        Cantiad Ingresada :
+                        <center>
+                            <input id="txtCantidad" class="form-control" type="text" style="padding: 20px" placeholder="$9999.99 mxn"/>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="btnPagar" type="submit" value="Cobrar" class="btn btn-default"/>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!--fin del modal de cobranzas-->
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
@@ -290,6 +357,7 @@
         <script src="../administracion/administracion.js/buscador.js"></script>
         <script src="../administracion/administracion.js/cancelacion.js"></script>
         <script src="administracion.js/Ventas.js"></script>
+        <script src="administracion.js/pagos.js"></script>
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->
