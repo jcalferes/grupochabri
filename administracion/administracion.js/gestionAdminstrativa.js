@@ -21,6 +21,10 @@ $(document).ready(function() {
     });
 });
 
+//$("#donde").click(function(){
+//    alert("Entre");
+//});
+
 function entroMarca() {
     $("#mostrar").load("wizMarca.php");
 }

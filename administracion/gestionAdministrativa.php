@@ -85,6 +85,7 @@ $verificasession->validaSesion();
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a id="donde" href="../index/cerrarSesion.php"></a></li>
+<!--<li><a id="donde"></a></li>-->
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
