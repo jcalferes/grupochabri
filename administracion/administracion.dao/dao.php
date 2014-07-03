@@ -2,6 +2,48 @@
 
 class dao {
 
+    function guardarClasificados(clasificados $clasificados, $nombres) {
+        include_once '../daoconexion/daoConeccion.php';
+        mysql_query("START TRANSACTION;");
+        $cn = new coneccion();
+        $sqlClasificados = "INSERT INTO clasificados(codigoProducto,idTipo,descripcion,ponerRecomendado,ponerNovedades)VALUES ('" . $clasificados->getCodigoProducto() . "','" . $clasificados->getIdTipo() . "','" . $clasificados->getDescripcion() . "','" . $clasificados->getPonerRecomendado() . "','" . $clasificados->getPonerNovedades() . "')";
+     $sqlClasificados=   mysql_query($sqlClasificados, $cn->Conectarse());
+
+        if ($sqlClasificados == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            foreach ($nombres as $value) {
+                $nombre = $value;
+                $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
+             $sqlImagenes =   mysql_query($sqlImagenes, $cn->Conectarse());
+                if ($sqlImagenes == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+                    mysql_query("COMMIT;");
+                }
+            }
+        }
+
+
+        $cn->cerrarBd();
+    }
+
+      function comprobarCodigoValido2($codigo) {
+
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+    function consultarTiposProducto($idGrupo) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM tiposproducto Where idGrupoProducto = '$idGrupo'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
+    }
+
     function actualizarOrdenCompra($folio, $comprobante, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -743,6 +785,33 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             return $datos;
         }
     }
+    
+    function guardarTipo(GrupoProductos $g) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $cn->Conectarse();
+
+        $sqlvalidar = "SELECT * FROM tiposproducto WHERE TiposProducto = '" . $g->getGrupoProducto() . "' ";
+        $ctrlvalidar = mysql_query($sqlvalidar);
+        $rowsvalidar = mysql_affected_rows();
+        if ($ctrlvalidar == false) {
+            $ctrlvalidar = mysql_error();
+        } else {
+            if ($rowsvalidar > 0) {
+                return 999;
+                $cn->cerrarBd();
+            } else {
+                $sql = "INSERT INTO tiposproducto(TiposProducto,idGrupoProducto)VALUES ('" . $g->getGrupoProducto() . "','" . $g->getIdGrupoProducto() . "')";
+                $resultado = mysql_query($sql);
+                if ($resultado == false) {
+                    $resultado = mysql_error();
+                } else {
+                    return 0;
+                    $cn->cerrarBd();
+                }
+            }
+        }
+    }
 
     function guardarGrupo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
@@ -848,8 +917,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn->cerrarBd();
     }
 
-    function consultaExistenciasgral($cp,$idSucursal){
-         include_once '../daoconexion/daoConeccion.php';
+    function consultaExistenciasgral($cp, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM existencias  WHERE codigoProducto = '$cp' and idSucursal <> '$idSucursal' Order by idSucursal ASC";
         $resultado = mysql_query($sql, $cn->Conectarse());
@@ -857,6 +926,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
         return $resultado;
     }
+
     function consultaExistencia($producto) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
