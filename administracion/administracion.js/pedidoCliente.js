@@ -252,7 +252,6 @@ $("#folioM").keypress(function(e) {
                 alertify.error("No existe este codigo");
             } else {
 
-                alertify.error("Aqui mostrara Datos");
                 lista = JSON.parse(x);
                 console.log(lista);
                 var sucursal;
