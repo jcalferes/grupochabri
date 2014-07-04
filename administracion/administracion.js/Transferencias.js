@@ -91,7 +91,7 @@ function TransaccionDetalles(codigo, cantidad, costo) {
 function cancelarTransferencia() {
     var info = "aceptarTransferencia=" + encabezadoTransferencia;
     $.get('cancelarTransferencia.php', info, function(x) {
-        alertify.success("Transferencia Cancelada Exitosamente");
+        alertify.success("Transferencia cancelada exitosamente");
         $("#consultapedidos").load("consultaPedidos.php");
         $("#consultatransferencias").load("consultaTransferencias.php");
 
@@ -103,7 +103,7 @@ function aceptarTransferencia(encabezadoTransferencia) {
     $.get('aceptarTransferencia.php', info, function(x) {
         $("#aceptarTraferencia").hide('slow');
         $("#cancelarPedido").hide();
-        alertify.success("Transferencia Completada Exitosamente");
+        alertify.success("Transferencia completada exitosamente");
         $("#consultapedidos").load("consultaPedidos.php");
         $("#consultatransferencias").load("consultaTransferencias.php");
 

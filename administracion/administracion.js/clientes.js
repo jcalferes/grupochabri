@@ -628,7 +628,7 @@ $("#btnguardarproveedor").click(function() {
                 $('#dtcliente').dataTable();
             });
 
-            alertify.success("Cliente agregador correctamente");
+            alertify.success("Cliente agregado correctamente");
         }
         if (rs == 1) {
             alertify.error("Error al guardar");
@@ -652,7 +652,7 @@ function eliminardatoscontacto(id, tipo) {
             contartels++;
         });
         if (contartels <= 1) {
-            alertify.error("Imposible eliminar, debe existir al menos un telefono para este Cliente");
+            alertify.error("Imposible eliminar, debe existir al menos un telefono para este cliente");
         } else {
             var info = "id=" + id + "&tipo=" + tipo;
             $.get('eliminarContactos.php', info, function(rs) {
