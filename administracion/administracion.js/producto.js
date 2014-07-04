@@ -165,6 +165,7 @@ function limpiarProductos() {
     $("#finder").val("");
     $("#txtCodigoProducto").prop('disabled', false);
     $("#txtCodigoBarras").prop('disabled', false);
+    $("#chkgranel").prop('disabled', false);
 }
 $("#finder").blur(function() {
     var codigo = $("#finder").val();
@@ -258,6 +259,7 @@ $("#finder").blur(function() {
                 $("#finder").val("");
                 $("#txtCodigoBarras").prop('disabled', true);
                 $("#txtCodigoProducto").prop('disabled', true);
+                $("#chkgranel").prop('disabled', true);
                 $("#guardarDatos").hide();
                 $("#editarDatos").show();
             }
@@ -439,6 +441,7 @@ $('#editarDatos').click(function() {
                 alertify.success("Producto editado correctamente");
                 $("#txtCodigoProducto").prop('disabled', false);
                 $("#txtCodigoBarras").prop('disabled', false);
+                $("#chkgranel").prop('disabled', false);
                 return false;
             });
         } else {
@@ -518,6 +521,7 @@ function nuevogranel() {
         $("#guardarGranel").slideUp();
         $("#editarGranel").slideUp();
         $("#txtCostoProducto").removeAttr("disabled", "disabled");
+         $("#txtCodigoProductoG").prop("disabled",false);
     }
 }
 //=============================Consultar para agranel===========================
@@ -622,9 +626,13 @@ $("#txtCodigoProductoG").blur(function() {
                             if (ind == "costo") {
                                 $("#txtCostoPieza").val(elem);
                             }
+                            if (ind == "metrosCubicos") {
+                                $("#m3").val(elem);
+                            }
+
                         });
+                        $("#txtCodigoProductoG").prop("disabled",true);
                         var existencia = parseFloat($("#respaldaExistencia").val());
-                        alert("Es un producto NO granel con existencia de: " + existencia);
                         //Si la existencia del producto es 0====================
                         if (existencia == 0) {
                             alertify.alert("No hay existencias del producto ingresado, para su venta a granel");
@@ -699,10 +707,12 @@ $("#txtCodigoProductoG").blur(function() {
                     if (ind == "costo") {
                         $("#txtCostoProducto").val(elem);
                     }
+                    if (ind == "metrosCubicos") {
+                        $("#m3").val(elem);
+                    }
                 });
-
+                 $("#txtCodigoProductoG").prop("disabled",true);
                 var existencia = parseFloat($("#respaldaExistencia").val());
-                alert("Existencia del producto a granel: " + existencia);
                 $.get('obtenerDatosAgranel.php', info2, function(rs) {
                     $("#txtContenido").val(rs);
                     var costo = $("#txtCostoProducto").val();
@@ -728,10 +738,8 @@ $("#txtCodigoProductoG").blur(function() {
                                 utilidad = parseFloat(utilidad) + parseFloat(costo);
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
-                                $("#check" + provando).prop({
-                                    disabled: false,
-                                    Checked: true
-                                });
+                                $("#check" + provando).prop("disabled", false);
+                                $("#check" + provando).prop("checked", true);
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
                             }
@@ -790,7 +798,7 @@ $("#guardarGranel").click(function() {
     var contenido = $("#txtContenido").val();
     var listaPrecios = new Array();
     var listaTarifas = new Array();
-
+    var m3 = 0;
 
     $("#tablaListaPrecios").find('.producto').each(function() {
         var elemento = this;
@@ -814,9 +822,9 @@ $("#guardarGranel").click(function() {
     });
     if (contenido !== "" && cbarras !== "" && nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
         if (min < max) {
-            var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original;
+            var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
             $.get('guardarProducto.php', info, function(x) {
-                if (x >= 1) {
+                if (x == 1) {
                     $("#consultaProducto").load("consultarProducto.php", function() {
                         $("#tdProducto").dataTable();
                     });
@@ -922,6 +930,7 @@ $("#editarGranel").click(function() {
             $("#txtCodigoProductoG").focus("");
             $("#divgrande").slideUp();
             alertify.success("Producto agregado correctamente");
+             $("#txtCodigoProductoG").prop("disabled",false);
             return false;
         });
     } else {
