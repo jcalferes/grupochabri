@@ -521,7 +521,7 @@ function nuevogranel() {
         $("#guardarGranel").slideUp();
         $("#editarGranel").slideUp();
         $("#txtCostoProducto").removeAttr("disabled", "disabled");
-         $("#txtCodigoProductoG").prop("disabled",false);
+        $("#txtCodigoProductoG").prop("disabled", false);
     }
 }
 //=============================Consultar para agranel===========================
@@ -631,7 +631,7 @@ $("#txtCodigoProductoG").blur(function() {
                             }
 
                         });
-                        $("#txtCodigoProductoG").prop("disabled",true);
+                        $("#txtCodigoProductoG").prop("disabled", true);
                         var existencia = parseFloat($("#respaldaExistencia").val());
                         //Si la existencia del producto es 0====================
                         if (existencia == 0) {
@@ -711,7 +711,7 @@ $("#txtCodigoProductoG").blur(function() {
                         $("#m3").val(elem);
                     }
                 });
-                 $("#txtCodigoProductoG").prop("disabled",true);
+                $("#txtCodigoProductoG").prop("disabled", true);
                 var existencia = parseFloat($("#respaldaExistencia").val());
                 $.get('obtenerDatosAgranel.php', info2, function(rs) {
                     $("#txtContenido").val(rs);
@@ -750,6 +750,7 @@ $("#txtCodigoProductoG").blur(function() {
                 $("#divgrande").slideDown();
                 $("#txtCostoProducto").attr("disabled", "disabled");
                 $("#txtCostoPieza").attr("disabled", "disabled");
+                $("#txtContenido").attr("disabled", "disabled");
                 $("#guardarGranel").slideUp();
                 $("#editarGranel").slideDown();
             }
@@ -847,6 +848,8 @@ $("#guardarGranel").click(function() {
                     $(".checando").attr("checked", false);
                     $("#selectProducto").load("obtenerProductos.php");
                     alertify.success("Producto agregado correctamente");
+                    $("#chkgranel").prop('disabled', false);
+                    $("#txtCodigoProductoG").prop('disabled', false);
                     return false;
                 } else {
                     $("#consultaProducto").load("consultarProducto.php", function() {
@@ -930,7 +933,7 @@ $("#editarGranel").click(function() {
             $("#txtCodigoProductoG").focus("");
             $("#divgrande").slideUp();
             alertify.success("Producto agregado correctamente");
-             $("#txtCodigoProductoG").prop("disabled",false);
+            $("#txtCodigoProductoG").prop("disabled", false);
             return false;
         });
     } else {
