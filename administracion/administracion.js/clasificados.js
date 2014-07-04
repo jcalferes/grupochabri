@@ -1,5 +1,25 @@
 var archivos;
 var grupo;
+var arrelo;
+var imagenes = new Array();
+
+function eliminandoImagenes(imagen, idImagen,cont) {
+    var arreglo = new Array();
+    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar. ", function(e) {
+        if (e) {
+            arreglo = {imagen: imagen, idImagen: idImagen};
+            imagenes.push(arreglo);
+            console.log(imagenes);
+            $("#contenedor"+cont).hide("slow");
+        } else {
+            alertify.error("<img src='../subidas/okey.jpg' height='50%' width='50%'>");
+        }
+    });
+
+
+
+}
+
 function handleFileSelect(evt) {
     alert("entro");
     var files = evt.target.files; // FileList object
@@ -9,9 +29,7 @@ function handleFileSelect(evt) {
     if (archivos.length <= 5) {
         for (var i = 0, f; f = files[i]; i++) {
             var fileName = f.name;
-
             var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
-
             if (fileExtension !== "jpg" && fileExtension !== "png" && fileExtension !== "gif") {
                 alertify.error("Solo puedes subir archivos jpg, gif y png")
 
@@ -34,8 +52,9 @@ function handleFileSelect(evt) {
 }
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
 $(document).ready(function() {
+    $("#editarImagenes").hide();
+    $("#mostrarImagenes").hide();
     $("#mostrando").hide();
 //    $("#selectTipo").selectpicker('hide');
 //
@@ -52,92 +71,130 @@ $(document).ready(function() {
 //        }
 //
 //    });
-    $("#clascodigoproducto").keypress(function(e){
-         if (e.which == 13) {
-          var   info="codigoProducto=" + $("#clascodigoproducto").val();
-            $.get("verificarExistenciaProducto.php",info,function(x){
-                 lista = JSON.parse(x);
+    $("#clascodigoproducto").keypress(function(e) {
+        if (e.which == 13) {
+            var info = "codigoProducto=" + $("#clascodigoproducto").val();
+            $.get("verificarExistenciaProducto.php", info, function(x) {
+
+                var comprobante;
+                var tipo;
+                var descripcion;
+                var imagenes;
+                var idImagen;
+                var cont = 1;
+                lista = JSON.parse(x);
                 console.log(lista);
-
-                 $.each(lista, function(ind, elem) {
-                      $.each(elem, function(ind, elem2) {
-                     grupo = elem[ind].idGrupoProducto;
+                $.each(lista, function(ind, elem) {
+                    $.each(elem, function(ind, elem2) {
+                        grupo = elem[ind].idGrupoProducto;
+                        comprobante = elem[ind].comprobante;
+                        tipo = elem[ind].idTipo;
+                        descripcion = elem[ind].descripcion;
+                        imagenes = elem[ind].ruta;
+                        idImagen = elem[ind].idImagen;
+                        if (imagenes !== undefined) {
+                            var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
+                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','"+cont+"')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
+                            
+                            $("#imagen" + cont).append(imagen);
+                            $("#contenedor"+cont).show('slow');
+//                            $("#imagen" + cont).prop("hidden",false);
+                            cont++;
+                             $("#mostrarImagenes").show("slow");
+                        }
                        
-                 });
-                 });
+//                         imagen='<img src="../subidas/"' +imagenes+' />';
+
+                    });
+                });
 //                grupo = x;
-               if(grupo !==""){
-                    alert(grupo);
-                  $("#mostrando").show();
-                  $("#clascodigoproducto").prop("disabled", true);
-                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
-                $("#selectTipo").selectpicker();
-                $("#selectTipo").selectpicker('refresh');
-                $("#selectTipo").selectpicker('show');
+                if (grupo !== "" && grupo !== undefined) {
+                    $("#mostrando").show();
+                    $("#clascodigoproducto").prop("disabled", true);
+                    $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+                        $("#selectTipo").selectpicker();
+                        $("#selectTipo").selectpicker('refresh');
+                        $("#selectTipo").selectpicker('show');
+                        if (comprobante == "1") {
+                            $("#selectTipo").selectpicker("val", tipo);
+                            $("#descripcion").val(descripcion);
+                            $("#editarImagenes").show('slow');
+                            $("#subirImagenes").hide('slow');
+                        }
+                        else {
+
+                        }
+
+
+                    });
+                } else {
+                    alertify.error("No existe este producto");
+                }
 
             });
-               }else{
-                   alertify.error("No existe este producto");
-               }
-               
-            });
-         }
-    })
-    
-    $("#btnGuardarTipo").click(function(){
-        info="nombreTipo="+ $("#txtnombreTipo").val() + "&idGrupo="+ grupo;
-       $.get("guardarTipo.php",info,function(x){
-           if(x == 999){
-               alertify.error("No funciono");
-           }else{
-                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
-                $("#selectTipo").selectpicker();
-                $("#selectTipo").selectpicker('refresh');
-                $("#selectTipo").selectpicker('show');
-
-            });
-                alertify.success("Guardado Tipo");
-           }
-           
-       }); 
-    }); 
-    $("#subirImagenes").click(function() {
-   if( $("#descripcion").val() !== "" &&  $("#clascodigoproducto").val() !== "" &&  $("#selectTipo").val() !== "" &&  $("#files").val() !== ""){
-       //       alert(archivos);
-        var data = new FormData();
-//        alert(archivos.length);
-        for (i = 0; i < archivos.length; i++) {
-            data.append('archivo' + i, archivos[i]);
-//                alert(archivos[i]);
         }
-        var nov = $("#Novedades").is(":checked");
-        var reco = $("#recomendado").is(":checked");
-        if(reco == true){recomendados = 1;}else{recomendados = 1;}
-        if(nov == true){novedades=1;}else{novedades = 0;}
-        data.append('descripcion', probando = $("#descripcion").val());
-        data.append('codigoProducto', probando = $("#clascodigoproducto").val());
-//        data.append('grupo', probando = $("#selectGrupo").val());
-        data.append('tipo', probando = $("#selectTipo").val());
-        data.append('novedades', novedades);
-        data.append('recomendado', recomendados);
+    })
 
+    $("#btnGuardarTipo").click(function() {
+        info = "nombreTipo=" + $("#txtnombreTipo").val() + "&idGrupo=" + grupo;
+        $.get("guardarTipo.php", info, function(x) {
+            if (x == 999) {
+                alertify.error("No funciono");
+            } else {
+                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+                    $("#selectTipo").selectpicker();
+                    $("#selectTipo").selectpicker('refresh');
+                    $("#selectTipo").selectpicker('show');
+                });
+                alertify.success("Guardado Tipo");
+            }
+
+        });
+    });
+    $("#subirImagenes").click(function() {
+        if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "" && $("#files").val() !== "") {
+//       alert(archivos);
+            var data = new FormData();
+//        alert(archivos.length);
+            for (i = 0; i < archivos.length; i++) {
+                data.append('archivo' + i, archivos[i]);
+//                alert(archivos[i]);
+            }
+            var nov = $("#Novedades").is(":checked");
+            var reco = $("#recomendado").is(":checked");
+            if (reco == true) {
+                recomendados = 1;
+            } else {
+                recomendados = 1;
+            }
+            if (nov == true) {
+                novedades = 1;
+            } else {
+                novedades = 0;
+            }
+            data.append('descripcion', probando = $("#descripcion").val());
+            data.append('codigoProducto', probando = $("#clascodigoproducto").val());
+//        data.append('grupo', probando = $("#selectGrupo").val());
+            data.append('tipo', probando = $("#selectTipo").val());
+            data.append('novedades', novedades);
+            data.append('recomendado', recomendados);
 //            alert(data);
-        $.ajax({
-            url: 'guardandoImagenes.php', //Url a donde la enviaremos
-            type: 'POST', //Metodo que usaremos
-            contentType: false, //Debe estar en false para que pase el objeto sin procesar
-            data: data, //Le pasamos el objeto que creamos con los archivos
-            processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
-            cache: false //Para que el formulario no guarde cache
-        }).done(function(msg) {
+            $.ajax({
+                url: 'guardandoImagenes.php', //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: data, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function(msg) {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
-            alertify.error(msg);
-        });
-   }else{
-       alertify.error("Debes llenar los campos obligatorios");
-   }
+                alertify.success(msg);
+            });
+        } else {
+            alertify.error("Debes llenar los campos obligatorios");
+        }
 
 
 

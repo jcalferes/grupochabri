@@ -37,7 +37,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
       $contando =  mysql_affected_rows();
       if($contando >0){
-           $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto WHERE p.codigoProducto = '$codigo'";
+           $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto WHERE p.codigoProducto = '$codigo'";
             $datos2 = mysql_query($sql, $cn->Conectarse());
              $contando =  mysql_affected_rows();
              if($contando >0){
