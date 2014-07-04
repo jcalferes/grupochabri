@@ -17,6 +17,31 @@ function NumCheck(e, field, tarifa) {
     return false
 }
 
+$("#txtCostoProducto").keyup(function() {
+    var val_costo = $("#txtCostoProducto").val();
+    if (val_costo === "" || /^\s+$/.test(val_costo)) {
+        val_costo = 0;
+    } else {
+        val_costo = $("#txtCostoProducto").val();
+    }
+    $("#tablaListaPrecios").find(':checked').each(function() {
+        var elemento = this;
+        var valor = elemento.value;
+        var uti = $("#texto" + valor).val();
+        uti = uti / 100;
+        if (uti <= 0) {
+            var resultado = val_costo;
+            $("#tarifa" + valor).val(resultado.toFixed(2));
+        } else {
+            var resultado = val_costo * uti;
+            $("#util" + valor).val(resultado.toFixed(2));
+            resultado = parseFloat(resultado) + parseFloat(val_costo);
+
+            $("#tarifa" + valor).val(resultado.toFixed(2));
+        }
+    });
+});
+
 function tester(valor) {
     var costo = document.getElementById("txtCostoProducto").value;
     if ($("#check" + valor).is(':checked')) {
@@ -27,6 +52,7 @@ function tester(valor) {
         $("#texto" + valor).attr("disabled", true);
         $("#tarifa" + valor).val("");
         $("#texto" + valor).val("");
+        $("#util" + valor).val("");
     }
 }
 
@@ -141,7 +167,6 @@ function limpiarProductos() {
     $("#txtCodigoBarras").prop('disabled', false);
 }
 $("#finder").blur(function() {
-
     var codigo = $("#finder").val();
     if (codigo === "" || /^\s+$/.test(codigo)) {
         $("#finder").val("");
@@ -222,10 +247,8 @@ $("#finder").blur(function() {
                                 utilidad = parseFloat(utilidad) + parseFloat(costo);
                                 $("#texto" + provando).val(elem);
                                 $("#texto" + provando).attr("disabled", false);
-                                $("#check" + provando).prop({
-                                    disabled: false,
-                                    Checked: true
-                                });
+                                $("#check" + provando).prop('disabled', false);
+                                $("#check" + provando).prop('checked', true);
                                 $("#tarifa" + provando).val(utilidad);
                                 provando = 0;
                             }
@@ -235,225 +258,13 @@ $("#finder").blur(function() {
                 $("#finder").val("");
                 $("#txtCodigoBarras").prop('disabled', true);
                 $("#txtCodigoProducto").prop('disabled', true);
-
-
-
                 $("#guardarDatos").hide();
                 $("#editarDatos").show();
             }
         });
     }
 });
-
-//    $("#txtCodigoBarras").blur(function() {
-//        var codigoProducto = $("#txtCodigoBarras").val();
-//        var info = "codigoProducto=" + codigoProducto;
-//        $.get('verificandoProducto.php', info, function(x) {
-//            if (x < 1) {
-//                var codpro = $("#txtCodigoProducto").val();
-//                if (codpro === "" || /^\s+$/.test(codpro)) {
-//                    $("#txtCodigoProducto").val("");
-//                }
-//                $("#txtNombreProducto").val("");
-//                $('#selectMarca').selectpicker('val', 0);
-//                $('#selectProveedor').selectpicker('val', 0);
-//                $('#selectGrupo').selectpicker('val', 0);
-//                $('#selectMedida').selectpicker('val', 0);
-//                $("#txtCostoProducto").val("");
-//                $("#txtCantidadMinima").val("");
-//                $("#txtCantidadMaxima").val("");
-//                $(".producto").val("");
-//                $(".neto").val("");
-//
-//                $(".producto").attr("disabled", true);
-//                $(".checando").attr("disabled", true);
-//                $(".checando").attr("checked", false);
-//                $("#selectProducto").load("obtenerProductos.php");
-//                $("#guardarDatos").show();
-//                $("#editarDatos").hide();
-//            } else {
-//                lista = JSON.parse(x);
-//                console.log(lista);
-//                $(".producto").attr("disabled", true);
-//                $(".checando").attr({
-//                    checked: false,
-//                    disabled: false
-//                });
-//                $.each(lista, function(ind, elem) {
-//                    if (ind == "codigoProducto") {
-//                        $("#txtCodigoProducto").val(elem);
-//                    }
-//                    if (ind == "producto") {
-//                        $("#txtNombreProducto").val(elem);
-//                    }
-//                    if (ind == "idUnidadMedida") {
-//                        $('#selectMedida').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idGrupoProducto") {
-//                        $('#selectGrupo').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idMarca") {
-//                        $('#selectMarca').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idProveedor") {
-//                        $('#selectProveedor').selectpicker('val', elem);
-//                    }
-//                    if (ind == "costo") {
-//                        $("#txtCostoProducto").val(elem);
-//                    }
-//                    if (ind == "cantidadMaxima") {
-//                        $("#txtCantidadMaxima").val(elem);
-//                    }
-//                    if (ind == "cantidadMinima") {
-//                        $("#txtCantidadMinima").val(elem);
-//                    }
-//                    var info = "codigoProducto=" + codigoProducto;
-//
-//                });
-//                $.get('obtenerTarifasPorConsulta.php', info, function(x) {
-//
-//                    lista = JSON.parse(x);
-//                    console.log(lista);
-//                    var provando = 0;
-//                    $(".producto").val("");
-//                    $(".producto").attr("disabled", true);
-//                    $.each(lista, function(indice, elemento) {
-//                        $.each(elemento, function(ind, elem) {
-//                            if (ind == 0) {
-//
-//
-//                                provando = elem;
-//
-//                            }
-//                            if (ind == "porcentaUtilidad") {
-//
-//                                provando = provando.replace(" ", "_")
-//
-//                                var costo = $("#txtCostoProducto").val();
-//                                var utilidad = costo * (elem / 100);
-//                                $("#util" + provando).val(utilidad);
-//                                utilidad = parseFloat(utilidad) + parseFloat(costo);
-//
-//                                $("#texto" + provando).val(elem);
-//                                $("#texto" + provando).attr("disabled", false);
-//
-//                                $("#check" + provando).prop({
-//                                    disabled: false,
-//                                    Checked: true
-//                                });
-//                                $("#tarifa" + provando).val(utilidad);
-//                                provando = 0;
-//                            }
-//
-//                        });
-//                    });
-//                });
-//                $("#guardarDatos").hide();
-//                $("#editarDatos").show();
-//            }
-//        });
-//    });
-
-//    $("#txtCodigoProducto").blur(function() {
-//        var codigoProducto = $("#txtCodigoProducto").val();
-//        var info = "codigoProducto=" + codigoProducto;
-//        $.get('verificandoProducto.php', info, function(x) {
-//            if (x < 1) {
-//                var codprob = $("#txtCodigoBarras").val();
-//                if (codprob === "" || /^\s+$/.test(codprob)) {
-//                    $("#txtCodigoBarras").val("");
-//                }
-//                $("#txtNombreProducto").val("");
-//                $('#selectMarca').selectpicker('val', 0);
-//                $('#selectProveedor').selectpicker('val', 0);
-//                $('#selectGrupo').selectpicker('val', 0);
-//                $('#selectMedida').selectpicker('val', 0);
-//                $("#txtCostoProducto").val("");
-//                $("#txtCantidadMinima").val("");
-//                $("#txtCantidadMaxima").val("");
-//                $(".producto").val("");
-//                $(".neto").val("");
-//
-//                $(".producto").attr("disabled", true);
-//                $(".checando").attr("disabled", true);
-//                $(".checando").attr("checked", false);
-//                $("#selectProducto").load("obtenerProductos.php");
-//                $("#guardarDatos").show();
-//                $("#editarDatos").hide();
-//            } else {
-//                lista = JSON.parse(x);
-//                console.log(lista);
-//                $(".producto").attr("disabled", true);
-//                $(".checando").attr({
-//                    checked: false,
-//                    disabled: false
-//                });
-//                $.each(lista, function(ind, elem) {
-//                    if (ind == "codigoBarrasProducto") {
-//                        $("#txtCodigoBarras").val(elem);
-//                    }
-//                    if (ind == "producto") {
-//                        $("#txtNombreProducto").val(elem);
-//                    }
-//                    if (ind == "idUnidadMedida") {
-//                        $('#selectMedida').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idGrupoProducto") {
-//                        $('#selectGrupo').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idMarca") {
-//                        $('#selectMarca').selectpicker('val', elem);
-//                    }
-//                    if (ind == "idProveedor") {
-//                        $('#selectProveedor').selectpicker('val', elem);
-//                    }
-//                    if (ind == "costo") {
-//                        $("#txtCostoProducto").val(elem);
-//                    }
-//                    if (ind == "cantidadMaxima") {
-//                        $("#txtCantidadMaxima").val(elem);
-//                    }
-//                    if (ind == "cantidadMinima") {
-//                        $("#txtCantidadMinima").val(elem);
-//                    }
-//                    var info = "codigoProducto=" + codigoProducto;
-//
-//                });
-//                $.get('obtenerTarifasPorConsulta.php', info, function(x) {
-//                    lista = JSON.parse(x);
-//                    console.log(lista);
-//                    var provando = 0;
-//                    $(".producto").val("");
-//                    $(".producto").attr("disabled", true);
-//                    $.each(lista, function(indice, elemento) {
-//                        $.each(elemento, function(ind, elem) {
-//                            if (ind == 0) {
-//                                provando = elem;
-//                            }
-//                            if (ind == "porcentaUtilidad") {
-//                                provando = provando.replace(" ", "_")
-//                                var costo = $("#txtCostoProducto").val();
-//                                var utilidad = costo * (elem / 100);
-//                                $("#util" + provando).val(utilidad);
-//                                utilidad = parseFloat(utilidad) + parseFloat(costo);
-//                                $("#texto" + provando).val(elem);
-//                                $("#texto" + provando).attr("disabled", false);
-//                                $("#check" + provando).prop({
-//                                    disabled: false,
-//                                    Checked: true
-//                                });
-//                                $("#tarifa" + provando).val(utilidad);
-//                                provando = 0;
-//                            }
-//                        });
-//                    });
-//                });
-//                $("#guardarDatos").hide();
-//                $("#editarDatos").show();
-//            }
-//        });
-//    });
-
+//=================== Guardar datos producto ===================================
 $("#guardarDatos").click(function() {
     var lista;
     var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
@@ -563,26 +374,24 @@ $("#guardarDatos").click(function() {
         alertify.error("Todos los campos deben tener valor");
     }
 });
-
+//================ Editar producto =============================================
 $('#editarDatos').click(function() {
     var dato2 = $("#selectGrupo").val();
     if (dato2 == 1) {
         dato2 = "MADERAS";
     }
     var lista;
-
     var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $("#txtCodigoProducto").val();
-    var costoProducto = parseFloat($("#txtCostoProducto").val());
+    var costoProducto = $("#txtCostoProducto").val();
     var min = parseFloat($("#txtCantidadMinima").val());
     var max = $("#txtCantidadMaxima").val();
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
     var listaPrecios = new Array();
     var listaTarifas = new Array();
-
     $("#tablaListaPrecios").find('.producto').each(function() {
         var elemento = this;
         var nombre = elemento.name;
@@ -592,11 +401,8 @@ $('#editarDatos').click(function() {
         lista = JSON.stringify(listaPrecios);
         valor = "";
         nombre = "";
-
-
-
     });
-    if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
+    if (nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
         if (min < max) {
             if (grupoProducto == 1 || dato2 == 'MADERAS') {
                 var m3 = $("#m3").val();
@@ -642,127 +448,7 @@ $('#editarDatos').click(function() {
         alertify.error("Todos los campos deben tener valor");
     }
 });
-//    $("#selectTarifa").change(function() {
-//
-//        var Tarifa = $("#selectTarifa").val();
-//        alert(Tarifa);
-//        $("#tablaTarifas").load("consultarProductoTarifa.php?tarifa=" + Tarifa);
-//    });
-//    $("#btnTarifa").click(function() {
-//        var Tarifa = $("#txtTarifa").val();
-//        var selectTarifa = $("#selectTarifa").val();
-//        var info = "Tarifa=" + Tarifa + "&listaPrecio=" + selectTarifa;
-//        $.get('guardarTarifa.php', info, function() {
-//
-////            $('#formulario').hide('slow');
-////            $("#selectTarifa").load("mostrarListaPrecios.php");
-////            $('#checarListas').show('hide');
-//            alertify.success("Tarifa del Producto agregado correctamente");
-//            return false;
-//        });
-//    });
-//    $("#selectProducto").load("obtenerProductos.php");
-//    $("#selectProducto").change(function() {
-//        var producto = $("#selectProducto").val();
-//        info = "producto=" + producto;
-//        $.get('obtenerExistencia.php', info, function(existencia) {
-//            existenciaInventario = existencia;
-//            $("#existencia").html('<h4> hay en existencia= ' + existenciaInventario + '</h4>');
-//        });
-//    });
-//    $("#AgregarEntrada").click(function() {
-//        var cantidad = $("#txtEntradaProducto").val();
-//        var idProducto = $("#selectProducto").val();
-//        var info = "cantidad=" + cantidad + "&idProducto=" + idProducto + "&existenciaActual=" + existenciaInventario;
-//        $.get('guardarEntrada.php', info, function(comprobar) {
-//            alert(comprobar);
-//            if (comprobar == "OK") {
-//
-//                $("#selectProducto").val(0);
-//                $("#txtEntradaProducto").val("");
-//                $("#existencia").html('<h4> hay en existencia=0</h4>');
-//                alertify.success("se guardo la Cantidad exitosamente");
-//            } else {
-//                alertify.error("no Se ha Guardado");
-//            }
-//        });
-//    });
-
-//    $('#consultaProducto tr>*').click(function (e) {
-//        var a = $(this).closest('tr').find('a')
-//        e.preventDefault()
-//        location.href = a.attr('href')
-//    })
-
-
-
-//    $(document).on('change', '#selectListaPrecios', function() {
-//        //almacenamos en una variable todo el contenido de la nueva fila que deseamos
-//        //agregar. pueden incluirse id's, nombres y cualquier tag... sigue siendo html   onclick="eliminar(\'' + valor + '\');"
-//        var valor = $("#selectListaPrecios").val();
-//
-//        var palabras = valor.split("-");
-//        
-//        var strNueva_Fila = '<tr>' +
-//                '<td>' + palabras[1] + '</td>' +
-//                '<td><input type="text" class="clsAnchoTotal" id="palabras"></td>' +
-//                '<td align="right"><button type="submit" class="clsEliminarFila" id="botonazo" value="' + valor + '"/>-</button></td>' +
-//                "</tr>";
-//
-//        $("#selectListaPrecios").find("option[value=" + valor + "]").remove();
-//        /*obtenemos el padre del boton presionado (en este caso queremos la tabla, por eso
-//         utilizamos get(3)
-//         table -> padre 3
-//         tfoot -> padre 2
-//         tr -> padre 1
-//         td -> padre 0
-//         nosotros queremos utilizar el padre 3 para agregarle en la etiqueta
-//         tbody una nueva fila*/
-//        var objTabla = $(this).parents().get(3);
-//
-//        //agregamos la nueva fila a la tabla
-//        $(objTabla).find('tbody').append(strNueva_Fila);
-//
-//        //si el cuerpo la tabla esta oculto (al agregar una nueva fila) lo mostramos
-//        if (!$(objTabla).find('tbody').is(':visible')) {
-//            //le hacemos clic al titulo de la tabla, para mostrar el contenido
-//            $(objTabla).find('caption').click();
-//        }
-//    });
-////
-//    $(document).on('click', '.clsEliminarFila', function() {
-//        /*obtener el cuerpo de la tabla; contamos cuantas filas (tr) tiene
-//         si queda solamente una fila le preguntamos al usuario si desea eliminarla*/
-//        var valor = $("#botonazo").val();
-//        alert(valor);
-//        var objCuerpo = $(this).parents().get(2);
-//        if ($(objCuerpo).find('tr').length == 1) {
-//            if (!confirm('Esta es el única fila de la lista ¿Desea eliminarla?')) {
-//                return;
-//            }
-//        }
-//        /*obtenemos el padre (tr) del td que contiene a nuestro boton de eliminar
-//         que quede claro: estamos obteniendo dos padres
-//         el asunto de los padres e hijos funciona exactamente como en la vida real
-//         es una jergarquia. imagine un arbol genealogico y tendra todo claro ;)
-//         tr	--> padre del td que contiene el boton
-//         td	--> hijo de tr y padre del boton
-//         boton --> hijo directo de td (y nieto de tr? si!)
-//         */
-//        var objFila = $(this).parents().get(1);
-//        /*eliminamos el tr que contiene los datos del contacto (se elimina todo el
-//         contenido (en este caso los td, los text y logicamente, el boton */
-//        $(objFila).remove();
-//
-//        $('#selectListaPrecios').append('<option value=' + valor + '>' + valor + '</option>');
-//
-//    });
-
-
-
-
 //===============================Formulario a granel============================
-
 function nuevogranel() {
     var chk = $("#chkgranel").is(":checked");
     if (chk == true) {
