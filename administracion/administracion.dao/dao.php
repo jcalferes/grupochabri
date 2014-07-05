@@ -1,9 +1,10 @@
 <?php
 
 class dao {
-    function obtenerImagenesDisponibles(clasificados $clasificados){
-         include_once '../daoconexion/daoConeccion.php';
-         $cn = new coneccion();
+
+    function obtenerImagenesDisponibles(clasificados $clasificados) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
         $numeros = array("0", "1", "2", "3", "4");
         $obtenerImagenes = "SELECT * FROM imagenes WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
         $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
@@ -14,7 +15,7 @@ class dao {
             unset($numeros[$cdn2[0]]);
         }
         $numeros = array_values($numeros);
-      return $numeros;
+        return $numeros;
     }
 
     function borrarImagenes($imagenes, clasificados $c) {
@@ -26,9 +27,11 @@ class dao {
             $imagen = $value->imagen;
             $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
 
-           
+
             $datos = mysql_query($borrarImagenes, $cn->Conectarse());
-             unlink("../subidas/".$imagen);
+            $ruta = "../subidas/";
+            $fusion = $ruta.$imagen;
+            unlink($fusion);
         }
 //        $obtenerImagenes="SELECT * FROM imagenes WHERE $c->codigoProducto";
 //          $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
@@ -53,24 +56,29 @@ class dao {
 //        }
 //        $numeros = array_values($numeros);
 //      
-        $sqlClasificados = "UPDATE clasificados set  idTipo = '" . $clasificados->getIdTipo() . "' ,descripcion = '" . $clasificados->getDescripcion() . "',ponerRecomendado = '" . $clasificados->getPonerRecomendado() . "',ponerNovedades = '" . $clasificados->getPonerNovedades() . "' WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";   
-        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse()) ;
+        $sqlClasificados = "UPDATE clasificados set  idTipo = '" . $clasificados->getIdTipo() . "' ,descripcion = '" . $clasificados->getDescripcion() . "',ponerRecomendado = '" . $clasificados->getPonerRecomendado() . "',ponerNovedades = '" . $clasificados->getPonerNovedades() . "' WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
+        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse());
 
         if ($sqlClasificados == false) {
             mysql_query("ROLLBACK;");
         } else {
-            foreach ($nombres as $value) { // aqui comenzamos la insercion de imagenes
-                $nombre = $value;
-                $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
-                $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
-                if ($sqlImagenes == false) {
-                    mysql_query("ROLLBACK;");
-                } else {
-                    mysql_query("COMMIT;");
+            if (count($nombres) > 0) {
+                foreach ($nombres as $value) { // aqui comenzamos la insercion de imagenes
+                    $nombre = $value;
+                    $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
+                    $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
+                    if ($sqlImagenes == false) {
+                        mysql_query("ROLLBACK;");
+                    } else {
+//                        mysql_query("COMMIT;");
+                    }
                 }
+            } else {
+                
             }
+        } mysql_query("COMMIT;");
     }
-    }
+
     function guardarClasificados(clasificados $clasificados, $nombres) {
         include_once '../daoconexion/daoConeccion.php';
 

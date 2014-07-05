@@ -17,7 +17,10 @@ $clasificados->setPonerNovedades($_POST["novedades"]);
 $clasificados->setPonerRecomendado($_POST["recomendado"]);
 $codigoProducto = $_POST["codigoProducto"];
 $imagenesBorradas =  json_decode($_POST["imagenesBorradas"]);
-$dao->borrarImagenes($imagenesBorradas,$clasificados);
+if(count($imagenesBorradas) > 0){
+    $dao->borrarImagenes($imagenesBorradas,$clasificados);
+}
+
 $nombresDisponibles=$dao->obtenerImagenesDisponibles($clasificados);
 
 //$descripcion = $_POST["descripcion"];
