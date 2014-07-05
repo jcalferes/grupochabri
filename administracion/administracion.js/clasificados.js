@@ -43,7 +43,7 @@ function eliminandoImagenes(imagen, idImagen, cont) {
 }
 
 function handleFileSelect(evt) {
-    alert("entro");
+//    alert("entro");
     var files = evt.target.files; // FileList object
     archivos = files;
     // files is a FileList of File objects. List some properties.
@@ -198,8 +198,8 @@ $(document).ready(function() {
             }
             var nov = $("#Novedades").is(":checked");
             var reco = $("#recomendado").is(":checked");
-            alert("nov="+ nov);
-                alert("reco="+ reco);
+//            alert("nov="+ nov);
+//                alert("reco="+ reco);
             if (reco === true) {
                 recomendados = 1;
             } else {
@@ -258,8 +258,8 @@ $(document).ready(function() {
 
                 var nov = $("#Novedades").is(":checked");
                 var reco = $("#recomendado").is(":checked");
-                alert("nov="+ nov);
-                alert("reco="+ reco);
+//                alert("nov="+ nov);
+//                alert("reco="+ reco);
                 if (reco === true) {
                     recomendados = 1;
                 } else {
@@ -270,7 +270,7 @@ $(document).ready(function() {
                 } else {
                     novedades = 0;
                 }
-                alert("entro" + calculando);
+//                alert("entro" + calculando);
 
                 listaImagenes = JSON.stringify(imagenes);
                 data.append('descripcion', probando = $("#descripcion").val());
