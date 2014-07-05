@@ -34,8 +34,7 @@ function eliminandoImagenes(imagen, idImagen, cont) {
             calculando = calculando + 1;
             $("#textoValor").text("Puedes subir maximo " + calculando + " imagenes");
         } else {
-            alertify.error("<img src='../subidas/okey.jpg' height='50%' width='50%'>");
-        }
+                    }
     });
 
 
@@ -235,7 +234,7 @@ $(document).ready(function() {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
-                alertify.success(msg);
+                alertify.success("Se guardaron lo datos correctamente");
                 limpiarCampos();
             });
         } else {
@@ -298,7 +297,7 @@ $(document).ready(function() {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
-                    alertify.success(msg);
+                    alertify.success("Se editaron lo datos correctamente");
                     limpiarCampos();
                 });
             } else {
