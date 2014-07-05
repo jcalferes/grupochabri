@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Subir Maximo 5 imagenes:</label>
+                            <span id="textoValor">Puedes subir maximo 5 imagenes</span>
                             <input type="file" id="files" name="files[]" accept=".jpg" multiple />
                             <output id="list"></output>
 

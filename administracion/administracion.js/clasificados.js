@@ -2,15 +2,17 @@ var archivos;
 var grupo;
 var arrelo;
 var imagenes = new Array();
-
-function eliminandoImagenes(imagen, idImagen,cont) {
+var calculando = 6;
+function eliminandoImagenes(imagen, idImagen, cont) {
     var arreglo = new Array();
     alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar. ", function(e) {
         if (e) {
             arreglo = {imagen: imagen, idImagen: idImagen};
             imagenes.push(arreglo);
             console.log(imagenes);
-            $("#contenedor"+cont).hide("slow");
+            $("#contenedor" + cont).hide("slow");
+            calculando = calculando + 1;
+             $("#textoValor").text("Puedes subir maximo " + calculando + " imagenes");
         } else {
             alertify.error("<img src='../subidas/okey.jpg' height='50%' width='50%'>");
         }
@@ -26,7 +28,7 @@ function handleFileSelect(evt) {
     archivos = files;
     // files is a FileList of File objects. List some properties.
     var output = [];
-    if (archivos.length <= 5) {
+    if (archivos.length <= calculando) {
         for (var i = 0, f; f = files[i]; i++) {
             var fileName = f.name;
             var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -44,7 +46,7 @@ function handleFileSelect(evt) {
         }
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
     } else {
-        alertify.error("Solo puedes Subir 5 imagenes");
+        alertify.error("Solo puedes Subir " + calculando + " imagenes");
         $("#files").val("");
         $("#list").val("");
     }
@@ -94,15 +96,16 @@ $(document).ready(function() {
                         idImagen = elem[ind].idImagen;
                         if (imagenes !== undefined) {
                             var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
-                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','"+cont+"')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
-                            
+                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
+
                             $("#imagen" + cont).append(imagen);
-                            $("#contenedor"+cont).show('slow');
+                            $("#contenedor" + cont).show('slow');
 //                            $("#imagen" + cont).prop("hidden",false);
                             cont++;
-                             $("#mostrarImagenes").show("slow");
+                            $("#mostrarImagenes").show("slow");
                         }
-                       
+                        calculando = 6 - cont;
+                        $("#textoValor").text("Puedes subir maximo " + calculando + " imagenes");
 //                         imagen='<img src="../subidas/"' +imagenes+' />';
 
                     });
@@ -178,9 +181,61 @@ $(document).ready(function() {
             data.append('tipo', probando = $("#selectTipo").val());
             data.append('novedades', novedades);
             data.append('recomendado', recomendados);
+            data.append('faltantes', calculando)
 //            alert(data);
             $.ajax({
                 url: 'guardandoImagenes.php', //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: data, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function(msg) {
+//                $("#xmlenrada").slideUp();
+//                $("#validacionentradas").slideDown();
+//                $("#cargaxml").slideDown();
+                alertify.success(msg);
+            });
+        } else {
+            alertify.error("Debes llenar los campos obligatorios");
+        }
+
+
+
+    });
+
+    $("#editarImagenes").click(function() {
+        if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "" && $("#files").val() !== "") {
+//       alert(archivos);
+            var data = new FormData();
+//        alert(archivos.length);
+            for (i = 0; i < archivos.length; i++) {
+                data.append('archivo' + i, archivos[i]);
+//                alert(archivos[i]);
+            }
+            var nov = $("#Novedades").is(":checked");
+            var reco = $("#recomendado").is(":checked");
+            if (reco == true) {
+                recomendados = 1;
+            } else {
+                recomendados = 1;
+            }
+            if (nov == true) {
+                novedades = 1;
+            } else {
+                novedades = 0;
+            }
+          var  listaImagenes = JSON.stringify(imagenes);
+            data.append('descripcion', probando = $("#descripcion").val());
+            data.append('codigoProducto', probando = $("#clascodigoproducto").val());
+//        data.append('grupo', probando = $("#selectGrupo").val());
+            data.append('tipo', probando = $("#selectTipo").val());
+            data.append('novedades', novedades);
+            data.append('recomendado', recomendados);
+            data.append('imagenesBorradas',  listaImagenes);
+//            alert(data);
+            $.ajax({
+                url: 'editandoImagenes.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
                 data: data, //Le pasamos el objeto que creamos con los archivos
