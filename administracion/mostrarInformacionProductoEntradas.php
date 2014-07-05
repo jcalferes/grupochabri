@@ -18,6 +18,7 @@ if ($rs == false) {
             'producto' => $resultSet[1],
             'costo' => $resultSet[2]
         );
+        
     }
     if ($paso == false) {
         echo '1';

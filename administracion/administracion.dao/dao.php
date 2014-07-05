@@ -1,13 +1,83 @@
 <?php
 
 class dao {
+    function obtenerImagenesDisponibles(clasificados $clasificados){
+         include_once '../daoconexion/daoConeccion.php';
+         $cn = new coneccion();
+        $numeros = array("0", "1", "2", "3", "4");
+        $obtenerImagenes = "SELECT * FROM imagenes WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
+        $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
+        while ($rs = mysql_fetch_array($datos)) {
+            $cadena = $rs["ruta"];
+            $cdn = explode('-_-', $cadena);
+            $cdn2 = explode('.', $cdn[1]);
+            unset($numeros[$cdn2[0]]);
+        }
+        $numeros = array_values($numeros);
+      return $numeros;
+    }
 
-    function guardarClasificados(clasificados $clasificados, $nombres) {
+    function borrarImagenes($imagenes, clasificados $c) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $total = count($imagenes);
+        foreach ($imagenes as $value) {
+            $idImagen = $value->idImagen;
+            $imagen = $value->imagen;
+            $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
+
+           
+            $datos = mysql_query($borrarImagenes, $cn->Conectarse());
+             unlink("../subidas/".$imagen);
+        }
+//        $obtenerImagenes="SELECT * FROM imagenes WHERE $c->codigoProducto";
+//          $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
+//           
+//            return $datos;
+//        $cn->cerrarBd();
+//        return $datos;
+    }
+
+    function edtitarClasificados(clasificados $clasificados, $nombres) {
         include_once '../daoconexion/daoConeccion.php';
         mysql_query("START TRANSACTION;");
         $cn = new coneccion();
+//        $numeros = array("0", "1", "2", "3", "4");
+//        $obtenerImagenes = "SELECT * FROM imagenes WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
+//        $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
+//        while ($rs = mysql_fetch_array($datos)) {
+//            $cadena = $rs["ruta"];
+//            $cdn = explode('-_-', $cadena);
+//            $cdn2 = explode('.', $cdn[1]);
+//            unset($numeros[$cdn2[0]]);
+//        }
+//        $numeros = array_values($numeros);
+//      
+        $sqlClasificados = "UPDATE clasificados set  idTipo = '" . $clasificados->getIdTipo() . "' ,descripcion = '" . $clasificados->getDescripcion() . "',ponerRecomendado = '" . $clasificados->getPonerRecomendado() . "',ponerNovedades = '" . $clasificados->getPonerNovedades() . "' WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";   
+        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse()) ;
+
+        if ($sqlClasificados == false) {
+            mysql_query("ROLLBACK;");
+        } else {
+            foreach ($nombres as $value) { // aqui comenzamos la insercion de imagenes
+                $nombre = $value;
+                $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
+                $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
+                if ($sqlImagenes == false) {
+                    mysql_query("ROLLBACK;");
+                } else {
+                    mysql_query("COMMIT;");
+                }
+            }
+    }
+    }
+    function guardarClasificados(clasificados $clasificados, $nombres) {
+        include_once '../daoconexion/daoConeccion.php';
+
+        $cn = new coneccion();
+        mysql_query("START TRANSACTION;");
         $sqlClasificados = "INSERT INTO clasificados(codigoProducto,idTipo,descripcion,ponerRecomendado,ponerNovedades)VALUES ('" . $clasificados->getCodigoProducto() . "','" . $clasificados->getIdTipo() . "','" . $clasificados->getDescripcion() . "','" . $clasificados->getPonerRecomendado() . "','" . $clasificados->getPonerNovedades() . "')";
-     $sqlClasificados=   mysql_query($sqlClasificados, $cn->Conectarse());
+        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse());
 
         if ($sqlClasificados == false) {
             mysql_query("ROLLBACK;");
@@ -15,7 +85,7 @@ class dao {
             foreach ($nombres as $value) {
                 $nombre = $value;
                 $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
-             $sqlImagenes =   mysql_query($sqlImagenes, $cn->Conectarse());
+                $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
                 if ($sqlImagenes == false) {
                     mysql_query("ROLLBACK;");
                 } else {
@@ -28,14 +98,29 @@ class dao {
         $cn->cerrarBd();
     }
 
-      function comprobarCodigoValido2($codigo) {
+    function comprobarCodigoValido2($codigo) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+
         $datos = mysql_query($sql, $cn->Conectarse());
-        return $datos;
+        $contando = mysql_affected_rows();
+        if ($contando > 0) {
+            $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto WHERE p.codigoProducto = '$codigo'";
+            $datos2 = mysql_query($sql, $cn->Conectarse());
+            $contando = mysql_affected_rows();
+            if ($contando > 0) {
+                return $datos2;
+            } else {
+                return $datos;
+            }
+            return $datos2;
+        } else {
+            return 0;
+        }
     }
+
     function consultarTiposProducto($idGrupo) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -784,7 +869,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             return $datos;
         }
     }
-    
+
     function guardarTipo(GrupoProductos $g) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();

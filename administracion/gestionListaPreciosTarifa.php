@@ -23,7 +23,7 @@ if ($datos !== 0) {
 //    }
 //    mysql_data_seek($datos2, 0);
     }
-    echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>Porcentaje de tarifa en pesos</th><th>Tarifa</th></thead><tbody>";
+    echo"<div class='table-responsive'><table class='table table-hover'><thead><th>Nombre</th><th>% de Utilidad</th><th>% en pesos</th><th>Tarifa</th></thead><tbody>";
 
     foreach ($arreglo as $valor) {
         $pieces = explode("_", $valor);
