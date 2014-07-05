@@ -154,7 +154,7 @@ $(document).ready(function() {
                                 $("#recomendado").prop("checked", true);
                             }
                             if (novedades == '1') {
-                                $("#novedades").prop("checked", true);
+                                $("#Novedades").prop("checked", true);
                             }
 
                         }
