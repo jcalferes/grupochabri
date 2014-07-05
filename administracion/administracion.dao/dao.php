@@ -107,7 +107,6 @@ class dao {
     }
 
     function comprobarCodigoValido2($codigo) {
-
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
@@ -2615,10 +2614,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function obtenerDatosAgranel($codigo) {
+    function obtenerDatosAgranel($codigo, $codigopapa, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT cantidad FROM agranel WHERE codigoAgranel = '$codigo'";
+        $sql = "SELECT gr.cantidad, c.costo FROM agranel gr "
+                . "INNER JOIN costos c ON c.codigoProducto = '$codigopapa' "
+                . "WHERE gr.codigoAgranel = '$codigo' AND c.idSucursal = '$sucursal' AND c.status = '1'";
         $rs = mysql_query($sql, $cn->Conectarse());
         if ($rs == false) {
             $rs = mysql_error();

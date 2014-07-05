@@ -57,6 +57,10 @@
                                     <label>M3:</label><br/>
                                     <input type="text" class="form-control" onkeypress="return NumCheck(event, this);" id="m3"/>
                                 </div>
+                                <div class="form-group" id="frmcostopieza">
+                                    <label>Costo de la pieza</label>
+                                    <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
+                                </div>
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
                                     <div class="input-group" style="width: 60%">
@@ -64,10 +68,6 @@
                                         <span class="input-group-addon">Lt/Kg</span>
                                     </div>
                                     <input type="text" id="respaldaExistencia" hidden/>
-                                </div>
-                                <div class="form-group" id="frmcostopieza">
-                                    <label>Costo de la pieza</label>
-                                    <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Costo producto</label>
