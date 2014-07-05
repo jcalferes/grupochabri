@@ -108,6 +108,8 @@ $(document).ready(function() {
                 var idImagen;
                 var novedades;
                 var recomendado;
+                var nombreGrupos;
+                var producto;
                 var cont = 1;
                 lista = JSON.parse(x);
                 console.log(lista);
@@ -121,6 +123,8 @@ $(document).ready(function() {
                         idImagen = elem[ind].idImagen;
                         novedades = elem[ind].ponerNovedades;
                         recomendado = elem[ind].ponerRecomendado;
+                        producto = elem[ind].nombre;
+                        nombreGrupos = elem[ind].grupo;
                         if (imagenes !== undefined) {
                             var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
                                         <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
@@ -146,6 +150,8 @@ $(document).ready(function() {
                         $("#selectTipo").selectpicker('refresh');
                         $("#selectTipo").selectpicker('show');
                         if (comprobante == "1") {
+                            $("#grupo").val(nombreGrupos);
+                            $("#producto").val(producto);
                             $("#descripcion").val(descripcion);
                             $("#selectTipo").selectpicker("val", tipo);
                             $("#editarImagenes").show('slow');

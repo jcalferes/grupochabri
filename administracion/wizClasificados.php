@@ -18,6 +18,11 @@
                     </div>
                     <form id="mostrando">
                         <div class="form-group">
+                            <label>Nombre Producto:</label>
+                            <input type="text" class="form-control" id="producto" disabled/>
+                        </div>
+                        
+                        <div class="form-group">
                             <label>Descripcion del producto:</label>
                             <textarea id="descripcion" style="margin: 0px; width: 779px; height: 135px;"></textarea>
                         </div>
@@ -29,6 +34,10 @@
                                                     <select id="selectGrupo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                                                     </select>
                                                 </div> -->
+                        <div class="form-group">
+                            <label>Grupo Producto:</label>
+                            <input type="text" class="form-control" id="grupo" disabled/>
+                        </div>
                         <div class="form-group" id="productosTipos">
                             <label>Tipo de producto:</label><br/>
                             <select id="selectTipo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true"><input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlTipoProducto" value="+"/>
@@ -81,7 +90,7 @@
                         </div>
                         <input id="subirImagenes" type="button" value="aceptar" class="btn btn-primary"/>
                         <input id="limpiar" type="button" value="Cancelar" class="btn btn-primary"/>
-                         <input id="editarImagenes" type="button" value="Editar" class="btn btn-primary"/>
+                        <input id="editarImagenes" type="button" value="Editar" class="btn btn-primary"/>
                     </form>
                 </div>
             </section>
