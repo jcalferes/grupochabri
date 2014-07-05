@@ -133,7 +133,7 @@ function calcularTotal(codigo) {
         $("#txtTotal" + codigo).val(total.toFixed(2));
     }
     else {
-        var calulandoKg = (cantidad * datos[1]) / 1000;
+        var calulandoKg = (cantidad * datos[1]) / 1;
         $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
     }
     calcularDescuentos(codigo);
@@ -168,7 +168,8 @@ function calcularPorCantidad() {
     var datos = valor.split(",");
     var cantidad = $("#txtCantidadModal").val();
     $("#txt" + codigoN).val(cantidad);
-    var calulandoKg = (cantidad * datos[1]) / 1000;
+    var calulandoKg = (cantidad * datos[1]);
+//    / 1000;
     $("#txtTotal" + codigoN).val(calulandoKg.toFixed(2));
     calcularDescuentos(codigoN);
     $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
@@ -181,7 +182,10 @@ function calcularPorPrecio() {
     var precio = parseFloat($("#txtTotalModal").val());
     var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
-    var kilogramosVnta = (precio * 1000) / datos[1];
+    var kilogramosVnta = (precio * 1) / datos[1];
+    if (isNaN(kilogramosVnta)) {
+        kilogramosVnta = 0;
+    }
     $("#txtCantidadModal").val(parseFloat(kilogramosVnta.toFixed(2)));
     $("#txtTotal" + codigoN).val(precio.toFixed(2));
     $("#txt" + codigoN).val(parseFloat(kilogramosVnta.toFixed(2)));

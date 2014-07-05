@@ -79,7 +79,7 @@ if ($error == "") {
                          <input type='text' id='txt" . $codigo->getCodigo() . "' 
                              class='form-control' placeholder='Cant. Kg'
                              onkeyup='calcularTotal(" . "\"$codigo1\"" . ")'
-                             value='1000'/>
+                             value='1'/>
                          <span class='input-group-btn'>
                             <button class='btn btn-default' type='button' onclick='modalProductosGranel(" . "\"$codigo1\"" . ")'>
                                 <span class='glyphicon glyphicon-plus'></span>

@@ -3085,9 +3085,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             }
                         }
                         if ($cadena == "-GR") {
-                            $cantidad = $rs[0] * 1000;
-                            $cantidadTmp = $cantidadTmp * 1000;
-                            $cantidadPedida = $cantidadPedida * 1000;
+                            $cantidad = $rs[0] * 1;
+                            $cantidadTmp = $cantidadTmp * 1;
+                            $cantidadPedida = $cantidadPedida * 1;
                             $ok = true;
                         }
                         if ($ok == false) {
@@ -3096,7 +3096,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         }
                         if ($ok == true) {
                             $nuevaExistencia = $cantidad - $cantidadTmp;
-                            $nuevaExistencia = $nuevaExistencia / 1000;
+                            $nuevaExistencia = $nuevaExistencia -$cantidadPedida;
                         }
                         if ($nuevaExistencia < 0) {
                             $error = "2," . $detalle[$x]->codigoConcepto;
@@ -3136,7 +3136,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden <> 3";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden =7";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {
@@ -3203,7 +3203,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
         }
         //================= Cambiar status comprobante =========================
-        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
+        $sqlstatus = "UPDATE xmlcomprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
         $ctrlstatus = mysql_query($sqlstatus);
         if ($ctrlstatus == false) {
             $ctrlstatus = mysql_error();
