@@ -25,7 +25,7 @@ function limpiarCampos() {
 }
 function eliminandoImagenes(imagen, idImagen, cont) {
     var arreglo = new Array();
-    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar. ", function(e) {
+    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar", function(e) {
         if (e) {
             arreglo = {imagen: imagen, idImagen: idImagen};
             imagenes.push(arreglo);
@@ -169,7 +169,7 @@ $(document).ready(function() {
 
             });
         }
-    })
+    });
 
     $("#btnGuardarTipo").click(function() {
         info = "nombreTipo=" + $("#txtnombreTipo").val() + "&idGrupo=" + grupo;
