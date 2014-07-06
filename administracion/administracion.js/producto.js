@@ -11,7 +11,6 @@ function NumCheck(e, field, tarifa) {
     if (key == 46) {
         if (field.value == "")
             return false
-        regexp = /^[0-9]+$/
         return regexp.test(field.value)
     }
     return false
@@ -723,10 +722,10 @@ $("#txtCodigoProductoG").keypress(function(e) {
                     $.get('obtenerDatosAgranel.php', info2, function(rs) {
                         var arr = $.parseJSON(rs);
                         $("#txtContenido").val(arr.granel.datos.contenido);
-//                    var costo = $("#txtCostoProducto").val();
-//                    var costopieza = costo * rs;
-//                    alert(costopieza);
-                        $("#txtCostoPieza").val(arr.granel.datos.costo);
+                    var costo = $("#txtCostoProducto").val();
+                    var costopieza = costo * arr.granel.datos.contenido;
+                    alert(costopieza);
+                        $("#txtCostoPieza").val(costopieza.toFixed(2));
                     });
                     $.get('obtenerTarifasPorConsulta.php', info2, function(x) {
                         lista = JSON.parse(x);
