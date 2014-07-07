@@ -10,10 +10,13 @@
             </section>
             <h2><span class="glyphicon glyphicon-plus"/>&numsp;Agregar a granel</h2>
             <section>
-                <form style="margin: 0% 25% 0% 25%">
+                <div style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Codigo del producto padre:</label>
-                        <input type="text" class="form-control" id="txtcodigogranel">
+                        <div class="input-group" style="width: 60%">
+                            <input type="text" class="form-control" id="txtcodigogranel">
+                            <span class="input-group-addon">-GR</span>
+                        </div>
                     </div>
                     <div id="divincremento">
                         <div class="well well-sm">
@@ -33,8 +36,9 @@
                         </div>
                         <hr>
                         <input id="btnvalidar" type="button" class="btn btn-cprimary" value="Incrementear producto a granel"/>
+                        <input id="btncancel" type="button" class="btn btn-default" value="Cancelar"/>
                     </div>
-                </form>
+                </div>
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
