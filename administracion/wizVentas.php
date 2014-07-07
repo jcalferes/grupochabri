@@ -41,7 +41,7 @@
                             style="margin-left: 35px; width: 260px; float: left">
                     </select>
                     <div id="ordenesCompra" style="float: left; width: 260px;">
-                        <br>
+                        <select  class="form-control" id="cmbOrdenCompra"></select>
                     </div>
                 </div>
                 <br>

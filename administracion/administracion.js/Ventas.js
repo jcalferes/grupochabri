@@ -360,6 +360,7 @@ function validarUsuario(usuario, password) {
 
 
 $(document).ready(function() {
+    $("#cmbOrdenCompra").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
     $("#buscarCodigo").click(function() {
@@ -450,12 +451,15 @@ $(document).ready(function() {
     $("#cmbClientes").change(function() {
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
-            $("#descuentosV").html('<div id="descuentosV"></div>');
-            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
+            $("#cmbOrdenCompra").hide();
+//            $("#descuentosV").html('<div id="descuentosV"></div>');
+//            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
         }
         else {
 //            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
-            $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc);
+            $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+            $("#cmbOrdenCompra").show();
+            });
         }
     });
 
@@ -474,6 +478,12 @@ $(document).ready(function() {
         }
     });
 
+    $("#cmbOrdenCompra").change(function() {
+//        alert("cambio");
+        var idxml = $("#cmbOrdenCompra").val();
+//        alert(idxml);
+        $("#tablaVentas").load("construirOrdenCompraVentas.php?id="+idxml);
+    });
 });
 function finalizar() {
     codigoN = 0;

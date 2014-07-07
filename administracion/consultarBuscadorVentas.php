@@ -9,15 +9,15 @@ if (isset($_GET["sucursal"])) {
 }
 $dao = new dao();
 $datos = $dao->consultaBuscador($idsucursal);
-$sucursales = $dao->consultaSucursales($idsucursal);
+//$sucursales = $dao->consultaSucursales($idsucursal);
 
 if ($datos ==true) {
     echo"<div class='table-responsive'>"
-    . "<table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Proveedor</th><th>Grupo</th><th>Existencia</th><th>Existencia Proceso</th><th>Existencia Real</th>";
-    while($rss = mysql_fetch_array($sucursales)){
-        echo"<th> $rss[sucursal]</th>";
-    }
-     echo"<th>Menudeo</th></thead><tbody>";
+    . "<table id='tdProducto'  class='table table-hover'><thead><th></th><th>Producto</th><th>Codigo</th><th>Marca</th><th>Existencia</th><th>Existencia Proceso</th><th>Existencia Real</th>";
+//    while($rss = mysql_fetch_array($sucursales)){
+//        echo"<th> $rss[sucursal]</th>";
+//    }
+     echo"<tbody>";
     while ($rs = mysql_fetch_assoc($datos)) {
         $existenciaTemporal = 0;
         $existenciaDisponible = 0;
@@ -38,18 +38,18 @@ if ($datos ==true) {
         echo"<td>$rs[codigoProducto]</td>";
         echo"<td >$rs[producto]</td>";
         echo"<td id='$rs[marca]' >$rs[marca] </td>";
-        echo"<td id='$rs[proveedor]' >$rs[proveedor] </td>";
-        echo"<td id='$rs[grupoProducto]' >$rs[grupoProducto] </td>";
+//        echo"<td id='$rs[proveedor]' >$rs[proveedor] </td>";
+//        echo"<td id='$rs[grupoProducto]' >$rs[grupoProducto] </td>";
         echo"<td id='x' >$rs[existencia] </td>";
         echo "<td><center> $existenciaTemporal </center></td>";
         echo "<td><center> " . ($existenciaFisica - $existenciaTemporal) . "</center></td>";
         $codigosProd = $rs["codigoProducto"];
         $sucursales = $dao->consultaExistenciasgral($codigosProd,$idsucursal);
-         while ($rs3 = mysql_fetch_assoc($sucursales)) {
-        echo"<td>$rs3[cantidad]</td>";
-       
-         }
-        echo"<td id='x' >$rs[menudeo] </td>";
+//         while ($rs3 = mysql_fetch_assoc($sucursales)) {
+//        echo"<td>$rs3[cantidad]</td>";
+//       
+//         }
+//        echo"<td id='x' >$rs[menudeo] </td>";
     }
     echo"</tbody></table></div>";
 } else {

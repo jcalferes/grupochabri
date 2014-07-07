@@ -1,9 +1,10 @@
 <?php
 
 class dao {
-    function obtenerImagenesDisponibles(clasificados $clasificados){
-         include_once '../daoconexion/daoConeccion.php';
-         $cn = new coneccion();
+
+    function obtenerImagenesDisponibles(clasificados $clasificados) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
         $numeros = array("0", "1", "2", "3", "4");
         $obtenerImagenes = "SELECT * FROM imagenes WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
         $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
@@ -14,7 +15,7 @@ class dao {
             unset($numeros[$cdn2[0]]);
         }
         $numeros = array_values($numeros);
-      return $numeros;
+        return $numeros;
     }
 
     function borrarImagenes($imagenes, clasificados $c) {
@@ -26,9 +27,9 @@ class dao {
             $imagen = $value->imagen;
             $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
 
-           
+
             $datos = mysql_query($borrarImagenes, $cn->Conectarse());
-             unlink("../subidas/".$imagen);
+            unlink("../subidas/" . $imagen);
         }
 //        $obtenerImagenes="SELECT * FROM imagenes WHERE $c->codigoProducto";
 //          $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
@@ -53,8 +54,8 @@ class dao {
 //        }
 //        $numeros = array_values($numeros);
 //      
-        $sqlClasificados = "UPDATE clasificados set  idTipo = '" . $clasificados->getIdTipo() . "' ,descripcion = '" . $clasificados->getDescripcion() . "',ponerRecomendado = '" . $clasificados->getPonerRecomendado() . "',ponerNovedades = '" . $clasificados->getPonerNovedades() . "' WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";   
-        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse()) ;
+        $sqlClasificados = "UPDATE clasificados set  idTipo = '" . $clasificados->getIdTipo() . "' ,descripcion = '" . $clasificados->getDescripcion() . "',ponerRecomendado = '" . $clasificados->getPonerRecomendado() . "',ponerNovedades = '" . $clasificados->getPonerNovedades() . "' WHERE codigoProducto = '" . $clasificados->getCodigoProducto() . "'";
+        $sqlClasificados = mysql_query($sqlClasificados, $cn->Conectarse());
 
         if ($sqlClasificados == false) {
             mysql_query("ROLLBACK;");
@@ -69,8 +70,9 @@ class dao {
                     mysql_query("COMMIT;");
                 }
             }
+        }
     }
-    }
+
     function guardarClasificados(clasificados $clasificados, $nombres) {
         include_once '../daoconexion/daoConeccion.php';
 
@@ -2872,13 +2874,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultaBuscador($idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca,ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
-                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+//                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
-                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '1' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
+//                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
+                . "WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '1' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
 //        $validando = mysql_affected_rows();
 //        if ($validando >= 0) {
@@ -3181,7 +3184,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         }
                         if ($ok == true) {
                             $nuevaExistencia = $cantidad - $cantidadTmp;
-                            $nuevaExistencia = $nuevaExistencia -$cantidadPedida;
+                            $nuevaExistencia = $nuevaExistencia - $cantidadPedida;
                         }
                         if ($nuevaExistencia < 0) {
                             $error = "2," . $detalle[$x]->codigoConcepto;
@@ -3629,6 +3632,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT idXmlComprobante, fechaMovimiento FROM xmlcomprobantes  WHERE idSucursal ='$idSucursal' and statusOrden = 5 and rfcComprobante = '$rfc'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameOrdenCompraDetalle($idXmlComprobante) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlconceptos WHERE idXmlComprobante ='$idXmlComprobante'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
