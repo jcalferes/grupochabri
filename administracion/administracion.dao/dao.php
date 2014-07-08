@@ -30,7 +30,7 @@ class dao {
 
             $datos = mysql_query($borrarImagenes, $cn->Conectarse());
             $ruta = "../subidas/";
-            $fusion = $ruta.$imagen;
+            $fusion = $ruta . $imagen;
             unlink($fusion);
         }
 //        $obtenerImagenes="SELECT * FROM imagenes WHERE $c->codigoProducto";
@@ -1511,7 +1511,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . " and  cost.idSucursal  = '" . $idSucursal . "' "
                 . " and cost.status = 1"
                 . " and cost.codigoProducto= '" . $c->getCodigo() . "'"
-//>>>>>>> origin/master
+//
                 . " and exi.cantidad > 0"
                 . " and exi.idSucursal = '$idSucursal'";
         $rs = mysql_query($MySQL);
@@ -2881,14 +2881,13 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultaBuscador($idsucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.codigoProducto, p.producto, m.marca,ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
+        $sql = "SELECT p.codigoProducto, p.producto, m.marca, pr.nombre  AS proveedor, g.grupoProducto, ex.cantidad AS existencia, tf.tarifa AS menudeo\n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
-//                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
                 . "INNER JOIN existencias ex ON ex.codigoProducto =  p.codigoProducto\n"
                 . "INNER JOIN tarifas tf ON tf.codigoProducto = p.codigoProducto\n"
-//                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
-                . "WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '1' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.idStatus = '1' AND ex.idSucursal = '$idsucursal' AND tf.idListaPrecio = '1' AND tf.idSucursal='$idsucursal' AND tf.idStatus = '1'";
         $datos = mysql_query($sql, $cn->Conectarse());
 //        $validando = mysql_affected_rows();
 //        if ($validando >= 0) {
@@ -3179,9 +3178,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             }
                         }
                         if ($cadena == "-GR") {
-                            $cantidad = $rs[0] * 1;
-                            $cantidadTmp = $cantidadTmp * 1;
-                            $cantidadPedida = $cantidadPedida * 1;
+                            $cantidad = $rs[0] * 1000;
+                            $cantidadTmp = $cantidadTmp * 1000;
+                            $cantidadPedida = $cantidadPedida * 1000;
                             $ok = true;
                         }
                         if ($ok == false) {
@@ -3190,7 +3189,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         }
                         if ($ok == true) {
                             $nuevaExistencia = $cantidad - $cantidadTmp;
-                            $nuevaExistencia = $nuevaExistencia - $cantidadPedida;
+                            $nuevaExistencia = $nuevaExistencia / 1000;
                         }
                         if ($nuevaExistencia < 0) {
                             $error = "2," . $detalle[$x]->codigoConcepto;
@@ -3230,7 +3229,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden =7";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden <> 3";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {
@@ -3297,7 +3296,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
         }
         //================= Cambiar status comprobante =========================
-        $sqlstatus = "UPDATE xmlcomprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
+        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
         $ctrlstatus = mysql_query($sqlstatus);
         if ($ctrlstatus == false) {
             $ctrlstatus = mysql_error();

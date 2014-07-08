@@ -3,7 +3,7 @@
 <html lang="es">
     <head>
         <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet"/>
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>-->
         <!--<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
     </head>
     <body>
@@ -129,7 +129,7 @@
                 </div>
                 <div id="divvalidacancelacion">
                     <input type="button" class="btn btn-cprimary" id="btnvalidacancelacion" value="Efectuar cancelacion">
-                    <input type="button" class="btn btn-default" id="btnnocancelacion" value="Descartar">
+                    <input type="button" class="btn btn-default" id="btnnocancelacion" value="Cancelar">
                 </div>
             </section>
             <!--Seccion de Cobranzas-->

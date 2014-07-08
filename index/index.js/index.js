@@ -8,15 +8,16 @@ $(document).ready(function() {
 $("#loginbtn").click(function() {
     var usuario = $.trim($("#loginuser").val());
     var pass = $.trim($("#loginpass").val());
-
+//
     if (usuario === "" || /^\s+$/.test(usuario) || pass === "" || /^\s+$/.test(pass)) {
         $("#loginuser").val("");
         $("#loginpass").val("");
         alertify.log("Todos los campos son obligatorios");
-
-    } else {
+    }
+    else {
         var info = "usuario=" + usuario + "&pass=" + pass;
         $.get('./index/iniciarSesion.php', info, function(respuesta) {
+            respuesta = parseInt(respuesta);
             if (respuesta == false) {
                 alertify.error("Usuario o Contraseña invalidos");
             } else {
