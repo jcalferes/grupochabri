@@ -40,7 +40,6 @@ $("#btnvalidacancelacion").click(function() {
                 }
             });
         } else {
-            alert("No");
         }
     });
 });

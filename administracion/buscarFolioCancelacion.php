@@ -31,6 +31,7 @@ if ($datos != false) {
         echo "<td>$rs[importeConcepto]</td>";
     }
     echo "</tbody></table></div></div>"
+    . "<div class='form-group'><div class='checkbox'><label><input type='checkbox' id='chkgranel'>Reeutilizar como una venta</label></div></div>"
     . "<label>Observaciones:</label><br/><textarea class='form-control' id='txaobscancelacion'></textarea><br>";
     echo "<script> $('#divfoliocancelacion').slideUp(); $('#divvalidacancelacion').slideDown();</script>";
 } else {
