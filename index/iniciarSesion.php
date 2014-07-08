@@ -37,4 +37,3 @@ if ($validapc == "VALIDA") {
     echo 777;
     $cn->cerrarBd();
 }
-
