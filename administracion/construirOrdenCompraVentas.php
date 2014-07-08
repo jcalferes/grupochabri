@@ -8,7 +8,7 @@ $rs = $dao->dameOrdenCompraDetalle($idXmlComprobante);
 $existenciaTemporal = 0;
 $datosTemp = false;
 $idSucursal = $_SESSION["sucursalSesion"];
-$existenciasFisicas =0;
+$existenciasFisicas = 0;
 if ($datosTemp == false) {
     $existenciaTemporal = 0;
 }
@@ -49,7 +49,7 @@ if ($rs == false) {
                 $existenciasFisicas = $rsExitFisica["existencias"];
             }
         }
-        $existenciaReal = $existenciasFisicas-$existenciaTemporal;
+        $existenciaReal = $existenciasFisicas - $existenciaTemporal;
         echo '<tr>';
         echo '<td>';
         echo $datos["codigoConcepto"];
