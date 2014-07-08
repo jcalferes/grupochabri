@@ -3,10 +3,10 @@ session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
 $idSucursal = $_SESSION["sucursalSesion"];
-$id = 0;
-$id = $_GET["id"];
+$idSucursal = 0;
+$idSucursal = $_GET["id"];
 $datos = true;
-$datos = $dao->traerEncabezadoPedios($id, $idSucursal);
+$datos = $dao->traerEncabezadoPedios($idSucursal, $idSucursal);
 if ($datos == false) {
     echo mysql_error();
 }

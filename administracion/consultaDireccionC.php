@@ -2,9 +2,9 @@
 
 include_once './administracion.dao/dao.php';
 $dao = new dao();
-$id = $_GET["id"];
+$idSucursal = $_GET["id"];
 $rfc = $_GET["rfc"];
-$datos = $dao->obtieneDireccionDeProveedor($id);
+$datos = $dao->obtieneDireccionDeProveedor($idSucursal);
 $datos2 = $dao->puleaTelefonoC($rfc);
 $datos3 = $dao->puleaEmailsC($rfc);
 echo "<h4>Direccion</h4>";

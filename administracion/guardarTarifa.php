@@ -4,10 +4,10 @@ include './administracion.clases/Tarifa.php';
 include './administracion.dao/dao.php';
 $tarifa = new Tarifa();
 $dao = new dao();
-$id=$_SESSION["idProducto"];
+$idSucursal=$_SESSION["idProducto"];
 $tarifa->setTarifa($_GET["Tarifa"]);
 $tarifa->setIdListaPrecio($_GET["listaPrecio"]);
-$tarifa->setIdProducto($id);
+$tarifa->setIdProducto($idSucursal);
 
 $dao->guardarTarifa($tarifa);
 

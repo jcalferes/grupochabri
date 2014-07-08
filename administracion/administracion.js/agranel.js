@@ -6,35 +6,39 @@ $(document).ready(function() {
     $("#divincremento").hide();
 });
 
-$("#txtcodigogranel").blur(function() {
-    var codigo = $("#txtcodigogranel").val();
-    var codigog = $("#txtcodigogranel").val() + "-GR";
-    if (codigo === "" || /^\s+$/.test(codigo)) {
-        $("#txtcodigogranel").val("");
-        $("#btnvalidar").slideUp();
-        $("#divincremento").slideUp();
-    } else {
-        var info = "codigo=" + codigo + "&codigog=" + codigog;
-        $.get('verificandoProductoGranel.php', info, function(rs) {
-            if (rs == 0) {
-                alertify.error("El producto no existe o no hay venta agranel del mismo");
-                $("#txtcodigogranel").val("");
-                $("#btnvalidar").slideUp();
-                $("#divincremento").slideUp();
-            } else {
-                var arr = $.parseJSON(rs);
+$("#txtcodigogranel").keypress(function(e) {
+    if (e.which == 13) {
+        var codigo = $("#txtcodigogranel").val();
+        var codigog = $("#txtcodigogranel").val() + "-GR";
+        if (codigo === "" || /^\s+$/.test(codigo)) {
+            $("#txtcodigogranel").val("");
+            $("#btnvalidar").slideUp();
+            $("#btncancel").slideUp();
+            $("#divincremento").slideUp();
+        } else {
+            var info = "codigo=" + codigo + "&codigog=" + codigog;
+            $.get('verificandoProductoGranel.php', info, function(rs) {
+                if (rs == 0) {
+                    alertify.error("El producto no existe o no hay venta agranel del mismo");
+                    $("#txtcodigogranel").val("");
+                    $("#btnvalidar").slideUp();
+                    $("#divincremento").slideUp();
+                } else {
+                    var arr = $.parseJSON(rs);
 
-                $("#nombrep").text(arr.producto.datos.producto);
-                $("#existenciap").text(arr.producto.datos.cantidad);
-                $("#contenidop").text(arr.granel.datos.contenido);
+                    $("#nombrep").text(arr.producto.datos.producto);
+                    $("#existenciap").text(arr.producto.datos.cantidad);
+                    $("#contenidop").text(arr.granel.datos.contenido);
 
-                $("#nombreg").text(arr.granel.datos.producto);
-                $("#existenciag").text(arr.granel.datos.cantidad);
+                    $("#nombreg").text(arr.granel.datos.producto);
+                    $("#existenciag").text(arr.granel.datos.cantidad);
 
-                $("#btnvalidar").slideDown();
-                $("#divincremento").slideDown();
-            }
-        });
+                    $("#btnvalidar").slideDown();
+                    $("#btncancel").slideDown();
+                    $("#divincremento").slideDown();
+                }
+            });
+        }
     }
 });
 
@@ -49,8 +53,8 @@ $("#btnvalidar").click(function() {
             $.get('incrementarGranel.php', info, function(x) {
                 if (x == 0) {
                     $("#txtcodigogranel").val("");
-                $("#btnvalidar").slideUp();
-                $("#divincremento").slideUp();
+                    $("#btnvalidar").slideUp();
+                    $("#divincremento").slideUp();
                     alertify.success("Existencia  a granel actulizada!");
                 } else {
                     alertify.error("Error!");
@@ -59,4 +63,11 @@ $("#btnvalidar").click(function() {
         } else {
         }
     });
+});
+
+$("#btncancel").click(function() {
+    $("#txtcodigogranel").val("");
+    $("#btnvalidar").slideUp();
+    $("#btncancel").slideUp();
+    $("#divincremento").slideUp();
 });

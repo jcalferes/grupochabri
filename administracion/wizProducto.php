@@ -57,6 +57,10 @@
                                     <label>M3:</label><br/>
                                     <input type="text" class="form-control" onkeypress="return NumCheck(event, this);" id="m3"/>
                                 </div>
+                                <div class="form-group" id="frmcostopieza">
+                                    <label>Costo de la pieza</label>
+                                    <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
+                                </div>
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
                                     <div class="input-group" style="width: 60%">
@@ -64,10 +68,6 @@
                                         <span class="input-group-addon">Lt/Kg</span>
                                     </div>
                                     <input type="text" id="respaldaExistencia" hidden/>
-                                </div>
-                                <div class="form-group" id="frmcostopieza">
-                                    <label>Costo de la pieza</label>
-                                    <input type="text" class="form-control  valNum" id="txtCostoPieza" onkeypress="return NumCheck(event, this);"  onpaste="return false"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Costo producto</label>
@@ -103,11 +103,12 @@
                                 </div>
                                 <hr>
                             </div>
-                            <input type="button" class="btn btn-cprimary" value="Guardar" id="guardarDatos"/>
-                            <input type="button" class="btn btn-cprimary" value="Editar" id="editarDatos"/>
-                            <input type="button" class="btn btn-cprimary" value="Guardar Granel" id="guardarGranel"/>
-                            <input type="button" class="btn btn-cprimary" value="Editar Granel" id="editarGranel"/>
+                            <input type="button" class="btn btn-cprimary" value="Guardar producto" id="guardarDatos"/>
+                            <input type="button" class="btn btn-cprimary" value="Editar prodcuto" id="editarDatos"/>
+                            <input type="button" class="btn btn-cprimary" value="Guardar producto a granel" id="guardarGranel"/>
+                            <input type="button" class="btn btn-cprimary" value="Editar producto a granel" id="editarGranel"/>
                             <input type="button" class="btn btn-default" value="Limpiar formulario" id="limpiarFormProd"/>
+                            <input type="button" class="btn btn-default" value="Cancelar" id="limpiargranel"/>
                         </div>
                     </form>
                     <div id="mostrarDivProveedor">

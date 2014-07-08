@@ -7,10 +7,10 @@ session_start();
 
 $dao = new dao();
 
-$id = $_GET["id"];
+$idSucursal = $_GET["id"];
 if (isset($_SESSION["sucursalSesion"])) {
     $idsucursal = $_SESSION["sucursalSesion"];
-    $control = $dao->eliminarUsuario($id);
+    $control = $dao->eliminarUsuario($idSucursal);
     echo $control;
 } else {
     echo "1";

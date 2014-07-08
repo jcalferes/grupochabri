@@ -29,7 +29,9 @@ class dao {
 
 
             $datos = mysql_query($borrarImagenes, $cn->Conectarse());
-            unlink("../subidas/" . $imagen);
+            $ruta = "../subidas/";
+            $fusion = $ruta.$imagen;
+            unlink($fusion);
         }
 //        $obtenerImagenes="SELECT * FROM imagenes WHERE $c->codigoProducto";
 //          $datos = mysql_query($obtenerImagenes, $cn->Conectarse());
@@ -60,17 +62,21 @@ class dao {
         if ($sqlClasificados == false) {
             mysql_query("ROLLBACK;");
         } else {
-            foreach ($nombres as $value) { // aqui comenzamos la insercion de imagenes
-                $nombre = $value;
-                $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
-                $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
-                if ($sqlImagenes == false) {
-                    mysql_query("ROLLBACK;");
-                } else {
-                    mysql_query("COMMIT;");
+            if (count($nombres) > 0) {
+                foreach ($nombres as $value) { // aqui comenzamos la insercion de imagenes
+                    $nombre = $value;
+                    $sqlImagenes = "INSERT INTO imagenes(ruta,codigoProducto) VALUES('$nombre', '" . $clasificados->getCodigoProducto() . "')";
+                    $sqlImagenes = mysql_query($sqlImagenes, $cn->Conectarse());
+                    if ($sqlImagenes == false) {
+                        mysql_query("ROLLBACK;");
+                    } else {
+//                        mysql_query("COMMIT;");
+                    }
                 }
+            } else {
+                
             }
-        }
+        } mysql_query("COMMIT;");
     }
 
     function guardarClasificados(clasificados $clasificados, $nombres) {
@@ -101,7 +107,6 @@ class dao {
     }
 
     function comprobarCodigoValido2($codigo) {
-
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
@@ -109,7 +114,7 @@ class dao {
         $datos = mysql_query($sql, $cn->Conectarse());
         $contando = mysql_affected_rows();
         if ($contando > 0) {
-            $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto WHERE p.codigoProducto = '$codigo'";
+            $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto WHERE p.codigoProducto = '$codigo'";
             $datos2 = mysql_query($sql, $cn->Conectarse());
             $contando = mysql_affected_rows();
             if ($contando > 0) {
@@ -2609,10 +2614,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function obtenerDatosAgranel($codigo) {
+    function obtenerDatosAgranel($codigo, $codigopapa, $sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT cantidad FROM agranel WHERE codigoAgranel = '$codigo'";
+        $sql = "SELECT gr.cantidad, c.costo FROM agranel gr "
+                . "INNER JOIN costos c ON c.codigoProducto = '$codigopapa' "
+                . "WHERE gr.codigoAgranel = '$codigo' AND c.idSucursal = '$sucursal' AND c.status = '1'";
         $rs = mysql_query($sql, $cn->Conectarse());
         if ($rs == false) {
             $rs = mysql_error();
@@ -2937,7 +2944,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-//=======
     function consultaInformacionProductosMasivos($codigoProducto, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
