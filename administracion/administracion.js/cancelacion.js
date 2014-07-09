@@ -26,13 +26,12 @@ $("#btnvalidacancelacion").click(function() {
     } else {
         reutilizar = 0;
     }
-    return false;
     var folio = $('#spnfolio').text();
     var observcancelacion = $('#txaobscancelacion').val();
     if (observcancelacion === "" || /^\s+$/.test(observcancelacion)) {
         observcancelacion = "";
     }
-    var info = "folio=" + folio + "&observcancelacion=" + observcancelacion + "$reutilizar=" + reutilizar;
+    var info = "folio=" + folio + "&observcancelacion=" + observcancelacion + "&reutilizar=" + reutilizar;
     alertify.confirm("¿Estas completamente seguro de efectuar la cancelación?, Esta acción no pueden deshacerse. ", function(e) {
         if (e) {
             $.get('efectuarCancelacion.php', info, function(r) {
