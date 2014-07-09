@@ -2,13 +2,16 @@
 
 session_start();
 include './administracion.dao/dao.php';
+include './administracion.clases/Codigo.php';
 $dao = new dao();
+$codigo = new Codigo();
 $idXmlComprobante = $_GET["id"];
 $rs = $dao->dameOrdenCompraDetalle($idXmlComprobante);
 $existenciaTemporal = 0;
 $datosTemp = false;
 $idSucursal = $_SESSION["sucursalSesion"];
 $existenciasFisicas = 0;
+$costoProducto = 0.00;
 if ($datosTemp == false) {
     $existenciaTemporal = 0;
 }
@@ -30,6 +33,7 @@ if ($rs == false) {
     echo '<th>Total c/d.</th>';
     echo '</thead>';
     while ($datos = mysql_fetch_array($rs)) {
+        $costoProducto = $datos["importeConcepto"];
         $rsDatosTemporal = $dao->dameExistenciaTemporal($datos["codigoConcepto"], $idSucursal);
         if ($rsDatosTemporal == false) {
             echo mysql_error();
@@ -46,9 +50,12 @@ if ($rs == false) {
             break;
         } else {
             while ($rsExitFisica = mysql_fetch_array($rsExistenFi)) {
-                $existenciasFisicas = $rsExitFisica["existencias"];
+                $existenciasFisicas = $rsExitFisica[0];
             }
         }
+        $codigo->setCodigo($datos["codigoConcepto"]);
+        $cod = "";
+        $cod= $codigo->getCodigo();
         $existenciaReal = $existenciasFisicas - $existenciaTemporal;
         echo '<tr>';
         echo '<td>';
@@ -61,22 +68,39 @@ if ($rs == false) {
         echo '<input type ="text" value= "' . $datos["cantidadConcepto"] . '" class="form-control"/>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<span id="txtExistencia' . $codigo->getCodigo() . '">' . $existenciaReal . '</span>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+
+        $rsTarifas = $dao->dameTarifas($codigo, $idSucursal);
+        if ($rsTarifas == false) {
+            echo mysql_error();
+            break;
+        }
+        echo "<select class='form-control' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
+        $costoVenta = 0.00;
+        while ($rTarifas = mysql_fetch_array($rsTarifas)) {
+            $select = false;
+            if ($rTarifas[1] == $datos["idListaPrecio"]) {
+                $select = true;
+            }
+            echo '<option selected="' . $select . '" value = "' . $rTarifas[0] . ',' . $datos["precioUnitarioConcepto"] . ' ">';
+            echo $rTarifas[1];
+            echo '</option>';
+        }
+        echo'</select>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<span id ="precioVnt' . $codigo->getCodigo() . '">' . $datos["precioUnitarioConcepto"] . '</span>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<input class="form-control" style="width:60px" id ="txtDescuentos' . $codigo->getCodigo() . '" type="text" value ="' . $datos["desctUnoConcepto"] . '"</>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo "<input type='button' onclick='eliminar(" . "\"$cod\"" . ")' class='btn' title='Eliminar Producto' value='Eliminar'>";
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<input disabled="true" class="form-control" type="text" id="txtTotal'.$codigo->getCodigo().'" value="'.$datos["cdaConcepto"].'">';
         echo '</td>';
         echo '<td>';
         echo $datos["codigoConcepto"];
