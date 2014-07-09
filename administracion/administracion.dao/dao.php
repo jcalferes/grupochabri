@@ -3315,6 +3315,113 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return true;
     }
 
+    function reutilizarCancelacion($folio, $sucursal) {
+        // Obtener los datos de comprobante
+        $sqlcomp = "SELECT * FROM xmlcomprobantes WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '3'";
+        mysql_query("START TRANSACTION;");
+        $ctrlcomp = mysql_query($sqlcomp);
+        $row = mysql_affected_rows();
+        if ($ctrlcomp == false) {
+            $ctrlcomp = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($row < 1) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($comp = mysql_fetch_array($ctrlcomp)) {
+                    $idXmlComprobante = $comp["idXmlComprobante"];
+                    $fechaComprobante = $comp["fechaComprobante"];
+                    $subtotalComprobante = $comp["subtotalComprobante"];
+                    $sdaComprobante = $comp["sdaComprobante"];
+                    $rfcComprobante = $comp["rfcComprobante"];
+                    $desctFacturaComprobante = $comp["desctFacturaComprobante"];
+                    $desctProntoPagoComprobante = $comp["desctProntoPagoComprobante"];
+                    $desctGeneralComprobante = $comp["desctGeneralComprobante"];
+                    $desctPorProductosComprobante = $comp["desctPorProductosComprobante"];
+                    $desctTotalComprobante = $comp["desctTotalComprobante"];
+                    $ivaComprobante = $comp["ivaComprobante"];
+                    $totalComprobante = $comp["totalComprobante"];
+                    $tipoComprobante = $comp["tipoComprobante"];
+                    $idSucursal = $comp["idSucursal"];
+                    $idTipoPago = $comp["idTipoPago"];
+                }
+            }
+        }
+        //========== Datos faltantes ===========================================
+        $lafecha = date("d/m/Y");
+        $statusOrden = 5;
+        //========= Obtener nuevo folio ========================================
+        $sqlfolio = "SELECT max(folioOrdenCompra) as foliomayor FROM folios WHERE idSucursal = '$sucursal' group by folioOrdenCompra";
+        $ctrlfolio = mysql_query($sqlfolio);
+        $rowfolio = mysql_affected_rows();
+        if ($ctrlfolio == false) {
+            $ctrlfolio = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($rowfolio < 1) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($fol = mysql_fetch_array($ctrlfolio)) {
+                    $foliomayor = $fol["foliomayor"];
+                }
+            }
+        }
+        //========= Actulizar folio ============================================
+        $sqlupfol = "UPDATE folios SET folioOrdenCompra = folioOrdenCompra + 1 WHERE idSucursal = '$sucursal'";
+        $ctrlupfol = mysql_query($sqlupfol);
+        if ($ctrlupfol == false) {
+            $ctrlupfol = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+        //========= Insertar en xml comprobante ================================
+        $sqlnewcomp = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal, statusOrden, idTipoPago) "
+                . "VALUES ('$lafecha','$subtotalComprobante','$sdaComprobante','$rfcComprobante','$desctFacturaComprobante','$desctProntoPagoComprobante','$desctGeneralComprobante','$desctPorProductosComprobante', '$desctTotalComprobante', '$ivaComprobante','$totalComprobante','$foliomayor', '$tipoComprobante', '$lafecha', '$idSucursal', '$statusOrden', '$idTipoPago' )";
+        $ctrlnewcomp = mysql_query($sqlnewcomp);
+        $idnewcomp = "SELECT LAST_INSERT_ID() ID;";
+        if ($ctrlnewcomp == false) {
+            $ctrlnewcomp = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            $ctrlidnew = mysql_query($idnewcomp);
+            while ($id = mysql_fetch_array($ctrlidnew)) {
+                $idnew = $id["ID"];
+            }
+        }
+        //======== Obtener todos los conceptos del comprobante =================
+        $sqlconcep = "SELECT * FROM xmlconceptos WHERE idXmlComprobante = '$idXmlComprobante'";
+        $ctrlconcep = mysql_query($sqlconcep);
+        $rowconcep = mysql_affected_rows();
+        if ($ctrlconcep == false) {
+            $ctrlconcep = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        } else {
+            if ($rowconcep < 1) {
+                mysql_query("ROLLBACK;");
+                return false;
+            } else {
+                while ($concep = mysql_fetch_array($ctrlconcep)) {
+                    $sqlnewconcep = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto, costoCotizacion, idListaPrecio) "
+                            . "VALUES ('" . $concep["unidadMedidaConcepto"] . "','" . $concep["importeConcepto"] . "','" . $concep["cantidadConcepto"] . "','" . $concep["codigoConcepto"] . "','" . $concep["descripcionConcepto"] . "','" . $concep["precioUnitarioConcepto"] . "','$idnew','" . $concep["cdaConcepto"] . "','" . $concep["desctUnoConcepto"] . "','" . $concep["desctDosConcepto"] . "','" . $concep["costoCotizacion"] . "','" . $concep["idListaPrecio"] . "')";
+                    $ctrlnewconcep = mysql_query($sqlnewconcep);
+                    if ($ctrlnewconcep == false) {
+                        $ctrlnewconcep = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            }
+        }
+        mysql_query("COMMIT;");
+        return true;
+    }
+
     //===================== NOTAS CREDITO ===================================
     function guardarNotasCredito($idcliente, $cantidad, $sucursal, $foliocancelacion) {
         //Obtener el monto del cliente, si este existe =========================
