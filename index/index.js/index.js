@@ -8,7 +8,6 @@ $(document).ready(function() {
 $("#loginbtn").click(function() {
     var usuario = $.trim($("#loginuser").val());
     var pass = $.trim($("#loginpass").val());
-//
     if (usuario === "" || /^\s+$/.test(usuario) || pass === "" || /^\s+$/.test(pass)) {
         $("#loginuser").val("");
         $("#loginpass").val("");
