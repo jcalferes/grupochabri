@@ -46,6 +46,11 @@ $(document).ready(function() {
             });
         }
     });
+
+    $("#btnAbonos").click(function() {
+        $("#mdlabonos").modal("show");
+    });
+
 });
 
 function cargarInformacion(folio, tipoPago) {

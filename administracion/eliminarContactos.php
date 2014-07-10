@@ -6,14 +6,14 @@ include_once '../daoconexion/daoConeccion.php';
 $dao = new dao();
 $cn = new coneccion();
 
-$id = $_GET["id"];
+$idSucursal = $_GET["id"];
 $tipo = $_GET["tipo"];
 //0 = telefono
 //1 = email
 if ($tipo == 0) {
-    $rs = $dao->eliminartTelefonos($id);
+    $rs = $dao->eliminartTelefonos($idSucursal);
 } else {
-    $rs = $dao->eliminarEmails($id);
+    $rs = $dao->eliminarEmails($idSucursal);
 }
 echo $rs;
 

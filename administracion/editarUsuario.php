@@ -9,7 +9,7 @@ $usuario = new Usuario();
 $utilerias = new Utilerias();
 $dao = new dao();
 
-$id = $_GET["id"];
+$idSucursal = $_GET["id"];
 $usuario->setTipousuario($_GET["tipousuario"]);
 $usuario->setUsuario($_GET["usuario"]);
 $usuario->setNombre($_GET["nombre"]);
@@ -18,7 +18,7 @@ $usuario->setMaterno($_GET["materno"]);
 $usuario->setPass($utilerias->genera_md5($_GET["pass"]));
 if (isset($_SESSION["sucursalSesion"])) {
     $idsucursal = $_SESSION["sucursalSesion"];
-    $control = $dao->editarUsuario($usuario, $idsucursal, $id);
+    $control = $dao->editarUsuario($usuario, $idsucursal, $idSucursal);
     echo $control;
 } else {
     echo"1";

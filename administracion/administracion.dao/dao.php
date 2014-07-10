@@ -1511,7 +1511,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . " and  cost.idSucursal  = '" . $idSucursal . "' "
                 . " and cost.status = 1"
                 . " and cost.codigoProducto= '" . $c->getCodigo() . "'"
-//>>>>>>> origin/master
+//
                 . " and exi.cantidad > 0"
                 . " and exi.idSucursal = '$idSucursal'";
         $rs = mysql_query($MySQL);
@@ -2943,7 +2943,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-//=======
     function consultaInformacionProductosMasivos($codigoProducto, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -3745,6 +3744,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT idXmlComprobante, fechaMovimiento FROM xmlcomprobantes  WHERE idSucursal ='$idSucursal' and statusOrden = 5 and rfcComprobante = '$rfc'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameOrdenCompraDetalle($idXmlComprobante) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlconceptos WHERE idXmlComprobante ='$idXmlComprobante'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }

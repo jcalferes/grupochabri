@@ -133,7 +133,7 @@ function calcularTotal(codigo) {
         $("#txtTotal" + codigo).val(total.toFixed(2));
     }
     else {
-        var calulandoKg = (cantidad * datos[1]) / 1000;
+        var calulandoKg = (cantidad * datos[1]) / 1;
         $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
     }
     calcularDescuentos(codigo);
@@ -168,7 +168,8 @@ function calcularPorCantidad() {
     var datos = valor.split(",");
     var cantidad = $("#txtCantidadModal").val();
     $("#txt" + codigoN).val(cantidad);
-    var calulandoKg = (cantidad * datos[1]) / 1000;
+    var calulandoKg = (cantidad * datos[1]);
+//    / 1000;
     $("#txtTotal" + codigoN).val(calulandoKg.toFixed(2));
     calcularDescuentos(codigoN);
     $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
@@ -181,7 +182,10 @@ function calcularPorPrecio() {
     var precio = parseFloat($("#txtTotalModal").val());
     var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
-    var kilogramosVnta = (precio * 1000) / datos[1];
+    var kilogramosVnta = (precio * 1) / datos[1];
+    if (isNaN(kilogramosVnta)) {
+        kilogramosVnta = 0;
+    }
     $("#txtCantidadModal").val(parseFloat(kilogramosVnta.toFixed(2)));
     $("#txtTotal" + codigoN).val(precio.toFixed(2));
     $("#txt" + codigoN).val(parseFloat(kilogramosVnta.toFixed(2)));
@@ -356,6 +360,7 @@ function validarUsuario(usuario, password) {
 
 
 $(document).ready(function() {
+    $("#cmbOrdenCompra").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
     $("#buscarCodigo").click(function() {
@@ -446,12 +451,15 @@ $(document).ready(function() {
     $("#cmbClientes").change(function() {
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
-            $("#descuentosV").html('<div id="descuentosV"></div>');
-            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
+            $("#cmbOrdenCompra").hide();
+//            $("#descuentosV").html('<div id="descuentosV"></div>');
+//            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
         }
         else {
 //            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
-            $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc);
+            $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+            $("#cmbOrdenCompra").show();
+            });
         }
     });
 
@@ -470,6 +478,12 @@ $(document).ready(function() {
         }
     });
 
+    $("#cmbOrdenCompra").change(function() {
+//        alert("cambio");
+        var idxml = $("#cmbOrdenCompra").val();
+//        alert(idxml);
+        $("#tablaVentas").load("construirOrdenCompraVentas.php?id="+idxml);
+    });
 });
 function finalizar() {
     codigoN = 0;

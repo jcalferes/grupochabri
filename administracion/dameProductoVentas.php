@@ -6,7 +6,7 @@ include './administracion.dao/dao.php';
 include './administracion.clases/Codigo.php';
 $dao = new dao();
 $codigo = new Codigo();
-$id = $_SESSION["sucursalSesion"];
+$idSucursal = $_SESSION["sucursalSesion"];
 $codigo->setCodigo($_GET["codigo"]);
 $codigo->setCantidad(1);
 include_once '../daoconexion/daoConeccion.php';
@@ -15,17 +15,17 @@ $cn->Conectarse();
 $contador = 0;
 $interfaz = "";
 $error = "";
-$rs = $dao->buscarProductoVentas($codigo, $id);
+$rs = $dao->buscarProductoVentas($codigo, $idSucursal);
 if ($rs == false) {
     $error = mysql_error();
 }
-$rsTarifas = $dao->dameTarifas($codigo, $id);
+$rsTarifas = $dao->dameTarifas($codigo, $idSucursal);
 if ($rsTarifas == false) {
     $error = mysql_error();
 }
 $existenciaTemporal = 0;
 $datosTemp = false;
-$rsDatosTemporal = $dao->dameExistenciaTemporal($codigo->getCodigo(), $id);
+$rsDatosTemporal = $dao->dameExistenciaTemporal($codigo->getCodigo(), $idSucursal);
 while ($datosT = mysql_fetch_array($rsDatosTemporal)) {
     $datosTemp = true;
     $existenciaTemporal = $datosT[0];
@@ -79,7 +79,7 @@ if ($error == "") {
                          <input type='text' id='txt" . $codigo->getCodigo() . "' 
                              class='form-control' placeholder='Cant. Kg'
                              onkeyup='calcularTotal(" . "\"$codigo1\"" . ")'
-                             value='1000'/>
+                             value='1'/>
                          <span class='input-group-btn'>
                             <button class='btn btn-default' type='button' onclick='modalProductosGranel(" . "\"$codigo1\"" . ")'>
                                 <span class='glyphicon glyphicon-plus'></span>
