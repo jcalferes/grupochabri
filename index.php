@@ -50,6 +50,7 @@
                                                 </li>-->
                         <li><a href="index.php">Inicio</a></li>
                         <li><a href="index/ayuda.php">Ayuda</a></li>
+                        <li><a href="index/contacto.php">Contacto</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>

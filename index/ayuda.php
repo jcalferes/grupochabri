@@ -49,30 +49,7 @@
                                                 </li>-->
                         <li><a href="../index.php">Inicio</a></li>
                         <li><a href="ayuda.php">Ayuda</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
-                            <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form class="form" role="form" accept-charset="UTF-8" id="login-nav">
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputEmail2">Usuario</label>
-                                                    <input type="text" class="form-control" id="loginuser" placeholder="Usuario" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleInputPassword2">Contraseña</label>
-                                                    <input type="password" class="form-control" id="loginpass" placeholder="Contraseña" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="button" class="btn btn-cprimary btn-block" id="loginbtn">Acceder</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
+                        <li><a href="contacto.php">Contacto</a></li>
                     </ul>
                 </div>
             </nav>
