@@ -18,7 +18,7 @@ $validapc = $dao->verificarMaquina($nombrepc);
 if ($validapc == "VALIDA") {
     $control = $dao->iniciarSesion($usuario);
     if ($control == 1) {
-        echo false;
+        echo 666;
     } else {
         while ($rs = mysql_fetch_array($control)) {
             $nombre = $rs['nombre'];

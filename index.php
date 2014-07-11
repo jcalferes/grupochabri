@@ -19,7 +19,7 @@
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img class="img-responsive" style="border-radius: 5px;" src="index/index.img/czsale_logo2.png"></a>
+                <a href="index.php"><img class="img-responsive" style="border-radius: 5px;" src="index/index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -48,6 +48,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
+                        <li><a href="index.php">Inicio</a></li>
                         <li><a href="index/ayuda.php">Ayuda</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">

@@ -19,7 +19,7 @@
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
+                <a href="../index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -33,7 +33,6 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="czsale-navbar">
-                    <a href="addClassified.html" class="btn btn-success navbar-btn add-classified-btn navbar-left" role="button">Add classified</a>
                     <ul class="nav navbar-nav navbar-right">
                         <!--                        <li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
@@ -48,8 +47,8 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <li><a href="help.html">Ayuda</a></li>
-                        <li><a href="signUp.html">Iniciar Sesion</a></li>
+                        <li><a href="../index.php">Inicio</a></li>
+                        <li><a href="ayuda.php">Ayuda</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
                             <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
@@ -81,11 +80,7 @@
             <!-- Content -->
             <div class="row content">
                 <div class="col-lg-12">
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="help.html">Help</a></li>
-                    </ol>
-                    <h2>Help</h2>
+                    <h2>Ayuda</h2>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel-group" id="accordion">
@@ -134,51 +129,12 @@
                             </div> 
                         </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-body">                
-                                    <form action="#" method="POST">
-                                        <div class="form-group">
-                                            <label for="InputEmail">Email address</label>
-                                            <input type="email" class="form-control" id="InputEmail" placeholder="Enter your email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="InputSubject">Subject</label>
-                                            <input type="email" class="form-control" id="InputSubject" placeholder="Enter your subject">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="InputText">Your text</label>
-                                            <textarea class="form-control" id="InputText" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
-                                        </div>
-                                        <button class="btn btn-info" type="submit">Send</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- /Content -->
             <div class="footer">
-                <div class="well well-sm">
-                    <div class="pull-left">
-                        <ul class="nav nav-pills">
-                            <li><a href="addClassified.html"><span class="glyphicon glyphicon-plus"></span> Add classified</a></li>
-                        </ul>
-                    </div>
-                    <div class="pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href="help.html">Help</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="conditions.html">Rules & conditions</a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-                </div>
                 <div class="pull-right">
-                    <p class="text-muted"><small>Copyright &copy; 2013-2014, SenseMedia.cz - All Rights Reserved.</small></p>
+                    <p class="text-muted"><small>Copyright &copy; 2013-2014, PC-Oriente - Todos los derechos reservados.</small></p>
                 </div>
             </div>
         </div>
