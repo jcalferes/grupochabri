@@ -33,6 +33,21 @@ if ($rs == false) {
     echo '<th>Total c/d.</th>';
     echo '</thead>';
     while ($datos = mysql_fetch_array($rs)) {
+//---------------------------------------------
+        $codigo1 = "";
+        $codigo1 = $datos["codigoConcepto"];
+        $paso = false;
+        $longitud = strlen($codigo1);
+        $empezar = $longitud - 3;
+        $cadenaComparar = "-GR";
+        $cadena = "";
+        for ($x = $empezar; $x < $longitud; $x++) {
+            $cadena = $cadena . $codigo1[$x];
+        }
+        if ($cadenaComparar == $cadena) {
+            $paso = true;
+        }
+//--------------------------------------------------
         $costoProducto = $datos["importeConcepto"];
         $rsDatosTemporal = $dao->dameExistenciaTemporal($datos["codigoConcepto"], $idSucursal);
         if ($rsDatosTemporal == false) {
@@ -55,8 +70,11 @@ if ($rs == false) {
         }
         $codigo->setCodigo($datos["codigoConcepto"]);
         $cod = "";
-        $cod= $codigo->getCodigo();
+        $cod = $codigo->getCodigo();
         $existenciaReal = $existenciasFisicas - $existenciaTemporal;
+        $totalSinDescuento = 0;
+        $totalSinDescuento = $datos["cantidadConcepto"] * $datos["precioUnitarioConcepto"];
+        $dineroDescuento = $totalSinDescuento - $datos["cdaConcepto"];
         echo '<tr>';
         echo '<td>';
         echo $datos["codigoConcepto"];
@@ -64,8 +82,22 @@ if ($rs == false) {
         echo '<td>';
         echo $datos["descripcionConcepto"];
         echo '</td>';
-        echo '<td>';
-        echo '<input type ="text" value= "' . $datos["cantidadConcepto"] . '" class="form-control"/>';
+        echo '<td style="width: 150px">';
+        if ($paso == false) {
+            echo '<input type ="text" value= "' . $datos["cantidadConcepto"] . '" class="form-control"/>';
+        } else {
+            echo"<div class='input-group'>
+                         <input type='text' id='txt" . $codigo->getCodigo() . "' 
+                             class='form-control' placeholder='Cant. Kg'
+                             onkeyup='calcularTotal(" . "\"$codigo1\"" . ")'
+                             value='" . $datos["cantidadConcepto"] . "'/>
+                         <span class='input-group-btn'>
+                            <button class='btn btn-default' type='button' onclick='modalProductosGranel(" . "\"$codigo1\"" . ")'>
+                                <span class='glyphicon glyphicon-plus'></span>
+                             </button>
+                          </span>
+                       </div>";
+        }
         echo '</td>';
         echo '<td>';
         echo '<span id="txtExistencia' . $codigo->getCodigo() . '">' . $existenciaReal . '</span>';
@@ -80,11 +112,17 @@ if ($rs == false) {
         echo "<select class='form-control' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
         $costoVenta = 0.00;
         while ($rTarifas = mysql_fetch_array($rsTarifas)) {
+            $idListaPrecio = 0;
+            $idListaPrecio = $datos["idListaPrecio"];
             $select = false;
-            if ($rTarifas[1] == $datos["idListaPrecio"]) {
+            if ($rTarifas["idListaPrecio"] == $idListaPrecio) {
                 $select = true;
             }
-            echo '<option selected="' . $select . '" value = "' . $rTarifas[0] . ',' . $datos["precioUnitarioConcepto"] . ' ">';
+            echo '<option ';
+            if ($select == true) {
+                echo 'selected="true"';
+            }
+            echo' value = "' . $rTarifas[0] . ',' . $datos["precioUnitarioConcepto"] . ' ">';
             echo $rTarifas[1];
             echo '</option>';
         }
@@ -100,13 +138,13 @@ if ($rs == false) {
         echo "<input type='button' onclick='eliminar(" . "\"$cod\"" . ")' class='btn' title='Eliminar Producto' value='Eliminar'>";
         echo '</td>';
         echo '<td>';
-        echo '<input disabled="true" class="form-control" type="text" id="txtTotal'.$codigo->getCodigo().'" value="'.$datos["cdaConcepto"].'">';
+        echo '<input disabled="true" class="form-control" type="text" id="txtTotal' . $codigo->getCodigo() . '" value="' . $totalSinDescuento . '"/>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<input class="form-control" type="text" id="txtDescuento' . $codigo->getCodigo() . '" value= "' . $dineroDescuento . '"/>';
         echo '</td>';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<input disabled="true" class="form-control" type="text" id="txtTotalDesc' . $codigo->getCodigo() . '" value="' . $datos["cdaConcepto"] . '">';
         echo '</td>';
         echo '</tr>';
     }

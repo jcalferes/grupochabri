@@ -3178,9 +3178,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             }
                         }
                         if ($cadena == "-GR") {
-                            $cantidad = $rs[0] * 1000;
-                            $cantidadTmp = $cantidadTmp * 1000;
-                            $cantidadPedida = $cantidadPedida * 1000;
+                            $cantidad = $rs[0] * 1;
+                            $cantidadTmp = $cantidadTmp * 1;
+                            $cantidadPedida = $cantidadPedida * 1;
                             $ok = true;
                         }
                         if ($ok == false) {
@@ -3189,7 +3189,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         }
                         if ($ok == true) {
                             $nuevaExistencia = $cantidad - $cantidadTmp;
-                            $nuevaExistencia = $nuevaExistencia / 1000;
+                            $nuevaExistencia = $nuevaExistencia / 1;
                         }
                         if ($nuevaExistencia < 0) {
                             $error = "2," . $detalle[$x]->codigoConcepto;
