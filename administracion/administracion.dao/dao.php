@@ -807,11 +807,30 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
                 . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoProducto = '$codigo'";
         $datos = mysql_query($sql, $cn->Conectarse());
-        if ($datos == false) {
-            $datos = mysql_error();
-            $rs = 0;
+        $row = mysql_affected_rows();
+        if ($row < 1) {
+            $sql2 = "SELECT p.codigoProducto, p.codigoBarrasProducto, p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto,p.idUnidadMedida, p.metrosCubicos \n"
+                    . "FROM productos p\n"
+                    . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
+                    . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
+                    . "INNER JOIN costos c ON c.codigoProducto = p.codigoProducto\n"
+                    . "INNER JOIN existencias e ON e.codigoProducto = p.codigoProducto\n"
+                    . "INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto "
+                    . "WHERE c.status=1  and c.idSucursal = '$sucursal' and e.idSucursal = '$sucursal' and p.codigoBarrasProducto = '$codigo'";
+            $datos2 = mysql_query($sql2, $cn->Conectarse());
+            if ($datos2 == false) {
+                $datos2 = mysql_error();
+                $rs = 0;
+            } else {
+                $rs = $datos2;
+            }
         } else {
-            $rs = $datos;
+            if ($datos == false) {
+                $datos = mysql_error();
+                $rs = 0;
+            } else {
+                $rs = $datos;
+            }
         }
         return $rs;
     }
@@ -870,11 +889,19 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto WHERE t.codigoProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $validacion = mysql_affected_rows();
-        if ($validacion == false) {
-            return 0;
+        if ($validacion < 1) {
+            $sql2 = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto inner join productos p on p.codigoProducto = t.codigoProducto WHERE p.codigoBarrasProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
+            $datos2 = mysql_query($sql2, $cn->Conectarse());
+             $validacion2 = mysql_affected_rows();
+             if ($validacion2 < 1) {
+                 $rs = 0;
+             }else{
+                 $rs = $datos2;
+             }
         } else {
-            return $datos;
+            $rs = $datos;
         }
+        return $rs;
     }
 
     function guardarTipo(GrupoProductos $g) {

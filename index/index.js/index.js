@@ -8,7 +8,6 @@ $(document).ready(function() {
 $("#loginbtn").click(function() {
     var usuario = $.trim($("#loginuser").val());
     var pass = $.trim($("#loginpass").val());
-//
     if (usuario === "" || /^\s+$/.test(usuario) || pass === "" || /^\s+$/.test(pass)) {
         $("#loginuser").val("");
         $("#loginpass").val("");
@@ -18,7 +17,7 @@ $("#loginbtn").click(function() {
         var info = "usuario=" + usuario + "&pass=" + pass;
         $.get('./index/iniciarSesion.php', info, function(respuesta) {
             respuesta = parseInt(respuesta);
-            if (respuesta == false) {
+            if (respuesta == 666) {
                 alertify.error("Usuario o Contraseña invalidos");
             } else {
                 if (respuesta == 1) {
