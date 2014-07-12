@@ -84,7 +84,7 @@ if ($rs == false) {
         echo '</td>';
         echo '<td style="width: 150px">';
         if ($paso == false) {
-            echo '<input type ="text" value= "' . $datos["cantidadConcepto"] . '" class="form-control"/>';
+            echo "<input id='txt" . $codigo->getCodigo() . "' type ='text' value= '" . $datos["cantidadConcepto"] . "' class='form-control'  onkeyup='calcularTotal(" . "\"$cod\"" . ")'/>";
         } else {
             echo"<div class='input-group'>
                          <input type='text' id='txt" . $codigo->getCodigo() . "' 
@@ -109,7 +109,7 @@ if ($rs == false) {
             echo mysql_error();
             break;
         }
-        echo "<select class='form-control' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
+        echo "<select id='cmb" . $codigo->getCodigo() . "' class='form-control' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
         $costoVenta = 0.00;
         while ($rTarifas = mysql_fetch_array($rsTarifas)) {
             $idListaPrecio = 0;

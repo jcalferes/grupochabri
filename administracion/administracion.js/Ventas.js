@@ -124,10 +124,12 @@ function cambiarTarifas(codigo) {
 }
 
 function calcularTotal(codigo) {
+   
     var ok = verificarProductoGranel(codigo);
     var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
-    var cantidad = $("#txt" + codigo).val();
+    var cantidad = $("#txt" + codigo).val(); 
+    alert(codigo);
     if (ok == false) {
         var total = datos[1] * cantidad;
         $("#txtTotal" + codigo).val(total.toFixed(2));
@@ -430,9 +432,7 @@ $(document).ready(function() {
             if (x == false) {
                 cargarProductosCarritoBusqueda(valor);
                 codigos.push(valor);
-
             }
-
         });
 
         if (info != undefined) {
@@ -458,7 +458,7 @@ $(document).ready(function() {
         else {
 //            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
             $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
-            $("#cmbOrdenCompra").show();
+                $("#cmbOrdenCompra").show();
             });
         }
     });
@@ -479,10 +479,23 @@ $(document).ready(function() {
     });
 
     $("#cmbOrdenCompra").change(function() {
-//        alert("cambio");
         var idxml = $("#cmbOrdenCompra").val();
-//        alert(idxml);
-        $("#tablaVentas").load("construirOrdenCompraVentas.php?id="+idxml);
+        if (idxml > 0) {
+            var informacion = 'id=' + idxml;
+            $.get('dameCodigos.php', informacion, function(listacodigos) {
+                var datosJson = eval(listacodigos);
+                for (var i in datosJson) { 
+                  
+                    codigos.push(datosJson[i].codigoProducto);
+                }
+                 alert(codigos.length);
+                $("#tablaVentas").load("construirOrdenCompraVentas.php?id=" + idxml);
+
+            });
+        }
+        else {
+            finalizar();
+        }
     });
 });
 function finalizar() {

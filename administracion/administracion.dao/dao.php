@@ -3756,4 +3756,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function dameCodigosProductosOrdenCompra($idXmlComprobante) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT codigoConcepto from xmlconceptos WHERE idXmlComprobante='$idXmlComprobante'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
 }
