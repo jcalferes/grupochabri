@@ -892,12 +892,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($validacion < 1) {
             $sql2 = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto inner join productos p on p.codigoProducto = t.codigoProducto WHERE p.codigoBarrasProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
             $datos2 = mysql_query($sql2, $cn->Conectarse());
-             $validacion2 = mysql_affected_rows();
-             if ($validacion2 < 1) {
-                 $rs = 0;
-             }else{
-                 $rs = $datos2;
-             }
+            $validacion2 = mysql_affected_rows();
+            if ($validacion2 < 1) {
+                $rs = 0;
+            } else {
+                $rs = $datos2;
+            }
         } else {
             $rs = $datos;
         }
@@ -3788,6 +3788,18 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn = new coneccion();
         $sql = "SELECT codigoConcepto from xmlconceptos WHERE idXmlComprobante='$idXmlComprobante'";
         $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function prueba() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        try {
+            $sql = "SELECT codigoConcep from xmlconceptos WHERE idXmlComprobante='$idXmlComprobante'";
+            $rs = mysql_query($sql, $cn->Conectarse());
+        } catch (Exception $ex) {
+            $rs = $ex->getMessage();
+        }
         return $rs;
     }
 
