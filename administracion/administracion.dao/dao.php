@@ -3821,4 +3821,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function prueba() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        try {
+            $sql = "SELECT codigoConcep from xmlconceptos WHERE idXmlComprobante='$idXmlComprobante'";
+            $rs = mysql_query($sql, $cn->Conectarse());
+        } catch (Exception $ex) {
+            $rs = $ex->getMessage();
+        }
+        return $rs;
+    }
+
 }
