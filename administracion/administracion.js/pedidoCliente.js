@@ -61,7 +61,7 @@ function eliminandoFila(fila, bandera) {
 //    });
 //    var descgral = parseFloat(importes) * (parseFloat($("#descuentosGeneralesPorComasM").val() / 100));
 //    var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
-//    var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);
+//    var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);dsa
     var iva = parseFloat(importes) * .16;
 
     $("#subTotalM").val(parseFloat(importes).toFixed(2));

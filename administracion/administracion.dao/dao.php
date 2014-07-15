@@ -2,6 +2,36 @@
 
 class dao {
 
+    function eliminandoImagenes($idImagen,$imagen) {
+          include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+         $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
+
+
+            $datos = mysql_query($borrarImagenes, $cn->Conectarse());
+            $ruta = "../subidas/";
+            $fusion = $ruta . $imagen;
+            unlink($fusion);
+    }
+
+    function buscarImagenes($cp) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM imagenes WHERE codigoProducto = '$cp'";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
+    function consultaClasificados() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto inner join tiposproducto tp on c.idTipo = tp.idTiposProducto group by p.codigoProducto";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
     function obtenerImagenesDisponibles(clasificados $clasificados) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -892,12 +922,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($validacion < 1) {
             $sql2 = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto inner join productos p on p.codigoProducto = t.codigoProducto WHERE p.codigoBarrasProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
             $datos2 = mysql_query($sql2, $cn->Conectarse());
-             $validacion2 = mysql_affected_rows();
-             if ($validacion2 < 1) {
-                 $rs = 0;
-             }else{
-                 $rs = $datos2;
-             }
+            $validacion2 = mysql_affected_rows();
+            if ($validacion2 < 1) {
+                $rs = 0;
+            } else {
+                $rs = $datos2;
+            }
         } else {
             $rs = $datos;
         }

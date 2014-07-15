@@ -3,6 +3,61 @@ var grupo = "";
 var arrelo;
 var imagenes = new Array();
 var calculando = 6;
+function gestionimagenes(cp,nombre){
+    $(".contenedorImagenes").empty();
+     $('#botonninja').trigger('click');
+    $('#labelTitulo').html('<h4> Imagenes subidas del producto:</h4>' + nombre);
+    codigo = "cp="+cp;
+   $.get("mostrarImagenes.php",codigo,function(x){
+              
+
+                var comprobante;
+                var tipo;
+                var descripcion;
+                var imagenes;
+                var idImagen;
+                var novedades;
+                var recomendado;
+                var nombreGrupos;
+                var producto;
+                var conta = 1;
+                lista = JSON.parse(x);
+                console.log(lista);
+                $.each(lista, function(ind, elem) {
+                    $.each(elem, function(ind, elem2) {
+                       
+                        imagenes = elem[ind].ruta;
+                        idImagen = elem[ind].idImagen;
+                        alert(imagenes);
+                        if (imagenes !== undefined) {
+                             var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
+                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenesconsula('" + imagenes + "','" + idImagen + "')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
+
+
+                            $("#imagens" + conta).append(imagen);
+                            $("#contenedors" + conta).show('slow');
+//                            $("#imagen" + cont).prop("hidden",false);
+                            conta++;
+                            $("#mostrarImagenes").show("slow");
+                        }
+
+                    });
+                });
+       
+       
+       
+       
+       
+       
+       
+      
+//                          
+                            
+                      
+   });
+
+
+}
 function limpiarCampos() {
     $("#mostrando").hide('slow');
     $("#descripcion").val("");
@@ -23,6 +78,20 @@ function limpiarCampos() {
      imagenes = new Array();
      calculando = 6;
 }
+function eliminandoImagenesconsula(imagen, idImagen){
+    var arreglo = new Array();
+    alert(imagen);
+    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al aceptar no habra forma de recuperar los datos eliminados", function(e) {
+        if (e) {
+            info = "idImagen=" + idImagen + "&imagen=" + imagen;
+           $.get("eliminarClasificados.php",info,function(){
+               alertify.success("se elimino la imagen" +imagen+ "correctamente");
+           });
+        } else {
+                    }
+    });    
+}
+
 function eliminandoImagenes(imagen, idImagen, cont) {
     var arreglo = new Array();
     alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar", function(e) {
@@ -74,6 +143,7 @@ function handleFileSelect(evt) {
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 $(document).ready(function() {
+    $("#botonninja").hide();
     $("#limpiar").click(function() {
         limpiarCampos();
     })
@@ -310,5 +380,8 @@ $(document).ready(function() {
 
 
 
+    });
+     $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
+        $('#dtclasificados').dataTable();
     });
 });
