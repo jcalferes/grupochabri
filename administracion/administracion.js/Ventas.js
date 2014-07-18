@@ -540,6 +540,11 @@ $(document).ready(function() {
             arrayDetalleVenta.length = 0;
             arrayEncabezadoVenta.length = 0;
             inf.length = 0;
+            $("#subTotalV").val("0.00");
+            $("#costoTotal").val("0.00");
+            $("#totalVenta").val("0.00");
+            $("#ivaTotal").val("0.00");
+            $("#descTotalV").val("0.00");
         }
 
         var rfc = $("#cmbClientes").val();
