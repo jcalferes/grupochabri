@@ -24,8 +24,12 @@ function buscar() {
         codigos.push($("#codigoProductoEntradas").val().toUpperCase());
     }
 
+
     calcularTotal(codi);
 }
+
+
+
 
 function validarCredito() {
     var paso = false;
@@ -55,13 +59,54 @@ function cargarProductosCarrito() {
         }
         else {
             $("#tablaVentas").append(informacion);
-            $("#codigoProductoEntradas").val("");
             calcularSumaTotal();
             calcularSubTotal();
+            guardarProductoOrdenCompraNuevo();
             sumaDescTotal();
+            $("#codigoProductoEntradas").val("");
         }
     });
 }
+function guardarProductoOrdenCompraNuevo() {
+    if ($("#cmbOrdenCompra").val() > 0) {
+        var valor = $("#cmb" + codigoN).val();
+        var datos = valor.split(",");
+        var detalleVenta = new xmlConceptosManualmente();
+        detalleVenta.unidadMedidaConcepto = "KG";
+        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigoN).val();
+        detalleVenta.cantidadConcepto = $("#txt" + codigoN).val();
+        detalleVenta.codigoConcepto = $("#codigo" + codigoN).text();
+        detalleVenta.descripcionConcepto = $("#descripcion" + codigoN).text();
+        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigoN).text();
+        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigoN).val();
+        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigoN).val();
+        detalleVenta.idListaPrecio = parseInt(datos[0]);
+        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+        arrayDetalleVenta.push(detalleVenta);
+        var encabezadoVentas = new XmlComprobante();
+        encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
+        encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
+        encabezadoVentas.sdaComprobante = $("#costoTotal").val();
+        encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
+        encabezadoVentas.totalComprobante = $("#totalVenta").val();
+        encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+        arrayEncabezadoVenta.push(encabezadoVentas);
+        inf.push(arrayDetalleVenta);
+        inf.push(arrayEncabezadoVenta);
+        var informacion = JSON.stringify(inf);
+        alert("insertando registro nuevo");
+        $.ajax({
+            type: "POST",
+            url: "productoAgregadoOrdenCompra.php",
+            data: {data: informacion},
+            cache: false,
+            success: function(informacion) {
+            }
+        });
+    }
+}
+
+
 
 function validar(codigo) {
     var paso = false;
@@ -124,12 +169,12 @@ function cambiarTarifas(codigo) {
 }
 
 function calcularTotal(codigo) {
-   
+
     var ok = verificarProductoGranel(codigo);
     var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
-    var cantidad = $("#txt" + codigo).val(); 
-    alert(codigo);
+    var cantidad = $("#txt" + codigo).val();
+//    alert(codigo);
     if (ok == false) {
         var total = datos[1] * cantidad;
         $("#txtTotal" + codigo).val(total.toFixed(2));
@@ -291,7 +336,7 @@ function guardarDatosEncabezado() {
 }
 
 function guardarDatosDetalle() {
-//    alert("ejecutando guardando detalle");
+//  alert("ejecutando guardando detalle");
     for (var x = 0; x < codigos.length; x++) {
         var valor = $("#cmb" + codigos[x]).val();
         var datos = valor.split(",");
@@ -331,13 +376,37 @@ function eliminar(codigo) {
     for (var x = 0; x < codigos.length; x++) {
         if (codigos[x] == codigo) {
             codigos.splice(x, 1);
+            break;
         }
     }
-    $("#tr" + codigo).remove();
     calcularSumaTotal();
     calcularSubTotal();
     sumaDescTotal();
     calcularTotal(codigo);
+    alert("entrando");
+    if ($("#cmbOrdenCompra").val() != 0) {
+        calcularSumaTotal();
+        calcularSubTotal();
+        sumaDescTotal();
+        calcularTotal(codigo);
+        var idXml = $("#cmbOrdenCompra").val();
+        var encabezadoVentas = new XmlComprobante();
+        encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
+        encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
+        encabezadoVentas.sdaComprobante = $("#costoTotal").val();
+        encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
+        encabezadoVentas.totalComprobante = $("#totalVenta").val();
+        encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+        arrayEncabezadoVenta.push(encabezadoVentas);
+        var array = JSON.stringify(arrayEncabezadoVenta);
+        var info = "codigo=" + codigo.toUpperCase() + "&idComprobante=" + idXml + "&array=" + array;
+        alert("entrandoEliminar");
+        $.get('eliminarProductoOrdenCompra.php', info, function(informacion) {
+            alertify.success(informacion);
+        });
+    }
+//    });
+    $("#tr" + codigo).remove();
     return true;
 }
 
@@ -384,6 +453,7 @@ $(document).ready(function() {
 
 
     $("#guardarVenta").click(function() {
+//        alert("click");
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
@@ -399,6 +469,7 @@ $(document).ready(function() {
                 data: {data: informacion},
                 cache: false,
                 success: function(informacion) {
+//                    alert("click");
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
                         finalizar();
@@ -449,14 +520,33 @@ $(document).ready(function() {
 
 
     $("#cmbClientes").change(function() {
+        if ($("#cmbOrdenCompra").val() != 0) {
+            codigoN = 0;
+            $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
+                    + ' <th><center>Descripcion</center></th>'
+                    + ' <th><center>Cantidad</center></th>'
+                    + ' <th><center>Existencia</center></th>'
+                    + ' <th><center>Lst. Precio</center></th>'
+                    + ' <th><center>Precio c/u</center></th>'
+                    + ' <th><center>Desc.</center></th>'
+                    + ' <th><center>Eliminar</center></th>'
+                    + ' <th><center>total</center></th>'
+                    + ' <th><center>$ Desc.</center></th>'
+                    + ' <th><center>$ Total c/d.</center></th>'
+                    + ' </thead>'
+                    + ' </table>');
+            $("#codigoProductoEntradas").val("");
+            codigos.length = 0;
+            arrayDetalleVenta.length = 0;
+            arrayEncabezadoVenta.length = 0;
+            inf.length = 0;
+        }
+
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
             $("#cmbOrdenCompra").hide();
-//            $("#descuentosV").html('<div id="descuentosV"></div>');
-//            $("#ordenesCompra").html('<div id="ordenesCompra" style="float: left; width: 260px; background-color: red"></div>');
         }
         else {
-//            $("#descuentosV").load("dameDescuentos.php?rfc=" + rfc);
             $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
                 $("#cmbOrdenCompra").show();
             });
@@ -479,28 +569,58 @@ $(document).ready(function() {
     });
 
     $("#cmbOrdenCompra").change(function() {
+        codigos.length = 0;
+        arrayDetalleVenta.length = 0;
+        arrayEncabezadoVenta.length = 0;
+        inf.length = 0;
+
         var idxml = $("#cmbOrdenCompra").val();
         if (idxml > 0) {
             var informacion = 'id=' + idxml;
             $.get('dameCodigos.php', informacion, function(listacodigos) {
                 var datosJson = eval(listacodigos);
-                for (var i in datosJson) { 
-                  
+                for (var i in datosJson) {
                     codigos.push(datosJson[i].codigoProducto);
                 }
-                 alert(codigos.length);
                 $("#tablaVentas").load("construirOrdenCompraVentas.php?id=" + idxml);
-
+                $("#contenedorTotales").load("contruirTotales.php?id=" + idxml);
             });
         }
         else {
-            finalizar();
+            codigoN = 0;
+            $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
+                    + ' <th><center>Descripcion</center></th>'
+                    + ' <th><center>Cantidad</center></th>'
+                    + ' <th><center>Existencia</center></th>'
+                    + ' <th><center>Lst. Precio</center></th>'
+                    + ' <th><center>Precio c/u</center></th>'
+                    + ' <th><center>Desc.</center></th>'
+                    + ' <th><center>Eliminar</center></th>'
+                    + ' <th><center>total</center></th>'
+                    + ' <th><center>$ Desc.</center></th>'
+                    + ' <th><center>$ Total c/d.</center></th>'
+                    + ' </thead>'
+                    + ' </table>');
+            $("#codigoProductoEntradas").val("");
+            codigos.length = 0;
+            arrayDetalleVenta.length = 0;
+            arrayEncabezadoVenta.length = 0;
+            inf.length = 0;
+            $("#folio").load("dameFolioPedidos.php");
+            $("#descuentosV").html('<div id="descuentosV"></div>');
+            $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
+            $("#subTotalV").val("0.00");
+            $("#costoTotal").val("0.00");
+            $("#totalVenta").val("0.00");
+            $("#ivaTotal").val("0.00");
+            $("#descTotalV").val("0.00");
         }
     });
 });
 function finalizar() {
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
+    $("#cmbOrdenCompra option[value='0']").attr("selected", true);
     $("#cmbTipoPago option[value='1']").attr("selected", true);
     $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
             + ' <th><center>Descripcion</center></th>'
@@ -516,15 +636,14 @@ function finalizar() {
             + ' </thead>'
             + ' </table>');
     $("#codigoProductoEntradas").val("");
-    codigos = new Array();
+    codigos.length = 0;
     arrayDetalleVenta.length = 0;
     arrayEncabezadoVenta.length = 0;
+    inf.length = 0;
     $("#folio").load("dameFolioPedidos.php");
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
-
-//    alert("finalizo finalizar");
-
+    $("#cmbOrdenCompra").hide();
     $("#subTotalV").val("0.00");
     $("#costoTotal").val("0.00");
     $("#totalVenta").val("0.00");

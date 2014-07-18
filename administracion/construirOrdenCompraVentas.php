@@ -75,7 +75,7 @@ if ($rs == false) {
         $totalSinDescuento = 0;
         $totalSinDescuento = $datos["cantidadConcepto"] * $datos["precioUnitarioConcepto"];
         $dineroDescuento = $totalSinDescuento - $datos["cdaConcepto"];
-        echo '<tr>';
+        echo '<tr id="tr' . $codigo->getCodigo() . '">';
         echo '<td>';
         echo $datos["codigoConcepto"];
         echo '</td>';
@@ -109,7 +109,7 @@ if ($rs == false) {
             echo mysql_error();
             break;
         }
-        echo "<select id='cmb" . $codigo->getCodigo() . "' class='form-control' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
+        echo "<select id='cmb" . $codigo->getCodigo() . "' class='form-control autorizar' disabled='true' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
         $costoVenta = 0.00;
         while ($rTarifas = mysql_fetch_array($rsTarifas)) {
             $idListaPrecio = 0;
@@ -132,7 +132,7 @@ if ($rs == false) {
         echo '<span id ="precioVnt' . $codigo->getCodigo() . '">' . $datos["precioUnitarioConcepto"] . '</span>';
         echo '</td>';
         echo '<td>';
-        echo '<input class="form-control" style="width:60px" id ="txtDescuentos' . $codigo->getCodigo() . '" type="text" value ="' . $datos["desctUnoConcepto"] . '"</>';
+        echo "<input  onkeyup='calcularDescuentos(" . "\"$cod\"" . ")' disabled='true'     class='form-control autorizar' style='width:60px' id ='txtDescuentos" . $codigo->getCodigo() . "' type='text' value ='" . $datos["desctUnoConcepto"] . "'/>";
         echo '</td>';
         echo '<td>';
         echo "<input type='button' onclick='eliminar(" . "\"$cod\"" . ")' class='btn' title='Eliminar Producto' value='Eliminar'>";
