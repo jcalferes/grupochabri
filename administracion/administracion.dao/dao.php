@@ -2,6 +2,36 @@
 
 class dao {
 
+    function eliminandoImagenes($idImagen,$imagen) {
+          include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+         $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
+
+
+            $datos = mysql_query($borrarImagenes, $cn->Conectarse());
+            $ruta = "../subidas/";
+            $fusion = $ruta . $imagen;
+            unlink($fusion);
+    }
+
+    function buscarImagenes($cp) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM imagenes WHERE codigoProducto = '$cp'";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
+    function consultaClasificados() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto inner join tiposproducto tp on c.idTipo = tp.idTiposProducto group by p.codigoProducto";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
     function obtenerImagenesDisponibles(clasificados $clasificados) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
