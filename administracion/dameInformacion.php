@@ -2,11 +2,12 @@
 session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
-$idSucursal = $_SESSION["sucursalSesion"];
 $idSucursal = 0;
-$idSucursal = $_GET["id"];
+$idSucursal = $_SESSION["sucursalSesion"];
+
+$idFolio = $_GET["id"];
 $datos = true;
-$datos = $dao->traerEncabezadoPedios($idSucursal, $idSucursal);
+$datos = $dao->traerEncabezadoPedios($idFolio, $idSucursal);
 if ($datos == false) {
     echo mysql_error();
 }
@@ -24,8 +25,8 @@ while ($rs = mysql_fetch_array($datos)) {
     }
     ?>
     <div class="well">
-        <span style="display: none" id="xmlComprobante"><?php echo $rs["idXmlComprobante"];?></span>
-        <strong>Folio : <span id="folioPagar"><?php echo $rs["folioComprobante"];?></span></strong>
+        <span style="display: none" id="xmlComprobante"><?php echo $rs["idXmlComprobante"]; ?></span>
+        <strong>Folio : <span id="folioPagar"><?php echo $rs["folioComprobante"]; ?></span></strong>
         <br/>
         <strong>Venta : <?php echo $cliente; ?></strong>
         <strong style="float: right"> <?php echo $fecha; ?></strong>

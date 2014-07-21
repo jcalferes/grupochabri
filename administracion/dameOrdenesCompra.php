@@ -13,7 +13,7 @@ if ($rs == false) {
     echo '</select>';
 } else {
     echo '<select id="cmbOrdenCompra" class="form-control">';
-    echo '<option>Seleccione una orden de compra</option>';
+    echo '<option value="0">Seleccione una orden de compra</option>';
     while ($datos = mysql_fetch_array($rs)) {
         echo '<option value ="' . $datos["idXmlComprobante"] . '">' . $datos["fechaMovimiento"] . '</option>';
     }

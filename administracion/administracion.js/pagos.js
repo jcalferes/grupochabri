@@ -54,6 +54,7 @@ $(document).ready(function() {
 });
 
 function cargarInformacion(folio, tipoPago) {
+    alert("entro");
     idTipoPago = tipoPago;
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");

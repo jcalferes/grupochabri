@@ -92,25 +92,26 @@
                     </thead>
                 </table>
                 <hr>
-                <form class="form-inline text-right">
-                    <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                </form>
-                <form class="form-inline text-right" style="margin-top: 5px">
-                    <span>Desc. Total : <input type="text" id="descTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                </form>
-                <form class="form-inline text-right" style="margin-top: 5px">
-                    <span>SDA :<input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                </form>
-                <!--<br>-->
-                <form class="form-inline text-right" style="margin-top: 5px">
-                    <span>IVA : <input type="text" id="ivaTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                </form>
-                <!--                <br>-->
-                <form class="form-inline text-right" style="margin-top: 5px">
-                    <span>Total : <input type="text" id="totalVenta" class="form-control text-right" style="width: 20%" disabled="true"/></span>
-                </form>
-
-                <input  id="guardarVenta"  type="submit" class="btn btn-cprimary"/>
+                <div id="contenedorTotales">
+                    <form class="form-inline text-right">
+                        <span>Sub Total : <input type="text" id="subTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    </form>
+                    <form class="form-inline text-right" style="margin-top: 5px">
+                        <span>Desc. Total : <input type="text" id="descTotalV" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    </form>
+                    <form class="form-inline text-right" style="margin-top: 5px">
+                        <span>SDA :<input type="text" id="costoTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    </form>
+                    <!--<br>-->
+                    <form class="form-inline text-right" style="margin-top: 5px">
+                        <span>IVA : <input type="text" id="ivaTotal" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    </form>
+                    <!--                <br>-->
+                    <form class="form-inline text-right" style="margin-top: 5px">
+                        <span>Total : <input type="text" id="totalVenta" class="form-control text-right" style="width: 20%" disabled="true"/></span>
+                    </form>
+                </div>
+                <input  id="guardarVenta" value="Guardar Venta"  type="submit" class="btn btn-cprimary"/>
             </section>
             <!-- CANCELACIONES -->
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cancelaciones</h2>

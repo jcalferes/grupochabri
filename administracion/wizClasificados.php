@@ -5,8 +5,10 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;Tabla de clasificados</h2>
             <section>
-                <div id="consultarProductosPublicados">
+                <div id="consultarProductosPublicados" style="margin: 0% 25% 0% 25%">
                 </div>
+                <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlDetalleImagenes" value="+" id="botonninja"/>
+
             </section>
             <h2><span class="glyphicon glyphicon-star"/>&numsp;Publicar nuevo clasificado</h2>
             <section>
@@ -21,7 +23,7 @@
                             <label>Nombre Producto:</label>
                             <input type="text" class="form-control" id="producto" disabled/>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Descripcion del producto:</label>
                             <textarea id="descripcion" style="margin: 0px; width: 779px; height: 135px;"></textarea>
@@ -122,8 +124,60 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        <script src="../administracion/administracion.js/controlWizard.js"></script>
-        <script src="../administracion/administracion.js/clasificados.js"></script>
+        <div class="modal fade" id="mdlDetalleImagenes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
 
-    </body>
+                        <h4 class="modal-title" id="labelTitulo">Tarifas</h4>
+                    </div>
+                
+                        <div class="modal-body">
+                           
+                                
+                                    <div class="form-group" id="mostrarImagenes">
+                                        <div class="row selected-classifieds">
+                                            <div class="col-lg-2 conte" id="contenedors1" hidden="true">
+                                                <div class="thumbnail contenedorImagenes" id="imagens1" >
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 conte" id="contenedors2" hidden="true">
+                                                <div class="thumbnail contenedorImagenes" id="imagens2" >
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 conte" id="contenedors3" hidden="true">
+                                                <div class="thumbnail contenedorImagenes" id="imagens3" >
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 conte" id="contenedors4" hidden="true">
+                                                <div class="thumbnail contenedorImagenes" id="imagens4" >
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 conte" id="contenedors5" hidden="true">
+                                                <div class="thumbnail contenedorImagenes" id="imagens5" >
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                        
+                            <div class="modal-footer">
+                                <!--<input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>-->
+                                <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                                <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
+                 
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+        </div>
+    <script src="../administracion/administracion.js/controlWizard.js"></script>
+    <script src="../administracion/administracion.js/clasificados.js"></script>
+
+</body>
 </html>

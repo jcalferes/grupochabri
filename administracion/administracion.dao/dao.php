@@ -1,5 +1,37 @@
 <?php
+
 class dao {
+
+    function eliminandoImagenes($idImagen, $imagen) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
+
+
+        $datos = mysql_query($borrarImagenes, $cn->Conectarse());
+        $ruta = "../subidas/";
+        $fusion = $ruta . $imagen;
+        unlink($fusion);
+    }
+
+    function buscarImagenes($cp) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM imagenes WHERE codigoProducto = '$cp'";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
+    function consultaClasificados() {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+
+        $sql = "SELECT * FROM clasificados c INNER JOIN productos p ON c.codigoProducto = p.codigoProducto INNER JOIN imagenes i ON i.codigoProducto = p.codigoProducto INNER JOIN grupoproductos g ON g.idGrupoProducto = p.idGrupoProducto inner join tiposproducto tp on c.idTipo = tp.idTiposProducto group by p.codigoProducto";
+        $datos2 = mysql_query($sql, $cn->Conectarse());
+        return $datos2;
+    }
+
     function obtenerImagenesDisponibles(clasificados $clasificados) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -866,7 +898,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             return 0;
         }
     }
-    
+
     function comprobarCodigoBValido($codigoBarras) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -903,12 +935,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($validacion < 1) {
             $sql2 = "SELECT l.nombreListaPrecio, c.costo, t.porcentaUtilidad, l.idListaPrecio, t.tarifa FROM tarifas t inner join listaprecios l on t.idListaPrecio = l.idListaPrecio inner join costos c on c.codigoProducto = t.codigoProducto inner join productos p on p.codigoProducto = t.codigoProducto WHERE p.codigoBarrasProducto  = '$codigoProducto' AND c.status='1' AND t.idStatus =  '1' AND c.idSucursal =  '$sucursal' AND t.idSucursal = '$sucursal'";
             $datos2 = mysql_query($sql2, $cn->Conectarse());
-             $validacion2 = mysql_affected_rows();
-             if ($validacion2 < 1) {
-                 $rs = 0;
-             }else{
-                 $rs = $datos2;
-             }
+            $validacion2 = mysql_affected_rows();
+            if ($validacion2 < 1) {
+                $rs = 0;
+            } else {
+                $rs = $datos2;
+            }
         } else {
             $rs = $datos;
         }
@@ -3216,9 +3248,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             }
                         }
                         if ($cadena == "-GR") {
-                            $cantidad = $rs[0] * 1000;
-                            $cantidadTmp = $cantidadTmp * 1000;
-                            $cantidadPedida = $cantidadPedida * 1000;
+                            $cantidad = $rs[0] * 1;
+                            $cantidadTmp = $cantidadTmp * 1;
+                            $cantidadPedida = $cantidadPedida * 1;
                             $ok = true;
                         }
                         if ($ok == false) {
@@ -3227,14 +3259,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                         }
                         if ($ok == true) {
                             $nuevaExistencia = $cantidad - $cantidadTmp;
-                            $nuevaExistencia = $nuevaExistencia / 1000;
+                            $nuevaExistencia = $nuevaExistencia / 1;
                         }
                         if ($nuevaExistencia < 0) {
                             $error = "2," . $detalle[$x]->codigoConcepto;
                             mysql_query("ROLLBACK;");
                             break;
                         } else {
-                            $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $idXmlComprobante . "','" . $cantidadPedida . "','" . $idSucursal . "')";
+                            $sqlInsertarTablaTemporal = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES('" . $long . "','" . $folio . "','" . $cantidadPedida . "','" . $idSucursal . "')";
                             $datosT = mysql_query($sqlInsertarTablaTemporal);
                             if ($datosT == false) {
                                 $error = mysql_error();
@@ -3792,6 +3824,174 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlconceptos WHERE idXmlComprobante ='$idXmlComprobante'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
+    }
+
+    function dameCodigosProductosOrdenCompra($idXmlComprobante) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT codigoConcepto from xmlconceptos WHERE idXmlComprobante='$idXmlComprobante'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function guardarProductoOrdenCompra($detalle, $idSucursal, $encabezado) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $cn->Conectarse();
+        $error = "";
+        $folio = 0;
+        mysql_query("START TRANSACTION;");
+        for ($x = 0; $x < count($detalle); $x++) {
+            $updateEncabezado = "UPDATE xmlcomprobantes set subtotalComprobante = '" . $encabezado[$x]->subTotalComprobante . "', sdaComprobante = '" . $encabezado[$x]->sdaComprobante . "', desctTotalComprobante = '" . $encabezado[$x]->descuentoTotalComprobante . "', ivaComprobante='" . $encabezado[$x]->ivaComprobante . "', totalComprobante='" . $encabezado[$x]->totalComprobante . "' WHERE idXmlComprobante='" . $detalle[$x]->idXmlComprobante . "'";
+            $actualizar = mysql_query($updateEncabezado);
+            if ($actualizar == false) {
+                mysql_query("ROLLBACK;");
+                $error = mysql_error();
+                break;
+            }
+            $sqlDameFolioOrdenCompra = "SELECT folioComprobante from xmlcomprobantes WHERE idXmlComprobante = '" . $detalle[$x]->idXmlComprobante . "'";
+            $datosFolio = mysql_query($sqlDameFolioOrdenCompra);
+            if ($datosFolio == false) {
+                mysql_query("ROLLBACK;");
+                $error = mysql_error();
+                break;
+            } else {
+                while ($rsFolio = mysql_fetch_array($datosFolio)) {
+                    $folio = $rsFolio["folioComprobante"];
+                }
+            }
+            $sqlExistenciasTemporales = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES ('" . $detalle[$x]->codigoConcepto . "','" . $folio . "', '" . $detalle[$x]->cantidadConcepto . "', '$idSucursal')";
+            $datosExistenciasTmp = mysql_query($sqlExistenciasTemporales);
+            if ($datosExistenciasTmp == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+                break;
+            }
+            $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
+                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '" . $detalle[$x]->idXmlComprobante . "', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
+            $datos = mysql_query($sqlConceptoGuardar);
+            if ($datos == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+                break;
+            } else {
+                $sqlTraerExistencia = "SELECT cantidad  FROM existencias WHERE idSucursal = '$idSucursal' and codigoProducto = '" . $detalle[$x]->codigoConcepto . "'";
+                $sqlTraerTotalExistenciaTemporal = "SELECT sum(cantidad) cantidad FROM existenciastemporales  WHERE codigo = '" . $detalle[$x]->codigoConcepto . "' and idSucursal = '$idSucursal';";
+                $dat = mysql_query($sqlTraerExistencia);
+                if ($dat == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                    break;
+                } else {
+                    while ($rs = mysql_fetch_array($dat)) {
+                        $nuevaExistencia = 0;
+                        $cantidadPedida = 0;
+                        $cantidadPedida = $detalle[$x]->cantidadConcepto;
+                        $existencia = $rs[0];
+                        $long = $detalle[$x]->codigoConcepto;
+                        $cadena = substr($detalle[$x]->codigoConcepto, strlen($long) - 3, 3);
+                        $ok = false;
+                        $existenciaTemporal = mysql_query($sqlTraerTotalExistenciaTemporal);
+                        if ($existenciaTemporal == false) {
+                            $error = "2," . $detalle[$x]->codigoConcepto;
+                            mysql_query("ROLLBACK;");
+                            break;
+                        } else {
+                            $datosTmp = false;
+                            while ($rsTemporal = mysql_fetch_array($existenciaTemporal)) {
+                                $datosTmp = true;
+                                $cantidadTmp = $rsTemporal["cantidad"];
+                            }
+                            if ($datosTmp == false) {
+                                $cantidadTmp = 0;
+                            }
+                        }
+                        if ($cadena == "-GR") {
+                            $cantidad = $rs[0] * 1;
+                            $cantidadTmp = $cantidadTmp * 1;
+                            $cantidadPedida = $cantidadPedida * 1;
+                            $ok = true;
+                        }
+                        if ($ok == false) {
+                            $nuevaExistencia = $existencia - $cantidadTmp;
+                            $nuevaExistencia = $nuevaExistencia - $cantidadPedida;
+                        }
+                        if ($ok == true) {
+                            $nuevaExistencia = $cantidad - $cantidadTmp;
+                            $nuevaExistencia = $nuevaExistencia / 1;
+                        }
+                        if ($nuevaExistencia < 0) {
+                            $error = "2," . $detalle[$x]->codigoConcepto;
+                            mysql_query("ROLLBACK;");
+                            break;
+                        } else {
+                            
+                        }
+                    }
+                }
+            }
+            if ($error != "") {
+                break;
+            }
+        }
+        if ($error == "") {
+            mysql_query("COMMIT;");
+        }
+    }
+
+    function dameTotalesXmlComprobantes($id) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * from xmlcomprobantes WHERE idXmlComprobante= '$id'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function eliminarProductoOredenCompra($codigo, $idComprobante, $idSucursal, $encabezado) {
+        $error = "";
+        $folio = 0;
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        try {
+            mysql_query("START TRANSACTION;");
+            $sqlEliminarConceptos = "DELETE  from xmlconceptos "
+                    . "WHERE codigoConcepto = '$codigo' "
+                    . "and idXmlComprobante ='$idComprobante';";
+            $rsEliminarConceptos = mysql_query($sqlEliminarConceptos, $cn->Conectarse());
+            if ($rsEliminarConceptos == false) {
+                throw new Exception();
+            }
+            $sqlDameFolio = "select folioComprobante "
+                    . "from xmlcomprobantes "
+                    . "WHERE idXmlComprobante='$idComprobante';";
+            $rsFolio = mysql_query($sqlDameFolio, $cn->Conectarse());
+            if ($rsFolio == false) {
+                throw new Exception();
+            } else {
+                while ($rs = mysql_fetch_array($rsFolio)) {
+                    $folio = $rs["folioComprobante"];
+                }
+            }
+            $sqlEliminarExistenciasTmp = "DELETE FROM existenciastemporales "
+                    . "WHERE codigo ='$codigo' "
+                    . "and folioPedido ='$folio' "
+                    . "and idSucursal='$idSucursal'";
+            $rsEliminarTmp = mysql_query($sqlEliminarExistenciasTmp, $cn->Conectarse());
+            if ($rsEliminarTmp == false) {
+                throw new Exception();
+            }
+            $updateEncabezado = "UPDATE xmlcomprobantes set subtotalComprobante = '" . $encabezado[0]->subTotalComprobante . "', sdaComprobante = '" . $encabezado[0]->sdaComprobante . "', desctTotalComprobante = '" . $encabezado[0]->descuentoTotalComprobante . "', ivaComprobante='" . $encabezado[0]->ivaComprobante . "', totalComprobante='" . $encabezado[0]->totalComprobante . "' WHERE idXmlComprobante='" . $idComprobante . "'";
+            $rsEncabezado = mysql_query($updateEncabezado, $cn->Conectarse());
+            if ($rsEncabezado == false) {
+                throw new Exception();
+            }
+            mysql_query("COMMIT;");
+        } catch (Exception $e) {
+            $error = mysql_error();
+            mysql_query("ROLLBACK;");
+        }
+
+        return $error;
     }
 
 }
