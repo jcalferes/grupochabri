@@ -107,6 +107,41 @@ function guardarProductoOrdenCompraNuevo() {
 }
 
 
+function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
+    alert("el codigo a guardar es " + codigo);
+    if ($("#cmbOrdenCompra").val() > 0) {
+        var valor = $("#cmb" + codigo).val();
+        alert(valor);
+        var datos = valor.split(",");
+        var detalleVenta = new xmlConceptosManualmente();
+        detalleVenta.unidadMedidaConcepto = "KG";
+        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
+        detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
+        detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
+        detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
+        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
+        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
+        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
+        detalleVenta.idListaPrecio = parseInt(datos[0]);
+        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+        arrayDetalleVenta.push(detalleVenta);
+        var encabezadoVentas = new XmlComprobante();
+        encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
+        encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
+        encabezadoVentas.sdaComprobante = $("#costoTotal").val();
+        encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
+        encabezadoVentas.totalComprobante = $("#totalVenta").val();
+        encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+        arrayEncabezadoVenta.push(encabezadoVentas);
+        inf.push(arrayDetalleVenta);
+        inf.push(arrayEncabezadoVenta);
+        var informacion = JSON.stringify(inf);
+        var info = "data=" + informacion;
+        alert("la longitud del arrayDetalleventa es " + arrayDetalleVenta.length);
+        $.post('productoAgregadoOrdenCompra.php', info, function() {
+        });
+    }
+}
 
 function validar(codigo) {
     var paso = false;
@@ -192,7 +227,7 @@ function calcularTotal(codigo) {
 function calcularSubTotal() {
     var subTotal = 0.00;
     for (var x = 0; x < codigos.length; x++) {
-        subTotal += parseFloat($("#txtTotal" + codigos[x]).val().toUpperCase());
+        subTotal = subTotal + parseFloat($("#txtTotal" + codigos[x]).val().toUpperCase());
     }
     $("#subTotalV").val(subTotal.toFixed(2));
 }
@@ -356,19 +391,27 @@ function guardarDatosDetalle() {
 }
 
 function cargarProductosCarritoBusqueda(codigo) {
+
     var info = "codigo=" + codigo.toUpperCase();
     $.get('dameProductoVentas.php', info, function(informacion) {
         if (informacion == 0) {
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
         }
         else {
-            $("#tablaVentas").append(informacion);
-            calcularSumaTotal();
-            calcularSubTotal();
-            sumaDescTotal();
-            alertify.success("Producto Agregado");
+            var callbacks = $.Callbacks();
+            callbacks.add(codigos.push(codigo));
+            callbacks.add($("#tablaVentas").append(informacion));
+            callbacks.add(calcularSumaTotal());
+            callbacks.add(calcularSubTotal());
+            callbacks.add(sumaDescTotal());
+            callbacks.add(alertify.success("Producto Agregado"));
+            callbacks.add(guardarProductoOrdenCompraNuevoPorBusqueda(codigo));
+            callbacks.add(inf.length = 0);
+            callbacks.add(arrayEncabezadoVenta.length = 0);
+            callbacks.add(arrayDetalleVenta.length = 0);
         }
     });
+
 }
 
 
@@ -383,7 +426,6 @@ function eliminar(codigo) {
     calcularSubTotal();
     sumaDescTotal();
     calcularTotal(codigo);
-    alert("entrando");
     if ($("#cmbOrdenCompra").val() != 0) {
         calcularSumaTotal();
         calcularSubTotal();
@@ -400,7 +442,6 @@ function eliminar(codigo) {
         arrayEncabezadoVenta.push(encabezadoVentas);
         var array = JSON.stringify(arrayEncabezadoVenta);
         var info = "codigo=" + codigo.toUpperCase() + "&idComprobante=" + idXml + "&array=" + array;
-        alert("entrandoEliminar");
         $.get('eliminarProductoOrdenCompra.php', info, function(informacion) {
             alertify.success(informacion);
         });
@@ -502,10 +543,9 @@ $(document).ready(function() {
             var x = validar(valor);
             if (x == false) {
                 cargarProductosCarritoBusqueda(valor);
-                codigos.push(valor);
             }
-        });
 
+        });
         if (info != undefined) {
             $('#mdlbuscador').modal('toggle');
         }
