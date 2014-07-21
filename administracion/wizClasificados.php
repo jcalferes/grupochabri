@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label>Descripcion del producto:</label>
-                            <textarea class="form-control" id="descripcion" style="margin: 0px; width: 779px; height: 135px;"></textarea>
+                            <textarea class="form-control" id="descripcion" style="margin: 0px; width: 579px; height: 135px;"></textarea>
                         </div>                        
                         <div class="form-group" hidden>
                             <label>Grupo Producto:</label>
