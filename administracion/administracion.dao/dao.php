@@ -1,7 +1,5 @@
 <?php
-
 class dao {
-
     function obtenerImagenesDisponibles(clasificados $clasificados) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -855,11 +853,24 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function comprobarCodigoValido($codigo) {
+    function comprobarCodigoValido($codigob) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigob'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $valor = mysql_affected_rows();
+        if ($valor > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    function comprobarCodigoBValido($codigoBarras) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigoBarras'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {
