@@ -985,7 +985,7 @@ $(document).ready(function() {
                 cache: false,
                 success: function(x) {
                     var probando = $("#proveedores").val();
-//                    alertify.success(x);
+//                   
                     folio = x;
                     $("#enviarOrdenCompra").show();
                     $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
