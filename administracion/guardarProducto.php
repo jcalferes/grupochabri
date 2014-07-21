@@ -31,11 +31,16 @@ $original = $_GET["original"];
 
 $datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
 if ($datos < 1) {
-    $dao->guardarProducto($producto, $costo, $tarifa, $idsucursal, $m3);
-    if ($granel == 1) {
-        $dao->actualizaExsitenciaGranel($idsucursal, $producto, $contenido, $cuantos, $original);
+    $datos2 = $dao->comprobarCodigoBValido($_GET["cbarras"]);
+    if ($datos2 < 1) {
+        $dao->guardarProducto($producto, $costo, $tarifa, $idsucursal, $m3);
+        if ($granel == 1) {
+            $dao->actualizaExsitenciaGranel($idsucursal, $producto, $contenido, $cuantos, $original);
+        }
+        echo 1;
+    } else {
+        echo 0;
     }
-    echo 1;
 } else {
     echo 0;
 }

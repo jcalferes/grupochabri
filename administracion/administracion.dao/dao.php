@@ -2,16 +2,16 @@
 
 class dao {
 
-    function eliminandoImagenes($idImagen,$imagen) {
-          include_once '../daoconexion/daoConeccion.php';
+    function eliminandoImagenes($idImagen, $imagen) {
+        include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-         $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
+        $borrarImagenes = "DELETE FROM imagenes WHERE idImagen = '$idImagen'";
 
 
-            $datos = mysql_query($borrarImagenes, $cn->Conectarse());
-            $ruta = "../subidas/";
-            $fusion = $ruta . $imagen;
-            unlink($fusion);
+        $datos = mysql_query($borrarImagenes, $cn->Conectarse());
+        $ruta = "../subidas/";
+        $fusion = $ruta . $imagen;
+        unlink($fusion);
     }
 
     function buscarImagenes($cp) {
@@ -885,11 +885,24 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function comprobarCodigoValido($codigo) {
+    function comprobarCodigoValido($codigob) {
 
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigob'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        $valor = mysql_affected_rows();
+        if ($valor > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function comprobarCodigoBValido($codigoBarras) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigoBarras'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if ($valor > 0) {
@@ -3969,8 +3982,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             $updateEncabezado = "UPDATE xmlcomprobantes set subtotalComprobante = '" . $encabezado[0]->subTotalComprobante . "', sdaComprobante = '" . $encabezado[0]->sdaComprobante . "', desctTotalComprobante = '" . $encabezado[0]->descuentoTotalComprobante . "', ivaComprobante='" . $encabezado[0]->ivaComprobante . "', totalComprobante='" . $encabezado[0]->totalComprobante . "' WHERE idXmlComprobante='" . $idComprobante . "'";
             $rsEncabezado = mysql_query($updateEncabezado, $cn->Conectarse());
-            if($rsEncabezado== false){
-                 throw new Exception();
+            if ($rsEncabezado == false) {
+                throw new Exception();
             }
             mysql_query("COMMIT;");
         } catch (Exception $e) {
