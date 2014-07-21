@@ -497,16 +497,67 @@ $(document).ready(function() {
             paso = validarCredito();
         }
         if (paso == true) {
-            guardarDatosDetalle();
-            guardarDatosEncabezado();
-            inf.push(arrayEncabezadoVenta);
-            var informacion = JSON.stringify(inf);
-            $.ajax({
-                type: "POST",
-                url: "guardarVenta.php",
-                data: {data: informacion},
-                cache: false,
-                success: function(informacion) {
+            if ($("#cmbOrdenCompra").val() == 0) {
+                guardarDatosDetalle();
+                guardarDatosEncabezado();
+                inf.push(arrayEncabezadoVenta);
+                var informacion = JSON.stringify(inf);
+                $.ajax({
+                    type: "POST",
+                    url: "guardarVenta.php",
+                    data: {data: informacion},
+                    cache: false,
+                    success: function(informacion) {
+                        if (informacion == 0) {
+                            informacion = "Exito Venta Terminada";
+                            finalizar();
+                        }
+                        var datos = informacion.split(",");
+                        if (datos[0] == 2) {
+                            $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
+                            alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
+                            inf = new Array();
+                            arrayDetalleVenta.length = 0;
+                            arrayEncabezadoVenta.length = 0;
+                        }
+                        else {
+                            alertify.success(informacion);
+                        }
+                    }
+                });
+            }
+            else {
+                var encabezadoVentas = new XmlComprobante();
+                encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
+                encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
+                encabezadoVentas.sdaComprobante = $("#costoTotal").val();
+                encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
+//              alert($("#subTotalV").val());
+                encabezadoVentas.totalComprobante = $("#totalVenta").val();
+                encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+                arrayEncabezadoVenta.push(encabezadoVentas);
+                for (var x = 0; x < codigos.length; x++) {
+                    var codigo = codigos[x];
+                    var valor = $("#cmb" + codigo).val();
+                    var datos = valor.split(",");
+                    var detalleVenta = new xmlConceptosManualmente();
+                    detalleVenta.unidadMedidaConcepto = "KG";
+                    detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
+                    detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
+                    detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
+                    detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
+                    detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
+                    detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
+                    detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
+                    detalleVenta.idListaPrecio = parseInt(datos[0]);
+                    detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+                    arrayDetalleVenta.push(detalleVenta);
+                }
+                inf.push(arrayDetalleVenta);
+                inf.push(arrayEncabezadoVenta);
+                var informacion = JSON.stringify(inf);
+                var info = "data=" + informacion;
+                $.post('actualizarOrdenCompra.php', info, function(informacion) {
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
                         finalizar();
@@ -515,15 +566,15 @@ $(document).ready(function() {
                     if (datos[0] == 2) {
                         $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
                         alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
-                        ifn = new Array();
+                        inf = new Array();
                         arrayDetalleVenta.length = 0;
                         arrayEncabezadoVenta.length = 0;
                     }
                     else {
                         alertify.success(informacion);
                     }
-                }
-            });
+                });
+            }
         }
         else {
             alertify.error("El total de Productos rebasa tu credito. Elimina productos de tu carrito");

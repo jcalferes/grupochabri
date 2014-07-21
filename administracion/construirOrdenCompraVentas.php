@@ -77,7 +77,7 @@ if ($rs == false) {
         $dineroDescuento = $totalSinDescuento - $datos["cdaConcepto"];
         echo '<tr id="tr' . $codigo->getCodigo() . '">';
         echo '<td>';
-        echo $datos["codigoConcepto"];
+        echo '<span id="codigo' . $codigo->getCodigo() . '">' . $datos["codigoConcepto"] . '</span>';
         echo '</td>';
         echo '<td>';
         echo $datos["descripcionConcepto"];
@@ -141,7 +141,7 @@ if ($rs == false) {
         echo '<input disabled="true" class="form-control" type="text" id="txtTotal' . $codigo->getCodigo() . '" value="' . $totalSinDescuento . '"/>';
         echo '</td>';
         echo '<td>';
-        echo '<input class="form-control" type="text" id="txtDescuento' . $codigo->getCodigo() . '" value= "' . $dineroDescuento . '"/>';
+        echo '<input disabled="true" class="form-control" type="text" id="txtDescuento' . $codigo->getCodigo() . '" value= "' . $dineroDescuento . '"/>';
         echo '</td>';
         echo '<td>';
         echo '<input disabled="true" class="form-control" type="text" id="txtTotalDesc' . $codigo->getCodigo() . '" value="' . $datos["cdaConcepto"] . '">';
