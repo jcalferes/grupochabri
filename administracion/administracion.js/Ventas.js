@@ -58,12 +58,13 @@ function cargarProductosCarrito() {
             alertify.error(datos[1]);
         }
         else {
-            $("#tablaVentas").append(informacion);
-            calcularSumaTotal();
-            calcularSubTotal();
-            guardarProductoOrdenCompraNuevo();
-            sumaDescTotal();
-            $("#codigoProductoEntradas").val("");
+            var callbacks = $.Callbacks();
+            callbacks.add($("#tablaVentas").append(informacion));
+            callbacks.add(calcularSumaTotal());
+            callbacks.add(calcularSubTotal());
+            callbacks.add(sumaDescTotal());
+            callbacks.add(guardarProductoOrdenCompraNuevo());
+            callbacks.add($("#codigoProductoEntradas").val(""));
         }
     });
 }
@@ -422,15 +423,17 @@ function eliminar(codigo) {
             break;
         }
     }
-    calcularSumaTotal();
-    calcularSubTotal();
-    sumaDescTotal();
-    calcularTotal(codigo);
+    var callbacks = $.Callbacks();
+    callbacks.add(calcularSumaTotal());
+    callbacks.add(calcularSubTotal());
+    callbacks.add(sumaDescTotal());
+    callbacks.add(calcularTotal(codigo));
+
     if ($("#cmbOrdenCompra").val() != 0) {
-        calcularSumaTotal();
-        calcularSubTotal();
-        sumaDescTotal();
-        calcularTotal(codigo);
+        callbacks.add(calcularSumaTotal());
+        callbacks.add(calcularSubTotal());
+        callbacks.add(sumaDescTotal());
+        callbacks.add(calcularTotal(codigo));
         var idXml = $("#cmbOrdenCompra").val();
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
@@ -446,10 +449,16 @@ function eliminar(codigo) {
             alertify.success(informacion);
         });
     }
-//    });
     $("#tr" + codigo).remove();
     return true;
 }
+
+
+
+
+
+
+
 
 
 
