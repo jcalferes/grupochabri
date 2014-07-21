@@ -23,8 +23,6 @@ function buscar() {
         cargarProductosCarrito();
         codigos.push($("#codigoProductoEntradas").val().toUpperCase());
     }
-
-
     calcularTotal(codi);
 }
 
@@ -95,7 +93,6 @@ function guardarProductoOrdenCompraNuevo() {
         inf.push(arrayDetalleVenta);
         inf.push(arrayEncabezadoVenta);
         var informacion = JSON.stringify(inf);
-        alert("insertando registro nuevo");
         $.ajax({
             type: "POST",
             url: "productoAgregadoOrdenCompra.php",
@@ -109,10 +106,8 @@ function guardarProductoOrdenCompraNuevo() {
 
 
 function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
-    alert("el codigo a guardar es " + codigo);
     if ($("#cmbOrdenCompra").val() > 0) {
         var valor = $("#cmb" + codigo).val();
-        alert(valor);
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
         detalleVenta.unidadMedidaConcepto = "KG";
@@ -138,7 +133,6 @@ function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
         inf.push(arrayEncabezadoVenta);
         var informacion = JSON.stringify(inf);
         var info = "data=" + informacion;
-        alert("la longitud del arrayDetalleventa es " + arrayDetalleVenta.length);
         $.post('productoAgregadoOrdenCompra.php', info, function() {
         });
     }
@@ -210,7 +204,6 @@ function calcularTotal(codigo) {
     var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
     var cantidad = $("#txt" + codigo).val();
-//    alert(codigo);
     if (ok == false) {
         var total = datos[1] * cantidad;
         $("#txtTotal" + codigo).val(total.toFixed(2));
@@ -252,7 +245,6 @@ function calcularPorCantidad() {
     var cantidad = $("#txtCantidadModal").val();
     $("#txt" + codigoN).val(cantidad);
     var calulandoKg = (cantidad * datos[1]);
-//    / 1000;
     $("#txtTotal" + codigoN).val(calulandoKg.toFixed(2));
     calcularDescuentos(codigoN);
     $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
@@ -296,7 +288,6 @@ function eliminarProducto(codigo) {
     calcularSumaTotal();
     calcularSubTotal();
     sumaDescTotal();
-//  cargarProductosCarrito();
 }
 
 function modalProductosGranel(codigo) {
@@ -372,7 +363,6 @@ function guardarDatosEncabezado() {
 }
 
 function guardarDatosDetalle() {
-//  alert("ejecutando guardando detalle");
     for (var x = 0; x < codigos.length; x++) {
         var valor = $("#cmb" + codigos[x]).val();
         var datos = valor.split(",");
@@ -465,7 +455,6 @@ function eliminar(codigo) {
 function validarUsuario(usuario, password) {
     var informacion = "usuario=" + usuario + "&pass=" + password;
     $.get('validarAdministrador.php', informacion, function(autorizacion) {
-//        alert(autorizacion);
         if (autorizacion == 1) {
             $(".autorizar").removeAttr('disabled');
             $("#mdlAutorizacion").modal("hide");
@@ -503,7 +492,6 @@ $(document).ready(function() {
 
 
     $("#guardarVenta").click(function() {
-//        alert("click");
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
@@ -519,7 +507,6 @@ $(document).ready(function() {
                 data: {data: informacion},
                 cache: false,
                 success: function(informacion) {
-//                    alert("click");
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
                         finalizar();
@@ -531,7 +518,6 @@ $(document).ready(function() {
                         ifn = new Array();
                         arrayDetalleVenta.length = 0;
                         arrayEncabezadoVenta.length = 0;
-                        alert("finalizo");
                     }
                     else {
                         alertify.success(informacion);
