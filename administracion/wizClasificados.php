@@ -93,7 +93,7 @@
             <h2><span class="glyphicon glyphicon-picture"/>&numsp;Publicar en slider</h2>
             <section>
                 <form id="buscaslider" style="margin: 0% 15% 0% 15%">
-                    <label>Imagenes que actualmente estan en el slider</label>
+                    <label>Imagenesen el slider</label><br>
                     <span class="text-muted"><em>Maximo 10 imagenes</em></span>
                     <div class="well well-sm">
                         <div class="row selected-classifieds">
