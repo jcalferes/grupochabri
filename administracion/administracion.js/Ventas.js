@@ -493,7 +493,7 @@ $(document).ready(function() {
 
     $("#guardarVenta").click(function() {
         var paso = true;
-        if ($("#cmbTipoPago").val() == 2) {
+        if ($("#cmbTipoPago").val() == 2 || $("#cmbTipoPago").val() == 5) {
             paso = validarCredito();
         }
         if (paso == true) {
@@ -653,6 +653,14 @@ $(document).ready(function() {
                 $("#creditoCliente").load("dameCredito.php?rfc=" + rfc);
             }
             else {
+                $("#cmbTipoPago option[value='1']").attr("selected", true);
+                alertify.error("Seleccione un cliente");
+            }
+        }
+        else if (dato == 5) {
+            if (rfc != 0) {
+                $("#creditoCliente").load("dameNotaCredito.php?rfc=" + rfc);
+            } else {
                 $("#cmbTipoPago option[value='1']").attr("selected", true);
                 alertify.error("Seleccione un cliente");
             }

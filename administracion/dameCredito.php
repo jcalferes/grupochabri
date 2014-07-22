@@ -23,7 +23,7 @@ if ($rs == false || $rs1 == false) {
     }
     $totalCredito = 0;
     $totalCredito = $creditoDisponible - $creditoU;
-    echo '<div id = ""creditoCliente>';
+    echo '<div id = "creditoCliente">';
     echo '<strong>Credito : ' . $creditoDisponible . " / " . $creditoU . "</strong>";
     echo '<br/>';
     echo '<strong>Limite Credito : <span id="credito">' . $totalCredito . "</span><strong>";

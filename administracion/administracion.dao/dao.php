@@ -4098,4 +4098,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
     }
 
+    function dameNotaCredito($idSucursal, $rfc) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT monto "
+                . "FROM notasCredito nt "
+                . "INNER JOIN clientes cl "
+                . "on nt.idCliente = cl.idCliente "
+                . "WHERE cl.rfc = '$rfc' and status ='1' and idSucursal = '$idSucursal'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
 }
