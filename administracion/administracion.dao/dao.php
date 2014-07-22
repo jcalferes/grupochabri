@@ -4113,13 +4113,82 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameNotaCredito($idSucursal, $rfc) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT monto "
+        $sql = "SELECT monto, nt.idCliente, nombre, idNotasCredito "
                 . "FROM notasCredito nt "
                 . "INNER JOIN clientes cl "
                 . "on nt.idCliente = cl.idCliente "
                 . "WHERE cl.rfc = '$rfc' and status ='1' and idSucursal = '$idSucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
+    }
+
+    function guardarNotaCredito($idCliente, $idSucursal, $total, $idNotaCredito, $folioVentaOrdenCompra) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $error = "";
+        try {
+            mysql_query("START TRANSACTION;", $cn->Conectarse());
+            $sqlActualziarStatus = "UPDATE notascredito set status ='2' "
+                    . "WHERE idNotasCredito = '$idNotaCredito'";
+            $datos = mysql_query($sqlActualziarStatus, $cn->Conectarse());
+            if ($datos == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioNotaCredito = 0;
+            $fecha = date("d/m/Y");
+            $sqlFolios = "SELECT folioNotaCredito FROM folios WHERE idSucursal='$idSucursal'";
+            $rsFolios = mysql_query($sqlFolios, $cn->Conectarse());
+            if ($rsFolios == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($rs = mysql_fetch_array($rsFolios)) {
+                $folioNotaCredito = $rs["folioNotaCredito"];
+            }
+            $sqlInsertarNotaCredito = "INSERT INTO notascredito  (idCliente, monto, idSucursal, status, folioNotaCredito, folioCancelacion, fecha)"
+                    . " VALUES ('" . $idCliente . "', '" . $total . "', '" . $idSucursal . "', '1', '0', '$folioNotaCredito', '" . $fecha . "')";
+            $rsInsertaNotacredio = mysql_query($sqlInsertarNotaCredito);
+            if ($rsInsertaNotacredio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolio = "UPDATE folios SET folioNotaCredito = '" . ($folioNotaCredito + 1) . "' "
+                    . " WHERE idSucursal ='$idSucursal'";
+            $rsActualizarFolio = mysql_query($sqlActualizarFolio);
+            if ($rsActualizarFolio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioVenta = 0;
+            $sqlFolioVentas = "SELECT folioVenta FROM folios WHERE idSucursal = '$idSucursal'";
+            $rsFolioVenta = mysql_query($sqlFolioVentas);
+            if ($rsFolioVenta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($datosFolioVenta = mysql_fetch_array($rsFolioVenta)) {
+                $folioVenta = $datosFolioVenta["folioVenta"];
+            }
+            $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden =7 WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
+            $rsComprobantes = mysql_query($sqlComprobantes);
+            if ($rsComprobantes == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+
+            $sqlActualizarFolioVenta = "UPDATE folios SET folioVenta='" . ($folioVenta + 1) . "' WHERE  idSucursal = '$idSucursal'";
+            $rsActualizarFolioVnta = mysql_query($sqlActualizarFolioVenta, $cn->Conectarse());
+            if ($rsActualizarFolioVnta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            mysql_query("COMMIT;", $cn->Conectarse());
+        } catch (Exception $ex) {
+            mysql_query("ROLLBACK;", $cn->Conectarse());
+//            $error = mysql_error();
+        }
+        return $error;
     }
 
 }

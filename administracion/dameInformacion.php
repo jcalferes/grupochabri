@@ -28,7 +28,7 @@ while ($rs = mysql_fetch_array($datos)) {
         <span style="display: none" id="xmlComprobante"><?php echo $rs["idXmlComprobante"]; ?></span>
         <strong>Folio : <span id="folioPagar"><?php echo $rs["folioComprobante"]; ?></span></strong>
         <br/>
-        <strong>Venta : <?php echo $cliente; ?></strong>
+        <strong>Venta :<span id="rfcCliente"><?php echo $cliente; ?></span> </strong>
         <strong style="float: right"> <?php echo $fecha; ?></strong>
         <br>
         <strong>Tipo Pago : <?php echo $tipopago; ?></strong>

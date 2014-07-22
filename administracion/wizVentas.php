@@ -142,7 +142,7 @@
                         <div class="btn-toolbar" role="toolbar" style="float: left">
                             <div class="btn-group">
                                 <button  id="btnAbonos" class="btn btn-default" title="Abonar Compra"><i class="fa fa-dollar fa-lg"></i> Abonos</button>
-                                <button class="btn btn-default" title="Cancelar Compra"> <i class="fa fa-thumbs-o-down"></i> Cancelaciones</button> 
+                                <button  id="btnNotasCredito" class="btn btn-default" title="Notas de Credito"> <i class="fa fa-thumbs-o-down"></i> Notas de Credito</button> 
                                 <button class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
                                 <button class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
                             </div>
@@ -436,6 +436,86 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        <!--Inicio de modal de notas de credito-->
+        <div class="modal fade" id="mdlnotascredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div id="mdldialog" class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Notas de credito</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="vernotascredito">
+                            <input type="button" class="btn btn-cprimary btn-xs" value="+ Nueva nota de credito" id="btnnuevanotacredito"/><hr>
+                            <div id="buscanotascredito">
+                            </div>
+                        </div>
+                        <div id="nuevanotacredito">
+                            <form>
+                                <div class="form-group">
+                                    <select id="slccliente" class="selectpicker selectores" data-width="auto" data-container="body" data-live-search="true">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cantidad en pesos:</label>
+                                    <input type="text" class="form-control" id="txtcantidadnotacredito" onkeypress="return NumCheck2(event, this);"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="chkfoliocancelacion" onclick="vincularcancelacion();"> Vincular a una cancelacion
+                                        </label>
+                                    </div>
+                                    <div id="divfoliocancelacion">
+                                        <div class="well well-sm">
+                                            <label>Folio  de la cancelación a vincular:</label>
+                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacion"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-cprimary" id="btnguardanotacredito" value="Guardar nota de credito"/>
+                                    <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!--Fin del modal de notas de credito-->
+
+
+        Modal de aviso de nota de credito
+
+        <div class="modal fade" 
+             id="mdlNotacreditoInformacion" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 400px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Información de la nota de credito</h4>
+                    </div>
+                    <div id="informacionNotaCredito">
+                    </div>
+                    <center>
+                        <input type="submit" 
+                               class="btn btn-default" 
+                               id="btnGuardarNotaCredito"
+                               value="Guardar" title="Guardar Nota de Credito"/>
+                    </center>
+                    <br>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+
+
+
 
 
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
@@ -448,6 +528,7 @@
         <script src="administracion.js/Ventas.js"></script>
         <script src="administracion.js/pagos.js"></script>
         <script src="../administracion/administracion.js/abonos.js"></script>
+        <script src="../administracion/administracion.js/notascredito.js"></script>
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

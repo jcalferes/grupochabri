@@ -1,4 +1,5 @@
 var idTipoPago;
+var folioVenta;
 
 $(document).ready(function() {
     $("#mdlBuscadorOrdenesCompra").click(function() {
@@ -8,7 +9,36 @@ $(document).ready(function() {
     });
 
     $("#btnCobrar").click(function() {
-        $('#mdlPagar').modal('show');
+        if (idTipoPago == 5) {
+            var total = $("#totalV").text();
+            var rfcCliente = $("#rfcCliente").text();
+            $("#informacionNotaCredito").load("dameInformacionNotaCredito.php?total=" + total + "&cliente=" + rfcCliente, function() {
+                $("#idClienteNC").hide();
+                $("#idNotasCredito").hide();
+                $("#mdlNotacreditoInformacion").modal('show');
+            });
+        }
+        else {
+            $('#mdlPagar').modal('show');
+        }
+    });
+
+
+    $("#btnGuardarNotaCredito").click(function() {
+        var idCliente = $("#idClienteNC").text();
+        var total = $("#totalDisponibleNotaCredito").text();
+        var idNotasCredito = $("#idNotasCredito").text();
+        var info = "idCliente=" + idCliente + "&total=" + total + "&idNotasCredito=" + idNotasCredito + "&folioVnta=" + folioventa;
+        $.post('guardarNotaCredito.php', info, function(resultado) {
+            alertify.success(resultado);
+        });
+    });
+
+
+
+
+    $("#btnNotasCredito").click(function() {
+        $("#mdlnotascredito").modal('show');
     });
 
     $("#btnPagar").click(function() {
@@ -53,9 +83,14 @@ $(document).ready(function() {
 
 });
 
+
+
+
 function cargarInformacion(folio, tipoPago) {
-    alert("entro");
+//    alert("entro");
     idTipoPago = tipoPago;
+    folioventa = folio;
+  
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");
     });
