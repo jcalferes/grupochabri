@@ -426,9 +426,34 @@ function comprueba_extension_imgslider(formulario, archivo) {
                 processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
                 cache: false //Para que el formulario no guarde cache
             }).done(function(msg) {
-                alert(msg);
+                $("#imgslider").val("");
+                $("#enslider").load("mostrarImgSlider.php", function() {
+                });
             });
         }
     }
     return 0;
+}
+
+$(document).ready(function() {
+    $("#enslider").load("mostrarImgSlider.php", function() {
+    });
+});
+
+function borrarSlider(idImgslider, idSucursal, ruta) {
+    alertify.confirm("¿Estas completamente seguro eliminar la imagen seleccionada?, Esta acción no puede deshacerse. ", function(e) {
+        if (e) {
+            var info = "idImgslider=" + idImgslider + "&idSucursal=" + idSucursal + "&ruta=" + ruta;
+            $.get('borrarSlider.php', info, function(r) {
+                if (r == 777) {
+                    alertify.success("Imagen eliminada");
+                    $("#enslider").load("mostrarImgSlider.php", function() {
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar la imangen");
+                }
+            });
+        } else {
+        }
+    });
 }

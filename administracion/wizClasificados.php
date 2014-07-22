@@ -92,9 +92,13 @@
             </section>
             <h2><span class="glyphicon glyphicon-picture"/>&numsp;Publicar en slider</h2>
             <section>
-                <form id="buscaslider" style="margin: 0% 25% 0% 25%">
+                <form id="buscaslider" style="margin: 0% 15% 0% 15%">
+                    <label>Imagenes que actualmente estan en el slider</label>
                     <div class="well well-sm">
-                        Imagenes que actualmente estan en el slider
+                        <div class="row selected-classifieds">
+                            <div id="enslider">
+                            </div>
+                        </div>
                     </div>
                     <input type="file" id="imgslider" name="imgslider[]"  accept="image/x-png, image/gif, image/jpeg" title="Buscar imagen">
                     <hr>

@@ -4110,4 +4110,33 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
     }
 
+    function mostrarImgSlider() {
+        $query = "SELECT * from imgslider";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
+    function borrarSlider($idImgslider, $idSucursal, $ruta) {
+        $query = "DELETE FROM imgslider WHERE idImgslider = '$idImgslider' AND ruta = '$ruta'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $call = false;
+        } else {
+            unlink($ruta);
+            $call = true;
+        }
+        return $call;
+    }
+
 }
