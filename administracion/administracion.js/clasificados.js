@@ -441,9 +441,10 @@ $(document).ready(function() {
 });
 
 function borrarSlider(idImgslider, idSucursal, ruta) {
+    alert(ruta);
     alertify.confirm("¿Estas completamente seguro eliminar la imagen seleccionada?, Esta acción no puede deshacerse. ", function(e) {
         if (e) {
-            var info = "idImgslider=" + idImgslider + "&idSucursal=" + idSucursal + "&ruta=" + ruta;
+            var info = "idImgslider=" + idImgslider + "&idSucursal=" + idSucursal + "&ruta=" + encodeURIComponent(ruta);
             $.get('borrarSlider.php', info, function(r) {
                 if (r == 777) {
                     alertify.success("Imagen eliminada");
