@@ -13,8 +13,6 @@
  */
 class dao {
 
-    
-
     function iniciarSesion(Usuario $usuario) {
         $sql = "SELECT nombre, idTipoUsuario, idSucursal FROM usuarios WHERE password = '" . $usuario->getPass() . "' AND usuario = '" . $usuario->getUsuario() . "'";
         $control = mysql_query($sql);
@@ -44,6 +42,22 @@ class dao {
 //            $valor = "VALIDA";
 //        }
         return $valor;
+    }
+
+    function mostrarSlide() {
+        $query = "SELECT * from imgslider";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+//            if ($row < 1) {
+//                return false;
+//            } else {
+                return $ctrl;
+//            }
+        }
     }
 
 }
