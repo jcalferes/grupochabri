@@ -19,6 +19,7 @@ if ($datos != false) {
         echo "<td></tr><tr>";
         echo "<td><label>Descuento total: </label>$rs[desctTotalComprobante]</td>";
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
+        break;
     }
     echo "</table>";
     mysql_data_seek($datos, 0);
