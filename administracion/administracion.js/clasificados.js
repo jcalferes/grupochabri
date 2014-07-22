@@ -3,58 +3,57 @@ var grupo = "";
 var arrelo;
 var imagenes = new Array();
 var calculando = 6;
-function gestionimagenes(cp,nombre){
+function gestionimagenes(cp, nombre) {
     $(".contenedorImagenes").empty();
-     $('#botonninja').trigger('click');
+    $('#botonninja').trigger('click');
     $('#labelTitulo').html('<h4> Imagenes subidas del producto:</h4>' + nombre);
-    codigo = "cp="+cp;
-   $.get("mostrarImagenes.php",codigo,function(x){
-              
-
-                var comprobante;
-                var tipo;
-                var descripcion;
-                var imagenes;
-                var idImagen;
-                var novedades;
-                var recomendado;
-                var nombreGrupos;
-                var producto;
-                var conta = 1;
-                lista = JSON.parse(x);
-                console.log(lista);
-                $.each(lista, function(ind, elem) {
-                    $.each(elem, function(ind, elem2) {
-                       
-                        imagenes = elem[ind].ruta;
-                        idImagen = elem[ind].idImagen;
-                        alert(imagenes);
-                        if (imagenes !== undefined) {
-                             var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
-                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenesconsula('" + imagenes + "','" + idImagen + "')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
+    codigo = "cp=" + cp;
+    $.get("mostrarImagenes.php", codigo, function(x) {
 
 
-                            $("#imagens" + conta).append(imagen);
-                            $("#contenedors" + conta).show('slow');
+        var comprobante;
+        var tipo;
+        var descripcion;
+        var imagenes;
+        var idImagen;
+        var novedades;
+        var recomendado;
+        var nombreGrupos;
+        var producto;
+        var conta = 1;
+        lista = JSON.parse(x);
+        console.log(lista);
+        $.each(lista, function(ind, elem) {
+            $.each(elem, function(ind, elem2) {
+
+                imagenes = elem[ind].ruta;
+                idImagen = elem[ind].idImagen;
+//                alert(imagenes);
+                if (imagenes !== undefined) {
+                    var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 171px; height: 150px;'/><div class='caption'><center><button type='button' class='btn  btn-default btn-block' onclick=eliminandoImagenesconsula('" + imagenes + "','" + idImagen + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
+
+
+                    $("#imagens" + conta).append(imagen);
+                    $("#contenedors" + conta).show('slow');
 //                            $("#imagen" + cont).prop("hidden",false);
-                            conta++;
-                            $("#mostrarImagenes").show("slow");
-                        }
+                    conta++;
+                    $("#mostrarImagenes").show("slow");
+                }
 
-                    });
-                });
-       
-       
-       
-       
-       
-       
-       
-      
+            });
+        });
+
+
+
+
+
+
+
+
 //                          
-                            
-                      
-   });
+
+
+    });
 
 
 }
@@ -72,24 +71,24 @@ function limpiarCampos() {
     $("#clascodigoproducto").prop("disabled", false);
     $("#editarDatos").hide();
     $("#guardarDatos").show();
-     archivos;
-     grupo = "";
-     arrelo;
-     imagenes = new Array();
-     calculando = 6;
+    archivos;
+    grupo = "";
+    arrelo;
+    imagenes = new Array();
+    calculando = 6;
 }
-function eliminandoImagenesconsula(imagen, idImagen){
+function eliminandoImagenesconsula(imagen, idImagen) {
     var arreglo = new Array();
     alert(imagen);
     alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al aceptar no habra forma de recuperar los datos eliminados", function(e) {
         if (e) {
             info = "idImagen=" + idImagen + "&imagen=" + imagen;
-           $.get("eliminarClasificados.php",info,function(){
-               alertify.success("se elimino la imagen" +imagen+ "correctamente");
-           });
+            $.get("eliminarClasificados.php", info, function() {
+                alertify.success("se elimino la imagen" + imagen + "correctamente");
+            });
         } else {
-                    }
-    });    
+        }
+    });
 }
 
 function eliminandoImagenes(imagen, idImagen, cont) {
@@ -103,7 +102,7 @@ function eliminandoImagenes(imagen, idImagen, cont) {
             calculando = calculando + 1;
             $("#textoValor").text("Puedes subir maximo " + calculando + " imagenes");
         } else {
-                    }
+        }
     });
 
 
@@ -195,8 +194,7 @@ $(document).ready(function() {
                         producto = elem[ind].nombre;
                         nombreGrupos = elem[ind].grupo;
                         if (imagenes !== undefined) {
-                            var imagen = "<img src='../subidas/" + imagenes + " ' />\n\
-                                        <div class='caption'><p> <small> <center><button type='button' class='btn btn-xs' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></small > </p></div>";
+                            var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 100px; height: 88px;'/><div class='caption'><center><button type='button' class='btn btn-default btn-block' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
 
                             $("#imagen" + cont).append(imagen);
                             $("#contenedor" + cont).show('slow');
@@ -205,7 +203,7 @@ $(document).ready(function() {
                             $("#mostrarImagenes").show("slow");
                         }
                         calculando = 6 - cont;
-                        $("#textoValor").text("Puedes subir maximo " + calculando + " imagenes");
+                        $("#textoValor").text("Maximo " + calculando + " imagenes");
 //                         imagen='<img src="../subidas/"' +imagenes+' />';
 
                     });
@@ -381,7 +379,56 @@ $(document).ready(function() {
 
 
     });
-     $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
+    $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
         $('#dtclasificados').dataTable();
     });
 });
+
+function comprueba_extension_imgslider(formulario, archivo) {
+    extensiones_permitidas = new Array(".gif", ".jpg", ".png");
+    mierror = "";
+    if (!archivo) {
+        //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario
+        //mierror = "No has seleccionado ningún archivo";
+        alertify.error("No has seleccionado ningún archivo");
+    } else {
+        //recupero la extensión de este nombre de archivo
+        extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase();
+        //alert (extension);
+        //compruebo si la extensión está entre las permitidas
+        permitida = false;
+        for (var i = 0; i < extensiones_permitidas.length; i++) {
+            if (extensiones_permitidas[i] == extension) {
+                permitida = true;
+                break;
+            }
+        }
+        if (!permitida) {
+            //mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join();
+            alertify.error("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join());
+        } else {
+            var archivos = document.getElementById("imgslider");//Damos el valor del input tipo file
+            var archivo = archivos.files; //Obtenemos el valor del input (los arcchivos) en modo de arreglo
+            //var texto = document.getElementById("texto").value;
+            //El objeto FormData nos permite crear un formulario pasandole clave/valor para poder enviarlo 
+            var data = new FormData();
+            //Como no sabemos cuantos archivos subira el usuario, iteramos la variable y al 
+            //objeto de FormData con el metodo "append" le pasamos calve/valor, usamos el indice "i" para
+            //que no se repita, si no lo usamos solo tendra el valor de la ultima iteracion
+            for (i = 0; i < archivo.length; i++) {
+                data.append('archivo' + i, archivo[i]);
+            }
+            $.ajax({
+                url: 'cargarImagenSlider.php', //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: data, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function(msg) {
+                alert(msg);
+            });
+        }
+    }
+    return 0;
+}

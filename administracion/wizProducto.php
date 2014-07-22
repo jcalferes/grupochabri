@@ -104,7 +104,7 @@
                                 <hr>
                             </div>
                             <input type="button" class="btn btn-cprimary" value="Guardar producto" id="guardarDatos"/>
-                            <input type="button" class="btn btn-cprimary" value="Editar prodcuto" id="editarDatos"/>
+                            <input type="button" class="btn btn-cprimary" value="Editar producto" id="editarDatos"/>
                             <input type="button" class="btn btn-cprimary" value="Guardar producto a granel" id="guardarGranel"/>
                             <input type="button" class="btn btn-cprimary" value="Editar producto a granel" id="editarGranel"/>
                             <input type="button" class="btn btn-default" value="Limpiar formulario" id="limpiarFormProd"/>

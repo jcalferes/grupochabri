@@ -1040,7 +1040,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "BEGIN;";
         $resultado = mysql_query($sql, $cn->Conectarse());
 
-        $fecha = date("d-m-Y ");
+        $fecha = date("d/m/Y");
         $hora = date('H:i');
 
         $cantidadInventario = $cantidad + $existencia;
@@ -3992,6 +3992,18 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
 
         return $error;
+    }
+
+    function subirImgenSlider($sucursal, $lahora, $archivo) {
+        $sql = "INSERT INTO imgslider (ruta, idSucursal, fechaMovimiento) VALUES ('$archivo', '$sucursal', '$lahora')";
+        $ctrl = mysql_query($sql);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $call = false;
+        } else {
+            $call = true;
+        }
+        return $call;
     }
 
     function actualizarOrdenCompraMostrador($detalle, $idSucursal, $encabezado) {

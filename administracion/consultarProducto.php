@@ -12,7 +12,7 @@ if ($datos > 0) {
     while ($rs = mysql_fetch_assoc($datos)) {
         $comillas = str_replace("\"", "\\\"", $rs['producto']);
         echo"<tr><td><center><input type='checkbox' id='eliminar' value='$rs[codigoProducto]'><input  type='button' id ='detalleTarifa' class='btn btn-cprimary' data-dismiss='modal' data-toggle='modal' data-target='#mdlDetalleTarifa' value='+' style='display: none;'/></center></td> ";
-        echo"<td >$rs[producto]</td>";
+        echo"<td >".utf8_encode($rs[producto])."</td>";
         $comprobar = $rs['codigoProducto'];
         echo"<td>$rs[codigoProducto]</td>";
         echo"<td id='$rs[marca]' >$rs[marca] </td>";

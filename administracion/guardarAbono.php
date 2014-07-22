@@ -8,7 +8,7 @@ $dao = new dao();
 $cn = new coneccion();
 
 $sucursal = 1;
-$fecha = date("d-m-Y");
+$fecha = date("d/m/Y");
 $folio = $_GET["folio"];
 $monto = $_GET["monto"];
 $tipopago = $_GET["tipopago"];

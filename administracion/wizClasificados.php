@@ -16,7 +16,7 @@
 
                     <div class="form-group">
                         <label>Codigo del producto:</label>
-                        <input type="text" class="form-control" id="clascodigoproducto"/>
+                        <input type="text" class="form-control" id="clascodigoproducto" style="width: 50%" />
                     </div>
                     <form id="mostrando">
                         <div class="form-group" hidden>
@@ -40,27 +40,27 @@
                         </div> 
                         <div class="form-group" id="mostrarImagenes">
                             <div class="row selected-classifieds">
-                                <div class="col-lg-2 conte" id="contenedor1" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedor1" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagen1" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedor2" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedor2" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagen2" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedor3" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedor3" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagen3" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedor4" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedor4" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagen4" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedor5" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedor5" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagen5" >
 
                                     </div>
@@ -92,8 +92,16 @@
             </section>
             <h2><span class="glyphicon glyphicon-picture"/>&numsp;Publicar en slider</h2>
             <section>
-                <div style="margin: 0% 25% 0% 25%">
-                </div>
+                <form id="buscaslider" style="margin: 0% 25% 0% 25%">
+                    <div class="well well-sm">
+                        Imagenes que actualmente estan en el slider
+                    </div>
+                    <input type="file" id="imgslider" name="imgslider[]"  accept="image/x-png, image/gif, image/jpeg" title="Buscar imagen">
+                    <hr>
+                    <div>
+                        <input type="button" id="cargar" class="btn btn-cprimary " value="Cargar imagen"  onclick="comprueba_extension_imgslider(this.form, this.form.imgslider.value)">
+                    </div>
+                </form>
             </section>
         </div>
         <div class="modal fade" id="mdlTipoProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -119,52 +127,45 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <div class="modal fade" id="mdlDetalleImagenes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="width: 80%">
                 <div class="modal-content">
                     <div class="modal-header">
-
-                        <h4 class="modal-title" id="labelTitulo">Tarifas</h4>
+                        <h4 class="modal-title" id="labelTitulo"></h4>
                     </div>
-
                     <div class="modal-body">
-
-
                         <div class="form-group" id="mostrarImagenes">
                             <div class="row selected-classifieds">
-                                <div class="col-lg-2 conte" id="contenedors1" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedors1" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagens1" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedors2" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedors2" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagens2" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedors3" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedors3" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagens3" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedors4" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedors4" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagens4" >
 
                                     </div>
                                 </div>
-                                <div class="col-lg-2 conte" id="contenedors5" hidden="true">
+                                <div class="col-sm-6 col-md-2 conte" id="contenedors5" hidden="true">
                                     <div class="thumbnail contenedorImagenes" id="imagens5" >
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="modal-footer">
                             <!--<input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>-->
                             <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                             <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
-
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
