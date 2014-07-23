@@ -52,11 +52,22 @@ class dao {
             $ctrl = mysql_error();
             return false;
         } else {
-//            if ($row < 1) {
-//                return false;
-//            } else {
+            if ($row < 1) {
+                return false;
+            } else {
                 return $ctrl;
-//            }
+            }
+        }
+    }
+
+    function mostarCategorias() {
+        $query = "SELECT * FROM grupoproductos";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
         }
     }
 
