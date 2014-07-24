@@ -97,3 +97,6 @@ function cargarInformacion(folio, tipoPago) {
 }
 
 
+function rechazarOrdenCompra(){
+    
+}
