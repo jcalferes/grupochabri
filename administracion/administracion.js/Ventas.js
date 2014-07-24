@@ -15,9 +15,10 @@ function buscar() {
 //    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
-        var cantidad = $("#txt" + codi).val();
-        var suma = parseInt(cantidad) + 1;
-        $("#txt" + codi).val(suma.toFixed(2));
+        alertify.success("El producto ya esta en carrito");
+//        var cantidad = $("#txt" + codi).val();
+//        var suma = parseInt(cantidad) + 1;
+//        $("#txt" + codi).val(suma.toFixed(2));
     }
     else {
         cargarProductosCarrito();

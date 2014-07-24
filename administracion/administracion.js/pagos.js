@@ -1,5 +1,5 @@
 var idTipoPago;
-var folioVenta;
+var folioventa;
 
 $(document).ready(function() {
     $("#mdlBuscadorOrdenesCompra").click(function() {
@@ -89,6 +89,7 @@ $(document).ready(function() {
 function cargarInformacion(folio, tipoPago) {
     idTipoPago = tipoPago;
     folioventa = folio;
+//    alert(folio);
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");
         $("#btnCobrar").removeAttr('disabled');
@@ -97,6 +98,21 @@ function cargarInformacion(folio, tipoPago) {
 }
 
 
-function rechazarOrdenCompra(){
-    
+$("#btnRechazar").click(function() {
+    alertify.confirm("¿Esta seguro de eliminar esta orden de compra?", function(e) {
+        if (e) {
+            var informacion = "idFolio=" + folioventa;
+            $.get('rechazarOrdenCompra.php', informacion, function(respuesta) {
+                limpiarOrdenesCompra();
+                alertify.success(respuesta);
+            });
+
+        }
+    });
+});
+
+function limpiarOrdenesCompra() {
+    $("#informacionPagos").html("<div id='informacionPagos'></div>");
 }
+
+

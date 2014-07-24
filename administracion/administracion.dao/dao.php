@@ -4239,4 +4239,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $call;
     }
 
+    function eliminarOrdenCompra($idFolioOrdenCompra) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
+        $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
+        return $rs;
+    }
+
 }
