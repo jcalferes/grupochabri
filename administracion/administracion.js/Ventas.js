@@ -16,6 +16,7 @@ function buscar() {
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
         alertify.success("El producto ya esta en carrito");
+        $("#codigoProductoEntradas").val("");
 //        var cantidad = $("#txt" + codi).val();
 //        var suma = parseInt(cantidad) + 1;
 //        $("#txt" + codi).val(suma.toFixed(2));
