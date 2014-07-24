@@ -1,5 +1,5 @@
 body {
-  padding: 10px 20px 10px 20px;
+  padding: 0px 20px 10px 20px;
 }
 
 a {
@@ -12,12 +12,12 @@ a:hover {
 
 .wrapper {
   position: relative;
-  padding-top: 45px;
+  /*padding-top: 250px;*/
 }
 
 .logo {
   /*position: absolute;*/
-  top: 2px;
+  top: 0px;
   left: 20px;
   z-index: 9999;
 }

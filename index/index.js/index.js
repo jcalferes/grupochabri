@@ -3,6 +3,24 @@ $(document).ready(function() {
     $('.dropdown-menu').find('form').click(function(e) {
         e.stopPropagation();
     });
+    $("#mostrarslide").load("index/mostrarSlide.php", function() {
+        $("#slides").slidesjs({
+            width: 900,
+            height: 300,
+            navigation: false,
+            play: {
+                active: false,
+                effect: "slide",
+                interval: 4000,
+                auto: true,
+                swap: false,
+                pauseOnHover: true,
+                restartDelay: 2500
+            }
+        });
+    });
+    $("#mostrarcategorias").load("index/mostrarCategorias.php", function() {
+    });
 });
 
 $("#loginbtn").click(function() {

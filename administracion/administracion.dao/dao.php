@@ -3994,7 +3994,25 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $error;
     }
 
+    function validaImagenSlider() {
+        $query = "SELECT * FROM imgslider";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $call = 1;
+        } else {
+            if ($row >= 10) {
+                $call = 1;
+            } else {
+                $call = 0;
+            }
+        }
+        return $call;
+    }
+
     function subirImgenSlider($sucursal, $lahora, $archivo) {
+
         $sql = "INSERT INTO imgslider (ruta, idSucursal, fechaMovimiento) VALUES ('$archivo', '$sucursal', '$lahora')";
         $ctrl = mysql_query($sql);
         if ($ctrl == false) {
@@ -4003,6 +4021,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         } else {
             $call = true;
         }
+
         return $call;
     }
 
@@ -4189,6 +4208,35 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 //            $error = mysql_error();
         }
         return $error;
+    }
+
+    function mostrarImgSlider() {
+        $query = "SELECT * from imgslider";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $ctrl;
+            }
+        }
+    }
+
+    function borrarSlider($idImgslider, $idSucursal, $ruta) {
+        $query = "DELETE FROM imgslider WHERE idImgslider = '$idImgslider' AND ruta = '$ruta'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            $call = false;
+        } else {
+            unlink($ruta);
+            $call = true;
+        }
+        return $call;
     }
 
 }
