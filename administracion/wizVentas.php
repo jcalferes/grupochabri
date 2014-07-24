@@ -143,8 +143,8 @@
                             <div class="btn-group">
                                 <button  id="btnAbonos" class="btn btn-default" title="Abonar Compra"><i class="fa fa-dollar fa-lg"></i> Abonos</button>
                                 <button  id="btnNotasCredito" class="btn btn-default" title="Notas de Credito"> <i class="fa fa-thumbs-o-down"></i> Notas de Credito</button> 
-                                <button class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
-                                <button class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
+                                <button  disabled="true" id="btnRechazar" class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
+                                <button disabled="true" class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
                             </div>
                         </div>
                         <div class="input-group" style="width: 20%; float: right">
@@ -486,7 +486,7 @@
         <!--Fin del modal de notas de credito-->
 
 
-        Modal de aviso de nota de credito
+        <!--Modal de aviso de nota de credito-->
 
         <div class="modal fade" 
              id="mdlNotacreditoInformacion" 

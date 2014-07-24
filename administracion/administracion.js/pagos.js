@@ -87,11 +87,13 @@ $(document).ready(function() {
 
 
 function cargarInformacion(folio, tipoPago) {
-//    alert("entro");
     idTipoPago = tipoPago;
     folioventa = folio;
-  
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");
+        $("#btnCobrar").removeAttr('disabled');
+        $("#btnRechazar").removeAttr('disabled');
     });
 }
+
+

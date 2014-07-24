@@ -497,7 +497,7 @@ $(document).ready(function() {
             paso = validarCredito();
         }
         if (paso == true) {
-            if ($("#cmbOrdenCompra").val() == 0) {
+            if ($("#cmbOrdenCompra").val() == 0 || $("#cmbClientes").val() == 0) {
                 guardarDatosDetalle();
                 guardarDatosEncabezado();
                 inf.push(arrayEncabezadoVenta);
