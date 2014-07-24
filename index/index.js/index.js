@@ -19,8 +19,6 @@ $(document).ready(function() {
             }
         });
     });
-    $("#mostrarcategorias").load("index/mostrarCategorias.php", function() {
-    });
 });
 
 $("#loginbtn").click(function() {
