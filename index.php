@@ -78,8 +78,8 @@
                                 <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
                             </a>
                             <div class="media-body">
-                                <p><a href="#"><strong>Samsung Galaxy S4</strong></a></p>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel ...</p>
+                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
+                                <p>...</p>
                             </div>
                         </div>
                         <div class="media">
@@ -87,8 +87,8 @@
                                 <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
                             </a>
                             <div class="media-body">
-                                <p><a href="#"><strong>Vizio 60" Slim Frame 3D LED</strong></a></p>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel ...</p>
+                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
+                                <p>...</p>
                             </div>
                         </div>
                         <div class="media">
@@ -96,11 +96,28 @@
                                 <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
                             </a>
                             <div class="media-body">
-                                <p><a href="#"><strong>Apple McBook Pro</strong></a></p>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel ...</p>
+                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
+                                <p>...</p>
                             </div>
                         </div>
-                        <p class="text-right show-more"><a href="#">More &rarr;</a></p>
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
+                            </a>
+                            <div class="media-body">
+                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
+                                <p>...</p>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
+                            </a>
+                            <div class="media-body">
+                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
+                                <p>...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-9 content-right">
@@ -113,8 +130,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Samsung Galaxy S4</a></small><p>
-                                    <p><strong>550 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +138,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Vizio 60" Slim Frame 3D LED</a></small><p>
-                                    <p><strong>370 EUR</strong></p>                 
+                                    <p><small><a href="#">Producto Prueba</a></small><p>                 
                                 </div>
                             </div>
                         </div>
@@ -131,8 +146,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Logitech 2.1 HS-263</a></small><p>
-                                    <p><strong>36 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +154,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Apple McBook Pro</a></small><p>
-                                    <p><strong>740 EUR</strong></p>                    
+                                    <p><small><a href="#">Producto Prueba</a></small><p>                    
                                 </div>
                             </div>
                         </div>
@@ -151,8 +164,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Adidas Blake 46"</a></small><p>
-                                    <p><strong>55 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>                                    
                                 </div>
                             </div>
                         </div>
@@ -160,8 +172,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Card reader MobileLite G2</a></small><p>
-                                    <p><strong>10 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>
                                 </div>
                             </div>
                         </div>
@@ -169,8 +180,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Electonics toolkit (40 pieces)</a></small><p>
-                                    <p><strong>28 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>
                                 </div>
                             </div>
                         </div>
@@ -178,8 +188,7 @@
                             <div class="thumbnail">
                                 <img src="http://placehold.it/800x600/e0e0e0" />
                                 <div class="caption">
-                                    <p><small><a href="#">Nokia Lumia 800</a></small><p>
-                                    <p><strong>185 EUR</strong></p>
+                                    <p><small><a href="#">Producto Prueba</a></small><p>
                                 </div>
                             </div>
                         </div>
