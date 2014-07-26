@@ -3057,7 +3057,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultarDatosAbonos($folio, $sucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xc "
                 . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
-                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8'";
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = 1;
@@ -3147,7 +3147,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
                 . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
                 . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
-                . "WHERE x.statusOrden = '8' AND a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
+                . "WHERE a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = mysql_error();
