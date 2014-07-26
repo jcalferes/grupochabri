@@ -3761,11 +3761,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             if ($error == "") {
                 $status = 0;
                 if ($idTipoPago == 2) {
-                    $status = 8;
+                    $status = 5;
                 } else {
                     $status = 7;
                 }
-                $sql = "UPDATE xmlcomprobantes set folioComprobante = '$folio', statusOrden = '$status' where idXmlComprobante = '$idXmlComprobante'";
+                $sql = "UPDATE xmlcomprobantes set folioComprobante = '$folio', statusOrden = '$status' where idXmlComprobante = '$idXmlComprobante' and statusOrden = '5'";
                 $rsxmlComprobante = mysql_query($sql);
                 if ($rsxmlComprobante == false) {
                     $error = mysql_error();

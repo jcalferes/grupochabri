@@ -118,7 +118,7 @@
             <section>
                 <!--<form style="margin: 0% 25% 0% 25%">-->
                 <div style="margin: 0% 25% 0% 25%">
-                    <div id="divfoliocancelacion" class="form-group">
+                    <div id="divfoliocancelacionC" class="form-group">
                         <label>Folio:</label>
                         <input type="text" class="form-control" id="txtfoliocancelacion"><br>
                         <input id="btnbuscarfoliocancelacion" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Buscar"/>

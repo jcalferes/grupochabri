@@ -9,7 +9,6 @@ $("#btnbuscarfoliocancelacion").click(function() {
         $("#showdatoscancelacion").load("buscarFolioCancelacion.php?foliocancelacion=" + foliocancelacion, function() {
             $("#dtcancelacion").dataTable();
             $("#txtfoliocancelacion").val("");
-//            $("#divfoliocancelacion").slideUp();
         });
     }
 });
@@ -17,7 +16,7 @@ $("#btnnocancelacion").click(function() {
     $('#divvalidacancelacion').slideUp();
     $("#showdatoscancelacion").remove();
     $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
-    $("#divfoliocancelacion").slideDown();
+    $("#divfoliocancelacionC").slideDown();
 });
 $("#btnvalidacancelacion").click(function() {
     var chk = $("#chkreutilizar").is(":checked");
@@ -40,7 +39,7 @@ $("#btnvalidacancelacion").click(function() {
                     $('#divvalidacancelacion').slideUp();
                     $("#showdatoscancelacion").remove();
                     $("#basedatoscancelacion").append('<div id="showdatoscancelacion"></div>');
-                    $("#divfoliocancelacion").slideDown();
+                    $("#divfoliocancelacionC").slideDown();
                 } else {
                     alertify.error("No se pudo realizar la cancelacion");
                 }
