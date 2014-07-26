@@ -3761,7 +3761,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             if ($error == "") {
                 $status = 0;
                 if ($idTipoPago == 2) {
-                    $status = 5;
+                    $status = 8;
                 } else {
                     $status = 7;
                 }
