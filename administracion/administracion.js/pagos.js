@@ -62,6 +62,7 @@ $(document).ready(function() {
                         alertify.success(respuesta);
                         var cambio = datos - total;
                         alert(cambio);
+                        limpiarOrdenesCompra();
                     });
                 }
             }
@@ -76,6 +77,7 @@ $(document).ready(function() {
                 $("#buscabonos").load("consultarDeudoresPV.php", function() {
                     $('#dtdeudores').dataTable();
                 });
+                limpiarOrdenesCompra();
             });
         }
     });
@@ -109,7 +111,6 @@ $("#btnRechazar").click(function() {
                 limpiarOrdenesCompra();
                 alertify.success(respuesta);
             });
-
         }
     });
 });
@@ -117,5 +118,3 @@ $("#btnRechazar").click(function() {
 function limpiarOrdenesCompra() {
     $("#informacionPagos").html("<div id='informacionPagos'></div>");
 }
-
-
