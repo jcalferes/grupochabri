@@ -17,4 +17,4 @@ if ($data == false) {
     }
     echo "</div>";
 }
-
+$cn->cerrarBd();

@@ -21,6 +21,10 @@ $(document).ready(function() {
     });
     $("#mostrarcategorias").load("index/mostrarCategorias.php", function() {
     });
+    $("#mostrarnovedades").load("index/mostrarNovedades.php", function() {
+    });
+    $("#mostrarrecomendados").load("index/mostrarRecomendados.php", function() {
+    });
 });
 
 $("#loginbtn").click(function() {

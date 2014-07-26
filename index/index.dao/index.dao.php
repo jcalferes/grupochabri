@@ -70,5 +70,33 @@ class dao {
             return $ctrl;
         }
     }
+    
+    function mostarNovedades() {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
+                . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
+                . "WHERE ponerNovedades = '1'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+    
+    function mostarRecomendados() {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
+                . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
+                . "WHERE ponerRecomendado = '1'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
 
 }

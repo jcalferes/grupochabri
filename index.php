@@ -72,127 +72,13 @@
                     <h4>Categorias</h4>
                     <div id="mostrarcategorias"></div>
                     <h4>Novedades</h4>
-                    <div class="newest-classifieds">
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
-                            </a>
-                            <div class="media-body">
-                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
-                            </a>
-                            <div class="media-body">
-                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
-                            </a>
-                            <div class="media-body">
-                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
-                            </a>
-                            <div class="media-body">
-                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" style="width: 64px; height: 64px;" src="http://placehold.it/64x64/e0e0e0" />
-                            </a>
-                            <div class="media-body">
-                                <p><a href="#"><strong>Producto Prueba</strong></a></p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="mostrarnovedades"></div>
                 </div>
                 <div class="col-lg-9 content-right">
                     <h4>Slider</h4>
                     <div id="mostrarslide"></div>
                     <h4>Recomendado</h4>
-                    <div id="mostrarrecomendado"></div>
-                    <div class="row selected-classifieds">
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>                 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row selected-classifieds">
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="http://placehold.it/800x600/e0e0e0" />
-                                <div class="caption">
-                                    <p><small><a href="#">Producto Prueba</a></small><p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="mostrarrecomendados"></div>
                 </div>
             </div>
             <!-- /Content -->
