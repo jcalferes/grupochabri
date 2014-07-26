@@ -7,7 +7,7 @@ class coneccion {
             echo "Error conectando a la base de datos.";
             exit();
         }
-        if (!mysql_select_db("grupochabri", $link)) {
+        if (!mysql_select_db("maderasoriente", $link)) {
             echo "Error seleccionando la base de datos.";
             exit();
         }

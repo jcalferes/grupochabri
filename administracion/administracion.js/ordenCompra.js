@@ -47,6 +47,9 @@ function eliminarFila(fila, bandera) {
     $('.costos').each(function() {
         var elemento = this;
         var valor = elemento.value;
+        if(valor == "" || valor == undefined || valor == null){
+            valor = 0;
+        }
         var nombre = elemento.name;
         var cantidad = $("#cant" + nombre).val();
         var sumaImporte = parseFloat(valor) * parseFloat(cantidad);
@@ -59,18 +62,39 @@ function eliminarFila(fila, bandera) {
         descprod += parseFloat(valor);
 
     });
-    var descgral = parseFloat(importes) * (parseFloat($("#descuentosGeneralesPorComasM").val() / 100));
+    var precio = subtotal;
+   var nuevoPrecio = 0;
+      var  cadena = $("#descuentosGeneralesPorComasM").val();
+  var arregloCadena = cadena.split(",");
+  alert(arregloCadena);
+  console.log(arregloCadena);
+  for (var x = 0; x < arregloCadena.length; x++) {
+      
+            var valor = parseFloat(arregloCadena[x]);
+            alert(valor);
+            if (isNaN(valor)) {
+            }
+            else {
+               precio = precio * (parseInt(valor)/100)
+            }
+       nuevoPrecio += precio;
+    }    
+    $("#subTotalM").val(subtotal);
+    $("#descuentoGeneralM").val(nuevoPrecio);
+    alert(nuevoPrecio);
+    var descgral =nuevoPrecio;
     var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
     var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);
     var iva = parseFloat(sdam) * .16;
 
     $("#subTotalM").val(subtotal);
-    $("#descuentoGeneralM").val(descgral);
+   
     $("#descuentoProductosM").val(descprod);
     $("#descuentoTotalM").val(descuentoTotal);
     $("#sdaM").val(sdam);
     $("#ivaM").val(iva);
     $("#costoTotal").val(sdam + iva);
+
 }
 
 function listarProductos() {
@@ -207,6 +231,7 @@ function seleccionTipo() {
         $("#btnbuscador").prop("disabled", true);
         $("#codigoProductoEntradas").val("");
         $("#descuentosGeneralesPorComasM").val("");
+                $("#descuentosGeneralesPorComasM").prop("disabled",true);
         $("#descuentosGeneralesM").prop("checked", false);
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
@@ -915,14 +940,42 @@ $(document).ready(function() {
     });
     $("#descuentosGeneralesM").change(function() {
         if ($("#descuentosGeneralesM").is(':checked')) {
-            $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+         var   band = 0
+             $('.costos').each(function() {
+                var elemento = this;
+                var valor = elemento.value;
+//        alert(valor);
+                if (valor == ""){
+                    band = "0";
+                }else{
+                    band = '1';
+                }
+
+            });
+            if(band == "1"){
+               alertify.confirm("¿Solo puedes agregar 1 o más descuentos generales una vez terminado de listar los productos con sus respectivos costos, estas seguro de continuar? una vez seleccionado esto no podras agregar mas productos", function(e) {
+        if (e) {
+          $("#descuentosGeneralesPorComasM").removeAttr('disabled');
+          $(".cantidades").prop('disabled', true);
+          $("#descuentosGeneralesM").prop('disabled', true);
+          $("#descuentosGlobalesManuales").prop('disabled', true);
+          $(".descuentos").prop('disabled', true);
+        } else {
+            $("#descuentosGeneralesM").prop("disabled", false);
         }
-        else {
-            $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
-            $("#descuentosGeneralesPorComasM").val(0);
-            $("#descuentoGeneralM").val(0);
-            $("#descuentoTotalM").val($("#descuentoProductosM").val());
-        }
+    });
+            
+        }else{
+            $("#descuentosGeneralesM").prop('checked', false);
+        alertify.error("Los costos son obligatorios");
+    }
+    }
+//        else {
+//            $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
+//            $("#descuentosGeneralesPorComasM").val(0);
+//            $("#descuentoGeneralM").val(0);
+//            $("#descuentoTotalM").val($("#descuentoProductosM").val());
+//        }
     });
     $("#guardarOrdenCompra").click(function() {
         var inf = new Array();
@@ -1017,6 +1070,7 @@ $(document).ready(function() {
             $(this).remove();
 
         });
+        $("#codigoProductoEntradas").val("");
         $("#proveedores").selectpicker('val', 0);
         $('#proveedores').prop("disabled", false);
         $("#txtEmail").hide();
@@ -1032,7 +1086,11 @@ $(document).ready(function() {
         $("#folioM").prop("disabled", false);
         $("#codigoProductoEntradas").prop("disabled", false);
         $("#descuentosGlobalesManuales").prop("disabled", true);
+           $("#descuentosGeneralesPorComasM").prop("disabled", true);
+            $("#descuentosGeneralesPorComasM").val("");
+         $("#descuentosGlobalesManuales").prop("checked", false);
         $("#descuentosGeneralesM").prop("disabled", true);
+         $("#descuentosGeneralesM").prop("checked", false);
     });
     var tipo = "ORDEN%20COMPRA";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function() {
