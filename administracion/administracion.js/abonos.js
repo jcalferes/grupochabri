@@ -61,7 +61,7 @@ $("#txtfolioabonos").keypress(function(e) {
                         });
                         var saldo = arr.cliente.totalComprobante - pagado;
                         $("#pagadoabono").text(pagado);
-                        $("#saldoabono").text(saldo);
+                        $("#saldoabono").text(saldo.toFixed(2));
 
                         if (saldo == 0) {
                             $("#btnabonar").attr("disabled", "disabled");
@@ -107,7 +107,7 @@ function ree() {
                     });
                     var saldo = arr.cliente.totalComprobante - pagado;
                     $("#pagadoabono").text(pagado);
-                    $("#saldoabono").text(saldo);
+                    $("#saldoabono").text(saldo.toFixed(2));
 
                     if (saldo == 0) {
                         $("#btnabonar").attr("disabled", "disabled");
@@ -126,7 +126,7 @@ $("#btncancelarabono").click(function() {
 });
 
 $("#btnabonar").click(function() {
-    var notepases = parseInt($("#saldoabono").text());
+    var notepases = $("#saldoabono").text();
     var folio = $("#txtfolioabonos").val();
     var monto = $("#txtcantidadabono").val();
     var tipopago = $("#slctipopago").val();
@@ -134,7 +134,8 @@ $("#btnabonar").click(function() {
     var observ = $("#txtobservacionesabono").val();
     var saldoInicial = $("#saldoabono").text();
     var liquida = false;
-
+    alert(monto);
+    alert(notepases)
     if (monto > notepases) {
         alertify.error("El monto a abonar es mayor al saldo");
         return false;
