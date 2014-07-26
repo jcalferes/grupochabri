@@ -94,7 +94,6 @@ $(document).ready(function() {
 function cargarInformacion(folio, tipoPago) {
     idTipoPago = tipoPago;
     folioventa = folio;
-//    alert(folio);
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");
         $("#btnCobrar").removeAttr('disabled');
