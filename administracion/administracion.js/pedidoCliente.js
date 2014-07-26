@@ -9,7 +9,6 @@ var tr3 = "";
 var subtotal = 0;
 
 function eliminandoFila(fila, bandera) {
-
     var total = 0;
     var subtotal = 0;
     var subtotal = 0;
