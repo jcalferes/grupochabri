@@ -73,6 +73,9 @@ $(document).ready(function() {
                 alertify.success(respuesta);
                 var cambio = datos - total;
                 alert(cambio);
+                $("#buscabonos").load("consultarDeudoresPV.php", function() {
+                    $('#dtdeudores').dataTable();
+                });
             });
         }
     });
