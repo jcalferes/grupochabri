@@ -1,19 +1,24 @@
+//============ UTILIDADES ======================================================
 function NumCheck(e, field, tarifa) {
     key = e.keyCode ? e.keyCode : e.which
-    if (key == 15)
-        return true
+    if (key == 15) {
+        return true;
+    }
     if (key > 47 && key < 58) {
-        if (field.value == "")
-            return true
-        regexp = /.[0-9]{20}$/
-        return !(regexp.test(field.value))
+        if (field.value == "") {
+            return true;
+        }
+        regexp = /.[0-9]{20}$/;
+        return !(regexp.test(field.value));
     }
     if (key == 46) {
-        if (field.value == "")
-            return false
-        return regexp.test(field.value)
+        if (field.value == "") {
+            return false;
+        }
+        regexp = /^[0-9]+$/;
+        return regexp.test(field.value);
     }
-    return false
+    return false;
 }
 
 $("#txtCostoProducto").keyup(function() {
@@ -722,9 +727,9 @@ $("#txtCodigoProductoG").keypress(function(e) {
                     $.get('obtenerDatosAgranel.php', info2, function(rs) {
                         var arr = $.parseJSON(rs);
                         $("#txtContenido").val(arr.granel.datos.contenido);
-                    var costo = $("#txtCostoProducto").val();
-                    var costopieza = costo * arr.granel.datos.contenido;
-                    alert(costopieza);
+                        var costo = $("#txtCostoProducto").val();
+                        var costopieza = costo * arr.granel.datos.contenido;
+                        alert(costopieza);
                         $("#txtCostoPieza").val(costopieza.toFixed(2));
                     });
                     $.get('obtenerTarifasPorConsulta.php', info2, function(x) {

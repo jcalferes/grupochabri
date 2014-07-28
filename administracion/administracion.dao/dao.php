@@ -4248,17 +4248,26 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function obtenerIdParaNombrarImagen($codigo) {
-        $query = "SELECTE * FROM productos WHERE codigoProducto = '$codigo'";
-        $ctrl = mysql_query($query);
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $query = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $ctrl = mysql_query($query, $cn->Conectarse());
         $row = mysql_affected_rows();
-        if ($ctrl != false) {
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
             if ($row > 0) {
                 while ($rs = mysql_fetch_array($ctrl)) {
                     $id_prod = $rs[idProducto];
                 }
+            } else {
+                return false;
             }
         }
+        $cn->cerrarBd();
         return $id_prod;
+        
     }
 
 }
