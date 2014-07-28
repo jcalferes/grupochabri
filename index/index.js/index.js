@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.dropdown-menu').find('form').click(function(e) {
         e.stopPropagation();
     });
-    $("#mostrarslide").load("index/mostrarSlide.php", function() {
+    $("#mostrarslide").load("mostrarSlide.php", function() {
         $("#slides").slidesjs({
             width: 900,
             height: 300,
@@ -19,11 +19,11 @@ $(document).ready(function() {
             }
         });
     });
-    $("#mostrarcategorias").load("index/mostrarCategorias.php", function() {
+    $("#mostrarcategorias").load("mostrarCategorias.php", function() {
     });
-    $("#mostrarnovedades").load("index/mostrarNovedades.php", function() {
+    $("#mostrarnovedades").load("mostrarNovedades.php", function() {
     });
-    $("#mostrarrecomendados").load("index/mostrarRecomendados.php", function() {
+    $("#mostrarrecomendados").load("mostrarRecomendados.php", function() {
     });
 });
 
@@ -37,7 +37,7 @@ $("#loginbtn").click(function() {
     }
     else {
         var info = "usuario=" + usuario + "&pass=" + pass;
-        $.get('./index/iniciarSesion.php', info, function(respuesta) {
+        $.get('iniciarSesion.php', info, function(respuesta) {
             respuesta = parseInt(respuesta);
             if (respuesta == 666) {
                 alertify.error("Usuario o Contraseña invalidos");
@@ -45,12 +45,12 @@ $("#loginbtn").click(function() {
                 if (respuesta == 1) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = 'administracion/gestionAdministrativa.php';
+                    document.location.href = '../administracion/gestionAdministrativa.php';
                 }
                 if (respuesta == 2) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = 'administracion/gestionAdministrativa.php';
+                    document.location.href = '../administracion/gestionAdministrativa.php';
                 }
                 if (respuesta == 3) {
                     $("#loginuser").val("");

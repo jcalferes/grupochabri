@@ -102,7 +102,6 @@
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/respond.min.js"></script>
-        <script src="js/jquery.slides.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Drop down menu handler

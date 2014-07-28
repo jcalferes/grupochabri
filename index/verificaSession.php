@@ -22,14 +22,14 @@ class verificaSession {
             } else {
                 echo "
         <script>
-             document.location.href='../index.php';
+             document.location.href='../index/index.php';
         </script>
          ";
             }
         } else {
             echo "
         <script>
-             document.location.href='../index.php';
+             document.location.href='../index/index.php';
         </script>
          ";
         }

@@ -6,20 +6,20 @@
         <meta name="description" content="...">
         <meta name="keywords" content="...">
         <meta name="author" content="...">
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="bootstrap/css/bootstrap-theme.css" rel="stylesheet" media="screen">
-        <link href="index/index.css/czsale.css" rel="stylesheet" media="screen">
-        <link href="index/index.css/czsale-responsive.css" rel="stylesheet" media="screen">
-        <link href="alertify/themes/alertify.core.css" rel="stylesheet" media="screen">
-        <link href="alertify/themes/alertify.default.css" rel="stylesheet" media="screen">
-        <link href="index/index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap-theme.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale-responsive.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.core.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.default.css" rel="stylesheet" media="screen">
+        <link href="index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
         <title>Grupo Chabri</title>
     </head>
     <body>
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="index.php"><img class="img-responsive" src="index/index.img/czsale_logo2.png"></a>
+                <a href="index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -35,8 +35,8 @@
                 <div class="collapse navbar-collapse" id="czsale-navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.php">Inicio</a></li>
-                        <li><a href="index/ayuda.php">Ayuda</a></li>
-                        <li><a href="index/contacto.php">Contacto</a></li>
+                        <li><a href="ayuda.php">Ayuda</a></li>
+                        <li><a href="contacto.php">Contacto</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
@@ -89,12 +89,12 @@
             </div>
         </div>
         <!-- JS -->
-        <script src="bootstrap/js/jquery.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="index/index.js/respond.min.js"></script>
-        <script src="index/index.js/jquery.slides.min.js"></script>
-        <script src="alertify/lib/alertify.min.js"></script>
-        <script src="index/index.js/index.js"></script>
+        <script src="../bootstrap/js/jquery.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="index.js/respond.min.js"></script>
+        <script src="index.js/jquery.slides.min.js"></script>
+        <script src="../alertify/lib/alertify.min.js"></script>
+        <script src="index.js/index.js"></script>
         <script>
             $(document).ready(function() {
                 // Drop down menu handler

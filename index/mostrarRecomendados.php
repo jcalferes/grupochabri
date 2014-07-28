@@ -19,7 +19,7 @@ if ($data == false) {
         if ($conta < $max) {
             echo "<div class='col-lg-3'>";
             echo "<div class='thumbnail'>";
-            echo "<img src='subidas/$rs[ruta]' />";
+            echo "<img src='../subidas/$rs[ruta]' />";
             echo "<div class='caption'>";
             echo "<p><small><a href='#'>$rs[producto]</a></small><p>";
             echo "</div>";

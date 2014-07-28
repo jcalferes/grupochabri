@@ -20,7 +20,7 @@ if ($data == false) {
         if ($conta < $max) {
             echo "<div class='media'>";
             echo "<a class='pull-left' href='#'>";
-            echo "<img class='media-object' style='width: 64px; height: 64px;' src='subidas/$rs[ruta]'/>";
+            echo "<img class='media-object' style='width: 64px; height: 64px;' src='../subidas/$rs[ruta]'/>";
             echo "</a>";
             echo "<div class='media-body'>";
             echo "<p><a href='#'><strong>$rs[producto]</strong></a></p>";

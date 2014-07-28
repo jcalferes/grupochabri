@@ -431,7 +431,7 @@ function comprueba_extension_imgslider(formulario, archivo) {
                     alertify.error("Se ha alcanzado el limite de imagenes permitidas");
                 }
                 if (msg == 0) {
-                    alertify.success("Imagen cagada correctamente");
+                    alertify.success("Imagen cargada correctamente");
                 }
                 if (msg == 1) {
                     alertify.error("No se pudo cargar la imagen");
