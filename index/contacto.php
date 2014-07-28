@@ -47,7 +47,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <li><a href="../index.php">Inicio</a></li>
+                        <li><a href="index.php">Inicio</a></li>
                         <li><a href="ayuda.php">Ayuda</a></li>
                         <li><a href="contacto.php">Contacto</a></li>
                     </ul>
@@ -99,9 +99,9 @@
             </div>
         </div>
         <!-- JS -->
-        <script src="js/jquery-1.10.2.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/respond.min.js"></script>
+        <script src="../bootstrap/js/jquery.js"></script>
+        <script src="../bootstrap/js/bootstrap.js"></script>
+        <script src="index.js/respond.min.js"></script>
         <script>
             $(document).ready(function() {
                 // Drop down menu handler

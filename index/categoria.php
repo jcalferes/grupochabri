@@ -1,4 +1,7 @@
-
+<?php
+$id_grupo = $_GET["id_grupo"];
+$nm_grupo = $_GET["nm_grupo"];
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -9,14 +12,16 @@
         <meta name="author" content="...">
         <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-        <link href="../index.css/czsale.css" rel="stylesheet" media="screen">
-        <link href="../index.css/czsale-responsive.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale-responsive.css" rel="stylesheet" media="screen">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
-        <link href="../index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
+        <link href="index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
         <title>Grupo Chabri - Categoria</title>
     </head>
     <body>
+        <input type="text" id="buzon_id" value="<?php echo $id_grupo ?>" hidden=""/>
+        <input type="text" id="buzon_nm" value="<?php echo $nm_grupo ?>" hidden=""/>
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
@@ -48,7 +53,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <li><a href="../index.php">Inicio</a></li>
+                        <li><a href="index.php">Inicio</a></li>
                         <li><a href="ayuda.php">Ayuda</a></li>
                         <li><a href="contacto.php">Contacto</a></li>
                     </ul>
@@ -58,40 +63,8 @@
             <!-- Content -->
             <div class="row content">
                 <div class="col-lg-3 content-left">
-                    <h4>Categories</h4>
-                    <div class="list-group categories">
-                        <a href="#" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Cell Phones & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Clothing, Shoes & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Computers & Networking <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <div class="list-subgroups">
-                            <a href="#" class="list-subgroup-item">DVD, Blu-ray devices</a>
-                            <a href="#" class="list-subgroup-item">GPS navigations</a>
-                            <a href="#" class="list-subgroup-item">Graphics cards</a>
-                            <a href="#" class="list-subgroup-item">Hard drives</a>
-                            <a href="#" class="list-subgroup-item">Game controllers</a>
-                            <a href="#" class="list-subgroup-item">Games</a>
-                            <a href="#" class="list-subgroup-item">Coolers</a>
-                            <a href="#" class="list-subgroup-item">Printers</a>
-                            <a href="#" class="list-subgroup-item">LCD screens</a>
-                            <a href="#" class="list-subgroup-item">Modems</a>
-                            <a href="#" class="list-subgroup-item">MP3 players</a>
-                            <a href="#" class="list-subgroup-item">Notebooks</a>
-                            <a href="#" class="list-subgroup-item active">PC, Computers</a>
-                            <a href="#" class="list-subgroup-item">Processors</a>
-                            <a href="#" class="list-subgroup-item">Network devices</a>
-                            <a href="#" class="list-subgroup-item">Software</a>
-                            <a href="#" class="list-subgroup-item">Tablets, E-readers</a>
-                            <a href="#" class="list-subgroup-item">Wireless, WiFi</a>
-                            <a href="#" class="list-subgroup-item">Motherboards</a>
-                            <a href="#" class="list-subgroup-item">Other</a>
-                        </div>
-                        <a href="#" class="list-group-item">DVDs & Movies <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Health & Beauty <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    </div>
+                    <h4>Categorias</h4>
+                    <div id="mostrarsubcategorias"></div>
                     <h4>Novedades</h4>
                     <div id="mostrarnovedades"></div>
                 </div>

@@ -70,7 +70,7 @@ class dao {
             return $ctrl;
         }
     }
-    
+
     function mostarNovedades() {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
@@ -84,12 +84,25 @@ class dao {
             return $ctrl;
         }
     }
-    
+
     function mostarRecomendados() {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
                 . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
                 . "WHERE ponerRecomendado = '1'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+
+    function mostarSubcategorias($idgrupo) {
+        $query = "SELECT * FROM tiposproducto t "
+                . "INNER JOIN grupoproductos g ON t.idGrupoProducto = g.idGrupoProducto "
+                . "WHERE t.idGrupoProducto = '$idgrupo'";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
             $ctrl = mysql_error();
