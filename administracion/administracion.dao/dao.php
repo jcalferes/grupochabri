@@ -952,7 +952,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn = new coneccion();
         $cn->Conectarse();
 
-        $sqlvalidar = "SELECT * FROM tiposproducto WHERE TiposProducto = '" . $g->getGrupoProducto() . "' ";
+        $sqlvalidar = "SELECT * FROM tiposproducto WHERE TiposProducto = '" . $g->getGrupoProducto() . "' AND idGrupoProducto = '" . $g->getIdGrupoProducto() . "'";
         $ctrlvalidar = mysql_query($sqlvalidar);
         $rowsvalidar = mysql_affected_rows();
         if ($ctrlvalidar == false) {
@@ -4245,6 +4245,20 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
         $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
         return $rs;
+    }
+
+    function obtenerIdParaNombrarImagen($codigo) {
+        $query = "SELECTE * FROM productos WHERE codigoProducto = '$codigo'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl != false) {
+            if ($row > 0) {
+                while ($rs = mysql_fetch_array($ctrl)) {
+                    $id_prod = $rs[idProducto];
+                }
+            }
+        }
+        return $id_prod;
     }
 
 }

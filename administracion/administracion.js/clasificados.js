@@ -248,14 +248,14 @@ $(document).ready(function() {
         info = "nombreTipo=" + $("#txtnombreTipo").val() + "&idGrupo=" + grupo;
         $.get("guardarTipo.php", info, function(x) {
             if (x == 999) {
-                alertify.error("No funciono");
+                alertify.error("Ya existe un tipo con ese nombre");
             } else {
                 $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
                     $("#selectTipo").selectpicker();
                     $("#selectTipo").selectpicker('refresh');
                     $("#selectTipo").selectpicker('show');
                 });
-                alertify.success("Guardado Tipo");
+                alertify.success("Tipo guardado");
             }
 
         });
