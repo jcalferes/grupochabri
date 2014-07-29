@@ -63,6 +63,10 @@ $(document).ready(function() {
                         var cambio = datos - total;
                         alert(cambio);
                         limpiarOrdenesCompra();
+                        $('#btnCobrar').attr("disabled", true);
+                        $('#btnRechazar').attr("disabled", true);
+                        $("#mdlNotacreditoInformacion").modal('hide');
+                        $("#txtCantidad").val("");
                     });
                 }
             }
@@ -78,8 +82,13 @@ $(document).ready(function() {
                     $('#dtdeudores').dataTable();
                 });
                 limpiarOrdenesCompra();
-            });
+                $('#btnCobrar').attr("disabled", true);
+                $('#btnRechazar').attr("disabled", true);
+                $("#mdlNotacreditoInformacion").modal('hide');
+                $("#txtCantidad").val("");
+            });  alert(cambio);
         }
+
     });
 
     $("#btnAbonos").click(function() {

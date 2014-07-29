@@ -122,7 +122,11 @@
                 </div>
                 <div class="col-lg-9 content-right">
                     <h4>Slider</h4>
-                    <div id="mostrarslide"></div>
+                    <div id="mostrarslide">
+                        
+                        
+                        
+                    </div>
                     <h4>Recomendado</h4>
                     <div id="mostrarrecomendado"></div>
                     <div class="row selected-classifieds">
