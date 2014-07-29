@@ -47,7 +47,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <li><a href="../index.php">Inicio</a></li>
+                        <li><a href="index.php">Inicio</a></li>
                         <li><a href="ayuda.php">Ayuda</a></li>
                         <li><a href="contacto.php">Contacto</a></li>
                     </ul>

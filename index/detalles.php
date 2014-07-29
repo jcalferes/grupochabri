@@ -49,7 +49,7 @@
                                                         <li><a href="signUp.html">Sign Up</a></li>
                                                     </ul>
                                                 </li>-->
-                        <li><a href="index/ayuda.php">Ayuda</a></li>
+                        <li><a href="ayuda.php">Ayuda</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>

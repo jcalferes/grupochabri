@@ -13,31 +13,29 @@
             <h2><span class="glyphicon glyphicon-star"/>&numsp;Publicar nuevo clasificado</h2>
             <section>
                 <div style="margin: 0% 25% 0% 25%">
-
                     <div class="form-group">
                         <label>Codigo del producto:</label>
                         <input type="text" class="form-control" id="clascodigoproducto" style="width: 50%" />
                     </div>
                     <form id="mostrando">
-                        <div class="form-group" hidden>
+<!--                        <div class="form-group">
                             <label>Nombre Producto:</label>
                             <input type="text" class="form-control" id="producto" disabled/>
                         </div>
-
                         <div class="form-group">
-                            <label>Descripcion del producto:</label>
-                            <textarea class="form-control" id="descripcion" style="margin: 0px; width: 579px; height: 135px;"></textarea>
-                        </div>                        
-                        <div class="form-group" hidden>
                             <label>Grupo Producto:</label>
                             <input type="text" class="form-control" id="grupo" disabled/>
-                        </div>
+                        </div>-->
                         <div class="form-group form-inline" id="productosTipos">
                             <label>Tipo de producto:</label><br/>
                             <select id="selectTipo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
                             </select>
                             <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlTipoProducto" value="+"/>
                         </div> 
+                        <div class="form-group">
+                            <label>Descripcion del producto:</label>
+                            <textarea class="form-control" id="descripcion" style="margin: 0px; width: 579px; height: 135px;"></textarea>
+                        </div>  
                         <div class="form-group" id="mostrarImagenes">
                             <div class="row selected-classifieds">
                                 <div class="col-sm-6 col-md-2 conte" id="contenedor1" hidden="true">
@@ -70,7 +68,7 @@
                         <div class="form-group">
                             <label>Imagen(es) del producto</label>
                             <span id="textoValor" class="text-muted"><em>Maximo 5 imagenes</em></span>
-                            <input type="file" id="files" name="files[]" accept=".jpg" multiple />
+                            <input type="file" id="files" name="files[]" accept="image/x-png, image/gif, image/jpeg" multiple />
                             <output id="list"></output>
                         </div>
                         <div class="checkbox">
@@ -93,7 +91,7 @@
             <h2><span class="glyphicon glyphicon-picture"/>&numsp;Publicar en slider</h2>
             <section>
                 <form id="buscaslider" style="margin: 0% 15% 0% 15%">
-                    <label>Imagenesen el slider</label><br>
+                    <label>Imagenes en el slider</label><br>
                     <span class="text-muted"><em>Maximo 10 imagenes</em></span>
                     <div class="well well-sm">
                         <div class="row selected-classifieds">

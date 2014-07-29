@@ -3,14 +3,25 @@ var grupo = "";
 var arrelo;
 var imagenes = new Array();
 var calculando = 6;
+
+$(document).ready(function() {
+    $("#botonninja").hide();
+    $("#editarImagenes").hide();
+    $("#mostrarImagenes").hide();
+    $("#mostrando").hide();
+    $("#enslider").load("mostrarImgSlider.php", function() {
+    });
+    $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
+        $('#dtclasificados').dataTable();
+    });
+});
+
 function gestionimagenes(cp, nombre) {
     $(".contenedorImagenes").empty();
     $('#botonninja').trigger('click');
     $('#labelTitulo').html('<h4> Imagenes subidas del producto:</h4>' + nombre);
     codigo = "cp=" + cp;
     $.get("mostrarImagenes.php", codigo, function(x) {
-
-
         var comprobante;
         var tipo;
         var descripcion;
@@ -25,38 +36,20 @@ function gestionimagenes(cp, nombre) {
         console.log(lista);
         $.each(lista, function(ind, elem) {
             $.each(elem, function(ind, elem2) {
-
                 imagenes = elem[ind].ruta;
                 idImagen = elem[ind].idImagen;
-//                alert(imagenes);
                 if (imagenes !== undefined) {
                     var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 171px; height: 150px;'/><div class='caption'><center><button type='button' class='btn  btn-default btn-block' onclick=eliminandoImagenesconsula('" + imagenes + "','" + idImagen + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
-
-
                     $("#imagens" + conta).append(imagen);
                     $("#contenedors" + conta).show('slow');
-//                            $("#imagen" + cont).prop("hidden",false);
                     conta++;
                     $("#mostrarImagenes").show("slow");
                 }
-
             });
         });
-
-
-
-
-
-
-
-
-//                          
-
-
     });
-
-
 }
+
 function limpiarCampos() {
     $("#mostrando").hide('slow');
     $("#descripcion").val("");
@@ -77,9 +70,9 @@ function limpiarCampos() {
     imagenes = new Array();
     calculando = 6;
 }
+
 function eliminandoImagenesconsula(imagen, idImagen) {
     var arreglo = new Array();
-    alert(imagen);
     alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al aceptar no habra forma de recuperar los datos eliminados", function(e) {
         if (e) {
             info = "idImagen=" + idImagen + "&imagen=" + imagen;
@@ -104,13 +97,9 @@ function eliminandoImagenes(imagen, idImagen, cont) {
         } else {
         }
     });
-
-
-
 }
 
 function handleFileSelect(evt) {
-//    alert("entro");
     var files = evt.target.files; // FileList object
     archivos = files;
     // files is a FileList of File objects. List some properties.
@@ -121,15 +110,11 @@ function handleFileSelect(evt) {
             var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
             if (fileExtension !== "jpg" && fileExtension !== "png" && fileExtension !== "gif") {
                 alertify.error("Solo puedes subir archivos jpg, gif y png")
-
-
             } else {
-//
                 output.push('<li><strong>', escape(f.name), '</strong> (', fileExtension || 'n/a', ') - ',
                         f.size, ' bytes, last modified: ',
                         f.lastModifiedDate.toLocaleDateString(), '</li>');
             }
-
         }
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
     } else {
@@ -140,166 +125,185 @@ function handleFileSelect(evt) {
 
 }
 
+$("#limpiar").click(function() {
+    limpiarCampos();
+});
+
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
-$(document).ready(function() {
-    $("#botonninja").hide();
-    $("#limpiar").click(function() {
-        limpiarCampos();
-    })
-    $("#editarImagenes").hide();
-    $("#mostrarImagenes").hide();
-    $("#mostrando").hide();
-//    $("#selectTipo").selectpicker('hide');
-//
-//    $("#selectGrupo").load("mostrarGrupos.php", function() {
-//        $("#selectGrupo").selectpicker();
-//    });
 
-//    $("#selectGrupo").change(function() {
-//        if ($("#selectGrupo").val() == 0) {
-//            $("#selectTipo").selectpicker('hide');
-//
-//        } else {
-//           
-//        }
-//
-//    });
-    $("#clascodigoproducto").keypress(function(e) {
-        if (e.which == 13) {
-            var info = "codigoProducto=" + $("#clascodigoproducto").val();
-            $.get("verificarExistenciaProducto.php", info, function(x) {
-
-                var comprobante;
-                var tipo;
-                var descripcion;
-                var imagenes;
-                var idImagen;
-                var novedades;
-                var recomendado;
-                var nombreGrupos;
-                var producto;
-                var cont = 1;
-                lista = JSON.parse(x);
-                console.log(lista);
-                $.each(lista, function(ind, elem) {
-                    $.each(elem, function(ind, elem2) {
-                        grupo = elem[ind].idGrupoProducto;
-                        comprobante = elem[ind].comprobante;
-                        tipo = elem[ind].idTipo;
-                        descripcion = elem[ind].descripcion;
-                        imagenes = elem[ind].ruta;
-                        idImagen = elem[ind].idImagen;
-                        novedades = elem[ind].ponerNovedades;
-                        recomendado = elem[ind].ponerRecomendado;
-                        producto = elem[ind].nombre;
-                        nombreGrupos = elem[ind].grupo;
-                        if (imagenes !== undefined) {
-                            var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 100px; height: 88px;'/><div class='caption'><center><button type='button' class='btn btn-default btn-block' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
-
-                            $("#imagen" + cont).append(imagen);
-                            $("#contenedor" + cont).show('slow');
-//                            $("#imagen" + cont).prop("hidden",false);
-                            cont++;
-                            $("#mostrarImagenes").show("slow");
-                        }
-                        calculando = 6 - cont;
-                        $("#textoValor").text("Maximo " + calculando + " imagenes");
-//                         imagen='<img src="../subidas/"' +imagenes+' />';
-
-                    });
+$("#clascodigoproducto").keypress(function(e) {
+    if (e.which == 13) {
+        var info = "codigoProducto=" + $("#clascodigoproducto").val();
+        $.get("verificarExistenciaProducto.php", info, function(x) {
+            var comprobante;
+            var tipo;
+            var descripcion;
+            var imagenes;
+            var idImagen;
+            var novedades;
+            var recomendado;
+            var nombreGrupos;
+            var producto;
+            var cont = 1;
+            lista = JSON.parse(x);
+            console.log(lista);
+            $.each(lista, function(ind, elem) {
+                $.each(elem, function(ind, elem2) {
+                    grupo = elem[ind].idGrupoProducto;
+                    comprobante = elem[ind].comprobante;
+                    tipo = elem[ind].idTipo;
+                    descripcion = elem[ind].descripcion;
+                    imagenes = elem[ind].ruta;
+                    idImagen = elem[ind].idImagen;
+                    novedades = elem[ind].ponerNovedades;
+                    recomendado = elem[ind].ponerRecomendado;
+                    producto = elem[ind].nombre;
+                    nombreGrupos = elem[ind].grupo;
+                    if (imagenes !== undefined) {
+                        var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 100px; height: 88px;'/><div class='caption'><center><button type='button' class='btn btn-default btn-block' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
+                        $("#imagen" + cont).append(imagen);
+                        $("#contenedor" + cont).show('slow');
+                        cont++;
+                        $("#mostrarImagenes").show("slow");
+                    }
+                    calculando = 6 - cont;
+                    $("#textoValor").text("Maximo " + calculando + " imagenes");
                 });
-//                grupo = x;
-                if (grupo !== "" && grupo !== undefined) {
-                    $("#mostrando").show();
-                    $("#clascodigoproducto").prop("disabled", true);
-                    $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
-                        $("#selectTipo").selectpicker();
-                        $("#selectTipo").selectpicker('refresh');
-                        $("#selectTipo").selectpicker('show');
-                        if (comprobante == "1") {
-                            $("#grupo").val(nombreGrupos);
-                            $("#producto").val(producto);
-                            $("#descripcion").val(descripcion);
-                            $("#selectTipo").selectpicker("val", tipo);
-                            $("#editarImagenes").show('slow');
-                            $("#subirImagenes").hide('slow');
-                            if (recomendado == '1') {
-                                $("#recomendado").prop("checked", true);
-                            }
-                            if (novedades == '1') {
-                                $("#Novedades").prop("checked", true);
-                            }
-
-                        }
-                        else {
-                        }
-
-
-                    });
-                } else {
-                    alertify.error("No existe este producto");
-                }
-
             });
-        }
-    });
-
-    $("#btnGuardarTipo").click(function() {
-        info = "nombreTipo=" + $("#txtnombreTipo").val().toUpperCase() + "&idGrupo=" + grupo;
-        $.get("guardarTipo.php", info, function(x) {
-            if (x == 999) {
-                alertify.error("Ya existe un tipo con ese nombre");
-            } else {
+            if (grupo !== "" && grupo !== undefined) {
+                $("#mostrando").show();
+                $("#clascodigoproducto").prop("disabled", true);
                 $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
                     $("#selectTipo").selectpicker();
                     $("#selectTipo").selectpicker('refresh');
                     $("#selectTipo").selectpicker('show');
+                    if (comprobante == "1") {
+                        $("#grupo").val(nombreGrupos);
+                        $("#producto").val(producto);
+                        $("#descripcion").val(descripcion);
+                        $("#selectTipo").selectpicker("val", tipo);
+                        $("#editarImagenes").show('slow');
+                        $("#subirImagenes").hide('slow');
+                        if (recomendado == '1') {
+                            $("#recomendado").prop("checked", true);
+                        }
+                        if (novedades == '1') {
+                            $("#Novedades").prop("checked", true);
+                        }
+                    }
+                    else {
+                    }
                 });
-                alertify.success("Tipo guardado");
+            } else {
+                alertify.error("No existe este producto");
             }
-
         });
+    }
+});
+
+$("#btnGuardarTipo").click(function() {
+    info = "nombreTipo=" + $("#txtnombreTipo").val().toUpperCase() + "&idGrupo=" + grupo;
+    $.get("guardarTipo.php", info, function(x) {
+        if (x == 999) {
+            alertify.error("Ya existe un tipo con ese nombre");
+        } else {
+            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+                $("#selectTipo").selectpicker();
+                $("#selectTipo").selectpicker('refresh');
+                $("#selectTipo").selectpicker('show');
+            });
+            alertify.success("Tipo guardado");
+        }
     });
-    $("#subirImagenes").click(function() {
-        if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "" && $("#files").val() !== "") {
+});
+
+$("#subirImagenes").click(function() {
+    if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "" && $("#files").val() !== "") {
 //       alert(archivos);
-            var data = new FormData();
+        var data = new FormData();
 //        alert(archivos.length);
-            for (i = 0; i < archivos.length; i++) {
-                data.append('archivo' + i, archivos[i]);
+        for (i = 0; i < archivos.length; i++) {
+            data.append('archivo' + i, archivos[i]);
 //                alert(archivos[i]);
+        }
+        var nov = $("#Novedades").is(":checked");
+        var reco = $("#recomendado").is(":checked");
+//            alert("nov="+ nov);
+//                alert("reco="+ reco);
+        if (reco === true) {
+            recomendados = 1;
+        } else {
+            recomendados = 1;
+        }
+        if (nov === true) {
+            novedades = 1;
+        } else {
+            novedades = 0;
+        }
+        var valida_tipo = $("#selectTipo").val();
+        if (valida_tipo == 0) {
+            alertify.error("No seleccionaste un tipo para el clasificado");
+            return false;
+        }
+        data.append('descripcion', probando = $("#descripcion").val());
+        data.append('codigoProducto', probando = $("#clascodigoproducto").val());
+//        data.append('grupo', probando = $("#selectGrupo").val());
+        data.append('tipo', probando = $("#selectTipo").val());
+        data.append('novedades', novedades);
+        data.append('recomendado', recomendados);
+        data.append('faltantes', calculando);
+//            alert(data);
+        $.ajax({
+            url: 'guardandoImagenes.php', //Url a donde la enviaremos
+            type: 'POST', //Metodo que usaremos
+            contentType: false, //Debe estar en false para que pase el objeto sin procesar
+            data: data, //Le pasamos el objeto que creamos con los archivos
+            processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+            cache: false //Para que el formulario no guarde cache
+        }).done(function(msg) {
+//                $("#xmlenrada").slideUp();
+//                $("#validacionentradas").slideDown();
+//                $("#cargaxml").slideDown();
+            alertify.success("Se guardaron lo datos correctamente");
+            limpiarCampos();
+        });
+    } else {
+        alertify.error("Debes llenar los campos obligatorios");
+    }
+});
+
+$("#editarImagenes").click(function() {
+    if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "") {
+        if (calculando < 5 || $("#files").val() !== "") {
+            var data = new FormData();
+            var listaImagenes = "";
+            if (archivos !== undefined) {
+                for (i = 0; i < archivos.length; i++) {
+                    data.append('archivo' + i, archivos[i]);
+                }
             }
             var nov = $("#Novedades").is(":checked");
             var reco = $("#recomendado").is(":checked");
-//            alert("nov="+ nov);
-//                alert("reco="+ reco);
             if (reco === true) {
                 recomendados = 1;
             } else {
-                recomendados = 1;
+                recomendados = 0;
             }
             if (nov === true) {
                 novedades = 1;
             } else {
                 novedades = 0;
             }
-            
-            var valida_tipo = $("#selectTipo").val();
-            if(valida_tipo == 0){
-              alertify.error("No seleccionaste un tipo para el clasificado");  
-              return false;
-            }
-            
+            listaImagenes = JSON.stringify(imagenes);
             data.append('descripcion', probando = $("#descripcion").val());
             data.append('codigoProducto', probando = $("#clascodigoproducto").val());
 //        data.append('grupo', probando = $("#selectGrupo").val());
             data.append('tipo', probando = $("#selectTipo").val());
             data.append('novedades', novedades);
             data.append('recomendado', recomendados);
-            data.append('faltantes', calculando)
-//            alert(data);
+            data.append('imagenesBorradas', listaImagenes);
             $.ajax({
-                url: 'guardandoImagenes.php', //Url a donde la enviaremos
+                url: 'editandoImagenes.php', //Url a donde la enviaremos
                 type: 'POST', //Metodo que usaremos
                 contentType: false, //Debe estar en false para que pase el objeto sin procesar
                 data: data, //Le pasamos el objeto que creamos con los archivos
@@ -309,88 +313,18 @@ $(document).ready(function() {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
-                alertify.success("Se guardaron lo datos correctamente");
+                alertify.success("Se editaron lo datos correctamente");
                 limpiarCampos();
             });
         } else {
-            alertify.error("Debes llenar los campos obligatorios");
+            alertify.error("Debes Haber almenos una imagen para mostrar");
         }
-
-
-
-    });
-
-    $("#editarImagenes").click(function() {
-        if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "") {
-            if (calculando < 5 || $("#files").val() !== "") {
-                //       alert(archivos);
-                var data = new FormData();
-                var listaImagenes = "";
-                if (archivos !== undefined) {
-                    for (i = 0; i < archivos.length; i++) {
-                        data.append('archivo' + i, archivos[i]);
-//                alert(archivos[i]);
-                    }
-
-                }
-
-
-
-                var nov = $("#Novedades").is(":checked");
-                var reco = $("#recomendado").is(":checked");
-//                alert("nov="+ nov);
-//                alert("reco="+ reco);
-                if (reco === true) {
-                    recomendados = 1;
-                } else {
-                    recomendados = 0;
-                }
-                if (nov === true) {
-                    novedades = 1;
-                } else {
-                    novedades = 0;
-                }
-//                alert("entro" + calculando);
-
-                listaImagenes = JSON.stringify(imagenes);
-                data.append('descripcion', probando = $("#descripcion").val());
-                data.append('codigoProducto', probando = $("#clascodigoproducto").val());
-//        data.append('grupo', probando = $("#selectGrupo").val());
-                data.append('tipo', probando = $("#selectTipo").val());
-                data.append('novedades', novedades);
-                data.append('recomendado', recomendados);
-                data.append('imagenesBorradas', listaImagenes);
-//            alert(data);
-                $.ajax({
-                    url: 'editandoImagenes.php', //Url a donde la enviaremos
-                    type: 'POST', //Metodo que usaremos
-                    contentType: false, //Debe estar en false para que pase el objeto sin procesar
-                    data: data, //Le pasamos el objeto que creamos con los archivos
-                    processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
-                    cache: false //Para que el formulario no guarde cache
-                }).done(function(msg) {
-//                $("#xmlenrada").slideUp();
-//                $("#validacionentradas").slideDown();
-//                $("#cargaxml").slideDown();
-                    alertify.success("Se editaron lo datos correctamente");
-                    limpiarCampos();
-                });
-            } else {
-                alertify.error("Debes Haber almenos una imagen para mostrar");
-            }
-
-        } else {
-            alertify.error("Debes llenar los campos obligatorios");
-        }
-
-
-
-    });
-    $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
-        $('#dtclasificados').dataTable();
-    });
+    } else {
+        alertify.error("Debes llenar los campos obligatorios");
+    }
 });
 
+//=========================== Subir imagenes al slider =========================
 function comprueba_extension_imgslider(formulario, archivo) {
     extensiones_permitidas = new Array(".gif", ".jpg", ".png");
     mierror = "";
@@ -451,10 +385,7 @@ function comprueba_extension_imgslider(formulario, archivo) {
     return 0;
 }
 
-$(document).ready(function() {
-    $("#enslider").load("mostrarImgSlider.php", function() {
-    });
-});
+
 
 function borrarSlider(idImgslider, idSucursal, ruta) {
     alertify.confirm("¿Estas completamente seguro eliminar la imagen seleccionada?, Esta acción no puede deshacerse. ", function(e) {
