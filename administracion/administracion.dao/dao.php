@@ -4267,7 +4267,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         $cn->cerrarBd();
         return $id_prod;
-        
     }
 
 }

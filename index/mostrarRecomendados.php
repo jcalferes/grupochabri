@@ -14,14 +14,14 @@ $data = $dao->mostarRecomendados();
 if ($data == false) {
     echo "";
 } else {
-    echo "<div class='row selected-classifieds'>";
+//    echo "<div class='row selected-classifieds'>";
     while ($rs = mysql_fetch_array($data)) {
         if ($conta < $max) {
             echo "<div class='col-lg-3'>";
             echo "<div class='thumbnail'>";
             echo "<img src='../subidas/$rs[ruta]' />";
-            echo "<div class='caption'>";
-            echo "<p><small><a href='#'>$rs[producto]</a></small><p>";
+            echo "<div class='caption' style='height:100px'>";
+            echo "<p><span style='font-size:75%'><a href='#'>$rs[producto]</a></span><p>";
             echo "</div>";
             echo "</div>";
             echo "</div>";
@@ -30,6 +30,6 @@ if ($data == false) {
             break;
         }
     }
-    echo "</div>";
+//    echo "</div>";
 }
 $cn->cerrarBd();

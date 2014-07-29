@@ -23,8 +23,8 @@ if ($data == false) {
             echo "<img class='media-object' style='width: 64px; height: 64px;' src='../subidas/$rs[ruta]'/>";
             echo "</a>";
             echo "<div class='media-body'>";
-            echo "<p><a href='#'><strong>$rs[producto]</strong></a></p>";
-            echo "<p>$rs[descripcion]</p>";
+            echo "<p><a href='#'><label style='font-size:75%'>$rs[producto]</label></a></p>";
+//            echo "<p>$rs[descripcion]</p>";
             echo "</div>";
             echo "</div>";
             $conta++;

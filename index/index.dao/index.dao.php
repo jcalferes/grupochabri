@@ -75,7 +75,8 @@ class dao {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
                 . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
-                . "WHERE ponerNovedades = '1'";
+                . "WHERE ponerNovedades = '1' "
+                . "ORDER BY RAND()";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
             $ctrl = mysql_error();
@@ -89,7 +90,8 @@ class dao {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
                 . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
-                . "WHERE ponerRecomendado = '1'";
+                . "WHERE ponerRecomendado = '1' "
+                . "ORDER BY RAND()";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
             $ctrl = mysql_error();
