@@ -13,3 +13,7 @@ function mostarSubgrupos() {
     $("#mostrarsubcategorias").load("mostrarSubcategorias.php?" + info, function() {
     });
 }
+
+function cargaSubs(){
+    alert("Hola");
+}

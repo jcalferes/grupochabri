@@ -245,7 +245,7 @@ $(document).ready(function() {
     });
 
     $("#btnGuardarTipo").click(function() {
-        info = "nombreTipo=" + $("#txtnombreTipo").val() + "&idGrupo=" + grupo;
+        info = "nombreTipo=" + $("#txtnombreTipo").val().toUpperCase() + "&idGrupo=" + grupo;
         $.get("guardarTipo.php", info, function(x) {
             if (x == 999) {
                 alertify.error("Ya existe un tipo con ese nombre");
@@ -283,6 +283,13 @@ $(document).ready(function() {
             } else {
                 novedades = 0;
             }
+            
+            var valida_tipo = $("#selectTipo").val();
+            if(valida_tipo == 0){
+              alertify.error("No seleccionaste un tipo para el clasificado");  
+              return false;
+            }
+            
             data.append('descripcion', probando = $("#descripcion").val());
             data.append('codigoProducto', probando = $("#clascodigoproducto").val());
 //        data.append('grupo', probando = $("#selectGrupo").val());
