@@ -18,8 +18,8 @@
     <body>
         <div class="container wrapper">   
             <!-- Logo -->
-            <div class="logo">
-                <a href="index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
+            <div class="logo" >
+                <a href="index.php" ><img class="img-responsive" style="border-radius: 5px" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -75,7 +75,7 @@
                     <div id="mostrarnovedades"></div>
                 </div>
                 <div class="col-lg-9 content-right">
-                    <h4>Slider</h4>
+                    <!--<h4>Slider</h4>-->
                     <div id="mostrarslide"></div>
                     <h4>Recomendado</h4>
                     <div id="mostrarrecomendados"></div>

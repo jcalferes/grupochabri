@@ -19,7 +19,7 @@
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="../index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
+                <a href="../index.php"><img class="img-responsive" style="border-radius: 5px" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
