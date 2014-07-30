@@ -19,11 +19,11 @@
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="../index.php"><img class="img-responsive" style="border-radius: 5px" src="index.img/czsale_logo2.png"></a>
+                <a href="../index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
-            <nav class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px 0px 5px 5px; border: 3px solid #e7481c;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#czsale-navbar">
                         <span class="sr-only">Toggle navigation</span>

@@ -1,12 +1,15 @@
 $(document).ready(function() {
+    var id = $("#buzon_id").val();
+    var nm = $("#buzon_nm").val();
     $("#mostrarnovedades").load("mostrarNovedades.php", function() {
     });
     $("#mostrarcategorias").load("mostrarCategorias.php", function() {
     });
-    mostarSubgrupos();
+    mostrarSubgrupos();
+    mostrarCachibaches(id, nm);
 });
 
-function mostarSubgrupos() {
+function mostrarSubgrupos() {
     var id = $("#buzon_id").val();
     var nm = $("#buzon_nm").val();
     var info = "id=" + id + "&nm=" + nm;
@@ -14,6 +17,21 @@ function mostarSubgrupos() {
     });
 }
 
-function cargaSubs(){
-    alert("Hola");
+function mostrarCachibaches(id, nm) {
+    var info = "id=" + id + "&nm=" + nm;
+    $("#cachibaches").load("mostrarCachibaches.php?" + info, function() {
+    });
+}
+
+function showDiv(i) {
+    var pag = i - 1;
+    $('#tbCachibaches').find(".cachibaches").each(function() {
+        var elemento = this;
+        elemento.style.display = "none";
+    });
+
+    $('#tbCachibaches').find(".pag" + pag).each(function() {
+        var elemento = this;
+        elemento.style.display = "";
+    });
 }

@@ -114,4 +114,27 @@ class dao {
         }
     }
 
+    function mostarCachibaches($id, $nm) {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
+                . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
+                . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
+                . "WHERE t.idGrupoProducto = '$id'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row > 0) {
+                $data[0] = $row;
+                $data[1] = $ctrl;
+                return $data;
+            } else {
+                return false;
+            }
+        }
+    }
+
 }
