@@ -86,7 +86,8 @@ $(document).ready(function() {
                 $('#btnRechazar').attr("disabled", true);
                 $("#mdlNotacreditoInformacion").modal('hide');
                 $("#txtCantidad").val("");
-            });  alert(cambio);
+            });
+            alert(cambio);
         }
 
     });
@@ -118,6 +119,8 @@ $("#btnRechazar").click(function() {
             $.get('rechazarOrdenCompra.php', informacion, function(respuesta) {
                 limpiarOrdenesCompra();
                 alertify.success(respuesta);
+                $('#btnRechazar').attr("disabled", true);
+                $('#btnCobrar').attr("disabled", true);
             });
         }
     });

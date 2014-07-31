@@ -3189,10 +3189,26 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $nuevoFolio = $folio + 1;
         $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
         $subtotal = $encabezado[0]->subTotalComprobante;
+        $nombre = $encabezado[0]->nombreCliente;
+        if ($nombre == "1") {
+            $sqlDameNombreCliente = "SELECT nombre FROM clientes where rfc ='" . $encabezado[0]->rfcComprobante . "'";
+            $datosClientes = mysql_query($sqlDameNombreCliente);
+            if ($datosClientes == false) {
+                $error = mysql_error();
+                return false;
+            }
+            else{
+                $nombreCliente = "";
+                while($rsNombreCliente = mysql_fetch_array($datosClientes)){
+                    $nombre= $rsNombreCliente["nombre"];
+                }
+            }
+        } 
+       
         $idXmlComprobante = 0;
-        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago)"
+        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago, nombreCliente)"
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
-                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "')";
+                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '".$nombre."')";
         $datos = mysql_query($sqlComprobanteGuardar);
         if ($datos == false) {
             $error = mysql_error();
@@ -4243,10 +4259,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
-        $sqlEliminarExistenciasTemporales ="DELETE FROM existenciastemporales WHERE folioPedido = '".$idFolioOrdenCompra."' and idSucursal ='".$idSucursal."'";
+        $sqlEliminarExistenciasTemporales = "DELETE FROM existenciastemporales WHERE folioPedido = '" . $idFolioOrdenCompra . "' and idSucursal ='" . $idSucursal . "'";
         $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
         $rs2 = mysql_query($sqlEliminarExistenciasTemporales, $cn->Conectarse());
-        if($rs2 == false){
+        if ($rs2 == false) {
             $rs = $rs2;
         }
         return $rs;

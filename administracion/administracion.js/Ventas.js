@@ -11,7 +11,6 @@ $("#codigoProductoEntradas").keypress(function(e) {
 function buscar() {
     var codi = $("#codigoProductoEntradas").val();
     codigoN = codi;
-
 //    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
@@ -40,9 +39,6 @@ function validarCredito() {
     }
     return paso;
 }
-
-
-
 
 
 function cargarProductosCarrito() {
@@ -361,6 +357,12 @@ function guardarDatosEncabezado() {
     encabezadoVentas.descuentoPorProductoComprobantes = "";
     encabezadoVentas.totalComprobante = $("#totalVenta").val();
     encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+    var nombre = $("#txtNombreCliente").val();
+    if (nombre == undefined) {
+        nombre = "1";
+    }
+
+    encabezadoVentas.nombreCliente = nombre;
     arrayEncabezadoVenta.push(encabezadoVentas);
 }
 
@@ -500,14 +502,15 @@ $(document).ready(function() {
         }
         if (paso == true) {
             if ($("#cmbOrdenCompra").val() == 0 || $("#cmbClientes").val() == 0) {
-                guardarDatosDetalle();
-                guardarDatosEncabezado();
-                inf.push(arrayEncabezadoVenta);
-                var informacion = JSON.stringify(inf);
                 if ($("#cmbClientes").val() == 0 && $("#txtNombreCliente").val() == "") {
                     alertify.error("Es requerido el nobre del cliente");
                 }
                 else {
+                    guardarDatosDetalle();
+                    guardarDatosEncabezado();
+                    inf.push(arrayEncabezadoVenta);
+                    var informacion = JSON.stringify(inf);
+
                     $.ajax({
                         type: "POST",
                         url: "guardarVenta.php",

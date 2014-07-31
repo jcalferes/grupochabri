@@ -1,10 +1,11 @@
 <?php
+
 session_start();
 include '../daoconexion/daoConeccion.php';
 include './administracion.dao/dao.php';
 include './administracion.clases/Encabezado.php';
 $en = new Encabezado();
-$error ="";
+$error = "";
 $idSucursal = $_SESSION["sucursalSesion"];
 $usuario = $_SESSION["usuarioSesion"];
 $dao = new dao();
