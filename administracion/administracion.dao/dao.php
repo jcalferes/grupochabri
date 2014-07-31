@@ -952,7 +952,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $cn = new coneccion();
         $cn->Conectarse();
 
-        $sqlvalidar = "SELECT * FROM tiposproducto WHERE TiposProducto = '" . $g->getGrupoProducto() . "' ";
+        $sqlvalidar = "SELECT * FROM tiposproducto WHERE TiposProducto = '" . $g->getGrupoProducto() . "' AND idGrupoProducto = '" . $g->getIdGrupoProducto() . "'";
         $ctrlvalidar = mysql_query($sqlvalidar);
         $rowsvalidar = mysql_affected_rows();
         if ($ctrlvalidar == false) {
@@ -1312,7 +1312,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultaProducto($idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto, e.idSucursal \n"
+        $sql = "SELECT p.producto, m.marca, pr.nombre, c.costo, p.codigoProducto, p.codigoBarrasProducto, p.idProducto,c.fechaMovimiento, e.cantidad, p.cantidadMinima, p.cantidadMaxima, p.idMarca, p.idProveedor, p.idGrupoProducto, g.grupoProducto, e.idSucursal \n"
                 . "FROM productos p\n"
                 . "INNER JOIN marcas m ON p.idMarca = m.idMarca\n"
                 . "INNER JOIN proveedores pr ON pr.idProveedor = p.idProveedor\n"
@@ -3057,7 +3057,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultarDatosAbonos($folio, $sucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xc "
                 . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
-                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8'";
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = 1;
@@ -3147,7 +3147,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
                 . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
                 . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
-                . "WHERE x.statusOrden = '8' AND a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
+                . "WHERE a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = mysql_error();
@@ -4281,6 +4281,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "and importe > 0";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
+    }
+
+    function obtenerIdParaNombrarImagen($codigo) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $query = "SELECT * FROM productos WHERE codigoProducto = '$codigo'";
+        $ctrl = mysql_query($query, $cn->Conectarse());
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row > 0) {
+                while ($rs = mysql_fetch_array($ctrl)) {
+                    $id_prod = $rs[idProducto];
+                }
+            } else {
+                return false;
+            }
+        }
+        $cn->cerrarBd();
+        return $id_prod;
     }
 
 }

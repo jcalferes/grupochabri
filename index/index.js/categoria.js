@@ -1,30 +1,12 @@
 $(document).ready(function() {
-    $('.dropdown-toggle').dropdown();
-    $('.dropdown-menu').find('form').click(function(e) {
-        e.stopPropagation();
-    });
-    $("#mostrarslide").load("mostrarSlide.php", function() {
-        $("#slides").slidesjs({
-            width: 900,
-            height: 300,
-            navigation: false,
-            play: {
-                active: false,
-                effect: "slide",
-                interval: 4000,
-                auto: true,
-                swap: false,
-                pauseOnHover: true,
-                restartDelay: 2500
-            }
-        });
+    var id = $("#buzon_id").val();
+    var nm = $("#buzon_nm").val();
+    $("#mostrarnovedades").load("mostrarNovedades.php", function() {
     });
     $("#mostrarcategorias").load("mostrarCategorias.php", function() {
     });
-    $("#mostrarnovedades").load("mostrarNovedades.php", function() {
-    });
-    $("#mostrarrecomendados").load("mostrarRecomendados.php", function() {
-    });
+    mostrarSubgrupos();
+    mostrarCachibaches(id, nm);
 });
 
 $("#loginbtn").click(function() {
@@ -81,3 +63,37 @@ $("#loginbtn").click(function() {
         });
     }
 });
+
+function mostrarSubgrupos() {
+    var id = $("#buzon_id").val();
+    var nm = $("#buzon_nm").val();
+    var info = "id=" + id + "&nm=" + nm;
+    $("#mostrarsubcategorias").load("mostrarSubcategorias.php?" + info, function() {
+    });
+}
+
+function mostrarCachibaches(id, nm) {
+    var info = "id=" + id + "&nm=" + nm;
+    $("#cachibaches").load("mostrarCachibaches.php?" + info, function() {
+    });
+}
+
+function filtraCachibaches(idtipo) {
+    var info = "idtipo=" + idtipo;
+    $("#cachibaches").load("filtrarCachibaches.php?" + info, function() {
+    });
+}
+
+
+function mostrarPagina(i) {
+    var pag = i - 1;
+    $('#tbCachibaches').find(".cachibaches").each(function() {
+        var elemento = this;
+        elemento.style.display = "none";
+    });
+
+    $('#tbCachibaches').find(".pag" + pag).each(function() {
+        var elemento = this;
+        elemento.style.display = "";
+    });
+}

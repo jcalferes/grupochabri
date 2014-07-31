@@ -16,7 +16,7 @@ $data = $dao->mostrarSlide();
     if ($data != false) {
         while ($rs = mysql_fetch_array($data)) {
             $ruta = $rs['ruta'];
-            $nruta = str_replace("../", "", $ruta);
+            $nruta = str_replace("", "", $ruta);
             echo "<img src='$nruta' class='slidesjs-slide' slidesjs-index='0' style='position: absolute; top: 0px; width: 100%; -webkit-backface-visibility: hidden; display: block; z-index: 10; left: 0px;'/>";
         }
     }

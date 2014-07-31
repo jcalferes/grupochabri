@@ -71,4 +71,128 @@ class dao {
         }
     }
 
+    function mostarNovedades() {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
+                . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
+                . "WHERE ponerNovedades = '1' "
+                . "ORDER BY RAND()";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+
+    function mostarRecomendados() {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
+                . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
+                . "WHERE ponerRecomendado = '1' "
+                . "ORDER BY RAND()";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+
+    function mostarSubcategorias($idgrupo) {
+        $query = "SELECT * FROM tiposproducto t "
+                . "INNER JOIN grupoproductos g ON t.idGrupoProducto = g.idGrupoProducto "
+                . "WHERE t.idGrupoProducto = '$idgrupo'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+
+    function mostarCachibaches($id, $nm) {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
+                . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
+                . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
+                . "WHERE t.idGrupoProducto = '$id'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row > 0) {
+                $data[0] = $row;
+                $data[1] = $ctrl;
+                return $data;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function filtrarCachibaches($idtipo) {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
+                . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
+                . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
+                . "WHERE t.idTiposProducto = '$idtipo'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row > 0) {
+                $data[0] = $row;
+                $data[1] = $ctrl;
+                return $data;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function mostrarDetalles($codigo) {
+        $query = "SELECT * FROM clasificados c "
+                . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
+                . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
+                . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
+                . "INNER JOIN marcas m ON m.idMarca = p.idMarca "
+                . "WHERE c.codigoProducto = '$codigo'";
+        $query2 = "SELECT * FROM imagenes WHERE codigoProducto = '$codigo'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            if ($row > 0) {
+                $data[0] = $ctrl;
+                $ctrl2 = mysql_query($query2);
+                $row2 = mysql_affected_rows();
+                if ($ctrl2 == false) {
+                    $ctrl2 = mysql_error();
+                    return false;
+                } else {
+                    if ($row2 > 0) {
+                        $data[1] = $ctrl2;
+                        return $data;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+
 }

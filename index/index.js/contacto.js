@@ -1,32 +1,3 @@
-$(document).ready(function() {
-    $('.dropdown-toggle').dropdown();
-    $('.dropdown-menu').find('form').click(function(e) {
-        e.stopPropagation();
-    });
-    $("#mostrarslide").load("mostrarSlide.php", function() {
-        $("#slides").slidesjs({
-            width: 900,
-            height: 300,
-            navigation: false,
-            play: {
-                active: false,
-                effect: "slide",
-                interval: 4000,
-                auto: true,
-                swap: false,
-                pauseOnHover: true,
-                restartDelay: 2500
-            }
-        });
-    });
-    $("#mostrarcategorias").load("mostrarCategorias.php", function() {
-    });
-    $("#mostrarnovedades").load("mostrarNovedades.php", function() {
-    });
-    $("#mostrarrecomendados").load("mostrarRecomendados.php", function() {
-    });
-});
-
 $("#loginbtn").click(function() {
     var usuario = $.trim($("#loginuser").val());
     var pass = $.trim($("#loginpass").val());

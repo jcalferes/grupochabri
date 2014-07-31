@@ -7,19 +7,19 @@
         <meta name="keywords" content="...">
         <meta name="author" content="...">
         <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-        <link href="../index.css/czsale.css" rel="stylesheet" media="screen">
-        <link href="../index.css/czsale-responsive.css" rel="stylesheet" media="screen">
-        <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
-        <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap-theme.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale.css" rel="stylesheet" media="screen">
+        <link href="index.css/czsale-responsive.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.core.css" rel="stylesheet" media="screen">
+        <link href="../alertify/themes/alertify.default.css" rel="stylesheet" media="screen">
         <link href="index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
-        <title>Grupo Chabri - Ayuda</title>
+        <title>Grupo Chabri</title>
     </head>
     <body>
         <div class="container wrapper">   
             <!-- Logo -->
-            <div class="logo">
-                <a href="index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
+            <div class="logo" >
+                <a href="index.php" ><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -68,39 +68,17 @@
             <!-- /Static navbar --> 
             <!-- Content -->
             <div class="row content">
-                <div class="col-lg-12">
-                    <h2>Contacto</h2>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <iframe src="https://mapsengine.google.com/map/embed?mid=z4AJqEOxN-SI.kBKF4Z8vFTnc" style="border: none; width: 100%; height: 400px;"></iframe>
-                        </div>
-                        <!--                        <div class="col-md-4">
-                                                    <div class="well well-sm">
-                                                        <address>
-                                                            <strong>Twitter, Inc.</strong><br />
-                                                            795 Folsom Ave, Suite 600<br />
-                                                            San Francisco, CA 94107<br />
-                                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                                        </address>
-                                                        <address>
-                                                            <strong>Full Name</strong><br />
-                                                            <a href="mailto:#">first.last@example.com</a>
-                                                        </address>
-                                                    </div>
-                                                    <div class="well well-sm">
-                                                        <address>
-                                                            <strong>Twitter, Inc.</strong><br />
-                                                            795 Folsom Ave, Suite 600<br />
-                                                            San Francisco, CA 94107<br />
-                                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                                        </address>
-                                                        <address>
-                                                            <strong>Full Name</strong><br />
-                                                            <a href="mailto:#">first.last@example.com</a>
-                                                        </address>
-                                                    </div>
-                                                </div>-->
-                    </div>
+                <div class="col-lg-3 content-left">
+                    <h4>Categorias</h4>
+                    <div id="mostrarcategorias"></div>
+                    <h4>Novedades</h4>
+                    <div id="mostrarnovedades"></div>
+                </div>
+                <div class="col-lg-9 content-right">
+                    <!--<h4>Slider</h4>-->
+                    <div id="mostrarslide"></div>
+                    <h4>Recomendado</h4>
+                    <div id="mostrarrecomendados"></div>
                 </div>
             </div>
             <!-- /Content -->
@@ -116,12 +94,27 @@
         <script src="index.js/respond.min.js"></script>
         <script src="index.js/jquery.slides.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
-        <script src="index.js/contacto.js"></script>
+        <script src="index.js/index.js"></script>
         <script>
             $(document).ready(function() {
                 // Drop down menu handler
                 $('.dropdown-menu').find('form').click(function(e) {
                     e.stopPropagation();
+                });
+                // Slider
+                $("#slides").slidesjs({
+                    width: 900,
+                    height: 300,
+                    navigation: false,
+                    play: {
+                        active: false,
+                        effect: "slide",
+                        interval: 4000,
+                        auto: true,
+                        swap: false,
+                        pauseOnHover: true,
+                        restartDelay: 2500
+                    }
                 });
             });
         </script>
