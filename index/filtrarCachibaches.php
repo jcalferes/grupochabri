@@ -6,8 +6,7 @@ include_once '../daoconexion/daoConeccion.php';
 $dao = new dao();
 $cn = new coneccion();
 
-$id = $_GET["id"];
-$nm = $_GET["nm"];
+$id = $_GET["idtipo"];
 
 $contador = 0;
 $pagina = 0;
@@ -15,7 +14,7 @@ $bandera = true;
 $limite = 0;
 
 $cn->Conectarse();
-$data = $dao->mostarCachibaches($id, $nm);
+$data = $dao->filtrarCachibaches($id);
 if ($data != false) {
     $row = $data[0];
     $datos = $data[1];
@@ -29,6 +28,7 @@ if ($data != false) {
     echo"</thead>";
     echo "<tbody>";
     while ($rs = mysql_fetch_array($datos)) {
+
         if ($pagina < 1) {
             echo "<tr  class='cachibaches pag$pagina'>";
         } else {

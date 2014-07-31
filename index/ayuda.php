@@ -23,7 +23,7 @@
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
-            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px 0px 5px 5px; border: 3px solid #e7481c;">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px 0px 5px 5px; border: 1px solid #e7481c;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#czsale-navbar">
                         <span class="sr-only">Toggle navigation</span>

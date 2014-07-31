@@ -23,7 +23,7 @@ if ($data == false) {
             echo "<img class='media-object' style='width: 60px; height: 50px;' src='../subidas/$rs[ruta]'/>";
             echo "</a>";
             echo "<div class='media-body'>";
-            echo "<p><a href='#'><label style='font-size:75%'>$rs[producto]</label></a></p>";
+            echo "<p><a href='detalles.php?code_prod=$rs[codigoProducto]'><label style='font-size:75%'>$rs[producto]</label></a></p>";
 //            echo "<p>$rs[descripcion]</p>";
             echo "</div>";
             echo "</div>";

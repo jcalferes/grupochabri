@@ -23,7 +23,14 @@ function mostrarCachibaches(id, nm) {
     });
 }
 
-function showDiv(i) {
+function filtraCachibaches(idtipo) {
+    var info = "idtipo=" + idtipo;
+    $("#cachibaches").load("filtrarCachibaches.php?" + info, function() {
+    });
+}
+
+
+function mostrarPagina(i) {
     var pag = i - 1;
     $('#tbCachibaches').find(".cachibaches").each(function() {
         var elemento = this;

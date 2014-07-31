@@ -21,7 +21,7 @@ if ($data == false) {
             echo "<div class='thumbnail'>";
             echo "<img src='../subidas/$rs[ruta]' />";
             echo "<div class='caption' style='height:100px'>";
-            echo "<p><span style='font-size:75%'><a href='#'>$rs[producto]</a></span><p>";
+            echo "<p><span style='font-size:75%'><a href='detalles.php?code_prod=$rs[codigoProducto]'>$rs[producto]</a></span><p>";
             echo "</div>";
             echo "</div>";
             echo "</div>";

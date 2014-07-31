@@ -21,7 +21,7 @@ if ($data == false) {
         if ($rs["idGrupoProducto"] == $id) {
             echo " <div class='list-subgroups'>";
             while ($rx = mysql_fetch_array($data2)) {
-                echo "<a href='' onclick='cargaCachibaches()' class='list-subgroup-item'>$rx[TiposProducto]</a>";
+                echo "<a onclick='filtraCachibaches($rx[idTiposProducto])' class='list-subgroup-item'>$rx[TiposProducto]</a>";
             }
             echo "</div>";
         }

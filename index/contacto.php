@@ -23,7 +23,7 @@
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
-            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px 0px 5px 5px; border: 3px solid #e7481c;">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px 0px 5px 5px; border: 1px solid #e7481c;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#czsale-navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -62,7 +62,7 @@
                         <div class="col-md-8">
                             <iframe src="https://mapsengine.google.com/map/embed?mid=z4AJqEOxN-SI.kBKF4Z8vFTnc" style="border: none; width: 100%; height: 400px;"></iframe>
                         </div>
-                        <div class="col-md-4">
+<!--                        <div class="col-md-4">
                             <div class="well well-sm">
                                 <address>
                                     <strong>Twitter, Inc.</strong><br />
@@ -87,7 +87,7 @@
                                     <a href="mailto:#">first.last@example.com</a>
                                 </address>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
