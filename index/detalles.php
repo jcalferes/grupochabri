@@ -24,7 +24,7 @@ $code_prod = $_GET["code_prod"];
         <div class="container wrapper">   
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
+                <a href="index.php"><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
             </div>
             <!-- /Logo -->  
             <!-- Static navbar -->
@@ -40,20 +40,9 @@ $code_prod = $_GET["code_prod"];
                 <div class="collapse navbar-collapse" id="czsale-navbar">
                     <!--<a href="addClassified.html" class="btn btn-success navbar-btn add-classified-btn navbar-left" role="button">Add classified</a>-->
                     <ul class="nav navbar-nav navbar-right">
-                        <!--                        <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Páginas<b class="caret"></b></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="index.html">Home page</a></li>
-                                                        <li><a href="addClassified.html">Add classified</a></li>
-                                                        <li><a href="category.html">Category page</a></li>
-                                                        <li><a href="detail.html">Classified detail</a></li>
-                                                        <li><a href="conditions.html">Rules & Conditions</a></li>
-                                                        <li><a href="help.html">Help (FAQ)</a></li>
-                                                        <li><a href="contact.html">Contact</a></li>
-                                                        <li><a href="signUp.html">Sign Up</a></li>
-                                                    </ul>
-                                                </li>-->
+                        <li><a href="index.php">Inicio</a></li>
                         <li><a href="ayuda.php">Ayuda</a></li>
+                        <li><a href="contacto.php">Contacto</a></li>
                         <!--<li><a href="">Registrarse</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iniciar sesion <b class="caret"></b></a>
