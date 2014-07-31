@@ -1,12 +1,13 @@
 <?php
 
+session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
 $idFolio = $_GET["idFolio"];
-$rs= $dao->eliminarOrdenCompra($idFolio);
-if ($rs == false){
+$idSucursal = $_SESSION["sucursalSesion"];
+$rs = $dao->eliminarOrdenCompra($idFolio, $idSucursal);
+if ($rs == false) {
     echo mysql_error();
-}
-else{
+} else {
     echo 'Orden de compra eliminado';
 }

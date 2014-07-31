@@ -4239,11 +4239,47 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $call;
     }
 
-    function eliminarOrdenCompra($idFolioOrdenCompra) {
+    function eliminarOrdenCompra($idFolioOrdenCompra, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
+        $sqlEliminarExistenciasTemporales ="DELETE FROM existenciastemporales WHERE folioPedido = '".$idFolioOrdenCompra."' and idSucursal ='".$idSucursal."'";
         $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
+        $rs2 = mysql_query($sqlEliminarExistenciasTemporales, $cn->Conectarse());
+        if($rs2 == false){
+            $rs = $rs2;
+        }
+        return $rs;
+    }
+
+    function dameTotalXmlComprobanteCorteCaja($idSucursal) {
+        $fecha = date("d/m/Y");
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+                . "inner join tipospagos tp "
+                . "on xmlC.idTipoPago = tp.idTipoPago "
+                . "WHERE statusOrden = '7'  "
+                . "and fechaMovimiento = '" . $fecha . "' "
+                . "and tipoComprobante = 'Ventas' "
+                . "and idSucursal = '" . $idSucursal . "' "
+                . "and xmlc.idTipoPago !=2";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameAbonoTotalCorteCaja($idSucursal) {
+        $fecha = date("d/m/Y");
+        $cn = new coneccion();
+        $sql = "SELECT * FROM abonos ab "
+                . "inner join clientes cl "
+                . "on ab.rfcCliente = cl.rfc "
+                . "inner join tipospagos tp "
+                . "on ab.idTipoPago = tp.idTipoPago "
+                . "WHERE idSucursal = '" . $idSucursal . "' "
+                . "and fechaAbono = '" . $fecha . "' "
+                . "and importe > 0";
+        $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
 
