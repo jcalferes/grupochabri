@@ -202,7 +202,7 @@ $("#clascodigoproducto").keypress(function(e) {
 });
 
 $("#btnGuardarTipo").click(function() {
-    info = "nombreTipo=" + $("#txtnombreTipo").val().toUpperCase() + "&idGrupo=" + grupo;
+    info = "nombreTipo=" + $.trim($("#txtnombreTipo").val().toUpperCase()) + "&idGrupo=" + grupo;
     $.get("guardarTipo.php", info, function(x) {
         if (x == 999) {
             alertify.error("Ya existe un tipo con ese nombre");
