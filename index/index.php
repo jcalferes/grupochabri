@@ -6,6 +6,7 @@
         <meta name="description" content="...">
         <meta name="keywords" content="...">
         <meta name="author" content="...">
+        <link rel="icon" href="index.img/gc-favicon.png">
         <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="../bootstrap/css/bootstrap-theme.css" rel="stylesheet" media="screen">
         <link href="index.css/czsale.css" rel="stylesheet" media="screen">
