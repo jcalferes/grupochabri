@@ -3189,10 +3189,26 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $nuevoFolio = $folio + 1;
         $sqlEncabezadoId = "SELECT LAST_INSERT_ID() ID;";
         $subtotal = $encabezado[0]->subTotalComprobante;
+        $nombre = $encabezado[0]->nombreCliente;
+        if ($nombre == "1") {
+            $sqlDameNombreCliente = "SELECT nombre FROM clientes where rfc ='" . $encabezado[0]->rfcComprobante . "'";
+            $datosClientes = mysql_query($sqlDameNombreCliente);
+            if ($datosClientes == false) {
+                $error = mysql_error();
+                return false;
+            }
+            else{
+                $nombreCliente = "";
+                while($rsNombreCliente = mysql_fetch_array($datosClientes)){
+                    $nombre= $rsNombreCliente["nombre"];
+                }
+            }
+        } 
+       
         $idXmlComprobante = 0;
-        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago)"
+        $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago, nombreCliente)"
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
-                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "')";
+                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '".$nombre."')";
         $datos = mysql_query($sqlComprobanteGuardar);
         if ($datos == false) {
             $error = mysql_error();
@@ -4239,11 +4255,47 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $call;
     }
 
-    function eliminarOrdenCompra($idFolioOrdenCompra) {
+    function eliminarOrdenCompra($idFolioOrdenCompra, $idSucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
+        $sqlEliminarExistenciasTemporales = "DELETE FROM existenciastemporales WHERE folioPedido = '" . $idFolioOrdenCompra . "' and idSucursal ='" . $idSucursal . "'";
         $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
+        $rs2 = mysql_query($sqlEliminarExistenciasTemporales, $cn->Conectarse());
+        if ($rs2 == false) {
+            $rs = $rs2;
+        }
+        return $rs;
+    }
+
+    function dameTotalXmlComprobanteCorteCaja($idSucursal) {
+        $fecha = date("d/m/Y");
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+                . "inner join tipospagos tp "
+                . "on xmlC.idTipoPago = tp.idTipoPago "
+                . "WHERE statusOrden = '7'  "
+                . "and fechaMovimiento = '" . $fecha . "' "
+                . "and tipoComprobante = 'Ventas' "
+                . "and idSucursal = '" . $idSucursal . "' "
+                . "and xmlc.idTipoPago !=2";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameAbonoTotalCorteCaja($idSucursal) {
+        $fecha = date("d/m/Y");
+        $cn = new coneccion();
+        $sql = "SELECT * FROM abonos ab "
+                . "inner join clientes cl "
+                . "on ab.rfcCliente = cl.rfc "
+                . "inner join tipospagos tp "
+                . "on ab.idTipoPago = tp.idTipoPago "
+                . "WHERE idSucursal = '" . $idSucursal . "' "
+                . "and fechaAbono = '" . $fecha . "' "
+                . "and importe > 0";
+        $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
 

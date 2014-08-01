@@ -62,6 +62,11 @@ $(document).ready(function() {
                         alertify.success(respuesta);
                         var cambio = datos - total;
                         alert(cambio);
+                        limpiarOrdenesCompra();
+                        $('#btnCobrar').attr("disabled", true);
+                        $('#btnRechazar').attr("disabled", true);
+                        $("#mdlNotacreditoInformacion").modal('hide');
+                        $("#txtCantidad").val("");
                     });
                 }
             }
@@ -76,8 +81,15 @@ $(document).ready(function() {
                 $("#buscabonos").load("consultarDeudoresPV.php", function() {
                     $('#dtdeudores').dataTable();
                 });
+                limpiarOrdenesCompra();
+                $('#btnCobrar').attr("disabled", true);
+                $('#btnRechazar').attr("disabled", true);
+                $("#mdlNotacreditoInformacion").modal('hide');
+                $("#txtCantidad").val("");
             });
+            alert(cambio);
         }
+
     });
 
     $("#btnAbonos").click(function() {
@@ -92,7 +104,6 @@ $(document).ready(function() {
 function cargarInformacion(folio, tipoPago) {
     idTipoPago = tipoPago;
     folioventa = folio;
-//    alert(folio);
     $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
         $("#mdlBusquedaOrdenCompra").modal("hide");
         $("#btnCobrar").removeAttr('disabled');
@@ -108,8 +119,9 @@ $("#btnRechazar").click(function() {
             $.get('rechazarOrdenCompra.php', informacion, function(respuesta) {
                 limpiarOrdenesCompra();
                 alertify.success(respuesta);
+                $('#btnRechazar').attr("disabled", true);
+                $('#btnCobrar').attr("disabled", true);
             });
-
         }
     });
 });
@@ -117,5 +129,3 @@ $("#btnRechazar").click(function() {
 function limpiarOrdenesCompra() {
     $("#informacionPagos").html("<div id='informacionPagos'></div>");
 }
-
-

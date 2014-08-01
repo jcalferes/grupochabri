@@ -41,7 +41,12 @@
                             style="margin-left: 35px; width: 260px; float: left">
                     </select>
                     <div id="ordenesCompra" style="float: left; width: 260px;">
-                        <select  class="form-control" id="cmbOrdenCompra"></select>
+                         <input type="text" 
+                               class="form-control" 
+                               style="float: left; width: 260px"
+                               placeholder="Nombre del Cliente"
+                               id="txtNombreCliente"/>
+                        <!--<select  class="form-control" id="cmbOrdenCompra"></select>-->
                     </div>
                 </div>
                 <br>
@@ -136,7 +141,6 @@
             <!--Seccion de Cobranzas-->
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Cobranzas</h2>
             <section>
-
                 <div>
                     <div style="width: 100%; float: left; margin-left: -10px">
                         <div class="btn-toolbar" role="toolbar" style="float: left">
@@ -158,6 +162,30 @@
                         <br>
                         <br>
                         <div style="width: 100%" id="informacionPagos">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Corte de Caja</h2>
+            <section>
+                <div>
+                    <div class="form-group " style="float: left">
+                        <label for="exampleInputEmail1" style="color: #000">Fecha Inicio :</label>
+                        <input type="date" class="form-control" style="width: 200px"/>
+                    </div>
+                    <div class="form-group " style="float: left; margin-left: 30px">
+                        <label for="exampleInputEmail1" style="color: #000">Fecha Inicio :</label>
+                        <input type="date" class="form-control" style="width: 200px"/>
+                    </div>
+                </div>
+                <hr style="margin-top: 75px">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>INFORMACION DEL DÍA</strong> </div>
+                    <div class="panel-body">
+                        <div id="InformacionDia">
+
                         </div>
                     </div>
                 </div>
@@ -306,7 +334,7 @@
              role="dialog" 
              aria-labelledby="modalOrdenCompra" 
              aria-hidden="true">
-            <div class="modal-dialog" style="width: 300px">
+            <div class="modal-dialog" style="width: 500px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -529,6 +557,7 @@
         <script src="administracion.js/pagos.js"></script>
         <script src="../administracion/administracion.js/abonos.js"></script>
         <script src="../administracion/administracion.js/notascredito.js"></script>
+        <script src="../administracion/administracion.js/corteCaja.js"></script>
     </body>
 </html>
 <!--<input type="text" onkeyup="sumaCantidad(1,2,3);"/>-->

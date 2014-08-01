@@ -11,7 +11,6 @@ $("#codigoProductoEntradas").keypress(function(e) {
 function buscar() {
     var codi = $("#codigoProductoEntradas").val();
     codigoN = codi;
-
 //    validamos que el codigo se encuentre en un array para verificarlo
     var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
@@ -40,9 +39,6 @@ function validarCredito() {
     }
     return paso;
 }
-
-
-
 
 
 function cargarProductosCarrito() {
@@ -361,6 +357,12 @@ function guardarDatosEncabezado() {
     encabezadoVentas.descuentoPorProductoComprobantes = "";
     encabezadoVentas.totalComprobante = $("#totalVenta").val();
     encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+    var nombre = $("#txtNombreCliente").val();
+    if (nombre == undefined) {
+        nombre = "1";
+    }
+
+    encabezadoVentas.nombreCliente = nombre;
     arrayEncabezadoVenta.push(encabezadoVentas);
 }
 
@@ -500,33 +502,39 @@ $(document).ready(function() {
         }
         if (paso == true) {
             if ($("#cmbOrdenCompra").val() == 0 || $("#cmbClientes").val() == 0) {
-                guardarDatosDetalle();
-                guardarDatosEncabezado();
-                inf.push(arrayEncabezadoVenta);
-                var informacion = JSON.stringify(inf);
-                $.ajax({
-                    type: "POST",
-                    url: "guardarVenta.php",
-                    data: {data: informacion},
-                    cache: false,
-                    success: function(informacion) {
-                        if (informacion == 0) {
-                            informacion = "Exito Venta Terminada";
-                            finalizar();
+                if ($("#cmbClientes").val() == 0 && $("#txtNombreCliente").val() == "") {
+                    alertify.error("Es requerido el nobre del cliente");
+                }
+                else {
+                    guardarDatosDetalle();
+                    guardarDatosEncabezado();
+                    inf.push(arrayEncabezadoVenta);
+                    var informacion = JSON.stringify(inf);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "guardarVenta.php",
+                        data: {data: informacion},
+                        cache: false,
+                        success: function(informacion) {
+                            if (informacion == 0) {
+                                informacion = "Exito Venta Terminada";
+                                finalizar();
+                            }
+                            var datos = informacion.split(",");
+                            if (datos[0] == 2) {
+                                $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
+                                alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
+                                inf = new Array();
+                                arrayDetalleVenta.length = 0;
+                                arrayEncabezadoVenta.length = 0;
+                            }
+                            else {
+                                alertify.success(informacion);
+                            }
                         }
-                        var datos = informacion.split(",");
-                        if (datos[0] == 2) {
-                            $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
-                            alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
-                            inf = new Array();
-                            arrayDetalleVenta.length = 0;
-                            arrayEncabezadoVenta.length = 0;
-                        }
-                        else {
-                            alertify.success(informacion);
-                        }
-                    }
-                });
+                    });
+                }
             }
             else {
                 var encabezadoVentas = new XmlComprobante();
@@ -637,12 +645,16 @@ $(document).ready(function() {
 
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
-            $("#cmbOrdenCompra").hide();
+            $("#ordenesCompra").html("<div id ='ordenesCompra' style='float: left; width: 260px;'><input  id='txtNombreCliente' type = 'text' class='form-control' style='float: left; width: 260px' placeholder='Nombre del Cliente'/></div>");
+//            $("#cmbOrdenCompra").hide();
         }
         else {
-            $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+            $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
                 $("#cmbOrdenCompra").show();
             });
+//            $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+//                $("#cmbOrdenCompra").show();
+//            });
         }
     });
 
@@ -721,7 +733,7 @@ $(document).ready(function() {
 function finalizar() {
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
-    $("#cmbOrdenCompra option[value='0']").attr("selected", true);
+    $("#ordenesCompra").html("<div id ='ordenesCompra' style='float: left; width: 260px;'><input  id='txtNombreCliente' type = 'text' class='form-control' style='float: left; width: 260px' placeholder='Nombre del Cliente'/></div>");
     $("#cmbTipoPago option[value='1']").attr("selected", true);
     $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
             + ' <th><center>Descripcion</center></th>'
