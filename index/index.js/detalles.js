@@ -5,6 +5,7 @@ $(document).ready(function() {
     $("#mostrarcategorias").load("mostrarCategorias.php", function() {
     });
     mostrarDetalles(code_prod);
+
 });
 
 $("#loginbtn").click(function() {
@@ -65,7 +66,7 @@ $("#loginbtn").click(function() {
 function mostrarDetalles(code_prod) {
     var info = "codigo=" + code_prod;
     $("#mostrardetalle").load("mostrarDetalles.php?" + info, function() {
-        // Carousel (slider)
+// Carousel (slider)
         $('#detailCarousel').carousel({
             interval: 4000
         });

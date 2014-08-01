@@ -277,7 +277,7 @@ $("#finder").keypress(function(e) {
 //=================== Guardar datos producto ===================================
 $("#guardarDatos").click(function() {
     var lista;
-    var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
+    var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $("#txtCodigoProducto").val();
@@ -390,7 +390,7 @@ $('#editarDatos').click(function() {
         dato2 = "MADERAS";
     }
     var lista;
-    var nombreProducto = escape($("#txtNombreProducto").val().toUpperCase());
+    var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $("#txtCodigoProducto").val();

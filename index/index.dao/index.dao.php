@@ -75,7 +75,7 @@ class dao {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
                 . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
-                . "WHERE ponerNovedades = '1' "
+                . "WHERE ponerNovedades = '1' AND i.ruta LIKE '%-_-0.%' "
                 . "ORDER BY RAND()";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
@@ -90,7 +90,7 @@ class dao {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN imagenes i ON c.codigoProducto = i.codigoProducto "
                 . "INNER JOIN productos p ON c.codigoProducto = p.codigoProducto "
-                . "WHERE ponerRecomendado = '1' "
+                . "WHERE ponerRecomendado = '1' AND i.ruta LIKE '%-_-0.%' "
                 . "ORDER BY RAND()";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
@@ -120,7 +120,7 @@ class dao {
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
                 . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
                 . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
-                . "WHERE t.idGrupoProducto = '$id'";
+                . "WHERE t.idGrupoProducto = '$id' AND i.ruta LIKE '%-_-0.%'";
         $ctrl = mysql_query($query);
         $row = mysql_affected_rows();
         if ($ctrl == false) {
@@ -143,7 +143,7 @@ class dao {
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
                 . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
                 . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
-                . "WHERE t.idTiposProducto = '$idtipo'";
+                . "WHERE t.idTiposProducto = '$idtipo' AND i.ruta LIKE '%-_-0.%'";
         $ctrl = mysql_query($query);
         $row = mysql_affected_rows();
         if ($ctrl == false) {
