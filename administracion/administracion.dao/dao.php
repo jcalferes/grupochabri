@@ -3723,7 +3723,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago) {
+    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago,$importe) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cn->Conectarse();
@@ -3801,7 +3801,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             } else {
                                 while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
                                     $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
-                                            . " VALUES ('" . $r2["rfcComprobante"] . "',0,0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
+                                            . " VALUES ('" . $r2["rfcComprobante"] . "','".$importe."',0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
                                     $rsAbonos = mysql_query($sqlAbonos);
                                     if ($rsAbonos == false) {
                                         $error = mysql_error();

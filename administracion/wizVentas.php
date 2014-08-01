@@ -41,12 +41,17 @@
                             style="margin-left: 35px; width: 260px; float: left">
                     </select>
                     <div id="ordenesCompra" style="float: left; width: 260px;">
-                         <input type="text" 
-                               class="form-control" 
-                               style="float: left; width: 260px"
-                               placeholder="Nombre del Cliente"
-                               id="txtNombreCliente"/>
-                        <!--<select  class="form-control" id="cmbOrdenCompra"></select>-->
+                        <input  id='txtNombreCliente' 
+                                type = 'text' 
+                                class='form-control' 
+                                style='float: left; width: 260px' 
+                                placeholder='Nombre del Cliente'/>
+
+                        <select id="cmbOrdenCompraV" class="form-control">
+                            <option>
+                                Seleccione una orden
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <br>
@@ -170,22 +175,31 @@
 
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Corte de Caja</h2>
             <section>
+
                 <div>
                     <div class="form-group " style="float: left">
-                        <label for="exampleInputEmail1" style="color: #000">Fecha Inicio :</label>
+                        <label for="exampleInputEmail1" style="color: #000">Fecha Inicial :</label>
                         <input type="date" class="form-control" style="width: 200px"/>
                     </div>
                     <div class="form-group " style="float: left; margin-left: 30px">
-                        <label for="exampleInputEmail1" style="color: #000">Fecha Inicio :</label>
+                        <label for="exampleInputEmail1" style="color: #000">Fecha Final :</label>
                         <input type="date" class="form-control" style="width: 200px"/>
                     </div>
                 </div>
                 <hr style="margin-top: 75px">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong>INFORMACION DEL DÍA</strong> </div>
-                    <div class="panel-body">
-                        <div id="InformacionDia">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" id="btnBuscarPorFechas" title="Busqueda por fechas"><span class="glyphicon glyphicon-search">&nbsp;<strong>FECHAS</strong></span></button>
+                    <button type="button" class="btn btn-default" id="btnBuscarHoy" title="Busqueda de movimiento del dia de hoy"><span class="glyphicon glyphicon-tree-deciduous">&nbsp;<strong>HOY</strong></span></button>
+                    <button type="button" class="btn btn-default" id="btnActualizarHoy" title="Actualizar busqueda del dia de hoy"><span class="glyphicon glyphicon-refresh">&nbsp;<strong>ACTUALIZAR</strong></span></button>
+                </div>
+                <br> <br> 
+                <div id="InformacionDia">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><strong>INFORMACION DEL DÍA</strong></div>
+                        <div class="panel-body">
+                            <div>
 
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ $idTipoPago = 0;
 $idsucursal = $_SESSION["sucursalSesion"];
 $usuario = $_SESSION["usuarioSesion"];
 $idTipoPago = $_GET["idTipoPago"];
+$importe = $_GET["importe"];
 $folioOrdenVenta = 0;
 $idXmlComprobante = 0;
 //$idXmlComprobante = $_GET["folioComprobante"];
@@ -28,7 +29,7 @@ if ($dato == false) {
             $idFolio = $dat[0];
         }
         $idXmlComprobante = $_GET["folioComprobante"];
-        $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago);
+        $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago,$importe);
         if ($mensaje == "") {
             $mensaje = "Exito Venta Concretada";
         }

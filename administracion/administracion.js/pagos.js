@@ -57,7 +57,7 @@ $(document).ready(function() {
                 }
                 else {
                     var folio = $("#xmlComprobante").text();
-                    var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago;
+                    var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
                     $.get('guardarPagos.php', informacion, function(respuesta) {
                         alertify.success(respuesta);
                         var cambio = datos - total;
@@ -66,17 +66,21 @@ $(document).ready(function() {
                         $('#btnCobrar').attr("disabled", true);
                         $('#btnRechazar').attr("disabled", true);
                         $("#mdlNotacreditoInformacion").modal('hide');
+                        $('#mdlPagar').modal('hide');
                         $("#txtCantidad").val("");
                     });
                 }
             }
         }
         else {
+            var cambio = datos - total;
+            if (datos > total) {
+                datos = total;
+            }
             var folio = $("#xmlComprobante").text();
-            var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago;
+            var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
             $.get('guardarPagos.php', informacion, function(respuesta) {
                 alertify.success(respuesta);
-                var cambio = datos - total;
                 alert(cambio);
                 $("#buscabonos").load("consultarDeudoresPV.php", function() {
                     $('#dtdeudores').dataTable();
@@ -85,6 +89,7 @@ $(document).ready(function() {
                 $('#btnCobrar').attr("disabled", true);
                 $('#btnRechazar').attr("disabled", true);
                 $("#mdlNotacreditoInformacion").modal('hide');
+                $('#mdlPagar').modal('hide');
                 $("#txtCantidad").val("");
             });
             alert(cambio);

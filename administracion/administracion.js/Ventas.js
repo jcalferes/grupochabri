@@ -65,7 +65,7 @@ function cargarProductosCarrito() {
     });
 }
 function guardarProductoOrdenCompraNuevo() {
-    if ($("#cmbOrdenCompra").val() > 0) {
+    if ($("#cmbOrdenCompraV").val() > 0) {
         var valor = $("#cmb" + codigoN).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
@@ -78,7 +78,7 @@ function guardarProductoOrdenCompraNuevo() {
         detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigoN).val();
         detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigoN).val();
         detalleVenta.idListaPrecio = parseInt(datos[0]);
-        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
         arrayDetalleVenta.push(detalleVenta);
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
@@ -104,7 +104,7 @@ function guardarProductoOrdenCompraNuevo() {
 
 
 function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
-    if ($("#cmbOrdenCompra").val() > 0) {
+    if ($("#cmbOrdenCompraV").val() > 0) {
         var valor = $("#cmb" + codigo).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
@@ -117,7 +117,7 @@ function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
         detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
         detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
         detalleVenta.idListaPrecio = parseInt(datos[0]);
-        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
         arrayDetalleVenta.push(detalleVenta);
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
@@ -423,12 +423,12 @@ function eliminar(codigo) {
     callbacks.add(sumaDescTotal());
     callbacks.add(calcularTotal(codigo));
 
-    if ($("#cmbOrdenCompra").val() != 0) {
+    if ($("#cmbOrdenCompraV").val() != 0) {
         callbacks.add(calcularSumaTotal());
         callbacks.add(calcularSubTotal());
         callbacks.add(sumaDescTotal());
         callbacks.add(calcularTotal(codigo));
-        var idXml = $("#cmbOrdenCompra").val();
+        var idXml = $("#cmbOrdenCompraV").val();
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
         encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
@@ -474,7 +474,7 @@ function validarUsuario(usuario, password) {
 
 
 $(document).ready(function() {
-    $("#cmbOrdenCompra").hide();
+    $("#cmbOrdenCompraV").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
     $("#buscarCodigo").click(function() {
@@ -486,7 +486,6 @@ $(document).ready(function() {
     var f = new Date();
     var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
     $("#fecha").html(fecha);
-
     $("#btnAutorizar").click(function() {
         var usuario = $("#txtusuario").val();
         var pass = $("#txtPass").val();
@@ -501,7 +500,7 @@ $(document).ready(function() {
             paso = validarCredito();
         }
         if (paso == true) {
-            if ($("#cmbOrdenCompra").val() == 0 || $("#cmbClientes").val() == 0) {
+            if ($("#cmbOrdenCompraV").val() == 0 || $("#cmbClientes").val() == 0) {
                 if ($("#cmbClientes").val() == 0 && $("#txtNombreCliente").val() == "") {
                     alertify.error("Es requerido el nobre del cliente");
                 }
@@ -560,7 +559,7 @@ $(document).ready(function() {
                     detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
                     detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
                     detalleVenta.idListaPrecio = parseInt(datos[0]);
-                    detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompra").val());
+                    detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
                     arrayDetalleVenta.push(detalleVenta);
                 }
                 inf.push(arrayDetalleVenta);
@@ -616,7 +615,7 @@ $(document).ready(function() {
 
 
     $("#cmbClientes").change(function() {
-        if ($("#cmbOrdenCompra").val() != 0) {
+        if ($("#cmbOrdenCompraV").val() != 0) {
             codigoN = 0;
             $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
                     + ' <th><center>Descripcion</center></th>'
@@ -642,19 +641,18 @@ $(document).ready(function() {
             $("#ivaTotal").val("0.00");
             $("#descTotalV").val("0.00");
         }
-
         var rfc = $("#cmbClientes").val();
         if ($("#cmbClientes").val() == 0) {
-            $("#ordenesCompra").html("<div id ='ordenesCompra' style='float: left; width: 260px;'><input  id='txtNombreCliente' type = 'text' class='form-control' style='float: left; width: 260px' placeholder='Nombre del Cliente'/></div>");
-//            $("#cmbOrdenCompra").hide();
+            $("#cmbOrdenCompraV").hide();
+            $("#cmbOrdenCompra").hide();
+            $("#txtNombreCliente").show();
         }
         else {
-            $("#ordenesCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
-                $("#cmbOrdenCompra").show();
+//            alert("entro a cargar");
+            $("#cmbOrdenCompraV").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+                $("#cmbOrdenCompraV").show();
+                $("#txtNombreCliente").hide();
             });
-//            $("#cmbOrdenCompra").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
-//                $("#cmbOrdenCompra").show();
-//            });
         }
     });
 
@@ -681,14 +679,20 @@ $(document).ready(function() {
         }
     });
 
-    $("#cmbOrdenCompra").change(function() {
+
+//    $("#cmbOrdenCompraV").live("change", function (){
+//        
+//    });
+
+    $("#cmbOrdenCompraV").change(function() {
+//        alert("capturo el evento");
         codigos.length = 0;
         arrayDetalleVenta.length = 0;
         arrayEncabezadoVenta.length = 0;
         inf.length = 0;
-
-        var idxml = $("#cmbOrdenCompra").val();
+        var idxml = $("#cmbOrdenCompraV").val();
         if (idxml > 0) {
+//            alert("entrando a cargar orden compra");
             var informacion = 'id=' + idxml;
             $.get('dameCodigos.php', informacion, function(listacodigos) {
                 var datosJson = eval(listacodigos);
@@ -733,7 +737,9 @@ $(document).ready(function() {
 function finalizar() {
     codigoN = 0;
     $("#cmbClientes option[value='0']").attr("selected", true);
-    $("#ordenesCompra").html("<div id ='ordenesCompra' style='float: left; width: 260px;'><input  id='txtNombreCliente' type = 'text' class='form-control' style='float: left; width: 260px' placeholder='Nombre del Cliente'/></div>");
+    $("#txtNombreCliente").val('');
+    $("#txtNombreCliente").show();
+    $("#cmbOrdenCompraV").hide();
     $("#cmbTipoPago option[value='1']").attr("selected", true);
     $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
             + ' <th><center>Descripcion</center></th>'
@@ -756,7 +762,7 @@ function finalizar() {
     $("#folio").load("dameFolioPedidos.php");
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
-    $("#cmbOrdenCompra").hide();
+//    $("#cmbOrdenCompraV").hide();
     $("#subTotalV").val("0.00");
     $("#costoTotal").val("0.00");
     $("#totalVenta").val("0.00");
