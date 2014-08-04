@@ -595,7 +595,7 @@
                                value="Guardar Ingreso" title="Guardar ingreso de caja"/>
                          <input type="submit" 
                                class="btn btn-default" 
-                               id="btnGuardarIngresoCaja"
+                               id="btnCancelarIngresoCaja"
                                value="Salir" title="Guardar ingreso de caja"/>
                     </center>
                     <br>

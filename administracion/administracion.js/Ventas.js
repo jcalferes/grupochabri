@@ -3,7 +3,6 @@ var arrayDetalleVenta = new Array();
 var arrayEncabezadoVenta = new Array();
 var codigoN;
 var inf = new Array();
-//var ingresoCajaInicial = false;
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
         buscar();
@@ -17,9 +16,6 @@ function buscar() {
     if (paso == true) {
         alertify.success("El producto ya esta en carrito");
         $("#codigoProductoEntradas").val("");
-//        var cantidad = $("#txt" + codi).val();
-//        var suma = parseInt(cantidad) + 1;
-//        $("#txt" + codi).val(suma.toFixed(2));
     }
     else {
         cargarProductosCarrito();
@@ -512,7 +508,6 @@ $(document).ready(function() {
                     if (respuesta == 1) {
                         alertify.success("Exito, Caja abierta");
                         $("#mdlInicioCaja").modal('hide');
-//                    ingresoCajaInicial = true;
                     }
                     else {
                         alertify.success(respuesta);
@@ -521,6 +516,11 @@ $(document).ready(function() {
             }
         }
     });
+
+    $("#btnCancelarIngresoCaja").click(function() {
+        location.reload();
+    });
+
 
     $("#cmbOrdenCompraV").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
@@ -588,7 +588,6 @@ $(document).ready(function() {
                 encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
                 encabezadoVentas.sdaComprobante = $("#costoTotal").val();
                 encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
-//              alert($("#subTotalV").val());
                 encabezadoVentas.totalComprobante = $("#totalVenta").val();
                 encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
                 arrayEncabezadoVenta.push(encabezadoVentas);
@@ -696,7 +695,6 @@ $(document).ready(function() {
             $("#txtNombreCliente").show();
         }
         else {
-//            alert("entro a cargar");
             $("#cmbOrdenCompraV").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
                 $("#cmbOrdenCompraV").show();
                 $("#txtNombreCliente").hide();
@@ -728,19 +726,13 @@ $(document).ready(function() {
     });
 
 
-//    $("#cmbOrdenCompraV").live("change", function (){
-//        
-//    });
-
     $("#cmbOrdenCompraV").change(function() {
-//        alert("capturo el evento");
         codigos.length = 0;
         arrayDetalleVenta.length = 0;
         arrayEncabezadoVenta.length = 0;
         inf.length = 0;
         var idxml = $("#cmbOrdenCompraV").val();
         if (idxml > 0) {
-//            alert("entrando a cargar orden compra");
             var informacion = 'id=' + idxml;
             $.get('dameCodigos.php', informacion, function(listacodigos) {
                 var datosJson = eval(listacodigos);
@@ -810,7 +802,6 @@ function finalizar() {
     $("#folio").load("dameFolioPedidos.php");
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
-//    $("#cmbOrdenCompraV").hide();
     $("#subTotalV").val("0.00");
     $("#costoTotal").val("0.00");
     $("#totalVenta").val("0.00");
