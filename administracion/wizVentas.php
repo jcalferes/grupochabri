@@ -555,7 +555,53 @@
             </div><!-- /.modal-dialog -->
         </div>
 
-
+        <div class="modal fade" 
+             id="mdlInicioCaja" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalOrdenCompra" 
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 350px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">INICIO DE CAJA</h4>
+                    </div>
+                    <center>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label" style="margin-left: 20px">Usuario:</label>
+                                <div class="col-sm-9">
+                                    <input style="width:70%" type="text" class="form-control" id="txtUsuarioValidarCaja" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label" style="margin-left: 20px">Password:</label>
+                                <div class="col-sm-9">
+                                    <input style="width:70%" type="password" class="form-control" id="txtPassValidarCaja" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="margin-left: 20px">Caja:</label>
+                                <div class="col-sm-9">
+                                    <input  style="width:70%" id="txtIngresoCaja" type="number" placeholder="$000.00mxn" class="form-control" onkeypress="return isNumberKey(event)"/>
+                                </div>
+                            </div>
+                        </form>
+                    </center>
+                    <center>
+                        <input type="submit" 
+                               class="btn btn-default" 
+                               id="btnGuardarIngresoCaja"
+                               value="Guardar Ingreso" title="Guardar ingreso de caja"/>
+                         <input type="submit" 
+                               class="btn btn-default" 
+                               id="btnGuardarIngresoCaja"
+                               value="Salir" title="Guardar ingreso de caja"/>
+                    </center>
+                    <br>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
 
 
 

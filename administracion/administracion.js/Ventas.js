@@ -3,6 +3,7 @@ var arrayDetalleVenta = new Array();
 var arrayEncabezadoVenta = new Array();
 var codigoN;
 var inf = new Array();
+//var ingresoCajaInicial = false;
 $("#codigoProductoEntradas").keypress(function(e) {
     if (e.which == 13) {
         buscar();
@@ -357,11 +358,11 @@ function guardarDatosEncabezado() {
     encabezadoVentas.descuentoPorProductoComprobantes = "";
     encabezadoVentas.totalComprobante = $("#totalVenta").val();
     encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+
     var nombre = $("#txtNombreCliente").val();
-    if (nombre == undefined) {
+    if (nombre == "") {
         nombre = "1";
     }
-
     encabezadoVentas.nombreCliente = nombre;
     arrayEncabezadoVenta.push(encabezadoVentas);
 }
@@ -469,11 +470,58 @@ function validarUsuario(usuario, password) {
     });
 }
 
+function isNumberKey(evt)
+{
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
 
+    return true;
+}
 
-
+function verificar() {
+    $.get('validarIngresoVentas.php', function(respuesta) {
+        if (respuesta == 0) {
+            $("#mdlInicioCaja").modal({
+                show: true,
+                backdrop: false,
+                keyboard: false
+            });
+        }
+        else {
+            alertify.error(repuesta);
+        }
+    });
+}
 
 $(document).ready(function() {
+    verificar();
+    $("#btnGuardarIngresoCaja").click(function() {
+        var usuario = $("#txtUsuarioValidarCaja").val();
+        var pass = $("#txtPassValidarCaja").val();
+        var cantidad = $("#txtIngresoCaja").val();
+        if (usuario == "" || pass == "" || cantidad == 0 || cantidad == "") {
+            alertify.error("Llene todos los campos");
+        }
+        else {
+            if (cantidad < 0) {
+                alertify.error("La cantidad ingresada debe se ser mayor a 0");
+            } else {
+                var informacion = "us=" + usuario + "&pas=" + pass + "&cant=" + cantidad;
+                $.get('guardarIngresoCaja.php', informacion, function(respuesta) {
+                    if (respuesta == 1) {
+                        alertify.success("Exito, Caja abierta");
+                        $("#mdlInicioCaja").modal('hide');
+//                    ingresoCajaInicial = true;
+                    }
+                    else {
+                        alertify.success(respuesta);
+                    }
+                });
+            }
+        }
+    });
+
     $("#cmbOrdenCompraV").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#infDatos").hide();
@@ -509,7 +557,6 @@ $(document).ready(function() {
                     guardarDatosEncabezado();
                     inf.push(arrayEncabezadoVenta);
                     var informacion = JSON.stringify(inf);
-
                     $.ajax({
                         type: "POST",
                         url: "guardarVenta.php",
@@ -615,6 +662,7 @@ $(document).ready(function() {
 
 
     $("#cmbClientes").change(function() {
+        $("#txtNombreCliente").val("");
         if ($("#cmbOrdenCompraV").val() != 0) {
             codigoN = 0;
             $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'

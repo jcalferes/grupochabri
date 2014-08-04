@@ -3196,19 +3196,18 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             if ($datosClientes == false) {
                 $error = mysql_error();
                 return false;
-            }
-            else{
+            } else {
                 $nombreCliente = "";
-                while($rsNombreCliente = mysql_fetch_array($datosClientes)){
-                    $nombre= $rsNombreCliente["nombre"];
+                while ($rsNombreCliente = mysql_fetch_array($datosClientes)) {
+                    $nombre = $rsNombreCliente["nombre"];
                 }
             }
-        } 
-       
+        }
+
         $idXmlComprobante = 0;
         $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago, nombreCliente)"
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
-                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '".$nombre."')";
+                . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '" . $nombre . "')";
         $datos = mysql_query($sqlComprobanteGuardar);
         if ($datos == false) {
             $error = mysql_error();
@@ -3723,7 +3722,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago,$importe) {
+    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cn->Conectarse();
@@ -3801,7 +3800,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             } else {
                                 while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
                                     $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
-                                            . " VALUES ('" . $r2["rfcComprobante"] . "','".$importe."',0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
+                                            . " VALUES ('" . $r2["rfcComprobante"] . "','" . $importe . "',0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
                                     $rsAbonos = mysql_query($sqlAbonos);
                                     if ($rsAbonos == false) {
                                         $error = mysql_error();
@@ -4321,4 +4320,20 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $id_prod;
     }
 
+    function validar($idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "SELECT * FROM cajainicial WHERE idSucursal = '" . $idSucursal . "' and fecha ='" . $fecha . "'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function guardarIngresoCaja(CajaInicial $caja) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "INSERT INTO cajainicial (fecha, ingreso, idSucursal) VALUES ('" . $caja->getFecha() . "', '" . $caja->getIngreso() . "', '" . $caja->getIdSucursal() . "')";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
 }
