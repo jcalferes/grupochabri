@@ -177,7 +177,7 @@ $(document).ready(function() {
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $("#txtnombreproveedor").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
         $("#txtestado").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
         $("#BuscarCodigo").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');

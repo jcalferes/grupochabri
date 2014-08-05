@@ -36,7 +36,7 @@ $("#btnotrotel").click(function() {
 
 function aplicarValidacion() {
     $(".telefono").validCampoFranz('0123456789()');
-    $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
+    $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
 }
 
 $("#btnotroemail").click(function() {
@@ -198,15 +198,15 @@ $(document).ready(function() {
 
     $(function() {
         $(".telefono").validCampoFranz('0123456789()');
-        $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
-        $('#txtrfc').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
+        $('#txtrfc').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
         $('#txtcredito').validCampoFranz('0123456789.');
         $('#txtdiascredito').validCampoFranz('0123456789');
         $('#txtdesctpf').validCampoFranz('0123456789');
         $('#txtdesctpp').validCampoFranz('0123456789');
-        $("#txtnombreproveedor").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $("#txtnombreproveedor").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;' );
         $('#txtemail').validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
-        $("#txtestado").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
+        $("#txtestado").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
         $("#BuscarCodigo").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
         $("#txtciudad").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
     });

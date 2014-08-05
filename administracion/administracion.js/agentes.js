@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 function aplicarValidacion() {
     $(".atelefono").validCampoFranz('0123456789()');
-    $(".aemail").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
+    $(".aemail").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
 }
 
 $("#btnotrotelagt").click(function() {
