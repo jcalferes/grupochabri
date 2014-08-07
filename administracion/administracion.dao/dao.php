@@ -3722,7 +3722,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe) {
+    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cn->Conectarse();
@@ -3733,7 +3733,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $codigo = "";
         $nuevaExistencia = 0;
         $fecha = date("d/m/Y");
-        $sqlexistenciasTmp = "SELECT * FROM existenciastemporales where folioPedido = '$idXmlComprobante' and idSucursal ='$idSucursal'";
+        $sqlexistenciasTmp = "SELECT * FROM existenciastemporales where folioPedido = '$folioComprobante' and idSucursal ='$idSucursal'";
         $rs = mysql_query($sqlexistenciasTmp);
         if ($rs == false) {
             $error = mysql_error();
@@ -3786,7 +3786,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     $error = mysql_error();
                     mysql_query("ROLLBACK;");
                 } else {
-                    $sqlEliminarExistenciasTmp = "DELETE FROM  existenciastemporales WHERE folioPedido = '$idXmlComprobante' and idSucursal ='$idSucursal' ";
+                    $sqlEliminarExistenciasTmp = "DELETE FROM  existenciastemporales WHERE folioPedido = '$folioComprobante' and idSucursal ='$idSucursal' ";
                     $rsEliminarExittmp = mysql_query($sqlEliminarExistenciasTmp);
                     if ($rsEliminarExittmp == false) {
                         $error = mysql_error();
@@ -3822,6 +3822,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 }
             }
         }
+        $cn->cerrarBd();
         return $error;
     }
 
@@ -4254,7 +4255,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $call;
     }
 
-    function eliminarOrdenCompra($idFolioOrdenCompra, $idSucursal) {
+    function eliminarOrdenCompra($idFolioOrdenCompra, $idSucursal, $folioComprobante) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
@@ -4336,4 +4337,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
+
+    function dameFolioComprobante($idXmlComprobante) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT folioComprobante FROM xmlComprobantes WHERE idXmlComprobante = '" . $idXmlComprobante . "'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+
+        return $rs;
+    }
+
 }

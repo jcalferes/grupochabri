@@ -59,15 +59,16 @@ $(document).ready(function() {
                     var folio = $("#xmlComprobante").text();
                     var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
                     $.get('guardarPagos.php', informacion, function(respuesta) {
-                        alertify.success(respuesta);
+                        var callbacks = $.Callbacks();
+                        callbacks.add(limpiarOrdenesCompra());
                         var cambio = datos - total;
-                        alert(cambio);
-                        limpiarOrdenesCompra();
-                        $('#btnCobrar').attr("disabled", true);
-                        $('#btnRechazar').attr("disabled", true);
-                        $("#mdlNotacreditoInformacion").modal('hide');
-                        $('#mdlPagar').modal('hide');
-                        $("#txtCantidad").val("");
+                        callbacks.add($('#btnCobrar').attr("disabled", true));
+                        callbacks.add($('#btnRechazar').attr("disabled", true));
+                        callbacks.add($("#mdlNotacreditoInformacion").modal('hide'));
+                        callbacks.add($('#mdlPagar').modal('hide'));
+                        callbacks.add($("#txtCantidad").val(""));
+//                        alertify.message("cambio :" + cambio);
+                        alertify.success(respuesta);
                     });
                 }
             }
@@ -80,8 +81,7 @@ $(document).ready(function() {
             var folio = $("#xmlComprobante").text();
             var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
             $.get('guardarPagos.php', informacion, function(respuesta) {
-                alertify.success(respuesta);
-                alert(cambio);
+//                alert(cambio);
                 $("#buscabonos").load("consultarDeudoresPV.php", function() {
                     $('#dtdeudores').dataTable();
                 });
@@ -91,8 +91,10 @@ $(document).ready(function() {
                 $("#mdlNotacreditoInformacion").modal('hide');
                 $('#mdlPagar').modal('hide');
                 $("#txtCantidad").val("");
+                alertify.message("cambio :" + cambio);
+                alertify.success(respuesta);
             });
-            alert(cambio);
+//            alert(cambio);
         }
 
     });
