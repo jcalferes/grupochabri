@@ -3786,7 +3786,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     $error = mysql_error();
                     mysql_query("ROLLBACK;");
                 } else {
-                    $sqlEliminarExistenciasTmp = "DELETE FROM  existenciastemporales WHERE folioPedido = '$idXmlComprobante' and idSucursal =' $idSucursal' ";
+                    $sqlEliminarExistenciasTmp = "DELETE FROM  existenciastemporales WHERE folioPedido = '$idXmlComprobante' and idSucursal ='$idSucursal' ";
                     $rsEliminarExittmp = mysql_query($sqlEliminarExistenciasTmp);
                     if ($rsEliminarExittmp == false) {
                         $error = mysql_error();

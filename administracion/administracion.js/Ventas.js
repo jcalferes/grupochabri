@@ -193,24 +193,54 @@ function cambiarTarifas(codigo) {
     calcularTotal(codigo);
 }
 
-function calcularTotal(codigo) {
 
-    var ok = verificarProductoGranel(codigo);
-    var valor = $("#cmb" + codigo).val();
-    var datos = valor.split(",");
-    var cantidad = $("#txt" + codigo).val();
-    if (ok == false) {
-        var total = datos[1] * cantidad;
-        $("#txtTotal" + codigo).val(total.toFixed(2));
+function soloNumeroEnteros(valor) {
+    var paso = false;
+    var ultimo = valor.substring(valor.length - 1, valor.length);
+    if (ultimo == ".") {
+        valor = valor + "0";
+    }
+    if (valor == 0) {
+        paso = true;
+    }
+    else if (valor.match(/^[-+]?([0-9]*\.[0-9]+|[0-9]+)$/)) {
+        paso = true;
+    }
+
+    return paso;
+}
+
+
+
+function calcularTotal(codigo) {
+    var cantidad = $("input[id='txt" + codigo + "']").val();
+    var valor = $("#numero").val();
+    if (cantidad == '-' || cantidad == '+') {
     }
     else {
-        var calulandoKg = (cantidad * datos[1]) / 1;
-        $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
+        var paso = soloNumeroEnteros(cantidad);
+        if (paso == false) {
+            valor = cantidad.substring(0, cantidad.length - 1);
+            $("input[id='txt" + codigo + "']").val(valor);
+        }
+        else {
+            var ok = verificarProductoGranel(codigo);
+            var valor = $("#cmb" + codigo).val();
+            var datos = valor.split(",");
+            if (ok == false) {
+                var total = datos[1] * cantidad;
+                $("#txtTotal" + codigo).val(total.toFixed(2));
+            }
+            else {
+                var calulandoKg = (cantidad * datos[1]) / 1;
+                $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
+            }
+            calcularDescuentos(codigo);
+            calcularSumaTotal();
+            calcularSubTotal();
+            sumaDescTotal();
+        }
     }
-    calcularDescuentos(codigo);
-    calcularSumaTotal();
-    calcularSubTotal();
-    sumaDescTotal();
 }
 
 function calcularSubTotal() {
@@ -235,6 +265,8 @@ function sumaDescTotal() {
 
 
 function calcularPorCantidad() {
+
+
     var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
     var cantidad = $("#txtCantidadModal").val();
@@ -315,6 +347,35 @@ function calcularIva(sumaTotalProductos) {
     $("#ivaTotal").val(iva.toFixed(2));
     $("#totalVenta").val(ivaTotal.toFixed(2));
 }
+
+
+function validarCantidad() {
+    var ok = false;
+
+    for (var x = 0; x < codigos.length; x++) {
+        if ($("input[id='txt" + codigos[x] + "']").val() <= 0) {
+            ok = false;
+            break;
+        }
+        else {
+            ok = true;
+        }
+    }
+    return ok;
+}
+
+function validarDetalle() {
+    var ok = false;
+    if (codigos.length == 0) {
+        ok = false;
+    }
+    else {
+        ok = true;
+    }
+    return ok;
+}
+
+
 
 //funcion para saber que tecla esta presionada.
 $(document).keydown(function(tecla) {
@@ -549,37 +610,51 @@ $(document).ready(function() {
         }
         if (paso == true) {
             if ($("#cmbOrdenCompraV").val() == 0 || $("#cmbClientes").val() == 0) {
-                if ($("#cmbClientes").val() == 0 && $("#txtNombreCliente").val() == "") {
+                var nombreCliente = $.trim($("#txtNombreCliente").val());
+                if ($("#cmbClientes").val() == 0 && nombreCliente == "") {
+                    $("#txtNombreCliente").val("");
                     alertify.error("Es requerido el nobre del cliente");
                 }
                 else {
-                    guardarDatosDetalle();
-                    guardarDatosEncabezado();
-                    inf.push(arrayEncabezadoVenta);
-                    var informacion = JSON.stringify(inf);
-                    $.ajax({
-                        type: "POST",
-                        url: "guardarVenta.php",
-                        data: {data: informacion},
-                        cache: false,
-                        success: function(informacion) {
-                            if (informacion == 0) {
-                                informacion = "Exito Venta Terminada";
-                                finalizar();
-                            }
-                            var datos = informacion.split(",");
-                            if (datos[0] == 2) {
-                                $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
-                                alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
-                                inf = new Array();
-                                arrayDetalleVenta.length = 0;
-                                arrayEncabezadoVenta.length = 0;
-                            }
-                            else {
-                                alertify.success(informacion);
-                            }
+                    var ok = validarDetalle();
+                    if (ok == true) {
+                        var ok = validarCantidad();
+                        if (ok == true) {
+                            guardarDatosDetalle();
+                            guardarDatosEncabezado();
+                            inf.push(arrayEncabezadoVenta);
+                            var informacion = JSON.stringify(inf);
+                            $.ajax({
+                                type: "POST",
+                                url: "guardarVenta.php",
+                                data: {data: informacion},
+                                cache: false,
+                                success: function(informacion) {
+                                    if (informacion == 0) {
+                                        informacion = "Exito Venta Terminada";
+                                        finalizar();
+                                    }
+                                    var datos = informacion.split(",");
+                                    if (datos[0] == 2) {
+                                        $("#txtExistencia" + datos[1]).load("dameExistenciaDeUnProducto.php?id=" + datos[1]);
+                                        alertify.error("No tenemos demasiados productos en Existencia. Notificar al administrador");
+                                        inf = new Array();
+                                        arrayDetalleVenta.length = 0;
+                                        arrayEncabezadoVenta.length = 0;
+                                    }
+                                    else {
+                                        alertify.success(informacion);
+                                    }
+                                }
+                            });
                         }
-                    });
+                        else {
+                            alertify.error("Los productos deben de tener por lo menos 1 de cantidad");
+                        }
+                    }
+                    else {
+                        alertify.error("Ingrese productos al carrito");
+                    }
                 }
             }
             else {

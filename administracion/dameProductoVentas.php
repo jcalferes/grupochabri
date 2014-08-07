@@ -49,9 +49,9 @@ if ($error == "") {
         }
         $codigo1 = $dat[0];
         $descripcion = $dat[1];
-        $interfaz.="<tr id='tr" . $codigo->getCodigo() . "'>";
-        $interfaz.="<td><center><span id='codigo" . $codigo->getCodigo() . "'>" . $codigo1 . "</span></center></td>";
-        $interfaz.="<td><center><span id='descripcion" . $codigo->getCodigo() . "'>" . $descripcion . "</span></center></td>";
+        $interfaz.="<tr id='tr" . utf8_decode($codigo->getCodigo()) . "'>";
+        $interfaz.="<td><center><span id='codigo" . utf8_decode($codigo->getCodigo()) . "'>" . $codigo1 . "</span></center></td>";
+        $interfaz.="<td><center><span id='descripcion" . utf8_decode($codigo->getCodigo()) . "'>" . utf8_decode($descripcion) . "</span></center></td>";
         $costo = $dat[2];
         
        
@@ -76,7 +76,7 @@ if ($error == "") {
         } else {
             $interfaz.="<td style='width: 150px'>"
                     . "<div class='input-group'>
-                         <input type='text' id='txt" . $codigo->getCodigo() . "' 
+                         <input type='text' id='txt" . utf8_decode($codigo->getCodigo()) . "' 
                              class='form-control' placeholder='Cant. Kg'
                              onkeyup='calcularTotal(" . "\"$codigo1\"" . ")'
                              value='1'/>
@@ -88,9 +88,9 @@ if ($error == "") {
                        </div>"
                     . "</td>";
         }
-        $interfaz.="<td><center><span id='txtExistencia" . $codigo->getCodigo() . "'>" . $nuevaExistencia . "</span></center></td>";
+        $interfaz.="<td><center><span id='txtExistencia" . utf8_decode($codigo->getCodigo()) . "'>" . $nuevaExistencia . "</span></center></td>";
         $interfaz.="<td>"; 
-        $interfaz.="<select  disabled='true' class = 'form-control autorizar' id='cmb" . $codigo1 . "' onchange='cambiarTarifas(" . "\"$codigo1\"" . ");'>";
+        $interfaz.="<select  disabled='true' class = 'form-control autorizar' id='cmb" . utf8_decode($codigo1) . "' onchange='cambiarTarifas(" . "\"$codigo1\"" . ");'>";
     }
 
     if ($disponibilidad == true) {
@@ -108,7 +108,7 @@ if ($error == "") {
         }
         $interfaz.="</select>";
         $interfaz.="</td>";
-        $interfaz.="<td><center><span id='precioVnt" . $codigo->getCodigo() . "'>" . $costoMenudeo . "</span></center></td>";
+        $interfaz.="<td><center><span id='precioVnt" . utf8_decode($codigo->getCodigo()) . "'>" . $costoMenudeo . "</span></center></td>";
         $interfaz.="<td><input disabled='true' style='width:60px' id='txtDescuentos" . $codigo1 . "' onkeyup='calcularDescuentos(" . "\"$codigo1\"" . ")' type='text'  class='form-control autorizar'/></td>";
         $interfaz.="<td><center>"
                 . "<input type='button' onclick='eliminar(" . "\"$codigo1\"" . ");' class='btn' "
