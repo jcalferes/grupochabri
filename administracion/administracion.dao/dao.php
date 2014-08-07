@@ -4257,15 +4257,43 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function eliminarOrdenCompra($idFolioOrdenCompra, $idSucursal, $folioComprobante) {
         include_once '../daoconexion/daoConeccion.php';
+        $error = "";
         $cn = new coneccion();
-        $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
-        $sqlEliminarExistenciasTemporales = "DELETE FROM existenciastemporales WHERE folioPedido = '" . $idFolioOrdenCompra . "' and idSucursal ='" . $idSucursal . "'";
-        $rs = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
-        $rs2 = mysql_query($sqlEliminarExistenciasTemporales, $cn->Conectarse());
-        if ($rs2 == false) {
-            $rs = $rs2;
+        $idFolio = 0;
+        try {
+            mysql_query("START TRANSACTION;", $cn->Conectarse());
+            $sqlDameFolio = "SELECT folioCancelaciones FROM folios WHERE idSucursal ='" . $idSucursal . "'";
+            $datosFolio = mysql_query($sqlDameFolio, $cn->Conectarse());
+            if ($datosFolio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($rsFolio = mysql_fetch_array($datosFolio)) {
+                $idFolio = $rsFolio["folioCancelaciones"];
+            }
+            $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4', folioComprobante='$idFolio' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
+            $rsEliminarOrden = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
+            if ($rsEliminarOrden == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlEliminarExistenciasTemporales = "DELETE FROM existenciastemporales WHERE folioPedido = '" . $idFolioOrdenCompra . "' and idSucursal ='" . $idSucursal . "'";
+            $rsEliminarExistenciaTemporal = mysql_query($sqlEliminarExistenciasTemporales, $cn->Conectarse());
+            if ($rsEliminarExistenciaTemporal == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolioCancelacion = "UPDATE folios SET folioCancelaciones ='" . ($idFolio + 1) . "' WHERE idSucursal ='$idSucursal'";
+            $rsActualizarFolioCancelacion = mysql_query($sqlActualizarFolioCancelacion);
+            if ($rsActualizarFolioCancelacion == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            mysql_query("COMMIT;", $cn->Conectarse());
+        } catch (Exception $ex) {
+            mysql_query("ROLLBACK;", $cn->Conectarse());
         }
-        return $rs;
+        return $error;
     }
 
     function dameTotalXmlComprobanteCorteCaja($idSucursal) {

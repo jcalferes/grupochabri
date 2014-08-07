@@ -14,9 +14,9 @@ if ($rsFolio == false) {
         $idFolioComprobante = $rsFol["folioComprobante"];
     }
     $rs = $dao->eliminarOrdenCompra($idFolio, $idSucursal, $idFolioComprobante);
-    if ($rs == false) {
-        echo mysql_error();
-    } else {
+    if ($rs == "") {
         echo 'Orden de compra eliminado';
+    } else {
+        echo $rs;
     }
 }
