@@ -22,6 +22,7 @@ if(count($imagenesBorradas) > 0){
 }
 
 $nombresDisponibles=$dao->obtenerImagenesDisponibles($clasificados);
+$id_prod = $dao->obtenerIdParaNombrarImagen($codigoProducto);
 
 //$descripcion = $_POST["descripcion"];
 //$tipo = $_POST["tipo"];
@@ -29,7 +30,7 @@ $nombresDisponibles=$dao->obtenerImagenesDisponibles($clasificados);
 //$codigoProducto = $_POST["codigoProducto"];
 foreach ($_FILES as $key) {
     if ($key['error'] == UPLOAD_ERR_OK) {//Verificamos si se subio correctamente
-        $nombre = $codigoProducto . '-_-' . $nombresDisponibles[$cont] . '.jpg'; //Obtenemos el nombre del archivo
+        $nombre = $id_prod . '-_-' . $nombresDisponibles[$cont] . '.jpg'; //Obtenemos el nombre del archivo
         $nombres[] = $nombre;
         $temporal = $key['tmp_name']; //Obtenemos el nombre del archivo temporal
         move_uploaded_file($temporal, $ruta . $nombre); //Movemos el archivo temporal a la ruta especificada
