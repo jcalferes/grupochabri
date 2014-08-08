@@ -736,6 +736,7 @@ $(document).ready(function() {
 
 
     $("#cmbClientes").change(function() {
+        $("#cmbTipoPago option[value='1']").attr("selected", true);
         $("#txtNombreCliente").val("");
         if ($("#cmbOrdenCompraV").val() != 0) {
             codigoN = 0;

@@ -4205,6 +4205,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             while ($datosFolioVenta = mysql_fetch_array($rsFolioVenta)) {
                 $folioVenta = $datosFolioVenta["folioVenta"];
             }
+            $sqlEliminarExistenciasTemporales = "DELETE FROM  existenciastemporales WHERE folioPedido='" . $folioVentaOrdenCompra . "' and idSucursal='" . $idSucursal . "' ";
+            $rsExistenciasTmp = mysql_query($sqlEliminarExistenciasTemporales);
+            if ($rsExistenciasTmp == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
             $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden =7 WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
             $rsComprobantes = mysql_query($sqlComprobantes);
             if ($rsComprobantes == false) {

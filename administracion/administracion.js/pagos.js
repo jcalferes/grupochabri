@@ -2,13 +2,25 @@ var idTipoPago;
 var folioventa;
 
 $(document).ready(function() {
+
     $("#mdlBuscadorOrdenesCompra").click(function() {
-        $("#tableOrdenesCompra").load("dameTodasOrdenesCompra.php", function() {
-            $("#mdlBusquedaOrdenCompra").modal("show");
-        });
+        var folio = $.trim($("#txtFolioCobrar").val());
+        if (folio == "") {
+            $("#tableOrdenesCompra").load("dameTodasOrdenesCompra.php", function() {
+                $("#mdlBusquedaOrdenCompra").modal("show");
+            });
+        }
+        else {
+            var callbacks = $.Callbacks();
+            callbacks.add(cargarInformacionFolios(folio));
+            callbacks.add(idTipoPago = $("#lblTipoPago1").text());
+        }
     });
 
     $("#btnCobrar").click(function() {
+        if (idTipoPago == "") {
+            idTipoPago = $("#lblTipoPago1").text();
+        }
         if (idTipoPago == 5) {
             var total = $("#totalV").text();
             var rfcCliente = $("#rfcCliente").text();
@@ -31,9 +43,22 @@ $(document).ready(function() {
         var info = "idCliente=" + idCliente + "&total=" + total + "&idNotasCredito=" + idNotasCredito + "&folioVnta=" + folioventa;
         $.post('guardarNotaCredito.php', info, function(resultado) {
             alertify.success(resultado);
+            $("#mdlNotacreditoInformacion").modal('hide');
+            limpiarOrdenesCompra();
+            $('#btnCobrar').attr("disabled", true);
+            $('#btnRechazar').attr("disabled", true);
+            $('#btnCancelarCobranzas').attr("disabled", true);
+            $("#txtFolioCobrar").val("");
         });
     });
 
+    $("#btnCancelarCobranzas").click(function() {
+        limpiarOrdenesCompra();
+        $('#btnCobrar').attr("disabled", true);
+        $('#btnRechazar').attr("disabled", true);
+        $('#btnCancelarCobranzas').attr("disabled", true);
+        $("#txtFolioCobrar").val("");
+    });
 
 
 
@@ -60,14 +85,17 @@ $(document).ready(function() {
                     var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
                     $.get('guardarPagos.php', informacion, function(respuesta) {
                         var callbacks = $.Callbacks();
-                        callbacks.add(limpiarOrdenesCompra());
                         var cambio = datos - total;
                         callbacks.add($('#btnCobrar').attr("disabled", true));
                         callbacks.add($('#btnRechazar').attr("disabled", true));
+                        callbacks.add($('#btnCancelarCobranzas').attr("disabled", true));
                         callbacks.add($("#mdlNotacreditoInformacion").modal('hide'));
                         callbacks.add($('#mdlPagar').modal('hide'));
                         callbacks.add($("#txtCantidad").val(""));
-//                        alertify.message("cambio :" + cambio);
+                        alertify.alert("<b>Cambio:</b> " + cambio + "", function() {
+                            callbacks.add(limpiarOrdenesCompra());
+                            $("#txtFolioCobrar").val("");
+                        });
                         alertify.success(respuesta);
                     });
                 }
@@ -81,20 +109,19 @@ $(document).ready(function() {
             var folio = $("#xmlComprobante").text();
             var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
             $.get('guardarPagos.php', informacion, function(respuesta) {
-//                alert(cambio);
                 $("#buscabonos").load("consultarDeudoresPV.php", function() {
                     $('#dtdeudores').dataTable();
                 });
                 limpiarOrdenesCompra();
                 $('#btnCobrar').attr("disabled", true);
                 $('#btnRechazar').attr("disabled", true);
+                $('#btnCancelarCobranzas').attr("disabled", true);
                 $("#mdlNotacreditoInformacion").modal('hide');
                 $('#mdlPagar').modal('hide');
                 $("#txtCantidad").val("");
                 alertify.message("cambio :" + cambio);
                 alertify.success(respuesta);
             });
-//            alert(cambio);
         }
 
     });
@@ -115,6 +142,27 @@ function cargarInformacion(folio, tipoPago) {
         $("#mdlBusquedaOrdenCompra").modal("hide");
         $("#btnCobrar").removeAttr('disabled');
         $("#btnRechazar").removeAttr('disabled');
+        $("#btnCancelarCobranzas").removeAttr('disabled');
+    });
+}
+
+
+function cargarInformacionFolios(folio) {
+    folioventa = folio;
+    $("#informacionPagos").load("dameInformacion.php?id=" + folio, function(respuesta) {
+        if ($.trim(respuesta) != "") {
+            $("#btnCobrar").removeAttr('disabled');
+            $("#btnRechazar").removeAttr('disabled');
+            $('#btnCancelarCobranzas').removeAttr('disabled');
+            idTipoPago = $("#lblTipoPago1").text();
+        }
+        else {
+            alertify.alert("<b>No hay información de este folio<b>");
+            $("#txtFolioCobrar").val("");
+            $('#btnRechazar').attr("disabled", true);
+            $('#btnCobrar').attr("disabled", true);
+            $('#btnCancelarCobranzas').attr("disabled", true);
+        }
     });
 }
 
@@ -128,6 +176,8 @@ $("#btnRechazar").click(function() {
                 alertify.success(respuesta);
                 $('#btnRechazar').attr("disabled", true);
                 $('#btnCobrar').attr("disabled", true);
+                $('#btnCancelarCobranzas').attr("disabled", true);
+                $("#txtFolioCobrar").val("");
             });
         }
     });
