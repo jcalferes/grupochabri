@@ -17,8 +17,10 @@ while ($rs = mysql_fetch_array($datos)) {
     $xmlComprobante = $rs["idXmlComprobante"];
     $cliente = $rs["nombreCliente"];
     $fecha = "";
+    $idTipoPago = 0;
     $tipopago = "";
     $fecha = $rs["fechaComprobante"];
+    $idTipoPago = $rs["idTipoPago"];
     $tipopago = $rs["tipoPago"];
     if ($cliente == "0") {
         $cliente = "Venta al Publico";
@@ -26,10 +28,12 @@ while ($rs = mysql_fetch_array($datos)) {
     ?>
     <div id="informacionPagos">
         <div class="well">
+            <span style="display: none" id="lblTipoPago1"><?php echo $idTipoPago; ?></span>
             <span style="display: none" id="xmlComprobante"><?php echo $rs["idXmlComprobante"]; ?></span>
             <strong>Folio : <span id="folioPagar"><?php echo $rs["folioComprobante"]; ?></span></strong>
             <br/>
-            <strong>Venta :<span id="rfcCliente"><?php echo $cliente; ?></span> </strong>
+            <strong>Venta :<?php echo $cliente; ?> </strong>
+            <span id="rfcCliente" style="display: none"><?php echo$rs["rfcComprobante"];?></span> 
             <strong style="float: right"> <?php echo $fecha; ?></strong>
             <br>
             <strong>Tipo Pago : <?php echo $tipopago; ?></strong>
@@ -54,10 +58,14 @@ while ($rs = mysql_fetch_array($datos)) {
                     ?>
                     <tr>
                         <td>
-                            <?php echo $datos1["codigoConcepto"]; ?>
-                        </td>
-                        <td>
-                    <center><?php echo $datos1["descripcionConcepto"]; ?></center>
+                    <center>
+                        <?php echo $datos1["codigoConcepto"]; ?>
+                    </center>
+                    </td>
+                    <td>
+                    <center>
+                        <?php echo $datos1["descripcionConcepto"]; ?>
+                    </center>
                     </td>
                     <td>
                     <center>  <?php echo $datos1["cantidadConcepto"]; ?></center>

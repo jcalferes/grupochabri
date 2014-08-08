@@ -29,9 +29,18 @@ if ($dato == false) {
             $idFolio = $dat[0];
         }
         $idXmlComprobante = $_GET["folioComprobante"];
-        $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago,$importe);
-        if ($mensaje == "") {
-            $mensaje = "Exito Venta Concretada";
+        $rsFolioComprobante = $dao->dameFolioComprobante($idXmlComprobante);
+        if ($rsFolioComprobante == false) {
+            $mensaje = mysql_error();
+        } else {
+            $folioComprobante = 0;
+            while ($rsFolio = mysql_fetch_array($rsFolioComprobante)) {
+                $folioComprobante= $rsFolio["folioComprobante"];
+            }
+            $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago, $importe, $folioComprobante);
+            if ($mensaje == "") {
+                $mensaje = "Exito Venta Concretada";
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
                 <div style="float: right" id="fecha">
                 </div>
                 <br>
-                <div style="float: right">
+                <div style="float: right ; margin-right: -45px">
                     <strong><label style="color: red">Folio: </label><label id="folio"/> 
                     </strong>
                 </div>
@@ -154,10 +154,11 @@
                                 <button  id="btnNotasCredito" class="btn btn-default" title="Notas de Credito"> <i class="fa fa-thumbs-o-down"></i> Notas de Credito</button> 
                                 <button  disabled="true" id="btnRechazar" class="btn btn-default" title="Rechazar Compra"><i class="fa fa-trash-o fa-lg"></i> Rechazar</button>
                                 <button disabled="true" class="btn btn-default" title="Cobrar Compra" id="btnCobrar"> <i class="fa fa-money fa-lg"></i> Cobrar</button> 
+                                <button disabled="true" class="btn btn-default" title="Cobrar Compra" id="btnCancelarCobranzas"> <i class="fa fa-money fa-lg"></i> Cancelar</button> 
                             </div>
                         </div>
                         <div class="input-group" style="width: 20%; float: right">
-                            <input type="text" placeholder="N° de folio" class="form-control"/>
+                            <input type="text" id="txtFolioCobrar" placeholder="N° de folio" class="form-control"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" id="mdlBuscadorOrdenesCompra" type="button" title="Buscar Ordenes de Compra">
                                     <span class="glyphicon glyphicon-search"></span>

@@ -17,8 +17,6 @@ $fecha = date("d/m/Y");
                     <thead>
                     <th><center>Folio</center></th>
                     <th><center>Cliente</center></th>
-                    <th><center>2</center></th>
-                    <th><center>3</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Total</center></th>
                     </thead>
@@ -26,21 +24,28 @@ $fecha = date("d/m/Y");
                     if ($rs == false) {
                         ?>
                         <tr>
-                            <td><?php echo mysql_error(); ?></td>
+                            <td>
+                        <center>
+                            <?php echo mysql_error(); ?>   
+                        </center>
+                        </td>
                         </tr>
                         <?php
                     } else {
+                        $okInformacion = false;
                         while ($datos = mysql_fetch_array($rs)) {
+                            $okInformacion = true;
                             ?>
                             <tr>
-                                <td><?php echo $datos["folioComprobante"]; ?></td>
-                                <td><?php echo $datos["nombreCliente"]; ?></td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td><?php echo $datos["tipoPago"]; ?></td>
-                                <td>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</td>
+                                <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                            <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
+                            <td><center><?php echo $datos["tipoPago"]; ?></center></td>
+                            <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                        }
+                        if ($okInformacion == false) {
+                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>
@@ -51,7 +56,6 @@ $fecha = date("d/m/Y");
                     <th><center>Folio</center></th>
                     <th><center>Cliente</center></th>
                     <th><center>Saldo</center></th>
-                    <th><center>1</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Cantidad Abonada</center></th>
                     </thead>
@@ -63,18 +67,21 @@ $fecha = date("d/m/Y");
                         </tr>
                         <?php
                     } else {
+                        $okInformacion = false;
                         while ($rsAb = mysql_fetch_array($rsAbono)) {
+                            $okInformacion = true;
                             ?>
                             <tr>
-                                <td><?php echo $rsAb["idAbonos"]; ?></td>
-                                <td><?php echo $rsAb["nombre"]; ?></td>
-                                <td><?php echo $rsAb["saldo"]; ?></td>
-
-                                <td>3</td>
-                                <td><?php echo $rsAb["tipoPago"]; ?></td>
-                                <td>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</td>
+                            <td><center><?php echo $rsAb["idAbonos"]; ?></center></td>
+                            <td><center><?php echo $rsAb["nombre"]; ?></center></td>
+                            <td><center><?php echo $rsAb["saldo"]; ?></center></td>
+                            <td><center><?php echo $rsAb["tipoPago"]; ?></center></td>
+                            <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                        }
+                        if ($okInformacion == false) {
+                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>
