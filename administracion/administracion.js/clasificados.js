@@ -246,7 +246,7 @@ $("#subirImagenes").click(function() {
             return false;
         }
         data.append('descripcion', probando = $("#descripcion").val());
-        data.append('codigoProducto', probando = $("#clascodigoproducto").val());
+        data.append('codigoProducto', probando = $("#clascodigoproducto").val().toUpperCase());
 //        data.append('grupo', probando = $("#selectGrupo").val());
         data.append('tipo', probando = $("#selectTipo").val());
         data.append('novedades', novedades);
@@ -296,7 +296,7 @@ $("#editarImagenes").click(function() {
             }
             listaImagenes = JSON.stringify(imagenes);
             data.append('descripcion', probando = $("#descripcion").val());
-            data.append('codigoProducto', probando = $("#clascodigoproducto").val());
+            data.append('codigoProducto', probando = $("#clascodigoproducto").val().toUpperCase());
 //        data.append('grupo', probando = $("#selectGrupo").val());
             data.append('tipo', probando = $("#selectTipo").val());
             data.append('novedades', novedades);
