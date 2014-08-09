@@ -180,11 +180,11 @@
                 <div>
                     <div class="form-group " style="float: left">
                         <label for="exampleInputEmail1" style="color: #000">Fecha Inicial :</label>
-                        <input type="date" class="form-control" style="width: 200px"/>
+                        <input type="date" class="form-control" style="width: 200px" id="txtFecha1"/>
                     </div>
                     <div class="form-group " style="float: left; margin-left: 30px">
                         <label for="exampleInputEmail1" style="color: #000">Fecha Final :</label>
-                        <input type="date" class="form-control" style="width: 200px"/>
+                        <input type="date" class="form-control" style="width: 200px" id="txtFecha2"/>
                     </div>
                 </div>
                 <hr style="margin-top: 75px">
@@ -572,7 +572,7 @@
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label" style="margin-left: 20px">Usuario:</label>
                                 <div class="col-sm-9">
-                                    <input style="width:70%" type="text" class="form-control" id="txtUsuarioValidarCaja" placeholder="Email">
+                                    <input style="width:70%" type="text" class="form-control" id="txtUsuarioValidarCaja" placeholder="Usuario">
                                 </div>
                             </div>
                             <div class="form-group">

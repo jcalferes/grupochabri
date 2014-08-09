@@ -4277,7 +4277,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             while ($rsFolio = mysql_fetch_array($datosFolio)) {
                 $idFolio = $rsFolio["folioCancelaciones"];
             }
-            $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4', folioComprobante='$idFolio' WHERE folioComprobante = '" . $idFolioOrdenCompra . "'";
+            $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4', folioComprobante='$idFolio' WHERE folioComprobante = '" . $idFolioOrdenCompra . "' and statusOrden = '5'";
             $rsEliminarOrden = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
             if ($rsEliminarOrden == false) {
                 $error = mysql_error();
