@@ -393,7 +393,7 @@
                         </div>
                         Cantiad Ingresada :
                         <center>
-                            <input id="txtCantidad" class="form-control" type="text" style="padding: 20px"/>
+                            <input id="txtCantidad" class="form-control" type="text" placeholder="$9999.99 mxn"/>
                         </center>
                     </div>
                     <div class="modal-footer">
