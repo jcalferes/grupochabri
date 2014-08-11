@@ -36,6 +36,39 @@ $(document).ready(function() {
             }
         }
     });
+
+    $("#btnFinalizarlo").click(function() {
+        $("#mdlAutorizacionFinalizarCaja").modal("show");
+    });
+
+    $("#btnAutorizarF").click(function() {
+        var usuario = $("#txtusuarioF").val();
+        var pass = $("#txtPassF").val();
+        if (usuario == "" || pass == "") {
+            alertify.error("Todos los campos son obligatorios");
+        }
+        else {
+            validarUsuarioCorteCaja(usuario, pass);
+        }
+
+    });
+    function validarUsuarioCorteCaja(usuario, password) {
+        var informacion = "usuario=" + usuario + "&pass=" + password;
+        $.get('validarAdministrador.php', informacion, function(autorizacion) {
+            if (autorizacion == 1) {
+                var callbacks = $.Callbacks();
+                callbacks.add($("#mdlAutorizacionFinalizarCaja").modal("hide"));
+                callbacks.add($("#mdlCorteCaja").modal("show"));
+                callbacks.add($("#txtusuarioF").val(""));
+                callbacks.add($("#txtPassF").val(""));
+            }
+            else {
+                alertify.error(autorizacion);
+            }
+        });
+    }
+
+
 });
 
 
