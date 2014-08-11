@@ -3722,7 +3722,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante) {
+    function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cn->Conectarse();
@@ -3800,7 +3800,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                             } else {
                                 while ($r2 = mysql_fetch_array($rsXmComprobantes)) {
                                     $sqlAbonos = "INSERT INTO abonos (rfcCliente, importe, idTipoPago, referencia, idSucursal, folioComprobante, fechaAbono, saldo, observaciones, statusSaldo)"
-                                            . " VALUES ('" . $r2["rfcComprobante"] . "','" . $importe . "',0,0,'$idSucursal', $folio, '$fecha', '0','','1')";
+                                            . " VALUES ('" . $r2["rfcComprobante"] . "','" . $importe . "','" . $tipoPagoCredito . "',0,'$idSucursal', $folio, '$fecha', '" . ($saldoCredito - $importe) . "','','1')";
                                     $rsAbonos = mysql_query($sqlAbonos);
                                     if ($rsAbonos == false) {
                                         $error = mysql_error();
@@ -4318,6 +4318,22 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function dameTotalXmlComprobanteCorteCajaPorFechas($idSucursal, $fecha1, $fecha2) {
+        $fecha = date("d/m/Y");
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+                . "inner join tipospagos tp "
+                . "on xmlC.idTipoPago = tp.idTipoPago "
+                . "WHERE statusOrden = '7'  "
+                . "and tipoComprobante = 'Ventas' "
+                . "and idSucursal = '" . $idSucursal . "' "
+                . "and xmlc.idTipoPago != '2' "
+                . "and fechaMovimiento BETWEEN  '" . $fecha1 . "' AND '" . $fecha2 . "' ";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
     function dameAbonoTotalCorteCaja($idSucursal) {
         $fecha = date("d/m/Y");
         $cn = new coneccion();
@@ -4329,6 +4345,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "WHERE idSucursal = '" . $idSucursal . "' "
                 . "and fechaAbono = '" . $fecha . "' "
                 . "and importe > 0";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2) {
+//        $fecha = date("d/m/Y");
+        $cn = new coneccion();
+        $sql = "SELECT * FROM abonos ab "
+                . "inner join clientes cl "
+                . "on ab.rfcCliente = cl.rfc "
+                . "inner join tipospagos tp "
+                . "on ab.idTipoPago = tp.idTipoPago "
+                . "WHERE idSucursal = '" . $idSucursal . "' "
+                . "and importe > 0 "
+                . "and fechaAbono BETWEEN '" . $fecha1 . "' AND '" . $fecha2 . "' ";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }

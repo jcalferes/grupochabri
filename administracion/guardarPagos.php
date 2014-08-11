@@ -11,6 +11,8 @@ $idTipoPago = $_GET["idTipoPago"];
 $importe = $_GET["importe"];
 $folioOrdenVenta = 0;
 $idXmlComprobante = 0;
+$tipoPagoCredito = $_GET["formaPago"];
+$saldoCredito = $_GET["totalCredito"];
 //$idXmlComprobante = $_GET["folioComprobante"];
 $idFolio = 0;
 $mensaje = "";
@@ -35,9 +37,9 @@ if ($dato == false) {
         } else {
             $folioComprobante = 0;
             while ($rsFolio = mysql_fetch_array($rsFolioComprobante)) {
-                $folioComprobante= $rsFolio["folioComprobante"];
+                $folioComprobante = $rsFolio["folioComprobante"];
             }
-            $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago, $importe, $folioComprobante);
+            $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito);
             if ($mensaje == "") {
                 $mensaje = "Exito Venta Concretada";
             }

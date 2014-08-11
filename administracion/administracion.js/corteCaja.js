@@ -25,6 +25,11 @@ $(document).ready(function() {
                 alertify.error("La fecha 1 debe ser menor que la fecha 2");
             }
             else {
+                var nuevaFecha1 = fecha1.split("-");
+                var nuevaFecha2 = fecha2.split("-");
+                fecha1 = nuevaFecha1[2] + "/" + nuevaFecha1[1] + "/" + nuevaFecha1[0];
+                fecha2 = nuevaFecha2[2] + "/" + nuevaFecha2[1] + "/" + nuevaFecha2[0];
+
                 $("#InformacionDia").load("dameInformacionCorteCajaFechas.php?fecha1=" + fecha1 + "&fecha2=" + fecha2, function() {
                     $("#InformacionDia").slideDown('slow');
                 });

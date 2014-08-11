@@ -2,6 +2,7 @@ var idTipoPago;
 var folioventa;
 
 $(document).ready(function() {
+    $("#pagarCobranza").hide();
 
     $("#mdlBuscadorOrdenesCompra").click(function() {
         var folio = $.trim($("#txtFolioCobrar").val());
@@ -18,6 +19,13 @@ $(document).ready(function() {
     });
 
     $("#btnCobrar").click(function() {
+//        alert(idTipoPago);
+        if (idTipoPago == 2) {
+            $("#pagarCobranza").show();
+        }
+        else if (idTipoPago != 2) {
+            $("#pagarCobranza").hide();
+        }
         if (idTipoPago == "") {
             idTipoPago = $("#lblTipoPago1").text();
         }
@@ -58,6 +66,7 @@ $(document).ready(function() {
         $('#btnRechazar').attr("disabled", true);
         $('#btnCancelarCobranzas').attr("disabled", true);
         $("#txtFolioCobrar").val("");
+        $("#pagarCobranza").hide();
     });
 
 
@@ -82,7 +91,7 @@ $(document).ready(function() {
                 }
                 else {
                     var folio = $("#xmlComprobante").text();
-                    var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
+                    var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos + "&formaPago=0" + "&totalCredito=0";
                     $.get('guardarPagos.php', informacion, function(respuesta) {
                         var callbacks = $.Callbacks();
                         var cambio = datos - total;
@@ -102,28 +111,37 @@ $(document).ready(function() {
             }
         }
         else {
+//            este else nos sirve para guardar la informacion en creditos
             var cambio = datos - total;
             if (datos > total) {
                 datos = total;
             }
-            var folio = $("#xmlComprobante").text();
-            var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos;
-            $.get('guardarPagos.php', informacion, function(respuesta) {
-                $("#buscabonos").load("consultarDeudoresPV.php", function() {
-                    $('#dtdeudores').dataTable();
-                });
-                limpiarOrdenesCompra();
-                $('#btnCobrar').attr("disabled", true);
-                $('#btnRechazar').attr("disabled", true);
-                $('#btnCancelarCobranzas').attr("disabled", true);
-                $("#mdlNotacreditoInformacion").modal('hide');
-                $('#mdlPagar').modal('hide');
-                $("#txtCantidad").val("");
-                alertify.message("cambio :" + cambio);
-                alertify.success(respuesta);
-            });
+            var tipoPago = $("#cmbTipoPagoCobranza").val();
+            if (tipoPago == 2) {
+                alertify.error("Seleccione otro tipo de pago que no sea credito");
+            }
+            else {
+                var folio = $("#xmlComprobante").text();
+                var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos + "&formaPago=" + tipoPago + "&totalCredito=" + total;
+                $.get('guardarPagos.php', informacion, function(respuesta) {
+//                    alert(respuesta);
+//                    alertify.message("cambio :" + cambio);
+                    alertify.success(respuesta);
+                    $("#buscabonos").load("consultarDeudoresPV.php", function() {
+                        $('#dtdeudores').dataTable();
+                    });
+                    limpiarOrdenesCompra();
+                    $('#btnCobrar').attr("disabled", true);
+                    $('#btnRechazar').attr("disabled", true);
+                    $('#btnCancelarCobranzas').attr("disabled", true);
+                    $("#mdlNotacreditoInformacion").modal('hide');
+                    $('#mdlPagar').modal('hide');
+                    $("#txtCantidad").val("");
+                    
+                }); 
+                $("#pagarCobranza").hide();
+            }
         }
-
     });
 
     $("#btnAbonos").click(function() {

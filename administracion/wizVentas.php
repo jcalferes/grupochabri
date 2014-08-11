@@ -380,7 +380,17 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Ordenes de Compra</h4>
                     </div>
+
                     <div class="modal-body">
+                        <div id="pagarCobranza">
+                            Tipo Pago :
+                            <center>
+                                <select class="form-control" id="cmbTipoPagoCobranza"
+                                        style="width: 260px">
+                                    <option></option>
+                                </select>
+                            </center>
+                        </div>
                         Cantiad Ingresada :
                         <center>
                             <input id="txtCantidad" class="form-control" type="text" style="padding: 20px" placeholder="$9999.99 mxn"/>
@@ -393,7 +403,6 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--fin del modal de cobranzas-->
-
         <!--Inicio de Modal de abonos-->
         <div class="modal fade" id="mdlabonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div id="mdldialog" class="modal-dialog" style="width: 80%">
@@ -478,7 +487,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
         <!--Inicio de modal de notas de credito-->
         <div class="modal fade" id="mdlnotascredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div id="mdldialog" class="modal-dialog" >
@@ -527,8 +535,6 @@
             </div><!-- /.modal-dialog -->
         </div>
         <!--Fin del modal de notas de credito-->
-
-
         <!--Modal de aviso de nota de credito-->
 
         <div class="modal fade" 
@@ -555,7 +561,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
+        <!--Modal de  abrir caja-->
         <div class="modal fade" 
              id="mdlInicioCaja" 
              tabindex="-1" 
@@ -594,7 +600,7 @@
                                class="btn btn-default" 
                                id="btnGuardarIngresoCaja"
                                value="Guardar Ingreso" title="Guardar ingreso de caja"/>
-                         <input type="submit" 
+                        <input type="submit" 
                                class="btn btn-default" 
                                id="btnCancelarIngresoCaja"
                                value="Salir" title="Guardar ingreso de caja"/>

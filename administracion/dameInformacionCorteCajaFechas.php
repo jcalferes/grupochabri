@@ -3,14 +3,14 @@ session_start();
 $idSucursal = $_SESSION["sucursalSesion"];
 include './administracion.dao/dao.php';
 $dao = new dao();
-$rs = $dao->dameTotalXmlComprobanteCorteCaja($idSucursal);
-$rsAbono = $dao->dameAbonoTotalCorteCaja($idSucursal);
 $fecha1 = $_GET["fecha1"];
-$fecha2 = $_GET["fecha2"]
+$fecha2 = $_GET["fecha2"];
+$rs = $dao->dameTotalXmlComprobanteCorteCajaPorFechas($idSucursal, $fecha1, $fecha2);
+$rsAbono = $dao->dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2);
 ?>
 <div id="InformacionDia">
     <div class="panel panel-default">
-        <div class="panel-heading"><strong>INFORMACION DEL DÍA &nbsp; <?php echo $fecha; ?> </strong></div>
+        <div class="panel-heading"><strong>INFORMACIÓN DEL DÍA <label style="color: red"> &nbsp; <?php echo $fecha1; ?></label> AL <label style="color: red"><?php echo $fecha2; ?> </label></strong></div>
         <div class="panel-body">
             <div>
                 <strong>Relación de movimiento de VENTAS :</strong>

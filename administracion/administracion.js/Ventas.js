@@ -585,6 +585,7 @@ $(document).ready(function() {
 
     $("#cmbOrdenCompraV").hide();
     $("#cmbTipoPago").load("dameTiposPagos.php");
+    $("#cmbTipoPagoCobranza").load("dameTiposPagos.php");
     $("#infDatos").hide();
     $("#buscarCodigo").click(function() {
         buscar();
@@ -736,6 +737,7 @@ $(document).ready(function() {
 
 
     $("#cmbClientes").change(function() {
+        $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
         $("#cmbTipoPago option[value='1']").attr("selected", true);
         $("#txtNombreCliente").val("");
         if ($("#cmbOrdenCompraV").val() != 0) {

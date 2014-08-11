@@ -9,7 +9,7 @@ $fecha = date("d/m/Y");
 ?>
 <div id="InformacionDia">
     <div class="panel panel-default">
-        <div class="panel-heading"><strong>INFORMACION DEL DÍA &nbsp; <?php echo $fecha; ?> </strong></div>
+        <div class="panel-heading"><strong>INFORMACION DEL DÍA &nbsp; <label style="color: red"> <?php echo $fecha; ?> </label> </strong></div>
         <div class="panel-body">
             <div>
                 <strong>Relación de movimiento de VENTAS :</strong>
