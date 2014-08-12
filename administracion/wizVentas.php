@@ -176,7 +176,6 @@
 
             <h2><span class="glyphicon glyphicon-remove-circle"/>&numsp;Corte de Caja</h2>
             <section>
-
                 <div>
                     <div class="form-group " style="float: left">
                         <label for="exampleInputEmail1" style="color: #000">Fecha Inicial :</label>
@@ -192,6 +191,7 @@
                     <button type="button" class="btn btn-default" id="btnBuscarPorFechas" title="Busqueda por fechas"><span class="glyphicon glyphicon-search">&nbsp;<strong>FECHAS</strong></span></button>
                     <button type="button" class="btn btn-default" id="btnBuscarHoy" title="Busqueda de movimiento del dia de hoy"><span class="glyphicon glyphicon-tree-deciduous">&nbsp;<strong>HOY</strong></span></button>
                     <button type="button" class="btn btn-default" id="btnActualizarHoy" title="Actualizar busqueda del dia de hoy"><span class="glyphicon glyphicon-refresh">&nbsp;<strong>ACTUALIZAR</strong></span></button>
+                    <button type="button" class="btn btn-default" id="btnFinalizarlo" title="Finalizar Corte Caja"><span class="glyphicon glyphicon-off">&nbsp;<strong>FINALIZAR DÍA</strong></span></button>
                 </div>
                 <br> <br> 
                 <div id="InformacionDia">
@@ -310,12 +310,6 @@
                                            placeholder="Usuario"
                                            id="txtusuario"
                                            />
-                                    <!--<span class='input-group-btn'>-->
-                                    <!--                                            <button class='btn btn-default' type='button'>
-                                                                                    KG
-                                                                                </button>-->
-                                    <!--</span>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -609,10 +603,84 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
-
-
-
+        
+        <div class="modal fade" 
+             id="mdlAutorizacionFinalizarCaja" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalAutorizacion" 
+             aria-hidden="true" >
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Autorización</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">
+                                    Usuario
+                                </label>
+                                <div class="col-sm-8">
+                                    <!--<div class="input-group">-->
+                                    <input type="text" 
+                                           class="form-control" 
+                                           placeholder="Usuario"
+                                           id="txtusuarioF"
+                                           />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">
+                                    Password:
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="txtPassF"
+                                           placeholder="Password"
+                                           />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' 
+                                class='btn btn-cprimary' 
+                                id='btnAutorizarF'>
+                            Autorizar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        
+        <div class="modal fade" 
+             id="mdlCorteCaja" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalAutorizacion" 
+             aria-hidden="true" >
+            <div class="modal-dialog" style="width: 300px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Va a finalizar el día de hoy.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type='button' 
+                                class='btn btn-cprimary' 
+                                id='btnCorteCaja'>
+                            Finalizar día</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

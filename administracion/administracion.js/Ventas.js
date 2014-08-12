@@ -506,14 +506,6 @@ function eliminar(codigo) {
 }
 
 
-
-
-
-
-
-
-
-
 function validarUsuario(usuario, password) {
     var informacion = "usuario=" + usuario + "&pass=" + password;
     $.get('validarAdministrador.php', informacion, function(autorizacion) {
