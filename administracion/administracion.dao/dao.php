@@ -2992,7 +2992,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameClientes() {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT rfc, nombre from clientes";
+        $sql = "SELECT rfc, nombre from clientes WHERE rfc != '0'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }
