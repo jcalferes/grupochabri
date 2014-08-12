@@ -9,6 +9,12 @@ $("#btnbuscarfoliocancelacion").click(function() {
         $("#showdatoscancelacion").load("buscarFolioCancelacion.php?foliocancelacion=" + foliocancelacion, function() {
             $("#dtcancelacion").dataTable();
             $("#txtfoliocancelacion").val("");
+            var buzon_rfc = $("#buzon_rfc").val();
+            if (buzon_rfc == 1) {
+                $("#chkreutilizar").attr("disabled", true);
+            } else {
+                $("#chkreutilizar").removeAttr("disabled");
+            }
         });
     }
 });
@@ -20,6 +26,7 @@ $("#btnnocancelacion").click(function() {
 });
 $("#btnvalidacancelacion").click(function() {
     var chk = $("#chkreutilizar").is(":checked");
+
     if (chk == true) {
         var reutilizar = 1;
     } else {

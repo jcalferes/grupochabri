@@ -9,13 +9,21 @@ $idsucursal = $_SESSION["sucursalSesion"];
 $dao = new dao();
 $cn = new coneccion();
 
+$publico = 0;
+
 $cn->Conectarse();
 $datos = $dao->dameInfoCancelacion($foliocancelacion, $idsucursal);
 if ($datos != false) {
     echo "<table class='table'>";
     while ($rs = mysql_fetch_array($datos)) {
         echo "<tr>";
-        echo "<td><label>Folio: </label><span id='spnfolio'>$rs[folioComprobante]</span><br><label>RFC del cliente: </label>$rs[rfcComprobante]</td>";
+        echo "<td><label>Folio: </label><span id='spnfolio'>$rs[folioComprobante]</span><br><label>RFC del cliente: </label>$rs[rfcComprobante]";
+        if ($rs["rfcComprobante"] == "0") {
+            echo "</td>";
+            $publico = 1;
+        } else {
+            echo "<br><label>Nombre del cliente: </label>$rs[nombre]</td>";
+        }
         echo "<td></tr><tr>";
         echo "<td><label>Descuento total: </label>$rs[desctTotalComprobante]</td>";
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
@@ -34,6 +42,9 @@ if ($datos != false) {
     echo "</tbody></table></div></div>"
     . "<div class='form-group'><div class='checkbox'><label><input type='checkbox' id='chkreutilizar'>Reeutilizar como una venta</label></div></div>"
     . "<label>Observaciones:</label><br/><textarea class='form-control' id='txaobscancelacion'></textarea><br>";
+    if ($publico == 1) {
+        echo "<input type='text' id='buzon_rfc' value='$publico' disabled hidden/>";
+    }
     echo "<script> $('#divfoliocancelacion').slideUp(); $('#divvalidacancelacion').slideDown();</script>";
 } else {
     echo "<script> alertify.error('El folio no existe o no se encontraron datos para el mismo');</script>";
