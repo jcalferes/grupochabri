@@ -137,6 +137,19 @@ class dao {
         }
     }
 
+    function existenciaCachibache($codigo) {
+        $query = "SELECT * FROM existencias ex "
+                . "INNER JOIN sucursales suc ON ex.idSucursal = suc.idSucursal "
+                . "WHERE codigoProducto = '$codigo'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+            return false;
+        } else {
+            return $ctrl;
+        }
+    }
+
     function filtrarCachibaches($idtipo) {
         $query = "SELECT * FROM clasificados c "
                 . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
