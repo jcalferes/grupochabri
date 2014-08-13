@@ -82,14 +82,28 @@ function entroClasificados() {
 
 function cambiarSucursal() {
     $("#slccamsuc").load("sacarSucursales.php", function() {
-        $('#slccamsuc').selectpicker();;
+        $('#slccamsuc').selectpicker();
+        ;
     });
     $("#mdlcamsuc").modal('show');
 }
 
-$("#btncamsuc_cancelar").click(function(){
+$("#btncamsuc_cancelar").click(function() {
+
 });
 
-$("#btncamsuc_cambiar").click(function(){
-    alert("Si");
+$("#btncamsuc_cambiar").click(function() {
+    var n_suc = $("#slccamsuc").val();
+    if (n_suc != 0) {
+        var info = "nsuc=" + n_suc;
+        $.get('cambiarSucursalSession.php', info, function(r) {
+            if (r == true) {
+                document.location.href = '../administracion/gestionAdministrativaClientes.php';
+            } else {
+                alertify.error("No se pudo cambiar la session");
+            }
+        });
+    } else {
+        alertify.error("Seleccione una sucursal.");
+    }
 });

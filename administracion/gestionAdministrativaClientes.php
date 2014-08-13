@@ -127,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <input id="btncamsuc_cancelar" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                        <input id="btncamsuc_cambiar" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Cambiar" />
+                        <input id="btncamsuc_cambiar" type="button" class="btn btn-cprimary" value="Cambiar" />
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
