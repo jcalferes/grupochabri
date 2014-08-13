@@ -25,11 +25,11 @@ if ($validapc == "VALIDA") {
             $tipousuario = $rs['idTipoUsuario'];
             $idsucursal = $rs['idSucursal'];
         }
-        if ($tipousuario == 2) {
+//        if ($tipousuario == 2) {
             $_SESSION["usuarioSesion"] = $usuario->getUsuario();
             $_SESSION["tipoSesion"] = $tipousuario;
             $_SESSION["sucursalSesion"] = $idsucursal;
-        }
+//        }
         echo $tipousuario;
         $cn->cerrarBd();
     }

@@ -296,8 +296,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $datos;
     }
 
-    function dondeInicie($idsucursal) {
-        $sql = "SELECT sucursal FROM sucursales WHERE idSucursal = '$idsucursal' ";
+    function dondeInicie($idsucursal, $usuario) {
+        $sql = "SELECT * FROM sucursales s "
+                . "INNER JOIN usuarios u ON s.idSucursal = u.idSucursal "
+                . "WHERE s.idSucursal = '$idsucursal'AND u.usuario = '$usuario'";
         $rs = mysql_query($sql);
         return $rs;
     }
@@ -3315,7 +3317,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
                 . "INNER JOIN clientes cli ON xcm.rfcComprobante = cli.rfc "
-                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden <> 3 AND xcm.statusOrden <> 8";
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden = '7'";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {

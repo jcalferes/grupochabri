@@ -7,12 +7,13 @@ $dao = new dao();
 $cn = new coneccion();
 if (isset($_SESSION["sucursalSesion"])) {
     $idsucursal = $_SESSION["sucursalSesion"];
+    $usuario = $_SESSION["usuarioSesion"];
     $cn->Conectarse();
-    $rs = $dao->dondeInicie($idsucursal);
+    $rs = $dao->dondeInicie($idsucursal, $usuario);
     while ($datos = mysql_fetch_array($rs)) {
-        $sucursal = $datos["sucursal"];
+        $data["data"] = array('sucursal' => $datos["sucursal"], 'nombre' => ucwords(strtolower($datos["nombre"])));
     }
-    echo $sucursal;
+    echo json_encode($data);
     $cn->cerrarBd();
 } else {
     echo 999;

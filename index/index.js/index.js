@@ -70,7 +70,7 @@ $("#loginbtn").click(function() {
                 if (respuesta == 7) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    alertify.success("ES UN CLIENTE");
+                    document.location.href = '../administracion/gestionAdministrativaClientes.php';
                 }
                 if (respuesta == 777) {
                     $("#loginuser").val("");
