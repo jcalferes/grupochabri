@@ -603,7 +603,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-        
+
         <div class="modal fade" 
              id="mdlAutorizacionFinalizarCaja" 
              tabindex="-1" 
@@ -654,7 +654,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-        
+
         <div class="modal fade" 
              id="mdlCorteCaja" 
              tabindex="-1" 
@@ -669,7 +669,20 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            Va a finalizar el día de hoy.
+                            <strong> Va a finalizar el día de hoy.</strong>
+                            <br>
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Cantidad en Caja :</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Check me out
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
                         </p>
                     </div>
                     <div class="modal-footer">
