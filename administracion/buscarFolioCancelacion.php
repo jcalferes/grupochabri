@@ -18,12 +18,10 @@ if ($datos != false) {
     while ($rs = mysql_fetch_array($datos)) {
         echo "<tr>";
         echo "<td><label>Folio: </label><span id='spnfolio'>$rs[folioComprobante]</span><br><label>RFC del cliente: </label>$rs[rfcComprobante]";
+        echo "<br><label>Nombre del cliente: </label>$rs[nombreCliente]</td>";
         if ($rs["rfcComprobante"] == "0") {
-            echo "</td>";
             $publico = 1;
-        } else {
-            echo "<br><label>Nombre del cliente: </label>$rs[nombre]</td>";
-        }
+        } 
         echo "<td></tr><tr>";
         echo "<td><label>Descuento total: </label>$rs[desctTotalComprobante]</td>";
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
