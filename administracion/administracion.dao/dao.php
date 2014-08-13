@@ -3316,7 +3316,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameInfoCancelacion($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
-                . "INNER JOIN clientes cli ON xcm.rfcComprobante = cli.rfc "
                 . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden = '7'";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();

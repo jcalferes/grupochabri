@@ -86,3 +86,10 @@ function cambiarSucursal() {
     });
     $("#mdlcamsuc").modal('show');
 }
+
+$("#btncamsuc_cancelar").click(function(){
+});
+
+$("#btncamsuc_cambiar").click(function(){
+    alert("Si");
+});
