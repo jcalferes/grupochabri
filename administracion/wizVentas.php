@@ -482,7 +482,11 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!--Inicio de modal de notas de credito-->
-        <div class="modal fade" id="mdlnotascredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal fade" id="mdlnotascredito" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="myModalLabel" 
+             aria-hidden="true" >
             <div id="mdldialog" class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
@@ -514,7 +518,7 @@
                                     <div id="divfoliocancelacion">
                                         <div class="well well-sm">
                                             <label>Folio  de la cancelación a vincular:</label>
-                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacion"/>
+                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacionC"/>
                                         </div>
                                     </div>
                                 </div>
