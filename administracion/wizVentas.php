@@ -505,11 +505,15 @@
                                     <select id="slccliente" class="selectpicker selectores" data-width="auto" data-container="body" data-live-search="true">
                                     </select>
                                 </div>
+                                <div class="form-group" style="width: 200px">
+                                    <select id="cmbCancelaciones" class="form-control">
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Cantidad en pesos:</label>
                                     <input type="text" class="form-control" id="txtcantidadnotacredito" onkeypress="return NumCheck2(event, this);"/>
                                 </div>
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" id="chkfoliocancelacion" onclick="vincularcancelacion();"> Vincular a una cancelacion
@@ -521,7 +525,7 @@
                                             <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacionC"/>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <input type="button" class="btn btn-cprimary" id="btnguardanotacredito" value="Guardar nota de credito"/>
                                     <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
@@ -607,7 +611,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
+        <!-- modald e finalizar caja -->
         <div class="modal fade" 
              id="mdlAutorizacionFinalizarCaja" 
              tabindex="-1" 
@@ -658,7 +662,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
+        <!-- modal de autoriazacion -->
         <div class="modal fade" 
              id="mdlCorteCaja" 
              tabindex="-1" 

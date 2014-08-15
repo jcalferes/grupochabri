@@ -21,6 +21,8 @@ function NumCheck2(e, field, tarifa) {
 
 $(document).ready(function() {
     $("#nuevanotacredito").hide();
+    $("#cmbCancelaciones").hide();
+
     $("#slccliente").load("mostrarClientes.php", function() {
         $("#slccliente").selectpicker();
     });
@@ -28,6 +30,18 @@ $(document).ready(function() {
         $('#dtnotascredito').dataTable();
     });
     $("#divfoliocancelacion").hide();
+
+    $("#slccliente").change(function() {
+        $("#txtcantidadnotacredito").val("");
+        var idCliente = $("#slccliente").val();
+        $("#cmbCancelaciones").load("cargarVentasCanceladas.php?idCliente=" + idCliente, function() {
+            $("#cmbCancelaciones").slideDown('slow');
+        });
+    });
+    $("#cmbCancelaciones").change(function() {
+        var informacion = $("#cmbCancelaciones").val().split(',');
+        $("#txtcantidadnotacredito").val(informacion[1]);
+    });
 });
 
 $("#btnnotascredito").click(function() {
@@ -35,27 +49,16 @@ $("#btnnotascredito").click(function() {
 });
 
 $("#btnguardanotacredito").click(function() {
-    var cantidad = $("#txtcantidadnotacredito").val();
     var idcliente = $("#slccliente").val();
-    var foliocancelacion = $("#txtfoliocancelacionC").val();
-    var chkfoliocancelacion = $("#chkfoliocancelacion").is(":checked");
-    alert($("#txtfoliocancelacionC").val());
-    if (chkfoliocancelacion == true) {
-        if (foliocancelacion === "" || /^\s+$/.test(foliocancelacion)) {
-            alertify.error("No agregaste el folio de la cancelación");
-            $("#txtfoliocancelacionC").val("");
-            return false;
-        }
-    } else {
-        foliocancelacion = 0;
-    }
-
+    var datos = $("#cmbCancelaciones").val().split(",");
+    var cantidad = $.trim($("#txtcantidadnotacredito").val());
+    var foliocancelacion = datos[0];
     if (idcliente == 0) {
         alertify.error("No seleccionaste un cliente");
         return false;
     }
 
-    if (cantidad === "" || /^\s+$/.test(cantidad)) {
+    if (cantidad === "" || cantidad === 0) {
         alertify.error("No agregaste una cantidad");
         $("#txtcantidadnotacredito").val("");
         return false;
