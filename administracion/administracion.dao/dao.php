@@ -4414,4 +4414,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function dameVentasCanceladasNotaCredito($idSucursal) {
+        $fecha = date("d/m/Y");
+        $sql = "select * from xmlComprobantes xC
+                inner join notasCredito nC 
+                on xC.folioComprobante = nC.folioCancelacion
+                where statusOrden='3' 
+                and nC.idSucursal = '$idSucursal'
+                and xC.idSucursal = '$idSucursal' and fechaMovimiento ='".$fecha."'";
+    }
+
 }

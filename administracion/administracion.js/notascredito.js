@@ -37,13 +37,13 @@ $("#btnnotascredito").click(function() {
 $("#btnguardanotacredito").click(function() {
     var cantidad = $("#txtcantidadnotacredito").val();
     var idcliente = $("#slccliente").val();
-    var foliocancelacion = $("#txtfoliocancelacion").val();
+    var foliocancelacion = $("#txtfoliocancelacionC").val();
     var chkfoliocancelacion = $("#chkfoliocancelacion").is(":checked");
-
+    alert($("#txtfoliocancelacionC").val());
     if (chkfoliocancelacion == true) {
         if (foliocancelacion === "" || /^\s+$/.test(foliocancelacion)) {
             alertify.error("No agregaste el folio de la cancelación");
-            $("#txtfoliocancelacion").val("");
+            $("#txtfoliocancelacionC").val("");
             return false;
         }
     } else {
@@ -63,7 +63,7 @@ $("#btnguardanotacredito").click(function() {
     var info = "cantidad=" + cantidad + "&idcliente=" + idcliente + "&foliocancelacion=" + foliocancelacion;
     $.get('guardarNotasCredito.php', info, function(r) {
         if (r == 0) {
-            $("#txtfoliocancelacion").val("");
+            $("#txtfoliocancelacionC").val("");
             $("#divfoliocancelacion").slideUp();
             $("#txtcantidadnotacredito").val("");
             $("#slccliente").selectpicker('val', 0);
