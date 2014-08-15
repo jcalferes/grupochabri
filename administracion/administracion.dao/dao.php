@@ -298,8 +298,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function dondeInicie($idsucursal, $usuario) {
         $sql = "SELECT * FROM sucursales s "
-                . "INNER JOIN usuarios u ON s.idSucursal = u.idSucursal "
-                . "WHERE s.idSucursal = '$idsucursal'AND u.usuario = '$usuario'";
+                . "INNER JOIN usuarios u "
+                . "WHERE u.usuario = '$usuario' AND s.idSucursal = '$idsucursal'";
         $rs = mysql_query($sql);
         return $rs;
     }

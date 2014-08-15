@@ -44,51 +44,21 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar productos</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header"></li>
-                                <li id="12" class=""><a onclick="entroAgranel();">Incrementar productos a granel</a></li>
-                                <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
-                                <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
+                                <li id="2" class=""><a onclick="entroProducto();">Consultar productos</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Solicitudes<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-header"></li>
-                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de producto</a></li>
-                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas de producto</a></li>
-                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header"></li>
-                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra y cotizaciones</a></li>
-                                <li id="13" class=""><a onclick="entroClientePedido();">Pedidos de clientes</a></li>
-                                <li id="11" class=""><a onclick="entroTrasferencia();">Transferencias</a></li>
+                                <li id="13" class=""><a onclick="entroClientePedido();">Pedido de compra</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header"></li>
-                                <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
-                                <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                                <li id="8" class=""><a onclick="entroUsuarios();">Usuarios del sistema</a></li>
-
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Publicar<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li id="15" class=""><a onclick="entroClasificados();">Clasificados</a></li>
-                            </ul>
-                        </li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ><span id="session_nombre"> </span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-header" id="session_sucursal"></li>
+                                <li class="dropdown-header">Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li><a onclick="cambiarSucursal();">Cambiar de sucursal</a></li>
                                 <li class="divider"></li>
                                 <li><a href="../index/cerrarSesion.php">Cerrar session</a></li>
@@ -127,7 +97,7 @@
                     </div>
                     <div class="modal-footer">
                         <input id="btncamsuc_cancelar" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                        <input id="btncamsuc_cambiar" type="button" class="btn btn-cprimary" data-dismiss="modal" value="Cambiar" />
+                        <input id="btncamsuc_cambiar" type="button" class="btn btn-cprimary" value="Cambiar" />
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

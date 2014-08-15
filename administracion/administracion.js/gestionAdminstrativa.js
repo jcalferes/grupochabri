@@ -13,10 +13,13 @@ $(document).ready(function() {
     });
 
     $.get('dondeInicie.php', function(x) {
-        var sucursal = x;
+        var i = $.parseJSON(x);
+        var sucursal = i.data.sucursal;
+        var nombre = i.data.nombre;
         if (x == 999) {
         } else {
-            $("#donde").text("Cerrar sesion: " + sucursal);
+            $("#session_nombre").text("Bienvenido(a): " + nombre);
+            $("#session_sucursal").text(sucursal);
         }
     });
 });
