@@ -55,7 +55,7 @@ $("#loginbtn").click(function() {
                 if (respuesta == 3) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    alertify.success("ES UN VENDEDOR");
+                    document.location.href = '../administracion/gestionAdministrativaVentas.php';
                 }
                 if (respuesta == 4) {
                     $("#loginuser").val("");

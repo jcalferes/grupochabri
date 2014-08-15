@@ -1,5 +1,5 @@
 <?php
-include '../index/verificaSessionCliente.php';
+include '../index/verificaSessionVentas.php';
 $verificasession = new verificaSession();
 $verificasession->validaSesion();
 ?>
@@ -41,9 +41,9 @@ $verificasession->validaSesion();
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Solicitudes<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li id="13" class=""><a onclick="entroClientePedido();">Pedido de compra</a></li>
+                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -51,8 +51,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ><span id="session_nombre"> </span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-header">Sucursal actual:<br><span id="session_sucursal"></span></li>
-                                <li><a onclick="cambiarSucursal();">Cambiar de sucursal</a></li>
+                                <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
                                 <li><a href="../index/cerrarSesion.php">Cerrar session</a></li>
                             </ul>
@@ -76,25 +75,6 @@ $verificasession->validaSesion();
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="mdlcamsuc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Cambiar sucursal</h4>
-                    </div>
-                    <div class="modal-body">
-                        <select id="slccamsuc" class="form-control">
-                            <option value="0">Seleccione una Sucursal</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <input id="btncamsuc_cancelar" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                        <input id="btncamsuc_cambiar" type="button" class="btn btn-cprimary" value="Cambiar" />
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
@@ -104,6 +84,6 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
-        <script src="../administracion/administracion.js/gestionAdministrativaClientes.js"></script>
+        <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>
