@@ -19,7 +19,7 @@ $(document).ready(function() {
         if (x == 999) {
         } else {
             $("#session_nombre").text("Bienvenido(a): " + nombre);
-            $("#session_sucursal").text("Sucursal actual: " + sucursal);
+            $("#session_sucursal").text(sucursal);
         }
     });
 });

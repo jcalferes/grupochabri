@@ -4421,7 +4421,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 on xC.folioComprobante = nC.folioCancelacion
                 where statusOrden='3' 
                 and nC.idSucursal = '$idSucursal'
-                and xC.idSucursal = '$idSucursal' and fechaMovimiento ='".$fecha."'";
+                and xC.idSucursal = '$idSucursal' and fechaMovimiento ='" . $fecha . "'";
     }
 
 }
