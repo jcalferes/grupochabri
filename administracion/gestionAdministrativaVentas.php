@@ -43,7 +43,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                                 <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
                             </ul>
                         </li>
                     </ul>
