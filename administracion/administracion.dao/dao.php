@@ -4416,12 +4416,27 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function dameVentasCanceladasNotaCredito($idSucursal) {
         $fecha = date("d/m/Y");
+
         $sql = "select * from xmlComprobantes xC
                 inner join notasCredito nC 
                 on xC.folioComprobante = nC.folioCancelacion
                 where statusOrden='3' 
                 and nC.idSucursal = '$idSucursal'
                 and xC.idSucursal = '$idSucursal' and fechaMovimiento ='" . $fecha . "'";
+    }
+
+    function dameOrdenesCanceladas($idCliente) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "select folioComprobante, fechaMovimiento, totalComprobante from xmlcomprobantes xC
+                inner join clientes cl 
+                on xC.rfcComprobante = cl.rfc
+                where cl.idCliente='" . $idCliente . "' 
+                and xC.statusOrden='3'
+                and xC.fechaMovimiento='" . $fecha . "'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
     }
 
 }
