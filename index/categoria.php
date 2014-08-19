@@ -14,6 +14,7 @@ $nm_grupo = $_GET["nm_grupo"];
         <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
         <link href="index.css/czsale.css" rel="stylesheet" media="screen">
         <link href="index.css/czsale-responsive.css" rel="stylesheet" media="screen">
+        <link href="../dtbootstrap/dataTables.bootstrap.css" rel="stylesheet" media="screen">
         <link href="../alertify/themes/alertify.core.css" rel="stylesheet">
         <link href="../alertify/themes/alertify.default.css" rel="stylesheet">
         <link href="index.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
@@ -99,6 +100,8 @@ $nm_grupo = $_GET["nm_grupo"];
         <script src="index.js/respond.min.js"></script>
         <script src="index.js/jquery.slides.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
+        <script src="../dtbootstrap/jquery.dataTables.js"></script>
+        <script src="../dtbootstrap/dataTables.bootstrap.js"></script>
         <script src="index.js/categoria.js"></script>
         <script>
             $(document).ready(function() {

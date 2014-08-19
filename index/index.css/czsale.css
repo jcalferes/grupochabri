@@ -70,8 +70,8 @@ a.list-subgroup-item:hover, a.list-subgroup-item.active, a.list-subgroup-item.ac
 .pagination > .active > span:hover, 
 .pagination > .active > a:focus, 
 .pagination > .active > span:focus {
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #f77000;
+  border-color: #e36d0b;
 }
 
 /* Navbar */
