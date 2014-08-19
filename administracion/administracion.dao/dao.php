@@ -3383,7 +3383,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
         }
         //================= Cambiar status comprobante =========================
-        $sqlstatus = "UPDATE xmlComprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
+        $sqlstatus = "UPDATE xmlcomprobantes SET statusOrden = '3' WHERE folioComprobante = '$folio'";
         $ctrlstatus = mysql_query($sqlstatus);
         if ($ctrlstatus == false) {
             $ctrlstatus = mysql_error();
@@ -3566,6 +3566,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $ctrl3 = mysql_query($sql3);
         if ($ctrl3 == false) {
             $ctrl3 = mysql_error();
+            mysql_query("ROLLBACK;");
+            return false;
+        }
+//        VERIFICAR ESTA CONSULTA
+        $sqlActualizarComprobantes = "UPDATE xmlcomprobantes set statusOrden ='9' WHERE statusOrden = '3' and folioComprobante ='$foliocancelacion' and fechaMovimiento ='$lafecha'";
+        $rs = mysql_query($sqlActualizarComprobantes);
+        if ($rs == false) {
+            $rs = mysql_error();
             mysql_query("ROLLBACK;");
             return false;
         }
@@ -4315,7 +4323,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "and fechaMovimiento = '" . $fecha . "' "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
-                . "and xmlc.idTipoPago !=2";
+                . "and xmlC.idTipoPago !=2";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -4408,7 +4416,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameFolioComprobante($idXmlComprobante) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT folioComprobante FROM xmlComprobantes WHERE idXmlComprobante = '" . $idXmlComprobante . "'";
+        $sql = "SELECT folioComprobante FROM xmlcomprobantes WHERE idXmlComprobante = '" . $idXmlComprobante . "'";
         $rs = mysql_query($sql, $cn->Conectarse());
 
         return $rs;
@@ -4416,13 +4424,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function dameVentasCanceladasNotaCredito($idSucursal) {
         $fecha = date("d/m/Y");
-
-        $sql = "select * from xmlComprobantes xC
-                inner join notasCredito nC 
-                on xC.folioComprobante = nC.folioCancelacion
-                where statusOrden='3' 
-                and nC.idSucursal = '$idSucursal'
-                and xC.idSucursal = '$idSucursal' and fechaMovimiento ='" . $fecha . "'";
+        $cn = new coneccion();
+        $sql = "select * from xmlcomprobantes 
+                where fechaMovimiento = '$fecha' 
+                and statusOrden ='9' and idSucursal = '$idSucursal'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
     }
 
     function dameOrdenesCanceladas($idCliente) {

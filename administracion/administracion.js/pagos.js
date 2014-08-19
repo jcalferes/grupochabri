@@ -1,13 +1,13 @@
 var idTipoPago;
 var folioventa;
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#pagarCobranza").hide();
 
-    $("#mdlBuscadorOrdenesCompra").click(function() {
+    $("#mdlBuscadorOrdenesCompra").click(function () {
         var folio = $.trim($("#txtFolioCobrar").val());
         if (folio == "") {
-            $("#tableOrdenesCompra").load("dameTodasOrdenesCompra.php", function() {
+            $("#tableOrdenesCompra").load("dameTodasOrdenesCompra.php", function () {
                 $("#mdlBusquedaOrdenCompra").modal("show");
             });
         }
@@ -18,7 +18,9 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnCobrar").click(function() {
+    $("#btnCobrar").click(function () {
+        var total1 = $("#totalV").text();
+        $("#totalVnt").text(total1);
 //        alert(idTipoPago);
         if (idTipoPago == 2) {
             $("#pagarCobranza").show();
@@ -32,7 +34,7 @@ $(document).ready(function() {
         if (idTipoPago == 5) {
             var total = $("#totalV").text();
             var rfcCliente = $("#rfcCliente").text();
-            $("#informacionNotaCredito").load("dameInformacionNotaCredito.php?total=" + total + "&cliente=" + rfcCliente, function() {
+            $("#informacionNotaCredito").load("dameInformacionNotaCredito.php?total=" + total + "&cliente=" + rfcCliente, function () {
                 $("#idClienteNC").hide();
                 $("#idNotasCredito").hide();
                 $("#mdlNotacreditoInformacion").modal('show');
@@ -44,12 +46,12 @@ $(document).ready(function() {
     });
 
 
-    $("#btnGuardarNotaCredito").click(function() {
+    $("#btnGuardarNotaCredito").click(function () {
         var idCliente = $("#idClienteNC").text();
         var total = $("#totalDisponibleNotaCredito").text();
         var idNotasCredito = $("#idNotasCredito").text();
         var info = "idCliente=" + idCliente + "&total=" + total + "&idNotasCredito=" + idNotasCredito + "&folioVnta=" + folioventa;
-        $.post('guardarNotaCredito.php', info, function(resultado) {
+        $.post('guardarNotaCredito.php', info, function (resultado) {
             alertify.success(resultado);
             $("#mdlNotacreditoInformacion").modal('hide');
             limpiarOrdenesCompra();
@@ -60,7 +62,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#btnCancelarCobranzas").click(function() {
+    $("#btnCancelarCobranzas").click(function () {
         limpiarOrdenesCompra();
         $('#btnCobrar').attr("disabled", true);
         $('#btnRechazar').attr("disabled", true);
@@ -71,11 +73,11 @@ $(document).ready(function() {
 
 
 
-    $("#btnNotasCredito").click(function() {
+    $("#btnNotasCredito").click(function () {
         $("#mdlnotascredito").modal('show');
     });
 
-    $("#btnPagar").click(function() {
+    $("#btnPagar").click(function () {
         var datos = parseFloat($("#txtCantidad").val());
         var total = parseFloat($("#totalV").text());
         if (idTipoPago != 2) {
@@ -92,7 +94,7 @@ $(document).ready(function() {
                 else {
                     var folio = $("#xmlComprobante").text();
                     var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos + "&formaPago=0" + "&totalCredito=0";
-                    $.get('guardarPagos.php', informacion, function(respuesta) {
+                    $.get('guardarPagos.php', informacion, function (respuesta) {
                         var callbacks = $.Callbacks();
                         var cambio = datos - total;
                         callbacks.add($('#btnCobrar').attr("disabled", true));
@@ -101,7 +103,7 @@ $(document).ready(function() {
                         callbacks.add($("#mdlNotacreditoInformacion").modal('hide'));
                         callbacks.add($('#mdlPagar').modal('hide'));
                         callbacks.add($("#txtCantidad").val(""));
-                        alertify.alert("<b>Cambio:</b> " + cambio + "", function() {
+                        alertify.alert("<b>Cambio:</b> " + cambio + "", function () {
                             callbacks.add(limpiarOrdenesCompra());
                             $("#txtFolioCobrar").val("");
                         });
@@ -123,11 +125,11 @@ $(document).ready(function() {
             else {
                 var folio = $("#xmlComprobante").text();
                 var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos + "&formaPago=" + tipoPago + "&totalCredito=" + total;
-                $.get('guardarPagos.php', informacion, function(respuesta) {
+                $.get('guardarPagos.php', informacion, function (respuesta) {
 //                    alert(respuesta);
 //                    alertify.message("cambio :" + cambio);
                     alertify.success(respuesta);
-                    $("#buscabonos").load("consultarDeudoresPV.php", function() {
+                    $("#buscabonos").load("consultarDeudoresPV.php", function () {
                         $('#dtdeudores').dataTable();
                     });
                     limpiarOrdenesCompra();
@@ -137,14 +139,14 @@ $(document).ready(function() {
                     $("#mdlNotacreditoInformacion").modal('hide');
                     $('#mdlPagar').modal('hide');
                     $("#txtCantidad").val("");
-                    
-                }); 
+
+                });
                 $("#pagarCobranza").hide();
             }
         }
     });
 
-    $("#btnAbonos").click(function() {
+    $("#btnAbonos").click(function () {
         $("#mdlabonos").modal("show");
     });
 
@@ -156,7 +158,7 @@ $(document).ready(function() {
 function cargarInformacion(folio, tipoPago) {
     idTipoPago = tipoPago;
     folioventa = folio;
-    $("#informacionPagos").load("dameInformacion.php?id=" + folio, function() {
+    $("#informacionPagos").load("dameInformacion.php?id=" + folio, function () {
         $("#mdlBusquedaOrdenCompra").modal("hide");
         $("#btnCobrar").removeAttr('disabled');
         $("#btnRechazar").removeAttr('disabled');
@@ -167,7 +169,7 @@ function cargarInformacion(folio, tipoPago) {
 
 function cargarInformacionFolios(folio) {
     folioventa = folio;
-    $("#informacionPagos").load("dameInformacion.php?id=" + folio, function(respuesta) {
+    $("#informacionPagos").load("dameInformacion.php?id=" + folio, function (respuesta) {
         if ($.trim(respuesta) != "") {
             $("#btnCobrar").removeAttr('disabled');
             $("#btnRechazar").removeAttr('disabled');
@@ -185,11 +187,11 @@ function cargarInformacionFolios(folio) {
 }
 
 
-$("#btnRechazar").click(function() {
-    alertify.confirm("¿Esta seguro de eliminar esta orden de compra?", function(e) {
+$("#btnRechazar").click(function () {
+    alertify.confirm("¿Esta seguro de eliminar esta orden de compra?", function (e) {
         if (e) {
             var informacion = "idFolio=" + folioventa;
-            $.get('rechazarOrdenCompra.php', informacion, function(respuesta) {
+            $.get('rechazarOrdenCompra.php', informacion, function (respuesta) {
                 limpiarOrdenesCompra();
                 alertify.success(respuesta);
                 $('#btnRechazar').attr("disabled", true);

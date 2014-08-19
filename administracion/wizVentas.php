@@ -385,6 +385,8 @@
                                 </select>
                             </center>
                         </div>
+                        <strong>Total : <span id="totalVnt"></span></strong>
+                        <br>
                         Cantiad Ingresada :
                         <center>
                             <input id="txtCantidad" class="form-control" type="text" placeholder="$9999.99 mxn"/>

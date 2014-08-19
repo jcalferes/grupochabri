@@ -5,6 +5,7 @@ include './administracion.dao/dao.php';
 $dao = new dao();
 $rs = $dao->dameTotalXmlComprobanteCorteCaja($idSucursal);
 $rsAbono = $dao->dameAbonoTotalCorteCaja($idSucursal);
+$rsNotasCredito = $dao->dameVentasCanceladasNotaCredito($idSucursal);
 $fecha = date("d/m/Y");
 ?>
 <div id="InformacionDia">
@@ -24,11 +25,14 @@ $fecha = date("d/m/Y");
                     if ($rs == false) {
                         ?>
                         <tr>
-                            <td>
-                        <center>
-                            <?php echo mysql_error(); ?>   
-                        </center>
-                        </td>
+                            <td colspan="4">
+                                <?php
+                                $error = mysql_error();
+
+                                echo"hubo un error" . $error
+                                ?>   
+
+                            </td>
                         </tr>
                         <?php
                     } else {
@@ -72,7 +76,7 @@ $fecha = date("d/m/Y");
                             $okInformacion = true;
                             ?>
                             <tr>
-                            <td><center><?php echo $rsAb["idAbonos"]; ?></center></td>
+                                <td><center><?php echo $rsAb["idAbonos"]; ?></center></td>
                             <td><center><?php echo $rsAb["nombre"]; ?></center></td>
                             <td><center><?php echo $rsAb["saldo"]; ?></center></td>
                             <td><center><?php echo $rsAb["tipoPago"]; ?></center></td>
@@ -81,6 +85,41 @@ $fecha = date("d/m/Y");
                             <?php
                         }
                         if ($okInformacion == false) {
+                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                        }
+                    }
+                    ?>
+                </table>
+                <strong>Relación de movimientos de Notas de Credito :</strong>
+                <table class="table table-hover">
+                    <thead>
+                    <th>Folio</th>
+                    <th>Cliente</th>
+                    <th>Cantidad</th>
+                    </thead>
+                    <?php
+                    $okCredito = false;
+                    if ($rsNotasCredito == false) {
+                        ?>
+                        <tr>
+                            <td colspan="3">
+                                <?php echo mysql_error; ?>
+                            </td>
+                        </tr>
+                        <?php
+                    } else {
+
+                        while ($rsNotasCr = mysql_fetch_array($rsNotasCredito)) {
+                            $okCredito = true;
+                            ?>
+                            <tr>
+                                <td><?php echo $rsNotasCr["folioComprobante"]; ?></td>
+                                <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
+                                <td><?php echo $rsNotasCr["totalComprobante"]; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        if ($okCredito == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
