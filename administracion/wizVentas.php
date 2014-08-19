@@ -515,19 +515,19 @@
                                     <label>Cantidad en pesos:</label>
                                     <input type="text" class="form-control" id="txtcantidadnotacredito" onkeypress="return NumCheck2(event, this);"/>
                                 </div>
-<!--                                <div class="form-group">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="chkfoliocancelacion" onclick="vincularcancelacion();"> Vincular a una cancelacion
-                                        </label>
-                                    </div>
-                                    <div id="divfoliocancelacion">
-                                        <div class="well well-sm">
-                                            <label>Folio  de la cancelación a vincular:</label>
-                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacionC"/>
-                                        </div>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="form-group">
+                                                                    <div class="checkbox">
+                                                                        <label>
+                                                                            <input type="checkbox" id="chkfoliocancelacion" onclick="vincularcancelacion();"> Vincular a una cancelacion
+                                                                        </label>
+                                                                    </div>
+                                                                    <div id="divfoliocancelacion">
+                                                                        <div class="well well-sm">
+                                                                            <label>Folio  de la cancelación a vincular:</label>
+                                                                            <input type="text" class="form-control" style="width: 50%" id="txtfoliocancelacionC"/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
                                 <div class="form-group">
                                     <input type="button" class="btn btn-cprimary" id="btnguardanotacredito" value="Guardar nota de credito"/>
                                     <input type="button" class="btn btn-default" id="btncancelarnotacredito" value="Cancelar"/>
@@ -683,15 +683,20 @@
                             <br>
                         <form role="form">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Cantidad en Caja :</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                <label for="exampleInputEmail1">Cantidad en Caja : &nbsp;&nbsp;</label><strong><span id="totalFinalizarCaja"style="color: red"></span></strong>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cantidad...">
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"> Check me out
+                                    <input type="checkbox"> No cuadro la Caja
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
+                            Acciones:
+                            <textarea class="form-control" 
+                                      placeholder="Acciones..."
+                                      id="textAcciones">
+                                    
+                            </textarea>
                         </form>
                         </p>
                     </div>

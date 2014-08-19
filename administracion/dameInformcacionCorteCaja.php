@@ -7,6 +7,7 @@ $rs = $dao->dameTotalXmlComprobanteCorteCaja($idSucursal);
 $rsAbono = $dao->dameAbonoTotalCorteCaja($idSucursal);
 $rsNotasCredito = $dao->dameVentasCanceladasNotaCredito($idSucursal);
 $fecha = date("d/m/Y");
+$totalIngreso = 0.00;
 ?>
 <div id="InformacionDia">
     <div class="panel panel-default">
@@ -47,6 +48,7 @@ $fecha = date("d/m/Y");
                             <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                            $totalIngreso = $totalIngreso + $datos["totalComprobante"];
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
@@ -83,6 +85,7 @@ $fecha = date("d/m/Y");
                             <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                            $totalIngreso = $totalIngreso + $rsAb["importe"];
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
@@ -115,9 +118,10 @@ $fecha = date("d/m/Y");
                             <tr>
                                 <td><?php echo $rsNotasCr["folioComprobante"]; ?></td>
                                 <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
-                                <td><?php echo $rsNotasCr["totalComprobante"]; ?></td>
+                                <td>$&nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?>&nbsp;mxn.</td>
                             </tr>
                             <?php
+                            $totalIngreso = $totalIngreso + $rsNotasCr["totalComprobante"];
                         }
                         if ($okCredito == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
@@ -125,6 +129,8 @@ $fecha = date("d/m/Y");
                     }
                     ?>
                 </table>
+                <br>
+                <label style="color: red">CANTIDAD DE DINERO INGRESADO A LA CAJA :</label><strong> <span id="totalDelDia">$&nbsp;<?php echo $totalIngreso; ?>&nbsp;mxn.</span></strong>
             </div>
         </div>
     </div>

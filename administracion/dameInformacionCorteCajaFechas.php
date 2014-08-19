@@ -7,6 +7,8 @@ $fecha1 = $_GET["fecha1"];
 $fecha2 = $_GET["fecha2"];
 $rs = $dao->dameTotalXmlComprobanteCorteCajaPorFechas($idSucursal, $fecha1, $fecha2);
 $rsAbono = $dao->dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2);
+$rsNotasCredito = $dao->dameVentasCanceladasNotaCreditoFechas($idSucursal, $fecha1, $fecha2);
+$totalIngreso = 0.00;
 ?>
 <div id="InformacionDia">
     <div class="panel panel-default">
@@ -44,6 +46,7 @@ $rsAbono = $dao->dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2)
                             <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                            $totalIngreso = $totalIngreso + $datos["totalComprobante"];
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
@@ -80,6 +83,7 @@ $rsAbono = $dao->dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2)
                             <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
                             </tr>
                             <?php
+                            $totalIngreso = $totalIngreso + $rsAb["importe"];
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
@@ -87,6 +91,43 @@ $rsAbono = $dao->dameAbonoTotalCorteCajaPorFechas($idSucursal, $fecha1, $fecha2)
                     }
                     ?>
                 </table>
+                <table class="table table-hover">
+                    <thead>
+                    <th>Folio</th>
+                    <th>Cliente</th>
+                    <th>Cantidad</th>
+                    </thead>
+                    <?php
+                    $okCredito = false;
+                    if ($rsNotasCredito == false) {
+                        ?>
+                        <tr>
+                            <td colspan="3">
+                                <?php echo mysql_error; ?>
+                            </td>
+                        </tr>
+                        <?php
+                    } else {
+
+                        while ($rsNotasCr = mysql_fetch_array($rsNotasCredito)) {
+                            $okCredito = true;
+                            ?>
+                            <tr>
+                                <td><?php echo $rsNotasCr["folioComprobante"]; ?></td>
+                                <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
+                                <td>$ &nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?> mxn.</td>
+                            </tr>
+                            <?php
+                            $totalIngreso = $totalIngreso + $rsNotasCr["totalComprobante"];
+                        }
+                        if ($okCredito == false) {
+                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                        }
+                    }
+                    ?>
+                </table>
+                <br>
+                <label style="color: red">CANTIDAD DE DINERO INGRESADO A LA CAJA :</label><strong> <span id="totalDelDia">$ &nbsp;<?php echo $totalIngreso; ?> &nbsp;mxn.</span></strong>
             </div>
         </div>
     </div>
