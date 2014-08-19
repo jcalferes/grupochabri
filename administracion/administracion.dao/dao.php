@@ -4338,7 +4338,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "WHERE statusOrden = '7'  "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
-                . "and xmlc.idTipoPago != '2' "
+                . "and xmlC.idTipoPago != '2' "
                 . "and fechaMovimiento BETWEEN  '" . $fecha1 . "' AND '" . $fecha2 . "' ";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
@@ -4442,6 +4442,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 where cl.idCliente='" . $idCliente . "' 
                 and xC.statusOrden='3'
                 and xC.fechaMovimiento='" . $fecha . "'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameVentasCanceladasNotaCreditoFechas($idSucursal, $fecha1, $fecha2) {
+        $cn = new coneccion();
+        $sql = "select * from xmlcomprobantes 
+                where  statusOrden ='9' 
+                and idSucursal = '$idSucursal' "
+                . "and fechaMovimiento BETWEEN '$fecha1' and '$fecha2'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }

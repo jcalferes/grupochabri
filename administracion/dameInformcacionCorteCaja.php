@@ -118,7 +118,7 @@ $totalIngreso = 0.00;
                             <tr>
                                 <td><?php echo $rsNotasCr["folioComprobante"]; ?></td>
                                 <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
-                                <td><?php echo $rsNotasCr["totalComprobante"]; ?></td>
+                                <td>$&nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?>&nbsp;mxn.</td>
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsNotasCr["totalComprobante"];
@@ -130,7 +130,7 @@ $totalIngreso = 0.00;
                     ?>
                 </table>
                 <br>
-                <label style="color: red">CANTIDAD DE DINERO INGRESADO A LA CAJA :</label><strong> <span id="totalDelDia"><?php echo $totalIngreso; ?></span></strong>
+                <label style="color: red">CANTIDAD DE DINERO INGRESADO A LA CAJA :</label><strong> <span id="totalDelDia">$&nbsp;<?php echo $totalIngreso; ?>&nbsp;mxn.</span></strong>
             </div>
         </div>
     </div>
