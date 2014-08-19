@@ -688,10 +688,15 @@
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"> Check me out
+                                    <input type="checkbox"> No cuadro la Caja
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
+                            Acciones:
+                            <textarea class="form-control" 
+                                      placeholder="Acciones..."
+                                      id="textAcciones">
+                                    
+                            </textarea>
                         </form>
                         </p>
                     </div>

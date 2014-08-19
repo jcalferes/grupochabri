@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#textAcciones").val("");
     $("#InformacionDia").hide();
 
     $("#btnBuscarHoy").click(function () {
