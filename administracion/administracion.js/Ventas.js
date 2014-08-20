@@ -3,7 +3,7 @@ var arrayDetalleVenta = new Array();
 var arrayEncabezadoVenta = new Array();
 var codigoN;
 var inf = new Array();
-$("#codigoProductoEntradas").keypress(function(e) {
+$("#codigoProductoEntradas").keypress(function (e) {
     if (e.which == 13) {
         buscar();
     }
@@ -40,7 +40,7 @@ function validarCredito() {
 
 function cargarProductosCarrito() {
     var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
-    $.get('dameProductoVentas.php', info, function(informacion) {
+    $.get('dameProductoVentas.php', info, function (informacion) {
         var datos = informacion.split(",");
         if (datos[0] == 0) {
             eliminarProducto($("#codigoProductoEntradas").val().toUpperCase());
@@ -63,19 +63,28 @@ function cargarProductosCarrito() {
 }
 function guardarProductoOrdenCompraNuevo() {
     if ($("#cmbOrdenCompraV").val() > 0) {
-        var valor = $("#cmb" + codigoN).val();
+        var valor = $("select[id='cmb" + codigoN + "']").val();
+//        var valor = $("#cmb" + codigoN).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
         detalleVenta.unidadMedidaConcepto = "KG";
-        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigoN).val();
-        detalleVenta.cantidadConcepto = $("#txt" + codigoN).val();
-        detalleVenta.codigoConcepto = $("#codigo" + codigoN).text();
-        detalleVenta.descripcionConcepto = $("#descripcion" + codigoN).text();
-        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigoN).text();
-        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigoN).val();
-        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigoN).val();
+
+        detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigoN + "']").val();
+        detalleVenta.cantidadConcepto = $("input[id='txt" + codigoN + "']").val();
+//        detalleVenta.cantidadConcepto = $("#txt" + codigoN).val();
+        detalleVenta.codigoConcepto = $("input[id='codigo" + codigoN + "']").val();
+//        detalleVenta.codigoConcepto = $("#codigo" + codigoN).text();
+        detalleVenta.descripcionConcepto = $("input[id='descripcion" + codigoN + "']").text();
+//        detalleVenta.descripcionConcepto = $("#descripcion" + codigoN).text();
+        detalleVenta.precioUnitarioConcepto = $("input[id='precioVnt" + codigoN + "']").text();
+//        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigoN).text();
+        detalleVenta.cdaConcepto = $("input[id='txtTotalDesc" + codigoN + "']").val();
+//        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigoN).val();
+        detalleVenta.desctUnoConcepto = $("input[id='txtDescuentos" + codigoN + "']").val();
+//        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigoN).val();
         detalleVenta.idListaPrecio = parseInt(datos[0]);
-        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
+        detalleVenta.idXmlComprobante = parseInt($("select[id='cmbOrdenCompraV']").val());
+//        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
         arrayDetalleVenta.push(detalleVenta);
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
@@ -93,7 +102,7 @@ function guardarProductoOrdenCompraNuevo() {
             url: "productoAgregadoOrdenCompra.php",
             data: {data: informacion},
             cache: false,
-            success: function(informacion) {
+            success: function (informacion) {
             }
         });
     }
@@ -102,19 +111,29 @@ function guardarProductoOrdenCompraNuevo() {
 
 function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
     if ($("#cmbOrdenCompraV").val() > 0) {
-        var valor = $("#cmb" + codigo).val();
+        var valor = $("select[id='cmb" + codigoN + "']").val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
+//        detalleVenta.unidadMedidaConcepto = "KG";
+//        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
+//        detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
+//        detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
+//        detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
+//        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
+//        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
+//        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
+//        detalleVenta.idListaPrecio = parseInt(datos[0]);
+//        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
         detalleVenta.unidadMedidaConcepto = "KG";
-        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
-        detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
-        detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
-        detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
-        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
-        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
-        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
+        detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigoN + "']").val();
+        detalleVenta.cantidadConcepto = $("input[id='txt" + codigoN + "']").val();
+        detalleVenta.codigoConcepto = $("input[id='codigo" + codigoN + "']").val();
+        detalleVenta.descripcionConcepto = $("input[id='descripcion" + codigoN + "']").text();
+        detalleVenta.precioUnitarioConcepto = $("input[id='precioVnt" + codigoN + "']").text();
+        detalleVenta.cdaConcepto = $("input[id='txtTotalDesc" + codigoN + "']").val();
+        detalleVenta.desctUnoConcepto = $("input[id='txtDescuentos" + codigoN + "']").val();
         detalleVenta.idListaPrecio = parseInt(datos[0]);
-        detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
+        detalleVenta.idXmlComprobante = parseInt($("select[id='cmbOrdenCompraV']").val());
         arrayDetalleVenta.push(detalleVenta);
         var encabezadoVentas = new XmlComprobante();
         encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
@@ -128,7 +147,7 @@ function guardarProductoOrdenCompraNuevoPorBusqueda(codigo) {
         inf.push(arrayEncabezadoVenta);
         var informacion = JSON.stringify(inf);
         var info = "data=" + informacion;
-        $.post('productoAgregadoOrdenCompra.php', info, function() {
+        $.post('productoAgregadoOrdenCompra.php', info, function () {
         });
     }
 }
@@ -164,12 +183,16 @@ function verificarProductoGranel(codigo)
 
 
 function calcularDescuentos(codigo) {
-    var descuentos = $("#txtDescuentos" + codigo).val();
-    var total = $("#txtTotal" + codigo).val();
+    var descuentos = $("input[id='txtDescuentos" + codigo + "']").val();
+//    var descuentos = $("#txtDescuentos" + codigo).val();
+    var total = $("input[id='txtTotal" + codigo + "']").val();
+//    var total = $("#txtTotal" + codigo).val();
     var totalDescuento = ((total * descuentos) / 100);
     total = total - totalDescuento;
-    $("#txtTotalDesc" + codigo).val(total.toFixed(2));
-    $("#txtDescuento" + codigo).val(totalDescuento.toFixed(2));
+    $("input[id='txtTotalDesc" + codigo + "']").val(total.toFixed(2));
+//    $("#txtTotalDesc" + codigo).val(total.toFixed(2));
+    $("input[id='txtDescuento" + codigo + "']").val(totalDescuento.toFixed(2));
+//    $("#txtDescuento" + codigo).val(totalDescuento.toFixed(2));
     calcularSumaTotal();
     sumaDescTotal();
 }
@@ -187,9 +210,12 @@ function sustraerLetras(palabra) {
 }
 
 function cambiarTarifas(codigo) {
-    var valor = $("#cmb" + codigo).val();
+    var valor = $("select[id='cmb" + codigo + "']").val();
+//    var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
-    $("#precioVnt" + codigo).text(datos[1]);
+//    alert(datos);
+    $("input[id='precioVnt" + codigo + "']").text(datos[1]);
+//    $("#precioVnt" + codigo).text(datos[1]);
     calcularTotal(codigo);
 }
 
@@ -225,15 +251,18 @@ function calcularTotal(codigo) {
         }
         else {
             var ok = verificarProductoGranel(codigo);
-            var valor = $("#cmb" + codigo).val();
+            var valor = $("select[id='cmb" + codigo + "']").val();
+//            var valor = $("#cmb" + codigo).val();
             var datos = valor.split(",");
             if (ok == false) {
                 var total = datos[1] * cantidad;
-                $("#txtTotal" + codigo).val(total.toFixed(2));
+                $("input[id='txtTotal" + codigo + "']").val(total.toFixed(2));
+//                $("#txtTotal" + codigo).val(total.toFixed(2));
             }
             else {
                 var calulandoKg = (cantidad * datos[1]) / 1;
-                $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
+                $("input[id='txtTotal" + codigo + "']").val(calulandoKg.toFixed(2));
+//                $("#txtTotal" + codigo).val(calulandoKg.toFixed(2));
             }
             calcularDescuentos(codigo);
             calcularSumaTotal();
@@ -246,7 +275,8 @@ function calcularTotal(codigo) {
 function calcularSubTotal() {
     var subTotal = 0.00;
     for (var x = 0; x < codigos.length; x++) {
-        subTotal = subTotal + parseFloat($("#txtTotal" + codigos[x]).val().toUpperCase());
+        subTotal = subTotal + parseFloat($("input[id='txtTotal" + codigos[x] + "']").val().toUpperCase());
+//        subTotal = subTotal + parseFloat($("#txtTotal" + codigos[x]).val().toUpperCase());
     }
     $("#subTotalV").val(subTotal.toFixed(2));
 }
@@ -258,7 +288,8 @@ function sumaDescTotal() {
         if (typeof (codigo) == "undefined") {
             codigo = 0;
         }
-        sumaDescTotal += parseFloat($("#txtDescuento" + codigo).val());
+        sumaDescTotal += parseFloat($("input[id='txtDescuento" + codigo + "']").val());
+//        sumaDescTotal += parseFloat($("#txtDescuento" + codigo).val());
     }
     $("#descTotalV").val(sumaDescTotal.toFixed(2));
 }
@@ -267,14 +298,18 @@ function sumaDescTotal() {
 function calcularPorCantidad() {
 
 
-    var valor = $("#cmb" + codigoN).val();
+    var valor = $("select[id='cmb" + codigoN + "']").val();
+//    var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
     var cantidad = $("#txtCantidadModal").val();
-    $("#txt" + codigoN).val(cantidad);
+    $("input[id='txt" + codigoN + "']").val(cantidad);
+//    $("#txt" + codigoN).val(cantidad);
     var calulandoKg = (cantidad * datos[1]);
-    $("#txtTotal" + codigoN).val(calulandoKg.toFixed(2));
+    $("input[id='txtTotal" + codigoN + "']").val(calulandoKg.toFixed(2));
+//    $("#txtTotal" + codigoN).val(calulandoKg.toFixed(2));
     calcularDescuentos(codigoN);
-    $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
+    $("#txtTotalModal").val($("input[id='txtTotal" + codigoN + "']").val());
+//    $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
     calcularSumaTotal();
     calcularSubTotal();
     sumaDescTotal();
@@ -282,25 +317,30 @@ function calcularPorCantidad() {
 
 function calcularPorPrecio() {
     var precio = parseFloat($("#txtTotalModal").val());
-    var valor = $("#cmb" + codigoN).val();
+    var valor = $("select[id='cmb" + codigoN + "']").val();
+//    var valor = $("#cmb" + codigoN).val();
     var datos = valor.split(",");
     var kilogramosVnta = (precio * 1) / datos[1];
     if (isNaN(kilogramosVnta)) {
         kilogramosVnta = 0;
     }
     $("#txtCantidadModal").val(parseFloat(kilogramosVnta.toFixed(2)));
-    $("#txtTotal" + codigoN).val(precio.toFixed(2));
-    $("#txt" + codigoN).val(parseFloat(kilogramosVnta.toFixed(2)));
+    $("input[id='txtTotal" + codigoN + "']").val(precio.toFixed(2));
+//    $("#txtTotal" + codigoN).val(precio.toFixed(2));
+    $("input[id='txt" + codigoN + "']").val(parseFloat(kilogramosVnta.toFixed(2)));
+//    $("#txt" + codigoN).val(parseFloat(kilogramosVnta.toFixed(2)));
     calcularDescuentos(codigoN);
     calcularSumaTotal();
 }
 
 
 function quitarProducto(codigo) {
-    var cantidad = $("#txt" + codigo).val();
+    var cantidad = $("input[id='txt" + codigo + "']").val();
+//    var cantidad = $("#txt" + codigo).val();
     var suma = parseInt(cantidad) - 1;
     if (suma >= 0) {
-        $("#txt" + codigo).val(suma.toFixed(2));
+        $("input[id='txt" + codigo + "']").val(suma.toFixed(2));
+//        $("#txt" + codigo).val(suma.toFixed(2));
     }
 }
 function eliminarProducto(codigo) {
@@ -318,9 +358,11 @@ function eliminarProducto(codigo) {
 }
 
 function modalProductosGranel(codigo) {
-    var cantidad = $("#txt" + codigo).val();
+    var cantidad = $("input[id='txt" + codigo + "']").val();
+//    var cantidad = $("#txt" + codigo).val();
     $("#txtCantidadModal").val(cantidad);
-    var total = $("#txtTotal" + codigo).val();
+    var total = $("input[id='txtTotal" + codigo + "']").val();
+//    var total = $("#txtTotal" + codigo).val();
     $("#txtTotalModal").val(total);
     $('#mdlGranel').modal('toggle');
     codigoN = codigo;
@@ -329,7 +371,8 @@ function calcularSumaTotal() {
     var suma = 0;
     for (var x = 0; x < codigos.length; x++) {
         var cod = codigos[x].toUpperCase();
-        suma += parseFloat($("#txtTotalDesc" + cod).val());
+        suma += parseFloat($("input[id='txtTotalDesc" + cod + "']").val());
+//        suma += parseFloat($("#txtTotalDesc" + cod).val());
     }
     var suma = parseFloat(suma);
     if (isNaN(suma)) {
@@ -378,7 +421,7 @@ function validarDetalle() {
 
 
 //funcion para saber que tecla esta presionada.
-$(document).keydown(function(tecla) {
+$(document).keydown(function (tecla) {
     if (tecla.keyCode == 113) {
         buscarTecla();
     }
@@ -389,9 +432,11 @@ function buscarTecla() {
         codigoN = 0;
     }
     if (codigoN != 0) {
-        var cantidad = $("#txt" + codigoN).val();
+        var cantidad = $("input[id='txt" + codigoN + "']").val();
+//        var cantidad = $("#txt" + codigoN).val();
         var suma = parseInt(cantidad) + 1;
-        $("#txt" + codigoN).val(suma.toFixed(2));
+        $("input[id='txt" + codigoN + "']").val(suma.toFixed(2));
+//        $("#txt" + codigoN).val(suma.toFixed(2));
         calcularTotal(codigoN);
     }
 }
@@ -426,17 +471,25 @@ function guardarDatosEncabezado() {
 
 function guardarDatosDetalle() {
     for (var x = 0; x < codigos.length; x++) {
-        var valor = $("#cmb" + codigos[x]).val();
+        var valor = $("select[id='cmb" + codigos[x] + "']").val();
+//        var valor = $("#cmb" + codigos[x]).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
         detalleVenta.unidadMedidaConcepto = "KG";
-        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigos[x]).val();
-        detalleVenta.cantidadConcepto = $("#txt" + codigos[x]).val();
-        detalleVenta.codigoConcepto = $("#codigo" + codigos[x]).text();
-        detalleVenta.descripcionConcepto = $("#descripcion" + codigos[x]).text();
-        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigos[x]).text();
-        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigos[x]).val();
-        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigos[x]).val();
+        detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigos[x] + "']").val();
+//        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigos[x]).val();
+        detalleVenta.cantidadConcepto = $("input[id='txt" + codigos[x] + "']").val();
+//        detalleVenta.cantidadConcepto = $("#txt" + codigos[x]).val();
+        detalleVenta.codigoConcepto = $("input[id='codigo" + codigos[x] + "']").text();
+//        detalleVenta.codigoConcepto = $("#codigo" + codigos[x]).text();
+        detalleVenta.descripcionConcepto = $("input[id='descripcion" + codigos[x] + "']").text();
+//        detalleVenta.descripcionConcepto = $("#descripcion" + codigos[x]).text();
+        detalleVenta.precioUnitarioConcepto = $("input[id='precioVnt" + codigos[x] + "']").text();
+//        detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigos[x]).text();
+        detalleVenta.cdaConcepto = $("input[id='txtTotalDesc" + codigos[x] + "']").val();
+//        detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigos[x]).val();
+        detalleVenta.desctUnoConcepto = $("input[id='txtDescuentos" + codigos[x] + "']").val();
+//        detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigos[x]).val();
         detalleVenta.idListaPrecio = parseInt(datos[0]);
         arrayDetalleVenta.push(detalleVenta);
     }
@@ -446,7 +499,7 @@ function guardarDatosDetalle() {
 function cargarProductosCarritoBusqueda(codigo) {
 
     var info = "codigo=" + codigo.toUpperCase();
-    $.get('dameProductoVentas.php', info, function(informacion) {
+    $.get('dameProductoVentas.php', info, function (informacion) {
         if (informacion == 0) {
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
         }
@@ -497,7 +550,7 @@ function eliminar(codigo) {
         arrayEncabezadoVenta.push(encabezadoVentas);
         var array = JSON.stringify(arrayEncabezadoVenta);
         var info = "codigo=" + codigo.toUpperCase() + "&idComprobante=" + idXml + "&array=" + array;
-        $.get('eliminarProductoOrdenCompra.php', info, function(informacion) {
+        $.get('eliminarProductoOrdenCompra.php', info, function (informacion) {
             alertify.success(informacion);
         });
     }
@@ -508,7 +561,7 @@ function eliminar(codigo) {
 
 function validarUsuario(usuario, password) {
     var informacion = "usuario=" + usuario + "&pass=" + password;
-    $.get('validarAdministrador.php', informacion, function(autorizacion) {
+    $.get('validarAdministrador.php', informacion, function (autorizacion) {
         if (autorizacion == 1) {
             $(".autorizar").removeAttr('disabled');
             $("#mdlAutorizacion").modal("hide");
@@ -529,7 +582,7 @@ function isNumberKey(evt)
 }
 
 function verificar() {
-    $.get('validarIngresoVentas.php', function(respuesta) {
+    $.get('validarIngresoVentas.php', function (respuesta) {
         if (respuesta == 0) {
             $("#mdlInicioCaja").modal({
                 show: true,
@@ -543,9 +596,9 @@ function verificar() {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     verificar();
-    $("#btnGuardarIngresoCaja").click(function() {
+    $("#btnGuardarIngresoCaja").click(function () {
         var usuario = $("#txtUsuarioValidarCaja").val();
         var pass = $("#txtPassValidarCaja").val();
         var cantidad = $("#txtIngresoCaja").val();
@@ -557,7 +610,7 @@ $(document).ready(function() {
                 alertify.error("La cantidad ingresada debe se ser mayor a 0");
             } else {
                 var informacion = "us=" + usuario + "&pas=" + pass + "&cant=" + cantidad;
-                $.get('guardarIngresoCaja.php', informacion, function(respuesta) {
+                $.get('guardarIngresoCaja.php', informacion, function (respuesta) {
                     if (respuesta == 1) {
                         alertify.success("Exito, Caja abierta");
                         $("#mdlInicioCaja").modal('hide');
@@ -570,7 +623,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnCancelarIngresoCaja").click(function() {
+    $("#btnCancelarIngresoCaja").click(function () {
         location.reload();
     });
 
@@ -579,7 +632,7 @@ $(document).ready(function() {
     $("#cmbTipoPago").load("dameTiposPagos.php");
     $("#cmbTipoPagoCobranza").load("dameTiposPagos.php");
     $("#infDatos").hide();
-    $("#buscarCodigo").click(function() {
+    $("#buscarCodigo").click(function () {
         buscar();
     });
     $("#cmbClientes").load("dameClientes.php");
@@ -588,7 +641,7 @@ $(document).ready(function() {
     var f = new Date();
     var fecha = "<div> <strong>" + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + "</strong></div>";
     $("#fecha").html(fecha);
-    $("#btnAutorizar").click(function() {
+    $("#btnAutorizar").click(function () {
         var usuario = $("#txtusuario").val();
         var pass = $("#txtPass").val();
         validarUsuario(usuario, pass);
@@ -596,7 +649,7 @@ $(document).ready(function() {
 
 
 
-    $("#guardarVenta").click(function() {
+    $("#guardarVenta").click(function () {
         var paso = true;
         if ($("#cmbTipoPago").val() == 2 || $("#cmbTipoPago").val() == 5) {
             paso = validarCredito();
@@ -622,7 +675,7 @@ $(document).ready(function() {
                                 url: "guardarVenta.php",
                                 data: {data: informacion},
                                 cache: false,
-                                success: function(informacion) {
+                                success: function (informacion) {
                                     if (informacion == 0) {
                                         informacion = "Exito Venta Terminada";
                                         finalizar();
@@ -661,17 +714,25 @@ $(document).ready(function() {
                 arrayEncabezadoVenta.push(encabezadoVentas);
                 for (var x = 0; x < codigos.length; x++) {
                     var codigo = codigos[x];
-                    var valor = $("#cmb" + codigo).val();
+                    var valor = $("select[id='cmb" + codigo + "']").val();
+//                    var valor = $("#cmb" + codigo).val();
                     var datos = valor.split(",");
                     var detalleVenta = new xmlConceptosManualmente();
                     detalleVenta.unidadMedidaConcepto = "KG";
-                    detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
-                    detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
-                    detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
-                    detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
-                    detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
-                    detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
-                    detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
+                    detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigo + "']").val();
+//                    detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
+                    detalleVenta.cantidadConcepto = $("input[id='txt" + codigo + "']").val();
+//                    detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
+                    detalleVenta.codigoConcepto = $("input[id='codigo" + codigo + "']").val();
+//                    detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
+                    detalleVenta.descripcionConcepto = $("input[id='descripcion" + codigo + "']").text();
+//                    detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
+                    detalleVenta.precioUnitarioConcepto = $("input[id='precioVnt" + codigo + "']").text();
+//                    detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
+                    detalleVenta.cdaConcepto = $("input[id='txtTotalDesc" + codigo + "']").val();
+//                    detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
+                    detalleVenta.desctUnoConcepto = $("input[id='txtDescuentos" + codigo + "']").val();
+//                    detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
                     detalleVenta.idListaPrecio = parseInt(datos[0]);
                     detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
                     arrayDetalleVenta.push(detalleVenta);
@@ -680,7 +741,7 @@ $(document).ready(function() {
                 inf.push(arrayEncabezadoVenta);
                 var informacion = JSON.stringify(inf);
                 var info = "data=" + informacion;
-                $.post('actualizarOrdenCompra.php', info, function(informacion) {
+                $.post('actualizarOrdenCompra.php', info, function (informacion) {
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
                         finalizar();
@@ -704,9 +765,9 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnver").click(function() {
+    $("#btnver").click(function () {
         var info;
-        $("#tdProducto").find(':checked').each(function() {
+        $("#tdProducto").find(':checked').each(function () {
             var elemento = this;
             var valor = elemento.value;
             var x = validar(valor);
@@ -723,12 +784,12 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnAutorizacion").click(function() {
+    $("#btnAutorizacion").click(function () {
         $("#mdlAutorizacion").modal("show");
     });
 
 
-    $("#cmbClientes").change(function() {
+    $("#cmbClientes").change(function () {
         $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
         $("#cmbTipoPago option[value='1']").attr("selected", true);
         $("#txtNombreCliente").val("");
@@ -765,14 +826,14 @@ $(document).ready(function() {
             $("#txtNombreCliente").show();
         }
         else {
-            $("#cmbOrdenCompraV").load("dameOrdenesCompra.php?rfc=" + rfc, function() {
+            $("#cmbOrdenCompraV").load("dameOrdenesCompra.php?rfc=" + rfc, function () {
                 $("#cmbOrdenCompraV").show();
                 $("#txtNombreCliente").hide();
             });
         }
     });
 
-    $("#cmbTipoPago").change(function() {
+    $("#cmbTipoPago").change(function () {
         var dato = $("#cmbTipoPago").val();
         var rfc = $("#cmbClientes").val();
         $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
@@ -796,7 +857,7 @@ $(document).ready(function() {
     });
 
 
-    $("#cmbOrdenCompraV").change(function() {
+    $("#cmbOrdenCompraV").change(function () {
         codigos.length = 0;
         arrayDetalleVenta.length = 0;
         arrayEncabezadoVenta.length = 0;
@@ -804,7 +865,7 @@ $(document).ready(function() {
         var idxml = $("#cmbOrdenCompraV").val();
         if (idxml > 0) {
             var informacion = 'id=' + idxml;
-            $.get('dameCodigos.php', informacion, function(listacodigos) {
+            $.get('dameCodigos.php', informacion, function (listacodigos) {
                 var datosJson = eval(listacodigos);
                 for (var i in datosJson) {
                     codigos.push(datosJson[i].codigoProducto);
