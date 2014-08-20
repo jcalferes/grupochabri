@@ -3231,7 +3231,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     $error = mysql_error();
                     mysql_query("ROLLBACK;");
                     return false;
-                } 
+                }
             }
         }
         $rs = mysql_query($sqlEncabezadoId);
@@ -4338,7 +4338,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
-                . "WHERE statusOrden = '7'  "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
+                . "WHERE statusOrden = '7' "
                 . "and fechaMovimiento = '" . $fecha . "' "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
@@ -4354,6 +4356,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
                 . "WHERE statusOrden = '7'  "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
@@ -4444,9 +4448,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameVentasCanceladasNotaCredito($idSucursal) {
         $fecha = date("d/m/Y");
         $cn = new coneccion();
-        $sql = "select * from xmlcomprobantes 
-                where fechaMovimiento = '$fecha' 
-                and statusOrden ='9' and idSucursal = '$idSucursal'";
+        $sql = "select * from xmlcomprobantes xmlC "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
+                . "where fechaMovimiento = '$fecha' "
+                . "and statusOrden ='9' and idSucursal = '$idSucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }

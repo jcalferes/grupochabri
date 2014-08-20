@@ -19,6 +19,7 @@ $totalIngreso = 0.00;
                 <table class="table table-hover">
                     <thead>
                     <th><center>Folio</center></th>
+                    <th><center>Vendedor</center></th>
                     <th><center>Cliente</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Total</center></th>
@@ -41,6 +42,7 @@ $totalIngreso = 0.00;
                             ?>
                             <tr>
                                 <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                            <td><center><?php echo $datos["usuario"]; ?></center></td>
                             <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
                             <td><center><?php echo $datos["tipoPago"]; ?></center></td>
                             <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
