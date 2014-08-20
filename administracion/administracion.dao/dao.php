@@ -3211,9 +3211,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
                 . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '" . $nombre . "')";
         $datos = mysql_query($sqlComprobanteGuardar);
+        $idXmlComprobante = 0;
         if ($datos == false) {
             $error = mysql_error();
             mysql_query("ROLLBACK;");
+        } else {
+            $sqlEncabezadoXmlComprobante = "SELECT LAST_INSERT_ID() IDXML;";
+            $idXmlComp = mysql_query($sqlEncabezadoXmlComprobante);
+            if ($idXmlComp == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+            } else {
+                while ($rsX = mysql_fetch_array($idXmlComp)) {
+                    $idXmlComprobante = $rsX["IDXML"];
+                }
+                $sqlInsertarUsuarioVenta = "INSERT INTO ventasUsuario (idXmlComprobante, usuario) VALUES ('" . $idXmlComprobante . "', '" . $usuario . "')";
+                $insertarusuarioVenta = mysql_query($sqlInsertarUsuarioVenta);
+                if ($insertarusuarioVenta == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                    return false;
+                } 
+            }
         }
         $rs = mysql_query($sqlEncabezadoId);
         if ($rs == false) {
