@@ -4456,4 +4456,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function buscarNoPublicados() {
+        $query = "SELECT p.* FROM productos p "
+                . "LEFT OUTER JOIN clasificados c ON p.codigoProducto = c.codigoProducto "
+                . "WHERE c.idClasificados IS NULL";
+        $ctrl = mysql_query($query);
+        return $ctrl;
+    }
+
 }
