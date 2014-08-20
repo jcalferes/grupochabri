@@ -18,6 +18,7 @@ $totalIngreso = 0.00;
                 <table class="table table-hover">
                     <thead>
                     <th><center>Folio</center></th>
+                    <th><center>Vendedor</center></th>
                     <th><center>Cliente</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Total</center></th>
@@ -43,6 +44,7 @@ $totalIngreso = 0.00;
                             ?>
                             <tr>
                                 <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                            <td><center><?php echo $datos["usuario"]; ?></center></td>
                             <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
                             <td><center><?php echo $datos["tipoPago"]; ?></center></td>
                             <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
@@ -97,6 +99,7 @@ $totalIngreso = 0.00;
                 <table class="table table-hover">
                     <thead>
                     <th>Folio</th>
+                    <th>Vendedor</th>
                     <th>Cliente</th>
                     <th>Cantidad</th>
                     </thead>
@@ -106,7 +109,7 @@ $totalIngreso = 0.00;
                         ?>
                         <tr>
                             <td colspan="3">
-                                <?php echo mysql_error; ?>
+                                <?php echo mysql_error(); ?>
                             </td>
                         </tr>
                         <?php
@@ -117,6 +120,7 @@ $totalIngreso = 0.00;
                             ?>
                             <tr>
                                 <td><?php echo $rsNotasCr["folioComprobante"]; ?></td>
+                                <td><?php echo $rsNotasCr["usuario"]; ?></td>
                                 <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
                                 <td>$&nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?>&nbsp;mxn.</td>
                             </tr>

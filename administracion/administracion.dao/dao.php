@@ -3211,9 +3211,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . " VALUES ('" . date("d/m/Y") . "','" . $encabezado[0]->subTotalComprobante . "','" . $encabezado[0]->sdaComprobante . "','" . $encabezado[0]->rfcComprobante . "', "
                 . "'0','0','0','0','" . $encabezado[0]->descuentoTotalComprobante . "','" . $encabezado[0]->ivaComprobante . "','" . $encabezado[0]->totalComprobante . "','" . $folio . "','Ventas','" . date("d/m/Y") . "','$idSucursal', '$idStatusOrden','" . $encabezado[0]->tipoComprobante . "', '" . $nombre . "')";
         $datos = mysql_query($sqlComprobanteGuardar);
+        $idXmlComprobante = 0;
         if ($datos == false) {
             $error = mysql_error();
             mysql_query("ROLLBACK;");
+        } else {
+            $sqlEncabezadoXmlComprobante = "SELECT LAST_INSERT_ID() IDXML;";
+            $idXmlComp = mysql_query($sqlEncabezadoXmlComprobante);
+            if ($idXmlComp == false) {
+                $error = mysql_error();
+                mysql_query("ROLLBACK;");
+            } else {
+                while ($rsX = mysql_fetch_array($idXmlComp)) {
+                    $idXmlComprobante = $rsX["IDXML"];
+                }
+                $sqlInsertarUsuarioVenta = "INSERT INTO ventasUsuario (idXmlComprobante, usuario) VALUES ('" . $idXmlComprobante . "', '" . $usuario . "')";
+                $insertarusuarioVenta = mysql_query($sqlInsertarUsuarioVenta);
+                if ($insertarusuarioVenta == false) {
+                    $error = mysql_error();
+                    mysql_query("ROLLBACK;");
+                    return false;
+                }
+            }
         }
         $rs = mysql_query($sqlEncabezadoId);
         if ($rs == false) {
@@ -4319,7 +4338,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
-                . "WHERE statusOrden = '7'  "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
+                . "WHERE statusOrden = '7' "
                 . "and fechaMovimiento = '" . $fecha . "' "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
@@ -4335,6 +4356,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
                 . "WHERE statusOrden = '7'  "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
@@ -4425,9 +4448,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function dameVentasCanceladasNotaCredito($idSucursal) {
         $fecha = date("d/m/Y");
         $cn = new coneccion();
-        $sql = "select * from xmlcomprobantes 
-                where fechaMovimiento = '$fecha' 
-                and statusOrden ='9' and idSucursal = '$idSucursal'";
+        $sql = "select * from xmlcomprobantes xmlC "
+                . "inner join ventasUsuario vU "
+                . "on xmlC.idXmlComprobante = vU.idXmlComprobante "
+                . "where fechaMovimiento = '$fecha' "
+                . "and statusOrden ='9' and idSucursal = '$idSucursal'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
