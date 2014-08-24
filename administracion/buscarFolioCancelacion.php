@@ -12,7 +12,7 @@ $cn = new coneccion();
 $publico = 0;
 
 $cn->Conectarse();
-$datos = $dao->dameInfoCancelacion($foliocancelacion, $idsucursal);
+$datos = $dao->dameInfoCancelacionVenta($foliocancelacion, $idsucursal);
 if ($datos != false) {
     echo "<table class='table'>";
     while ($rs = mysql_fetch_array($datos)) {
@@ -21,7 +21,7 @@ if ($datos != false) {
         echo "<br><label>Nombre del cliente: </label>$rs[nombreCliente]</td>";
         if ($rs["rfcComprobante"] == "0") {
             $publico = 1;
-        } 
+        }
         echo "<td></tr><tr>";
         echo "<td><label>Descuento total: </label>$rs[desctTotalComprobante]</td>";
         echo "<td><label>Total: </label>$rs[totalComprobante]</td></tr>";
@@ -43,7 +43,8 @@ if ($datos != false) {
     if ($publico == 1) {
         echo "<input type='text' id='buzon_rfc' value='$publico' disabled hidden/>";
     }
-    echo "<script> $('#divfoliocancelacion').slideUp(); $('#divvalidacancelacion').slideDown();</script>";
+    echo "<script> $('#divfoliocancelacion').slideUp(); ";
+    echo "$('#divvalidacancelacion').slideDown();</script>";
 } else {
     echo "<script> alertify.error('El folio no existe o no se encontraron datos para el mismo');</script>";
 }
