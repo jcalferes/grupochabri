@@ -128,6 +128,14 @@
             <section>
                 <!--<form style="margin: 0% 25% 0% 25%">-->
                 <div style="margin: 0% 25% 0% 25%">
+                    <label class="form-inline">
+                        <input type="radio" id="radioVent" name="canc" checked="true">
+                        Ventas
+                    </label>&nbsp;
+                    <label class="form-inline">
+                        <input type="radio" id="radioCred" name="canc">
+                        Credito
+                    </label>
                     <div id="divfoliocancelacionC" class="form-group">
                         <label>Folio:</label>
                         <input type="text" class="form-control" id="txtfoliocancelacion"><br>
@@ -695,7 +703,7 @@
                             <textarea class="form-control" 
                                       placeholder="Acciones..."
                                       id="textAcciones">
-                                    
+
                             </textarea>
                         </form>
                         </p>

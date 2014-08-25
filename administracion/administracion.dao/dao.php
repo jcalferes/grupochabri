@@ -3071,7 +3071,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT * FROM abonos a "
-                . "INNER JOIN tiposPagos t ON a.idTipoPago = t.idTipoPago "
+                . "INNER JOIN tipospagos t ON a.idTipoPago = t.idTipoPago "
                 . "WHERE folioComprobante = '$folio'";
         $datos = mysql_query($sql, $cn->Conectarse());
         if ($datos == false) {
@@ -3332,10 +3332,28 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     //================= Consultar folio para cancelacion =======================
-    function dameInfoCancelacion($foliocancelacion, $idsucursal) {
+    function dameInfoCancelacionVenta($foliocancelacion, $idsucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xcm "
                 . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
                 . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND xcm.statusOrden = '7'";
+        $controlsql = mysql_query($sql);
+        $row = mysql_affected_rows();
+        if ($controlsql == false) {
+            $controlsql = mysql_error();
+            return false;
+        } else {
+            if ($row < 1) {
+                return false;
+            } else {
+                return $controlsql;
+            }
+        }
+    }
+
+    function dameInfoCancelacionCredito($foliocancelacion, $idsucursal) {
+        $sql = "SELECT * FROM xmlcomprobantes xcm "
+                . "INNER JOIN xmlconceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.folioComprobante = '$foliocancelacion' AND xcm.idSucursal = '$idsucursal' AND  xcm.statusOrden='8'";
         $controlsql = mysql_query($sql);
         $row = mysql_affected_rows();
         if ($controlsql == false) {

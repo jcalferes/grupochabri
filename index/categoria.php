@@ -83,7 +83,9 @@ $nm_grupo = $_GET["nm_grupo"];
                 </div>
                 <div class="col-lg-9 content-right">
                     <div class="row classifieds-table">
-                        <div id="cachibaches"></div>
+                        <div id="cachibaches">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
