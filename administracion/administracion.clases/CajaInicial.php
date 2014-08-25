@@ -12,12 +12,17 @@
  * @author Usuario
  */
 class CajaInicial {
+
     private $idCajaIncial;
     private $fecha;
     private $ingreso;
     private $idSucursal;
-    
-    
+    private $cajaCerrada;
+    private $cantidadCaja;
+    private $cantidadSistema;
+    private $observaciones;
+    private $cuadroCaja;
+
     public function getIdCajaIncial() {
         return $this->idCajaIncial;
     }
@@ -50,6 +55,46 @@ class CajaInicial {
         $this->idSucursal = $idSucursal;
     }
 
+    function getCajaCerrada() {
+        return $this->cajaCerrada;
+    }
 
+    function getCantidadCaja() {
+        return $this->cantidadCaja;
+    }
+
+    function getCantidadSistema() {
+        return $this->cantidadSistema;
+    }
+
+    function getObservaciones() {
+        return $this->observaciones;
+    }
+
+    function setCajaCerrada($cajaCerrada) {
+        $this->cajaCerrada = $cajaCerrada;
+    }
+
+    function setCantidadCaja($cantidadCaja) {
+        $this->cantidadCaja = $cantidadCaja;
+    }
+
+    function setCantidadSistema($cantidadSistema) {
+        $this->cantidadSistema = $cantidadSistema;
+    }
+
+    function setObservaciones($observaciones) {
+        $this->observaciones = $observaciones;
+    }
+    function getCuadroCaja() {
+        return $this->cuadroCaja;
+    }
+
+    function setCuadroCaja($cuadroCaja) {
+        $this->cuadroCaja = $cuadroCaja;
+    }
+
+
+    
     
 }

@@ -590,8 +590,16 @@ function verificar() {
                 keyboard: false
             });
         }
+        else if (respuesta == 2) {
+            var callbacks = $.Callbacks();
+            callbacks.add(alertify.alert("La caja ya esta cerrada", function () {
+                callbacks.add(location.reload());
+            }));
+
+
+        }
         else {
-            alertify.error(repuesta);
+            alertify.error(respuesta);
         }
     });
 }

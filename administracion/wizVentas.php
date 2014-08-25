@@ -692,11 +692,11 @@
                         <form role="form">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Cantidad en Caja : &nbsp;&nbsp;</label><strong><span id="totalFinalizarCaja"style="color: red"></span></strong>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Cantidad...">
+                                <input type="text" class="form-control" id="cantidadCaja" placeholder="Cantidad...">
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"> No cuadro la Caja
+                                    <input type="checkbox" id="cuadroCaja"> No cuadro la Caja
                                 </label>
                             </div>
                             Acciones:

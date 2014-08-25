@@ -39,7 +39,13 @@ $(document).ready(function () {
     });
 
     $("#btnFinalizarlo").click(function () {
-        $("#mdlAutorizacionFinalizarCaja").modal("show");
+        $("#InformacionDia").slideUp('slow', function () {
+            $("#InformacionDia").load("dameInformcacionCorteCaja.php", function () {
+                $("#InformacionDia").slideDown('slow');
+                $("#mdlAutorizacionFinalizarCaja").modal("show");
+            });
+        });
+
     });
 
     $("#btnAutorizarF").click(function () {
@@ -71,6 +77,26 @@ $(document).ready(function () {
         });
     }
 
+
+    $("#btnCorteCaja").click(function () {
+        var cantidadCaja = $("#cantidadCaja").val();
+        var cuadroCaja = 0;
+        var observaciones = $("#textAcciones").val();
+        if ($("#cuadroCaja").is(":checked")) {
+            cuadroCaja = 1;
+        } else {
+            cuadroCaja = 0;
+        }
+        var cantidadSistema = $("#totalFinalizarCaja").text();
+        cantidadSistema = cantidadSistema.replace(/\s/g, ",");
+        var cantidadS = cantidadSistema.split(',');
+        var informacion = "cantidadCaja=" + cantidadCaja + "&cuadro=" + cuadroCaja + "&cantidadSistema=" + cantidadS[1] + "&observaciones=" + observaciones;
+        $.get('finalizarCaja.php', informacion, function (respuesta) {
+            alertify.success(respuesta);
+            $("#mdlCorteCaja").modal("hide");
+        });
+
+    });
 
 });
 
