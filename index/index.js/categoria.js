@@ -85,14 +85,14 @@ function filtraCachibaches(idtipo) {
 }
 
 
-function mostrarPagina(i) {
+function mostrarPaginaB(i) {
     var pag = i - 1;
-    $('#tbCachibaches').find(".cachibaches").each(function() {
+    $('#tbCachibachesB').find(".cachibaches").each(function() {
         var elemento = this;
         elemento.style.display = "none";
     });
 
-    $('#tbCachibaches').find(".pag" + pag).each(function() {
+    $('#tbCachibachesB').find(".pag" + pag).each(function() {
         var elemento = this;
         elemento.style.display = "";
     });

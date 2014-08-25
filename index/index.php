@@ -69,7 +69,18 @@
             <!-- /Static navbar --> 
             <!-- Content -->
             <div class="row content">
+
                 <div class="col-lg-3 content-left">
+                    <div class="input-group" id="panelBusqueda">
+                        <input type="text" class="form-control" 
+                               id="txtBusquedaProductosIndex" 
+                               placeholder="Busqueda..."/>
+                        <span class="input-group-btn">
+                            <button  class="btn btn-default" type="button" title="Buscar" id="btnBusquedaProductos">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span> 
+                    </div>
                     <h4>Categorias</h4>
                     <div id="mostrarcategorias"></div>
                     <h4>Novedades</h4>
@@ -77,9 +88,14 @@
                 </div>
                 <div class="col-lg-9 content-right">
                     <!--<h4>Slider</h4>-->
-                    <div id="mostrarslide"></div>
-                    <h4>Recomendado</h4>
-                    <div id="mostrarrecomendados"></div>
+                    <div id="panelBusquedaProductos">
+                       
+                        <div>
+                            <div id="mostrarslide"></div>
+                            <h4>Recomendado</h4>
+                            <div id="mostrarrecomendados"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /Content -->
@@ -96,10 +112,11 @@
         <script src="index.js/jquery.slides.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="index.js/index.js"></script>
+        <script src="index.js/busquedaProductos.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Drop down menu handler
-                $('.dropdown-menu').find('form').click(function(e) {
+                $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
                 // Slider
