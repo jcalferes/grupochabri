@@ -133,73 +133,78 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
 $("#clascodigoproducto").keypress(function(e) {
     if (e.which == 13) {
-        var info = "codigoProducto=" + $("#clascodigoproducto").val();
-        $.get("verificarExistenciaProducto.php", info, function(x) {
-            var comprobante;
-            var tipo;
-            var descripcion;
-            var imagenes;
-            var idImagen;
-            var novedades;
-            var recomendado;
-            var nombreGrupos;
-            var producto;
-            var cont = 1;
-            lista = JSON.parse(x);
-            console.log(lista);
-            $.each(lista, function(ind, elem) {
-                $.each(elem, function(ind, elem2) {
-                    grupo = elem[ind].idGrupoProducto;
-                    comprobante = elem[ind].comprobante;
-                    tipo = elem[ind].idTipo;
-                    descripcion = elem[ind].descripcion;
-                    imagenes = elem[ind].ruta;
-                    idImagen = elem[ind].idImagen;
-                    novedades = elem[ind].ponerNovedades;
-                    recomendado = elem[ind].ponerRecomendado;
-                    producto = elem[ind].nombre;
-                    nombreGrupos = elem[ind].grupo;
-                    if (imagenes !== undefined) {
-                        var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 100px; height: 88px;'/><div class='caption'><center><button type='button' class='btn btn-default btn-block' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
-                        $("#imagen" + cont).append(imagen);
-                        $("#contenedor" + cont).show('slow');
-                        cont++;
-                        $("#mostrarImagenes").show("slow");
-                    }
-                    calculando = 6 - cont;
-                    $("#textoValor").text("Maximo " + calculando + " imagenes");
-                });
-            });
-            if (grupo !== "" && grupo !== undefined) {
-                $("#mostrando").show();
-                $("#clascodigoproducto").prop("disabled", true);
-                $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
-                    $("#selectTipo").selectpicker();
-                    $("#selectTipo").selectpicker('refresh');
-                    $("#selectTipo").selectpicker('show');
-                    if (comprobante == "1") {
-                        $("#grupo").val(nombreGrupos);
-                        $("#producto").val(producto);
-                        $("#descripcion").val(descripcion);
-                        $("#selectTipo").selectpicker("val", tipo);
-                        $("#editarImagenes").show('slow');
-                        $("#subirImagenes").hide('slow');
-                        if (recomendado == '1') {
-                            $("#recomendado").prop("checked", true);
-                        }
-                        if (novedades == '1') {
-                            $("#Novedades").prop("checked", true);
-                        }
-                    }
-                    else {
-                    }
-                });
-            } else {
-                alertify.error("No existe este producto");
-            }
-        });
+        damedatosclasificados();
     }
 });
+
+
+function damedatosclasificados() {
+    var info = "codigoProducto=" + $("#clascodigoproducto").val();
+    $.get("verificarExistenciaProducto.php", info, function(x) {
+        var comprobante;
+        var tipo;
+        var descripcion;
+        var imagenes;
+        var idImagen;
+        var novedades;
+        var recomendado;
+        var nombreGrupos;
+        var producto;
+        var cont = 1;
+        lista = JSON.parse(x);
+        console.log(lista);
+        $.each(lista, function(ind, elem) {
+            $.each(elem, function(ind, elem2) {
+                grupo = elem[ind].idGrupoProducto;
+                comprobante = elem[ind].comprobante;
+                tipo = elem[ind].idTipo;
+                descripcion = elem[ind].descripcion;
+                imagenes = elem[ind].ruta;
+                idImagen = elem[ind].idImagen;
+                novedades = elem[ind].ponerNovedades;
+                recomendado = elem[ind].ponerRecomendado;
+                producto = elem[ind].nombre;
+                nombreGrupos = elem[ind].grupo;
+                if (imagenes !== undefined) {
+                    var imagen = "<img src='../subidas/" + imagenes + "' style ='width: 100px; height: 88px;'/><div class='caption'><center><button type='button' class='btn btn-default btn-block' onclick=eliminandoImagenes('" + imagenes + "','" + idImagen + "','" + cont + "')><span class='glyphicon glyphicon-remove'></span></button></center></div>";
+                    $("#imagen" + cont).append(imagen);
+                    $("#contenedor" + cont).show('slow');
+                    cont++;
+                    $("#mostrarImagenes").show("slow");
+                }
+                calculando = 6 - cont;
+                $("#textoValor").text("Maximo " + calculando + " imagenes");
+            });
+        });
+        if (grupo !== "" && grupo !== undefined) {
+            $("#mostrando").show();
+            $("#clascodigoproducto").prop("disabled", true);
+            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+                $("#selectTipo").selectpicker();
+                $("#selectTipo").selectpicker('refresh');
+                $("#selectTipo").selectpicker('show');
+                if (comprobante == "1") {
+                    $("#grupo").val(nombreGrupos);
+                    $("#producto").val(producto);
+                    $("#descripcion").val(descripcion);
+                    $("#selectTipo").selectpicker("val", tipo);
+                    $("#editarImagenes").show('slow');
+                    $("#subirImagenes").hide('slow');
+                    if (recomendado == '1') {
+                        $("#recomendado").prop("checked", true);
+                    }
+                    if (novedades == '1') {
+                        $("#Novedades").prop("checked", true);
+                    }
+                }
+                else {
+                }
+            });
+        } else {
+            alertify.error("No existe este producto");
+        }
+    });
+}
 
 $("#btnGuardarTipo").click(function() {
     info = "nombreTipo=" + $.trim($("#txtnombreTipo").val().toUpperCase()) + "&idGrupo=" + grupo;
@@ -403,4 +408,18 @@ function borrarSlider(idImgslider, idSucursal, ruta) {
         } else {
         }
     });
+}
+
+$("#btnnopublicados").click(function() {
+    $("#divnopublicados").load("buscarNoPublicados.php", function() {
+        $("#tdnopublicados").dataTable();
+    });
+    $("#mdlnopublicados").modal('toggle');
+});
+
+function publicamelo(codigo) {
+    $("#mdlnopublicados").modal('toggle');
+    $("#clascodigoproducto").val(codigo);
+    damedatosclasificados();
+    
 }

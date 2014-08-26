@@ -15,17 +15,22 @@
                 <div style="margin: 0% 25% 0% 25%">
                     <div class="form-group">
                         <label>Codigo del producto:</label>
-                        <input type="text" class="form-control" id="clascodigoproducto" style="width: 50%" />
+                        <div class="input-group" style="width: 75%" >
+                            <input type="text" class="form-control" id="clascodigoproducto">
+                            <span class="input-group-btn">
+                                <button class="btn btn-cprimary" type="button" id="btnnopublicados"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+                            </span>
+                        </div><!-- /input-group -->
                     </div>
                     <form id="mostrando">
-<!--                        <div class="form-group">
-                            <label>Nombre Producto:</label>
-                            <input type="text" class="form-control" id="producto" disabled/>
-                        </div>
-                        <div class="form-group">
-                            <label>Grupo Producto:</label>
-                            <input type="text" class="form-control" id="grupo" disabled/>
-                        </div>-->
+                        <!--                        <div class="form-group">
+                                                    <label>Nombre Producto:</label>
+                                                    <input type="text" class="form-control" id="producto" disabled/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Grupo Producto:</label>
+                                                    <input type="text" class="form-control" id="grupo" disabled/>
+                                                </div>-->
                         <div class="form-group form-inline" id="productosTipos">
                             <label>Tipo de producto:</label><br/>
                             <select id="selectTipo" style="width: 40%; height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
@@ -169,9 +174,25 @@
                             <!--<input id="editarTarifas" type="button" class="btn btn-default" value="Editar"/>-->
                             <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                             <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" id="mdlnopublicados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width: 60%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Productos NO publicados</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="divnopublicados"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
             </div>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

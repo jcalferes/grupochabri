@@ -75,12 +75,14 @@ function mostrarSubgrupos() {
 function mostrarCachibaches(id, nm) {
     var info = "id=" + id + "&nm=" + nm;
     $("#cachibaches").load("mostrarCachibaches.php?" + info, function() {
+        $('#tbCachibaches').dataTable();
     });
 }
 
 function filtraCachibaches(idtipo) {
     var info = "idtipo=" + idtipo;
     $("#cachibaches").load("filtrarCachibaches.php?" + info, function() {
+        $('#tbFCachibaches').dataTable();
     });
 }
 
