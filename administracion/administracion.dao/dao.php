@@ -3435,6 +3435,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("ROLLBACK;");
             return false;
         }
+
         mysql_query("COMMIT;");
         return true;
     }
@@ -3533,8 +3534,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 while ($concep = mysql_fetch_array($ctrlconcep)) {
                     $sqlnewconcep = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto, costoCotizacion, idListaPrecio) "
                             . "VALUES ('" . $concep["unidadMedidaConcepto"] . "','" . $concep["importeConcepto"] . "','" . $concep["cantidadConcepto"] . "','" . $concep["codigoConcepto"] . "','" . $concep["descripcionConcepto"] . "','" . $concep["precioUnitarioConcepto"] . "','$idnew','" . $concep["cdaConcepto"] . "','" . $concep["desctUnoConcepto"] . "','" . $concep["desctDosConcepto"] . "','" . $concep["costoCotizacion"] . "','" . $concep["idListaPrecio"] . "')";
+                    $sqlExistenciasTemporales = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES ('" . $concep["codigoConcepto"] . "','$foliomayor','" . $concep["cantidadConcepto"] . "','$idSucursal')";
                     $ctrlnewconcep = mysql_query($sqlnewconcep);
-                    if ($ctrlnewconcep == false) {
+                    $datosExistencias = mysql_query($sqlExistenciasTemporales);
+                    if ($ctrlnewconcep == false || $datosExistencias == false) {
                         $ctrlnewconcep = mysql_error();
                         mysql_query("ROLLBACK;");
                         return false;

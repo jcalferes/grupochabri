@@ -214,7 +214,7 @@ function cambiarTarifas(codigo) {
 //    var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
 //    alert(datos);
-    $("input[id='precioVnt" + codigo + "']").text(datos[1]);
+    $("span[id='precioVnt" + codigo + "']").text(datos[1]);
 //    $("#precioVnt" + codigo).text(datos[1]);
     calcularTotal(codigo);
 }
@@ -597,6 +597,9 @@ function verificar() {
             }));
 
 
+        }
+        else if(respuesta ==1){
+            
         }
         else {
             alertify.error(respuesta);

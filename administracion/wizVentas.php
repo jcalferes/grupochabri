@@ -30,7 +30,7 @@
                 <div style="float: right" id="fecha">
                 </div>
                 <br>
-                <div style="float: right ; margin-right: -45px">
+                <div style="float: right">
                     <strong><label style="color: red">Folio: </label><label id="folio"/> 
                     </strong>
                 </div>
