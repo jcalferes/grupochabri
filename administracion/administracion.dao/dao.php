@@ -3234,15 +3234,15 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 }
             }
         }
-        $rs = mysql_query($sqlEncabezadoId);
-        if ($rs == false) {
-            $error = mysql_error();
-            mysql_query("ROLLBACK;");
-        } else {
-            while ($row = mysql_fetch_array($rs)) {
-                $idXmlComprobante = $row["ID"];
-            }
-        }
+//        $rs = mysql_query($sqlEncabezadoId);
+//        if ($rs == false) {
+//            $error = mysql_error();
+//            mysql_query("ROLLBACK;");
+//        } else {
+//            while ($row = mysql_fetch_array($rs)) {
+//                $idXmlComprobante = $row["ID"];
+//            }
+//        }
         for ($x = 0; $x < count($detalle); $x++) {
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
                     . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
@@ -4196,7 +4196,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT monto, nt.idCliente, nombre, idNotasCredito "
-                . "FROM notasCredito nt "
+                . "FROM notascredito nt "
                 . "INNER JOIN clientes cl "
                 . "on nt.idCliente = cl.idCliente "
                 . "WHERE cl.rfc = '$rfc' and status ='1' and idSucursal = '$idSucursal'";
@@ -4324,7 +4324,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             while ($rsFolio = mysql_fetch_array($datosFolio)) {
                 $idFolio = $rsFolio["folioCancelaciones"];
             }
-            $sqlEliminarOrdenCompra = "UPDATE xmlComprobantes set statusOrden ='4', folioComprobante='$idFolio' WHERE folioComprobante = '" . $idFolioOrdenCompra . "' and statusOrden = '5'";
+            $sqlEliminarOrdenCompra = "UPDATE xmlcomprobantes set statusOrden ='4', folioComprobante='$idFolio' WHERE folioComprobante = '" . $idFolioOrdenCompra . "' and statusOrden = '5'";
             $rsEliminarOrden = mysql_query($sqlEliminarOrdenCompra, $cn->Conectarse());
             if ($rsEliminarOrden == false) {
                 $error = mysql_error();
@@ -4446,6 +4446,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function validarCierreCaja($idSucursal) {
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "SELECT * FROM cajainicial WHERE idSucursal = '" . $idSucursal . "' and fecha ='" . $fecha . "' and  cajaCerrada ='0' ";
+        $rs = mysql_query($sql);
+        return $rs;
+    }
+
     function guardarIngresoCaja(CajaInicial $caja) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -4505,6 +4513,17 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "WHERE c.idClasificados IS NULL";
         $ctrl = mysql_query($query);
         return $ctrl;
+    }
+
+    function finalizarDia(CajaInicial $caja, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $fecha = date("d/m/Y");
+        $sql = "UPDATE  cajainicial  set cajaCerrada='1', cantidadCaja='" . $caja->getCantidadCaja() . "', "
+                . "cantidadSistema = '" . $caja->getCantidadSistema() . "', observaciones ='" . $caja->getObservaciones() . "' "
+                . "WHERE fecha ='$fecha' and idSucursal = '$idSucursal'";
+        $datos = mysql_query($sql, $cn->Conectarse());
+        return $datos;
     }
 
 }

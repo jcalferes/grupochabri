@@ -11,7 +11,17 @@ if ($rs == false) {
 } else {
     $respuesta = mysql_affected_rows();
     if ($respuesta > 0) {
-        $respuesta = 1;
+        $rsDatos = $dao->validarCierreCaja($idSucursal);
+        if ($rsDatos == false) {
+            echo mysql_error();
+        } else {
+            $afect = mysql_affected_rows();
+            if ($afect > 0) {
+                $respuesta = 1;
+            } else {
+                $respuesta = 2;
+            }
+        }
     } else {
         $respuesta = 0;
     }
