@@ -3,6 +3,7 @@ var folioventa;
 
 $(document).ready(function () {
     $("#pagarCobranza").hide();
+    $("#tableAcompletarPagos").hide();
 
     $("#mdlBuscadorOrdenesCompra").click(function () {
         var folio = $.trim($("#txtFolioCobrar").val());
@@ -38,6 +39,12 @@ $(document).ready(function () {
                 $("#idClienteNC").hide();
                 $("#idNotasCredito").hide();
                 $("#mdlNotacreditoInformacion").modal('show');
+                var total = $("#totalDisponibleNotaCredito").text();
+                if (total < 0) {
+                    total = (total * -1);
+                    $("#acompletarNotaCredito").val(total);
+                    $("#tableAcompletarPagos").show();
+                }
             });
         }
         else {

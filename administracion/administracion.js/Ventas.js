@@ -608,6 +608,7 @@ function verificar() {
 }
 
 $(document).ready(function () {
+    $("#tiposPagosNotasCredito").load("dameTiposPagos.php");
     verificar();
     $("#btnGuardarIngresoCaja").click(function () {
         var usuario = $("#txtUsuarioValidarCaja").val();
@@ -662,7 +663,7 @@ $(document).ready(function () {
 
     $("#guardarVenta").click(function () {
         var paso = true;
-        if ($("#cmbTipoPago").val() == 2 || $("#cmbTipoPago").val() == 5) {
+        if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
         }
         if (paso == true) {
