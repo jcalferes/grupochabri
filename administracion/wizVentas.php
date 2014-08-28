@@ -585,6 +585,7 @@
                             </td>
                             <td>
                                 <input type="text" 
+                                       disabled="true"
                                        id="acompletarNotaCredito" 
                                        class="form-control"/>
                             </td>

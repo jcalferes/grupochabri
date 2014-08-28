@@ -108,8 +108,10 @@ function handleFileSelect(evt) {
         for (var i = 0, f; f = files[i]; i++) {
             var fileName = f.name;
             var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
-            if (fileExtension !== "jpg" && fileExtension !== "png" && fileExtension !== "gif") {
-                alertify.error("Solo puedes subir archivos jpg, gif y png")
+            if (fileExtension !== "jpg" && fileExtension !== "png" && fileExtension !== "gif" && fileExtension !== "jpeg") {
+                alertify.error("Solo puedes subir archivos jpg, jpeg, gif y png");
+                $("#files").val("");
+                $("#list").val("");
             } else {
                 output.push('<li><strong>', escape(f.name), '</strong> (', fileExtension || 'n/a', ') - ',
                         f.size, ' bytes, last modified: ',
@@ -331,7 +333,7 @@ $("#editarImagenes").click(function() {
 
 //=========================== Subir imagenes al slider =========================
 function comprueba_extension_imgslider(formulario, archivo) {
-    extensiones_permitidas = new Array(".gif", ".jpg", ".png");
+    extensiones_permitidas = new Array(".gif", ".jpg", ".jpeg", ".png");
     mierror = "";
     if (!archivo) {
         //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario
@@ -421,5 +423,5 @@ function publicamelo(codigo) {
     $("#mdlnopublicados").modal('toggle');
     $("#clascodigoproducto").val(codigo);
     damedatosclasificados();
-    
+
 }

@@ -4277,7 +4277,94 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("COMMIT;", $cn->Conectarse());
         } catch (Exception $ex) {
             mysql_query("ROLLBACK;", $cn->Conectarse());
-//            $error = mysql_error();
+            $error = mysql_error();
+        }
+        return $error;
+    }
+
+    function guardarNotaCreditoAcompletar($idCliente, $idSucursal, $total, $idNotaCredito, $folioVentaOrdenCompra, $tipoPago, $cantidad, $totalCredivoEnviado) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $error = "";
+        try {
+            mysql_query("START TRANSACTION;", $cn->Conectarse());
+            $sqlActualziarStatus = "UPDATE notascredito set status ='2' "
+                    . "WHERE idNotasCredito = '$idNotaCredito'";
+            $datos = mysql_query($sqlActualziarStatus, $cn->Conectarse());
+            if ($datos == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioNotaCredito = 0;
+            $fecha = date("d/m/Y");
+            $sqlFolios = "SELECT folioNotaCredito FROM folios WHERE idSucursal='$idSucursal'";
+            $rsFolios = mysql_query($sqlFolios, $cn->Conectarse());
+            if ($rsFolios == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($rs = mysql_fetch_array($rsFolios)) {
+                $folioNotaCredito = $rs["folioNotaCredito"];
+            }
+            $sqlInsertarNotaCredito = "INSERT INTO notascredito  (idCliente, monto, idSucursal, status, folioNotaCredito, folioCancelacion, fecha)"
+                    . " VALUES ('" . $idCliente . "', '0', '" . $idSucursal . "', '1', '0', '$folioNotaCredito', '" . $fecha . "')";
+            $rsInsertaNotacredio = mysql_query($sqlInsertarNotaCredito);
+            if ($rsInsertaNotacredio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolio = "UPDATE folios SET folioNotaCredito = '" . ($folioNotaCredito + 1) . "' "
+                    . " WHERE idSucursal ='$idSucursal'";
+            $rsActualizarFolio = mysql_query($sqlActualizarFolio);
+            if ($rsActualizarFolio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioVenta = 0;
+            $sqlFolioVentas = "SELECT folioVenta FROM folios WHERE idSucursal = '$idSucursal'";
+            $rsFolioVenta = mysql_query($sqlFolioVentas);
+            if ($rsFolioVenta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($datosFolioVenta = mysql_fetch_array($rsFolioVenta)) {
+                $folioVenta = $datosFolioVenta["folioVenta"];
+            }
+            $sqlEliminarExistenciasTemporales = "DELETE FROM  existenciastemporales WHERE folioPedido='" . $folioVentaOrdenCompra . "' and idSucursal='" . $idSucursal . "' ";
+            $rsExistenciasTmp = mysql_query($sqlEliminarExistenciasTemporales);
+            if ($rsExistenciasTmp == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden =7 and idTipoPago='7' WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
+            $rsComprobantes = mysql_query($sqlComprobantes);
+            if ($rsComprobantes == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $totalAbonoNotaCredito = $totalCredivoEnviado - $cantidad;
+            $slqInsertarTiposPagos1 = "INSERT INTO metodoPagos (idTipoPago, monto, idFolioVenta) VALUES ('5','" . $totalAbonoNotaCredito . "','$folioVenta')";
+            $rsInsertarTiposPagos1 = mysql_query($slqInsertarTiposPagos1);
+            if ($rsInsertarTiposPagos1 == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $slqInsertarTiposPagos2 = "INSERT INTO metodoPagos (idTipoPago, monto, idFolioVenta) VALUES ('$tipoPago','$cantidad','$folioVenta')";
+            $rsInsertarTipoPagos2 = mysql_query($slqInsertarTiposPagos2);
+            if ($rsInsertarTipoPagos2 == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolioVenta = "UPDATE folios SET folioVenta='" . ($folioVenta + 1) . "' WHERE  idSucursal = '$idSucursal'";
+            $rsActualizarFolioVnta = mysql_query($sqlActualizarFolioVenta, $cn->Conectarse());
+            if ($rsActualizarFolioVnta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            mysql_query("COMMIT;", $cn->Conectarse());
+        } catch (Exception $ex) {
+            mysql_query("ROLLBACK;", $cn->Conectarse());
+            $error = mysql_error();
         }
         return $error;
     }
@@ -4527,6 +4614,20 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "WHERE fecha ='$fecha' and idSucursal = '$idSucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
+    }
+
+    function obtenerDatosCompra($folio, $sucursal) {
+        $query = "SELECT * FROM xmlcomprobantes x "
+                . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
+                . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
+                . "INNER JOIN clientes c ON c.rfc = x.rfcComprobante "
+                . "INNER JOIN direcciones d ON d.idDireccion = c.idDireccion "
+                . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and idSucursal = '$sucursal' ";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
     }
 
 }
