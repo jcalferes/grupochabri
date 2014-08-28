@@ -4263,6 +4263,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden =7 WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
             $rsComprobantes = mysql_query($sqlComprobantes);
+            $error = $folioVenta;
             if ($rsComprobantes == false) {
                 $error = mysql_error();
                 throw new Exception();
@@ -4342,6 +4343,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 $error = mysql_error();
                 throw new Exception();
             }
+            $error = $folioVenta;
             $totalAbonoNotaCredito = $totalCredivoEnviado - $cantidad;
             $slqInsertarTiposPagos1 = "INSERT INTO metodoPagos (idTipoPago, monto, idFolioVenta) VALUES ('5','" . $totalAbonoNotaCredito . "','$folioVenta')";
             $rsInsertarTiposPagos1 = mysql_query($slqInsertarTiposPagos1);

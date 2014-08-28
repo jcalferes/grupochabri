@@ -9,11 +9,11 @@ $idNotaCredito = $_POST["idNotasCredito"];
 $folioVnta = $_POST["folioVnta"];
 $tipoPago = $_POST["tipoPago"];
 $cantidad = $_POST["cantidad"];
-$totalCreditoEnviado =$_POST["totalCredito"];
+$totalCreditoEnviado = $_POST["totalCredito"];
 $dao = new dao();
 $error = $dao->guardarNotaCreditoAcompletar($idCliente, $idSucursal, $total, $idNotaCredito, $folioVnta, $tipoPago, $cantidad, $totalCreditoEnviado);
 if ($error == "") {
-    echo 'Venta Finalizada';
+    echo $error;
 } else {
     echo $error;
 }

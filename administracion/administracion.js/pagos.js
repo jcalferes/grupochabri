@@ -44,8 +44,8 @@ $(document).ready(function () {
                     $("#acompletarNotaCredito").val(total);
                     $("#tableAcompletarPagos").show();
                 }
-                else{
-                     $("#acompletarNotaCredito").val("");
+                else {
+                    $("#acompletarNotaCredito").val("");
                     $("#tableAcompletarPagos").hide();
                 }
             });
@@ -63,13 +63,19 @@ $(document).ready(function () {
         if ($("#acompletarNotaCredito").val() == "") {
             var info = "idCliente=" + idCliente + "&total=" + total + "&idNotasCredito=" + idNotasCredito + "&folioVnta=" + folioventa;
             $.post('guardarNotaCredito.php', info, function (resultado) {
-                alertify.success(resultado);
-                $("#mdlNotacreditoInformacion").modal('hide');
-                limpiarOrdenesCompra();
-                $('#btnCobrar').attr("disabled", true);
-                $('#btnRechazar').attr("disabled", true);
-                $('#btnCancelarCobranzas').attr("disabled", true);
-                $("#txtFolioCobrar").val("");
+                if (resultado > 0) {
+                    alertify.success("Exito venta concretada");
+                    window.open('generarNotaCompra.php?folio=' + resultado);
+                    $("#mdlNotacreditoInformacion").modal('hide');
+                    limpiarOrdenesCompra();
+                    $('#btnCobrar').attr("disabled", true);
+                    $('#btnRechazar').attr("disabled", true);
+                    $('#btnCancelarCobranzas').attr("disabled", true);
+                    $("#txtFolioCobrar").val("");
+                }
+                else {
+                    alertify.success(resultado);
+                }
             });
         }
         else {
@@ -85,13 +91,19 @@ $(document).ready(function () {
             else {
                 var info = "idCliente=" + idCliente + "&total=" + total + "&idNotasCredito=" + idNotasCredito + "&folioVnta=" + folioventa + "&tipoPago=" + tipoPagoElegir + "&cantidad=" + cantidadAcompletar + "&totalCredito=" + totalCreditoenviado;
                 $.post('guardarNotaCreditoVariosPagos.php', info, function (resultado) {
-                    alertify.success(resultado);
-                    $("#mdlNotacreditoInformacion").modal('hide');
-                    limpiarOrdenesCompra();
-                    $('#btnCobrar').attr("disabled", true);
-                    $('#btnRechazar').attr("disabled", true);
-                    $('#btnCancelarCobranzas').attr("disabled", true);
-                    $("#txtFolioCobrar").val("");
+                    if (resultado > 0) {
+                        alertify.success("Exito venta concretada");
+                        window.open('generarNotaCompra.php?folio=' + resultado);
+                        $("#mdlNotacreditoInformacion").modal('hide');
+                        limpiarOrdenesCompra();
+                        $('#btnCobrar').attr("disabled", true);
+                        $('#btnRechazar').attr("disabled", true);
+                        $('#btnCancelarCobranzas').attr("disabled", true);
+                        $("#txtFolioCobrar").val("");
+                    }
+                    else {
+                        alertify.success(resultado);
+                    }
                 });
             }
         }
@@ -139,10 +151,17 @@ $(document).ready(function () {
                         callbacks.add($('#mdlPagar').modal('hide'));
                         callbacks.add($("#txtCantidad").val(""));
                         alertify.alert("<b>Cambio:</b> " + cambio + "", function () {
-                            callbacks.add(limpiarOrdenesCompra());
-                            $("#txtFolioCobrar").val("");
+                            if (respuesta > 0) {
+                                callbacks.add(limpiarOrdenesCompra());
+                                callbacks.add($("#txtFolioCobrar").val(""));
+                                alertify.success("Exito venta concretada");
+//                                $(location).attr('href', "generarNotaCompra.php?folio=" + respuesta);
+//                                callbacks.add(window.location = "generarNotaCompra.php?folio=" + respuesta, '_blank');
+//                                window.location = "generarNotaCompra.php?folio=' + respuesta";
+                                window.open('generarNotaCompra.php?folio=' + respuesta);
+                            }
                         });
-                        alertify.success(respuesta);
+
                     });
                 }
             }
@@ -161,20 +180,23 @@ $(document).ready(function () {
                 var folio = $("#xmlComprobante").text();
                 var informacion = "folioComprobante=" + folio + "&idTipoPago=" + idTipoPago + "&importe=" + datos + "&formaPago=" + tipoPago + "&totalCredito=" + total;
                 $.get('guardarPagos.php', informacion, function (respuesta) {
-                    alertify.success(respuesta);
-                    $("#buscabonos").load("consultarDeudoresPV.php", function () {
-                        $('#dtdeudores').dataTable();
-                    });
-                    limpiarOrdenesCompra();
-                    $('#btnCobrar').attr("disabled", true);
-                    $('#btnRechazar').attr("disabled", true);
-                    $('#btnCancelarCobranzas').attr("disabled", true);
-                    $("#mdlNotacreditoInformacion").modal('hide');
-                    $('#mdlPagar').modal('hide');
-                    $("#txtCantidad").val("");
-
+                    if (respuesta > 0) {
+                        alertify.success("Exito venta concretada");
+                        window.open('generarNotaCompra.php?folio=' + respuesta);
+                        $("#buscabonos").load("consultarDeudoresPV.php", function () {
+                            $('#dtdeudores').dataTable();
+                        });
+                        limpiarOrdenesCompra();
+                        $('#btnCobrar').attr("disabled", true);
+                        $('#btnRechazar').attr("disabled", true);
+                        $('#btnCancelarCobranzas').attr("disabled", true);
+                        $("#mdlNotacreditoInformacion").modal('hide');
+                        $('#mdlPagar').modal('hide');
+                        $("#txtCantidad").val("");
+                        $("#pagarCobranza").hide();
+                    }
                 });
-                $("#pagarCobranza").hide();
+
             }
         }
     });
