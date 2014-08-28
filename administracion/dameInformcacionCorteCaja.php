@@ -41,7 +41,7 @@ $totalIngreso = 0.00;
                         $okInformacion = false;
                         while ($datos = mysql_fetch_array($rs)) {
                             $idTipoPago  = $datos[0];
-                            if ($datos[0] != 7) {
+                            if ($datos[0] == 1) {
                                 $okInformacion = true;
                                 ?>
                                 <tr>
