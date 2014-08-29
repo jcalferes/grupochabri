@@ -4454,7 +4454,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "and fechaMovimiento = '" . $fecha . "' "
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
-                . "and xmlC.idTipoPago !=2 || xmlC.idTipoPago !=7";
+                . "and xmlC.idTipoPago !=2";
                 
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
@@ -4464,7 +4464,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $fecha = date("d/m/Y");
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+        $sql = "SELECT tp.idTipoPago, tp.*, xmlC.*, vU.* FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
                 . "inner join ventasUsuario vU "

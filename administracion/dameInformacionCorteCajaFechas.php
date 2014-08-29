@@ -19,6 +19,7 @@ $totalIngreso = 0.00;
                 <table class="table table-hover">
                     <thead>
                     <th><center>Folio</center></th>
+                    <th><center>Fecha</center></th>
                     <th><center>Vendedor</center></th>
                     <th><center>Cliente</center></th>
                     <th><center>Tipo de Pago</center></th>
@@ -38,17 +39,21 @@ $totalIngreso = 0.00;
                     } else {
                         $okInformacion = false;
                         while ($datos = mysql_fetch_array($rs)) {
-                            $okInformacion = true;
-                            ?>
-                            <tr>
-                                <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
-                            <td><center><?php echo $datos["usuario"]; ?></center></td>
-                            <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
-                            <td><center><?php echo $datos["tipoPago"]; ?></center></td>
-                            <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
-                            </tr>
-                            <?php
-                            $totalIngreso = $totalIngreso + $datos["totalComprobante"];
+                            $idTipoPago = $datos[0];
+                            if ($idTipoPago == 1) {
+                                $okInformacion = true;
+                                ?>
+                                <tr>
+                                    <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                                <td><center><?php echo $datos["fechaMovimiento"]; ?></center></td>
+                                <td><center><?php echo $datos["usuario"]; ?></center></td>
+                                <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
+                                <td><center><?php echo $datos["tipoPago"]; ?></center></td>
+                                <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
+                                </tr>
+                                <?php
+                                $totalIngreso = $totalIngreso + $datos["totalComprobante"];
+                            }
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
