@@ -214,7 +214,7 @@ function cambiarTarifas(codigo) {
 //    var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
 //    alert(datos);
-    $("input[id='precioVnt" + codigo + "']").text(datos[1]);
+    $("span[id='precioVnt" + codigo + "']").text(datos[1]);
 //    $("#precioVnt" + codigo).text(datos[1]);
     calcularTotal(codigo);
 }
@@ -598,6 +598,9 @@ function verificar() {
 
 
         }
+        else if(respuesta ==1){
+            
+        }
         else {
             alertify.error(respuesta);
         }
@@ -605,6 +608,7 @@ function verificar() {
 }
 
 $(document).ready(function () {
+    $("#tiposPagosNotasCredito").load("dameTiposPagos.php");
     verificar();
     $("#btnGuardarIngresoCaja").click(function () {
         var usuario = $("#txtUsuarioValidarCaja").val();
@@ -659,7 +663,7 @@ $(document).ready(function () {
 
     $("#guardarVenta").click(function () {
         var paso = true;
-        if ($("#cmbTipoPago").val() == 2 || $("#cmbTipoPago").val() == 5) {
+        if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
         }
         if (paso == true) {

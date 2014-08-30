@@ -41,10 +41,10 @@ $existenciaFisica = 0;
 if ($error == "") {
     while ($dat = mysql_fetch_array($rs)) {
         $disponibilidad = true;
-        $existenciaFisica = $dat[3]; 
+        $existenciaFisica = $dat[3];
         $nuevaExistencia = $existenciaFisica - $existenciaTemporal;
         if ($nuevaExistencia < 0) {
-            $disponibilidad= false;
+            $disponibilidad = false;
             break;
         }
         $codigo1 = $dat[0];
@@ -53,8 +53,8 @@ if ($error == "") {
         $interfaz.="<td><center><span id='codigo" . utf8_decode($codigo->getCodigo()) . "'>" . $codigo1 . "</span></center></td>";
         $interfaz.="<td><center><span id='descripcion" . utf8_decode($codigo->getCodigo()) . "'>" . utf8_decode($descripcion) . "</span></center></td>";
         $costo = $dat[2];
-        
-       
+
+
 //  ---------------------------------------
         $paso = false;
         $longitud = strlen($codigo1);
@@ -89,7 +89,7 @@ if ($error == "") {
                     . "</td>";
         }
         $interfaz.="<td><center><span id='txtExistencia" . utf8_decode($codigo->getCodigo()) . "'>" . $nuevaExistencia . "</span></center></td>";
-        $interfaz.="<td>"; 
+        $interfaz.="<td>";
         $interfaz.="<select  disabled='true' class = 'form-control autorizar' id='cmb" . utf8_decode($codigo1) . "' onchange='cambiarTarifas(" . "\"$codigo1\"" . ");'>";
     }
 
@@ -101,8 +101,11 @@ if ($error == "") {
             if ($rsDatos[1] == 'MENUDEO') {
                 $interfaz.="selected='true'";
                 $costoMenudeo = ($costo * ($rsDatos[2] / 100)) + $costo;
+                $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
+            } else {
+                $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
             }
-            $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
+
             $interfaz .="value='" . $rsDatos[0] . "," . $costoVenta . "'>" . $rsDatos[1] . ""
                     . "</option>";
         }

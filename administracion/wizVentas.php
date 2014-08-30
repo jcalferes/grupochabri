@@ -30,7 +30,7 @@
                 <div style="float: right" id="fecha">
                 </div>
                 <br>
-                <div style="float: right ; margin-right: -45px">
+                <div style="float: right">
                     <strong><label style="color: red">Folio: </label><label id="folio"/> 
                     </strong>
                 </div>
@@ -562,7 +562,36 @@
                         <h4 class="modal-title" id="myModalLabel">Información de la nota de credito</h4>
                     </div>
                     <div id="informacionNotaCredito">
+
                     </div>
+                    <table class="table" id="tableAcompletarPagos">
+                        <tr>
+                            <td colspan="2">
+                                <div class="alert alert-warning" role="alert">Tu nota de credito no es suficiente para adquirir todo el producto.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tipos de pago :
+                            </td>
+                            <td>
+                                <select id="tiposPagosNotasCredito" 
+                                        class="form-control">
+                                </select>
+                            </td>
+                        <tr>
+                            <td>
+                                Cantidad:
+                            </td>
+                            <td>
+                                <input type="text" 
+                                       disabled="true"
+                                       id="acompletarNotaCredito" 
+                                       class="form-control"/>
+                            </td>
+                        </tr>
+                        </tr>
+                    </table>
                     <center>
                         <input type="submit" 
                                class="btn btn-default" 

@@ -26,6 +26,7 @@ if ($data != false) {
     echo "</tr>";
     echo"</thead>";
     echo "<tbody>";
+    $codigo = 0;
     while ($rs = mysql_fetch_array($datos)) {
         if ($pagina < 1) {
             echo "<tr  class='cachibaches pag$pagina'>";
@@ -35,7 +36,6 @@ if ($data != false) {
 
         echo "<td class='col-sm-8 col-md-6'>";
         echo "<div class='media'>";
-
         echo "<a class='thumbnail pull-left' href='#'>";
         echo "<img class='media-object' src='../subidas/$rs[ruta]' style='width: 72px; height: 72px;' />";
         echo "</a>";

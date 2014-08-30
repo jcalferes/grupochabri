@@ -3435,6 +3435,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("ROLLBACK;");
             return false;
         }
+
         mysql_query("COMMIT;");
         return true;
     }
@@ -3533,8 +3534,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 while ($concep = mysql_fetch_array($ctrlconcep)) {
                     $sqlnewconcep = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto, costoCotizacion, idListaPrecio) "
                             . "VALUES ('" . $concep["unidadMedidaConcepto"] . "','" . $concep["importeConcepto"] . "','" . $concep["cantidadConcepto"] . "','" . $concep["codigoConcepto"] . "','" . $concep["descripcionConcepto"] . "','" . $concep["precioUnitarioConcepto"] . "','$idnew','" . $concep["cdaConcepto"] . "','" . $concep["desctUnoConcepto"] . "','" . $concep["desctDosConcepto"] . "','" . $concep["costoCotizacion"] . "','" . $concep["idListaPrecio"] . "')";
+                    $sqlExistenciasTemporales = "INSERT INTO existenciastemporales (codigo, folioPedido, cantidad, idSucursal) VALUES ('" . $concep["codigoConcepto"] . "','$foliomayor','" . $concep["cantidadConcepto"] . "','$idSucursal')";
                     $ctrlnewconcep = mysql_query($sqlnewconcep);
-                    if ($ctrlnewconcep == false) {
+                    $datosExistencias = mysql_query($sqlExistenciasTemporales);
+                    if ($ctrlnewconcep == false || $datosExistencias == false) {
                         $ctrlnewconcep = mysql_error();
                         mysql_query("ROLLBACK;");
                         return false;
@@ -4260,6 +4263,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden =7 WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
             $rsComprobantes = mysql_query($sqlComprobantes);
+            $error = $folioVenta;
             if ($rsComprobantes == false) {
                 $error = mysql_error();
                 throw new Exception();
@@ -4274,7 +4278,95 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("COMMIT;", $cn->Conectarse());
         } catch (Exception $ex) {
             mysql_query("ROLLBACK;", $cn->Conectarse());
-//            $error = mysql_error();
+            $error = mysql_error();
+        }
+        return $error;
+    }
+
+    function guardarNotaCreditoAcompletar($idCliente, $idSucursal, $total, $idNotaCredito, $folioVentaOrdenCompra, $tipoPago, $cantidad, $totalCredivoEnviado) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $error = "";
+        try {
+            mysql_query("START TRANSACTION;", $cn->Conectarse());
+            $sqlActualziarStatus = "UPDATE notascredito set status ='2' "
+                    . "WHERE idNotasCredito = '$idNotaCredito'";
+            $datos = mysql_query($sqlActualziarStatus, $cn->Conectarse());
+            if ($datos == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioNotaCredito = 0;
+            $fecha = date("d/m/Y");
+            $sqlFolios = "SELECT folioNotaCredito FROM folios WHERE idSucursal='$idSucursal'";
+            $rsFolios = mysql_query($sqlFolios, $cn->Conectarse());
+            if ($rsFolios == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($rs = mysql_fetch_array($rsFolios)) {
+                $folioNotaCredito = $rs["folioNotaCredito"];
+            }
+            $sqlInsertarNotaCredito = "INSERT INTO notascredito  (idCliente, monto, idSucursal, status, folioNotaCredito, folioCancelacion, fecha)"
+                    . " VALUES ('" . $idCliente . "', '0', '" . $idSucursal . "', '1', '0', '$folioNotaCredito', '" . $fecha . "')";
+            $rsInsertaNotacredio = mysql_query($sqlInsertarNotaCredito);
+            if ($rsInsertaNotacredio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolio = "UPDATE folios SET folioNotaCredito = '" . ($folioNotaCredito + 1) . "' "
+                    . " WHERE idSucursal ='$idSucursal'";
+            $rsActualizarFolio = mysql_query($sqlActualizarFolio);
+            if ($rsActualizarFolio == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $folioVenta = 0;
+            $sqlFolioVentas = "SELECT folioVenta FROM folios WHERE idSucursal = '$idSucursal'";
+            $rsFolioVenta = mysql_query($sqlFolioVentas);
+            if ($rsFolioVenta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            while ($datosFolioVenta = mysql_fetch_array($rsFolioVenta)) {
+                $folioVenta = $datosFolioVenta["folioVenta"];
+            }
+            $sqlEliminarExistenciasTemporales = "DELETE FROM  existenciastemporales WHERE folioPedido='" . $folioVentaOrdenCompra . "' and idSucursal='" . $idSucursal . "' ";
+            $rsExistenciasTmp = mysql_query($sqlEliminarExistenciasTemporales);
+            if ($rsExistenciasTmp == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlComprobantes = "UPDATE xmlcomprobantes set folioComprobante ='$folioVenta', statusOrden ='7' ,idTipoPago='7' WHERE idsucursal = '$idSucursal' and folioComprobante = '$folioVentaOrdenCompra'";
+            $rsComprobantes = mysql_query($sqlComprobantes);
+            if ($rsComprobantes == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $error = $folioVenta;
+            $totalAbonoNotaCredito = $totalCredivoEnviado - $cantidad;
+            $slqInsertarTiposPagos1 = "INSERT INTO metodoPagos (idTipoPago, monto, idFolioVenta) VALUES ('5','" . $totalAbonoNotaCredito . "','$folioVenta')";
+            $rsInsertarTiposPagos1 = mysql_query($slqInsertarTiposPagos1);
+            if ($rsInsertarTiposPagos1 == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $slqInsertarTiposPagos2 = "INSERT INTO metodoPagos (idTipoPago, monto, idFolioVenta) VALUES ('$tipoPago','$cantidad','$folioVenta')";
+            $rsInsertarTipoPagos2 = mysql_query($slqInsertarTiposPagos2);
+            if ($rsInsertarTipoPagos2 == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            $sqlActualizarFolioVenta = "UPDATE folios SET folioVenta='" . ($folioVenta + 1) . "' WHERE  idSucursal = '$idSucursal'";
+            $rsActualizarFolioVnta = mysql_query($sqlActualizarFolioVenta, $cn->Conectarse());
+            if ($rsActualizarFolioVnta == false) {
+                $error = mysql_error();
+                throw new Exception();
+            }
+            mysql_query("COMMIT;", $cn->Conectarse());
+        } catch (Exception $ex) {
+            mysql_query("ROLLBACK;", $cn->Conectarse());
+            $error = mysql_error();
         }
         return $error;
     }
@@ -4353,7 +4445,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $fecha = date("d/m/Y");
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+        $sql = "SELECT tp.idTipoPago, tp.*, xmlC.*, vU.* FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
                 . "inner join ventasUsuario vU "
@@ -4363,6 +4455,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
                 . "and xmlC.idTipoPago !=2";
+                
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -4371,7 +4464,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $fecha = date("d/m/Y");
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM xmlcomprobantes xmlC "
+        $sql = "SELECT tp.idTipoPago, tp.*, xmlC.*, vU.* FROM xmlcomprobantes xmlC "
                 . "inner join tipospagos tp "
                 . "on xmlC.idTipoPago = tp.idTipoPago "
                 . "inner join ventasUsuario vU "

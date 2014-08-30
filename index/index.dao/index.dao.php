@@ -209,13 +209,14 @@ class dao {
     }
 
     function mostarProductosBusqueda($busqueda) {
-        $query = "SELECT * FROM clasificados c "
+        $query = "SELECT  *  FROM clasificados c "
                 . "INNER JOIN tiposproducto t ON  t.idTiposProducto =  c.idTipo "
                 . "INNER JOIN grupoproductos g ON g.idGrupoProducto = t.idGrupoProducto "
                 . "INNER JOIN imagenes i ON i.codigoProducto = c.codigoProducto "
                 . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
-                . " where concat(c.codigoProducto, c.descripcion) like '%$busqueda%'";
-//                . "WHERE t.idGrupoProducto = '$id' AND i.ruta LIKE '%-_-0.%'";
+                . " where concat(c.codigoProducto, c.descripcion) like '%$busqueda%' "
+//                . "WHERE t.idGrupoProducto = '$id' 
+                ."AND i.ruta LIKE '%-_-0.%'";
         $ctrl = mysql_query($query);
         $row = mysql_affected_rows();
         if ($ctrl == false) {

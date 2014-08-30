@@ -14,7 +14,7 @@ $totalIngreso = 0.00;
         <div class="panel-heading"><strong>INFORMACION DEL DÍA &nbsp; <label style="color: red"> <?php echo $fecha; ?> </label> </strong></div>
         <div class="panel-body">
             <div>
-                <strong>Relación de movimiento de VENTAS :</strong>
+                <span class="label label-primary">RELACION DE MOVIMIENTOS DE VENTAS :</span>
                 <table class="table table-hover">
                     <thead>
                     <th><center>Folio</center></th>
@@ -40,25 +40,29 @@ $totalIngreso = 0.00;
                     } else {
                         $okInformacion = false;
                         while ($datos = mysql_fetch_array($rs)) {
-                            $okInformacion = true;
-                            ?>
-                            <tr>
-                                <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
-                            <td><center><?php echo $datos["usuario"]; ?></center></td>
-                            <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
-                            <td><center><?php echo $datos["tipoPago"]; ?></center></td>
-                            <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
-                            </tr>
-                            <?php
-                            $totalIngreso = $totalIngreso + $datos["totalComprobante"];
+                            $idTipoPago  = $datos[0];
+                            if ($datos[0] == 1) {
+                                $okInformacion = true;
+                                ?>
+                                <tr>
+                                    <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                                <td><center><?php echo $datos["usuario"]; ?></center></td>
+                                <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
+                                <td><center><?php echo $datos["tipoPago"]; ?></center></td>
+                                <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
+                                </tr>
+                                <?php
+                                $totalIngreso = $totalIngreso + $datos["totalComprobante"];
+                            }
                         }
                         if ($okInformacion == false) {
                             echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
+//                        }
                     }
                     ?>
                 </table>
-                <strong>Relación de movimientos de ABONOS :</strong>
+                <span class="label label-primary">RELACION DE MOVIMIENTO DE ABONOS :</span>
                 <table class="table table-hover">
                     <thead>
                     <th><center>Folio</center></th>
@@ -95,7 +99,7 @@ $totalIngreso = 0.00;
                     }
                     ?>
                 </table>
-                <strong>Relación de movimientos de Notas de Credito :</strong>
+                <span class="label label-primary">RELACION DE VENTAS CANCELADAS CON NOTA DE CREDITO</span>
                 <table class="table table-hover">
                     <thead>
                     <th>Folio</th>

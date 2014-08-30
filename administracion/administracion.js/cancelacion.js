@@ -33,13 +33,14 @@ $("#btnbuscarfoliocancelacion").click(function () {
         else {
             $("#showdatoscancelacion").load("buscarFolioCancelacionCredito.php?foliocancelacion=" + foliocancelacion, function () {
                 $("#dtcancelacion").dataTable();
+                $("#chkreutilizar").attr("disabled", true);
                 $("#txtfoliocancelacion").val("");
-                var buzon_rfc = $("#buzon_rfc").val();
-                if (buzon_rfc == 1) {
-                    $("#chkreutilizar").attr("disabled", true);
-                } else {
-                    $("#chkreutilizar").removeAttr("disabled");
-                }
+//                var buzon_rfc = $("#buzon_rfc").val();
+//                if (buzon_rfc == 1) {
+//                    $("#chkreutilizar").attr("disabled", true);
+//                } else {
+//                    $("#chkreutilizar").removeAttr("disabled");
+//                }
                 $("#showdatoscancelacion").slideDown("slow");
                 $("#divvalidacancelacion").slideDown("slow");
                 if ($("#spnfolio").text() > 0) {

@@ -41,8 +41,9 @@ if ($dato == false) {
             }
             $mensaje = $dao->finalizarVenta($idXmlComprobante, $idsucursal, $idFolio, $usuario, $folioOrdenVenta, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito);
             if ($mensaje == "") {
-                $mensaje = "Exito Venta Concretada";
+                $mensaje = $idFolio;
             }
+            
         }
     }
 }

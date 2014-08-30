@@ -11,10 +11,6 @@ $(document).ready(function () {
             $("#panelBusquedaProductos").slideDown("slow");
         }));
     });
-
-   
-
-
 });
 function mostrarPaginaB(i) {
 //        alert("entra");

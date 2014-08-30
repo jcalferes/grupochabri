@@ -10,7 +10,7 @@ $folioVnta = $_POST["folioVnta"];
 $dao = new dao();
 $error = $dao->guardarNotaCredito($idCliente, $idSucursal, $total, $idNotaCredito, $folioVnta);
 if ($error == "") {
-    echo 'Venta Finalizada';
+    echo $error;
 } else {
     echo $error;
 }
