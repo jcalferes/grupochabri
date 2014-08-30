@@ -160,7 +160,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     </center>';
     $valor .= '      <table class="CSSTableGenerator">';
     while ($data = mysql_fetch_array($datos)) {
-        $valor .= ' <tr><td>Nombre:<br> ' . $data["nombreCliente"] . ' </td><td>Nota de Compra:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>' . $data["fechaComprobante"] . '</td></tr>';
+        $valor .= ' <tr><td>Nombre:<br> ' . ucwords(strtolower($data["nombreCliente"])) . ' </td><td>Nota de Compra:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>' . $data["fechaComprobante"] . '</td></tr>';
         break;
     }
 
