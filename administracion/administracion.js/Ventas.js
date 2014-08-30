@@ -5,23 +5,38 @@ var codigoN;
 var inf = new Array();
 $("#codigoProductoEntradas").keypress(function (e) {
     if (e.which == 13) {
-        buscar();
+        var codi = $("#codigoProductoEntradas").val();
+        var info = "codigo=" + codi;
+        $.get('dameCodigoBarras.php', info, function (informacion) {
+            if (informacion != -1) {
+                alert(informacion);
+                var callbacks = $.Callbacks(); 
+                callbacks.add(codigoN = informacion);
+                callbacks.add(buscar());
+                callbacks.add($("#codigoProductoEntradas").val(""));
+            }
+            else {
+                alertify.error("Hubo un error al traer el codigo del producto.");
+            }
+        });
     }
 });
 function buscar() {
-    var codi = $("#codigoProductoEntradas").val();
-    codigoN = codi;
+    alert("entro a buscar");
+//    var codi = $("#codigoProductoEntradas").val();
 //    validamos que el codigo se encuentre en un array para verificarlo
-    var paso = validar($("#codigoProductoEntradas").val());
+    var paso = validar(codigoN);
+//    var paso = validar($("#codigoProductoEntradas").val());
     if (paso == true) {
         alertify.success("El producto ya esta en carrito");
         $("#codigoProductoEntradas").val("");
     }
     else {
         cargarProductosCarrito();
-        codigos.push($("#codigoProductoEntradas").val().toUpperCase());
+        codigos.push(codigoN.toUpperCase());
     }
     calcularTotal(codi);
+    alert("finalizo Buscar");
 }
 
 
@@ -39,11 +54,12 @@ function validarCredito() {
 
 
 function cargarProductosCarrito() {
-    var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
+//    var info = "codigo=" + $("#codigoProductoEntradas").val().toUpperCase();
+    var info = "codigo=" + codigoN.toUpperCase();
     $.get('dameProductoVentas.php', info, function (informacion) {
         var datos = informacion.split(",");
         if (datos[0] == 0) {
-            eliminarProducto($("#codigoProductoEntradas").val().toUpperCase());
+            eliminarProducto(codigoN.toUpperCase());
             alertify.error("No existe el producto con el codigo " + $("#codigoProductoEntradas").val().toUpperCase() + "o no hay en existencia");
             $("#codigoProductoEntradas").val("");
         }
@@ -598,8 +614,8 @@ function verificar() {
 
 
         }
-        else if(respuesta ==1){
-            
+        else if (respuesta == 1) {
+
         }
         else {
             alertify.error(respuesta);

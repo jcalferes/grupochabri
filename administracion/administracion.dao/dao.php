@@ -1583,10 +1583,42 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . " and  cost.idSucursal  = '" . $idSucursal . "' "
                 . " and cost.status = 1"
                 . " and cost.codigoProducto= '" . $c->getCodigo() . "'"
-//
                 . " and exi.cantidad > 0"
                 . " and exi.idSucursal = '$idSucursal'";
         $rs = mysql_query($MySQL);
+
+        $afecto = mysql_affected_rows();
+        if ($afecto == 0) {
+            $sql = "SELECT codigoproducto from productos WHERE codigoBarrasProducto = '" . $c->getCodigo() . "'";
+            $rsDatosCodigoProducto = mysql_query($sql);
+            if ($rsDatosCodigoProducto) {
+                $codigoProducto = 0;
+                while ($d = mysql_fetch_array($rsDatosCodigoProducto)) {
+                    $codigoProducto = $d["codigoproducto"];
+                    $c->setCodigo($codigoProducto);
+                }
+            } else {
+                $error = mysql_error();
+            }
+
+            $MySQL = "SELECT p.codigoproducto, producto, costo, cantidad   FROM productos p
+                  inner join proveedores pr
+                  on p.idProveedor = pr.idProveedor
+                  inner join marcas m
+                  on m.idMarca = p.idMarca
+	          inner join costos cost
+	          on p.codigoProducto = cost.codigoProducto
+                  inner join existencias exi
+                  on exi.codigoProducto = p.codigoProducto
+                  WHERE p.codigoProducto='" . $c->getCodigo() . "'"
+                    . " and  cost.idSucursal  = '" . $idSucursal . "' "
+                    . " and cost.status = 1"
+                    . " and cost.codigoProducto= '" . $c->getCodigo() . "'"
+                    . " and exi.cantidad > 0"
+                    . " and exi.idSucursal = '$idSucursal'";
+            $rs = mysql_query($MySQL);
+        }
+
         return $rs;
     }
 
@@ -4455,7 +4487,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "and tipoComprobante = 'Ventas' "
                 . "and idSucursal = '" . $idSucursal . "' "
                 . "and xmlC.idTipoPago !=2";
-                
+
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
@@ -4623,13 +4655,20 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $query = "SELECT * FROM xmlcomprobantes x "
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
                 . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
-                . "INNER JOIN direcciones d ON d.idDireccion = c.idDireccion "
                 . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and idSucursal = '$sucursal' ";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
             $ctrl = mysql_error();
         }
         return $ctrl;
+    }
+
+    function dameCodigo($codigoBarras) {
+        include_once '../daoconexion/daoConeccion.php';
+        $cn = new coneccion();
+        $sql = "select codigoProducto from productos where codigoBarrasProducto='$codigoBarras' or codigoProducto='$codigoBarras' ;";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
     }
 
 }
