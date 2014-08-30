@@ -160,9 +160,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     </center>';
     $valor .= '      <table class="CSSTableGenerator">';
     while ($data = mysql_fetch_array($datos)) {
-        $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $data[16] . '</label><br>Fecha de emision:<br>' . $data["fecha"] . '</td></tr>
-        <tr><td>Direccion:<br> Calle ' . $data["calle"] . ' num ext ' . $data["numeroExterior"] . ' num int ' . $data["numeroInterior"] . ' cruzamientos ' . $data["cruzamientos"] . ' </td><td>Colonia:<br> ' . $data["colonia"] . '</td><td></td></tr>
-        <tr style="background-color: white"><td>Localidad/Municipio:<br>' . $data["ciudad"] . '</td><td>Estado:<br> ' . $data["estado"] . '</td><td>CP:<br>' . $data["postal"] . '</td></tr>';
+        $valor .= ' <tr><td>Nombre:<br> ' . $data["nombreCliente"] . ' </td><td>Nota de Compra:<br><label style="color: red; font-size: larger">' . $folio . '</label><br>Fecha de emision:<br>' . $data["fechaComprobante"] . '</td></tr>';
         break;
     }
 
@@ -195,14 +193,9 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     }
     
     $valor .= '</table>';
-    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> SDA :</td><td style="text-align: right">$' . number_format($sda, 2) . '</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $' . number_format($iva, 2) . '</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . number_format($total, 2) . '</td></tr> </table>'
-            . '<div style="position:absolute; top:150px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: ' . $sacandoMedidas . '</label></div>';
+    $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Total:</td><td style="text-align: right">$' . number_format($total, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> Subtotal :</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>SDA :</td><td style="text-align: right"> $' . number_format($sda, 2) . '</td></tr> </table>'
+            . '<div style="position:absolute; top:140px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: ' . $sacandoMedidas . '</label></div>';
     $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $util->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
-    $valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:170px;"><tr><td>Informacion del transporte empleado:</td></tr>'
-            . '<tr><td>Medio de transporte:</td><td>En el caso de camiones:</td></tr>'
-            . '<tr><td>Marca:</td><td>Modelo:</td><td>Tipo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>'
-            . '<tr><td>Capacidad:</td><td>Placas o matricula:</td></tr>'
-            . '</table></div>';
     $valor .= '<br></body></html>';
 }
 //Termina Diseño================================================================
