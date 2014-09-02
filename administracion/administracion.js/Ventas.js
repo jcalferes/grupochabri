@@ -523,6 +523,7 @@ function cargarProductosCarritoBusqueda(codigo) {
 
 
 function eliminar(codigo) {
+    $(".botonEliminar").attr("disabled", true);
     for (var x = 0; x < codigos.length; x++) {
         if (codigos[x] == codigo) {
             codigos.splice(x, 1);
@@ -534,7 +535,6 @@ function eliminar(codigo) {
     callbacks.add(calcularSubTotal());
     callbacks.add(sumaDescTotal());
     callbacks.add(calcularTotal(codigo));
-
     if ($("#cmbOrdenCompraV").val() != 0) {
         callbacks.add(calcularSumaTotal());
         callbacks.add(calcularSubTotal());
@@ -542,18 +542,23 @@ function eliminar(codigo) {
         callbacks.add(calcularTotal(codigo));
         var idXml = $("#cmbOrdenCompraV").val();
         var encabezadoVentas = new XmlComprobante();
-        encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
-        encabezadoVentas.ivaComprobante = $("#ivaTotal").val();
-        encabezadoVentas.sdaComprobante = $("#costoTotal").val();
-        encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
-        encabezadoVentas.totalComprobante = $("#totalVenta").val();
-        encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
-        arrayEncabezadoVenta.push(encabezadoVentas);
-        var array = JSON.stringify(arrayEncabezadoVenta);
-        var info = "codigo=" + codigo.toUpperCase() + "&idComprobante=" + idXml + "&array=" + array;
-        $.get('eliminarProductoOrdenCompra.php', info, function (informacion) {
+        callbacks.add(encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val());
+        callbacks.add(encabezadoVentas.ivaComprobante = $("#ivaTotal").val());
+        callbacks.add(encabezadoVentas.sdaComprobante = $("#costoTotal").val());
+        alert($("#subTotalV").val());
+        callbacks.add(encabezadoVentas.subTotalComprobante = $("#subTotalV").val());
+        callbacks.add(encabezadoVentas.totalComprobante = $("#totalVenta").val());
+        callbacks.add(encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val());
+        callbacks.add(arrayEncabezadoVenta.push(encabezadoVentas));
+        var array;
+        callbacks.add(array = JSON.stringify(arrayEncabezadoVenta));
+        var info;
+        callbacks.add(info = "codigo=" + codigo.toUpperCase() + "&idComprobante=" + idXml + "&array=" + array);
+        callbacks.add($.get('eliminarProductoOrdenCompra.php', info, function (informacion) {
             alertify.success(informacion);
-        });
+            $(".botonEliminar").removeAttr('disabled');
+            arrayEncabezadoVenta.length = 0;
+        }));
     }
     $("#tr" + codigo).remove();
     return true;
@@ -661,6 +666,7 @@ $(document).ready(function () {
 
 
     $("#guardarVenta").click(function () {
+        alert("click me");
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
@@ -726,32 +732,27 @@ $(document).ready(function () {
                 for (var x = 0; x < codigos.length; x++) {
                     var codigo = codigos[x];
                     var valor = $("select[id='cmb" + codigo + "']").val();
-//                    var valor = $("#cmb" + codigo).val();
                     var datos = valor.split(",");
                     var detalleVenta = new xmlConceptosManualmente();
                     detalleVenta.unidadMedidaConcepto = "KG";
                     detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigo + "']").val();
-//                    detalleVenta.importeConcepto = $("#txtTotalDesc" + codigo).val();
                     detalleVenta.cantidadConcepto = $("input[id='txt" + codigo + "']").val();
-//                    detalleVenta.cantidadConcepto = $("#txt" + codigo).val();
                     detalleVenta.codigoConcepto = $("span[id='codigo" + codigo + "']").text();
-//                    detalleVenta.codigoConcepto = $("#codigo" + codigo).text();
                     detalleVenta.descripcionConcepto = $("span[id='descripcion" + codigo + "']").text();
-//                    detalleVenta.descripcionConcepto = $("#descripcion" + codigo).text();
                     detalleVenta.precioUnitarioConcepto = $("span[id='precioVnt" + codigo + "']").text();
-//                    detalleVenta.precioUnitarioConcepto = $("#precioVnt" + codigo).text();
                     detalleVenta.cdaConcepto = $("input[id='txtTotalDesc" + codigo + "']").val();
-//                    detalleVenta.cdaConcepto = $("#txtTotalDesc" + codigo).val();
                     detalleVenta.desctUnoConcepto = $("input[id='txtDescuentos" + codigo + "']").val();
-//                    detalleVenta.desctUnoConcepto = $("#txtDescuentos" + codigo).val();
                     detalleVenta.idListaPrecio = parseInt(datos[0]);
                     detalleVenta.idXmlComprobante = parseInt($("#cmbOrdenCompraV").val());
                     arrayDetalleVenta.push(detalleVenta);
                 }
-                inf.push(arrayDetalleVenta);
-                inf.push(arrayEncabezadoVenta);
-                var informacion = JSON.stringify(inf);
-                var info = "data=" + informacion;
+                var callbacks = $.Callbacks();
+                callbacks.add(inf.push(arrayDetalleVenta));
+                callbacks.add(inf.push(arrayEncabezadoVenta));
+                var informacion;
+                var info;
+                callbacks.add(informacion = JSON.stringify(inf));
+                callbacks.add(info = "data=" + informacion);
                 $.post('actualizarOrdenCompra.php', info, function (informacion) {
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
