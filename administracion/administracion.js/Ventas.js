@@ -211,9 +211,11 @@ function sustraerLetras(palabra) {
 }
 
 function cambiarTarifas(codigo) {
+    alert("entro a cambiar");
     var valor = $("select[id='cmb" + codigo + "']").val();
 //    var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
+    alert(datos[1]);
     $("span[id='precioVnt" + codigo + "']").text(datos[1]);
 //    $("#precioVnt" + codigo).text(datos[1]);
     calcularTotal(codigo);
@@ -594,8 +596,6 @@ function verificar() {
             callbacks.add(alertify.alert("La caja ya esta cerrada", function () {
                 callbacks.add(location.reload());
             }));
-
-
         }
         else if (respuesta == 1) {
 

@@ -2969,12 +2969,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function dameTarifas(Codigo $c, $idSucursal) {
-        $sql = "select lp.idListaPrecio, nombreListaPrecio, porcentaUtilidad from tarifas  t
-                inner join listaprecios lp
-                on lp.idListaPrecio  = t.idListaPrecio
-                where codigoProducto = '" . $c->getCodigo() . "' 
-                and t.idStatus='1'
-		and t.idSucursal='" . $idSucursal . "';";
+        $sql = "select lp.idListaPrecio, nombreListaPrecio, porcentaUtilidad, cost.costo from tarifas  t
+        inner join listaprecios lp
+        on lp.idListaPrecio  = t.idListaPrecio
+        inner join costos cost 
+        on cost.codigoProducto = t.codigoProducto
+        where t.codigoProducto = '" . $c->getCodigo() . "' 
+        and t.idStatus='" . $idSucursal . "'
+        and t.idSucursal='" . $idSucursal . "'
+        and cost.idSucursal = '1' and  cost.status = '1';";
+//        $sql = "select lp.idListaPrecio, nombreListaPrecio, porcentaUtilidad from tarifas  t
+//                inner join listaprecios lp
+//                on lp.idListaPrecio  = t.idListaPrecio
+//                where codigoProducto = '" . $c->getCodigo() . "' 
+//                and t.idStatus='1'
+//		and t.idSucursal='" . $idSucursal . "';";
         $datos = mysql_query($sql);
 //        if ($datos == false) {
 //            $datos = mysql_error();
