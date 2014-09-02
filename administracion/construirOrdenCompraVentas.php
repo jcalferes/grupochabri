@@ -75,6 +75,7 @@ if ($rs == false) {
         $totalSinDescuento = 0;
         $totalSinDescuento = $datos["cantidadConcepto"] * $datos["precioUnitarioConcepto"];
         $dineroDescuento = $totalSinDescuento - $datos["cdaConcepto"];
+        $dineroDescuento = round($dineroDescuento, 2);
         echo '<tr id="tr' . $codigo->getCodigo() . '">';
         echo '<td>';
         echo '<span id="codigo' . $codigo->getCodigo() . '">' . $datos["codigoConcepto"] . '</span>';
@@ -100,7 +101,7 @@ if ($rs == false) {
         }
         echo '</td>';
         echo '<td>';
-        echo '<span id="txtExistencia' . $codigo->getCodigo() . '">' . $existenciaReal . '</span>';
+        echo '<span id="txtExistencia' . $codigo->getCodigo() . '"><center>' . $existenciaReal . '</center></span>';
         echo '</td>';
         echo '<td>';
 
@@ -112,6 +113,9 @@ if ($rs == false) {
         echo "<select id='cmb" . $codigo->getCodigo() . "' class='form-control autorizar' disabled='true' onchange='cambiarTarifas(" . "\"$cod\"" . ");'>";
         $costoVenta = 0.00;
         while ($rTarifas = mysql_fetch_array($rsTarifas)) {
+            $costo = $rTarifas["costo"];
+            $utilidad = $rTarifas["porcentaUtilidad"];
+            $costoPublico = ($costo * (1 + ($utilidad / 100)));
             $idListaPrecio = 0;
             $idListaPrecio = $datos["idListaPrecio"];
             $select = false;
@@ -122,7 +126,7 @@ if ($rs == false) {
             if ($select == true) {
                 echo 'selected="true"';
             }
-            echo' value = "' . $rTarifas[0] . ',' . $datos["precioUnitarioConcepto"] . ' ">';
+            echo' value = "' . $rTarifas[0] . ',' . $costoPublico . ' ">';
             echo $rTarifas[1];
             echo '</option>';
         }
@@ -141,7 +145,9 @@ if ($rs == false) {
         echo '<input disabled="true" class="form-control" type="text" id="txtTotal' . $codigo->getCodigo() . '" value="' . $totalSinDescuento . '"/>';
         echo '</td>';
         echo '<td>';
-        echo '<input disabled="true" class="form-control" type="text" id="txtDescuento' . $codigo->getCodigo() . '" value= "' . $dineroDescuento . '"/>';
+        echo '<input disabled="true" class="form-control" '
+        . 'type="text" id="txtDescuento' . $codigo->getCodigo() . '" '
+        . 'value= "' . $dineroDescuento . '"/>';
         echo '</td>';
         echo '<td>';
         echo '<input disabled="true" class="form-control" type="text" id="txtTotalDesc' . $codigo->getCodigo() . '" value="' . $datos["cdaConcepto"] . '">';

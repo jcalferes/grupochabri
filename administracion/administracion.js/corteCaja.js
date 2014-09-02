@@ -93,7 +93,12 @@ $(document).ready(function () {
         var informacion = "cantidadCaja=" + cantidadCaja + "&cuadro=" + cuadroCaja + "&cantidadSistema=" + cantidadS[1] + "&observaciones=" + observaciones;
         $.get('finalizarCaja.php', informacion, function (respuesta) {
             alertify.success(respuesta);
-            $("#mdlCorteCaja").modal("hide");
+            var callbacks = $.Callbacks();
+            callbacks.add(alertify.alert("Se finalizo la caja", function () {
+                 location.reload();
+            }));
+//            $("#mdlCorteCaja").modal("hide");
+//           
         });
 
     });
