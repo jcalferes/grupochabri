@@ -187,3 +187,33 @@ $("#btneliminarusuario").click(function() {
     });
 
 });
+
+$("#btnlimpiadata").click(function() {
+    $('#selectTipoUsuario').selectpicker('val', 0);
+    $("#txtusuario").val("");
+    $("#txtnombre").val("");
+    $("#txtpaterno").val("");
+    $("#txtmaterno").val("");
+    $("#txtpass").val("");
+    $("#txtrepass").val("");
+
+});
+
+$("#btnlimpiadata2").click(function() {
+    $('#selectTipoUsuario').selectpicker('val', 0);
+    $("#txtusuario").val("");
+    $("#txtnombre").val("");
+    $("#txtpaterno").val("");
+    $("#txtmaterno").val("");
+    $("#txtpass").val("");
+    $("#txtrepass").val("");
+    $("#diveditarusuario").slideUp();
+    $("#divguardarusuario").slideDown();
+});
+
+function editalo(usuario) {
+    $("#txtusuario").val(usuario);
+    $("#txtusuario").blur();
+    $("#wizard-t-1").trigger("click");
+}
+

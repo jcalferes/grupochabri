@@ -2209,7 +2209,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultaUsuario($sucursal) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM usuarios WHERE idSucursal = $sucursal";
+        $sql = "SELECT * FROM usuarios u "
+                . "INNER JOIN tiposusuarios t ON u.idtipousuario = t.idTipoUsuario "
+                . "WHERE idSucursal = '$sucursal'";
         $datos = mysql_query($sql, $cn->Conectarse());
         return $datos;
     }

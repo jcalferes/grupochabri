@@ -24,25 +24,25 @@ class dao {
         }
     }
 
-    function verificarMaquina($nombremaquina) {
-        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= '$nombremaquina'";
-        $paso = mysql_query($sql);
-        if ($paso == false) {
-            $valor = mysql_error();
-        }
-        $rs = mysql_affected_rows();
-        if ($rs > 0) {
-            $valor = "VALIDA";
-        } else {
-            $valor = "INVALIDA";
-        }
-//        if ($rs < 1) {
-//            $valor = "INVALIDA";
-//        } else {
-//            $valor = "VALIDA";
+//    function verificarMaquina($nombremaquina) {
+//        $sql = "SELECT * FROM maquinas WHERE nombreMaquina= '$nombremaquina'";
+//        $paso = mysql_query($sql);
+//        if ($paso == false) {
+//            $valor = mysql_error();
 //        }
-        return $valor;
-    }
+//        $rs = mysql_affected_rows();
+//        if ($rs > 0) {
+//            $valor = "VALIDA";
+//        } else {
+//            $valor = "INVALIDA";
+//        }
+////        if ($rs < 1) {
+////            $valor = "INVALIDA";
+////        } else {
+////            $valor = "VALIDA";
+////        }
+//        return $valor;
+//    }
 
     function mostrarSlide() {
         $query = "SELECT * from imgslider";
