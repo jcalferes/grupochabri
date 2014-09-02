@@ -100,7 +100,7 @@ if ($rs == false) {
         }
         echo '</td>';
         echo '<td>';
-        echo '<span id="txtExistencia' . $codigo->getCodigo() . '">' . $existenciaReal . '</span>';
+        echo '<span id="txtExistencia' . $codigo->getCodigo() . '"><center>' . $existenciaReal . '</center></span>';
         echo '</td>';
         echo '<td>';
 
