@@ -139,7 +139,7 @@ if ($rs == false) {
         echo "<input  onkeyup='calcularDescuentos(" . "\"$cod\"" . ")' disabled='true'     class='form-control autorizar' style='width:60px' id ='txtDescuentos" . $codigo->getCodigo() . "' type='text' value ='" . $datos["desctUnoConcepto"] . "'/>";
         echo '</td>';
         echo '<td>';
-        echo "<input type='button' onclick='eliminar(" . "\"$cod\"" . ")' class='btn' title='Eliminar Producto' value='Eliminar'>";
+        echo "<input type='button' onclick='eliminar(" . "\"$cod\"" . ")' class='btn botonEliminar' title='Eliminar Producto' value='Eliminar'>";
         echo '</td>';
         echo '<td>';
         echo '<input disabled="true" class="form-control" type="text" id="txtTotal' . $codigo->getCodigo() . '" value="' . $totalSinDescuento . '"/>';
