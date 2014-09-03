@@ -322,6 +322,9 @@ $("#editarImagenes").click(function() {
 //                $("#cargaxml").slideDown();
                 alertify.success("Se editaron lo datos correctamente");
                 limpiarCampos();
+                $("#mostrarImagenes").css("display","none");
+                $("#editarImagenes").hide('slow');
+                $("#subirImagenes").show('slow');
             });
         } else {
             alertify.error("Debes Haber almenos una imagen para mostrar");

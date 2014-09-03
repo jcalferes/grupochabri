@@ -88,8 +88,9 @@
                         </div>
                         <hr>
                         <input id="subirImagenes" type="button" value="Aceptar" class="btn btn-cprimary"/>
-                        <input id="limpiar" type="button" value="Cancelar" class="btn btn-default"/>
                         <input id="editarImagenes" type="button" value="Editar" class="btn btn-cprimary"/>
+                        <input id="limpiar" type="button" value="Cancelar" class="btn btn-default"/>
+
                     </form>
                 </div>
             </section>
