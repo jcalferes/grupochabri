@@ -4666,7 +4666,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $query = "SELECT * FROM xmlcomprobantes x "
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
                 . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
-                . "INNER JOIN ventasusuario v ON x.idXmlComprobante = v.idXmlComprobante "
+                . "INNER JOIN ventasUsuario v ON x.idXmlComprobante = v.idXmlComprobante "
                 . "INNER JOIN usuarios u ON v.usuario = u.usuario " 
                 . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and x.idSucursal = '$sucursal' ";
         $ctrl = mysql_query($query);
