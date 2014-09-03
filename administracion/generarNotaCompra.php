@@ -160,7 +160,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     </center>';
     $valor .= '      <table class="CSSTableGenerator">';
     while ($data = mysql_fetch_array($datos)) {
-        $valor .= ' <tr><td>Nombre:<br> ' . ucwords(strtolower($data["nombreCliente"])) . ' </td><td>Nota de Compra:<label style="color: red; font-size: larger"> ' . $folio . '</label><br>Fecha de emision: ' . $data["fechaComprobante"] . '<br><span style="font-size: 10px">Vendedor: '. ucwords(strtolower($data["nombre"])) .' '. ucwords(strtolower($data["apellidoPaterno"])) .' '. ucwords(strtolower($data["apellidoMaterno"])) .'</span></td></tr>';
+        $valor .= ' <tr><td>Nombre:<br> ' . ucwords(strtolower($data["nombreCliente"])) . ' </td><td>Nota de Compra:<label style="color: red; font-size: larger"> ' . $folio . '</label><br>Fecha de emision: ' . $data["fechaComprobante"] . '<br><span style="font-size: 10px">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
         break;
     }
 
@@ -171,11 +171,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
                     <td>Codigo</td>
                     <td>Descrip.</td>
                     <td>Medidas(M3)</td>
-                   <!-- <td>Costo Ant.</td>-->
-                    <td>Costo</td>
-                 <!--   <td>Desct. 1</td>-->
-                 <!--   <td>Desct. 2</td>-->
-                   <!-- <td>Desct. Total</td>-->
+                    <td>Costo C/U</td>
                     <td>CDA</td>
                     <td>Importe</td></tr> ';
 
@@ -189,9 +185,9 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
         $iva = $datosOrden["ivaComprobante"];
         $total = $datosOrden["totalComprobante"];
         $sacandoMedidas += $datosOrden["cantidadConcepto"] * $datosOrden["metrosCubicos"];
-        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . $datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td>--><td style="text-align: right">$' . number_format($datosOrden["costoCotizacion"], 2) . '</td><!--<td style="text-align: right">$' . number_format($datosOrden["desctUnoConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["desctDosConcepto"], 2) . '</td><td style="text-align: right">$' . $datosOrden["totalComprobante"] . '</td>--><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
+        $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td style="text-align: right">' . $datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["cdaConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($datosOrden["importeConcepto"], 2) . '</td></tr>';
     }
-    
+
     $valor .= '</table>';
     $valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Total:</td><td style="text-align: right">$' . number_format($total, 2) . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $' . number_format($descGral, 2) . '</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$' . number_format($descProd, 2) . '</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr><tr><td> Subtotal :</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>SDA :</td><td style="text-align: right"> $' . number_format($sda, 2) . '</td></tr> </table>'
             . '<div style="position:absolute; top:140px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: ' . $sacandoMedidas . '</label></div>';
