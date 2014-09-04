@@ -476,7 +476,7 @@ function guardarDatosDetalle() {
 //        var valor = $("#cmb" + codigos[x]).val();
         var datos = valor.split(",");
         var detalleVenta = new xmlConceptosManualmente();
-        detalleVenta.unidadMedidaConcepto = "KG";
+        detalleVenta.unidadMedidaConcepto = "";
         detalleVenta.importeConcepto = $("input[id='txtTotalDesc" + codigos[x] + "']").val();
 //        detalleVenta.importeConcepto = $("#txtTotalDesc" + codigos[x]).val();
         detalleVenta.cantidadConcepto = $("input[id='txt" + codigos[x] + "']").val();
@@ -544,7 +544,7 @@ function eliminar(codigo) {
         callbacks.add(encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val());
         callbacks.add(encabezadoVentas.ivaComprobante = $("#ivaTotal").val());
         callbacks.add(encabezadoVentas.sdaComprobante = $("#costoTotal").val());
-//        alert($("#subTotalV").val());
+//      alert($("#subTotalV").val());
         callbacks.add(encabezadoVentas.subTotalComprobante = $("#subTotalV").val());
         callbacks.add(encabezadoVentas.totalComprobante = $("#totalVenta").val());
         callbacks.add(encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val());
@@ -570,6 +570,8 @@ function validarUsuario(usuario, password) {
         if (autorizacion == 1) {
             $(".autorizar").removeAttr('disabled');
             $("#mdlAutorizacion").modal("hide");
+            $("#txtusuario").val("");
+            $("#txtPass").val("");
         }
         else {
             alertify.error(autorizacion);
@@ -660,6 +662,7 @@ $(document).ready(function () {
         var usuario = $("#txtusuario").val();
         var pass = $("#txtPass").val();
         validarUsuario(usuario, pass);
+
     });
 
 

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+session_destroy();
 include './index.clases/sesion.php';
 include './index.dao/index.dao.php';
 include '../utileriasPhp/Utilerias.php';
