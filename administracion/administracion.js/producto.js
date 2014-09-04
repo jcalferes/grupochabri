@@ -846,7 +846,7 @@ $("#guardarGranel").click(function() {
     var max = 1;
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
-    var cbarras = 000000;
+    var cbarras = $("#txtCodigoProductoG").val() + "-GR";
     var granel = 1;
     var contenido = $("#txtContenido").val();
     var listaPrecios = new Array();
@@ -902,25 +902,29 @@ $("#guardarGranel").click(function() {
                     $("#chkgranel").prop('disabled', false);
                     $("#txtCodigoProductoG").prop('disabled', false);
                 } else {
-                    $("#consultaProducto").load("consultarProducto.php", function() {
-                        $("#tdProducto").dataTable();
-                    });
-                    $("#txtNombreProducto").val("");
-                    $("#txtCodigoBarras").val("");
-                    $("#txtCodigoProducto").val("");
-                    $('#selectMarca').selectpicker('val', 0);
-                    $('#selectProveedor').selectpicker('val', 0);
-                    $('#selectGrupo').selectpicker('val', 0);
-                    $('#selectMedida').selectpicker('val', 0);
-                    $("#txtCostoProducto").val("");
-                    $("#txtCantidadMinima").val("");
-                    $("#txtCantidadMaxima").val("");
-                    $(".producto").val("");
-                    $(".neto").val("");
-                    $(".producto").attr("disabled", true);
-                    $(".checando").attr("checked", false);
-                    $("#selectProducto").load("obtenerProductos.php");
-                    alertify.error("Este producto ya fue agregado");
+                    if (x == true) {
+                        $("#consultaProducto").load("consultarProducto.php", function() {
+                            $("#tdProducto").dataTable();
+                        });
+                        $("#txtNombreProducto").val("");
+                        $("#txtCodigoBarras").val("");
+                        $("#txtCodigoProducto").val("");
+                        $('#selectMarca').selectpicker('val', 0);
+                        $('#selectProveedor').selectpicker('val', 0);
+                        $('#selectGrupo').selectpicker('val', 0);
+                        $('#selectMedida').selectpicker('val', 0);
+                        $("#txtCostoProducto").val("");
+                        $("#txtCantidadMinima").val("");
+                        $("#txtCantidadMaxima").val("");
+                        $(".producto").val("");
+                        $(".neto").val("");
+                        $(".producto").attr("disabled", true);
+                        $(".checando").attr("checked", false);
+                        $("#selectProducto").load("obtenerProductos.php");
+                        alertify.error("Este producto ya fue agregado");
+                    } else {
+                        elertify.alert(x);
+                    }
                 }
             });
         } else {

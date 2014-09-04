@@ -28,20 +28,19 @@ $granel = $_GET["granel"];
 $contenido = $_GET["contenido"];
 $cuantos = 1; //Solo sirve para los productos granel, indica cuanto se resta a la existencia del padre, caundo se crea un granel hijo
 $original = $_GET["original"];
-
 $datos = $dao->comprobarCodigoValido($_GET["codigoProducto"]);
-if ($datos < 1) {
+if ($datos == false) {
     $datos2 = $dao->comprobarCodigoBValido($_GET["cbarras"]);
-    if ($datos2 < 1) {
+    if ($datos2 == false) {
         $dao->guardarProducto($producto, $costo, $tarifa, $idsucursal, $m3);
         if ($granel == 1) {
-            $dao->actualizaExsitenciaGranel($idsucursal, $producto, $contenido, $cuantos, $original);
+            $ctrl = $dao->actualizaExsitenciaGranel($idsucursal, $producto, $contenido, $cuantos, $original);
         }
         echo 1;
     } else {
-        echo 0;
+        echo $datos2;
     }
 } else {
-    echo 0;
+    echo $datos;
 }
 

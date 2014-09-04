@@ -888,17 +888,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function comprobarCodigoValido($codigob) {
-
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '$codigob'";
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '".$codigob."'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
-        if ($valor > 0) {
-            return 1;
+        if (datos == false) {
+            $datos = mysql_error();
         } else {
-            return 0;
+            if ($valor > 0) {
+                $datos = true;
+            } else {
+                $datos = false;
+            }
         }
+        return $datos;
     }
 
     function comprobarCodigoBValido($codigoBarras) {
@@ -907,11 +911,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM productos WHERE codigoBarrasProducto = '$codigoBarras'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
-        if ($valor > 0) {
-            return 1;
+        if ($datos == false) {
+            $datos = mysql_error();
         } else {
-            return 0;
+            if ($valor > 0) {
+                $datos = true;
+            } else {
+                $datos = false;
+            }
         }
+        return $datos;
     }
 
     function comprobarCodigoBarrasValido($codigo) {
@@ -1275,7 +1284,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($ctrl == false) {
             $ctrl = mysql_error();
             mysql_query("ROLLBACK;");
-            return false;
+            return $ctrl;
         } else {
             while ($rs = mysql_fetch_array($ctrl)) {
                 $existencia = $rs["cantidad"];
@@ -1289,7 +1298,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($ctrl == false) {
             $ctrl = mysql_error();
             mysql_query("ROLLBACK;");
-            return false;
+            return $ctrl;
         }
         //===Actualizar existencia granel=======================================
         $sql = "UPDATE existencias SET cantidad = '$contenido' WHERE codigoProducto='" . $producto->getCodigoProducto() . "' AND idSucursal ='$idsucursal'";
@@ -1297,7 +1306,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($ctrl == false) {
             $ctrl = mysql_error();
             mysql_query("ROLLBACK;");
-            return false;
+            return $ctrl;
         }
         //===Respalda contenido==================================================
         $sql = "INSERT INTO agranel (codigoAgranel, cantidad) VALUES ('" . $producto->getCodigoProducto() . "','$contenido')";
@@ -1305,10 +1314,11 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($ctrl == false) {
             $ctrl = mysql_error();
             mysql_query("ROLLBACK;");
-            return false;
+            return $ctrl;
         }
         mysql_query("COMMIT;");
         $cn->cerrarBd();
+        return $ctrl;
     }
 
     function consultaProducto($idSucursal) {
