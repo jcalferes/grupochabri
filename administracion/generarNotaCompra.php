@@ -7,10 +7,10 @@ include_once './administracion.dao/dao.php';
 include_once '../daoconexion/daoConeccion.php';
 
 # Instanciamos un objeto de la clase DOMPDF. 
-$sucursal = $_SESSION["sucursalSesion"];
-$folio = $_GET["folio"];
-//$sucursal = 1;
-//$folio = 2;
+//$sucursal = $_SESSION["sucursalSesion"];
+//$folio = $_GET["folio"];
+$sucursal = 1;
+$folio = 2;
 $mipdf = new DOMPDF();
 error_reporting(0);
 $cn = new coneccion();
