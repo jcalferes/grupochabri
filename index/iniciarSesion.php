@@ -1,7 +1,10 @@
 <?php
 
 session_start();
-session_destroy();
+//session_destroy();
+$_SESSION["usuarioSesion"] = "";
+$_SESSION["tipoSesion"] = "";
+$_SESSION["sucursalSesion"] = "";
 include './index.clases/sesion.php';
 include './index.dao/index.dao.php';
 include '../utileriasPhp/Utilerias.php';
