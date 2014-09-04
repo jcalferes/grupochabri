@@ -9,7 +9,6 @@ $("#codigoProductoEntradas").keypress(function (e) {
         var info = "codigo=" + codi;
         $.get('dameCodigoBarras.php', info, function (informacion) {
             if (informacion != -1) {
-//                alert(informacion);
                 var callbacks = $.Callbacks();
                 callbacks.add(codigoN = informacion);
                 callbacks.add(buscar());
@@ -211,11 +210,11 @@ function sustraerLetras(palabra) {
 }
 
 function cambiarTarifas(codigo) {
-    alert("entro a cambiar");
+//    alert("entro a cambiar");
     var valor = $("select[id='cmb" + codigo + "']").val();
 //    var valor = $("#cmb" + codigo).val();
     var datos = valor.split(",");
-    alert(datos[1]);
+//    alert(datos[1]);
     $("span[id='precioVnt" + codigo + "']").text(datos[1]);
 //    $("#precioVnt" + codigo).text(datos[1]);
     calcularTotal(codigo);
@@ -545,7 +544,7 @@ function eliminar(codigo) {
         callbacks.add(encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val());
         callbacks.add(encabezadoVentas.ivaComprobante = $("#ivaTotal").val());
         callbacks.add(encabezadoVentas.sdaComprobante = $("#costoTotal").val());
-        alert($("#subTotalV").val());
+//        alert($("#subTotalV").val());
         callbacks.add(encabezadoVentas.subTotalComprobante = $("#subTotalV").val());
         callbacks.add(encabezadoVentas.totalComprobante = $("#totalVenta").val());
         callbacks.add(encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val());
@@ -666,7 +665,7 @@ $(document).ready(function () {
 
 
     $("#guardarVenta").click(function () {
-        alert("click me");
+//        alert("click me");
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
@@ -917,6 +916,13 @@ $(document).ready(function () {
             $("#descTotalV").val("0.00");
         }
     });
+
+
+    $("#btnGranel").click(function () {
+        $("#mdlGranel").modal("hide");
+    });
+
+
 });
 function finalizar() {
     codigoN = 0;

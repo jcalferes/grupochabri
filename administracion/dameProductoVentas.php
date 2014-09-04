@@ -100,10 +100,13 @@ if ($error == "") {
             $interfaz.="<option ";
             if ($rsDatos[1] == 'MENUDEO') {
                 $interfaz.="selected='true'";
-                $costoMenudeo = ($costo * ($rsDatos[2] / 100)) + $costo;
-                $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
+                $costoMenudeo = ($rsDatos["tarifa"] * 1.16);
+                $costoVenta = ($rsDatos["tarifa"] * 1.16);
+//                $costoMenudeo = ($costo * ($rsDatos[2] / 100)) + $costo;
+//                $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
             } else {
-                $costoVenta = ($costo * ($rsDatos[2] / 100)) + $costo;
+                $costoVenta = ($rsDatos["tarifa"] * 1.16);
+//                $costoVenta = (($costo * 1.16) * ($rsDatos[2] / 100)) + $costo;
             }
 
             $interfaz .="value='" . $rsDatos[0] . "," . $costoVenta . "'>" . $rsDatos[1] . ""

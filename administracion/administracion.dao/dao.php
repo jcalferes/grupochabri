@@ -2971,7 +2971,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function dameTarifas(Codigo $c, $idSucursal) {
-        $sql = "select lp.idListaPrecio, nombreListaPrecio, porcentaUtilidad, cost.costo from tarifas  t
+        $sql = "select lp.idListaPrecio, nombreListaPrecio, porcentaUtilidad, cost.costo, t.tarifa from tarifas  t
         inner join listaprecios lp
         on lp.idListaPrecio  = t.idListaPrecio
         inner join costos cost 
@@ -3288,7 +3288,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 //        }
         for ($x = 0; $x < count($detalle); $x++) {
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
-                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
+                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . ($detalle[$x]->cdaConcepto / $detalle[$x]->cantidadConcepto) . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
             $datos = mysql_query($sqlConceptoGuardar);
             if ($datos == false) {
                 $error = mysql_error();
@@ -4667,7 +4667,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
                 . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
                 . "INNER JOIN ventasUsuario v ON x.idXmlComprobante = v.idXmlComprobante "
-                . "INNER JOIN usuarios u ON v.usuario = u.usuario " 
+                . "INNER JOIN usuarios u ON v.usuario = u.usuario "
                 . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and x.idSucursal = '$sucursal' ";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
