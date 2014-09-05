@@ -216,7 +216,7 @@ class dao {
                 . "INNER JOIN productos p ON p.codigoProducto = c.codigoProducto "
                 . " where concat(c.codigoProducto, c.descripcion) like '%$busqueda%' "
 //                . "WHERE t.idGrupoProducto = '$id' 
-                ."AND i.ruta LIKE '%-_-0.%'";
+                . "AND i.ruta LIKE '%-_-0.%'";
         $ctrl = mysql_query($query);
         $row = mysql_affected_rows();
         if ($ctrl == false) {
