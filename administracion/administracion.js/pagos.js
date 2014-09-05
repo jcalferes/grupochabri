@@ -65,7 +65,7 @@ $(document).ready(function () {
             $.post('guardarNotaCredito.php', info, function (resultado) {
                 if (resultado > 0) {
                     alertify.success("Exito venta concretada");
-                    window.open('generarNotaCompra.php?folio=' + resultado);
+                    window.open('generarNotaCompra.php?folio=' + resultado + "&tipo='9'");
                     $("#mdlNotacreditoInformacion").modal('hide');
                     limpiarOrdenesCompra();
                     $('#btnCobrar').attr("disabled", true);
@@ -93,7 +93,7 @@ $(document).ready(function () {
                 $.post('guardarNotaCreditoVariosPagos.php', info, function (resultado) {
                     if (resultado > 0) {
                         alertify.success("Exito venta concretada");
-                        window.open('generarNotaCompra.php?folio=' + resultado);
+                        window.open('generarNotaCompra.php?folio=' + resultado + '&tipo="9"');
                         $("#mdlNotacreditoInformacion").modal('hide');
                         limpiarOrdenesCompra();
                         $('#btnCobrar').attr("disabled", true);
@@ -157,8 +157,16 @@ $(document).ready(function () {
                                 alertify.success("Exito venta concretada");
 //                                $(location).attr('href', "generarNotaCompra.php?folio=" + respuesta);
 //                                callbacks.add(window.location = "generarNotaCompra.php?folio=" + respuesta, '_blank');
-//                                window.location = "generarNotaCompra.php?folio=' + respuesta";
-                                window.open('generarNotaCompra.php?folio=' + respuesta);
+//    
+//                                                            window.location = "generarNotaCompra.php?folio=' + respuesta";
+                                var status = 0;
+                                if (idTipoPago == 2) {
+                                    status = 8;
+                                }
+                                else {
+                                    status = 7;
+                                }
+                                window.open('generarNotaCompra.php?folio=' + respuesta + "&tipo=" + status);
                             }
                         });
 
@@ -182,7 +190,14 @@ $(document).ready(function () {
                 $.get('guardarPagos.php', informacion, function (respuesta) {
                     if (respuesta > 0) {
                         alertify.success("Exito venta concretada");
-                        window.open('generarNotaCompra.php?folio=' + respuesta);
+                        var status = 0;
+                        if (idTipoPago == 2) {
+                            status = 8;
+                        }
+                        else {
+                            status = 7;
+                        }
+                        window.open('generarNotaCompra.php?folio=' + respuesta + '&tipo=' + status);
                         $("#buscabonos").load("consultarDeudoresPV.php", function () {
                             $('#dtdeudores').dataTable();
                         });

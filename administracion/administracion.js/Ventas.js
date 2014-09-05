@@ -193,8 +193,9 @@ function calcularDescuentos(codigo) {
 //    $("#txtTotalDesc" + codigo).val(total.toFixed(2));
     $("input[id='txtDescuento" + codigo + "']").val(totalDescuento.toFixed(2));
 //    $("#txtDescuento" + codigo).val(totalDescuento.toFixed(2));
-    calcularSumaTotal();
-    sumaDescTotal();
+    var callbacks = $.Callbacks();
+    callbacks.add(calcularSumaTotal());
+    callbacks.add(sumaDescTotal());
 }
 
 
@@ -311,9 +312,11 @@ function calcularPorCantidad() {
     calcularDescuentos(codigoN);
     $("#txtTotalModal").val($("input[id='txtTotal" + codigoN + "']").val());
 //    $("#txtTotalModal").val($("#txtTotal" + codigoN).val());
-    calcularSumaTotal();
-    calcularSubTotal();
-    sumaDescTotal();
+    var callbacks = $.Callbacks();
+    callbacks.add(calcularSumaTotal());
+    callbacks.add(calcularSubTotal());
+    callbacks.add(sumaDescTotal());
+
 }
 
 function calcularPorPrecio() {
@@ -330,8 +333,9 @@ function calcularPorPrecio() {
 //    $("#txtTotal" + codigoN).val(precio.toFixed(2));
     $("input[id='txt" + codigoN + "']").val(parseFloat(kilogramosVnta.toFixed(2)));
 //    $("#txt" + codigoN).val(parseFloat(kilogramosVnta.toFixed(2)));
-    calcularDescuentos(codigoN);
-    calcularSumaTotal();
+    var callbacks = $.Callbacks();
+    callbacks.add(calcularDescuentos(codigoN));
+    callbacks.add(calcularSumaTotal());
 }
 
 
@@ -353,9 +357,10 @@ function eliminarProducto(codigo) {
             longitud = codigos.length;
         }
     }
-    calcularSumaTotal();
-    calcularSubTotal();
-    sumaDescTotal();
+    var callbacks = $.Callbacks();
+    callbacks.add( calcularSumaTotal());
+    callbacks.add(calcularSubTotal());
+    callbacks.add(sumaDescTotal());
 }
 
 function modalProductosGranel(codigo) {
@@ -386,10 +391,18 @@ function calcularSumaTotal() {
 function calcularIva(sumaTotalProductos) {
     var iva = 0.00;
     var ivaTotal = 0.00;
-    iva = sumaTotalProductos * 0.16;
-    ivaTotal = sumaTotalProductos * 1.16;
-    $("#ivaTotal").val(iva.toFixed(2));
-    $("#totalVenta").val(ivaTotal.toFixed(2));
+
+    ivaTotal = ((sumaTotalProductos / 1.16) * .16);
+//    iva = sumaTotalProductos * 0.16;
+//    ivaTotal = sumaTotalProductos * 1.16;
+    $("#ivaTotal").val(ivaTotal.toFixed(2));
+    $("#totalVenta").val(sumaTotalProductos.toFixed(2));
+//    $("#ivaTotal").val(iva.toFixed(2));
+//    $("#totalVenta").val(ivaTotal.toFixed(2));
+
+
+
+
 }
 
 

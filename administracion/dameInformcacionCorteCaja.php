@@ -22,6 +22,8 @@ $totalIngreso = 0.00;
                     <th><center>Cliente</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Total</center></th>
+                    <th><center>Detalle</center></th>
+                    <th><center>Reporte</center></th>
                     </thead>
                     <?php
                     if ($rs == false) {
@@ -40,16 +42,19 @@ $totalIngreso = 0.00;
                     } else {
                         $okInformacion = false;
                         while ($datos = mysql_fetch_array($rs)) {
-                            $idTipoPago  = $datos[0];
+                            $idTipoPago = $datos[0];
                             if ($datos[0] == 1) {
                                 $okInformacion = true;
                                 ?>
                                 <tr>
                                     <td><center><?php echo $datos["folioComprobante"]; ?></center></td>
+                                <?php $folio = $datos["folioComprobante"] ?>
                                 <td><center><?php echo $datos["usuario"]; ?></center></td>
                                 <td><center><?php echo $datos["nombreCliente"]; ?></center></td>
                                 <td><center><?php echo $datos["tipoPago"]; ?></center></td>
                                 <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
+                                <td><center><a onclick="mostrarInformacionDetalleVenta2(<?php echo $datos["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                                <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $datos["folioComprobante"]; ?>&tipo=7"<span class="glyphicon glyphicon-cloud"></span></a></center></td>
                                 </tr>
                                 <?php
                                 $totalIngreso = $totalIngreso + $datos["totalComprobante"];
@@ -70,6 +75,8 @@ $totalIngreso = 0.00;
                     <th><center>Saldo</center></th>
                     <th><center>Tipo de Pago</center></th>
                     <th><center>Cantidad Abonada</center></th>
+                    <th><center>Detalle</center></th>
+                    <th><center>Reporte</center></th>
                     </thead>
                     <?php
                     if ($rsAbono == false) {
@@ -89,6 +96,8 @@ $totalIngreso = 0.00;
                             <td><center><?php echo $rsAb["saldo"]; ?></center></td>
                             <td><center><?php echo $rsAb["tipoPago"]; ?></center></td>
                             <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
+                            <td><center><a onclick="mostrarInformacionDetalleAbonos(<?php echo $rsAb["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsAb["folioComprobante"]; ?>&tipo=8"<span class="glyphicon glyphicon-cloud"></span></a></center></td>            
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsAb["importe"];
@@ -106,6 +115,8 @@ $totalIngreso = 0.00;
                     <th>Vendedor</th>
                     <th>Cliente</th>
                     <th>Cantidad</th>
+                    <th>Detalle</th>
+                    <th>Reporte</th>
                     </thead>
                     <?php
                     $okCredito = false;
@@ -127,6 +138,8 @@ $totalIngreso = 0.00;
                                 <td><?php echo $rsNotasCr["usuario"]; ?></td>
                                 <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
                                 <td>$&nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?>&nbsp;mxn.</td>
+                                <td><center><a onclick="mostrarInformacionDetalleCancelacionVenta(<?php echo $rsNotasCr["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                                <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsNotasCr["folioComprobante"]; ?>&tipo=9"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                       
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsNotasCr["totalComprobante"];
