@@ -746,6 +746,33 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
+
+        <!--modal de detalle de la venta-->
+
+        <div class="modal fade" 
+             id="mdlDetalleVenta" 
+             tabindex="-1" 
+             role="dialog" 
+             aria-labelledby="modalAutorizacion" 
+             aria-hidden="true" >
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                    </div>
+                    <div class="modal-body">
+                        <strong> DETALLE DE LA VENTA</strong>
+                        <table id="tablaDetalleCorteCaja" class="table table-hover">
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fin del modal del detalle de la venta-->
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

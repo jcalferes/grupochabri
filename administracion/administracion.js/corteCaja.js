@@ -1,7 +1,9 @@
 $(document).ready(function () {
     $("#textAcciones").val("");
     $("#InformacionDia").hide();
-
+    $("#InformacionDia").load("dameInformcacionCorteCaja.php", function () {
+        $("#InformacionDia").slideDown('slow');
+    });
     $("#btnBuscarHoy").click(function () {
         $("#InformacionDia").load("dameInformcacionCorteCaja.php", function () {
             $("#InformacionDia").slideDown('slow');
@@ -95,7 +97,7 @@ $(document).ready(function () {
             alertify.success(respuesta);
             var callbacks = $.Callbacks();
             callbacks.add(alertify.alert("Se finalizo la caja", function () {
-                 location.reload();
+                location.reload();
             }));
 //            $("#mdlCorteCaja").modal("hide");
 //           
@@ -104,5 +106,23 @@ $(document).ready(function () {
     });
 
 });
+
+function mostrarInformacionDetalleVenta2(folioComprobante) {
+    $("#tablaDetalleCorteCaja").load("dameDetalleVentaCorteCaja.php?folio=" + folioComprobante, function () {
+        $("#mdlDetalleVenta").modal('show');
+    });
+}
+
+function mostrarInformacionDetalleCancelacionVenta(folioComprobante) {
+    $("#tablaDetalleCorteCaja").load("dameDetalleCancelacionNotaCredito.php?folio=" + folioComprobante, function () {
+        $("#mdlDetalleVenta").modal('show');
+    });
+}
+
+function mostrarInformacionDetalleAbonos(folioComprobante) {
+    $("#tablaDetalleCorteCaja").load("dameDetalleVentaAbonos.php?folio=" + folioComprobante, function () {
+        $("#mdlDetalleVenta").modal('show');
+    });
+}
 
 

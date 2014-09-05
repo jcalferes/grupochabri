@@ -73,7 +73,7 @@ $("#btnguardanotacredito").click(function() {
 
             alertify.confirm("Se ha creado/actulizado la nota de credito para el cliente seleccionado. ¿Deseas imprimir la nota de crédito?", function(e) {
                 if (e) {
-                    window.open('generarNotaCredito.php?idcliente=' + idcliente);
+                    window.open('generarNotaCredito.php?idcliente=' + idcliente+'&tipo=7');
                 }
             });
             $("#buscanotascredito").load("consultarNotasCredito.php", function() {
@@ -108,5 +108,5 @@ function vincularcancelacion() {
 }
 
 function imprimirnotacredito(idcliente) {
-    window.open('generarNotaCredito.php?idcliente=' + idcliente);
+    window.open('generarNotaCredito.php?idcliente=' + idcliente+"&tipo='7'");
 }

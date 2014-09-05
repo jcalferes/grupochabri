@@ -890,7 +890,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function comprobarCodigoValido($codigob) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-        $sql = "SELECT * FROM productos WHERE codigoProducto = '".$codigob."'";
+        $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $codigob . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
         if (datos == false) {
@@ -3825,6 +3825,39 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function dameDetallePedidosFolioComprobante($folioComprobante, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $sql = "select * from xmlcomprobantes xc
+                inner join xmlconceptos xconcept 
+                on xc.idXmlComprobante = xconcept.idXmlComprobante
+                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='7';";
+        $cn = new coneccion();
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameDetallePedidosCancelacionesNotaCredito($folioComprobante, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $sql = "select * from xmlcomprobantes xc
+                inner join xmlconceptos xconcept 
+                on xc.idXmlComprobante = xconcept.idXmlComprobante
+                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='9';";
+        $cn = new coneccion();
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameDetallePedidosAbonos($folioComprobante, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $sql = "select * from xmlcomprobantes xc
+                inner join xmlconceptos xconcept 
+                on xc.idXmlComprobante = xconcept.idXmlComprobante
+                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='8';";
+        $cn = new coneccion();
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
     function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
@@ -4672,13 +4705,13 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $datos;
     }
 
-    function obtenerDatosCompra($folio, $sucursal) {
+    function obtenerDatosCompra($folio, $sucursal, $status) {
         $query = "SELECT * FROM xmlcomprobantes x "
                 . "INNER JOIN xmlconceptos xc ON x.idXmlComprobante = xc.idXmlComprobante "
                 . "INNER JOIN productos p ON p.codigoProducto = xc.codigoConcepto "
                 . "INNER JOIN ventasUsuario v ON x.idXmlComprobante = v.idXmlComprobante "
                 . "INNER JOIN usuarios u ON v.usuario = u.usuario "
-                . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and x.idSucursal = '$sucursal' ";
+                . "WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = 'Ventas' and x.idSucursal = '$sucursal' and statusOrden='$status' ";
         $ctrl = mysql_query($query);
         if ($ctrl == false) {
             $ctrl = mysql_error();

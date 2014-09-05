@@ -7,17 +7,18 @@ include_once './administracion.dao/dao.php';
 include_once '../daoconexion/daoConeccion.php';
 
 # Instanciamos un objeto de la clase DOMPDF. 
-//$sucursal = $_SESSION["sucursalSesion"];
-//$folio = $_GET["folio"];
-$sucursal = 1;
-$folio = 2;
+$sucursal = $_SESSION["sucursalSesion"];
+$folio = $_GET["folio"];
+$tipoReporte = $_GET["tipo"];
+//$sucursal = 1;
+//$folio = 2;
 $mipdf = new DOMPDF();
 error_reporting(0);
 $cn = new coneccion();
 $dao = new dao();
 $util = new Utilerias();
 $cn->Conectarse();
-$datos = $dao->obtenerDatosCompra($folio, $sucursal);
+$datos = $dao->obtenerDatosCompra($folio, $sucursal, $tipoReporte);
 
 if (!is_resource($datos)) {
     echo "ERROR: " . $datos;
