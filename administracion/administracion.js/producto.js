@@ -532,6 +532,7 @@ function nuevogranel() {
         //                $("#txtCostoPieza").attr("disabled", "disabled");
         $("#txtContenido").removeAttr("disabled", "disabled");
         $("#txtCodigoProductoG").prop("disabled", false);
+        $("#chkpieza").prop("disabled", false);
         $("#limpiargranel").slideUp();
     }
 }
@@ -835,18 +836,20 @@ function calcostogranel() {
 }
 //=============================Guardar producto agranel=========================
 $("#guardarGranel").click(function() {
+    alert("Entre guardar granel");
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var original = $("#txtCodigoProductoG").val();
-    var codigoProducto = $("#txtCodigoProductoG").val() + "-GR";
+    var identificador = "-GR";
+    var codigoProducto = $("#txtCodigoProductoG").val() + identificador;
     var costoProducto = parseFloat($("#txtCostoProducto").val());
     var min = 0;
     var max = 1;
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
-    var cbarras = $("#txtCodigoProductoG").val() + "-GR";
+    var cbarras = $("#txtCodigoProductoG").val() + identificador;
     var granel = 1;
     var contenido = $("#txtContenido").val();
     var listaPrecios = new Array();
@@ -876,6 +879,7 @@ $("#guardarGranel").click(function() {
         if (min < max) {
             var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
             $.get('guardarProducto.php', info, function(x) {
+                alert(x);
                 if (x == 1) {
                     $("#consultaProducto").load("consultarProducto.php", function() {
                         $("#tdProducto").dataTable();
@@ -981,6 +985,7 @@ $("#editarGranel").click(function() {
 
             $("#guardarGranel").slideUp();
             $("#editarGranel").slideUp();
+            $("#limpiarGranel").slideUp();
             $("#txtCodigoProductoG").val("");
             $("#txtCodigoProductoG").focus("");
             $("#divgrande").slideUp();

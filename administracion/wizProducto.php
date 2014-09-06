@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="form-group" id="frmcontenido">
                                     <label>Contenido</label>
-                                    <div class="input-group" style="width: 60%">
+                                    <div  class="input-group" style="width: 60%">
                                         <input type="text" id="txtContenido" class="form-control valLetra" onkeypress="return NumCheck(event, this);">
                                         <span class="input-group-addon">Lt/Kg</span>
                                     </div>
