@@ -66,12 +66,10 @@ function eliminarFila(fila, bandera) {
    var nuevoPrecio = 0;
       var  cadena = $("#descuentosGeneralesPorComasM").val();
   var arregloCadena = cadena.split(",");
-  alert(arregloCadena);
   console.log(arregloCadena);
   for (var x = 0; x < arregloCadena.length; x++) {
       
             var valor = parseFloat(arregloCadena[x]);
-            alert(valor);
             if (isNaN(valor)) {
             }
             else {
@@ -81,7 +79,6 @@ function eliminarFila(fila, bandera) {
     }    
     $("#subTotalM").val(subtotal);
     $("#descuentoGeneralM").val(nuevoPrecio);
-    alert(nuevoPrecio);
     var descgral =nuevoPrecio;
     var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
     var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);

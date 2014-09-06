@@ -134,8 +134,6 @@ $("#btnabonar").click(function() {
     var observ = $("#txtobservacionesabono").val();
     var saldoInicial = $("#saldoabono").text();
     var liquida = false;
-    alert(monto);
-    alert(notepases)
     if (monto > notepases) {
         alertify.error("El monto a abonar es mayor al saldo");
         return false;
