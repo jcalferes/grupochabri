@@ -532,6 +532,7 @@ function nuevogranel() {
         //                $("#txtCostoPieza").attr("disabled", "disabled");
         $("#txtContenido").removeAttr("disabled", "disabled");
         $("#txtCodigoProductoG").prop("disabled", false);
+        $("#chkpieza").prop("disabled", false);
         $("#limpiargranel").slideUp();
     }
 }
@@ -840,13 +841,14 @@ $("#guardarGranel").click(function() {
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var original = $("#txtCodigoProductoG").val();
-    var codigoProducto = $("#txtCodigoProductoG").val() + "-GR";
+    var identificador = "-GR";
+    var codigoProducto = $("#txtCodigoProductoG").val() + identificador;
     var costoProducto = parseFloat($("#txtCostoProducto").val());
     var min = 0;
     var max = 1;
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
-    var cbarras = $("#txtCodigoProductoG").val() + "-GR";
+    var cbarras = $("#txtCodigoProductoG").val() + identificador;
     var granel = 1;
     var contenido = $("#txtContenido").val();
     var listaPrecios = new Array();
