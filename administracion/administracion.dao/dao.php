@@ -893,7 +893,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT * FROM productos WHERE codigoProducto = '" . $codigob . "'";
         $datos = mysql_query($sql, $cn->Conectarse());
         $valor = mysql_affected_rows();
-        if (datos == false) {
+        if ($datos == false) {
             $datos = mysql_error();
         } else {
             if ($valor > 0) {
@@ -2734,7 +2734,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $sql = "SELECT gr.cantidad, c.costo FROM agranel gr "
-                . "INNER JOIN costos c ON c.codigoProducto = '$codigopapa' "
+                . "INNER JOIN costos c ON c.codigoProducto = gr.codigoAgranel "
                 . "WHERE gr.codigoAgranel = '$codigo' AND c.idSucursal = '$sucursal' AND c.status = '1'";
         $rs = mysql_query($sql, $cn->Conectarse());
         if ($rs == false) {

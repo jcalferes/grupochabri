@@ -836,6 +836,7 @@ function calcostogranel() {
 }
 //=============================Guardar producto agranel=========================
 $("#guardarGranel").click(function() {
+    alert("Entre guardar granel");
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
     var marca = $("#selectMarca").val();
@@ -878,6 +879,7 @@ $("#guardarGranel").click(function() {
         if (min < max) {
             var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
             $.get('guardarProducto.php', info, function(x) {
+                alert(x);
                 if (x == 1) {
                     $("#consultaProducto").load("consultarProducto.php", function() {
                         $("#tdProducto").dataTable();
@@ -983,6 +985,7 @@ $("#editarGranel").click(function() {
 
             $("#guardarGranel").slideUp();
             $("#editarGranel").slideUp();
+            $("#limpiarGranel").slideUp();
             $("#txtCodigoProductoG").val("");
             $("#txtCodigoProductoG").focus("");
             $("#divgrande").slideUp();
