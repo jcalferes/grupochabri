@@ -4209,7 +4209,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     mysql_query("ROLLBACK;");
                     break;
                 }
-                $sqlConceptoGuardar = "UPDATE xmlconceptos set cantidadConcepto ='" . $detalle[$x]->cantidadConcepto . "', precioUnitarioConcepto='" . $detalle[$x]->precioUnitarioConcepto . "',cdaConcepto='" . $detalle[$x]->cdaConcepto . "', desctUnoConcepto ='" . $detalle[$x]->desctUnoConcepto . "', costoCotizacion='" . $detalle[$x]->costoCotizacion . "', idListaPrecio='" . $detalle[$x]->idListaPrecio . "' WHERE codigoConcepto = '" . $detalle[$x]->codigoConcepto . "' and idXmlComprobante='" . $detalle[$x]->idXmlComprobante . "' ";
+                $sqlConceptoGuardar = "UPDATE xmlconceptos set cantidadConcepto =" . $detalle[$x]->cantidadConcepto . ", precioUnitarioConcepto=" . $detalle[$x]->precioUnitarioConcepto . ",cdaConcepto=" . $detalle[$x]->cdaConcepto . ", desctUnoConcepto =" . $detalle[$x]->desctUnoConcepto . ", costoCotizacion=" . $detalle[$x]->costoCotizacion . ", idListaPrecio=" . $detalle[$x]->idListaPrecio . " WHERE codigoConcepto = '" . $detalle[$x]->codigoConcepto . "' and idXmlComprobante=" . $detalle[$x]->idXmlComprobante . "";
                 $datos = mysql_query($sqlConceptoGuardar);
                 if ($datos == false) {
                     $error = mysql_error();
@@ -4272,6 +4272,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     }
                 }
                 if ($error != "") {
+                    mysql_query("ROLLBACK;");
                     break;
                 }
             }
@@ -4279,6 +4280,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($error == "") {
             mysql_query("COMMIT;");
         }
+        return $error;
     }
 
     function dameNotaCredito($idSucursal, $rfc) {

@@ -52,13 +52,14 @@ $totalIngreso = 0.00;
                                 <td><center><?php echo $datos["tipoPago"]; ?></center></td>
                                 <td><center>$ &nbsp;<?php echo $datos["totalComprobante"]; ?> &nbsp;mxn.</center></td>
                                 <td><center><a onclick="mostrarInformacionDetalleVenta2(<?php echo $datos["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                                <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $datos["folioComprobante"]; ?>&tipo=7"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                
                                 </tr>
                                 <?php
                                 $totalIngreso = $totalIngreso + $datos["totalComprobante"];
                             }
                         }
                         if ($okInformacion == false) {
-                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                            echo '<tr ><td colspan="8" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>
@@ -92,12 +93,13 @@ $totalIngreso = 0.00;
                             <td><center><?php echo $rsAb["tipoPago"]; ?></center></td>
                             <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
                             <td><center><a onclick="mostrarInformacionDetalleAbonos(<?php echo $rsAb["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsAb["folioComprobante"]; ?>&tipo=8"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                        
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsAb["importe"];
                         }
                         if ($okInformacion == false) {
-                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                            echo '<tr ><td colspan="7" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>
@@ -130,12 +132,13 @@ $totalIngreso = 0.00;
                                 <td><?php echo $rsNotasCr["nombreCliente"]; ?></td>
                                 <td>$ &nbsp;<?php echo $rsNotasCr["totalComprobante"]; ?> mxn.</td>
                                 <td><center><a onclick="mostrarInformacionDetalleCancelacionVenta(<?php echo $rsNotasCr["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsNotasCr["folioComprobante"]; ?>&tipo=9"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                                   
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsNotasCr["totalComprobante"];
                         }
                         if ($okCredito == false) {
-                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                            echo '<tr ><td colspan="5" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>

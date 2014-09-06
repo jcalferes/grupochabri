@@ -61,9 +61,8 @@ $totalIngreso = 0.00;
                             }
                         }
                         if ($okInformacion == false) {
-                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                            echo '<tr ><td colspan="7" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
-//                        }
                     }
                     ?>
                 </table>
@@ -103,7 +102,7 @@ $totalIngreso = 0.00;
                             $totalIngreso = $totalIngreso + $rsAb["importe"];
                         }
                         if ($okInformacion == false) {
-                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                            echo '<tr ><td colspan="7" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
                         }
                     }
                     ?>
