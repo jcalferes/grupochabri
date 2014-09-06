@@ -769,7 +769,6 @@ $(document).ready(function () {
                 callbacks.add(informacion = JSON.stringify(inf));
                 callbacks.add(info = "data=" + informacion);
                 $.post('actualizarOrdenCompra.php', info, function (informacion) {
-                    alert(informacion);
                     if (informacion == 0) {
                         informacion = "Exito Venta Terminada";
                         finalizar();
