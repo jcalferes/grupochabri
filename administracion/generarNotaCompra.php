@@ -11,7 +11,7 @@ $sucursal = $_SESSION["sucursalSesion"];
 $folio = $_GET["folio"];
 $tipoReporte = $_GET["tipo"];
 //$sucursal = 1;
-//$folio = 2;
+//$folio = 3;
 $mipdf = new DOMPDF();
 error_reporting(0);
 $cn = new coneccion();
@@ -161,7 +161,7 @@ $font = Font_Metrics::get_font("helvetica", "bold"); $pdf->page_text(500, 800, "
     </center>';
     $valor .= '      <table class="CSSTableGenerator">';
     while ($data = mysql_fetch_array($datos)) {
-        $valor .= ' <tr><td>Nombre:<br> ' . ucwords(strtolower($data["nombreCliente"])) . ' </td><td>Nota de Compra:<label style="color: red; font-size: larger"> ' . $folio . '</label><br>Fecha de emision: ' . $data["fechaComprobante"] . '<br><span style="font-size: 10px">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
+        $valor .= ' <tr><td>Nombre:<br> ' . ucwords(strtolower($data["nombreCliente"])) . ' </td><td>Nota de Venta:<label style="color: red; font-size: larger"> ' . $folio . '</label><br>Fecha de emision: ' . $data["fechaComprobante"] . '<br><span style="font-size: 10px">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
         break;
     }
 
