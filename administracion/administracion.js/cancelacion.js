@@ -18,7 +18,7 @@ function cancelarToda() {
 
 
 function seleccionarProductoAEliminar(codigo) {
-    if (!$("#codigo" + codigo).prop("checked")) {
+//    if (!$("#codigo" + codigo).prop("checked")) {
         var marcoTodas = false;
         $('.cancel').each(function () {
             if (this.checked) {
@@ -35,25 +35,25 @@ function seleccionarProductoAEliminar(codigo) {
         else {
             $("#cancelartodo").prop("checked", "");
         }
-    }
-    else {
-        var marcoTodas = false;
-        $('.cancel').each(function () {
-            if (this.checked) {
-                marcoTodas = true;
-            }
-            else {
-                marcoTodas = false;
-                return false;
-            }
-        });
-        if (marcoTodas == true) {
-            $("#cancelartodo").prop("checked", "checked");
-        }
-        else {
-            $("#cancelartodo").prop("checked", "");
-        }
-    }
+//    }
+//    else {
+//        var marcoTodas = false;
+//        $('.cancel').each(function () {
+//            if (this.checked) {
+//                marcoTodas = true;
+//            }
+//            else {
+//                marcoTodas = false;
+//                return false;
+//            }
+//        });
+//        if (marcoTodas == true) {
+//            $("#cancelartodo").prop("checked", "checked");
+//        }
+//        else {
+//            $("#cancelartodo").prop("checked", "");
+//        }
+//    }
 }
 
 
