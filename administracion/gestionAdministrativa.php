@@ -44,42 +44,43 @@ $verificasession->validaSesion();
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="2" class=""><a onclick="entroProducto();">Agregar o editar productos</a></li>
+                                <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
-                                <li id="12" class=""><a onclick="entroAgranel();">Incrementar productos a granel</a></li>
-                                <li id="4" class=""><a onclick="entroListaPrecio();">Listas de precios</a></li>
-                                <li id="1" class=""><a onclick="entroMarca();">Marcas</a></li>
+                                <li id="12" class=""><a href="javascript:entroAgranel();">Incrementar productos a granel</a></li>
+                                <li id="4" class=""><a href="javascript:entroListaPrecio();">Listas de precios</a></li>
+                                <li id="1" class=""><a href="javascript:entroMarca();">Marcas</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="5" class=""><a onclick="entroEntradasProductos();">Entradas de producto</a></li>
-                                <li id="7" class=""><a onclick="entroSalidasProduto();">Salidas de producto</a></li>
-                                <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                                <li id="5" class=""><a href="javascript:entroEntradasProductos();">Entradas de producto</a></li>
+                                <li id="7" class=""><a href="javascript:entroSalidasProduto();">Salidas de producto</a></li>
+                                <li id="10" class=""><a href="javascript:entroVentas();">Ventas</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
-                                <li id="6" class=""><a onclick="ordenCompra();">Orden de compra y cotizaciones</a></li>
-                                <li id="13" class=""><a onclick="entroClientePedido();">Pedidos de clientes</a></li>
-                                <li id="11" class=""><a onclick="entroTrasferencia();">Transferencias</a></li>
+                                <li id="6" class=""><a href="javascript:ordenCompra();">Orden de compra y cotizaciones</a></li>
+                                <li id="13" class=""><a href="javascript:entroClientePedido();">Pedidos de clientes</a></li>
+                                <li id="11" class=""><a href="javascript:entroTrasferencia();">Transferencias</a></li>
+                                <li id="16" class=""><a href="javascript:entroReportes();">Reportes</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="9" class=""><a onclick="entroCliente();">Clientes</a></li>
-                                <li id="3" class=""><a onclick="entroProveedor();">Proveedores</a></li>
-                                <li id="8" class=""><a onclick="entroUsuarios();">Usuarios del sistema</a></li>
+                                <li id="9" class=""><a href="javascript:entroCliente();">Clientes</a></li>
+                                <li id="3" class=""><a href="javascript:entroProveedor();">Proveedores</a></li>
+                                <li id="8" class=""><a href="javascript:entroUsuarios();">Usuarios del sistema</a></li>
 
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Publicar<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li id="15" class=""><a onclick="entroClasificados();">Clasificados</a></li>
+                                <li id="15" class=""><a href="javascript:entroClasificados();">Clasificados</a></li>
                             </ul>
                         </li>
 
