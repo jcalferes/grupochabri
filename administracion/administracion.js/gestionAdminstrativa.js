@@ -79,3 +79,7 @@ function entroClientePedido() {
 function entroClasificados() {
     $("#mostrar").load("wizClasificados.php");
 }
+
+function entroReportes() {
+    $("#mostrar").load("wizReportes.php");
+}

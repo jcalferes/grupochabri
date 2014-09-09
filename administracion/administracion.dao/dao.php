@@ -3112,7 +3112,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function consultarDatosAbonos($folio, $sucursal) {
         $sql = "SELECT * FROM xmlcomprobantes xc "
                 . "INNER JOIN clientes cl ON xc.rfcComprobante = cl.rfc "
-                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal'";
+                . "WHERE folioComprobante = '$folio' AND idSucursal = '$sucursal' AND statusOrden = '8'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = 1;
