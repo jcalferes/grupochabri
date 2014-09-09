@@ -3202,7 +3202,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "SELECT c.rfc, c.nombre, x.folioComprobante, c.credito, x.totalComprobante, a.saldo FROM xmlcomprobantes x "
                 . "INNER JOIN clientes c ON  c.rfc = x.rfcComprobante "
                 . "INNER JOIN abonos a ON a.folioComprobante = x.folioComprobante "
-                . "WHERE a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal'";
+                . "WHERE a.statusSaldo = '1' AND x.idTipoPago = '2' AND a.idSucursal = '$sucursal' and x.statusOrden='8'";
         $datos = mysql_query($sql);
         if ($datos == false) {
             $datos = mysql_error();
@@ -4783,7 +4783,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             $sda = $subTotal - $descTotal;
             $iva = ($sda / 1.16) * .16;
-            $sqlAcualicarXmlConceptos = "UPDATE xmlcomprobantes set subtotalComprobante ='$subTotal' , desctTotalComprobante = '$descTotal' , totalComprobante = '$sda' , ivaComprobante='$iva', sdaComprobante = '$sda' ";
+            $sqlDameTotalAbonos = "SELECT sum(importe)importe FROM abonos WHERE folioComprobante ='" . $pedidos[0]->folioComprobanteCancelacion . "';";
+            if (!$rsAbonos = mysql_query($sqlDameTotalAbonos)) {
+                throw new Exception();
+            }
+            $totalAbonos = 0.00;
+            $idStatusXmlComprobante = 0;
+            while ($rsDatosAbonos = mysql_fetch_array($rsAbonos)) {
+                $totalAbonos = $rsDatosAbonos["importe"];
+            }
+            if ($totalAbonos < $sda) {
+                $idStatusXmlComprobante = '8';
+            } else {
+                $idStatusXmlComprobante = '7';
+            }
+            $sqlAcualicarXmlConceptos = "UPDATE xmlcomprobantes set subtotalComprobante ='$subTotal' , desctTotalComprobante = '$descTotal' , totalComprobante = '$sda' , ivaComprobante='$iva', sdaComprobante = '$sda' , statusOrden ='$idStatusXmlComprobante' WHERE idXmlComprobante = '$idXmlComprobantes' and idSucursal = '$idSucursal'";
             if (!mysql_query($sqlAcualicarXmlConceptos, $cn->Conectarse())) {
                 throw new Exception();
             }
@@ -4794,4 +4808,5 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         return $error;
     }
+
 }
