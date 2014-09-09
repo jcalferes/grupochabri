@@ -30,9 +30,11 @@
                         <h4 class="modal-title" id="myModalLabel">Abonos</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Folio:</label>
-                            <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
+                        <div class="form-group form-inline">
+                            <label>Folio:</label><br>
+                            
+                                <input type="text" class="form-control" id="txtfolioabonos" style="width: 40%"/>
+                                <button type="button" class="btn btn-cprimary" id="btnfolioabonos">Buscar</button>
                         </div>
                         <div id="buscabonos">
                         </div>
