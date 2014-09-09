@@ -3258,6 +3258,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 }
             }
         }
+        if ($encabezado[0]->rfcComprobante == "0") {
+            $encabezado[0]->rfcComprobante = "XAXX010101000";
+        }
 
         $idXmlComprobante = 0;
         $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal,statusOrden,idTipoPago, nombreCliente)"
