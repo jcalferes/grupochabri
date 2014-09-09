@@ -126,7 +126,7 @@ if ($rs == false) {
             if ($select == true) {
                 echo 'selected="true"';
             }
-            echo' value = "' . $rTarifas[0] . ',' . $costoPublico . ' ">';
+            echo' value = "' . $rTarifas[0] . ',' . ($costoPublico * 1.16) . ' ">';
             echo $rTarifas[1];
             echo '</option>';
         }

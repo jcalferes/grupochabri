@@ -3135,7 +3135,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function guardarAbono($folio, $sucursal, $fecha, $monto, $tipopago, $referencia, $observ, $liquida, $saldo) {
         //====================== Sacar rfc del cliente =========================
-        $sql = "SELECT rfcComprobante FROM xmlComprobantes WHERE idSucursal = '$sucursal' AND folioComprobante = '$folio'";
+        $sql = "SELECT rfcComprobante FROM xmlcomprobantes WHERE idSucursal = '$sucursal' AND folioComprobante = '$folio'";
         $ctrl = mysql_query($sql);
         mysql_query("START TRANSACTION;");
         if ($ctrl == false) {
@@ -3186,7 +3186,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         //====================== Actulizar xmlconceptos ========================
         if ($liquida != "false") {
-            $sql = "UPDATE xmlComprobantes SET statusOrden = '7' WHERE folioComprobante = '$folio'";
+            $sql = "UPDATE xmlcomprobantes SET statusOrden = '7' WHERE folioComprobante = '$folio'";
             $ctrl = mysql_query($sql);
             if ($ctrl == false) {
                 $ctrl = mysql_error();
@@ -4729,4 +4729,69 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function devolverPedidosCredito($pedidos, $idSucursal) {
+        include_once '../daoconexion/daoConeccion.php';
+        $error = "";
+        $cn = new coneccion();
+        try {
+            mysql_query("START TRANSACTION;", $cn->Conectarse());
+            $sqlDameFolioIdXmlComprobante = "SELECT idXmlComprobante FROM xmlcomprobantes WHERE statusOrden = '8' and idSucursal ='$idSucursal' and folioComprobante='" . $pedidos[0]->folioComprobanteCancelacion . "'";
+            if (!$rs = mysql_query($sqlDameFolioIdXmlComprobante, $cn->Conectarse())) {
+                throw new Exception();
+            }
+            $idXmlComprobantes = 0;
+            while ($datos = mysql_fetch_array($rs)) {
+                $idXmlComprobantes = $datos["idXmlComprobante"];
+            }
+            for ($x = 0; $x < count($pedidos); $x++) {
+                $sqlEliminarProductos = "DELETE FROM xmlconceptos WHERE idXmlComprobante='$idXmlComprobantes' and codigoConcepto='" . $pedidos[$x]->codigoProducto . "'";
+                if (!mysql_query($sqlEliminarProductos, $cn->Conectarse())) {
+                    throw new Exception();
+                    break;
+                }
+                $sqlDameExistencia = "SELECT cantidad FROM existencias WHERE idSucursal='$idSucursal' and codigoProducto='" . $pedidos[$x]->codigoProducto . "';";
+                if (!$rsExistencia = mysql_query($sqlDameExistencia, $cn->Conectarse())) {
+                    throw new Exception();
+                    break;
+                } else {
+                    $nuevaExistencia = 0;
+                    while ($datosExistenciaProducto = mysql_fetch_array($rsExistencia)) {
+                        $existencia = $datosExistenciaProducto["cantidad"];
+                        $nuevaExistencia = $existencia + $pedidos[$x]->cantidadProducto;
+                        $sqlActualizarinventario = "UPDATE existencias set cantidad = '$nuevaExistencia' WHERE idSucursal = '$idSucursal' and codigoProducto='" . $pedidos[$x]->codigoProducto . "'";
+                        if (!mysql_query($sqlActualizarinventario, $cn->Conectarse())) {
+                            throw new Exception();
+                            break;
+                        }
+                    }
+                }
+            }
+            $nuevoTotal = 0.00;
+            $nuevoSubtotal = 0.00;
+            $sqlCalculoNuevo = "SELECT * FROM xmlconceptos WHERE idXmlComprobante= '$idXmlComprobantes'";
+            if (!$rsCalculoNuevo = mysql_query($sqlCalculoNuevo)) {
+                throw new Exception();
+            } else {
+                $subTotal = 0.00;
+                $descTotal = 0.00;
+                $sda = 0.00;
+                $iva = 0.00;
+                while ($rsXmlCon = mysql_fetch_array($rsCalculoNuevo)) {
+                    $subTotal = $subTotal + ($rsXmlCon["precioUnitarioConcepto"] * $rsXmlCon["cantidadConcepto"]);
+                    $descTotal = ($rsXmlCon["precioUnitarioConcepto"] * $rsXmlCon["cantidadConcepto"]) - $rsXmlCon["cdaConcepto"];
+                }
+            }
+            $sda = $subTotal - $descTotal;
+            $iva = ($sda / 1.16) * .16;
+            $sqlAcualicarXmlConceptos = "UPDATE xmlcomprobantes set subtotalComprobante ='$subTotal' , desctTotalComprobante = '$descTotal' , totalComprobante = '$sda' , ivaComprobante='$iva', sdaComprobante = '$sda' ";
+            if (!mysql_query($sqlAcualicarXmlConceptos, $cn->Conectarse())) {
+                throw new Exception();
+            }
+            mysql_query("COMMIT;", $cn->Conectarse());
+        } catch (Exception $e) {
+            $error = mysql_error();
+            mysql_query("ROLLBACK;", $cn->Conectarse());
+        }
+        return $error;
+    }
 }

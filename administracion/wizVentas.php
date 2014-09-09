@@ -773,6 +773,7 @@
             </div>
         </div>
         <!--fin del modal del detalle de la venta-->
+        <script src="../administracion/administracion.js/ProductosDevolver.js"></script>
         <script src="../administracion/administracion.js/XmlComprobante.js"></script>
         <script src="../administracion/administracion.js/XmlConceptos.js"></script>
         <script src="../administracion/administracion.js/controlWizard.js"></script>

@@ -3,7 +3,7 @@
 session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
-
+$sucursal = "";
 $sucursal = $_SESSION["sucursalSesion"];
 $tipo = $_SESSION["tipoSesion"];
 $datos = $dao->consultaProducto($sucursal);

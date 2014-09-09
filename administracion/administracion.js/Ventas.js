@@ -258,6 +258,7 @@ function calcularTotal(codigo) {
             var datos = valor.split(",");
             if (ok == false) {
                 var total = datos[1] * cantidad;
+//                alert(total);
                 $("input[id='txtTotal" + codigo + "']").val(total.toFixed(2));
 //                $("#txtTotal" + codigo).val(total.toFixed(2));
             }
@@ -681,7 +682,6 @@ $(document).ready(function () {
 
 
     $("#guardarVenta").click(function () {
-//        alert("click me");
         var paso = true;
         if ($("#cmbTipoPago").val() == 2) {
             paso = validarCredito();
