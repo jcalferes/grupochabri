@@ -92,8 +92,8 @@ $totalIngreso = 0.00;
                             <td><center><?php echo $rsAb["saldo"]; ?></center></td>
                             <td><center><?php echo $rsAb["tipoPago"]; ?></center></td>
                             <td><center>$ &nbsp;<?php echo $rsAb["importe"]; ?> &nbsp;mxn.</center></td>
-                            <td><center><a onclick="mostrarInformacionDetalleAbonos(<?php echo $rsAb["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
-                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsAb["folioComprobante"]; ?>&tipo=8"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                        
+                            <td><center><a onclick="mostrarInformacionDetalleAbonos(<?php echo $rsAb["folioComprobante"]; ?>,<?php echo $rsAb["statusOrden"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $rsAb["folioComprobante"]; ?>&tipo=<?php echo $rsAb["statusOrden"]; ?>"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                        
                             </tr>
                             <?php
                             $totalIngreso = $totalIngreso + $rsAb["importe"];

@@ -119,8 +119,8 @@ function mostrarInformacionDetalleCancelacionVenta(folioComprobante) {
     });
 }
 
-function mostrarInformacionDetalleAbonos(folioComprobante) {
-    $("#tablaDetalleCorteCaja").load("dameDetalleVentaAbonos.php?folio=" + folioComprobante, function () {
+function mostrarInformacionDetalleAbonos(folioComprobante, status) {
+    $("#tablaDetalleCorteCaja").load("dameDetalleVentaAbonos.php?folio=" + folioComprobante+ "&status="+status, function () {
         $("#mdlDetalleVenta").modal('show');
     });
 }
