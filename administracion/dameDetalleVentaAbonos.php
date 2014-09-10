@@ -3,8 +3,10 @@ session_start();
 include './administracion.dao/dao.php';
 $dao = new dao();
 $folioComprobate = $_GET["folio"];
+$status = $_GET["status"];
 $idSucursal = $_SESSION["sucursalSesion"];
-$datos = $dao->dameDetallePedidosAbonos($folioComprobate, $idSucursal);
+
+$datos = $dao->dameDetallePedidosAbonos($folioComprobate, $idSucursal, $status);
 ?>
 <table class="table table-hover" id="tablaDetalleCorteCaja">
     <thead>

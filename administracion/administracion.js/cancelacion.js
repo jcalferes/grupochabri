@@ -18,22 +18,22 @@ function cancelarToda() {
 
 
 function seleccionarProductoAEliminar(codigo) {
-        var marcoTodas = false;
-        $('.cancel').each(function () {
-            if (this.checked) {
-                marcoTodas = true;
-            }
-            else {
-                marcoTodas = false;
-                return false;
-            }
-        });
-        if (marcoTodas == true) {
-            $("#cancelartodo").prop("checked", "checked");
+    var marcoTodas = false;
+    $('.cancel').each(function () {
+        if (this.checked) {
+            marcoTodas = true;
         }
         else {
-            $("#cancelartodo").prop("checked", "");
+            marcoTodas = false;
+            return false;
         }
+    });
+    if (marcoTodas == true) {
+        $("#cancelartodo").prop("checked", "checked");
+    }
+    else {
+        $("#cancelartodo").prop("checked", "");
+    }
 
 }
 
@@ -162,14 +162,16 @@ $("#btnvalidacancelacion").click(function () {
             }
             else {
                 var codigosProductosDevolver = new Array();
-                var productoCancelar = new ProductosDevolver();
+
                 $('.cancel').each(function () {
                     var codigo = $(this).val();
                     if (this.checked) {
-                        productoCancelar.folioComprobanteCancelacion = $("#spnfolio").text();
-                        productoCancelar.codigoProducto = codigo;
-                        productoCancelar.cantidadProducto = $("span[id='cantidad" + codigo + "']").text();
-                        codigosProductosDevolver.push(productoCancelar);
+                        var p = new ProductosDevolver();
+//                        alert(codigo);
+                        p.codigoProducto = codigo;
+                        p.folioComprobanteCancelacion = $("#spnfolio").text();
+                        p.cantidadProducto = $("span[id='cantidad" + codigo + "']").text();
+                        codigosProductosDevolver.push(p);
                     }
                 });
                 var informacion = JSON.stringify(codigosProductosDevolver);

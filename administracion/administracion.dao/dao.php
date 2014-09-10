@@ -3850,12 +3850,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function dameDetallePedidosAbonos($folioComprobante, $idSucursal) {
+    function dameDetallePedidosAbonos($folioComprobante, $idSucursal, $status) {
         include_once '../daoconexion/daoConeccion.php';
         $sql = "select * from xmlcomprobantes xc
                 inner join xmlconceptos xconcept 
                 on xc.idXmlComprobante = xconcept.idXmlComprobante
-                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='8';";
+                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='$status';";
         $cn = new coneccion();
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
@@ -4577,7 +4577,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "on ab.rfcCliente = cl.rfc "
                 . "inner join tipospagos tp "
                 . "on ab.idTipoPago = tp.idTipoPago "
-                . "WHERE idSucursal = '" . $idSucursal . "' "
+                . "inner join xmlcomprobantes xc "
+                . "on xc.folioComprobante = ab.folioComprobante "
+                . "WHERE ab.idSucursal = '" . $idSucursal . "' "
                 . "and fechaAbono = '" . $fecha . "' "
                 . "and importe > 0";
         $rs = mysql_query($sql, $cn->Conectarse());
@@ -4592,7 +4594,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "on ab.rfcCliente = cl.rfc "
                 . "inner join tipospagos tp "
                 . "on ab.idTipoPago = tp.idTipoPago "
-                . "WHERE idSucursal = '" . $idSucursal . "' "
+                . "inner join xmlcomprobantes xc "
+                . "on xc.folioComprobante = ab.folioComprobante "
+                . "WHERE ab.idSucursal = '" . $idSucursal . "' "
                 . "and importe > 0 "
                 . "and fechaAbono BETWEEN '" . $fecha1 . "' AND '" . $fecha2 . "' ";
         $rs = mysql_query($sql, $cn->Conectarse());
