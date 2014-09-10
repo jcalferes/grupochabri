@@ -65,7 +65,7 @@ $(document).ready(function () {
             $.post('guardarNotaCredito.php', info, function (resultado) {
                 if (resultado > 0) {
                     alertify.success("Exito venta concretada");
-                    window.open('generarNotaCompra.php?folio=' + resultado + "&tipo='9'");
+                    window.open('generarNotaCompra.php?folio=' + resultado + "&tipo=7");
                     $("#mdlNotacreditoInformacion").modal('hide');
                     limpiarOrdenesCompra();
                     $('#btnCobrar').attr("disabled", true);
@@ -93,7 +93,7 @@ $(document).ready(function () {
                 $.post('guardarNotaCreditoVariosPagos.php', info, function (resultado) {
                     if (resultado > 0) {
                         alertify.success("Exito venta concretada");
-                        window.open('generarNotaCompra.php?folio=' + resultado + '&tipo="9"');
+                        window.open('generarNotaCompra.php?folio=' + resultado + '&tipo=7');
                         $("#mdlNotacreditoInformacion").modal('hide');
                         limpiarOrdenesCompra();
                         $('#btnCobrar').attr("disabled", true);

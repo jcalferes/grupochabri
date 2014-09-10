@@ -6,6 +6,7 @@ $dao = new dao();
 $rs = $dao->dameTotalXmlComprobanteCorteCaja($idSucursal);
 $rsAbono = $dao->dameAbonoTotalCorteCaja($idSucursal);
 $rsNotasCredito = $dao->dameVentasCanceladasNotaCredito($idSucursal);
+$rsPagosDosTipos = $dao->dameInformacionDosTiposPagos();
 $fecha = date("d/m/Y");
 $totalIngreso = 0.00;
 ?>
@@ -149,6 +150,50 @@ $totalIngreso = 0.00;
                     }
                     ?>
                 </table>
+                <span class="label label-primary">RELACION DE VENTAS HECHAS CON NOTA DE CREDITO Y OTRO TIPO DE PAGO</span>
+                <table class="table tabe-hover">
+                    <thead>
+                    <th><center>Folio</center></th>
+                    <th><center>Cliente</center></th>
+                    <th><center>TipoPago</center></th>
+                    <th><center>Total</center></th>
+                    <th><center>Detalle</center></th>
+                    <th><center>Reporte</center></th>
+                    </thead>
+                    <?php
+                    if ($rsPagosDosTipos == false) {
+                        ?>
+                        <tr>
+                            <td colspan="6">
+                                <?php echo mysql_error(); ?>
+                            </td>
+                        </tr>
+                        <?php
+                    } else {
+                        $informacion2TiposPagos = false;
+                        while ($datos2 = mysql_fetch_array($rsPagosDosTipos)) {
+                            $informacion2TiposPagos = true;
+                            ?>
+                            <tr>
+                                <td><center><?php echo $datos2["idFolioVenta"]; ?></center></td>
+                            <td><center><?php echo $datos2["nombreCliente"]; ?></center></td>
+                            <td><center><?php echo $datos2["tipoPago"] ?></center></td>
+                            <td><center><?php echo $datos2["monto"]; ?></center></td>
+                            <td><center><a onclick="mostrarInformacionDetalleNotaCredito(<?php echo $datos2["folioComprobante"]; ?>);"><span class="glyphicon glyphicon-list-alt"></span></a></center></td>
+                            <td><center><a target="_blank" href="generarNotaCompra.php?folio=<?php echo $datos2["folioComprobante"]; ?>&tipo=7"<span class="glyphicon glyphicon-cloud"></span></a></center></td>                       
+                            </tr>
+                            <?php
+                            $totalIngreso = $totalIngreso + $datos2["monto"];
+                        }
+                        if ($informacion2TiposPagos == false) {
+                            echo '<tr ><td colspan="6" style="background-color: #edc0c0"><strong>NO HAY MOVIMIENTOS EN ESTE MOMENTO</strong></td></tr>';
+                        }
+                    }
+                    ?>
+
+                </table>
+
+
                 <br>
                 <label style="color: red">CANTIDAD DE DINERO INGRESADO A LA CAJA :</label><strong> <span id="totalDelDia">$&nbsp;<?php echo $totalIngreso; ?>&nbsp;mxn.</span></strong>
             </div>

@@ -3860,6 +3860,22 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
+    
+    
+     function dameDetallePedidosNotaCredito($folioComprobante, $idSucursal, $status) {
+        include_once '../daoconexion/daoConeccion.php';
+        $sql = "select * from xmlcomprobantes xc
+                inner join xmlconceptos xconcept 
+                on xc.idXmlComprobante = xconcept.idXmlComprobante
+                where xc.idSucursal = '$idSucursal' and xc.folioComprobante='$folioComprobante' and statusOrden='$status';";
+        $cn = new coneccion();
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+    
+    
+    
+    
 
     function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito) {
         include_once '../daoconexion/daoConeccion.php';
@@ -4814,6 +4830,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("ROLLBACK;", $cn->Conectarse());
         }
         return $error;
+    }
+
+    function dameInformacionDosTiposPagos() {
+        $fecha = date("d/m/Y");
+        $cn = new coneccion();
+        $sql = "select * from metodoPagos mp 
+                inner join xmlcomprobantes xc 
+                on mp.idFolioVenta = xc.folioComprobante 
+                inner join tipospagos tp 
+                on tp.idTipoPago = mp.idTipoPago
+                where xc.idTipoPago='7'
+                and mp.idTipoPago!='5'
+                and xc.fechaMovimiento='$fecha';";
+        $rs = mysql_query($sql);
+        return $rs;
     }
 
 }
