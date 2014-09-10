@@ -81,5 +81,5 @@ $("#btnhacerconsulta").click(function() {
         }
     }
     
-    var info
+    var info = ""
 });
