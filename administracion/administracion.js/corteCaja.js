@@ -126,3 +126,10 @@ function mostrarInformacionDetalleAbonos(folioComprobante, status) {
 }
 
 
+function mostrarInformacionDetalleNotaCredito(folioComprobante) {
+    $("#tablaDetalleCorteCaja").load("dameDetalleVentaNotaCredito.php?folio=" + folioComprobante+ "&status=7", function () {
+        $("#mdlDetalleVenta").modal('show');
+    });
+}
+
+
