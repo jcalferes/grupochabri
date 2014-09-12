@@ -3860,9 +3860,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
-    
-    
-     function dameDetallePedidosNotaCredito($folioComprobante, $idSucursal, $status) {
+
+    function dameDetallePedidosNotaCredito($folioComprobante, $idSucursal, $status) {
         include_once '../daoconexion/daoConeccion.php';
         $sql = "select * from xmlcomprobantes xc
                 inner join xmlconceptos xconcept 
@@ -3872,10 +3871,6 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
-    
-    
-    
-    
 
     function finalizarVenta($idXmlComprobante, $idSucursal, $folio, $usuarios, $folioOrdenCompra, $idTipoPago, $importe, $folioComprobante, $tipoPagoCredito, $saldoCredito) {
         include_once '../daoconexion/daoConeccion.php';
@@ -4832,7 +4827,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $error;
     }
 
-    function dameInformacionDosTiposPagos() {
+    function dameInformacionDosTiposPagos($idSucursal) {
         $fecha = date("d/m/Y");
         $cn = new coneccion();
         $sql = "select * from metodoPagos mp 
@@ -4842,7 +4837,24 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 on tp.idTipoPago = mp.idTipoPago
                 where xc.idTipoPago='7'
                 and mp.idTipoPago!='5'
-                and xc.fechaMovimiento='$fecha';";
+                and xc.fechaMovimiento='$fecha' "
+                . "and xc.idSucursal = '$idSucursal';";
+        $rs = mysql_query($sql);
+        return $rs;
+    }
+
+    function dameInformacionDosTiposPagosFechas($idSucursal, $fecha1, $fecha2) {
+        $fecha = date("d/m/Y");
+        $cn = new coneccion();
+        $sql = "select * from metodoPagos mp 
+                inner join xmlcomprobantes xc 
+                on mp.idFolioVenta = xc.folioComprobante 
+                inner join tipospagos tp 
+                on tp.idTipoPago = mp.idTipoPago
+                where xc.idTipoPago='7'
+                and mp.idTipoPago!='5'
+                and xc.fechaMovimiento BETWEEN '$fecha1' and '$fecha2' "
+                . "and xc.idSucursal = '$idSucursal';";
         $rs = mysql_query($sql);
         return $rs;
     }

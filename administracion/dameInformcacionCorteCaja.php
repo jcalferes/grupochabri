@@ -6,7 +6,7 @@ $dao = new dao();
 $rs = $dao->dameTotalXmlComprobanteCorteCaja($idSucursal);
 $rsAbono = $dao->dameAbonoTotalCorteCaja($idSucursal);
 $rsNotasCredito = $dao->dameVentasCanceladasNotaCredito($idSucursal);
-$rsPagosDosTipos = $dao->dameInformacionDosTiposPagos();
+$rsPagosDosTipos = $dao->dameInformacionDosTiposPagos($idSucursal);
 $fecha = date("d/m/Y");
 $totalIngreso = 0.00;
 ?>
