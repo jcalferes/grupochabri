@@ -204,3 +204,7 @@ $("#btnhacerconsulta").click(function () {
     });
 
 });
+
+$("#btnlimpiarconsulta").click(function(){
+    $("#mostrardatosconsulta").empty();
+});

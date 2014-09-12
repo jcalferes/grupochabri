@@ -4860,7 +4860,16 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
     function buscarDatosConsulta($query) {
-        
+        $ctrl = mysql_query($query);
+        $rw = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($rw <= 0) {
+                $ctrl = "No hay datos";
+            }
+        }
+        return $ctrl;
     }
 
 }

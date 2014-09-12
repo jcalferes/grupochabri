@@ -69,15 +69,10 @@
                         <input type="date" class="form-control" id="fecha_final">
                     </div>
                     <button type="button" class="btn btn-cprimary" id="btnhacerconsulta" >Consultar</button>
+                    <button type="button" class="btn btn-cprimary" id="btnlimpiarconsulta" >Limpiar</button>
                 </div>
                 <div id="mostrardatosconsulta">
                 </div>
-            </section>
-            <h2><span class="glyphicon glyphicon-barcode"/>&numsp;De productos</h2>
-            <section>
-            </section>
-            <h2><span class="glyphicon glyphicon-user"/>&numsp;De clientes</h2>
-            <section>
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
