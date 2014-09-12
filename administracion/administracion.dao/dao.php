@@ -4859,4 +4859,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
+    function buscarDatosConsulta($query) {
+        
+    }
+
 }

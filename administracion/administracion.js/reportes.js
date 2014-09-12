@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 $("#slc_inventario").change(function () {
     var seleccion = $("#slc_inventario").val();
-    alert(seleccion);
     if (seleccion == 1 | seleccion == 2) {
         $("#losparametros").slideDown();
         $("#btnhacerconsulta").slideDown();
@@ -98,6 +97,18 @@ $("input[name=optionsRadios]").click(function () {
 });
 
 $("#btnhacerconsulta").click(function () {
+    var seleccion = $("#slc_inventario").val();
+    var bnd_es;
+    if (seleccion == 0) {
+        return false;
+    }
+    if (seleccion == 1) {
+        bnd_es = 1;
+    }
+    if (seleccion == 2) {
+        bnd_es = 2;
+    }
+
     var rbtn1 = $("#rbtn1").is(":checked");
     var rbtn2 = $("#rbtn2").is(":checked");
     var rbtn3 = $("#rbtn3").is(":checked");
@@ -188,10 +199,7 @@ $("#btnhacerconsulta").click(function () {
         }
         bnd_tipoconsulta = 6;
     }
-    alert(bnd_tipoconsulta);
-    var info = "bnd_tipoconsulta=" + bnd_tipoconsulta + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "&txt_rfc=" + txt_rfc + "&txt_user=" + txt_user;
-    alert(info);
-    $("#mostrardatosconsulta").load("buscarDatosConsulta.php?bnd_tipoconsulta=" + bnd_tipoconsulta + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "&txt_rfc=" + txt_rfc + "&txt_user=" + txt_user, function () {
+    $("#mostrardatosconsulta").load("buscarDatosConsulta.php?bnd_tipoconsulta=" + bnd_tipoconsulta + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "&txt_rfc=" + txt_rfc + "&txt_user=" + txt_user + "&bnd_es=" + bnd_es, function () {
 
     });
 
