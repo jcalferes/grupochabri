@@ -4866,7 +4866,23 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             $ctrl = mysql_error();
         } else {
             if ($rw <= 0) {
-                $ctrl = "No hay datos";
+                $ctrl = null;
+            }
+        }
+        return $ctrl;
+    }
+
+    function generarReporteConsulta($id, $sucursal) {
+        $query = "SELECT * FROM xmlComprobantes xcm "
+                . "INNER JOIN xmlConceptos xcp ON xcm.idXmlComprobante = xcp.idXmlComprobante "
+                . "WHERE xcm.idXmlComprobante = '$id' AND xcm.idSucursal = '$sucursal'";
+        $ctrl = mysql_query($query);
+        $row = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($row <= 0) {
+                $ctrl = false;
             }
         }
         return $ctrl;

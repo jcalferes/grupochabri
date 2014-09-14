@@ -13,10 +13,18 @@ $("#slc_inventario").change(function () {
         $("#losparametros").slideDown();
         $("#btnhacerconsulta").slideDown();
         if (seleccion == 1) {
-            $('.nocancel').slideUp();
+            $('.nocancel').attr("disabled", "disabled");
         } else {
-            $('.nocancel').slideDown();
+            $('.nocancel').removeAttr("disabled", "disabled");
         }
+        $("input[name=optionsRadios]").prop('checked', false);
+        $("#rbtn1").prop("checked", true);
+        $("#txt_rfc").val("");
+        $("#fecha_inicial").val("");
+        $("#fecha_final").val("");
+        $("#esporfecha").slideUp();
+        $("#esporcliente").slideUp();
+        $("#esporvendedor").slideUp();
 
     } else {
         $("input[name=optionsRadios]").prop('checked', false);
@@ -28,6 +36,7 @@ $("#slc_inventario").change(function () {
         $("#esporfecha").slideUp();
         $("#esporcliente").slideUp();
         $("#btnhacerconsulta").slideUp();
+        $("#esporvendedor").slideUp();
     }
 });
 
@@ -199,12 +208,19 @@ $("#btnhacerconsulta").click(function () {
         }
         bnd_tipoconsulta = 6;
     }
+
     $("#mostrardatosconsulta").load("buscarDatosConsulta.php?bnd_tipoconsulta=" + bnd_tipoconsulta + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "&txt_rfc=" + txt_rfc + "&txt_user=" + txt_user + "&bnd_es=" + bnd_es, function () {
 
     });
 
 });
 
-$("#btnlimpiarconsulta").click(function(){
+$("#btnlimpiarconsulta").click(function () {
     $("#mostrardatosconsulta").empty();
 });
+
+function imprime_datos(id) {
+    var info = "id=" + id;
+    $.get('generarReporteConsulta.php', info, function () {
+    });
+}

@@ -5,7 +5,7 @@
         <div id="wizard">
             <h2><span class="glyphicon glyphicon-list-alt"/>&numsp;De inventario</h2>
             <section>
-                <div style="margin: 0% 25% 0% 25%">
+                <div style="margin: 0% 25% 0% 25%" id="fabricar_consulta">
                     <div class="form-group">
                         <label>¿Que deseas consultar? </label><br>
                         <select id="slc_inventario"  class="selectpicker" data-container="body" data-width="auto">
@@ -34,9 +34,9 @@
                                 Por por cliente
                             </label>
                         </div>
-                        <div class="radio nocancel">
+                        <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="rbtn4" value="option2">
+                                <input type="radio" class="nocancel" name="optionsRadios" id="rbtn4" value="option2">
                                 Por vendedor
                             </label>
                         </div>
@@ -46,9 +46,9 @@
                                 Por cliente en un rango de fechas
                             </label>
                         </div>
-                        <div class="radio nocancel">
+                        <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="rbtn6" value="option2">
+                                <input type="radio" class="nocancel" name="optionsRadios" id="rbtn6" value="option2">
                                 Por vendedor en un rango de fechas
                             </label>
                         </div>
@@ -69,7 +69,7 @@
                         <input type="date" class="form-control" id="fecha_final">
                     </div>
                     <button type="button" class="btn btn-cprimary" id="btnhacerconsulta" >Consultar</button>
-                    <button type="button" class="btn btn-cprimary" id="btnlimpiarconsulta" >Limpiar</button>
+                    <button type="button" class="btn btn-default" id="btnlimpiarconsulta" >Limpiar</button>
                 </div>
                 <div id="mostrardatosconsulta">
                 </div>

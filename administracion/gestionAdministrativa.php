@@ -115,6 +115,7 @@ $verificasession->validaSesion();
         </div>
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
+        <script src="../bootstrap/js/jquery-ui.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>

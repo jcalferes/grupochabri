@@ -18,22 +18,22 @@ $cn = new coneccion();
 if ($bnd_es == 1) {
     if ($bnd_tipoconsulta == 1) {
         $query = "SELECT * FROM xmlcomprobantes xcm "
-                . "WHERE xcm.tipoComprobante = 'Ventas' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9' AND idSucursal = '$suc' ";
+                . "WHERE xcm.tipoComprobante = 'Ventas'  AND idSucursal = '$suc' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9'";
     }
     if ($bnd_tipoconsulta == 2) {
         $query = "SELECT * FROM xmlcomprobantes xcm "
-                . "WHERE xcm.tipoComprobante = 'Ventas' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9' AND idSucursal = '$suc' "
-                . "AND xcm.fechaMovimiento BETWEEN '$fecha_inicial' AND '$fecha_final'";
+                . "WHERE xcm.tipoComprobante = 'Ventas' AND idSucursal = '$suc' "
+                . "AND xcm.fechaMovimiento BETWEEN '$fecha_inicial' AND '$fecha_final' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9'";
     }
     if ($bnd_tipoconsulta == 3) {
         $query = "SELECT * FROM xmlcomprobantes xcm "
-                . "WHERE xcm.tipoComprobante = 'Ventas' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9' AND xcm.rfcComprobante = '$txt_rfc' AND idSucursal = '$suc' ";
+                . "WHERE xcm.tipoComprobante = 'Ventas' AND xcm.rfcComprobante = '$txt_rfc' AND idSucursal = '$suc' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9'";
     }
 
     if ($bnd_tipoconsulta == 5) {
         $query = "SELECT * FROM xmlcomprobantes xcm "
-                . "WHERE xcm.tipoComprobante = 'Ventas' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9' AND xcm.rfcComprobante = '$txt_rfc' AND idSucursal = '$suc' "
-                . "AND xcm.fechaMovimiento BETWEEN '$fecha_inicial' AND '$fecha_final'";
+                . "WHERE xcm.tipoComprobante = 'Ventas'  AND xcm.rfcComprobante = '$txt_rfc' AND idSucursal = '$suc' "
+                . "AND xcm.fechaMovimiento BETWEEN '$fecha_inicial' AND '$fecha_final' AND xcm.statusOrden = '3' OR xcm.statusOrden = '9'";
     }
 }
 if ($bnd_es == 2) {
@@ -70,9 +70,30 @@ if ($bnd_es == 2) {
 $cn->Conectarse();
 $ctrl = $dao->buscarDatosConsulta($query);
 if (!is_resource($ctrl)) {
-    echo $ctrl;
-}else{
-    echo $ctrl;
+    if ($ctrl == null) {
+        echo "<br><div class='well well-sm'><label>No hay datos</label></div>";
+    } else {
+        echo $ctrl;
+    }
+} else {
+    echo "<br><div class='well well-sm'><div class='table-responsive'><table class='table table-hover'>"
+    . "<tr>"
+    . "<th>Folio</th>"
+    . "<th>Nombre del cliente</th>"
+    . "<th>Fecha de movimiento</th>"
+    . "<th>Subtotal</th>"
+    . "<th>Decuento</th>"
+    . "<th>Total</th>"
+    . "<th>Imprimir detalles</th>"
+    . "</tr>"
+    . "<tr>";
+    while ($rs = mysql_fetch_array($ctrl)) {
+        echo "<td>$rs[folioComprobante]</td><td>$rs[nombreCliente]</td><td>$rs[fechaMovimiento]</td><td>$rs[subtotalComprobante]</td><td>$rs[desctTotalComprobante]</td><td>$rs[totalComprobante]</td><td><center><button type='button' onclick='imprime_datos(\"$rs[idXmlComprobante]\");' class='btn btn-sm'><span class='glyphicon glyphicon-print'></span></button></center></td>";
+    }
+    echo "</tr>"
+    . "<table>"
+    . "</div>"
+    . "</div>";
 }
 $cn->cerrarBd();
 
