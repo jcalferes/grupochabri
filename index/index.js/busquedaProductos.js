@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
     });
+
     $("#btnBusquedaProductos").click(function () {
         var callbacks = $.Callbacks();
         var busqueda = "";
