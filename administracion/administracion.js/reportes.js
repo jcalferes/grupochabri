@@ -220,7 +220,5 @@ $("#btnlimpiarconsulta").click(function () {
 });
 
 function imprime_datos(id) {
-    var info = "id=" + id;
-    $.get('generarReporteConsulta.php', info, function () {
-    });
+    window.open('generarReporteConsulta.php?id=' + id);
 }

@@ -17,10 +17,6 @@ $dao = new dao();
 $util = new Utilerias();
 $cn->Conectarse();
 $datos = $dao->generarReporteConsulta($id, $sucursal);
-
-
-
-//========================= Inicia diseño ======================================
 $valor = '
 <html>
     <head>
@@ -158,9 +154,7 @@ $valor .= ' <center>
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
 while ($data = mysql_fetch_array($datos)) {
-    $valor .= ' <tr><td>Nombre:<br> ' . $data["nombre"] . ' </td><td>RFC:<br> ' . $data["rfc"] . ' </td><td>Nota de Credtio:<br><label style="color: red; font-size: larger">' . $data[16] . '</label><br>Fecha de emision:<br>' . $data["fecha"] . '</td></tr>
-        <tr><td>Direccion:<br> Calle ' . $data["calle"] . ' num ext ' . $data["numeroExterior"] . ' num int ' . $data["numeroInterior"] . ' cruzamientos ' . $data["cruzamientos"] . ' </td><td>Colonia:<br> ' . $data["colonia"] . '</td><td></td></tr>
-        <tr style="background-color: white"><td>Localidad/Municipio:<br>' . $data["ciudad"] . '</td><td>Estado:<br> ' . $data["estado"] . '</td><td>CP:<br>' . $data["postal"] . '</td></tr>';
+    $valor .= ' <tr ><td style="width: 420px">Nombre del Cliente:<br> ' . ucwords(strtolower($data["nombreCliente"])) . '<br>RFC: ' . $data["rfcComprobante"] . '</td><td><span style="font-size: large">Nota de Venta</span><br><span>Folio: ' . $folio . '</span><br><span style="font-size: smaller">Fecha de Expedici&oacute;n: ' . $data["fechaComprobante"] . '</span><br><span style="font-size: smaller">Lugar de Expedici&oacute;n: M&eacute;rida, Yucat&aacute;n, M&eacute;xico</span><br><span style="font-size: smaller">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
     break;
 }
 
@@ -171,32 +165,29 @@ $valor .= '  <table class="CSSTableGenerator">
                     <td>Codigo</td>
                     <td>Descrip.</td>
                     <td>Medidas(M3)</td>
-                   <!-- <td>Costo Ant.</td>-->
                     <td>Costo</td>
-                 <!--   <td>Desct. 1</td>-->
-                 <!--   <td>Desct. 2</td>-->
-                   <!-- <td>Desct. Total</td>-->
-                    <td>CDA</td>
                     <td>Importe</td></tr> ';
 
 mysql_data_seek($datos, 0);
-while ($data = mysql_fetch_array($datos)) {
-    $monto = $data["monto"];
-    break;
+while ($datosOrden = mysql_fetch_array($datos)) {
+    $subtotal = $datosOrden["subtotalComprobante"];
+    $descGral = $datosOrden["desctGeneralComprobante"];
+    $descProd = $datosOrden["desctPorProductosComprobante"];
+    $descTotal = $datosOrden["desctTotalComprobante"];
+    $sda = $datosOrden["sdaComprobante"];
+    $iva = $datosOrden["ivaComprobante"];
+    $total = $datosOrden["totalComprobante"];
+    $sacandoMedidas += $datosOrden["cantidadConcepto"] * $datosOrden["metrosCubicos"];
+    $importereal = $datosOrden["cantidadConcepto"] * $datosOrden["precioUnitarioConcepto"];
+    $valor .= '<tr><td style="text-align: right">' . $datosOrden["cantidadConcepto"] . '</td><td>' . $datosOrden["codigoConcepto"] . '</td><td >' . $datosOrden["descripcionConcepto"] . '</td><td>' . $datosOrden["metrosCubicos"] . '</td><td style="text-align: right">$' . number_format($datosOrden["precioUnitarioConcepto"], 2) . '</td><td style="text-align: right">$' . number_format($importereal, 2) . '</td></tr>';
 }
 
-$valor .= '<tr><td style="text-align: right">0</td><td style="text-align: right">0</td><td >Nota de credito a cliente</td><td>0</td><!--<td style="text-align: right">$0</td>--><td style="text-align: right">$0</td><!--<td style="text-align: right">$0</td><td style="text-align: right">$0</td><td style="text-align: right">$' . $monto . '</td>--><td style="text-align: right">$0</td><td style="text-align: right">$' . $monto . '</td></tr>';
-
 $valor .= '</table>';
-$valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td>Subtotal:</td><td style="text-align: right">$' . $monto . '</td></tr><tr><td>  Desc. General :</td><td style="text-align: right"> $0</td></tr><tr><td> Desc. Productos: </td><td style="text-align: right">$0</td></tr><tr><td>  Desc. Total : </td><td style="text-align: right">$0</td></tr><tr><td> SDA :</td><td style="text-align: right">$0</td></tr><tr><td>  Iva 16% :</td><td style="text-align: right"> $0</td></tr><tr><td>  Total :</td><td style="text-align: right"> $' . $monto . '</td></tr> </table>'
-        . '<div style="position:absolute; top:150px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: 0 </label></div>';
-$valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $util->numtoletras($monto) . ' </td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
-$valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:170px;"><tr><td>Informacion del transporte empleado:</td></tr>'
-        . '<tr><td>Medio de transporte:</td><td>En el caso de camiones:</td></tr>'
-        . '<tr><td>Marca:</td><td>Modelo:</td><td>Tipo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>'
-        . '<tr><td>Capacidad:</td><td>Placas o matricula:</td></tr>'
-        . '</table></div>';
+$valor .= '<div style="position:relative"><br><table class="CSSTableGenerator" style="position:absolute; left:490px; width:30%; "><tr><td></td><td></tr></tr><tr><td> Subtotal :</td><td style="text-align: right">$' . number_format($subtotal, 2) . '</td></tr><tr><td>  Desc.: </td><td style="text-align: right">$' . number_format($descTotal, 2) . '</td></tr></table><table class="CSSTableGenerator" style="position:absolute; top:58px; left:490px; width:30%; "><tr><td>Total:</td><td style="text-align: right">$' . number_format($total, 2) . '</td></tr></table>'
+        . '<div style="position:absolute; top:90px; left:370; "><label style="font-size: x-small">Total de m<sup>3</sup>: ' . $sacandoMedidas . '</label></div>';
+$valor .= '<br><table class="CSSTableGenerator" style="position:absolute; top:19px; width:65%; "><tr><td>Cantidad con letra:<br>Total: ' . $util->numtoletras($total) . '</td></tr><tr><td>Moneda y tipo de cambio:<br>MXN 1.00</td></tr></table>';
 $valor .= '<br></body></html>';
+
 //Termina Diseño================================================================
 # Definimos el tamaÃ±o y orientaciÃ³n del papel que queremos.
 # O por defecto cogerÃ¡ el que estÃ¡ en el fichero de configuraciÃ³n.
