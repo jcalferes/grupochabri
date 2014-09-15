@@ -666,7 +666,9 @@ $(document).ready(function () {
     $("#buscarCodigo").click(function () {
         buscar();
     });
-    $("#cmbClientes").load("dameClientes.php");
+    $("#cmbClientes").load("dameClientes.php", function (){
+         $("#cmbClientes").selectpicker();
+    });
     $("#folio").load("dameFolioPedidos.php");
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var f = new Date();
