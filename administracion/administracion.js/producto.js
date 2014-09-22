@@ -109,7 +109,7 @@ $(document).ready(function() {
     $("#editarDatos").hide();
     $("#divm3").hide();
     $('#txtCodigoProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
-    $('#txtNombreProducto').validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
+    $('#txtNombreProducto').validCampoFranz(' /abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
     $("#consultaProducto").load("consultarProducto.php", function() {
