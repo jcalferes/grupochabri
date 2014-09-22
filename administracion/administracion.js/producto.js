@@ -21,14 +21,14 @@ function NumCheck(e, field, tarifa) {
     return false;
 }
 
-$("#txtCostoProducto").keyup(function() {
+$("#txtCostoProducto").keyup(function () {
     var val_costo = $("#txtCostoProducto").val();
     if (val_costo === "" || /^\s+$/.test(val_costo)) {
         val_costo = 0;
     } else {
         val_costo = $("#txtCostoProducto").val();
     }
-    $("#tablaListaPrecios").find(':checked').each(function() {
+    $("#tablaListaPrecios").find(':checked').each(function () {
         var elemento = this;
         var valor = elemento.value;
         var uti = $("#texto" + valor).val();
@@ -80,7 +80,7 @@ function obtenerUtilidadCosto() {
 //        $(".checando").attr("checked", false);
 //        $(":checkbox").attr("disabled", true);
     }
-    $("#tablaListaPrecios").find(':checked').each(function() {
+    $("#tablaListaPrecios").find(':checked').each(function () {
         var elemento = this;
         var valor = elemento.value;
         var uti = $("#texto" + valor).val();
@@ -99,7 +99,7 @@ function obtenerUtilidadCosto() {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#limpiargranel").hide();
     $("#guardarGranel").hide();
     $("#editarGranel").hide();
@@ -112,27 +112,27 @@ $(document).ready(function() {
     $('#txtNombreProducto').validCampoFranz(' /abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
-    $("#consultaProducto").load("consultarProducto.php", function() {
+    $("#consultaProducto").load("consultarProducto.php", function () {
         $("#tdProducto").dataTable();
     });
-    $("#selectMarca").load("mostrarMarcas.php", function() {
+    $("#selectMarca").load("mostrarMarcas.php", function () {
         $("#selectMarca").selectpicker();
     });
-    $("#selectGrupo").load("mostrarGrupos.php", function() {
+    $("#selectGrupo").load("mostrarGrupos.php", function () {
         $("#selectGrupo").selectpicker();
     });
-    $("#selectProveedor").load("mostrarProveedores.php", function() {
+    $("#selectProveedor").load("mostrarProveedores.php", function () {
         $("#selectProveedor").selectpicker();
     });
-    $("#selectMedida").load("mostrarUnidadesMedida.php", function() {
+    $("#selectMedida").load("mostrarUnidadesMedida.php", function () {
         $("#selectMedida").selectpicker();
     });
     $("#mostrarDivProveedor").hide("slow");
-    $("#agregarProveedor").click(function() {
+    $("#agregarProveedor").click(function () {
         $("#formulario").hide("slow");
         $("#mostrarDivProveedor").show("slow");
     });
-    $("#btncancelarproveedor").click(function() {
+    $("#btncancelarproveedor").click(function () {
         $("#mostrarDivProveedor").hide("slow");
         $("#formulario").show("slow");
         $("#txtnombreproveedor").val("");
@@ -144,7 +144,7 @@ $(document).ready(function() {
     });
 });
 
-$("#limpiarFormProd").click(function() {
+$("#limpiarFormProd").click(function () {
     limpiarProductos();
 });
 
@@ -173,7 +173,7 @@ function limpiarProductos() {
     $("#txtCodigoBarras").prop('disabled', false);
     $("#chkgranel").prop('disabled', false);
 }
-$("#finder").keypress(function(e) {
+$("#finder").keypress(function (e) {
     if (e.which == 13) {
         var codigo = $("#finder").val();
         if (codigo === "" || /^\s+$/.test(codigo)) {
@@ -181,7 +181,7 @@ $("#finder").keypress(function(e) {
         } else {
             var controlg = 0;
             var info = "codigoProducto=" + codigo + "&controlg=" + controlg;
-            $.get('verificandoProducto.php', info, function(x) {
+            $.get('verificandoProducto.php', info, function (x) {
                 if (x < 1) {
                     alertify.log("Ningun producto relacionado");
                     var codprob = $("#txtCodigoBarras").val();
@@ -198,7 +198,7 @@ $("#finder").keypress(function(e) {
                         checked: false,
                         disabled: false
                     });
-                    $.each(lista, function(ind, elem) {
+                    $.each(lista, function (ind, elem) {
                         if (ind == "codigoBarrasProducto") {
                             $("#txtCodigoBarras").val(elem);
                         }
@@ -236,14 +236,14 @@ $("#finder").keypress(function(e) {
                             $("#m3").val(elem);
                         }
                     });
-                    $.get('obtenerTarifasPorConsulta.php', info, function(x) {
+                    $.get('obtenerTarifasPorConsulta.php', info, function (x) {
                         var lista = JSON.parse(x);
                         console.log(lista);
                         var provando = 0;
                         $(".producto").val("");
                         $(".producto").attr("disabled", true);
-                        $.each(lista, function(indice, elemento) {
-                            $.each(elemento, function(ind, elem) {
+                        $.each(lista, function (indice, elemento) {
+                            $.each(elemento, function (ind, elem) {
                                 if (ind == 0) {
                                     provando = elem;
                                 }
@@ -275,7 +275,7 @@ $("#finder").keypress(function(e) {
     }
 });
 //=================== Guardar datos producto ===================================
-$("#guardarDatos").click(function() {
+$("#guardarDatos").click(function () {
     var lista;
     var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
     var marca = $("#selectMarca").val();
@@ -299,7 +299,7 @@ $("#guardarDatos").click(function() {
     var granel = 0;
     //======================================================================
 
-    $("#tablaListaPrecios").find('.producto').each(function() {
+    $("#tablaListaPrecios").find('.producto').each(function () {
         var elemento = this;
         var nombre = elemento.name;
         var valor = elemento.value;
@@ -332,9 +332,9 @@ $("#guardarDatos").click(function() {
             }
 
             var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
-            $.get('guardarProducto.php', info, function(x) {
+            $.get('guardarProducto.php', info, function (x) {
                 if (x >= 1) {
-                    $("#consultaProducto").load("consultarProducto.php", function() {
+                    $("#consultaProducto").load("consultarProducto.php", function () {
                         $("#tdProducto").dataTable();
                     });
                     $("#txtNombreProducto").val("");
@@ -355,7 +355,7 @@ $("#guardarDatos").click(function() {
                     alertify.success("Producto agregado correctamente");
                     return false;
                 } else {
-                    $("#consultaProducto").load("consultarProducto.php", function() {
+                    $("#consultaProducto").load("consultarProducto.php", function () {
                         $("#tdProducto").dataTable();
                     });
                     $("#txtNombreProducto").val("");
@@ -384,7 +384,7 @@ $("#guardarDatos").click(function() {
     }
 });
 //================ Editar producto =============================================
-$('#editarDatos').click(function() {
+$('#editarDatos').click(function () {
     var dato2 = $("#selectGrupo").val();
     if (dato2 == 1) {
         dato2 = "MADERAS";
@@ -401,7 +401,7 @@ $('#editarDatos').click(function() {
     var grupoProducto = $("#selectGrupo").val();
     var listaPrecios = new Array();
     var listaTarifas = new Array();
-    $("#tablaListaPrecios").find('.producto').each(function() {
+    $("#tablaListaPrecios").find('.producto').each(function () {
         var elemento = this;
         var nombre = elemento.name;
         var valor = elemento.value;
@@ -423,8 +423,8 @@ $('#editarDatos').click(function() {
                 m3 = 0;
             }
             var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&m3=" + m3;
-            $.get('editarProducto.php', info, function(x) {
-                $("#consultaProducto").load("consultarProducto.php", function() {
+            $.get('editarProducto.php', info, function (x) {
+                $("#consultaProducto").load("consultarProducto.php", function () {
                     $("#tdProducto").dataTable();
                 });
                 $("#txtNombreProducto").val("");
@@ -537,7 +537,7 @@ function nuevogranel() {
     }
 }
 //=============================Consultar para agranel===========================
-$("#txtCodigoProductoG").keypress(function(e) {
+$("#txtCodigoProductoG").keypress(function (e) {
     if (e.which == 13) {
         var codeg = $("#txtCodigoProductoG").val();
         var codeg2 = $("#txtCodigoProductoG").val() + "-GR";
@@ -567,11 +567,11 @@ $("#txtCodigoProductoG").keypress(function(e) {
 //Verificando el prodcuto por codigo a granel===========================
             var controlg = 1;
             var info2 = "codigoProducto=" + codeg2 + "&controlg=" + controlg;
-            $.get('verificandoProducto.php', info2, function(x) {             //Si no existe el producto por codigo granel========================
+            $.get('verificandoProducto.php', info2, function (x) {             //Si no existe el producto por codigo granel========================
                 if (x < 1) {
                     var controlg = 1;
                     var info = "codigoProducto=" + codeg + "&controlg=" + controlg;
-                    $.get('verificandoProducto.php', info, function(x) {                     //Si no existe el producto==================================
+                    $.get('verificandoProducto.php', info, function (x) {                     //Si no existe el producto==================================
                         if (x < 1) {
                             $("#txtCostoProducto").addClass("disable", "dissable");
                             $("#txtNombreProducto").val("");
@@ -615,7 +615,7 @@ $("#txtCodigoProductoG").keypress(function(e) {
                             $(".checando").attr("checked", false);
 
                             lista = JSON.parse(x);
-                            $.each(lista, function(ind, elem) {
+                            $.each(lista, function (ind, elem) {
                                 if (ind == "cantidad") {
                                     $("#respaldaExistencia").val(elem);
                                 }
@@ -697,7 +697,7 @@ $("#txtCodigoProductoG").keypress(function(e) {
                     $(".producto").val("");
                     $(".neto").val("");
                     lista = JSON.parse(x);
-                    $.each(lista, function(ind, elem) {
+                    $.each(lista, function (ind, elem) {
                         if (ind == "cantidad") {
                             $("#respaldaExistencia").val(elem);
                         }
@@ -725,21 +725,21 @@ $("#txtCodigoProductoG").keypress(function(e) {
                     });
                     $("#txtCodigoProductoG").prop("disabled", true);
                     var existencia = parseFloat($("#respaldaExistencia").val());
-                    $.get('obtenerDatosAgranel.php', info2, function(rs) {
+                    $.get('obtenerDatosAgranel.php', info2, function (rs) {
                         var arr = $.parseJSON(rs);
                         $("#txtContenido").val(arr.granel.datos.contenido);
                         var costo = $("#txtCostoProducto").val();
                         var costopieza = costo * arr.granel.datos.contenido;
                         $("#txtCostoPieza").val(costopieza.toFixed(2));
                     });
-                    $.get('obtenerTarifasPorConsulta.php', info2, function(x) {
+                    $.get('obtenerTarifasPorConsulta.php', info2, function (x) {
                         lista = JSON.parse(x);
                         console.log(lista);
                         var provando = 0;
                         $(".producto").val("");
                         $(".producto").attr("disabled", true);
-                        $.each(lista, function(indice, elemento) {
-                            $.each(elemento, function(ind, elem) {
+                        $.each(lista, function (indice, elemento) {
+                            $.each(elemento, function (ind, elem) {
                                 if (ind == 0) {
                                     provando = elem;
                                 }
@@ -773,7 +773,7 @@ $("#txtCodigoProductoG").keypress(function(e) {
     }
 });
 //=============================Calular costo granel=============================
-$("#txtContenido").blur(function() {
+$("#txtContenido").blur(function () {
     var costoPieza = $("#txtCostoPieza").val();
     var cantidad = $("#txtContenido").val();
     if (cantidad === "" || /^\s+$/.test(cantidad)) {
@@ -792,7 +792,7 @@ $("#txtContenido").blur(function() {
     }
 });
 
-$("#txtCostoPieza").blur(function() {
+$("#txtCostoPieza").blur(function () {
     var costoPieza = $("#txtCostoPieza").val();
     var cantidad = $("#txtContenido").val();
 
@@ -834,7 +834,7 @@ function calcostogranel() {
     }
 }
 //=============================Guardar producto agranel=========================
-$("#guardarGranel").click(function() {
+$("#guardarGranel").click(function () {
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
     var marca = $("#selectMarca").val();
@@ -853,7 +853,7 @@ $("#guardarGranel").click(function() {
     var listaPrecios = new Array();
     var listaTarifas = new Array();
     var m3 = 0;
-    $("#tablaListaPrecios").find('.producto').each(function() {
+    $("#tablaListaPrecios").find('.producto').each(function () {
         var elemento = this;
         var nombre = elemento.name;
         var valor = elemento.value;
@@ -876,9 +876,9 @@ $("#guardarGranel").click(function() {
     if (contenido !== "" && cbarras !== "" && nombreProducto !== "" && marca !== "" && proveedor !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && min !== "" && max !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "" && marca !== "0" && proveedor !== "0" && grupoProducto !== "0" && unidadMedida !== "0" && unidadMedida !== "0") {
         if (min < max) {
             var info = "producto=" + nombreProducto + "&cbarras=" + cbarras + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&min=" + min + "&max=" + max + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&granel=" + granel + "&contenido=" + contenido + "&original=" + original + "&m3=" + m3;
-            $.get('guardarProducto.php', info, function(x) {
+            $.get('guardarProducto.php', info, function (x) {
                 if (x == 1) {
-                    $("#consultaProducto").load("consultarProducto.php", function() {
+                    $("#consultaProducto").load("consultarProducto.php", function () {
                         $("#tdProducto").dataTable();
                     });
                     $("#txtCodigoProductoG").val("");
@@ -904,7 +904,7 @@ $("#guardarGranel").click(function() {
                     $("#txtCodigoProductoG").prop('disabled', false);
                 } else {
                     if (x == true) {
-                        $("#consultaProducto").load("consultarProducto.php", function() {
+                        $("#consultaProducto").load("consultarProducto.php", function () {
                             $("#tdProducto").dataTable();
                         });
                         $("#txtNombreProducto").val("");
@@ -936,7 +936,7 @@ $("#guardarGranel").click(function() {
     }
 });
 //==============================Editar granel===================================
-$("#editarGranel").click(function() {
+$("#editarGranel").click(function () {
     var lista;
     var nombreProducto = $("#txtNombreProducto").val().toUpperCase();
     var unidadMedida = $("#selectMedida").val();
@@ -947,7 +947,7 @@ $("#editarGranel").click(function() {
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var listaPrecios = new Array();
-    $("#tablaListaPrecios").find('.producto').each(function() {
+    $("#tablaListaPrecios").find('.producto').each(function () {
         var elemento = this;
         var nombre = elemento.name;
         var valor = elemento.value;
@@ -959,8 +959,8 @@ $("#editarGranel").click(function() {
     });
     if (nombreProducto !== "" && marca !== "" && proveedor !== "" && contenido !== "" && codigoProducto !== "" && costoProducto !== "" && lista !== "" && lista !== " " && lista !== null && lista !== undefined && unidadMedida !== "" && grupoProducto !== "") {
         var info = "producto=" + nombreProducto + "&marca=" + marca + "&proveedor=" + proveedor + "&codigoProducto=" + codigoProducto + "&costoProducto=" + costoProducto + "&lista=" + lista + "&grupoProducto=" + grupoProducto + "&unidadMedida=" + unidadMedida + "&contenido=" + contenido;
-        $.get('editarProductoGranel.php', info, function(x) {
-            $("#consultaProducto").load("consultarProducto.php", function() {
+        $.get('editarProductoGranel.php', info, function (x) {
+            $("#consultaProducto").load("consultarProducto.php", function () {
                 $("#tdProducto").dataTable();
             });
             $("#txtCodigoProductoG").val("");
@@ -995,7 +995,7 @@ $("#editarGranel").click(function() {
     }
 });
 //==============================================================================
-$("#selectGrupo").change(function() {
+$("#selectGrupo").change(function () {
     var seleccion = document.getElementById('selectGrupo');
     var dato = $("#selectGrupo").val();
     var dato2 = seleccion.options[seleccion.selectedIndex].text;
@@ -1007,7 +1007,7 @@ $("#selectGrupo").change(function() {
     }
 });
 //==============================================================================
-$("#limpiargranel").click(function() {
+$("#limpiargranel").click(function () {
     $("#txtNombreProducto").val("");
     $("#txtCodigoBarras").val("");
     $("#txtCodigoProducto").val("");
@@ -1035,4 +1035,24 @@ $("#limpiargranel").click(function() {
     $("#editarGranel").slideUp();
     $("#guardarGranel").slideUp();
     $("#txtCodigoProductoG").prop('disabled', false);
+});
+//======================================== Calcular M3 =========================}
+$("#btncm3").click(function () {
+    var lado = $("#lm3").val();
+    var ancho = $("#am3").val();
+    var alto = $("#alm3").val();
+
+    if (lado == "" || ancho == "" || alto == "") {
+        alertify.error("Las 3 medidas son necesarias para calcular los M3");
+        return false;
+    }
+
+    var p1 = lado * ancho;
+    var p2 = p1 * alto;
+
+    $("#m3").val(p2);
+
+    $("#lm3").val("");
+    $("#am3").val("");
+    $("#alm3").val("");
 });

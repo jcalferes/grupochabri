@@ -54,6 +54,15 @@
                                     <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
                                 </div>
                                 <div id="divm3" class="form-group form-inline">
+                                    <label>Calculador:</label><br/>
+                                    <div class="form-inline form-group">
+                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="lm3" placeholder="Largo"/>
+                                        <label>x</label>
+                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="am3" placeholder="Ancho"/>
+                                        <label>x</label>
+                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="alm3" placeholder="Altura"/>
+                                        <button type="button" class="btn btn-cprimary" id="btncm3">Calcular</button>
+                                    </div><br><br>
                                     <label>M3:</label><br/>
                                     <input type="text" class="form-control" onkeypress="return NumCheck(event, this);" id="m3"/>
                                 </div>
