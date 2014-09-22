@@ -36,11 +36,16 @@
                 </div>
                 <!--<br/>-->
                 <div class="col-sm-9">
-                    <select class="form-control" 
-                            id="cmbClientes"
-                            style="margin-left: 35px; width: 260px; float: left">
-                    </select>
-                    <div id="ordenesCompra" style="float: left; width: 260px;">
+                    <div style="float: left; margin-left: 35px">
+                        <select class="selectpicker selectores" 
+                                data-container="body" 
+                                data-live-search="true" 
+                                id="cmbClientes"
+                                >
+                        </select>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div id="ordenesCompra" style="float: left; margin-left: 40px; width: 260px;">
                         <input  id='txtNombreCliente' 
                                 type = 'text' 
                                 class='form-control' 
