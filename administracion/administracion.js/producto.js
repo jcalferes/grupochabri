@@ -280,13 +280,13 @@ $("#guardarDatos").click(function () {
     var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
-    var codigoProducto = $("#txtCodigoProducto").val();
+    var codigoProducto = $.trim($("#txtCodigoProducto").val());
     var costoProducto = parseFloat($("#txtCostoProducto").val());
     var min = parseFloat($("#txtCantidadMinima").val());
     var max = $("#txtCantidadMaxima").val();
     var unidadMedida = $("#selectMedida").val();
     var grupoProducto = $("#selectGrupo").val();
-    var cbarras = $("#txtCodigoBarras").val();
+    var cbarras = $.trim($("#txtCodigoBarras").val());
 
     var seleccion = document.getElementById('selectGrupo');
     var dato2 = seleccion.options[seleccion.selectedIndex].text;
