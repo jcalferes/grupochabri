@@ -1036,8 +1036,16 @@ $("#limpiargranel").click(function () {
     $("#guardarGranel").slideUp();
     $("#txtCodigoProductoG").prop('disabled', false);
 });
-//======================================== Calcular M3 =========================}
+//======================================== Calcular M3 =========================
 $("#btncm3").click(function () {
+    var datamili = $("#datamili").is(":checked");
+    var datacenti = $("#datacenti").is(":checked");
+    var datametr = $("#datametr").is(":checked");
+
+    alert(datamili);
+    alert(datacenti);
+    alert(datametr);
+
     var lado = $("#lm3").val();
     var ancho = $("#am3").val();
     var alto = $("#alm3").val();
@@ -1047,8 +1055,32 @@ $("#btncm3").click(function () {
         return false;
     }
 
-    var p1 = lado * ancho;
-    var p2 = p1 * alto;
+    if (datamili == true)
+    {
+        var ladoi = lado / 1000;
+        var anchoi = ancho / 1000;
+        var altoi = alto / 1000;
+    }
+
+    if (datacenti == true)
+    {
+        var ladoi = lado / 100;
+        var anchoi = ancho / 100;
+        var altoi = alto / 100;
+    }
+    if (datametr == true) {
+        var ladoi = lado;
+        var anchoi = ancho;
+        var altoi = alto;
+
+    }
+
+    alert(ladoi);
+    alert(anchoi);
+    alert(altoi);
+
+    var p1 = ladoi * anchoi;
+    var p2 = p1 * altoi;
 
     $("#m3").val(p2);
 
