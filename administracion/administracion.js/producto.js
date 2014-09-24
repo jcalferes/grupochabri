@@ -1042,9 +1042,7 @@ $("#btncm3").click(function () {
     var datacenti = $("#datacenti").is(":checked");
     var datametr = $("#datametr").is(":checked");
 
-    alert(datamili);
-    alert(datacenti);
-    alert(datametr);
+    
 
     var lado = $("#lm3").val();
     var ancho = $("#am3").val();
@@ -1075,9 +1073,7 @@ $("#btncm3").click(function () {
 
     }
 
-    alert(ladoi);
-    alert(anchoi);
-    alert(altoi);
+    
 
     var p1 = ladoi * anchoi;
     var p2 = p1 * altoi;
