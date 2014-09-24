@@ -54,26 +54,59 @@
                                     <input type="button" class="btn btn-cprimary" data-dismiss="modal" data-toggle="modal" data-target="#mdlGrupoProducto" value="+"/>
                                 </div>
                                 <div id="divm3">
-                                    <label>Calculador de M3:</label><br>
-                                    <div class="form-group">
-                                        <label class="radio-inline" >
-                                            <input type="radio" name="tipodato" id="datamili"/>Datos en milimetros
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="tipodato" id="datacenti"/>Datos en centimetros
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="tipodato" id="datametr" checked/>Datos en metros
-                                        </label>
-                                    </div>
-                                    <div class="form-group form-inline">
-                                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="lm3" placeholder="Largo"/>
-                                        <label>x</label>
-                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="am3" placeholder="Ancho"/>
-                                        <label>x</label>
-                                        <input type="text" class="form-control" style="width: 75px" onkeypress="return NumCheck(event, this);" id="alm3" placeholder="Altura"/>
-                                        <button type="button" class="btn btn-cprimary" id="btncm3">Calcular</button>
+                                    <div class="well well-sm">
+                                        <label>Calculador de M3:</label>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control"  onkeypress="return NumCheck(event, this);" id="lm3" placeholder="Largo"/>
+                                                <div class="form-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="largotipodato" id="largodata1" checked/>Pies
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="largotipodato" id="largodata2"/>Metros
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control"  onkeypress="return NumCheck(event, this);" id="am3" placeholder="Ancho"/>
+                                                <div class="form-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="anchotipodato" id="anchodata1" checked/>Centimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="anchotipodato" id="anchodata2"/>Pulgadas
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control"  onkeypress="return NumCheck(event, this);" id="grm3" placeholder="Altura"/>
+                                                <div class="form-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="alturatipodato" id="grosordata1" checked/>Pulgadas
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="alturatipodato" id="grosordata2"/>Centimetros
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <button type="button" class="btn btn-cprimary" id="btncm3">Calcular</button>
+                                        </div>
                                     </div>
                                     <label>M3:</label><br>
                                     <input type="text" class="form-control" onkeypress="return NumCheck(event, this);" id="m3"/>

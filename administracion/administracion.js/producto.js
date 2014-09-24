@@ -1038,45 +1038,57 @@ $("#limpiargranel").click(function () {
 });
 //======================================== Calcular M3 =========================
 $("#btncm3").click(function () {
-    var datamili = $("#datamili").is(":checked");
-    var datacenti = $("#datacenti").is(":checked");
-    var datametr = $("#datametr").is(":checked");
 
-    
 
-    var lado = $("#lm3").val();
+    var largo = $("#lm3").val();
     var ancho = $("#am3").val();
-    var alto = $("#alm3").val();
+    var grosor = $("#grm3").val();
 
-    if (lado == "" || ancho == "" || alto == "") {
+
+    var largodata1 = $("#largodata1").is(":checked");
+    var largodata2 = $("#largodata2").is(":checked");
+    var anchodata1 = $("#anchodata1").is(":checked");
+    var anchodata2 = $("#anchodata2").is(":checked");
+    var grosordata1 = $("#grosordata1").is(":checked");
+    var grosordata2 = $("#grosordata2").is(":checked");
+
+    if (largo == "" || ancho == "" || grosor == "") {
         alertify.error("Las 3 medidas son necesarias para calcular los M3");
         return false;
     }
 
-    if (datamili == true)
-    {
-        var ladoi = lado / 1000;
-        var anchoi = ancho / 1000;
-        var altoi = alto / 1000;
+    if (largodata1 == true) {
+        var largoi = largo / 3.2808399;
+    }
+    if (largodata2 == true) {
+        var largoi = largo;
     }
 
-    if (datacenti == true)
-    {
-        var ladoi = lado / 100;
+    if (anchodata1 == true) {
         var anchoi = ancho / 100;
-        var altoi = alto / 100;
     }
-    if (datametr == true) {
-        var ladoi = lado;
-        var anchoi = ancho;
-        var altoi = alto;
-
+    if (anchodata2 == true) {
+        var anchoi = ancho / 39.3700787;
     }
 
-    
 
-    var p1 = ladoi * anchoi;
-    var p2 = p1 * altoi;
+    if (grosordata1 == true) {
+        var grosori = grosor / 39.3700787;
+    }
+    if (grosordata2 == true) {
+        var grosori = grosor / 100;
+    }
+
+
+    alert(largoi);
+    alert(anchoi);
+    alert(grosori);
+
+
+
+
+    var p1 = largoi * anchoi;
+    var p2 = p1 * grosori;
 
     $("#m3").val(p2);
 
