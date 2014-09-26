@@ -22,9 +22,6 @@ function listarProductos() {
         idMarcas.push(valor);
         lista = JSON.stringify(idMarcas);
         info = "codigos=" + lista;
-
-
-
     });
     if (info != undefined) {
 //        alert("entro");
