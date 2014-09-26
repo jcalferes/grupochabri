@@ -62,12 +62,27 @@
                                                 <div class="form-group">
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="largotipodato" id="largodata1" checked/>Pies
+                                                            <input type="radio" name="largotipodato" id="largodata1" checked/>Metros
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label >
-                                                            <input type="radio" name="largotipodato" id="largodata2"/>Metros
+                                                            <input type="radio" name="largotipodato" id="largodata2"/>Centimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="largotipodato" id="largodata3"/>Milimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="largotipodato" id="largodata4"/>Pies
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="largotipodato" id="largodata5"/>Pulgadas
                                                         </label>
                                                     </div>
                                                 </div>
@@ -77,27 +92,57 @@
                                                 <div class="form-group">
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="anchotipodato" id="anchodata1" checked/>Centimetros
+                                                            <input type="radio" name="anchotipodato" id="anchodata1"/>Metros
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label >
-                                                            <input type="radio" name="anchotipodato" id="anchodata2"/>Pulgadas
+                                                            <input type="radio" name="anchotipodato" id="anchodata2" checked/>Centimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="anchotipodato" id="anchodata3"/>Milimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="anchotipodato" id="anchodata4"/>Pies
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="anchotipodato" id="anchodata5"/>Pulgadas
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control"  onkeypress="return NumCheck(event, this);" id="grm3" placeholder="Altura"/>
+                                                <input type="text" class="form-control"  onkeypress="return NumCheck(event, this);" id="grm3" placeholder="Grosor"/>
                                                 <div class="form-group">
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="alturatipodato" id="grosordata1" checked/>Pulgadas
+                                                            <input type="radio" name="grosortipodato" id="grosordata1" />Metros
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label >
-                                                            <input type="radio" name="alturatipodato" id="grosordata2"/>Centimetros
+                                                            <input type="radio" name="grosortipodato" id="grosordata2"/>Centimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="grosortipodato" id="grosordata3" checked/>Milimetros
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="grosortipodato" id="grosordata4"/>Pies
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label >
+                                                            <input type="radio" name="grosortipodato" id="grosordata5"/>Pulgadas
                                                         </label>
                                                     </div>
                                                 </div>
