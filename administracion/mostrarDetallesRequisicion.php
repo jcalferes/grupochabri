@@ -26,7 +26,7 @@ while ($rs = \mysql_fetch_array($datos, MYSQL_ASSOC)) {
     echo"<td ><input type='text' class='requisicion form-control' id='txtTotal2$rs[codigoProducto]' value='$total'  disabled/></td>";
 }
 echo"</tbody></table></div>";
-echo "<div class='form-control'>Total:  <input type='text' id='costoTotal2' class ='form-control' value='$suma' disabled/><param id= 'sucu' value='$sucu'><param id= 'transf' value='$transferencia'></div>";
+echo "<div class='form-inline'><label>Total:</label><input type='text' id='costoTotal2' class='form-control' value='$suma' style='width: 75px' disabled/><param id='sucu' value='$sucu'><param id='transf' value='$transferencia'></div>";
 
     
 }else{

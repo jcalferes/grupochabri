@@ -1,7 +1,7 @@
 function eliminarFila(fila) {
     var mientras = 0;
     $("#fila" + fila).remove();
-    $('.transferencia').each(function() {
+    $('.transferencia').each(function () {
 
         var elemento = $(this).val();
 
@@ -14,7 +14,7 @@ function listarProductos() {
 
     var idMarcas = new Array();
     var info;
-    $('#tdProducto').find(':checked').each(function() {
+    $('#tdProducto').find(':checked').each(function () {
 
         var elemento = this;
         var valor = elemento.value;
@@ -28,19 +28,19 @@ function listarProductos() {
     });
     if (info != undefined) {
 //        alert("entro");
-        $.get('consultaMasivaProductos.php', info, function(x) {
+        $.get('consultaMasivaProductos.php', info, function (x) {
 //            alert(info);
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
-            $.each(lista, function(ind, elem) {
+            $.each(lista, function (ind, elem) {
 //                alert(elem);
-                $.each(elem, function(ind, elem2) {
+                $.each(elem, function (ind, elem2) {
 //                    alert(elem2);
-                    $.each(elem, function(ind, elem2) {
+                    $.each(elem, function (ind, elem2) {
 //                        alert(elem[ind].tarifa);
 
-                        $('.myCodigo').each(function() {
+                        $('.myCodigo').each(function () {
 
                             var elemento = this;
                             var nombre = elemento.name;
@@ -90,7 +90,7 @@ function TransaccionDetalles(codigo, cantidad, costo) {
 }
 function cancelarTransferencia() {
     var info = "aceptarTransferencia=" + encabezadoTransferencia;
-    $.get('cancelarTransferencia.php', info, function(x) {
+    $.get('cancelarTransferencia.php', info, function (x) {
         alertify.success("Transferencia cancelada exitosamente");
         $("#consultapedidos").load("consultaPedidos.php");
         $("#consultatransferencias").load("consultaTransferencias.php");
@@ -100,7 +100,7 @@ function cancelarTransferencia() {
 function aceptarTransferencia(encabezadoTransferencia) {
 
     var info = "aceptarTransferencia=" + encabezadoTransferencia;
-    $.get('aceptarTransferencia.php', info, function(x) {
+    $.get('aceptarTransferencia.php', info, function (x) {
         $("#aceptarTraferencia").hide('slow');
         $("#cancelarPedido").hide();
         alertify.success("Transferencia completada exitosamente");
@@ -119,8 +119,8 @@ function detallesTransferencia(transf, sucu, transferir, aceptacion) {
 }
 
 function condicionesPeticion(transf, sucu, plop, aceptacion) {
-    $('#detalleTransferencia').trigger('click');
-    $('#labelTitulo').html('<h4> Lista de Peticiones:</h4>' + transf);
+//    $('#detalleTransferencia').trigger('click');
+    $('#labelTitulo').html('<label> Lista de Peticiones - Folio: </label>' + transf);
     $('#mostrartransferencias').load("mostrarDetallesRequisicion.php?transferencia=" + transf + "&sucu=" + sucu + "&aceptacion=" + aceptacion);
     if (plop == 5) {
         $("#mandarRespuesta").show();
@@ -129,6 +129,7 @@ function condicionesPeticion(transf, sucu, plop, aceptacion) {
         $("#mandarRespuesta").hide();
         $("#cancelarPedido").hide();
     }
+    $("#mdlDetalleTransferencia").modal('toggle');
 }
 
 function sacarTotal(cp) {
@@ -138,7 +139,7 @@ function sacarTotal(cp) {
     var elemento = 0.0;
     var mientras = 0.0;
     $("#txtTotal" + cp).val(cantidad * costo);
-    $('.transferencia').each(function() {
+    $('.transferencia').each(function () {
 
         elemento = $(this).val();
         mientras = parseFloat(mientras) + parseFloat(elemento);
@@ -149,7 +150,7 @@ function sacarTotal(cp) {
 }
 function recorrerTabla(codigo) {
     var band;
-    $('.myCodigo').each(function() {
+    $('.myCodigo').each(function () {
 
 
         var elemento = $(this).val();
@@ -190,23 +191,23 @@ function recorrerTabla(codigo) {
 //    })
     return band;
 }
-$(document).ready(function() {
-    $("#consultatransferencias").load("consultaTransferencias.php", function() {
+$(document).ready(function () {
+    $("#consultatransferencias").load("consultaTransferencias.php", function () {
         $('#tdconstrans').dataTable();
     });
-    $("#consultapedidos").load("consultaPedidos.php", function() {
+    $("#consultapedidos").load("consultaPedidos.php", function () {
         $('#tdconsped').dataTable();
     });
     $("#sucursal").load("sacarSucursales.php");
 
-    $("#CancelarPedido").click(function() {
-        $('#tablaTransferencias td').each(function() {
+    $("#CancelarPedido").click(function () {
+        $('#tablaTransferencias td').each(function () {
             $(this).remove();
             $("#sucursal").prop('disabled', false);
         });
         $("#costoTotal").val(0);
     });
-    $("#codigoProductoTranferencia").keypress(function(e) {
+    $("#codigoProductoTranferencia").keypress(function (e) {
         if (e.which == 13) {
             var sucursal = $("#sucursal").val();
             var info = "codigo=" + $("#codigoProductoTranferencia").val() + "&idSucursal=" + sucursal;
@@ -214,7 +215,7 @@ $(document).ready(function() {
             var comprobar = recorrerTabla(codigo);
             if (sucursal > 0) {
                 if (comprobar == 0) {
-                    $.get('listaTrasferencia.php', info, function(x) {
+                    $.get('listaTrasferencia.php', info, function (x) {
 
                         if (x == 0) {
                             alertify.error("No existe ese codigo");
@@ -224,8 +225,8 @@ $(document).ready(function() {
                             lista = JSON.parse(x);
 //                    console.log(lista);
                             var tr = "";
-                            $.each(lista, function(ind, elem) {
-                                $.each(elem, function(ind, elem2) {
+                            $.each(lista, function (ind, elem) {
+                                $.each(elem, function (ind, elem2) {
                                     tr = '<tr id="fila' + elem[ind].codigoProducto + '">\n\
 <td></center><button type="button"  class="btn btn-xs" onclick="eliminarFila(\'' + elem[ind].codigoProducto + '\')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                           <td><input type="text" class="myCodigo form-control guardar" id="codigo' + elem[ind].codigoProducto + '" value="' + elem[ind].codigoProducto + '" disabled/></td>\n\
@@ -251,13 +252,13 @@ $(document).ready(function() {
         }
     });
 
-    $("#mandarPedido").click(function() {
+    $("#mandarPedido").click(function () {
         var fallo = 0;
         var cont = 0;
 
 
 
-        $('.myCodigo').each(function() {
+        $('.myCodigo').each(function () {
             var elemento = this;
             var valor = elemento.value;
             var min = $('#txtCantidad' + valor).val();
@@ -280,7 +281,7 @@ $(document).ready(function() {
             alertify.error("Las cantidades a pedir deben ser menores a las que hay en el inventario actual");
         } else {
             var arreglo = [];
-            $('.myCodigo').each(function() {
+            $('.myCodigo').each(function () {
                 var elemento = this;
                 var valor = elemento.value;
                 var codigo = $('#codigo' + valor).val();
@@ -306,10 +307,10 @@ $(document).ready(function() {
 
 
                 console.log(datosJSON);
-                $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function(respuesta) {
+                $.post('guardarTransferencias.php', {datos: datosJSON, sucursal: sucursal}, function (respuesta) {
                     $("#consultapedidos").load("consultaPedidos.php");
                     $("#consultatransferencias").load("consultaTransferencias.php");
-                    $('#tablaTransferencias tr').each(function() {
+                    $('#tablaTransferencias tr').each(function () {
                         $(this).remove();
 
                     });
@@ -326,9 +327,9 @@ $(document).ready(function() {
         }
 
     });
-    $("#btnbuscador").click(function() {
+    $("#btnbuscador").click(function () {
         var sucursal = $("#sucursal").val();
-        $("#todos").load("consultarBuscador.php?sucursal=" + sucursal, function() {
+        $("#todos").load("consultarBuscador.php?sucursal=" + sucursal, function () {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');

@@ -66,7 +66,7 @@
                 <form class="form-inline text-right">
                     <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
                 </form>
-                
+
                 <form class="form-inline text-right">
                     <!--<span>SDA :--> 
                     <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>

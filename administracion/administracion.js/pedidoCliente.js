@@ -15,9 +15,9 @@ function eliminandoFila(fila, bandera) {
     var descgral = 0;
     var descprod = 0;
     var importes = 0;
-    if(bandera == 1){
-    $(".pedido").prop("disabled", false);
-       $("#btnbuscador").prop("disabled",false);
+    if (bandera == 1) {
+        $(".pedido").prop("disabled", false);
+        $("#btnbuscador").prop("disabled", false);
         $("#guardaEnviaOrden").show();
         $("#CancelarOrden").show();
         $("#enviarOrdenCompra").hide();
@@ -25,11 +25,11 @@ function eliminandoFila(fila, bandera) {
 //        $("#emailProveedor").show();
         $("#descuentosGlobalesManuales").prop('checked', true);
     }
-    $('#fila' + fila + '').each(function() {
+    $('#fila' + fila + '').each(function () {
         $(this).remove();
 
     });
-    $('.totales').each(function() {
+    $('.totales').each(function () {
         var elemento = this;
         var valor = elemento.value;
 //        var nombre = elemento.name;
@@ -46,7 +46,7 @@ function eliminandoFila(fila, bandera) {
 //
 //    });
 
-    $('.costos2').each(function() {
+    $('.costos2').each(function () {
         var elemento = this;
         var valor = elemento.value;
         subtotal += parseFloat(valor);
@@ -83,7 +83,7 @@ function verOrdenCompra(folio, comprobante) {
 function listarProductos() {
     var idMarcas = new Array();
     var info;
-    $("#tdProducto").find(':checked').each(function() {
+    $("#tdProducto").find(':checked').each(function () {
         var elemento = this;
         var valor = elemento.value;
 //        alert(valor);
@@ -97,18 +97,18 @@ function listarProductos() {
     if (info != undefined) {
 //        alert("entro");
 
-        $.get('consultaMasivaProductos.php', info, function(x) {
+        $.get('consultaMasivaProductos.php', info, function (x) {
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
-            $.each(lista, function(ind, elem) {
+            $.each(lista, function (ind, elem) {
 //                alert(elem);
-                $.each(elem, function(ind, elem2) {
+                $.each(elem, function (ind, elem2) {
 //                    alert(elem2);
-                    $.each(elem, function(ind, elem2) {
+                    $.each(elem, function (ind, elem2) {
 //                        alert(elem[ind].tarifa);
 
-                        $('.CProducto').each(function() {
+                        $('.CProducto').each(function () {
 
                             var elemento = this;
                             var nombre = elemento.name;
@@ -192,7 +192,7 @@ function seleccionTipo() {
 //        $("#ModificarOrden").show('slow');
         $("#folioM").prop("disabled", false);
         $("#codigoProductoEntradas").prop("disabled", true);
-        $('#tablaDatosEntrada td').each(function() {
+        $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
 
         });
@@ -206,9 +206,9 @@ function seleccionTipo() {
         folio = 0;
         $("#sucursal").prop("disabled", false);
         $("#sucursal").show("slow");
-         $("#sucursal").val("0");
+        $("#sucursal").val("0");
         $("#codigoProductoEntradas").prop("disabled", false);
-        $('#tablaDatosEntrada td').each(function() {
+        $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
 
         });
@@ -235,18 +235,18 @@ function seleccionTipo() {
     }
 
 }
-$("#folioM").keypress(function(e) {
+$("#folioM").keypress(function (e) {
     if (e.which == 13) {
 //        alert("entro");
 //        $("#enviarOrdenCompra").prop('value', "Enviar Orden de Compra");
 //        $("#enviarOrdenCompra").prop('id', "enviarOrdenCompra");
-        $('#tablaDatosEntrada td').each(function() {
+        $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
 
         });
         var info = "folio=" + $("#folioM").val() + "&comprobante=PEDIDO CLIENTE";
 //        alert(info);
-        $.get('consultaClientePedido.php', info, function(x) {
+        $.get('consultaClientePedido.php', info, function (x) {
             if (x == 0) {
                 alertify.error("No existe este codigo");
             } else {
@@ -254,8 +254,8 @@ $("#folioM").keypress(function(e) {
                 lista = JSON.parse(x);
                 console.log(lista);
                 var sucursal;
-                $.each(lista, function(ind, elem) {
-                    $.each(elem, function(ind, elem2) {
+                $.each(lista, function (ind, elem) {
+                    $.each(elem, function (ind, elem2) {
                         sucursal = elem[ind].idSucursal;
                         tr2 = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ',1)">x</a></td>\n\
                         <td> \n\
@@ -324,10 +324,10 @@ $("#folioM").keypress(function(e) {
         });
     }
 });
-$("#codigoProductoEntradas").keypress(function(e) {
+$("#codigoProductoEntradas").keypress(function (e) {
     if (e.which == 13) {
         valorando = 0;
-        $('.CProducto').each(function() {
+        $('.CProducto').each(function () {
 
             var elemento = this;
             var nombre = elemento.name;
@@ -341,7 +341,7 @@ $("#codigoProductoEntradas").keypress(function(e) {
         });
         if (valorando == 0) {
             var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val() + "&sucursal=" + $("#sucursal").val();
-            $.get('mostrarInformacionProductogral.php', info, function(informacion) {
+            $.get('mostrarInformacionProductogral.php', info, function (informacion) {
                 if (informacion == 1) {
                     if ($("#sucursal").val() == '0') {
                         alertify.error("Seleccione una sucursal");
@@ -692,7 +692,7 @@ function generarDescuentosgenerales() {
 }
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#btnbuscador").prop("disabled", true);
     $("#sucursal").hide();
     $("#codigoProductoEntradas").prop("disabled", true);
@@ -708,7 +708,7 @@ $(document).ready(function() {
 //    $("#lblproveedor").hide();
 //    $("#lblemailO").hide();
 
-    $("#guardaEnviaOrden").click(function() {
+    $("#guardaEnviaOrden").click(function () {
         var inf = new Array();
         var lstConceptos = new Array();
         var xmlComprobanteManualmente = new XmlComprobante();
@@ -757,7 +757,7 @@ $(document).ready(function() {
             url: "guardarPedidoCliente.php",
             data: {data: informacion, band: "modifica", folio: $("#folioM").val(), sucursal: $("#sucursal").val()},
             cache: false,
-            success: function(x) {
+            success: function (x) {
 //                alert(x);
                 window.open('generarReporte.php?valor=' + x + '&comprobante=PEDIDO CLIENTE');
                 alertify.success("Exito! Orden Guardada");
@@ -765,7 +765,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#ModificarOrden").click(function() {
+    $("#ModificarOrden").click(function () {
         $(".cantidades").prop("disabled", false);
         $(".descuentos").prop("disabled", false);
         $("#guardaEnviaOrden").show();
@@ -778,7 +778,7 @@ $(document).ready(function() {
 
     });
 
-    $("#enviarOrdenCompra").click(function() {
+    $("#enviarOrdenCompra").click(function () {
 //        alert(folio);
         if ($("#folioM").val() != "") {
             var info = "valor=" + $("#folioM").val();
@@ -806,7 +806,7 @@ $(document).ready(function() {
 //        $("#proveedores").selectpicker();
 //        $("#proveedores").selectpicker('hide');
 //    });
-    $("#descuentosGlobalesManuales").change(function() {
+    $("#descuentosGlobalesManuales").change(function () {
         if ($("#descuentosGlobalesManuales").is(':checked')) {
             for (var x = 0; x < contador; x++) {
                 if ($("#costo" + x).val() === '') {
@@ -823,23 +823,23 @@ $(document).ready(function() {
             $(".cantidades").removeAttr('disabled');
         }
     });
-    $("#descuentosGeneralesM").change(function() {
+    $("#descuentosGeneralesM").change(function () {
         if ($("#descuentosGeneralesM").is(':checked')) {
             $("#descuentosGeneralesPorComasM").removeAttr('disabled');
-          
+
         }
         else {
             $("#descuentosGeneralesPorComasM").attr('disabled', 'disabled');
         }
     });
-    $("#guardarOrdenCompra").click(function() {
+    $("#guardarOrdenCompra").click(function () {
         bandera = 0;
         var inf = new Array();
         var lstConceptos = new Array();
         var entro = 0;
         var xmlComprobanteManualmente = new XmlComprobante();
-        $('.pedido').each(function() {
-  entro = 1;
+        $('.pedido').each(function () {
+            entro = 1;
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
@@ -889,7 +889,7 @@ $(document).ready(function() {
                 url: "guardarPedidoCliente.php",
                 data: {data: informacion, sucursal: $("#sucursal").val()},
                 cache: false,
-                success: function(x) {
+                success: function (x) {
 //                    alert(x);
 //                var probando = $("#proveedores").val();
 //                    alert(x);
@@ -914,12 +914,12 @@ $(document).ready(function() {
             alertify.error("La cantidad a pedir debe ser menor a la existencia");
         }
     });
-    $("#enviarOrdenCompra").click(function() {
+    $("#enviarOrdenCompra").click(function () {
 
     });
 
-    $("#CancelarOrden").click(function() {
-        $('#tablaDatosEntrada td').each(function() {
+    $("#CancelarOrden").click(function () {
+        $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
 
         });
@@ -933,14 +933,14 @@ $(document).ready(function() {
         $("#folioM").prop("disabled", false);
     });
     var tipo = "PEDIDO%20CLIENTE";
-    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function() {
+    $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function () {
         $('#dtproveedor').dataTable();
     });
     $("#sucursal").load("sacarSucursales.php?pedidoCliente='pedido'");
 
-    $("#btnbuscador").click(function() {
+    $("#btnbuscador").click(function () {
         var s = $("#sucursal").val();
-        $("#todos").load("consultarBuscador.php?sucursal=" + s, function() {
+        $("#todos").load("consultarBuscador.php?sucursal=" + s, function () {
             $('#tdProducto').dataTable();
         });
         $('#mdlbuscador').modal('toggle');
