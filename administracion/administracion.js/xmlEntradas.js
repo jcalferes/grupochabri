@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $("#validacionentradas").hide();
 });
 
@@ -43,7 +43,7 @@ function comprueba_extension_xmlentrada(formulario, archivo) {
                 data: data, //Le pasamos el objeto que creamos con los archivos
                 processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
                 cache: false //Para que el formulario no guarde cache
-            }).done(function(msg) {
+            }).done(function (msg) {
                 $("#xmlenrada").slideUp();
                 $("#validacionentradas").slideDown();
                 $("#cargaxml").slideDown();
@@ -55,8 +55,8 @@ function comprueba_extension_xmlentrada(formulario, archivo) {
     return 0;
 }
 
-$("#cancelarentrada").click(function() {
-    $.get('xmlCancelarEntrada.php', function() {
+$("#cancelarentrada").click(function () {
+    $.get('xmlCancelarEntrada.php', function () {
         $("#cargaxml").empty();
         $("#cargaxml").slideUp();
         $("#validacionentradas").slideUp();

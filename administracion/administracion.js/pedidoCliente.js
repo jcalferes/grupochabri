@@ -120,26 +120,31 @@ function listarProductos() {
 
                             }
                         });
+
+                        var costo = elem[ind].tarifa;
+                        var iva = (costo * 16) / 100;
+                        var ivacosto = parseFloat(costo) + parseFloat(iva);
+
                         if (valorando == '0') {
-                            tr = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ')">x</a></td>\n\
-                        <td> \n\
-                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
+                            tr = '<tr id="fila' + contador + '">\n\
+                        <td><center><button class="btn btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
+                        <td><input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" ></input></td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
-                        <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\\n\
-                        <td><span id="costoUnitarioM' + contador + '" >' + parseFloat(elem[ind].tarifa).toFixed(0) + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(elem[ind].cantidad).toFixed(0) + '" disabled> </input>\n\
-                        </td>\n\
-                       <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + parseFloat(elem[ind].tarifa) + '" name="' + contador + '" disabled="true"> </input> </td>\n\
-        <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/> </td></tr>';
+                        <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\
+                        <td><span id="costoUnitarioM' + contador + '" >' + ivacosto.toFixed(4) + '</span></td>\n\
+                        <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(elem[ind].cantidad).toFixed(4) + '" disabled> </input></td>\n\
+                        <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + ivacosto.toFixed(4) + '" name="' + contador + '" disabled="true"> </input> </td>\n\
+                        <td><input id="cda' + contador + '" class="form-control" type="hidden" value="0" disabled="true"/><input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/></td></tr>';
+
                             $("#tablaDatosEntrada").append(tr);
                             contador = contador + 1;
 
                             subtotal = $("#subTotalM").val();
-                            $("#subTotalM").val(parseFloat(subtotal) + parseFloat(elem[ind].tarifa));
+                            $("#subTotalM").val((parseFloat(subtotal) + parseFloat(ivacosto)).toFixed(4));
                             var newsubtotal = $("#subTotalM").val();
                             $("#ivaM").val(parseFloat(newsubtotal) * parseFloat(0.16));
                             $("#sdaM").val(parseFloat(subtotal) + parseFloat(elem[ind].tarifa));
-                            $("#costoTotal").val(parseFloat($("#ivaM").val()) + parseFloat($("#sdaM").val()));
+                            $("#costoTotal").val(parseFloat($("#sdaM").val()));
                             $(".descuentos").attr('disabled', 'disabled');
                             $("#guardarOrdenCompra").show();
                             $("#CancelarOrden").show();
@@ -940,6 +945,10 @@ $(document).ready(function () {
 
     $("#btnbuscador").click(function () {
         var s = $("#sucursal").val();
+        if (s == 0) {
+            alertify.error("Debes seleccionar una sucursal");
+            return false;
+        }
         $("#todos").load("consultarBuscador.php?sucursal=" + s, function () {
             $('#tdProducto').dataTable();
         });

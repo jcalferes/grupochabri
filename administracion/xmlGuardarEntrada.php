@@ -62,7 +62,7 @@ class Detalle {
     private $Importe;
     private $IdFacturaEncabezado;
     private $costoCotizacion;
-    
+
     public function getCostoCotizacion() {
         return $this->costoCotizacion;
     }
@@ -71,7 +71,6 @@ class Detalle {
         $this->costoCotizacion = $costoCotizacion;
     }
 
-        
     public function getCantidad() {
         return $this->Cantidad;
     }
