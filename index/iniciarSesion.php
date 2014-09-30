@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-//session_destroy();
 $_SESSION["usuarioSesion"] = "";
 $_SESSION["tipoSesion"] = "";
 $_SESSION["sucursalSesion"] = "";

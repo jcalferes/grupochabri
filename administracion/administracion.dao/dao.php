@@ -174,16 +174,14 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function obtenerDatosCliente($idusuario) {
+    function obtenerDatosCliente($idCliente) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-
         $sql = "SELECT * FROM usuarios u "
                 . "INNER JOIN clientes c ON c.idUsuario = u.idUsuario "
-                . "INNER JOIN direcciones d ON c.idDireccion = c.idDireccion "
-                . "WHERE u.idUsuario = '$idusuario'";
+                . "INNER JOIN direcciones d ON d.idDireccion = c.idDireccion "
+                . "WHERE u.idUsuario = '$idCliente'";
         $datos = mysql_query($sql, $cn->Conectarse());
-
         return $datos;
     }
 

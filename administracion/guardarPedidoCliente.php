@@ -11,7 +11,7 @@ error_reporting(0);
 
 session_start();
 $dao = new dao();
-$idusuario = $_SESSION["usuarioSession"];
+$idCliente = $_SESSION["usuarioSesion"];
 $tipo = "PEDIDO CLIENTE";
 $idCliente = $dao->obtenerDatosCliente($idCliente);
 while ($rs = mysql_fetch_array($idCliente)) {
