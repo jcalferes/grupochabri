@@ -1,6 +1,5 @@
 <?php
 
-//
 include_once './administracion.clases/Concepto.php';
 include_once './administracion.clases/Comprobante.php';
 include_once './administracion.dao/dao.php';
@@ -12,12 +11,12 @@ error_reporting(0);
 
 session_start();
 $dao = new dao();
-$idCliente = 2;
+$idusuario = $_SESSION["usuarioSession"];
 $tipo = "PEDIDO CLIENTE";
 $idCliente = $dao->obtenerDatosCliente($idCliente);
- while ($rs = mysql_fetch_array($idCliente)) {
-$rfcCliente = $rs["rfc"];
-     }
+while ($rs = mysql_fetch_array($idCliente)) {
+    $rfcCliente = $rs["rfc"];
+}
 //$idsucursal = $_SESSION["sucursalSesion"];
 $idsucursal = $_POST["sucursal"];
 $utilerias = new Utilerias();

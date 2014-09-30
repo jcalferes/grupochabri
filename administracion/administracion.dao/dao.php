@@ -174,13 +174,14 @@ class dao {
         $cn->cerrarBd();
     }
 
-    function obtenerDatosCliente($idCliente) {
+    function obtenerDatosCliente($idusuario) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
 
-        $sql = "SELECT * FROM usuarios u INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-                INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
-                WHERE u.idUsuario = '$idCliente'";
+        $sql = "SELECT * FROM usuarios u "
+                . "INNER JOIN clientes c ON c.idUsuario = u.idUsuario "
+                . "INNER JOIN direcciones d ON c.idDireccion = c.idDireccion "
+                . "WHERE u.idUsuario = '$idusuario'";
         $datos = mysql_query($sql, $cn->Conectarse());
 
         return $datos;
@@ -296,10 +297,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $datos;
     }
 
-    function dondeInicie($idsucursal, $usuario) {
+    function dondeInicie($idsucursal, $idusuario) {
         $sql = "SELECT * FROM sucursales s "
                 . "INNER JOIN usuarios u "
-                . "WHERE u.usuario = '$usuario' AND s.idSucursal = '$idsucursal'";
+                . "WHERE u.idUsuario = '$idusuario' AND s.idSucursal = '$idsucursal'";
         $rs = mysql_query($sql);
         return $rs;
     }
