@@ -60,16 +60,18 @@
                 </div>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>Subtotal:</label>
+                    <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
 
                 <form class="form-inline text-right">
-                    <!--<span>SDA :--> 
-                    <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>SDA:</label>
+                    <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>IVA:</label>
+                    <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
                 <br>
                 <form class="form-inline text-right">

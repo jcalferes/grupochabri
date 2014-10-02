@@ -1116,10 +1116,6 @@ $("#btncm3").click(function () {
         var grosori = grosor / 39.3799787;
     }
 
-    alert(largoi);
-    alert(anchoi);
-    alert(grosori);
-
     var p1 = largoi * anchoi;
     var p2 = p1 * grosori;
 

@@ -83,41 +83,30 @@ function verOrdenCompra(folio, comprobante) {
 function listarProductos() {
     var idMarcas = new Array();
     var info;
+
     $("#tdProducto").find(':checked').each(function () {
         var elemento = this;
         var valor = elemento.value;
-//        alert(valor);
         idMarcas.push(valor);
         lista = JSON.stringify(idMarcas);
         info = "codigos=" + lista;
-
-
-
     });
-    if (info != undefined) {
-//        alert("entro");
 
+    if (info != undefined) {
         $.get('consultaMasivaProductos.php', info, function (x) {
             var valorando = 0;
             lista = JSON.parse(x);
             console.log(lista);
             $.each(lista, function (ind, elem) {
-//                alert(elem);
                 $.each(elem, function (ind, elem2) {
-//                    alert(elem2);
                     $.each(elem, function (ind, elem2) {
-//                        alert(elem[ind].tarifa);
 
                         $('.CProducto').each(function () {
-
                             var elemento = this;
                             var nombre = elemento.name;
                             var valor = elemento.value;
-//                            alert(elemento.name);
                             if (valor == elem[ind].codigoproducto && elem[ind].codigoproducto !== "nada") {
-//            alertify.error("ya existe");
                                 valorando = nombre;
-
                             }
                         });
 
@@ -127,45 +116,42 @@ function listarProductos() {
 
                         if (valorando == '0') {
                             tr = '<tr id="fila' + contador + '">\n\
-                        <td><center><button class="btn btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
-                        <td><input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" ></input></td>\n\
-                        <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
-                        <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\
-                        <td><span id="costoUnitarioM' + contador + '" >' + ivacosto.toFixed(4) + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(elem[ind].cantidad).toFixed(4) + '" disabled> </input></td>\n\
-                        <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + ivacosto.toFixed(4) + '" name="' + contador + '" disabled="true"> </input> </td>\n\
-                        <td><input id="cda' + contador + '" class="form-control" type="hidden" value="0" disabled="true"/><input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/></td></tr>';
+                                    <td><center><button class="btn btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
+                                    <td><input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" ></input></td>\n\
+                                    <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoproducto + '" disabled></td>\n\
+                                    <td><span id="descripcionM' + contador + '">' + elem[ind].producto + '</span></td>\n\
+                                    <td><span id="costoUnitarioM' + contador + '" >' + ivacosto.toFixed(4) + '</span></td>\n\
+                                    <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(elem[ind].cantidad).toFixed(4) + '" disabled> </input></td>\n\
+                                    <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + ivacosto.toFixed(4) + '" name="' + contador + '" disabled="true"> </input> </td>\n\
+                                    <td><input id="cda' + contador + '" class="form-control" type="hidden" value="0" disabled="true"/><input id="costoUnitarioM' + contador + '" type="hidden" value="' + elem[ind].precioUnitarioConcepto + '" class="costos2"/></td></tr>';
 
                             $("#tablaDatosEntrada").append(tr);
                             contador = contador + 1;
-
                             subtotal = $("#subTotalM").val();
                             $("#subTotalM").val((parseFloat(subtotal) + parseFloat(ivacosto)).toFixed(4));
                             var newsubtotal = $("#subTotalM").val();
-                            $("#ivaM").val(parseFloat(newsubtotal) * parseFloat(0.16));
-                            $("#sdaM").val(parseFloat(subtotal) + parseFloat(elem[ind].tarifa));
-                            $("#costoTotal").val(parseFloat($("#sdaM").val()));
+                            $("#ivaM").val(((parseFloat(newsubtotal) / parseFloat(1.16)) * parseFloat(0.16)).toFixed(4));
+                            $("#sdaM").val((parseFloat(subtotal) + parseFloat(ivacosto)).toFixed(4));
+                            $("#costoTotal").val(newsubtotal);
                             $(".descuentos").attr('disabled', 'disabled');
                             $("#guardarOrdenCompra").show();
                             $("#CancelarOrden").show();
                         } else {
-                            alertify.error("Se sumo producto con exito");
                             sumar = $("#cant" + valorando).val();
                             total = 1 + parseInt(sumar);
                             $("#cant" + valorando).val(total);
                             calcularPorCantidad(valorando);
                             valorando = 0;
+                            alertify.error("Se sumo producto con exito");
                         }
                     });
 
                 });
-
-
             });
-
         });
-
+        $("#sucursal").prop("disabled","disabled");
         $('#mdlbuscador').modal('toggle');
+        $("#todos").empty();
     } else {
         alertify.error("Debes seleccionar al menos un producto");
     }
@@ -447,6 +433,8 @@ function calcularPorCosto(id) {
 }
 function calcularPorCantidad(id) {
     var cantPorCantidad = $("#cant" + id).val();
+    alert(cantPorCantidad);
+
     if (cantPorCantidad == '-' || cantPorCantidad == '+') {
     }
     else {
@@ -457,14 +445,21 @@ function calcularPorCantidad(id) {
         }
         else {
             var costoPorCantidad = $("#costoUnitarioM" + id).text();
+            alert(costoPorCantidad);
+
             if (isNaN(costoPorCantidad)) {
                 costoPorCantidad = 0;
             }
             if (isNaN(cantPorCantidad)) {
                 cantPorCantidad = 0;
             }
+
             var importe = costoPorCantidad * cantPorCantidad;
+            alert(importe);
+
             $("#importe" + id).val(importe.toFixed(2));
+
+
             sumaDeSubtotales();
             calcularCda();
             calcularSDA();
@@ -475,6 +470,7 @@ function calcularPorCantidad(id) {
 }
 function calculaTotalEntradasManual() {
     var sda = $("#sdaM").val();
+    alert(sda);
     if (isNaN(sda)) {
         sda = 0;
     }
@@ -482,15 +478,19 @@ function calculaTotalEntradasManual() {
     if (isNaN(iva)) {
         iva = 0;
     }
-    var total = parseFloat(sda) + parseFloat(iva);
+    var total = parseFloat(sda);
+    alert(total);
     $("#costoTotal").val(total.toFixed(2));
 }
 
 function calcularDescuentos(id) {
     var importe;
     var nuevoImporte;
+
     var descuento1 = $("#descuento1" + id).val();
+
     var descuento2 = $("#descuento2" + id).val();
+
     if (descuento1 == '-' || descuento1 == '+' || descuento2 == '-' || descuento2 == '+') {
     }
     else {
@@ -926,7 +926,6 @@ $(document).ready(function () {
     $("#CancelarOrden").click(function () {
         $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
-
         });
         $("#sucursal").prop("disabled", false);
         $("#ModificarOrden").hide();
@@ -937,12 +936,15 @@ $(document).ready(function () {
         $(".resultando").val(0);
         $("#folioM").prop("disabled", false);
     });
+    
     var tipo = "PEDIDO%20CLIENTE";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function () {
         $('#dtproveedor').dataTable();
     });
     $("#sucursal").load("sacarSucursales.php?pedidoCliente='pedido'");
+
     $("#btnbuscador").click(function () {
+        $("#todos").empty();
         var s = $("#sucursal").val();
         if (s == 0) {
             alertify.error("Debes seleccionar una sucursal");

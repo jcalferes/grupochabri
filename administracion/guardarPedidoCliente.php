@@ -16,6 +16,7 @@ $tipo = "PEDIDO CLIENTE";
 $idCliente = $dao->obtenerDatosCliente($idCliente);
 while ($rs = mysql_fetch_array($idCliente)) {
     $rfcCliente = $rs["rfc"];
+    $nombrecliente = $rs["nombre"];
 }
 //$idsucursal = $_SESSION["sucursalSesion"];
 $idsucursal = $_POST["sucursal"];
@@ -73,5 +74,5 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
+$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo, $nombrecliente);
 echo $paso;
