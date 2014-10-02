@@ -46,7 +46,7 @@
                 </div>
                 <hr>
                 <div>
-                    <table class="table table-hover" id="tablaDatosEntrada">
+                    <table class="table table-hover table-condensed" id="tablaDatosEntrada" >
                         <thead> 
                         <th >Eliminar</th>
                         <th>Cantidad</th>
@@ -54,26 +54,24 @@
                         <th>Descripcion</th>
                         <th>Costo</th>
                         <th>Existencia</th>
-    <!--                    <th>Desct. 1</th>
-                        <th>Desct. 2</th>-->
-    <!--                    <th>Desct. Total</th>-->
-    <!--                    <th>CDA</th>-->
                         <th>Importe</th> 
                         </thead>
                     </table>
                 </div>
                 <hr>
                 <form class="form-inline text-right">
-                    <span>Subtotal : <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>Subtotal:</label>
+                    <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
-                
+
                 <form class="form-inline text-right">
-                    <!--<span>SDA :--> 
-                    <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>SDA:</label>
+                    <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
                 <br>
                 <form class="form-inline text-right">
-                    <span>Iva 16% : <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>IVA:</label>
+                    <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
                 <br>
                 <form class="form-inline text-right">
@@ -89,11 +87,12 @@
         </div>
         <!-- Modal -->
         <div class="modal fade" id="mdlbuscador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="modal-dialog" style="width: 80%">
+            <div class="modal-dialog" style="width: 95%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Busqueda de productos</h4>
+                        <span class="text-muted"><i>Precios con IVA incluido.</i></span>
                     </div>
                     <div class="modal-body">
                         <div id="todos" >

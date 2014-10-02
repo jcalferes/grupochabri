@@ -1,6 +1,5 @@
 <?php
 
-//
 include_once './administracion.clases/Concepto.php';
 include_once './administracion.clases/Comprobante.php';
 include_once './administracion.dao/dao.php';
@@ -12,12 +11,13 @@ error_reporting(0);
 
 session_start();
 $dao = new dao();
-$idCliente = 2;
+$idCliente = $_SESSION["usuarioSesion"];
 $tipo = "PEDIDO CLIENTE";
 $idCliente = $dao->obtenerDatosCliente($idCliente);
- while ($rs = mysql_fetch_array($idCliente)) {
-$rfcCliente = $rs["rfc"];
-     }
+while ($rs = mysql_fetch_array($idCliente)) {
+    $rfcCliente = $rs["rfc"];
+    $nombrecliente = $rs["nombre"];
+}
 //$idsucursal = $_SESSION["sucursalSesion"];
 $idsucursal = $_POST["sucursal"];
 $utilerias = new Utilerias();
@@ -74,5 +74,5 @@ foreach ($conceptos as $detalles) {
 }
 $control = count($conceptos);
 $cn->Conectarse();
-$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo);
+$paso = $dao->superMegaGuardadorOrdenes($utilerias->generarFecha(), $encabezado, $array, $comprobante, $conceptos, $control, $idsucursal, $tipo, $nombrecliente);
 echo $paso;

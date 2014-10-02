@@ -177,12 +177,11 @@ class dao {
     function obtenerDatosCliente($idCliente) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
-
-        $sql = "SELECT * FROM usuarios u INNER JOIN clientes c ON c.idUsuario = u.idUsuario
-                INNER JOIN	direcciones d ON c.idDireccion = c.idDireccion 
-                WHERE u.idUsuario = '$idCliente'";
+        $sql = "SELECT * FROM usuarios u "
+                . "INNER JOIN clientes c ON c.idUsuario = u.idUsuario "
+                . "INNER JOIN direcciones d ON d.idDireccion = c.idDireccion "
+                . "WHERE u.idUsuario = '$idCliente'";
         $datos = mysql_query($sql, $cn->Conectarse());
-
         return $datos;
     }
 
@@ -296,10 +295,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $datos;
     }
 
-    function dondeInicie($idsucursal, $usuario) {
+    function dondeInicie($idsucursal, $idusuario) {
         $sql = "SELECT * FROM sucursales s "
                 . "INNER JOIN usuarios u "
-                . "WHERE u.usuario = '$usuario' AND s.idSucursal = '$idsucursal'";
+                . "WHERE u.idUsuario = '$idusuario' AND s.idSucursal = '$idsucursal'";
         $rs = mysql_query($sql);
         return $rs;
     }
@@ -1713,7 +1712,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         mysql_query("COMMIT;");
     }
 
-    function superMegaGuardadorOrdenes($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $usuario, $evento) {
+    function superMegaGuardadorOrdenes($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $tipo, $nombrecliente) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -1769,8 +1768,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
 
             if ($tipo !== "PEDIDO CLIENTE" && $tipo !== "ORDEN COMPRA") {
-                $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal)"
-                        . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal')";
+                $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal, idTipoPago, nombreCliente)"
+                        . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $comprobante->getFolio() . "','$tipo','$lafecha','$idSucursal', '1', '$nombrecliente')";
                 $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
                 $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
                 if ($ctrlComprobanteGuardar == false) {
@@ -1796,8 +1795,8 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                     }
                 }
             } else {
-                $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal, statusOrden)"
-                        . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $sqlfolios . "','$tipo','$lafecha','$idSucursal','$estatus')";
+                $sqlComprobanteGuardar = "INSERT INTO xmlcomprobantes (fechaComprobante, subtotalComprobante, sdaComprobante, rfcComprobante, desctFacturaComprobante, desctProntoPagoComprobante, desctGeneralComprobante, desctPorProductosComprobante, desctTotalComprobante, ivaComprobante, totalComprobante, folioComprobante, tipoComprobante, fechaMovimiento, idSucursal, statusOrden, idTipoPago, nombreCliente)"
+                        . " VALUES ('" . $encabezado->getFecha() . "','" . $encabezado->getSubtotal() . "','" . $comprobante->getSda() . "','" . $encabezado->getRfc() . "','" . $comprobante->getDescuentoFactura() . "','" . $comprobante->getDescuentoProntoPago() . "','" . $comprobante->getDescuentoGeneral() . "','" . $comprobante->getDescuentoPorProducto() . "','" . $comprobante->getDescuentoTotal() . "','" . $comprobante->getConIva() . "','" . $comprobante->getTotal() . "','" . $sqlfolios . "','$tipo','$lafecha','$idSucursal','$estatus', '1', '$nombrecliente')";
                 $sqlComprobanteId = "SELECT LAST_INSERT_ID() ID;";
                 $ctrlComprobanteGuardar = mysql_query($sqlComprobanteGuardar);
                 if ($ctrlComprobanteGuardar == false) {

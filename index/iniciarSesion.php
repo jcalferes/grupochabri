@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-//session_destroy();
 $_SESSION["usuarioSesion"] = "";
 $_SESSION["tipoSesion"] = "";
 $_SESSION["sucursalSesion"] = "";
@@ -16,28 +15,19 @@ $cn = new coneccion();
 $link = $cn->Conectarse();
 $usuario->setPass($utilerias->genera_md5($_GET["pass"]));
 $usuario->setUsuario($_GET["usuario"]);
-//$nombrepc = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-//$nombrepc = "HOME";
-//$validapc = $dao->verificarMaquina($nombrepc);
-//if ($validapc == "VALIDA") {
 $control = $dao->iniciarSesion($usuario);
 if ($control == 1) {
     echo 666;
 } else {
     while ($rs = mysql_fetch_array($control)) {
         $nombre = $rs['nombre'];
-        $tipousuario = $rs['idTipoUsuario'];
+        $idusuario = $rs['idUsuario'];
+        $tipousuario = $rs['idtipousuario'];
         $idsucursal = $rs['idSucursal'];
     }
-//        if ($tipousuario == 2) {
-    $_SESSION["usuarioSesion"] = $usuario->getUsuario();
+    $_SESSION["usuarioSesion"] = $idusuario;
     $_SESSION["tipoSesion"] = $tipousuario;
     $_SESSION["sucursalSesion"] = $idsucursal;
-//        }
     echo $tipousuario;
     $cn->cerrarBd();
 }
-//} else {
-//    echo 777;
-//    $cn->cerrarBd();
-//}

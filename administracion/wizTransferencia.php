@@ -57,7 +57,7 @@
         <div class="modal fade" id="mdlDetalleTransferencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width: 1000px">
                 <div class="modal-content">
-                    <div class="modal-header" ">
+                    <div class="modal-header">
 
                         <h4 class="modal-title" id="labelTitulo">Transferencias</h4>
                     </div>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input id="mandarRespuesta" type="button" class="btn btn-default" value="Aceptar Pedido"/>
+                                <input id="mandarRespuesta" type="button" class="btn btn-cprimary" value="Aceptar Pedido"/>
                                 <input id="cancelarPedido" type="button" class="btn btn-default" value="Cancelar Pedido"/>
                                 <input id="cancelo" type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                                 <!--<input id="guardarTarifas" type="button" class="btn btn-primary" data-dismiss="modal" value="Guardar" disabled/>-->
