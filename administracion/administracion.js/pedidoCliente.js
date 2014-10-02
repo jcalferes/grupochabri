@@ -205,7 +205,7 @@ $("#folioM").keypress(function (e) {
                 $.each(lista, function (ind, elem) {
                     $.each(elem, function (ind, elem2) {
                         sucursal = elem[ind].idSucursal;
-                        tr2 = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ',1)">x</a></td>\n\
+                        tr2 = '<tr id="fila' + contador + '"><td><center><button class="btn btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                         <td> \n\
                         <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + '),calcularPorCosto(' + contador + ');" class="form-control cantidades pedido" type= "text" value="' + elem[ind].cantidadConcepto + '" disabled="true"> </input> </td>\n\
                         <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + elem[ind].codigoConcepto + '" disabled></td>\n\
@@ -258,19 +258,21 @@ $("#folioM").keypress(function (e) {
 
 $("#codigoProductoEntradas").keypress(function (e) {
     if (e.which == 13) {
+        var coded = $.trim(($("#codigoProductoEntradas").val()).toUpperCase());
+        alert(coded);
         valorando = 0;
 
         $('.CProducto').each(function () {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-            if ($("#codigoProductoEntradas").val() == valor && $("#codigoProductoEntradas").val() !== "nada") {
+            if (coded == valor && coded !== "nada") {
                 valorando = nombre;
             }
         });
 
         if (valorando == 0) {
-            var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val() + "&sucursal=" + $("#sucursal").val();
+            var info = "codigoProducto=" + coded + "&proveedor=" + $("#proveedores").val() + "&sucursal=" + $("#sucursal").val();
             $.get('mostrarInformacionProductogral.php', info, function (informacion) {
                 if (informacion == 1) {
                     if ($("#sucursal").val() == '0') {
@@ -284,26 +286,31 @@ $("#codigoProductoEntradas").keypress(function (e) {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr id="fila' + contador + '"><td><center><button class="btn btn-default btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
+
+                        var costo = datosJson[i].costo;
+                        var iva = (costo * 16) / 100;
+                        var ivacosto = parseFloat(costo) + parseFloat(iva);
+
+                        tr = '<tr id="fila' + contador + '"><td><center><button class="btn btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
                                 <td><input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
                                 <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
                                 <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\
-                                <td><span id="costoUnitarioM' + contador + '" >' + parseFloat(datosJson[i].costo) + '</span></td>\n\
-                                <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(datosJson[i].existencia) + '" disabled> </input></td>\n\
-                                <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + parseFloat(datosJson[i].costo) + '" name="' + contador + '" disabled="true"> </input>  </td>\n\
-                                <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + datosJson[i].costo + '" class="costos2"/></td></tr>';
+                                <td><span id="costoUnitarioM' + contador + '" >' + parseFloat(ivacosto.toFixed(4)) + '</span></td>\n\
+                                <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + datosJson[i].existencia + '" disabled> </input></td>\n\
+                                <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + parseFloat(ivacosto.toFixed(4)) + '" name="' + contador + '" disabled="true"> </input>  </td>\n\
+                                <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + ivacosto.toFixed(4) + '" class="costos2"/></td></tr>';
                     }
                     contador = contador + 1;
                     var subtotal = $("#subTotalM").val();
-                    var subtotalM = parseFloat(subtotal) + parseFloat(datosJson[i].costo);
-                    $("#subTotalM").val(subtotalM.toFixed(2));
+                    var subtotalM = parseFloat(subtotal) + parseFloat(ivacosto);
+                    $("#subTotalM").val(subtotalM.toFixed(4));
                     var newsubtotal = $("#subTotalM").val();
                     var ivaM = (parseFloat(newsubtotal) / parseFloat(1.16)) * parseFloat(0.16);
-                    $("#ivaM").val(ivaM.toFixed(2));
-                    var sdaM = parseFloat(subtotal) + parseFloat(datosJson[i].costo);
-                    $("#sdaM").val(sdaM.toFixed(2));
+                    $("#ivaM").val(ivaM.toFixed(4));
+                    var sdaM = parseFloat(subtotal) + parseFloat(ivacosto);
+                    $("#sdaM").val(sdaM.toFixed(4));
                     var costoTotalM = parseFloat($("#sdaM").val());
-                    $("#costoTotal").val(costoTotalM.toFixed(2));
+                    $("#costoTotal").val(costoTotalM.toFixed(4));
                     $("#tablaDatosEntrada").append(tr);
                     $(".descuentos").attr('disabled', 'disabled');
                     $("#guardarOrdenCompra").show();
