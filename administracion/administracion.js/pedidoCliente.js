@@ -15,61 +15,41 @@ function eliminandoFila(fila, bandera) {
     var descgral = 0;
     var descprod = 0;
     var importes = 0;
+
     if (bandera == 1) {
         $(".pedido").prop("disabled", false);
         $("#btnbuscador").prop("disabled", false);
         $("#guardaEnviaOrden").show();
         $("#CancelarOrden").show();
         $("#enviarOrdenCompra").hide();
-//        $("#emailProveedor").load("mostrarEmailsProveedor.php");
-//        $("#emailProveedor").show();
         $("#descuentosGlobalesManuales").prop('checked', true);
     }
+
     $('#fila' + fila + '').each(function () {
         $(this).remove();
-
     });
+
     $('.totales').each(function () {
         var elemento = this;
         var valor = elemento.value;
-//        var nombre = elemento.name;
-//        var cantidad = $("#cant" + nombre).val();
-//        var sumaImporte=parseFloat(valor) * parseFloat(cantidad);
         importes += parseFloat(valor);
-//        alert( " costo="+valor  );
     });
 
-//    $('.cdas').each(function() {
-//        var elemento = this;
-//        var valor = elemento.value;
-//        descprod += parseFloat(valor);
-//
-//    });
 
     $('.costos2').each(function () {
         var elemento = this;
         var valor = elemento.value;
         subtotal += parseFloat(valor);
-
     });
-//    $('.desct').each(function() {
-//        var elemento = this;
-//        var valor = elemento.value;
-//        descprod += parseFloat(valor);
-//
-//    });
-//    var descgral = parseFloat(importes) * (parseFloat($("#descuentosGeneralesPorComasM").val() / 100));
-//    var descuentoTotal = parseFloat(descprod) + parseFloat(descgral);
-//    var sdam = parseFloat(subtotal) - parseFloat(descuentoTotal);dsa
-    var iva = parseFloat(importes) * .16;
+
+
+    var iva = (((parseFloat(importes) / parseFloat(1.16)) * parseFloat(0.16)).toFixed(4));
+    alert(iva);
 
     $("#subTotalM").val(parseFloat(importes).toFixed(2));
-//    $("#descuentoGeneralM").val(descgral);
-//    $("#descuentoProductosM").val(descprod);
-//    $("#descuentoTotalM").val(descuentoTotal);
-//    $("#sdaM").val(sdam);
+    $("#sdaM").val(parseFloat(importes).toFixed(2));
     $("#ivaM").val(parseFloat(iva).toFixed(2));
-    var costoTotalM = parseFloat(importes) + parseFloat(iva);
+    var costoTotalM = parseFloat(importes);
     $("#costoTotal").val(costoTotalM.toFixed(2));
 }
 
@@ -149,7 +129,7 @@ function listarProductos() {
                 });
             });
         });
-        $("#sucursal").prop("disabled","disabled");
+        $("#sucursal").prop("disabled", "disabled");
         $('#mdlbuscador').modal('toggle');
         $("#todos").empty();
     } else {
@@ -362,11 +342,11 @@ $("#codigoProductoEntradas").keypress(function (e) {
                     var subtotalM = parseFloat(subtotal) + parseFloat(datosJson[i].costo);
                     $("#subTotalM").val(subtotalM.toFixed(2));
                     var newsubtotal = $("#subTotalM").val();
-                    var ivaM = parseFloat(newsubtotal) * parseFloat(0.16);
+                    var ivaM = (parseFloat(newsubtotal) / parseFloat(1.16)) * parseFloat(0.16);
                     $("#ivaM").val(ivaM.toFixed(2));
                     var sdaM = parseFloat(subtotal) + parseFloat(datosJson[i].costo);
                     $("#sdaM").val(sdaM.toFixed(2));
-                    var costoTotalM = parseFloat($("#ivaM").val()) + parseFloat($("#sdaM").val());
+                    var costoTotalM = parseFloat($("#sdaM").val());
                     $("#costoTotal").val(costoTotalM.toFixed(2));
                     $("#tablaDatosEntrada").append(tr);
                     $(".descuentos").attr('disabled', 'disabled');
@@ -455,9 +435,8 @@ function calcularPorCantidad(id) {
             }
 
             var importe = costoPorCantidad * cantPorCantidad;
-            alert(importe);
 
-            $("#importe" + id).val(importe.toFixed(2));
+            $("#importe" + id).val(importe.toFixed(4));
 
 
             sumaDeSubtotales();
@@ -569,11 +548,11 @@ function calcularIva() {
     if (isNaN(sda)) {
         sda = 0;
     }
-    iva = (sda * iva);
+    iva = ((sda / parseFloat(1.16)) * parseFloat(iva));
     if (isNaN(iva)) {
         iva = 0;
     }
-    $("#ivaM").val(iva.toFixed(2));
+    $("#ivaM").val(iva.toFixed(4));
 }
 
 function validarCampoDesc2(id) {
@@ -936,7 +915,7 @@ $(document).ready(function () {
         $(".resultando").val(0);
         $("#folioM").prop("disabled", false);
     });
-    
+
     var tipo = "PEDIDO%20CLIENTE";
     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo, function () {
         $('#dtproveedor').dataTable();
