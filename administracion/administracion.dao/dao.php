@@ -4888,4 +4888,21 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $ctrl;
     }
 
+    function dameInformacionUsuario($usuario) {
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios WHERE usuario ='$usuario'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function dameCorreos($usuario) {
+        $cn = new coneccion();
+        $sql = "SELECT * FROM usuarios u "
+                . "inner join emails em on "
+                . "u.idUsuario = em.idPropietario "
+                . "WHERE u.usuario = '$usuario'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
 }

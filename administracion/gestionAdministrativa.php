@@ -89,6 +89,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ><span id="session_nombre"> </span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                               
                                 <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
                                 <li><a href="../index/cerrarSesion.php">Cerrar session</a></li>
