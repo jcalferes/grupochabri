@@ -652,7 +652,39 @@ $(document).ready(function () {
     $("#ModificarOrden").hide();
     $("#emailProveedor").hide('slow');
 
+
+    $("#btnbuscador").prop("disabled", false);
+    $("#codigoProductoEntradas").val("");
+
+    $("#descuentosGeneralesM").prop("checked", false);
+    $("#descuentosGlobalesManuales").prop("checked", false);
+    contador = 1;
+    folio = 0;
+    $("#sucursal").prop("disabled", false);
+    $("#sucursal").show("slow");
+    $("#sucursal").val("0");
+    $("#codigoProductoEntradas").prop("disabled", false);
+    $('#tablaDatosEntrada td').each(function () {
+        $(this).remove();
+    });
+    $("#enviarOrdenCompra").hide("slow");
+    $("#folio").val("");
+
+    $(".resultando").val(0);
+    $("#ModificarOrden").hide('slow');
+    $("#guardaEnviaOrden").hide('slow');
+    $("#CancelarOrden").hide();
+
+    $("#folioM").hide('slow');
+    $("#folio").hide('slow');
+
+
+
+
+
+
     $("#guardaEnviaOrden").click(function () {
+
         var inf = new Array();
         var lstConceptos = new Array();
         var xmlComprobanteManualmente = new XmlComprobante();

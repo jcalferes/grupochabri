@@ -12,7 +12,7 @@
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden de compra para clientes</h2>
             <section>
 
-                <div class="form-group">
+<!--                <div class="form-group">
                     <label class="radio-inline" >
                         <span>
                             <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
@@ -24,7 +24,7 @@
                             <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
                             Revisar/Modificar Pedido                        </span>
                     </label>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <select id="sucursal" class="form-control" style="width: 50%">
                         <option value="0">Seleccione una Sucursal</option>
