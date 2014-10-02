@@ -54,7 +54,6 @@ function eliminandoFila(fila, bandera) {
 }
 
 function verOrdenCompra(folio, comprobante) {
-//    alert("folio:" + folio + " comprobante:" + comprobante);
     var info = "valor=" + folio + "&comprobante=PEDIDO CLIENTE";
     window.open('generarReporte.php?' + info);
 
@@ -147,12 +146,6 @@ function seleccionTipo() {
         $("#descuentosGlobalesManuales").prop("checked", false);
         contador = 1;
         folio = 0;
-//        $("#emailProveedor").selectpicker('hide');
-//        $("#lblemailP").hide('slow');
-//        $("#txtEmail").hide('slow');
-//        $("#lblemailO").hide('slow');
-//        $('#proveedores').prop("disabled", true);
-//        $("#proveedores").selectpicker('hide');
         $("#guardarOrdenCompra").hide();
         $("#guardaEnviaOrden").hide();
         $("#sucursal").hide("slow");
@@ -160,7 +153,6 @@ function seleccionTipo() {
         $("#folio").show('slow');
         $("#folio").val("");
         $(".resultando").val(0);
-//        $("#ModificarOrden").show('slow');
         $("#folioM").prop("disabled", false);
         $("#codigoProductoEntradas").prop("disabled", true);
         $('#tablaDatosEntrada td').each(function () {
@@ -181,25 +173,14 @@ function seleccionTipo() {
         $("#codigoProductoEntradas").prop("disabled", false);
         $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
-
         });
         $("#enviarOrdenCompra").hide("slow");
-//        $('#proveedores').selectpicker("val", 0);
         $("#folio").val("");
-//        $('#proveedores').prop("disabled", false);
-
 
         $(".resultando").val(0);
         $("#ModificarOrden").hide('slow');
         $("#guardaEnviaOrden").hide('slow');
         $("#CancelarOrden").hide();
-
-//        $("#guardarOrdenCompra").show();
-//        $('#proveedores').selectpicker('show');
-//        $("#emailProveedor").selectpicker('hide');
-//        $("#lblemailP").hide('slow');
-//        $("#txtEmail").hide('slow');
-//        $("#lblemailO").hide('slow');
 
         $("#folioM").hide('slow');
         $("#folio").hide('slow');
@@ -208,15 +189,11 @@ function seleccionTipo() {
 }
 $("#folioM").keypress(function (e) {
     if (e.which == 13) {
-//        alert("entro");
-//        $("#enviarOrdenCompra").prop('value', "Enviar Orden de Compra");
-//        $("#enviarOrdenCompra").prop('id', "enviarOrdenCompra");
         $('#tablaDatosEntrada td').each(function () {
             $(this).remove();
 
         });
         var info = "folio=" + $("#folioM").val() + "&comprobante=PEDIDO CLIENTE";
-//        alert(info);
         $.get('consultaClientePedido.php', info, function (x) {
             if (x == 0) {
                 alertify.error("No existe este codigo");
@@ -258,30 +235,13 @@ $("#folioM").keypress(function (e) {
                         $("#costoTotal").val(parseFloat(elem[ind].totalComprobante));
 
                         $('#rfcComprobante').selectpicker("val", "\"" + elem[ind].rfcComprobante + "\"");
-
-//                        $('#proveedores').selectpicker("val", elem[ind].rfcComprobante);
-//                        $('#proveedores').prop("disabled", true);
                         $("#ModificarOrden").show('slow');
-
-
-
-//                        $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + elem[ind].rfcComprobante, function() {
-//                            $("#emailProveedor").selectpicker();
-//                            $("#emailProveedor").selectpicker('show');
-//
-//                        });
-//                        $("#txtEmail").show('slow');
-//
-//                        $("#lblemailP").show('show');
-//                        $("#lblemailO").show('show');
-//                        $("#proveedores").selectpicker('show');
                         $("#sucursal").show();
                         $("#sucursal").val(sucursal);
 
                         $("#sucursal").prop("disabled", true);
                         $("#guardaEnviaOrden").hide();
                         $("#CancelarOrden").show();
-//                        $("#enviarOrdenCompra").hide();
                         $("#folioM").prop("disabled", true);
                         $("#codigoProductoEntradas").prop("disabled", true);
 
@@ -295,21 +255,20 @@ $("#folioM").keypress(function (e) {
         });
     }
 });
+
 $("#codigoProductoEntradas").keypress(function (e) {
     if (e.which == 13) {
         valorando = 0;
-        $('.CProducto').each(function () {
 
+        $('.CProducto').each(function () {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-//            alert(elemento.name);
             if ($("#codigoProductoEntradas").val() == valor && $("#codigoProductoEntradas").val() !== "nada") {
-//            alertify.error("ya existe");
                 valorando = nombre;
-
             }
         });
+
         if (valorando == 0) {
             var info = "codigoProducto=" + $("#codigoProductoEntradas").val() + "&proveedor=" + $("#proveedores").val() + "&sucursal=" + $("#sucursal").val();
             $.get('mostrarInformacionProductogral.php', info, function (informacion) {
@@ -320,22 +279,19 @@ $("#codigoProductoEntradas").keypress(function (e) {
                         alertify.error("Error! Producto no dado de alta en ventas online");
                         return false;
                     }
-
                 }
                 else {
                     var datosJson = eval(informacion);
                     var tr;
                     for (var i in datosJson) {
-                        tr = '<tr id="fila' + contador + '"><td><a onclick="eliminandoFila(' + contador + ')">x</a></td>\n\
-                        <td> \n\
-                        <input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
-                        <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
-                        <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\\n\
-                        <td><span id="costoUnitarioM' + contador + '" >' + parseFloat(datosJson[i].costo) + '</span></td>\n\
-                        <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(datosJson[i].existencia) + '" disabled> </input>\n\
-                        </td>\n\
-                       <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + parseFloat(datosJson[i].costo) + '" name="' + contador + '" disabled="true"> </input>  </td>\n\
-        <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + datosJson[i].costo + '" class="costos2"/></td></tr>';
+                        tr = '<tr id="fila' + contador + '"><td><center><button class="btn btn-default btn-xs" onclick="eliminandoFila(' + contador + ')"><span class="glyphicon glyphicon-remove"></span></button></center></td>\n\
+                                <td><input id="cant' + contador + '" onkeyup="calcularPorCantidad(' + contador + ');" class="form-control cantidades pedido" type= "text" name="' + contador + '" value="1" > </input> </td>\n\
+                                <td><input type="text" id="codigoM' + contador + '" name="' + contador + '" class="CProducto form-control" value="' + datosJson[i].codigoProducto + '" disabled></td>\n\
+                                <td><span id="descripcionM' + contador + '">' + datosJson[i].producto + '</span></td>\n\
+                                <td><span id="costoUnitarioM' + contador + '" >' + parseFloat(datosJson[i].costo) + '</span></td>\n\
+                                <td> <input type="text" id="costo' + contador + '"  class="form-control cantidades costos" value="' + parseFloat(datosJson[i].existencia) + '" disabled> </input></td>\n\
+                                <td><input id="importe' + contador + '" class="form-control totales" type= "text" value="' + parseFloat(datosJson[i].costo) + '" name="' + contador + '" disabled="true"> </input>  </td>\n\
+                                <td> <input id="cda' + contador + '" class="form-control" type= "hidden" value="0" disabled="true"/> <input id="costoUnitarioM' + contador + '" type="hidden" value="' + datosJson[i].costo + '" class="costos2"/></td></tr>';
                     }
                     contador = contador + 1;
                     var subtotal = $("#subTotalM").val();
@@ -361,10 +317,11 @@ $("#codigoProductoEntradas").keypress(function (e) {
             total = 1 + parseInt(sumar);
             $("#cant" + valorando).val(total);
             calcularPorCantidad(valorando);
-
         }
     }
 });
+
+
 function validar() {
     var valor = $("#numero").val();
     if (valor == '-' || valor == '+') {
@@ -685,12 +642,8 @@ $(document).ready(function () {
     $("#CancelarOrden").hide();
     $("#guardarOrdenCompra").hide();
     $("#guardaEnviaOrden").hide();
-//    $("#txtEmail").hide();
     $("#ModificarOrden").hide();
     $("#emailProveedor").hide('slow');
-//    $("#lblemailP").hide();
-//    $("#lblproveedor").hide();
-//    $("#lblemailO").hide();
 
     $("#guardaEnviaOrden").click(function () {
         var inf = new Array();
@@ -715,7 +668,6 @@ $(document).ready(function () {
             conceptos.cdaConcepto = $("#cda" + x).val();
             conceptos.codigoConcepto = $("#codigoM" + x).val();
             conceptos.costoCotizacion = $("#costo" + x).val();
-//            alert($("#codigoM" + x).val());
             conceptos.descripcionConcepto = $("#descripcionM" + x).text();
             conceptos.desctUnoConcepto = $("#descuento1" + x).val();
             conceptos.desctDosConcepto = $("#descuento2" + x).val();
@@ -723,26 +675,18 @@ $(document).ready(function () {
             conceptos.precioUnitarioConcepto = $("#costoUnitarioM" + x).text();
             conceptos.unidadMedidaConcepto = "";
             if ($("#codigoM" + x).val() !== "" && $("#codigoM" + x).val() !== undefined) {
-//                alert("entro" + x)
                 lstConceptos.push(conceptos);
             }
-
         }
         inf.push(xmlComprobanteManualmente);
         inf.push(lstConceptos);
         var informacion = JSON.stringify(inf);
-//        $.post('guardarOrdenCompra.php', informacion, function(x) {
-//           
-//            window.location.href = 'generarReporte2.php?tr2=' + tr3;
-//            alertify.success("Exito! Orden Guardada" );
-//        });
         $.ajax({
             type: "POST",
             url: "guardarPedidoCliente.php",
             data: {data: informacion, band: "modifica", folio: $("#folioM").val(), sucursal: $("#sucursal").val()},
             cache: false,
             success: function (x) {
-//                alert(x);
                 window.open('generarReporte.php?valor=' + x + '&comprobante=PEDIDO CLIENTE');
                 alertify.success("Exito! Orden Guardada");
             }
@@ -755,15 +699,10 @@ $(document).ready(function () {
         $("#guardaEnviaOrden").show();
         $("#CancelarOrden").show();
         $("#enviarOrdenCompra").hide();
-//        $("#emailProveedor").load("mostrarEmailsProveedor.php");
-//        $("#emailProveedor").show();
         $("#descuentosGlobalesManuales").prop('checked', true);
-
-
     });
 
     $("#enviarOrdenCompra").click(function () {
-//        alert(folio);
         if ($("#folioM").val() != "") {
             var info = "valor=" + $("#folioM").val();
             window.open('generarReporte.php?' + info + '&comprobante=PEDIDO CLIENTE');
@@ -773,23 +712,6 @@ $(document).ready(function () {
         }
     });
 
-//    $("#proveedores").change(function() {
-//        if ($("#proveedores").val() == 0) {
-//            $("#codigoProductoEntradas").attr('disabled', 'disabled');
-//            $("#buscarCodigoEntradas").attr('disabled', 'disabled');
-//
-//        }
-//        else {
-//
-//            $("#buscarCodigoEntradas").removeAttr('disabled');
-//            $("#codigoProductoEntradas").removeAttr('disabled');
-//        }
-//    });
-
-//    $("#proveedores").load("mostrarProveedoresManualmente.php", function() {
-//        $("#proveedores").selectpicker();
-//        $("#proveedores").selectpicker('hide');
-//    });
     $("#descuentosGlobalesManuales").change(function () {
         if ($("#descuentosGlobalesManuales").is(':checked')) {
             for (var x = 0; x < contador; x++) {
@@ -827,11 +749,8 @@ $(document).ready(function () {
             var elemento = this;
             var nombre = elemento.name;
             var valor = elemento.value;
-//        alert(elemento.name);
             if (parseInt(valor) >= parseInt($("#costo" + nombre).val())) {
-//            alertify.error("Debes elegir algun valor");
                 bandera = 1;
-
             }
         });
         if (bandera == 0 && entro >= 1) {
@@ -854,7 +773,6 @@ $(document).ready(function () {
                 conceptos.cdaConcepto = $("#cda" + x).val();
                 conceptos.codigoConcepto = $("#codigoM" + x).val();
                 conceptos.costoCotizacion = $("#costo" + x).val();
-//            alert($("#codigoM" + x).val());
                 conceptos.descripcionConcepto = $("#descripcionM" + x).text();
                 conceptos.desctUnoConcepto = $("#descuento1" + x).val();
                 conceptos.desctDosConcepto = $("#descuento2" + x).val();
@@ -874,21 +792,8 @@ $(document).ready(function () {
                 data: {data: informacion, sucursal: $("#sucursal").val()},
                 cache: false,
                 success: function (x) {
-//                    alert(x);
-//                var probando = $("#proveedores").val();
-//                    alert(x);
                     var info = 'valor=' + x + '&comprobante=PEDIDO CLIENTE';
                     window.open('generarReporte.php?' + info);
-//                $("#enviarOrdenCompra").show();
-//                $("#emailProveedor").load("mostrarEmailsProveedor.php?rfc=" + $("#proveedores").val(), function() {
-//                    $("#emailProveedor").selectpicker();
-//                    $("#emailProveedor").selectpicker('refresh');
-//                    $("#emailProveedor").selectpicker('show');
-//
-//                });
-//                $("#lblemailP").show('slow');
-//                $("#txtEmail").show('slow');
-//                $("#lblemailO").show('slow');
                     alertify.success("Exito! Orden Guardada");
                     var tipo = "PEDIDO%20CLIENTE";
                     $("#tablaOrden").load("cnsultaOrdenesLista.php?tipo=" + tipo);
