@@ -27,8 +27,9 @@ $verificasession->validaSesion();
         <link href="administracion.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
         <!-- CSS Personalizados-->
     </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="border: 1px solid #e7481c;">
+    <body style="background-color: whitesmoke">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,10 +42,10 @@ $verificasession->validaSesion();
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos</a></li>
+                                <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos"</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
                                 <li id="12" class=""><a href="javascript:entroAgranel();">Incrementar productos a granel</a></li>
@@ -53,22 +54,22 @@ $verificasession->validaSesion();
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Inventario <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
                                 <li id="5" class=""><a href="javascript:entroEntradasProductos();">Entradas de producto</a></li>
-                                <li id="7" class=""><a href="javascript:entroSalidasProduto();">Salidas de producto</a></li>
+                                <!--<li id="7" class=""><a href="javascript:entroSalidasProduto();">Salidas de producto</a></li>-->
                                 <li id="10" class=""><a href="javascript:entroVentas();">Ventas</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
                                 <li id="6" class=""><a href="javascript:ordenCompra();">Orden de compra y cotizaciones</a></li>
-                                <li id="13" class=""><a href="javascript:entroClientePedido();">Pedidos de clientes</a></li>
+                                <!--<li id="13" class=""><a href="javascript:entroClientePedido();">Pedidos de clientes</a></li>-->
                                 <li id="11" class=""><a href="javascript:entroTrasferencia();">Transferencias</a></li>
                                 <li id="16" class=""><a href="javascript:entroReportes();">Reportes</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Personas <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
                                 <li id="9" class=""><a href="javascript:entroCliente();">Clientes</a></li>
@@ -78,7 +79,7 @@ $verificasession->validaSesion();
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Publicar<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Publicar <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li id="15" class=""><a href="javascript:entroClasificados();">Clasificados</a></li>
                             </ul>
@@ -87,7 +88,7 @@ $verificasession->validaSesion();
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" ><span id="session_nombre"> </span> <b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label>&nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
@@ -103,7 +104,6 @@ $verificasession->validaSesion();
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span> Gestion Administrativa</span>
                 </div>
                 <div class="panel-body">
                     <div id="mostrar">
