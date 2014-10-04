@@ -97,7 +97,7 @@ $mipdf->render();
 //$mipdf->output();
 file_put_contents("reportes/probando.pdf", $mipdf->output());
 # Enviamos el fichero PDF al navegador.
-$mipdf->stream('reportes/probando.pdf',array("Attachment" => 0));
+$mipdf->stream('reportes/probando.pdf', array("Attachment" => 0));
 $correo = "shanaxchronos@gmail.com";
 $utileria->enviarCorreoElectronico($correo, $destinos);
 

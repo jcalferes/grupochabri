@@ -29,7 +29,7 @@ class Utilerias {
 //    $mail->SMTPSecure = "tls"; //SSL socket layer
 //  $mail->Host = "smtp.mail.yahoo.com"; //Servidor de SMTP 
 //    $mail->Port = 25; //Puerto seguro del servidor SMTP 
-        
+
         $mail->SMTPSecure = "ssl";
         $mail->Host = "smtp.gmail.com";
         $mail->Port = 465;

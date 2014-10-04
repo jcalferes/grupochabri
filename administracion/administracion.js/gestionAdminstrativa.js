@@ -1,4 +1,4 @@
-$(window).scroll(function() {
+$(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
         $('.scrollUp').fadeIn();
     } else {
@@ -6,16 +6,17 @@ $(window).scroll(function() {
     }
 });
 
-$(document).ready(function() {
-    $('.scrollUp').click(function() {
+$(document).ready(function () {
+    $('.scrollUp').click(function () {
         $("html, body").animate({scrollTop: 0}, 600);
         return false;
     });
 
-    $.get('dondeInicie.php', function(x) {
+    $.get('dondeInicie.php', function (x) {
+        alert(x);
         var i = $.parseJSON(x);
-        var sucursal = i.data.sucursal;
-        var nombre = i.data.nombre;
+        var sucursal = i.donde.sucursal;
+        var nombre = i.donde.nombre;
         if (x == 999) {
         } else {
             $("#session_nombre").text("Bienvenido(a): " + nombre);

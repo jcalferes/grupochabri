@@ -300,6 +300,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "INNER JOIN usuarios u "
                 . "WHERE u.idUsuario = '$idusuario' AND s.idSucursal = '$idsucursal'";
         $rs = mysql_query($sql);
+        if($rs == false){
+            $rs = mysql_error();
+        }
         return $rs;
     }
 

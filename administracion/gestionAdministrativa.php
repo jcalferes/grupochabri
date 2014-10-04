@@ -45,7 +45,7 @@ $verificasession->validaSesion();
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Productos <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header"></li>
-                                <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos"</a></li>
+                                <li id="2" class=""><a href="javascript:entroProducto();">Agregar o editar productos</a></li>
                                 <li class="divider"></li>
                                 <li class="dropdown-header"></li>
                                 <li id="12" class=""><a href="javascript:entroAgranel();">Incrementar productos a granel</a></li>
@@ -88,7 +88,7 @@ $verificasession->validaSesion();
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label>&nbsp;<b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
