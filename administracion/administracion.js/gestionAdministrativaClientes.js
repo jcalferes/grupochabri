@@ -1,4 +1,4 @@
-$(window).scroll(function() {
+$(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
         $('.scrollUp').fadeIn();
     } else {
@@ -6,16 +6,15 @@ $(window).scroll(function() {
     }
 });
 
-$(document).ready(function() {
-    $('.scrollUp').click(function() {
+$(document).ready(function () {
+    $('.scrollUp').click(function () {
         $("html, body").animate({scrollTop: 0}, 600);
         return false;
     });
-
-    $.get('dondeInicie.php', function(x) {
+    $.get('dondeInicie.php', function (x) {
         var i = $.parseJSON(x);
-        var sucursal = i.data.sucursal;
-        var nombre = i.data.nombre;
+        var sucursal = i.donde.sucursal;
+        var nombre = i.donde.nombre;
         if (x == 999) {
         } else {
             $("#session_nombre").text("Bienvenido(a): " + nombre);
@@ -81,22 +80,22 @@ function entroClasificados() {
 }
 
 function cambiarSucursal() {
-    $("#slccamsuc").load("sacarSucursales.php", function() {
+    $("#slccamsuc").load("sacarSucursales.php", function () {
         $('#slccamsuc').selectpicker();
         ;
     });
     $("#mdlcamsuc").modal('show');
 }
 
-$("#btncamsuc_cancelar").click(function() {
+$("#btncamsuc_cancelar").click(function () {
 
 });
 
-$("#btncamsuc_cambiar").click(function() {
+$("#btncamsuc_cambiar").click(function () {
     var n_suc = $("#slccamsuc").val();
     if (n_suc != 0) {
         var info = "nsuc=" + n_suc;
-        $.get('cambiarSucursalSession.php', info, function(r) {
+        $.get('cambiarSucursalSession.php', info, function (r) {
             if (r == true) {
                 document.location.href = '../administracion/gestionAdministrativaClientes.php';
             } else {

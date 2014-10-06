@@ -12,19 +12,23 @@
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden de compra para clientes</h2>
             <section>
 
-<!--                <div class="form-group">
-                    <label class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
-                            Nuevo Pedido
-                        </span>
-                    </label>
-                    <label class="radio-inline" >
-                        <span>
-                            <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
-                            Revisar/Modificar Pedido                        </span>
-                    </label>
-                </div>-->
+                <!--                <div class="form-group">
+                                    <label class="radio-inline" >
+                                        <span>
+                                            <input type="radio" name="tipo" id="cotizar" value="cotizar" onclick="seleccionTipo();" />
+                                            Nuevo Pedido
+                                        </span>
+                                    </label>
+                                    <label class="radio-inline" >
+                                        <span>
+                                            <input type="radio" name="tipo" id="orden" onclick="seleccionTipo();" value="orden" checked/>
+                                            Revisar/Modificar Pedido                        </span>
+                                    </label>
+                                </div>-->
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <strong>¡Importante! </strong> Los costos y existencias están sujetos a cambios sin previo aviso.
+                </div>
                 <div class="form-group">
                     <select id="sucursal" class="form-control" style="width: 50%">
                         <option value="0">Seleccione una Sucursal</option>
@@ -59,23 +63,12 @@
                     </table>
                 </div>
                 <hr>
-                <form class="form-inline text-right">
-                    <label>Subtotal:</label>
-                    <input type="text" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
-                </form>
-
-                <form class="form-inline text-right">
-                    <label>SDA:</label>
-                    <input type="text" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
-                </form>
+                <input type="hidden" id="subTotalM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
+                <input type="hidden" id="sdaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
+                <input type="hidden" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 <br>
                 <form class="form-inline text-right">
-                    <label>IVA:</label>
-                    <input type="text" id="ivaM" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
-                </form>
-                <br>
-                <form class="form-inline text-right">
-                    <span>Total : <input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/></span>
+                    <label>Total:</label>&nbsp;<input type="text" id="costoTotal" class="form-control text-right resultando" style="width: 20%" disabled="true" value="0"/>
                 </form>
                 <br>
                 <input type="button" class="btn btn-cprimary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
