@@ -76,7 +76,7 @@ if (!is_resource($ctrl)) {
         echo $ctrl;
     }
 } else {
-    echo "<br><div class='well well-sm'><div class='table-responsive'><table class='table table-hover'>"
+    echo "<br><div class='table-responsive'><table class='table table-hover' id='dtdconsulta'>"
     . "<tr>"
     . "<th>Folio</th>"
     . "<th>Nombre del cliente</th>"
@@ -85,14 +85,11 @@ if (!is_resource($ctrl)) {
     . "<th>Decuento</th>"
     . "<th>Total</th>"
     . "<th>Imprimir detalles</th>"
-    . "</tr>"
-    . "<tr>";
+    . "</tr>";
     while ($rs = mysql_fetch_array($ctrl)) {
-        echo "<td>$rs[folioComprobante]</td><td>$rs[nombreCliente]</td><td>$rs[fechaMovimiento]</td><td>$rs[subtotalComprobante]</td><td>$rs[desctTotalComprobante]</td><td>$rs[totalComprobante]</td><td><center><button type='button' onclick='imprime_datos(\"$rs[idXmlComprobante]\");' class='btn btn-sm'><span class='glyphicon glyphicon-print'></span></button></center></td>";
+        echo "<tr><td>$rs[folioComprobante]</td><td>$rs[nombreCliente]</td><td>$rs[fechaMovimiento]</td><td>$rs[subtotalComprobante]</td><td>$rs[desctTotalComprobante]</td><td>$rs[totalComprobante]</td><td><center><button type='button' onclick='imprime_datos(\"$rs[idXmlComprobante]\");' class='btn btn-sm'><span class='glyphicon glyphicon-print'></span></button></center></td></tr>";
     }
-    echo "</tr>"
-    . "<table>"
-    . "</div>"
+    echo "<table>"
     . "</div>";
 }
 $cn->cerrarBd();

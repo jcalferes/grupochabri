@@ -13,7 +13,6 @@ $(document).ready(function () {
     });
 
     $.get('dondeInicie.php', function (x) {
-        alert(x);
         var i = $.parseJSON(x);
         var sucursal = i.donde.sucursal;
         var nombre = i.donde.nombre;
