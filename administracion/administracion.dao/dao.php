@@ -4890,4 +4890,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $ctrl;
     }
 
+//============================= SUPER ADMINISTRADOR ============================
+
+//============================ /SUPER ADMINISTRADOR ============================
 }

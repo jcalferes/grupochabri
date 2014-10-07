@@ -45,7 +45,7 @@ $("#loginbtn").click(function() {
                 if (respuesta == 1) {
                     $("#loginuser").val("");
                     $("#loginpass").val("");
-                    document.location.href = '../administracion/gestionAdministrativa.php';
+                    document.location.href = '../administracion/gestionSuperAdministrativa.php';
                 }
                 if (respuesta == 2) {
                     $("#loginuser").val("");
