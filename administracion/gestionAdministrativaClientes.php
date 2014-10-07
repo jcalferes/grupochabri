@@ -112,8 +112,8 @@ $verificasession->validaSesion();
                     </div>
                     <div class="modal-footer">
                     </div>
-                </div> /.modal-content 
-            </div> /.modal-dialog 
+                </div> 
+            </div>  
         </div>
 
 

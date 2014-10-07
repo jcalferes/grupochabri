@@ -8,11 +8,16 @@ $dao = new dao();
 $usuario = $_SESSION["usuarioSesion"];
 $rsDatos = $dao->dameInformacionUsuario($usuario);
 $rsDatosCorreo = $dao->dameCorreos($usuario);
-if ($rsDatos == false || $rsDatosCorreo == false) {
-    echo mysql_error();
-} else {
-    ?>
-    <table class="table">
+$rsDatosTelefono = $dao->dameTelefonos($usuario);
+?>
+<table class="table">
+    <?php
+    if ($rsDatos == false || $rsDatosCorreo == false || $rsDatosTelefono == false) {
+        echo '<tr><td>';
+        echo mysql_error();
+        echo '</td></tr>';
+    } else {
+        ?>
         <?php
         while ($datosUsuario = mysql_fetch_array($rsDatos)) {
             ?>
@@ -30,20 +35,30 @@ if ($rsDatos == false || $rsDatosCorreo == false) {
         <tr>
             <td>Telefonos : </td>
             <td>
-                <select class="form-control">
-                    <option>Telefonos</option>
+                <input type="text" id="txtTelefono" class="form-control"/>
+                <select class="form-control" id="cmbTelefonos">
+                    <option value="0">Telefonos</option>
 
                     <?php
-                    while ($datosTelefono = mysql_fetch_array($rsDatos)) {
+                    while ($datosTelefono = mysql_fetch_array($rsDatosTelefono)) {
                         ?>
-                    <option><?php echo $datosTelefono["telefono"];?></option>
+                        <option value="<?php echo $datosTelefono["idTelefonos"]; ?>"><?php echo $datosTelefono["telefono"]; ?></option>
                         <?php
                     }
                     ?>
                 </select>
             </td>
             <td>
-                <a title="Actualizar Telefonos">
+                <a id="btnActualizarTelefono" title="Actualizar telefono" 
+                   onclick="guardarActualizacionTelefono();">
+                    <span style="font-size: 30px" class="glyphicon glyphicon-refresh"></span>
+                </a>
+                <a id="btnCancelarTelefono" title="Cancelar actualizacion">
+                    <span style="font-size: 30px" class="glyphicon glyphicon-remove-circle"></span>
+                </a>
+                <a title="Editar Telefonos" 
+                   onclick="actualizarTelefono();"
+                   id="btnEditarTelefono">
                     <span style="font-size: 30px" class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>
@@ -51,19 +66,27 @@ if ($rsDatos == false || $rsDatosCorreo == false) {
         <tr>
             <td>Correos : </td>
             <td>
-                <select class="form-control"> 
-                    <option>Correos</option>
+                <input type="text" id="txtCorreos" class="form-control"/>
+                <select class="form-control" id="cmbCorreos"> 
+                    <option value="0">Correos</option>
                     <?php
                     while ($datosCorreo = mysql_fetch_array($rsDatosCorreo)) {
                         ?>
-                        <option><?php echo $datosCorreo["email"]; ?></option>
+                    <option value="<?php echo $datosCorreo["idEmail"]?>"><?php echo $datosCorreo["email"]; ?></option>
                         <?php
                     }
                     ?>
                 </select>
             </td>
             <td>
-                <a title="Actualizar Correos">
+                <a id="btnActualizarCorreo" title="Actualizar correo" 
+                   onclick="guardarActualizacionCorreo();">
+                    <span style="font-size: 30px" class="glyphicon glyphicon-refresh"></span>
+                </a>
+                <a id="btnCancelarCorreo" title="Cancelar actualizacion">
+                    <span style="font-size: 30px" class="glyphicon glyphicon-remove-circle"></span>
+                </a>
+                <a title="Actualizar Correos" id="btnEditarCorreo" onclick="actualizarCorreos();">
                     <span style="font-size: 30px" class="glyphicon glyphicon-edit"></span>
                 </a>
             </td>

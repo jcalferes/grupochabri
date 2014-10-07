@@ -4889,19 +4889,45 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 
     function dameInformacionUsuario($usuario) {
         $cn = new coneccion();
-        $sql = "SELECT * FROM usuarios WHERE usuario ='$usuario'";
+        $sql = "SELECT * FROM usuarios WHERE idUsuario ='$usuario'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
     }
 
     function dameCorreos($usuario) {
         $cn = new coneccion();
-        $sql = "SELECT * FROM usuarios u "
-                . "inner join emails em on "
-                . "u.idUsuario = em.idPropietario "
-                . "WHERE u.usuario = '$usuario'";
+        $sql = "select em.* from  usuarios u 
+                inner join clientes cl 
+                on u.idUsuario = cl.idUsuario
+                inner join emails em
+                on cl.idCliente = em.idPropietario
+                where cl.idUsuario = '" . $usuario . "'";
         $rs = mysql_query($sql, $cn->Conectarse());
         return $rs;
+    }
+
+    function dameTelefonos($usuario) {
+        $cn = new coneccion();
+        $sql = "select tl.* from  usuarios u 
+                inner join clientes cl 
+                on u.idUsuario = cl.idUsuario
+                inner join telefonos tl
+                on cl.idCliente = tl.idPropietario
+                where cl.idUsuario = '" . $usuario . "'";
+        $rs = mysql_query($sql, $cn->Conectarse());
+        return $rs;
+    }
+
+    function actualizarTelefonos($id, $telefono) {
+        $sql = "UPDATE telefonos set telefono ='$telefono' WHERE idTelefonos ='$id'";
+        $datos = mysql_query($sql);
+        return $datos;
+    }
+
+    function actualizarCorreo($id, $correo) {
+        $sql = "UPDATE emails set email ='$correo' WHERE idEmail ='$id'";
+        $datos = mysql_query($sql);
+        return $datos;
     }
 
 }

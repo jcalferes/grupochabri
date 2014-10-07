@@ -6,11 +6,105 @@ $(window).scroll(function () {
     }
 });
 
+
+function actualizarTelefono() {
+    if ($("#cmbTelefonos").val() == 0) {
+        alertify.error("Seleccione un telefono para editar");
+    }
+    else {
+        var valor = $('#cmbTelefonos option:selected').html();
+        $("#txtTelefono").val(valor);
+        $("#cmbTelefonos").slideUp('slow');
+        $("#txtTelefono").slideDown("slow");
+        $("#btnActualizarTelefono").slideDown('slow');
+        $("#btnCancelarTelefono").slideDown('slow');
+        $("#btnEditarTelefono").hide();
+    }
+}
+
+
+function actualizarCorreos() {
+    if ($("#cmbCorreos").val() == 0) {
+        alertify.error("Seleccione un correo para editar");
+    }
+    else {
+        var valor = $('#cmbCorreos option:selected').html();
+        $("#txtCorreos").val(valor);
+        $("#cmbCorreos").slideUp('slow');
+        $("#txtCorreos").slideDown("slow");
+        $("#btnActualizarCorreo").slideDown('slow');
+        $("#btnCancelarCorreo").slideDown('slow');
+        $("#btnEditarCorreo").hide();
+    }
+}
+
+
+
+
+
+function guardarActualizacionTelefono() {
+    if ($("#txtTelefono").val() == "") {
+        alertify.error("Se requiere un telefono");
+    }
+    else {
+        var nuevoTelefono = $("#txtTelefono").val();
+        var id = $("#cmbTelefonos").val();
+        var info = "idTelefono=" + id + "&telefono=" + nuevoTelefono;
+        $.get("actualizarTelefono.php", info, function (respuesta) {
+            $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
+                $("#mdlPerfil").modal("show");
+                $("#txtTelefono").hide();
+                $("#btnActualizarTelefono").hide();
+                $("#btnCancelarTelefono").hide();
+                $("#txtCorreos").hide();
+                $("#btnActualizarCorreo").hide();
+                $("#btnCancelarCorreo").hide();
+                alertify.success(respuesta);
+            });
+        });
+    }
+}
+
+
+
+function guardarActualizacionCorreo() {
+    if ($("#txtCorreos").val() == "") {
+        alertify.error("Se requiere un telefono");
+    }
+    else {
+        var nuevoTelefono = $("#txtCorreos").val();
+        var id = $("#cmbCorreos").val();
+        var info = "idCorreo=" + id + "&correo=" + nuevoTelefono;
+        $.get("actualizarCorreo.php", info, function (respuesta) {
+            $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
+                $("#mdlPerfil").modal("show");
+                $("#txtTelefono").hide();
+                $("#btnActualizarTelefono").hide();
+                $("#btnCancelarTelefono").hide();
+                $("#txtCorreos").hide();
+                $("#btnActualizarCorreo").hide();
+                $("#btnCancelarCorreo").hide();
+                alertify.success(respuesta);
+            });
+        });
+    }
+}
+
+
+
 $(document).ready(function () {
 
     $("#perfil").click(function () {
         $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
             $("#mdlPerfil").modal("show");
+            $("#txtTelefono").hide();
+            $("#btnActualizarTelefono").hide();
+            $("#btnCancelarTelefono").hide();
+            $("#btnActualizarCorreo").hide();
+            $("#btnCancelarCorreo").hide();
+            $("#txtCorreos").hide();
+
+
         });
     });
 
