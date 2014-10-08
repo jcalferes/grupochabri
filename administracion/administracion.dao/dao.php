@@ -300,6 +300,9 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
                 . "INNER JOIN usuarios u "
                 . "WHERE u.idUsuario = '$idusuario' AND s.idSucursal = '$idsucursal'";
         $rs = mysql_query($sql);
+        if ($rs == false) {
+            $rs = mysql_error();
+        }
         return $rs;
     }
 
@@ -4928,6 +4931,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $sql = "UPDATE emails set email ='$correo' WHERE idEmail ='$id'";
         $datos = mysql_query($sql);
         return $datos;
+    }
+
+    function actualizarPass($idUsuario, $pass) {
+        $sql = "UPDATE usuarios set password='$pass' WHERE idUsuario='$idUsuario'";
+        $rs = mysql_query($sql);
+        return $rs;
     }
 
 }

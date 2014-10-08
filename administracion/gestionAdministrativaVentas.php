@@ -27,8 +27,8 @@ $verificasession->validaSesion();
         <link href="administracion.css/bootstrap-reedit.css" rel="stylesheet" media="screen">
         <!-- CSS Personalizados-->
     </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="border: 1px solid #e7481c;">
+    <body style="background-color: whitesmoke">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,15 +41,15 @@ $verificasession->validaSesion();
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Inventario<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Inventario <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                 <li id="10" class=""><a onclick="entroVentas();">Ventas</a></li>
+                                 <li id="10" class=""><a href="javascript:entroOnlyVentas();">Ventas</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" ><span id="session_nombre"> </span> <b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label>&nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
@@ -65,7 +65,6 @@ $verificasession->validaSesion();
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span> Gestion Administrativa</span>
                 </div>
                 <div class="panel-body">
                     <div id="mostrar">
@@ -84,6 +83,6 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
-        <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
+        <script src="../administracion/administracion.js/gestionAdministrativaVentas.js"></script>
     </body>
 </html>

@@ -72,7 +72,7 @@ $rsDatosTelefono = $dao->dameTelefonos($usuario);
                     <?php
                     while ($datosCorreo = mysql_fetch_array($rsDatosCorreo)) {
                         ?>
-                    <option value="<?php echo $datosCorreo["idEmail"]?>"><?php echo $datosCorreo["email"]; ?></option>
+                        <option value="<?php echo $datosCorreo["idEmail"] ?>"><?php echo $datosCorreo["email"]; ?></option>
                         <?php
                     }
                     ?>
@@ -93,9 +93,22 @@ $rsDatosTelefono = $dao->dameTelefonos($usuario);
         </tr>
         <tr>
             <td>
-                <a>Restaurar Password</a>
+                <a href="#" onclick="cambiarPass();" id="lnkGenerarPass">Cambiar Contraseña.</a>
+                <input  type="text" 
+                        placeholder="Codigo" 
+                        id="txtCodigo" 
+                        class="form-control"/>
             </td>
+            <td><input type="submit" 
+                       class="btn" 
+                       value="Actualizar" 
+                       id="btnActualizarCon"
+                       onclick="actualizarContras();"/></td>
             <td></td>
+        </tr>
+        <tr>
+            <td><input id="txtNuevaContraseña" class="form-control" type="password" placeholder="Nueva Contraseña"/></td>
+            <td><input id="btnGuardarNuevaConta" onclick="guardarNuevaContra();" type="submit" class="btn btn-primary"/></td>
             <td></td>
         </tr>
     </table>

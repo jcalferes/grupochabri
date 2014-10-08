@@ -18,7 +18,7 @@
         <title>Grupo Chabri</title>
     </head>
     <body>
-        <div class="container wrapper">   
+        <div class="container">
             <!-- Logo -->
             <div class="logo" >
                 <a href="index.php" ><img class="img-responsive" src="index.img/czsale_logo2.png"></a>
@@ -90,7 +90,7 @@
                 <div class="col-lg-9 content-right">
                     <!--<h4>Slider</h4>-->
                     <div id="panelBusquedaProductos">
-                       
+
                         <div>
                             <div id="mostrarslide"></div>
                             <h4>Recomendado</h4>

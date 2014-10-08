@@ -154,7 +154,7 @@ $valor .= ' <center>
     </center>';
 $valor .= '      <table class="CSSTableGenerator">';
 while ($data = mysql_fetch_array($datos)) {
-    $valor .= ' <tr ><td style="width: 420px">Nombre del Cliente:<br> ' . ucwords(strtolower($data["nombreCliente"])) . '<br>RFC: ' . $data["rfcComprobante"] . '</td><td><span style="font-size: large">Reporte</span><br><span>Folio: ' . $folio . '</span><br><span style="font-size: smaller">Fecha de Expedici&oacute;n: ' . $data["fechaComprobante"] . '</span><br><span style="font-size: smaller">Lugar de Expedici&oacute;n: M&eacute;rida, Yucat&aacute;n, M&eacute;xico</span><br><span style="font-size: smaller">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
+    $valor .= ' <tr ><td style="width: 420px">Nombre del Cliente:<br> ' . ucwords(strtolower($data["nombreCliente"])) . '<br>RFC: ' . $data["rfcComprobante"] . '</td><td><span style="font-size: large">Reporte</span><br><span style="font-size: smaller">Fecha de Expedici&oacute;n: ' . $data["fechaComprobante"] . '</span><br><span style="font-size: smaller">Lugar de Expedici&oacute;n: M&eacute;rida, Yucat&aacute;n, M&eacute;xico</span><br><span style="font-size: smaller">Vendedor: ' . ucwords(strtolower($data["nombre"])) . ' ' . ucwords(strtolower($data["apellidoPaterno"])) . ' ' . ucwords(strtolower($data["apellidoMaterno"])) . '</span></td></tr>';
     break;
 }
 

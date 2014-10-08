@@ -5,6 +5,7 @@ $(document).ready(function () {
     $("#esporcliente").hide();
     $("#esporvendedor").hide();
     $("#btnhacerconsulta").hide();
+    $("#btnlimpiarconsulta").hide();
 });
 
 $("#slc_inventario").change(function () {
@@ -12,6 +13,7 @@ $("#slc_inventario").change(function () {
     if (seleccion == 1 | seleccion == 2) {
         $("#losparametros").slideDown();
         $("#btnhacerconsulta").slideDown();
+        $("#btnlimpiarconsulta").slideDown();
         if (seleccion == 1) {
             $('.nocancel').attr("disabled", "disabled");
         } else {
@@ -36,6 +38,7 @@ $("#slc_inventario").change(function () {
         $("#esporfecha").slideUp();
         $("#esporcliente").slideUp();
         $("#btnhacerconsulta").slideUp();
+        $("#btnlimpiarconsulta").slideUp();
         $("#esporvendedor").slideUp();
     }
 });
@@ -210,10 +213,12 @@ $("#btnhacerconsulta").click(function () {
     }
 
     $("#mostrardatosconsulta").load("buscarDatosConsulta.php?bnd_tipoconsulta=" + bnd_tipoconsulta + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "&txt_rfc=" + txt_rfc + "&txt_user=" + txt_user + "&bnd_es=" + bnd_es, function () {
-
+        $('#dtdconsulta').dataTable();
     });
 
+
 });
+
 
 $("#btnlimpiarconsulta").click(function () {
     $("#mostrardatosconsulta").empty();
