@@ -4903,5 +4903,17 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $ctrl;
     }
 
+    function dtvendeactivos() {
+        $query = "select * from usuarios u "
+                . "inner join tiposusuarios tu on u.idtipousuario = tu.idTipoUsuario "
+                . "inner join sucursales s on u.idSucursal = s.idSucursal "
+                . "where u.idtipousuario = '3' or u.idtipousuario = '4' or u.idtipousuario = '5' or u.idtipousuario = '6'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
 //============================ /SUPER ADMINISTRADOR ============================
 }

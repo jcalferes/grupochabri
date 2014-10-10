@@ -7,12 +7,12 @@ $cn = new coneccion();
 $dao = new dao();
 
 $cn->Conectarse();
-$ctrl = $dao->dtadminactivos();
+$ctrl = $dao->dtvendeactivos();
 if (!is_resource($ctrl)) {
     echo $ctrl;
 } else {
     echo"<div class='table-responsive' >"
-    . "<table class='table table-hover' id='dtadminactivos'>"
+    . "<table class='table table-hover' id='dtvendeactivos'>"
     . "<thead><th>Nombre</th><th>Apellido Paterno</th><th>Apellido Materno</th><th>Usuario</th><th>Sucursal</th><th>Tipo</th><th></th></thead>"
     . "<tbody>";
     while ($rs = mysql_fetch_array($ctrl)) {

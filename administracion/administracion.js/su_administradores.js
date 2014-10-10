@@ -1,5 +1,6 @@
 $(document).ready(function () {
     dt_adminactivos();
+    dt_vendeactivos();
 });
 
 function dt_adminactivos() {
@@ -7,6 +8,13 @@ function dt_adminactivos() {
         $("#dtadminactivos").dataTable();
     });
 }
-function test(){
-    alert("Hola");
+
+function dt_vendeactivos() {
+    $("#loadvendeactivos").load("su_dtvendeactivos.php", function () {
+        $("#dtvendeactivos").dataTable();
+    });
+}
+
+function eliminarAdministrador(id) {
+    alert(id);
 }

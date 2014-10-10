@@ -27,3 +27,4 @@ $(document).ready(function () {
 function entroAdministradores() {
     $("#mostrar").load("wizsu_administradores.php");
 }
+

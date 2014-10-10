@@ -41,13 +41,7 @@ $verificasession->validaSesion();
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Usuarios del sistema <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:entroAdministradores();">Administradores</a></li>
-                                <li><a href="">Vendedores</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="javascript:entroAdministradores();">Usuarios del sistema</a></li>
                         <li><a href="">Crear nueva sucursal</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
