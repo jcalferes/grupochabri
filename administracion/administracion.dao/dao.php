@@ -4891,6 +4891,17 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     }
 
 //============================= SUPER ADMINISTRADOR ============================
+    function dtadminactivos() {
+        $query = "select * from usuarios u "
+                . "inner join tiposusuarios tu on u.idtipousuario = tu.idTipoUsuario "
+                . "inner join sucursales s on u.idSucursal = s.idSucursal "
+                . "where u.idtipousuario = '1' or u.idtipousuario = '2'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
 
 //============================ /SUPER ADMINISTRADOR ============================
 }

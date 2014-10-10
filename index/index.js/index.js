@@ -19,7 +19,7 @@ $(document).ready(function() {
             }
         });
     });
-    $("#mostrarcategorias").load("mostrarCategorias.php", function() {
+    $("#mostrarcategorias").load("mostrarCategorias.php", function () {
     });
     $("#mostrarnovedades").load("mostrarNovedades.php", function() {
     });
