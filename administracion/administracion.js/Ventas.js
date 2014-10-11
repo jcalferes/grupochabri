@@ -738,6 +738,7 @@ $(document).ready(function () {
                 }
             }
             else {
+//                Veificando la actualizacion de la venta
                 var encabezadoVentas = new XmlComprobante();
                 encabezadoVentas.descuentoTotalComprobante = $("#descTotalV").val();
                 encabezadoVentas.ivaComprobante = $("#ivaTotal").val();

@@ -1,3 +1,6 @@
+var codigoAleatorio;
+
+
 $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
         $('.scrollUp').fadeIn();
@@ -6,11 +9,174 @@ $(window).scroll(function () {
     }
 });
 
+
+function actualizarTelefono() {
+    if ($("#cmbTelefonos").val() == 0) {
+        alertify.error("Seleccione un telefono para editar");
+    }
+    else {
+        var valor = $('#cmbTelefonos option:selected').html();
+        $("#txtTelefono").val(valor);
+        $("#cmbTelefonos").slideUp('slow');
+        $("#txtTelefono").slideDown("slow");
+        $("#btnActualizarTelefono").slideDown('slow');
+        $("#btnCancelarTelefono").slideDown('slow');
+        $("#btnEditarTelefono").hide();
+        $("#txtCodigo").hide();
+        $("#btnActualizarCon").hide();
+    }
+}
+
+
+function actualizarCorreos() {
+    if ($("#cmbCorreos").val() == 0) {
+        alertify.error("Seleccione un correo para editar");
+    }
+    else {
+        var valor = $('#cmbCorreos option:selected').html();
+        $("#txtCorreos").val(valor);
+        $("#cmbCorreos").slideUp('slow');
+        $("#txtCorreos").slideDown("slow");
+        $("#btnActualizarCorreo").slideDown('slow');
+        $("#btnCancelarCorreo").slideDown('slow');
+        $("#btnEditarCorreo").hide();
+        $("#txtCodigo").hide();
+        $("#btnActualizarCon").hide();
+    }
+}
+
+
+
+
+
+function guardarActualizacionTelefono() {
+    if ($("#txtTelefono").val() == "") {
+        alertify.error("Se requiere un telefono");
+    }
+    else {
+        var nuevoTelefono = $("#txtTelefono").val();
+        var id = $("#cmbTelefonos").val();
+        var info = "idTelefono=" + id + "&telefono=" + nuevoTelefono;
+        $.get("actualizarTelefono.php", info, function (respuesta) {
+            $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
+                $("#mdlPerfil").modal("show");
+                $("#txtTelefono").hide();
+                $("#btnActualizarTelefono").hide();
+                $("#btnCancelarTelefono").hide();
+                $("#txtCorreos").hide();
+                $("#btnActualizarCorreo").hide();
+                $("#btnCancelarCorreo").hide();
+                $("#txtCodigo").hide();
+                $("#btnActualizarCon").hide();
+                $("#txtNuevaContraseña").hide();
+                $("#btnGuardarNuevaConta").hide();
+                alertify.success(respuesta);
+            });
+        });
+    }
+}
+
+
+
+function guardarActualizacionCorreo() {
+    if ($("#txtCorreos").val() == "") {
+        alertify.error("Se requiere un telefono");
+    }
+    else {
+        var nuevoTelefono = $("#txtCorreos").val();
+        var id = $("#cmbCorreos").val();
+        var info = "idCorreo=" + id + "&correo=" + nuevoTelefono;
+        $.get("actualizarCorreo.php", info, function (respuesta) {
+            $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
+                $("#mdlPerfil").modal("show");
+                $("#txtTelefono").hide();
+                $("#btnActualizarTelefono").hide();
+                $("#btnCancelarTelefono").hide();
+                $("#txtCorreos").hide();
+                $("#btnActualizarCorreo").hide();
+                $("#btnCancelarCorreo").hide();
+                $("#txtCodigo").hide();
+                $("#btnActualizarCon").hide();
+                $("#txtNuevaContraseña").hide();
+                $("#btnGuardarNuevaConta").hide();
+                alertify.success(respuesta);
+            });
+        });
+    }
+}
+
+
+function cambiarPass() {
+
+    if ($("#cmbCorreos").val() == 0) {
+        alertify.error("Seleccione un correo a donde enviara el codigo");
+    }
+    else {
+        $("#lnkGenerarPass").slideUp('slow');
+        $("#txtCodigo").slideDown("slow");
+        $("#btnActualizarCon").slideDown("slow");
+        var correo = $('#cmbCorreos option:selected').html();
+        var informacion = "correo=" + correo;
+        $.get("generarCodigoAleatorio.php", informacion, function (respuesta) {
+            codigoAleatorio = respuesta;
+            alert(respuesta);
+            alertify.success("Correo enviado al correo: " + correo);
+        });
+    }
+}
+
+function actualizarContras() {
+    var codigo = $("#txtCodigo").val();
+    if (codigo == codigoAleatorio) {
+        $("#txtNuevaContraseña").slideDown('slow');
+        $("#btnGuardarNuevaConta").slideDown('slow');
+        $("#txtCodigo").slideUp("slow");
+        $("#btnActualizarCon").slideUp("slow");
+        alertify.success("Contraseña Verificada");
+    }
+    else {
+        alertify.error("Error. Codigo erroneo Verifica tu correo");
+    }
+}
+
+
+function guardarNuevaContra() {
+    var valor = $("#txtNuevaContraseña").val();
+    if (valor == "") {
+        alertify.error("Se requiere una nueva Contraseña");
+    }
+    else {
+        var info = "contra=" + valor;
+        $.get("nuevaContra.php", info, function (respuesta) {
+            alertify.success(respuesta);
+            $("#mdlPerfil").modal("hide");
+        });
+    }
+}
+
 $(document).ready(function () {
+
+    $("#perfil").click(function () {
+        $("#contenidoPerfil").load("dameInformacionPerfil.php", function () {
+            $("#mdlPerfil").modal("show");
+            $("#txtTelefono").hide();
+            $("#btnActualizarTelefono").hide();
+            $("#btnCancelarTelefono").hide();
+            $("#btnActualizarCorreo").hide();
+            $("#btnCancelarCorreo").hide();
+            $("#txtCorreos").hide();
+            $("#txtCodigo").hide();
+            $("#btnActualizarCon").hide();
+            $("#txtNuevaContraseña").hide();
+            $("#btnGuardarNuevaConta").hide();
+        });
+    });
+
     $('.scrollUp').click(function () {
         $("html, body").animate({scrollTop: 0}, 600);
         return false;
     });
+
     $.get('dondeInicie.php', function (x) {
         var i = $.parseJSON(x);
         var sucursal = i.donde.sucursal;

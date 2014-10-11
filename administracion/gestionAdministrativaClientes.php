@@ -51,6 +51,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label>&nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li class="dropdown-header" ><a  href="#" id="perfil">Perfil</a></li>
 <!--                                <li class="dropdown-header">Sucursal actual:<br><span id="session_sucursal"></span></li>-->
                                 <!--                                <li><a onclick="cambiarSucursal();">Cambiar de sucursal</a></li>
                                                                 <li class="divider"></li>-->
@@ -75,6 +76,31 @@ $verificasession->validaSesion();
                 </div>
             </div>
         </div>
+
+
+
+        <div class="modal fade" id="mdlPerfil" tabindex="-1" 
+             role="dialog" aria-labelledby="myModalLabel" 
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Cambiar sucursal</h4>
+                    </div>
+                    <div class="modal-body" id="contenidoPerfil">
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div> 
+            </div>  
+        </div>
+
+
+
+
+
         <!--        <div class="modal fade" id="mdlcamsuc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
