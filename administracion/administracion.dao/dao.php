@@ -4200,7 +4200,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         $error = "";
         $folio = 0;
         mysql_query("START TRANSACTION;");
-        $updateEncabezado = "UPDATE xmlcomprobantes set subtotalComprobante = '" . $encabezado[0]->subTotalComprobante . "', sdaComprobante = '" . $encabezado[0]->sdaComprobante . "', desctTotalComprobante = '" . $encabezado[0]->descuentoTotalComprobante . "', ivaComprobante='" . $encabezado[0]->ivaComprobante . "', totalComprobante='" . $encabezado[0]->totalComprobante . "' WHERE idXmlComprobante='" . $detalle[0]->idXmlComprobante . "'";
+        $updateEncabezado = "UPDATE xmlcomprobantes set idTipoPago = '" . $encabezado[0]->tipoComprobante . "', subtotalComprobante = '" . $encabezado[0]->subTotalComprobante . "', sdaComprobante = '" . $encabezado[0]->sdaComprobante . "', desctTotalComprobante = '" . $encabezado[0]->descuentoTotalComprobante . "', ivaComprobante='" . $encabezado[0]->ivaComprobante . "', totalComprobante='" . $encabezado[0]->totalComprobante . "' WHERE idXmlComprobante='" . $detalle[0]->idXmlComprobante . "'";
         $actualizar = mysql_query($updateEncabezado);
         if ($actualizar == false) {
             mysql_query("ROLLBACK;");
@@ -4936,6 +4936,13 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
     function actualizarPass($idUsuario, $pass) {
         $sql = "UPDATE usuarios set password='$pass' WHERE idUsuario='$idUsuario'";
         $rs = mysql_query($sql);
+        return $rs;
+    }
+
+    function dameInformacionEncabezado($idXml) {
+        $sql = "SELECT * FROM xmlcomprobantes WHERE idXmlComprobante = '" . $idXml . "'";
+        $rs = mysql_query($sql);
+
         return $rs;
     }
 
