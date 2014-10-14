@@ -4206,19 +4206,29 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             mysql_query("ROLLBACK;");
             $error = mysql_error();
         } else {
-            for ($x = 0; $x < count($detalle); $x++) {
-                $sqlDameFolioOrdenCompra = "SELECT folioComprobante from xmlcomprobantes WHERE idXmlComprobante = '" . $detalle[$x]->idXmlComprobante . "'";
-                $datosFolio = mysql_query($sqlDameFolioOrdenCompra);
-                if ($datosFolio == false) {
-                    mysql_query("ROLLBACK;");
-                    $error = mysql_error();
-                    break;
-                } else {
-                    while ($rsFolio = mysql_fetch_array($datosFolio)) {
-                        $folio = $rsFolio["folioComprobante"];
-                    }
+            $sqlDameFolioOrdenCompra = "SELECT folioComprobante from xmlcomprobantes WHERE idXmlComprobante = '" . $detalle[0]->idXmlComprobante . "'";
+            $datosFolio = mysql_query($sqlDameFolioOrdenCompra);
+            if ($datosFolio == false) {
+                mysql_query("ROLLBACK;");
+                $error = mysql_error();
+            } else {
+                while ($rsFolio = mysql_fetch_array($datosFolio)) {
+                    $folio = $rsFolio["folioComprobante"];
                 }
-                $sqlExistenciasTemporales = "UPDATE  existenciastemporales SET cantidad = '" . $detalle[$x]->cantidadConcepto . "' WHERE codigo = '" . $detalle[$x]->codigoConcepto . "' and idSucursal='" . $idSucursal . "' and folioPedido = '" . $folio . "'";
+            }
+            $sqlValidarOrdenCompra = "SELECT * FROM existenciastemporales WHERE folioPedido ='$folio'";
+            mysql_query($sqlValidarOrdenCompra);
+            $afecto = mysql_affected_rows();
+            $insertarExistenciasTemporales = false;
+            if ($afecto > 0) {
+                $insertarExistenciasTemporales = true;
+            }
+            for ($x = 0; $x < count($detalle); $x++) {
+                if ($insertarExistenciasTemporales == false) {
+                    $sqlExistenciasTemporales = "INSERT existencias (codigo, folioPedido, cantidad, idSucursal) ('" . $detalle[$x]->codigoConcepto . "','" . $folio . "','" . $detalle[$x]->cantidadConcepto . "','" . $idSucursal . "')";
+                } else {
+                    $sqlExistenciasTemporales = "UPDATE  existenciastemporales SET cantidad = '" . $detalle[$x]->cantidadConcepto . "' WHERE codigo = '" . $detalle[$x]->codigoConcepto . "' and idSucursal='" . $idSucursal . "' and folioPedido = '" . $folio . "'";
+                }
                 $datosExistenciasTmp = mysql_query($sqlExistenciasTemporales);
                 if ($datosExistenciasTmp == false) {
                     $error = mysql_error();

@@ -573,7 +573,8 @@ function eliminar(codigo) {
             arrayEncabezadoVenta.length = 0;
         }));
     }
-    $("#tr" + codigo).remove();
+    $("tr[id='tr" + codigo + "']").remove();
+//    $("#tr" + codigo).remove();
     return true;
 }
 
