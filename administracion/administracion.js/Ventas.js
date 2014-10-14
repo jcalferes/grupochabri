@@ -359,7 +359,7 @@ function eliminarProducto(codigo) {
         }
     }
     var callbacks = $.Callbacks();
-    callbacks.add( calcularSumaTotal());
+    callbacks.add(calcularSumaTotal());
     callbacks.add(calcularSubTotal());
     callbacks.add(sumaDescTotal());
 }
@@ -573,7 +573,8 @@ function eliminar(codigo) {
             arrayEncabezadoVenta.length = 0;
         }));
     }
-    $("#tr" + codigo).remove();
+    $("tr[id='tr" + codigo + "']").remove();
+//    $("#tr" + codigo).remove();
     return true;
 }
 
@@ -666,8 +667,8 @@ $(document).ready(function () {
     $("#buscarCodigo").click(function () {
         buscar();
     });
-    $("#cmbClientes").load("dameClientes.php", function (){
-         $("#cmbClientes").selectpicker();
+    $("#cmbClientes").load("dameClientes.php", function () {
+        $("#cmbClientes").selectpicker();
     });
     $("#folio").load("dameFolioPedidos.php");
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -746,6 +747,7 @@ $(document).ready(function () {
                 encabezadoVentas.subTotalComprobante = $("#subTotalV").val();
                 encabezadoVentas.totalComprobante = $("#totalVenta").val();
                 encabezadoVentas.tipoComprobante = $("#cmbTipoPago").val();
+//                alert("el tipo de pago es" + $("#cmbTipoPago").val());
                 arrayEncabezadoVenta.push(encabezadoVentas);
                 for (var x = 0; x < codigos.length; x++) {
                     var codigo = codigos[x];
@@ -857,6 +859,7 @@ $(document).ready(function () {
             $("#txtNombreCliente").show();
         }
         else {
+
             $("#cmbOrdenCompraV").load("dameOrdenesCompra.php?rfc=" + rfc, function () {
                 $("#cmbOrdenCompraV").show();
                 $("#txtNombreCliente").hide();
@@ -901,11 +904,18 @@ $(document).ready(function () {
                 for (var i in datosJson) {
                     codigos.push(datosJson[i].codigoProducto);
                 }
+                var informacion = "id=" + idxml;
+                $.get("dameOrdenesCompraEncabezado.php", informacion, function (respuesta) {
+                    var da = respuesta.split(",");
+                    $("#cmbTipoPago option[value=" + da[0] + "]").attr("selected", true);
+                    $("#folio").text(da[1]);
+                });
                 $("#tablaVentas").load("construirOrdenCompraVentas.php?id=" + idxml);
                 $("#contenedorTotales").load("contruirTotales.php?id=" + idxml);
             });
         }
         else {
+            $("#cmbTipoPago option[value=1]").attr("selected", true);
             codigoN = 0;
             $("#tablaVentas").html('<table class="table" id="tablaVentas"><thead><th><center>Codigo</center></th>'
                     + ' <th><center>Descripcion</center></th>'
@@ -945,7 +955,9 @@ $(document).ready(function () {
 });
 function finalizar() {
     codigoN = 0;
-    $("#cmbClientes option[value='0']").attr("selected", true);
+//    $('.cmbClientes').selectpicker('deselectAll');
+//    $('.cmbClientes').selectpicker('val', '0');
+//    $("#cmbClientes option[value='0']").attr("selected", true);
     $("#txtNombreCliente").val('');
     $("#txtNombreCliente").show();
     $("#cmbOrdenCompraV").hide();
@@ -968,7 +980,9 @@ function finalizar() {
     arrayDetalleVenta.length = 0;
     arrayEncabezadoVenta.length = 0;
     inf.length = 0;
+    $("#cmbClientes option[value=0]").attr("selected", true);
     $("#folio").load("dameFolioPedidos.php");
+
     $("#descuentosV").html('<div id="descuentosV"></div>');
     $("#creditoCliente").html('<div id="creditoCliente" style="margin-left: 35px"></div>');
     $("#subTotalV").val("0.00");
@@ -976,5 +990,7 @@ function finalizar() {
     $("#totalVenta").val("0.00");
     $("#ivaTotal").val("0.00");
     $("#descTotalV").val("0.00");
+
+
 }
 
