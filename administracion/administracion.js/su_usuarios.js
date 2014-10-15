@@ -1,6 +1,7 @@
 $(document).ready(function () {
     dt_adminactivos();
     dt_vendeactivos();
+    $("#slctipousuario").selectpicker();
 });
 
 function dt_adminactivos() {
@@ -16,5 +17,5 @@ function dt_vendeactivos() {
 }
 
 function eliminarAdministrador(id) {
-    alert(id);
+    var id = id;
 }

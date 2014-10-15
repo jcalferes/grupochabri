@@ -11,10 +11,10 @@ if (isset($_GET["pedidoCliente"])) {
 
 $datos = $dao->consultaSucursales($sucursal);
 if ($datos != false) {
-    echo "<option value='0'>Seleccione una Sucursal</option>";
+    echo "<option value='0'>Seleccione una sucursal...</option>";
     while ($rs = \mysql_fetch_array($datos)) {
         echo "<option value='$rs[idSucursal]'>$rs[sucursal]</option>";
     }
 } else {
-    echo "<option value='0'>Seleccione una Sucursal</option>";
+    echo "<option value='0'>Seleccione una sucursal...</option>";
 }

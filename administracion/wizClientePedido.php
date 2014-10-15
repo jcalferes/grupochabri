@@ -8,7 +8,6 @@
                 <div id="tablaOrden">
                 </div>
             </section>
-
             <h2><span class="glyphicon glyphicon-barcode"/>&numsp;Orden de compra para clientes</h2>
             <section>
 
@@ -30,8 +29,8 @@
                     <strong>¡Importante! </strong> Los costos y existencias están sujetos a cambios sin previo aviso.
                 </div>
                 <div class="form-group">
-                    <select id="sucursal" class="form-control" style="width: 50%">
-                        <option value="0">Seleccione una Sucursal</option>
+                    <select id="sucursal"  class="selectpicker" data-container="body" data-width="auto" >
+                        <option value="0">Seleccione una sucursal...</option>
                     </select>
                 </div>
                 <div class="form-group form-inline" >
@@ -43,7 +42,7 @@
                     <div class="input-group" id="panelBusqueda" style="width: 30%">
                         <input type="text" class="form-control" id="codigoProductoEntradas" placeholder="Codigo" />
                         <span class="input-group-btn">
-                            <input type="button"  class="btn btn-cprimary" value="Busqueda Rapida" id="btnbuscador"/>
+                            <input type="button"  class="btn btn-cprimary" value="Busqueda rapida" id="btnbuscador"/>
 
                         </span> 
                     </div>
@@ -74,7 +73,7 @@
                 <input type="button" class="btn btn-cprimary" value="Guardar Cotizacion" id="guardarOrdenCompra"/>
                 <input type="button" class="btn btn-cprimary" value="Guardar Cambios Compra" id="enviarOrdenCompra"/>
                 <input type="button" class="btn btn-cprimary" value="Modificar Orden" id="ModificarOrden"/>
-                <input type="button" class="btn btn-default" value="Limpiar Orden" id="CancelarOrden"/>
+                <input type="button" class="btn btn-default" value="Cancelar y reniciar la orden" id="CancelarOrden"/>
                 <input type="button" class="btn btn-cprimary" value="Guardar y Enviar Orden" id="guardaEnviaOrden"/>
             </section>
         </div>

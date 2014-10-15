@@ -1,20 +1,21 @@
-$(document).ready(function() {
-    $("#consultaUsuario").load("consultarUsuario.php", function() {
+$(document).ready(function () {
+    $("#consultaUsuario").load("consultarUsuario.php", function () {
         $('#dtusuario').dataTable();
     });
-    $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function() {
+    $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function () {
         $("#selectTipoUsuario").selectpicker();
         $("#diveditarusuario").hide();
     });
 });
-$("#txtusuario").blur(function() {
+$("#txtusuario").blur(function () {
     var usuario = $.trim($("#txtusuario").val());
     var info = "usuario=" + usuario;
-    $.get('verificandoUsuario.php', info, function(respuesta) {
+    $.get('verificandoUsuario.php', info, function (respuesta) {
         if (respuesta == 999) {
             alertify.error("Este usuario ya exite");
             $("#txtusuario").val("");
         }
+        
         if (respuesta == 0) {
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtnombre").val("");
@@ -25,7 +26,7 @@ $("#txtusuario").blur(function() {
             return false;
         } else {
             datos = JSON.parse(respuesta);
-            $.each(datos, function(indice, elemento) {
+            $.each(datos, function (indice, elemento) {
                 if (indice == "idUsuario") {
                     $('#txtid').val(elemento);
                 }
@@ -45,9 +46,10 @@ $("#txtusuario").blur(function() {
             $("#divguardarusuario").slideUp();
             $("#diveditarusuario").slideDown();
         }
+        
     });
 });
-$("#btnguardarusuario").click(function() {
+$("#btnguardarusuario").click(function () {
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val());
     var nombre = $.trim($("#txtnombre").val().toUpperCase());
@@ -83,15 +85,17 @@ $("#btnguardarusuario").click(function() {
     }
 
     var info = "tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
-    $.get("guardarUsuario.php", info, function(respuesta) {
+    $.get("guardarUsuario.php", info, function (respuesta) {
         if (respuesta == 1) {
             alertify.error("Error al guardar");
         }
         if (respuesta == 0) {
             alertify.success("Usuario agregado correctamente");
-            $("#consultaUsuario").load("consultarUsuario.php", function() {
+            
+            $("#consultaUsuario").load("consultarUsuario.php", function () {
                 $('#dtusuario').dataTable();
             });
+            
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtusuario").val("");
             $("#txtnombre").val("");
@@ -102,7 +106,7 @@ $("#btnguardarusuario").click(function() {
         }
     });
 });
-$("#btneditarusuario").click(function() {
+$("#btneditarusuario").click(function () {
     var id = $("#txtid").val();
     var tipousuario = $("#selectTipoUsuario").val();
     var usuario = $.trim($("#txtusuario").val());
@@ -137,13 +141,13 @@ $("#btneditarusuario").click(function() {
         $("#frmrepass").removeClass("has-error");
     }
     var info = "id=" + id + "&tipousuario=" + tipousuario + "&usuario=" + usuario + "&nombre=" + nombre + "&paterno=" + paterno + "&materno=" + materno + "&pass=" + pass;
-    $.get("editarUsuario.php", info, function(respuesta) {
+    $.get("editarUsuario.php", info, function (respuesta) {
         if (respuesta == 1) {
             alertify.error("Error al editar");
         }
         if (respuesta == 0) {
             alertify.success("Usuario editado correctamente");
-            $("#consultaUsuario").load("consultarUsuario.php", function() {
+            $("#consultaUsuario").load("consultarUsuario.php", function () {
                 $('#dtusuario').dataTable();
             });
             $('#selectTipoUsuario').selectpicker('val', 0);
@@ -158,18 +162,18 @@ $("#btneditarusuario").click(function() {
         }
     });
 });
-$("#btneliminarusuario").click(function() {
-    alertify.confirm("Estas a punto de elimniar todos los datos de este usuario, Deseas continuar?", function(e) {
+$("#btneliminarusuario").click(function () {
+    alertify.confirm("Estas a punto de elimniar todos los datos de este usuario, Deseas continuar?", function (e) {
         if (e) {
             var id = $("#txtid").val();
             var info = "id=" + id;
-            $.get("eliminarUsuario.php", info, function(respuesta) {
+            $.get("eliminarUsuario.php", info, function (respuesta) {
                 if (respuesta == 1) {
                     alertify.error("Error al eliminar");
                 }
                 if (respuesta == 0) {
                     alertify.success("Usuario eliminado");
-                    $("#consultaUsuario").load("consultarUsuario.php", function() {
+                    $("#consultaUsuario").load("consultarUsuario.php", function () {
                         $('#dtusuario').dataTable();
                     });
                     $('#selectTipoUsuario').selectpicker('val', 0);
@@ -188,7 +192,7 @@ $("#btneliminarusuario").click(function() {
 
 });
 
-$("#btnlimpiadata").click(function() {
+$("#btnlimpiadata").click(function () {
     $('#selectTipoUsuario').selectpicker('val', 0);
     $("#txtusuario").val("");
     $("#txtnombre").val("");
@@ -199,7 +203,7 @@ $("#btnlimpiadata").click(function() {
 
 });
 
-$("#btnlimpiadata2").click(function() {
+$("#btnlimpiadata2").click(function () {
     $('#selectTipoUsuario').selectpicker('val', 0);
     $("#txtusuario").val("");
     $("#txtnombre").val("");

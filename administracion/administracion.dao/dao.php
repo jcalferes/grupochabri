@@ -229,13 +229,17 @@ class dao {
         return true;
     }
 
-    function consultaOrdenesLista($tipo, $idSucursal) {
+    function consultaOrdenesLista($tipo, $idSucursal, $idusuario) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         if ($tipo == "ORDEN COMPRA") {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo' and s.idSucursal = '$idSucursal'";
         } else {
-            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
+            $sql = "select * from xmlcomprobantes x "
+                    . "inner join clientes c on x.rfcComprobante = c.rfc "
+                    . "inner join sucursales s on x.idSucursal = s.idSucursal "
+                    . "inner join usuarios u on c.idUsuario = u.idUsuario "
+                    . "where x.tipoComprobante = '$tipo' and u.idUsuario = '$idusuario'";
         }
         $sql = mysql_query($sql, $cn->Conectarse());
 //        $cn->cerrarBd();
