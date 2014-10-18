@@ -57,7 +57,6 @@ $("#btnregistrar").click(function () {
             alertify.error("El campo no puede contener ninguno de los siguientes caracteres: #\*:\"<>?|';");
             return false;
         }
-
     });
 
 
