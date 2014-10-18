@@ -108,7 +108,7 @@ $(document).ready(function () {
     $("#frmcostopieza").hide();
     $("#editarDatos").hide();
     $("#divm3").hide();
-    $('#txtCodigoProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
+    $('#txtCodigoProducto').validCampoFranz('/abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $('#txtNombreProducto').validCampoFranz(' /abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $("#slctipousuario").selectpicker();
 
-//    $("#txtnombre").validCampoFranz('/abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
+//    $("#txtnombre").validCampoFranz(' /abcdefghijklmnñopqrstuvwxyzáéiou1234567890°¬!$%&()=[]{}-_,.');//Teoricamente los simbolos permitidos para nombres
 //    $("#txtapaterno").validCampoFranz('/abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
 //    $("#txtamaterno").validCampoFranz('/abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,; ');
 //    $("#txtemail").validCampoFranz('@abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
@@ -48,12 +48,20 @@ $("#btnregistrar").click(function () {
 //        alertify.error("Todos los campos son obligatorios y debes seleccionar un tipo de usuario");
 //    }
 
-    if (nombre.indexOf('*','/') === -1)
-    {
-        alert("no dash found.");
-    }else{
-        alert("si");
-    }
+    $(".validasimbol").each(function () {
+        var valor = $.trim($(this).val());
+        if (valor.match(/[#\*:"<>?|';]+/) === null)
+        {
+        } else {
+            $(this).focus();
+            alertify.error("El campo no puede contener ninguno de los siguientes caracteres: #\*:\"<>?|';");
+            return false;
+        }
+
+    });
+
+
+
 
     return false;
 

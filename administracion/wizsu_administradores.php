@@ -20,25 +20,25 @@
                                 <form class="form-light padding-15">
                                     <div class="form-group">
                                         <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control nonull sololetras" id="txtnombre" placeholder="">
+                                        <input type="text" class="form-control validasimbol" id="txtnombre" placeholder="">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="apellidoPaterno">Apellido Paterno</label>
-                                                <input type="text" class="form-control nonull sololetras" id="txtapaterno" placeholder="">
+                                                <input type="text" class="form-control validasimbol" id="txtapaterno" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="apellidoMaterno">Apellido Materno</label>
-                                                <input type="text" class="form-control nonull sololetras" id="txtamaterno" placeholder="">
+                                                <input type="text" class="form-control validasimbol" id="txtamaterno" placeholder="">
                                             </div>
                                         </div>
                                     </div>  
                                     <div class="form-group">
                                         <label>Tipo de Usuario:</label><br>
-                                        <select id="slctipousuario" class="selectpicker selectores" data-container="body" data-width="auto">
+                                        <select id="slctipousuario" class="selectpicker " data-container="body" data-width="auto">
                                             <option value="0">Selecciona una opcion...</option>
                                             <option value="1">Super Administrador</option>
                                             <option value="2">Administrador</option>
@@ -47,19 +47,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Nombre de usuario</label>
-                                        <input type="email" class="form-control nonull" id="txtemail" placeholder="">
+                                        <input type="email" class="form-control validasimbol" id="txtemail" placeholder="">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="pass">Password</label>
-                                                <input type="password" class="form-control nonull" id="txtpass" placeholder="">
+                                                <input type="password" class="form-control " id="txtpass" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="pass2">Confirmar password</label>
-                                                <input type="password" class="form-control nonull" id="txtpass2" placeholder="">
+                                                <input type="password" class="form-control" id="txtpass2" placeholder="">
                                             </div>
                                         </div>
                                     </div>      
