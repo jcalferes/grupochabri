@@ -90,7 +90,7 @@ $verificasession->validaSesion();
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                               
+
                                 <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
                                 <li class="divider"></li>
                                 <li><a href="../index/cerrarSesion.php">Cerrar session</a></li>
@@ -124,6 +124,7 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
+        <script src="../utilerias/php.js-utf8.js"></script>
         <script src="../administracion/administracion.js/gestionAdminstrativa.js"></script>
     </body>
 </html>

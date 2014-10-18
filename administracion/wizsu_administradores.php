@@ -76,6 +76,7 @@
             </section>
         </div>
         <script src="../administracion/administracion.js/controlWizard.js"></script>
-        <script src="../administracion/administracion.js/su_administradores.js"></script>
+        <script src="../utilerias/validCampoFranz.js"></script>
+        <script src="../administracion/administracion.js/su_usuarios.js"></script>
     </body>
 </html>

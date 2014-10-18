@@ -1182,7 +1182,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
-
+        $cn->Conectarse();
         mysql_query("START TRANSACTION;");
 
         $sucursales = "SELECT * FROM sucursales WHERE idSucursal <> '$idSucursal'";
@@ -1980,7 +1980,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $sqlfolios;
     }
 
-    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal) {
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $idusuario) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -2131,6 +2131,46 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             //Terminar actulizar costo
             //==================================================================
+            //Comienza actulizar tarifas
+            $sqlSacarTarifas = "select pr.idProducto, pr.producto, pr.codigoProducto, ta.idTarifa, ta.tarifa, ta.idListaPrecio, ta.porcentaUtilidad, ta.fechaMovimientoTarifa, li.idListaPrecio, li.nombreListaPrecio from productos pr "
+                    . "inner join tarifas ta on pr.codigoProducto = ta.codigoProducto "
+                    . "inner join listaprecios li on ta.idListaPrecio = li.idListaPrecio "
+                    . "where pr.codigoProducto = '$cpto->codigo' and ta.idSucursal = '$idSucursal' and ta.idStatus = '1'";
+            $ctrlSacarTarifas = mysql_query($sqlSacarTarifas);
+            $rowSacarTarifas = mysql_affected_rows();
+            if ($ctrlSacarTarifas != false && $rowSacarTarifas > 0) {
+                while ($rs = mysql_fetch_array($ctrlSacarTarifas)) {
+                    $idtarifa = $rs["idTarifa"];
+                    $porcenta = $rs["porcentaUtilidad"];
+                    $idlistaprecio = $rs["idListaPrecio"];
+
+                    $agregatarifa = ($porcenta * $costoPromedio) / 100;
+                    $nuevatarifa = $costoPromedio + $agregatarifa;
+
+                    $sqlInsertaNuevaTarifa = "insert into tarifas (tarifa, codigoProducto, idListaPrecio, idStatus, porcentaUtilidad, fechaMovimientoTarifa, idSucursal) "
+                            . "values ('$nuevatarifa','$cpto->codigo','$idlistaprecio','1','$porcenta','$lafecha', '$idSucursal')";
+                    $ctrlInsertaNuevaTarifa = mysql_query($sqlInsertaNuevaTarifa);
+                    if ($ctrlInsertaNuevaTarifa != false) {
+                        $sqlActulizaTarifa = "update tarifas set idStatus = '2' "
+                                . "where idTarifa = '$idtarifa' and codigoProducto = '$cpto->codigo' and idListaPrecio = '$idlistaprecio' and idSucursal = '$idSucursal'";
+                        $ctrllActulizaTarifa = mysql_query($sqlActulizaTarifa);
+                        if ($ctrllActulizaTarifa == false) {
+                            $ctrllActulizaTarifa = mysql_error();
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        }
+                    } else {
+                        $ctrlInsertaNuevaTarifa = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            } else {
+                $ctrlSacarTarifas = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //==================================================================
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
             $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
@@ -2144,7 +2184,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             //==================================================================
             //Comienza guardar entrada
             $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
-                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
+                    . " VALUES ('$idusuario','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
             $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
@@ -4975,6 +5015,12 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         if ($ctrl == false) {
             $ctrl = mysql_error();
         }
+        return $ctrl;
+    }
+
+    function testbd($nombre) {
+        $query = "insert into usuarios(nombre) values ('$nombre')";
+        $ctrl = mysql_query($query);
         return $ctrl;
     }
 

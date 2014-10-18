@@ -79,6 +79,7 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
+        <script src="../utilerias/php.js-utf8.js"></script>
         <script src="../administracion/administracion.js/gestionSuperAdministrativa.js"></script>
     </body>
 </html>
