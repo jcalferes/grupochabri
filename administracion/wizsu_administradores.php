@@ -35,19 +35,33 @@
                                                 <input type="text" class="form-control validasimbol" id="txtamaterno" placeholder="">
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
+                                    <div class="alert alert-warning alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <strong>¡Ojo! </strong> Los súper administradores no están vinculados a una sucursal, sin embargo es necesario seleccionar aquella donde fue registrado en el sistema.
+                                    </div>
                                     <div class="form-group">
-                                        <label>Tipo de Usuario:</label><br>
-                                        <select id="slctipousuario" class="selectpicker " data-container="body" data-width="auto">
-                                            <option value="0">Selecciona una opcion...</option>
-                                            <option value="1">Super Administrador</option>
-                                            <option value="2">Administrador</option>
-                                            <option value="3">Vendedor</option>
-                                        </select>
+
+                                        <div class="col-md-6">
+                                            <label>Tipo de Usuario:</label><br>
+                                            <select id="slctipousuario" class="selectpicker " data-container="body" data-width="auto">
+                                                <option value="0">Selecciona una opcion...</option>
+                                                <option value="1">Super Administrador</option>
+                                                <option value="2">Administrador</option>
+                                                <option value="3">Vendedor</option>
+                                            </select>
+                                        </div>
+
+                                        <div  class="col-md-6">
+                                            <label>Sucursal:</label><br>
+                                            <select id="slcsucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                            </select>
+                                        </div>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Nombre de usuario</label>
-                                        <input type="email" class="form-control validasimbol" id="txtemail" placeholder="">
+                                        <input type="email" class="form-control validasimbol" id="txtusuario" placeholder="">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -79,4 +93,4 @@
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/su_usuarios.js"></script>
     </body>
-</html>
+</html>        

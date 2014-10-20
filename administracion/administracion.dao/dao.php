@@ -5018,9 +5018,36 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $ctrl;
     }
 
-    function testbd($nombre) {
-        $query = "insert into usuarios(nombre) values ('$nombre')";
+    function mostrarsucursales() {
+        $query = "select * from sucursales";
         $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl != false && $rows > 1) {
+            
+        } else {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+    function su_guardarusuario($nombre, $apaterno, $amaterno, $tipousuario, $usuario, $pass, $sucursal) {
+        $query = "select * from usuarios where usuario = '$usuario'";
+        $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl != false) {
+            if ($rows > 0) {
+                $ctrl = 666;
+            } else {
+                $query = "insert into usuarios(usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal ) "
+                        . "values ('$usuario','$nombre', '$apaterno', '$amaterno', '$pass', '$tipousuario', $sucursal ) ";
+                $ctrl = mysql_query($query);
+                if ($ctrl == false) {
+                    $ctrl = mysql_error();
+                }
+            }
+        } else {
+            $ctrl = mysql_error();
+        }
         return $ctrl;
     }
 
