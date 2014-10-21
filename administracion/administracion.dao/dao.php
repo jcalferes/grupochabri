@@ -5050,6 +5050,10 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         return $ctrl;
     }
+    
+    function su_obtenerdatosusuario(){
+        
+    }
 
 //============================ /SUPER ADMINISTRADOR ============================
 }

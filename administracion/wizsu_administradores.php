@@ -54,7 +54,7 @@
 
                                         <div  class="col-md-6">
                                             <label>Sucursal:</label><br>
-                                            <select id="slcsucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" data-live-search="true">
+                                            <select id="slcsucursal" style=" height: 35px" class="selectpicker selectores" data-container="body" >
                                             </select>
                                         </div>
 
@@ -89,6 +89,87 @@
                 </div>
             </section>
         </div>
+        <div class="modal fade" id="mdlconfusuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div id="divdatosusuario">Aqui el nombre del usuario a editar</div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-light padding-15">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control validasimbol" id="conf-txtnombre" placeholder="">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="apellidoPaterno">Apellido Paterno</label>
+                                        <input type="text" class="form-control validasimbol" id="conf-txtapaterno" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="apellidoMaterno">Apellido Materno</label>
+                                        <input type="text" class="form-control validasimbol" id="conf-txtamaterno" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Nombre de usuario</label>
+                                <input type="email" class="form-control validasimbol" id="conf-txtusuario" placeholder="">
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-6">
+                                    <label>Tipo de Usuario:</label><br>
+                                    <select id="conf-slctipousuario" class="selectpicker " data-container="body" data-width="auto">
+                                        <option value="0">Selecciona una opcion...</option>
+                                        <option value="1">Super Administrador</option>
+                                        <option value="2">Administrador</option>
+                                        <option value="3">Vendedor</option>
+                                    </select>
+                                </div>
+
+                                <div  class="col-md-6">
+                                    <label>Sucursal:</label><br>
+                                    <select id="conf-slcsucursal" style=" height: 35px" class="selectpicker selectores" data-container="body">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12"><hr></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="checkbox persistent"><input type="checkbox" id="chkcambiarpass"> Cambiar el password del usuario.</label>                        
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control " id="conf-txtpass" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="conf-txtpass2" placeholder="Confirmar Password">
+                                    </div>
+                                </div>
+                            </div>      
+                            <div class="form-group">
+                                <button class="btn" type="button" id="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-cprimary pull-right" type="button" id="btneditar">Editar</button>
+                                <div id="divbtneliminar"></div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <script src="../administracion/administracion.js/controlWizard.js"></script>
         <script src="../utilerias/validCampoFranz.js"></script>
         <script src="../administracion/administracion.js/su_usuarios.js"></script>

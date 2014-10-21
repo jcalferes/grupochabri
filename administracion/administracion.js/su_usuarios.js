@@ -2,9 +2,13 @@ $(document).ready(function () {
     dt_adminactivos();
     dt_vendeactivos();
     slc_sucursal();
+    confslc_sucursal();
 
     $("#slctipousuario").selectpicker();
+    $("#conf-slctipousuario").selectpicker();
 
+    $("#conf-txtpass").attr("disabled", true);
+    $("#conf-txtpass2").attr("disabled", true);
 
     $("#txtnombre").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');//Teoricamente los simbolos permitidos para nombres y correos
     $("#txtapaterno").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
@@ -32,16 +36,42 @@ function slc_sucursal() {
     });
 }
 
-function eliminarAdministrador(id) {
-    var id = id;
-    alert("Admin");
-
+function confslc_sucursal() {
+    $("#conf-slcsucursal").load("mostrarSucursales.php", function () {
+        $("#conf-slcsucursal").selectpicker();
+    });
 }
 
-function eliminarVendedor(id) {
-    var id = id;
-    alert("Vendedor");
+function confusuario(id, tipo) {
+    alert("Es un: " + tipo + " con id " + id);
+    $("#mdlconfusuario").modal("toggle");
 }
+
+$("#chkcambiarpass").click(function () {
+    var valor = $(this).is(":checked");
+    if (valor == true) {
+        $("#conf-txtpass").attr("disabled", false);
+        $("#conf-txtpass2").attr("disabled", false);
+    } else {
+        $("#conf-txtpass").val("");
+        $("#conf-txtpass2").val("");
+
+        $("#conf-txtpass").attr("disabled", true);
+        $("#conf-txtpass2").attr("disabled", true);
+    }
+
+
+});
+
+
+$("#btneliminar").click(function () {
+    alertify.confirm("¿Estas completamente seguro de querer eliminar este usuario?, Al guardar cambios ya no se podra recuperar", function (e) {
+        if (e) {
+            alert("Si");
+        } else {
+        }
+    });
+});
 
 $("#btnregistrar").click(function () {
     $('#btnregistrar').attr("disabled", true);
