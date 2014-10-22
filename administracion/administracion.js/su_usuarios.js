@@ -43,7 +43,38 @@ function confslc_sucursal() {
 }
 
 function confusuario(id, tipo) {
-    alert("Es un: " + tipo + " con id " + id);
+
+//    alert("Es un: " + tipo + " con id " + id);
+    var data = new FormData();
+
+    data.append('id', id);
+    data.append('tipo', tipo);
+
+    $.ajax({
+        url: 'su_obtenerdatosusuario.php', //Url a donde la enviaremos
+        type: 'POST', //Metodo que usaremos
+        contentType: false, //Debe estar en false para que pase el objeto sin procesar
+        data: data, //Le pasamos el objeto que creamos con los archivos
+        processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+        cache: false //Para que el formulario no guarde cache
+    }).done(function (call) {
+        try //Validar si son datos json
+        {
+            var objson = $.parseJSON(call);
+            $("#conf-txtnombre").val(objson.usuario.datos.nombre);
+            $("#conf-txtapaterno").val(objson.usuario.datos.apaterno);
+            $("#conf-txtamaterno").val(objson.usuario.datos.amaterno);
+            $("#conf-txtusuario").val(objson.usuario.datos.usuario);
+            $('#conf-slctipousuario').selectpicker('val', objson.usuario.datos.tipo);
+            $('#conf-slcsucursal').selectpicker('val', objson.usuario.datos.sucursal);
+
+            $('#divdatosusuario').html('<h4>Usuario: ' + objson.usuario.datos.nombre + ' ' + objson.usuario.datos.apaterno + ' ' + objson.usuario.datos.amaterno + '</h4>');
+        }
+        catch (e)
+        {
+            alertify.alert(call);
+        }
+    });
     $("#mdlconfusuario").modal("toggle");
 }
 
@@ -63,15 +94,17 @@ $("#chkcambiarpass").click(function () {
 
 });
 
-
-$("#btneliminar").click(function () {
+function eliminausuario(id, tipo) {
     alertify.confirm("¿Estas completamente seguro de querer eliminar este usuario?, Al guardar cambios ya no se podra recuperar", function (e) {
         if (e) {
             alert("Si");
         } else {
         }
     });
-});
+}
+
+
+
 
 $("#btnregistrar").click(function () {
     $('#btnregistrar').attr("disabled", true);

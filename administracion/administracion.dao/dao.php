@@ -5050,9 +5050,20 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         }
         return $ctrl;
     }
-    
-    function su_obtenerdatosusuario(){
-        
+
+    function su_obtenerdatosusuario($id, $tipo) {
+        $query = "select * from usuarios "
+                . "where idUsuario = '$id' and idtipousuario = '$tipo'";
+        $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($rows < 0) {
+                $ctrl = "ERROR: El ususario no existe";
+            }
+        }
+        return $ctrl;
     }
 
 //============================ /SUPER ADMINISTRADOR ============================

@@ -99,31 +99,31 @@
                     <div class="modal-body">
                         <form class="form-light padding-15">
                             <div class="form-group">
-                                <label for="nombre">Nombre</label>
+                                <label for="conf-txtnombre">Nombre</label>
                                 <input type="text" class="form-control validasimbol" id="conf-txtnombre" placeholder="">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="apellidoPaterno">Apellido Paterno</label>
+                                        <label for="conf-txtapaterno">Apellido Paterno</label>
                                         <input type="text" class="form-control validasimbol" id="conf-txtapaterno" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="apellidoMaterno">Apellido Materno</label>
+                                        <label for="conf-txtamaterno">Apellido Materno</label>
                                         <input type="text" class="form-control validasimbol" id="conf-txtamaterno" placeholder="">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Nombre de usuario</label>
-                                <input type="email" class="form-control validasimbol" id="conf-txtusuario" placeholder="">
+                                <label for="conf-txtusuario">Nombre de usuario</label>
+                                <input type="text" class="form-control validasimbol" id="conf-txtusuario" placeholder="">
                             </div>
                             <div class="form-group">
 
                                 <div class="col-md-6">
-                                    <label>Tipo de Usuario:</label><br>
+                                    <label for="conf-slctipousuario">Tipo de Usuario:</label><br>
                                     <select id="conf-slctipousuario" class="selectpicker " data-container="body" data-width="auto">
                                         <option value="0">Selecciona una opcion...</option>
                                         <option value="1">Super Administrador</option>
@@ -133,7 +133,7 @@
                                 </div>
 
                                 <div  class="col-md-6">
-                                    <label>Sucursal:</label><br>
+                                    <label for="conf-slcsucursal">Sucursal:</label><br>
                                     <select id="conf-slcsucursal" style=" height: 35px" class="selectpicker selectores" data-container="body">
                                     </select>
                                 </div>
@@ -157,9 +157,7 @@
                                 </div>
                             </div>      
                             <div class="form-group">
-                                <button class="btn" type="button" id="btneliminar"><span class="glyphicon glyphicon-trash"></span></button>
                                 <button class="btn btn-cprimary pull-right" type="button" id="btneditar">Editar</button>
-                                <div id="divbtneliminar"></div>
                             </div>
                         </form>
 
