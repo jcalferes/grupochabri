@@ -15,7 +15,7 @@ if (!is_resource($ctrl)) {
     echo $ctrl;
 } else {
     while ($rs = mysql_fetch_array($ctrl)) {
-        $arr['usuario']['datos'] = array('usuario' => $rs["usuario"], 'nombre' => $rs["nombre"], 'apaterno' => $rs["apellidoPaterno"], 'amaterno' => $rs["apellidoMaterno"], 'tipo' => $rs["idtipousuario"], 'sucursal' => $rs["idSucursal"]);
+        $arr['usuario']['datos'] = array('usuario' => $rs["usuario"], 'nombre' => $rs["nombre"], 'apaterno' => $rs["apellidoPaterno"], 'amaterno' => $rs["apellidoMaterno"], 'tipo' => $rs["idtipousuario"], 'sucursal' => $rs["idSucursal"], 'idusuario' => $rs["idUsuario"]);
     }
     echo json_encode($arr);
 }

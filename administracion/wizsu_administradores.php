@@ -98,27 +98,24 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-light padding-15">
+                            <input type="text" class="form-control" id="conf-buzonid" disabled="true" >
                             <div class="form-group">
                                 <label for="conf-txtnombre">Nombre</label>
-                                <input type="text" class="form-control validasimbol" id="conf-txtnombre" placeholder="">
+                                <input type="text" class="form-control conf-validasimbol" id="conf-txtnombre" placeholder="">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="conf-txtapaterno">Apellido Paterno</label>
-                                        <input type="text" class="form-control validasimbol" id="conf-txtapaterno" placeholder="">
+                                        <input type="text" class="form-control conf-validasimbol" id="conf-txtapaterno" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="conf-txtamaterno">Apellido Materno</label>
-                                        <input type="text" class="form-control validasimbol" id="conf-txtamaterno" placeholder="">
+                                        <input type="text" class="form-control conf-validasimbol" id="conf-txtamaterno" placeholder="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="conf-txtusuario">Nombre de usuario</label>
-                                <input type="text" class="form-control validasimbol" id="conf-txtusuario" placeholder="">
                             </div>
                             <div class="form-group">
 

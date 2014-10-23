@@ -2,7 +2,10 @@ $(document).ready(function () {
     dt_adminactivos();
     dt_vendeactivos();
     slc_sucursal();
+
     confslc_sucursal();
+    $("#conf-buzonid").hide();
+
 
     $("#slctipousuario").selectpicker();
     $("#conf-slctipousuario").selectpicker();
@@ -44,6 +47,7 @@ function confslc_sucursal() {
 
 function confusuario(id, tipo) {
 
+
 //    alert("Es un: " + tipo + " con id " + id);
     var data = new FormData();
 
@@ -61,14 +65,17 @@ function confusuario(id, tipo) {
         try //Validar si son datos json
         {
             var objson = $.parseJSON(call);
+
+
+            $("#conf-buzonid").val(objson.usuario.datos.idusuario);
             $("#conf-txtnombre").val(objson.usuario.datos.nombre);
             $("#conf-txtapaterno").val(objson.usuario.datos.apaterno);
             $("#conf-txtamaterno").val(objson.usuario.datos.amaterno);
-            $("#conf-txtusuario").val(objson.usuario.datos.usuario);
             $('#conf-slctipousuario').selectpicker('val', objson.usuario.datos.tipo);
             $('#conf-slcsucursal').selectpicker('val', objson.usuario.datos.sucursal);
 
             $('#divdatosusuario').html('<h4>Usuario: ' + objson.usuario.datos.nombre + ' ' + objson.usuario.datos.apaterno + ' ' + objson.usuario.datos.amaterno + '</h4>');
+
         }
         catch (e)
         {
@@ -129,6 +136,8 @@ function eliminausuario(id, tipo) {
 $("#btnregistrar").click(function () {
     $('#btnregistrar').attr("disabled", true);
 
+    var bndvalidasimbol = 0;
+
     var nombre = $.trim($("#txtnombre").val());
     var apaterno = $.trim($("#txtapaterno").val());
     var amaterno = $.trim($("#txtamaterno").val());
@@ -150,12 +159,17 @@ $("#btnregistrar").click(function () {
         if (valor.match(/[#\*:"<>?|';]+/) === null)
         {
         } else {
+            bndvalidasimbol = 1;
             $(this).focus();
             alertify.error("El campo no puede contener ninguno de los siguientes caracteres: #\*:\"<>?|';");
             $('#btnregistrar').attr("disabled", false);
             return false;
         }
     });
+
+    if (bndvalidasimbol == 1) {
+        return false;
+    }
 
     if (pass === pass2) {
     } else {
@@ -207,6 +221,121 @@ $("#btnregistrar").click(function () {
         }
         $('#btnregistrar').attr("disabled", false);
     });
+
+
+});
+
+$("#btneditar").click(function () {
+    $('#btneditar').attr("disabled", true);
+
+    var bndeditpass = 0;
+    var bndconfvalidasimbol = 0;
+
+    var id = $("#conf-buzonid").val();
+    var nombre = $.trim($("#conf-txtnombre").val());
+    var apaterno = $.trim($("#conf-txtapaterno").val());
+    var amaterno = $.trim($("#conf-txtamaterno").val());
+    var tipousuario = $.trim($("#conf-slctipousuario").val());
+    var sucursal = $.trim($("#conf-slcsucursal").val());
+
+    if (nombre === "" || /^\s+$/.test(nombre) || apaterno === "" || /^\s+$/.test(apaterno) || amaterno === "" || /^\s+$/.test(amaterno) || tipousuario == 0 || sucursal == 0) {
+        alertify.error("Hay un campo vacío o no seleccionaste un tipo usuario o sucursal");
+        $('#btneditar').attr("disabled", false);
+        return false;
+    }
+
+    $(".conf-validasimbol").each(function () {
+        var valor = $.trim($(this).val());
+        if (valor.match(/[#\*:"<>?|';]+/) != null)
+        {
+            bndconfvalidasimbol = 1;
+            $(this).focus();
+            $('#btneditar').attr("disabled", false);
+            alertify.error("El campo no puede contener ninguno de los siguientes caracteres: #\*:\"<>?|';");
+            return false;
+
+        }
+    });
+
+    if (bndconfvalidasimbol == 1) {
+        return false;
+    }
+
+    var editpass = $("#chkcambiarpass").is(":checked");
+    if (editpass == true) {
+        var pass = $.trim($("#conf-txtpass").val());
+        var pass2 = $.trim($("#conf-txtpass2").val());
+
+        if (pass === "" || /^\s+$/.test(pass) || pass2 === "" || /^\s+$/.test(pass2)) {
+            alertify.error("Uno de los campos de password esta vacio");
+            $('#btneditar').attr("disabled", false);
+            return false;
+        }
+
+        if (pass === pass2) {
+            bndeditpass = 1;
+        } else {
+            alertify.error("Los passwords no coinciden");
+            $('#btneditar').attr("disabled", false);
+            return false;
+        }
+    }
+
+    var data = new FormData();
+
+    data.append('nombre', nombre);
+    data.append('apaterno', apaterno);
+    data.append('amaterno', amaterno);
+    data.append('tipousuario', tipousuario);
+    data.append('sucursal', sucursal);
+    data.append('bndeditpass', bndeditpass);
+    data.append('id', id);
+
+    if (bndeditpass == 1) {
+        data.append('pass', pass2);
+    }
+
+
+
+    $.ajax({
+        url: 'su_editarusuario.php', //Url a donde la enviaremos
+        type: 'POST', //Metodo que usaremos
+        contentType: false, //Debe estar en false para que pase el objeto sin procesar
+        data: data, //Le pasamos el objeto que creamos con los archivos
+        processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+        cache: false //Para que el formulario no guarde cache
+    }).done(function (call) {
+        if (call == 1 || call == 666) {
+            if (call == 1) {
+                dt_adminactivos();
+                dt_vendeactivos();
+
+                $("#conf-buzonid").val("");
+                $("#conf-txtnombre").val("");
+                $("#conf-txtapaterno").val("");
+                $("#conf-txtamaterno").val("");
+                $("#conf-slctipousuario").selectpicker('val', 0);
+                $("#conf-slcsucursal").selectpicker('val', 0);
+                $("#conf-txtusuario").val("");
+                $("#conf-txtpass").val("");
+                $("#conf-txtpass2").val("");
+
+                $("#chkcambiarpass").prop("checked", false);
+                $("#conf-txtpass").attr("disabled", true);
+                $("#conf-txtpass2").attr("disabled", true);
+
+                $("#mdlconfusuario").modal("toggle");
+                alertify.success("Usuario correctamente editado");
+            }
+            if (call == 666) {
+                alertify.error("El nombre de usuario ya esta en uso");
+            }
+        } else {
+            alertify.alert("ERROR: " + call);
+        }
+        $('#btneditar').attr("disabled", false);
+    });
+
 
 
 });
