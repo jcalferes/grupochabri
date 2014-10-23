@@ -97,7 +97,27 @@ $("#chkcambiarpass").click(function () {
 function eliminausuario(id, tipo) {
     alertify.confirm("¿Estas completamente seguro de querer eliminar este usuario?, Al guardar cambios ya no se podra recuperar", function (e) {
         if (e) {
-            alert("Si");
+            var data = new FormData();
+
+            data.append('id', id);
+            data.append('tipo', tipo);
+
+            $.ajax({
+                url: 'su_eliminarusuario.php', //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: data, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function (call) {
+                if (call == 1) {
+                    dt_adminactivos();
+                    dt_vendeactivos();
+                    alertify.success("Usuario eliminado del sistema.");
+                } else {
+                    alertify.alert(call);
+                }
+            });
         } else {
         }
     });

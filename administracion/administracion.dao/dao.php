@@ -5066,5 +5066,14 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $ctrl;
     }
 
+    function su_eliminarusuario($id, $tipo) {
+        $query = "delete from usuarios where idUsuario = '$id' and idtipousuario = '$tipo'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
 //============================ /SUPER ADMINISTRADOR ============================
 }
