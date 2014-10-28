@@ -277,7 +277,7 @@ $("#finder").keypress(function (e) {
 //=================== Guardar datos producto ===================================
 $("#guardarDatos").click(function () {
     var lista;
-    var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
+    var nombreProducto = $.trim($("#txtNombreProducto").val().toUpperCase());
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $.trim($("#txtCodigoProducto").val());

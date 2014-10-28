@@ -2,10 +2,14 @@ $(document).ready(function () {
     $("#consultaUsuario").load("consultarUsuario.php", function () {
         $('#dtusuario').dataTable();
     });
-    $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function () {
-        $("#selectTipoUsuario").selectpicker();
-        $("#diveditarusuario").hide();
-    });
+
+    $("#selectTipoUsuario").selectpicker();
+    $("#diveditarusuario").hide();
+
+//    $("#selectTipoUsuario").load("mostrarTipoUsuario.php", function () {
+//        $("#selectTipoUsuario").selectpicker();
+//        $("#diveditarusuario").hide();
+//    });
 });
 $("#txtusuario").blur(function () {
     var usuario = $.trim($("#txtusuario").val());
@@ -15,7 +19,7 @@ $("#txtusuario").blur(function () {
             alertify.error("Este usuario ya exite");
             $("#txtusuario").val("");
         }
-        
+
         if (respuesta == 0) {
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtnombre").val("");
@@ -31,6 +35,7 @@ $("#txtusuario").blur(function () {
                     $('#txtid').val(elemento);
                 }
                 if (indice == "idtipousuario") {
+                    alert(elemento);
                     $('#selectTipoUsuario').selectpicker('val', elemento);
                 }
                 if (indice == "nombre") {
@@ -46,7 +51,7 @@ $("#txtusuario").blur(function () {
             $("#divguardarusuario").slideUp();
             $("#diveditarusuario").slideDown();
         }
-        
+
     });
 });
 $("#btnguardarusuario").click(function () {
@@ -57,7 +62,7 @@ $("#btnguardarusuario").click(function () {
     var materno = $.trim($("#txtmaterno").val().toUpperCase());
     var pass = $.trim($("#txtpass").val());
     var repass = $.trim($("#txtrepass").val());
-
+    alert(tipousuario);
     if (tipousuario == 0) {
         alertify.error("No seleccionaste un tipo de usuario");
         return false;
@@ -91,11 +96,11 @@ $("#btnguardarusuario").click(function () {
         }
         if (respuesta == 0) {
             alertify.success("Usuario agregado correctamente");
-            
+
             $("#consultaUsuario").load("consultarUsuario.php", function () {
                 $('#dtusuario').dataTable();
             });
-            
+
             $('#selectTipoUsuario').selectpicker('val', 0);
             $("#txtusuario").val("");
             $("#txtnombre").val("");

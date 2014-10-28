@@ -17,6 +17,7 @@ $(document).ready(function () {
     $("#txtapaterno").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
     $("#txtamaterno").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
     $("#txtemail").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
+    $("#txtusuario").validCampoFranz(' abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
     $("#txtpass").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
     $("#txtpass2").validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890@/°¬!$%&()=[]{}-_,.');
 });

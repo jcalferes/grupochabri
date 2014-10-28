@@ -42,7 +42,7 @@ $verificasession->validaSesion();
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="javascript:entroAdministradores();">Usuarios del sistema</a></li>
-                        <li><a href="">Crear nueva sucursal</a></li>
+                        <li><a href="javascript:entroNuevaSucursal();">Crear nueva sucursal</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">

@@ -19,6 +19,11 @@
                     <div class="form-group">
                         <label>Tipo de Usuario:</label><br>
                         <select id="selectTipoUsuario" class="selectpicker selectores" data-container="body" data-live-search="true" >
+                            <option value="0">Selecciona una opcion...</option>
+                            <option value="2">Administrador</option>
+                            <option value="3">Vendedor</option>
+                            <option value="4">Vendedor Foraneo</option>
+                            <option value="7">Cliente</option>
                         </select>
                     </div>
                     <div class="form-group">

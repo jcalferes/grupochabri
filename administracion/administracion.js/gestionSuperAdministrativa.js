@@ -28,3 +28,7 @@ function entroAdministradores() {
     $("#mostrar").load("wizsu_administradores.php");
 }
 
+function entroNuevaSucursal() {
+    $("#mostrar").load("wizsu_nuevasucursal.php");
+}
+
