@@ -108,7 +108,7 @@ $(document).ready(function () {
     $("#frmcostopieza").hide();
     $("#editarDatos").hide();
     $("#divm3").hide();
-    $('#txtCodigoProducto').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
+    $('#txtCodigoProducto').validCampoFranz('/abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $('#txtNombreProducto').validCampoFranz(' /abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&()=?¡¬´+~{}[]-_.:,;');
     $("#tablaListaPrecios").load("consultarTarifas.php");
     $('#checarListas').hide();
@@ -277,7 +277,7 @@ $("#finder").keypress(function (e) {
 //=================== Guardar datos producto ===================================
 $("#guardarDatos").click(function () {
     var lista;
-    var nombreProducto = escape($.trim($("#txtNombreProducto").val().toUpperCase()));
+    var nombreProducto = $.trim($("#txtNombreProducto").val().toUpperCase());
     var marca = $("#selectMarca").val();
     var proveedor = $("#selectProveedor").val();
     var codigoProducto = $.trim($("#txtCodigoProducto").val());

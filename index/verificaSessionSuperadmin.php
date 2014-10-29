@@ -7,7 +7,7 @@ class verificaSession {
     function validaSesion() {
         if (isset($_SESSION["usuarioSesion"])) {
             if (isset($_SESSION["tipoSesion"])) {
-                if ($_SESSION["tipoSesion"] == 3 || $_SESSION["tipoSesion"] == 4) {
+                if ($_SESSION["tipoSesion"] == 1) {
                     
                 } else {
                     echo "

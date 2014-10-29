@@ -14,10 +14,10 @@ class Utilerias {
         }
     }
 
-    function genera_md5($clave, $destinos) {
-        $codificado = md5($clave);
-        return $codificado;
-    }
+//    function genera_md5($clave, $destinos) {
+//        $codificado = md5($clave);
+//        return $codificado;
+//    }
 
     function enviarCorreoElectronico($destinos) {
         include_once ("class.phpmailer.php");

@@ -24,7 +24,7 @@ function Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, 
     this.ciudad = ciudad;
 }
 
-$("#btnotrotel").click(function() {
+$("#btnotrotel").click(function () {
     cuantostel++;
     cadena = txttel + cuantostel;
     $("#mastels").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 57%;\" ><input type=\"text\" class=\"telefono form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
@@ -36,7 +36,7 @@ function aplicarValidacion() {
     $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
 }
 
-$("#btnotroemail").click(function() {
+$("#btnotroemail").click(function () {
     cuantosemail++;
     cadena = txtemail + cuantosemail;
     $("#masemails").append("<div id=" + cadena + " class=\"input-group\" style=\"margin-top: 10px; width: 57%;\" ><input type=\"text\" class=\"email form-control\"><span class=\"input-group-btn\"><button class=\"btn btn-default\" onclick='borratel(\"" + cadena + "\")' type=\"button\"><span class=\"glyphicon glyphicon-remove\"></span></button></span></div>");
@@ -89,9 +89,9 @@ function verficaPostal2() {
     }
     else {
         var info = "postal=" + postal;
-        $.get('obtieneDireccion.php', info, function(respuesta) {
+        $.get('obtieneDireccion.php', info, function (respuesta) {
             var dataJson = eval(respuesta);
-            $("#selectColonia").html(function() {
+            $("#selectColonia").html(function () {
                 var contenido;
                 for (var i in dataJson) {
                     contenido += "<option value='" + dataJson[i].asenta + "'>" + dataJson[i].asenta + "</option>";
@@ -106,7 +106,7 @@ function verficaPostal2() {
 function verDireccion(id, rfc) {
 
     var info = "id=" + id + "&rfc=" + rfc;
-    $("#verdireccion").load("consultaDireccion.php", info, function() {
+    $("#verdireccion").load("consultaDireccion.php", info, function () {
         $('#mdlverdireccion').modal('show');
     });
 }
@@ -146,7 +146,7 @@ function validaRfc() {
     }
 }
 
-$("#btncanceloProveedor").click(function() {
+$("#btncanceloProveedor").click(function () {
     $("#txtnombreproveedor").val("");
     $("#txtrfc").val("");
     $("#txtdiascredito").val("");
@@ -156,21 +156,21 @@ $("#btncanceloProveedor").click(function() {
 });
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     $(":input:first").focus();
     $("#botonNinja").hide();
     $("#btneditardireccionproveedor").hide();
     $("#btneditarproveedor").hide();
 
-    $("#consultaProveedor").load("consultarProveedor.php", function() {
+    $("#consultaProveedor").load("consultarProveedor.php", function () {
         $('#dtproveedor').dataTable();
     });
 
-    $("#dgproveedor").load("mostrarProveedores.php", function() {
+    $("#dgproveedor").load("mostrarProveedores.php", function () {
         $("#selectProveedor").selectpicker();
     });
 
-    $(function() {
+    $(function () {
         $(".telefono").validCampoFranz('0123456789()');
         $(".email").validCampoFranz('abcdefghijklmnñopqrstuvwxyz1234567890<>@,;.:-_^{[}]+¿¡?=)(/&%$#!|°');
         $('#txtrfc').validCampoFranz('abcdefghijklmnñopqrstuvwxyzáéiou1234567890°!#$%&/()=?¡|¬?¨*´+~{}[]-_.:,;');
@@ -185,7 +185,7 @@ $(document).ready(function() {
     });
 });
 
-$("#btneditarproveedor").click(function() {
+$("#btneditarproveedor").click(function () {
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
     var diascredito = $("#txtdiascredito").val();
@@ -252,7 +252,7 @@ $("#btneditarproveedor").click(function() {
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
     var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios);
 
-    $(".telefono").each(function() {
+    $(".telefono").each(function () {
         var valor = $(this).val();
         if (valor == "" || /^\s+$/.test(valor)) {
         } else {
@@ -260,7 +260,7 @@ $("#btneditarproveedor").click(function() {
         }
     });
 
-    $(".email").each(function() {
+    $(".email").each(function () {
         var valor = $(this).val();
         if (valor.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             emails.push(valor);
@@ -274,7 +274,7 @@ $("#btneditarproveedor").click(function() {
 
     var datosJSON = JSON.stringify(datos);
 
-    $.post('editarProveedor.php', {datos: datosJSON}, function(rs) {
+    $.post('editarProveedor.php', {datos: datosJSON}, function (rs) {
         if (rs == 0) {
             $("#txtnombreproveedor").val("");
             $("#txtrfc").val("");
@@ -309,11 +309,11 @@ $("#btneditarproveedor").click(function() {
             $("#frmtel").append("<div id='mastels'></div>");
             $("#frmemail").append("<div id='masemails'></div>");
 
-            $("#consultaProveedor").load("consultarProveedor.php", function() {
+            $("#consultaProveedor").load("consultarProveedor.php", function () {
                 $('#dtproveedor').dataTable();
             });
 
-            $("#selectProveedor").load("mostrarProveedores.php", function() {
+            $("#selectProveedor").load("mostrarProveedores.php", function () {
                 $("#selectProveedor").selectpicker('refresh');
             });
 
@@ -325,10 +325,10 @@ $("#btneditarproveedor").click(function() {
     });
 });
 
-$("#txtrfc").blur(function() {
+$("#txtrfc").blur(function () {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
-    $.get('verificandoProvedor.php', info, function(rs) {
+    $.get('verificandoProvedor.php', info, function (rs) {
         if (rs == 0) {
             $("#btneditardireccionproveedor").hide();
             $("#btnguardardireccionproveedor").show();
@@ -404,15 +404,15 @@ $("#txtrfc").blur(function() {
     });
 });
 
-$("#btnvertele").click(function() {
+$("#btnvertele").click(function () {
     $('#mdltelefonos').modal('show');
 });
 
-$("#btnveremail").click(function() {
+$("#btnveremail").click(function () {
     $('#mdlemails').modal('show');
 });
 
-$("#canceloDireccion").click(function() {
+$("#canceloDireccion").click(function () {
     $("#txtcalle").val("");
     $("#txtnumeroexterior").val("");
     $("#txtnumerointerior").val("");
@@ -424,7 +424,7 @@ $("#canceloDireccion").click(function() {
     $('#mdlDireccion').modal('hide');
 });
 
-$("#btnguardardireccionproveedor").click(function() {
+$("#btnguardardireccionproveedor").click(function () {
     var calle = $.trim($("#txtcalle").val().toUpperCase());
     var numeroexterior = $.trim($("#txtnumeroexterior").val().toUpperCase());
     var numerointerior = $.trim($("#txtnumerointerior").val().toUpperCase());
@@ -440,7 +440,7 @@ $("#btnguardardireccionproveedor").click(function() {
     }
 });
 
-$("#btneditardireccionproveedor").click(function() {
+$("#btneditardireccionproveedor").click(function () {
     var calle = $.trim($("#txtcalle").val().toUpperCase());
     var numeroexterior = $.trim($("#txtnumeroexterior").val().toUpperCase());
     var numerointerior = $.trim($("#txtnumerointerior").val().toUpperCase());
@@ -456,7 +456,7 @@ $("#btneditardireccionproveedor").click(function() {
     }
 });
 
-$("#btnguardarproveedor").click(function() {
+$("#btnguardarproveedor").click(function () {
     var nombre = $.trim($("#txtnombreproveedor").val().toUpperCase());
     var rfc = $("#txtrfc").val().toUpperCase();
     var diascredito = $("#txtdiascredito").val();
@@ -522,7 +522,7 @@ $("#btnguardarproveedor").click(function() {
     var direccion = new Direccion(calle, numeroexterior, numerointerior, cruzamientos, postal, colonia, ciudad, estado);
     var proveedor = new Proveedor(nombre, rfc, diascredito, desctpf, desctpp, radios);
     var ctrltelefonos = 0;
-    $(".telefono").each(function() {
+    $(".telefono").each(function () {
         var valor = $(this).val();
         if (valor == "" || /^\s+$/.test(valor)) {
             ctrltelefonos = 1;
@@ -536,7 +536,7 @@ $("#btnguardarproveedor").click(function() {
     }
 
     var ctrlemails = 0;
-    $(".email").each(function() {
+    $(".email").each(function () {
         var valor = $(this).val();
         if (valor.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
             emails.push(valor);
@@ -555,7 +555,7 @@ $("#btnguardarproveedor").click(function() {
     datos.push(emails);
 
     var datosJSON = JSON.stringify(datos);
-    $.post('guardaProveedor.php', {datos: datosJSON}, function(rs) {
+    $.post('guardaProveedor.php', {datos: datosJSON}, function (rs) {
         if (rs == 0) {
             $("#txtnombreproveedor").val("");
             $("#txtrfc").val("");
@@ -584,7 +584,7 @@ $("#btnguardarproveedor").click(function() {
             $("#frmtel").append("<div id='mastels'></div>");
             $("#frmemail").append("<div id='masemails'></div>");
 
-            $("#consultaProveedor").load("consultarProveedor.php", function() {
+            $("#consultaProveedor").load("consultarProveedor.php", function () {
                 $('#dtproveedor').dataTable();
             });
 
@@ -594,15 +594,15 @@ $("#btnguardarproveedor").click(function() {
             alertify.error("Error al guardar");
         }
         if (rs == 999) {
-            $("#consultaProveedor").load("consultarProveedor.php", function() {
+            $("#consultaProveedor").load("consultarProveedor.php", function () {
                 $('#dtproveedor').dataTable();
             });
-            $("#selectProveedor").load("mostrarProveedores.php", function() {
+            $("#selectProveedor").load("mostrarProveedores.php", function () {
                 $("#selectProveedor").selectpicker('refresh');
             });
             alertify.error("Este proveedor ya existe");
         }
-        $("#selectProveedor").load("mostrarProveedores.php", function() {
+        $("#selectProveedor").load("mostrarProveedores.php", function () {
             $("#selectProveedor").selectpicker('refresh');
         });
         $("#mostrarDivProveedor").hide("slow");
@@ -613,14 +613,14 @@ $("#btnguardarproveedor").click(function() {
 function eliminardatoscontacto(id, tipo) {
     if (tipo == 0) {
         var contartels = 0;
-        $("#tbltelefonos tbody tr").each(function() {
+        $("#tbltelefonos tbody tr").each(function () {
             contartels++;
         });
         if (contartels <= 1) {
             alertify.error("Imposible eliminar, debe existir al menos un telefono para este proveedor");
         } else {
             var info = "id=" + id + "&tipo=" + tipo;
-            $.get('eliminarContactos.php', info, function(rs) {
+            $.get('eliminarContactos.php', info, function (rs) {
                 if (rs == 00 || rs == 01) {
                     alertify.success("Datos eliminados");
                     actualizaTablasTelMail();
@@ -631,14 +631,14 @@ function eliminardatoscontacto(id, tipo) {
     }
     if (tipo == 1) {
         var contaremas = 0;
-        $("#tblemails tbody tr").each(function() {
+        $("#tblemails tbody tr").each(function () {
             contaremas++;
         });
         if (contaremas <= 1) {
             alertify.error("Imposible eliminar, debe existir al menos un email para este proveedor");
         } else {
             var info = "id=" + id + "&tipo=" + tipo;
-            $.get('eliminarContactos.php', info, function(rs) {
+            $.get('eliminarContactos.php', info, function (rs) {
                 if (rs == 00 || rs == 01) {
                     actualizaTablasTelMail();
                     alertify.success("Datos eliminados");
@@ -652,7 +652,7 @@ function eliminardatoscontacto(id, tipo) {
 function actualizaTablasTelMail() {
     var rfc = $("#txtrfc").val();
     var info = "rfc=" + rfc;
-    $.get('verificandoProvedor.php', info, function(rs) {
+    $.get('verificandoProvedor.php', info, function (rs) {
         var arr = $.parseJSON(rs);
         $("#tbltelefonos tbody tr").remove();
         $("#tblemails tbody tr").remove();

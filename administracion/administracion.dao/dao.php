@@ -229,13 +229,17 @@ class dao {
         return true;
     }
 
-    function consultaOrdenesLista($tipo, $idSucursal) {
+    function consultaOrdenesLista($tipo, $idSucursal, $idusuario) {
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         if ($tipo == "ORDEN COMPRA") {
             $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal INNER JOIN proveedores p ON x.rfcComprobante  = p.rfc Where x.tipoComprobante = '$tipo' and s.idSucursal = '$idSucursal'";
         } else {
-            $sql = "SELECT * FROM xmlcomprobantes x INNER JOIN sucursales s ON s.idSucursal = x.idSucursal Where x.tipoComprobante = '$tipo'";
+            $sql = "select * from xmlcomprobantes x "
+                    . "inner join clientes c on x.rfcComprobante = c.rfc "
+                    . "inner join sucursales s on x.idSucursal = s.idSucursal "
+                    . "inner join usuarios u on c.idUsuario = u.idUsuario "
+                    . "where x.tipoComprobante = '$tipo' and u.idUsuario = '$idusuario'";
         }
         $sql = mysql_query($sql, $cn->Conectarse());
 //        $cn->cerrarBd();
@@ -1178,7 +1182,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         include_once '../daoconexion/daoConeccion.php';
         $cn = new coneccion();
         $cont = 0;
-
+        $cn->Conectarse();
         mysql_query("START TRANSACTION;");
 
         $sucursales = "SELECT * FROM sucursales WHERE idSucursal <> '$idSucursal'";
@@ -1976,7 +1980,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $sqlfolios;
     }
 
-    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal) {
+    function superMegaGuardadorEntradas($lafecha, Encabezado $encabezado, $arrayDetalleEntrada, Comprobante $comprobante, $conceptos, $control, $idSucursal, $idusuario) {
         $detalle = new Detalle();
         //======================================================================
         //Empieza guardar encabezado
@@ -2127,6 +2131,46 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             }
             //Terminar actulizar costo
             //==================================================================
+            //Comienza actulizar tarifas
+            $sqlSacarTarifas = "select pr.idProducto, pr.producto, pr.codigoProducto, ta.idTarifa, ta.tarifa, ta.idListaPrecio, ta.porcentaUtilidad, ta.fechaMovimientoTarifa, li.idListaPrecio, li.nombreListaPrecio from productos pr "
+                    . "inner join tarifas ta on pr.codigoProducto = ta.codigoProducto "
+                    . "inner join listaprecios li on ta.idListaPrecio = li.idListaPrecio "
+                    . "where pr.codigoProducto = '$cpto->codigo' and ta.idSucursal = '$idSucursal' and ta.idStatus = '1'";
+            $ctrlSacarTarifas = mysql_query($sqlSacarTarifas);
+            $rowSacarTarifas = mysql_affected_rows();
+            if ($ctrlSacarTarifas != false && $rowSacarTarifas > 0) {
+                while ($rs = mysql_fetch_array($ctrlSacarTarifas)) {
+                    $idtarifa = $rs["idTarifa"];
+                    $porcenta = $rs["porcentaUtilidad"];
+                    $idlistaprecio = $rs["idListaPrecio"];
+
+                    $agregatarifa = ($porcenta * $costoPromedio) / 100;
+                    $nuevatarifa = $costoPromedio + $agregatarifa;
+
+                    $sqlInsertaNuevaTarifa = "insert into tarifas (tarifa, codigoProducto, idListaPrecio, idStatus, porcentaUtilidad, fechaMovimientoTarifa, idSucursal) "
+                            . "values ('$nuevatarifa','$cpto->codigo','$idlistaprecio','1','$porcenta','$lafecha', '$idSucursal')";
+                    $ctrlInsertaNuevaTarifa = mysql_query($sqlInsertaNuevaTarifa);
+                    if ($ctrlInsertaNuevaTarifa != false) {
+                        $sqlActulizaTarifa = "update tarifas set idStatus = '2' "
+                                . "where idTarifa = '$idtarifa' and codigoProducto = '$cpto->codigo' and idListaPrecio = '$idlistaprecio' and idSucursal = '$idSucursal'";
+                        $ctrllActulizaTarifa = mysql_query($sqlActulizaTarifa);
+                        if ($ctrllActulizaTarifa == false) {
+                            $ctrllActulizaTarifa = mysql_error();
+                            mysql_query("ROLLBACK;");
+                            return false;
+                        }
+                    } else {
+                        $ctrlInsertaNuevaTarifa = mysql_error();
+                        mysql_query("ROLLBACK;");
+                        return false;
+                    }
+                }
+            } else {
+                $ctrlSacarTarifas = mysql_error();
+                mysql_query("ROLLBACK;");
+                return false;
+            }
+            //==================================================================
             //Comienza Actulizar existencia
             $nuevacantidad = $cantidad + $detalle->getCantidad();
             $sqlActulizaExistencia = "UPDATE existencias SET cantidad = '$nuevacantidad'"
@@ -2140,7 +2184,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
             //==================================================================
             //Comienza guardar entrada
             $sqlEntradasGuardar = "INSERT INTO entradas (usuario, cantidad, fecha, codigoProducto, idSucursal) "
-                    . " VALUES ('Joel','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
+                    . " VALUES ('$idusuario','" . $detalle->getCantidad() . "','$lafecha','$cpto->codigo','$idSucursal')"; //Forzado usuaro e idSucursal
             $ctrlEntradasGuardar = mysql_query($sqlEntradasGuardar);
             if ($ctrlEntradasGuardar == false) {
                 mysql_query("ROLLBACK;");
@@ -3303,7 +3347,7 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
 //        }
         for ($x = 0; $x < count($detalle); $x++) {
             $sqlConceptoGuardar = "INSERT INTO xmlconceptos (unidadMedidaConcepto, importeConcepto, cantidadConcepto, codigoConcepto, descripcionConcepto, precioUnitarioConcepto, idXmlComprobante, cdaConcepto, desctUnoConcepto, desctDosConcepto,costoCotizacion,idListaPrecio)"
-                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . $detalle[$x]->cdaConcepto . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
+                    . " VALUES ('" . $detalle[$x]->unidadMedidaConcepto . "', '" . $detalle[$x]->importeConcepto . "','" . $detalle[$x]->cantidadConcepto . "','" . $detalle[$x]->codigoConcepto . "','" . $detalle[$x]->descripcionConcepto . "','" . $detalle[$x]->precioUnitarioConcepto . "', '$idXmlComprobante', '" . ($detalle[$x]->cdaConcepto / $detalle[$x]->cantidadConcepto) . "', '" . $detalle[$x]->desctUnoConcepto . "','0','" . $detalle[$x]->costoCotizacion . "','" . $detalle[$x]->idListaPrecio . "')";
             $datos = mysql_query($sqlConceptoGuardar);
             if ($datos == false) {
                 $error = mysql_error();
@@ -4949,11 +4993,95 @@ WHERE x.folioComprobante = '$folio' AND x.tipoComprobante = '$comprobante' and i
         return $rs;
     }
 
-    function dameInformacionEncabezado($idXml) {
-        $sql = "SELECT * FROM xmlcomprobantes WHERE idXmlComprobante = '" . $idXml . "'";
-        $rs = mysql_query($sql);
-
-        return $rs;
+//============================= SUPER ADMINISTRADOR ============================
+    function dtadminactivos() {
+        $query = "select * from usuarios u "
+                . "inner join tiposusuarios tu on u.idtipousuario = tu.idTipoUsuario "
+                . "inner join sucursales s on u.idSucursal = s.idSucursal "
+                . "where u.idtipousuario = '1' or u.idtipousuario = '2'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
     }
 
+    function dtvendeactivos() {
+        $query = "select * from usuarios u "
+                . "inner join tiposusuarios tu on u.idtipousuario = tu.idTipoUsuario "
+                . "inner join sucursales s on u.idSucursal = s.idSucursal "
+                . "where u.idtipousuario = '3' or u.idtipousuario = '4' or u.idtipousuario = '5' or u.idtipousuario = '6'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+    function mostrarsucursales() {
+        $query = "select * from sucursales";
+        $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl != false && $rows > 1) {
+            
+        } else {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+    function su_guardarusuario($nombre, $apaterno, $amaterno, $tipousuario, $usuario, $pass, $sucursal) {
+        $query = "select * from usuarios where usuario = '$usuario'";
+        $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl != false) {
+            if ($rows > 0) {
+                $ctrl = 666;
+            } else {
+                $query = "insert into usuarios(usuario, nombre, apellidoPaterno, apellidoMaterno, password, idtipousuario, idSucursal ) "
+                        . "values ('$usuario','$nombre', '$apaterno', '$amaterno', '$pass', '$tipousuario', $sucursal ) ";
+                $ctrl = mysql_query($query);
+                if ($ctrl == false) {
+                    $ctrl = mysql_error();
+                }
+            }
+        } else {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+    function su_obtenerdatosusuario($id, $tipo) {
+        $query = "select * from usuarios "
+                . "where idUsuario = '$id' and idtipousuario = '$tipo'";
+        $ctrl = mysql_query($query);
+        $rows = mysql_affected_rows();
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        } else {
+            if ($rows < 0) {
+                $ctrl = "ERROR: El ususario no existe";
+            }
+        }
+        return $ctrl;
+    }
+
+    function su_eliminarusuario($id, $tipo) {
+        $query = "delete from usuarios where idUsuario = '$id' and idtipousuario = '$tipo'";
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+    function su_editarusuario($query) {
+        $ctrl = mysql_query($query);
+        if ($ctrl == false) {
+            $ctrl = mysql_error();
+        }
+        return $ctrl;
+    }
+
+//============================ /SUPER ADMINISTRADOR ============================
 }

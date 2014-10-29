@@ -1,5 +1,5 @@
 <?php
-include '../index/verificaSessionVentas.php';
+include '../index/verificaSessionSuperadmin.php';
 $verificasession = new verificaSession();
 $verificasession->validaSesion();
 ?>
@@ -28,6 +28,7 @@ $verificasession->validaSesion();
         <!-- CSS Personalizados-->
     </head>
     <body style="background-color: whitesmoke">
+
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -40,20 +41,14 @@ $verificasession->validaSesion();
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>Inventario <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li id="10" class=""><a href="javascript:entroOnlyVentas();">Ventas</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="javascript:entroAdministradores();">Usuarios del sistema</a></li>
+                        <li><a href="javascript:entroNuevaSucursal();">Crear nueva sucursal</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label>&nbsp;<b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" ><label id="session_nombre"></label> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-header" >Sucursal actual:<br><span id="session_sucursal"></span></li>
-                                <li class="divider"></li>
-                                <li><a href="../index/cerrarSesion.php">Cerrar session</a></li>
+                                <li><a href="../index/cerrarSesion.php"><span class="glyphicon glyphicon-off"></span> Cerrar sesion</a></li>
                             </ul>
                         </li>
                         <!--<li><a id="donde" href="../index/cerrarSesion.php"></a></li>-->
@@ -76,6 +71,7 @@ $verificasession->validaSesion();
         </div>
         <!-- JSCRIPT -->
         <script src="../bootstrap/js/jquery.js"></script>
+        <script src="../bootstrap/js/jquery-ui.js"></script>
         <script src="../jsteps/js/jquery.steps.min.js"></script>
         <script src="../alertify/lib/alertify.min.js"></script>
         <script src="../dtbootstrap/jquery.dataTables.js"></script>
@@ -83,6 +79,7 @@ $verificasession->validaSesion();
         <script src="../bootstrap/js/bootstrap-select.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../switchboostrap/js/bootstrap-switch.js"></script>
-        <script src="../administracion/administracion.js/gestionAdministrativaVentas.js"></script>
+        <script src="../utilerias/php.js-utf8.js"></script>
+        <script src="../administracion/administracion.js/gestionSuperAdministrativa.js"></script>
     </body>
 </html>

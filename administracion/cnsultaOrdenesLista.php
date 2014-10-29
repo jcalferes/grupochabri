@@ -5,7 +5,8 @@ include_once './administracion.dao/dao.php';
 $dao = new dao();
 $tipo = $_GET["tipo"];
 $idsucursal = $_SESSION["sucursalSesion"];
-$datos = $dao->consultaOrdenesLista($tipo, $idsucursal);
+$idusuario = $_SESSION["usuarioSesion"];
+$datos = $dao->consultaOrdenesLista($tipo, $idsucursal, $idusuario);
 if ($tipo == "ORDEN COMPRA") {
     echo"<div class='table-responsive'><table class='table table-hover' id='dtproveedor'><thead><th>Folio</th><th>Rfc</th><th>Proveedor</th><th>Fecha</th><th>Total</th><th>Desct. Gral Total</th><th>Detalles</th></thead><tbody>";
     while ($rs = mysql_fetch_array($datos)) {
