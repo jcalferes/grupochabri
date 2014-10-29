@@ -4,14 +4,14 @@ var arrelo;
 var imagenes = new Array();
 var calculando = 6;
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#botonninja").hide();
     $("#editarImagenes").hide();
     $("#mostrarImagenes").hide();
     $("#mostrando").hide();
-    $("#enslider").load("mostrarImgSlider.php", function() {
+    $("#enslider").load("mostrarImgSlider.php", function () {
     });
-    $("#consultarProductosPublicados").load("consultarClasificados.php", function() {
+    $("#consultarProductosPublicados").load("consultarClasificados.php", function () {
         $('#dtclasificados').dataTable();
     });
 });
@@ -21,7 +21,7 @@ function gestionimagenes(cp, nombre) {
     $('#botonninja').trigger('click');
     $('#labelTitulo').html('<h4> Imagenes subidas del producto:</h4>' + nombre);
     codigo = "cp=" + cp;
-    $.get("mostrarImagenes.php", codigo, function(x) {
+    $.get("mostrarImagenes.php", codigo, function (x) {
         var comprobante;
         var tipo;
         var descripcion;
@@ -34,8 +34,8 @@ function gestionimagenes(cp, nombre) {
         var conta = 1;
         lista = JSON.parse(x);
         console.log(lista);
-        $.each(lista, function(ind, elem) {
-            $.each(elem, function(ind, elem2) {
+        $.each(lista, function (ind, elem) {
+            $.each(elem, function (ind, elem2) {
                 imagenes = elem[ind].ruta;
                 idImagen = elem[ind].idImagen;
                 if (imagenes !== undefined) {
@@ -73,10 +73,10 @@ function limpiarCampos() {
 
 function eliminandoImagenesconsula(imagen, idImagen) {
     var arreglo = new Array();
-    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al aceptar no habra forma de recuperar los datos eliminados", function(e) {
+    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al aceptar no habra forma de recuperar los datos eliminados", function (e) {
         if (e) {
             info = "idImagen=" + idImagen + "&imagen=" + imagen;
-            $.get("eliminarClasificados.php", info, function() {
+            $.get("eliminarClasificados.php", info, function () {
                 alertify.success("se elimino la imagen" + imagen + "correctamente");
             });
         } else {
@@ -86,7 +86,7 @@ function eliminandoImagenesconsula(imagen, idImagen) {
 
 function eliminandoImagenes(imagen, idImagen, cont) {
     var arreglo = new Array();
-    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar", function(e) {
+    alertify.confirm("¿Estas completamente seguro de querer eliminar esta imagen?, Al guardar cambios ya no se podra recuperar", function (e) {
         if (e) {
             arreglo = {imagen: imagen, idImagen: idImagen};
             imagenes.push(arreglo);
@@ -127,13 +127,13 @@ function handleFileSelect(evt) {
 
 }
 
-$("#limpiar").click(function() {
+$("#limpiar").click(function () {
     limpiarCampos();
 });
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-$("#clascodigoproducto").keypress(function(e) {
+$("#clascodigoproducto").keypress(function (e) {
     if (e.which == 13) {
         damedatosclasificados();
     }
@@ -142,7 +142,7 @@ $("#clascodigoproducto").keypress(function(e) {
 
 function damedatosclasificados() {
     var info = "codigoProducto=" + $("#clascodigoproducto").val();
-    $.get("verificarExistenciaProducto.php", info, function(x) {
+    $.get("verificarExistenciaProducto.php", info, function (x) {
         var comprobante;
         var tipo;
         var descripcion;
@@ -155,8 +155,8 @@ function damedatosclasificados() {
         var cont = 1;
         lista = JSON.parse(x);
         console.log(lista);
-        $.each(lista, function(ind, elem) {
-            $.each(elem, function(ind, elem2) {
+        $.each(lista, function (ind, elem) {
+            $.each(elem, function (ind, elem2) {
                 grupo = elem[ind].idGrupoProducto;
                 comprobante = elem[ind].comprobante;
                 tipo = elem[ind].idTipo;
@@ -181,7 +181,7 @@ function damedatosclasificados() {
         if (grupo !== "" && grupo !== undefined) {
             $("#mostrando").show();
             $("#clascodigoproducto").prop("disabled", true);
-            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function () {
                 $("#selectTipo").selectpicker();
                 $("#selectTipo").selectpicker('refresh');
                 $("#selectTipo").selectpicker('show');
@@ -200,6 +200,7 @@ function damedatosclasificados() {
                     }
                 }
                 else {
+                    $("#descripcion").val(descripcion);
                 }
             });
         } else {
@@ -208,13 +209,13 @@ function damedatosclasificados() {
     });
 }
 
-$("#btnGuardarTipo").click(function() {
+$("#btnGuardarTipo").click(function () {
     info = "nombreTipo=" + $.trim($("#txtnombreTipo").val().toUpperCase()) + "&idGrupo=" + grupo;
-    $.get("guardarTipo.php", info, function(x) {
+    $.get("guardarTipo.php", info, function (x) {
         if (x == 999) {
             alertify.error("Ya existe un tipo con ese nombre");
         } else {
-            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function() {
+            $("#selectTipo").load("mostrarTiposProducto.php?idGrupo=" + grupo, function () {
                 $("#selectTipo").selectpicker();
                 $("#selectTipo").selectpicker('refresh');
                 $("#selectTipo").selectpicker('show');
@@ -224,7 +225,7 @@ $("#btnGuardarTipo").click(function() {
     });
 });
 
-$("#subirImagenes").click(function() {
+$("#subirImagenes").click(function () {
     if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "" && $("#files").val() !== "") {
 //       alert(archivos);
         var data = new FormData();
@@ -267,7 +268,7 @@ $("#subirImagenes").click(function() {
             data: data, //Le pasamos el objeto que creamos con los archivos
             processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
             cache: false //Para que el formulario no guarde cache
-        }).done(function(msg) {
+        }).done(function (msg) {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
@@ -279,7 +280,7 @@ $("#subirImagenes").click(function() {
     }
 });
 
-$("#editarImagenes").click(function() {
+$("#editarImagenes").click(function () {
     if ($("#descripcion").val() !== "" && $("#clascodigoproducto").val() !== "" && $("#selectTipo").val() !== "") {
         if (calculando < 5 || $("#files").val() !== "") {
             var data = new FormData();
@@ -316,13 +317,13 @@ $("#editarImagenes").click(function() {
                 data: data, //Le pasamos el objeto que creamos con los archivos
                 processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
                 cache: false //Para que el formulario no guarde cache
-            }).done(function(msg) {
+            }).done(function (msg) {
 //                $("#xmlenrada").slideUp();
 //                $("#validacionentradas").slideDown();
 //                $("#cargaxml").slideDown();
                 alertify.success("Se editaron lo datos correctamente");
                 limpiarCampos();
-                $("#mostrarImagenes").css("display","none");
+                $("#mostrarImagenes").css("display", "none");
                 $("#editarImagenes").hide('slow');
                 $("#subirImagenes").show('slow');
             });
@@ -376,7 +377,7 @@ function comprueba_extension_imgslider(formulario, archivo) {
                 data: data, //Le pasamos el objeto que creamos con los archivos
                 processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
                 cache: false //Para que el formulario no guarde cache
-            }).done(function(msg) {
+            }).done(function (msg) {
                 $("#imgslider").val("");
                 if (msg == 666) {
                     alertify.error("Se ha alcanzado el limite de imagenes permitidas");
@@ -387,7 +388,7 @@ function comprueba_extension_imgslider(formulario, archivo) {
                 if (msg == 1) {
                     alertify.error("No se pudo cargar la imagen");
                 }
-                $("#enslider").load("mostrarImgSlider.php", function() {
+                $("#enslider").load("mostrarImgSlider.php", function () {
                 });
             });
         }
@@ -398,13 +399,13 @@ function comprueba_extension_imgslider(formulario, archivo) {
 
 
 function borrarSlider(idImgslider, idSucursal, ruta) {
-    alertify.confirm("¿Estas completamente seguro eliminar la imagen seleccionada?, Esta acción no puede deshacerse. ", function(e) {
+    alertify.confirm("¿Estas completamente seguro eliminar la imagen seleccionada?, Esta acción no puede deshacerse. ", function (e) {
         if (e) {
             var info = "idImgslider=" + idImgslider + "&idSucursal=" + idSucursal + "&ruta=" + encodeURIComponent(ruta);
-            $.get('borrarSlider.php', info, function(r) {
+            $.get('borrarSlider.php', info, function (r) {
                 if (r == 777) {
                     alertify.success("Imagen eliminada");
-                    $("#enslider").load("mostrarImgSlider.php", function() {
+                    $("#enslider").load("mostrarImgSlider.php", function () {
                     });
                 } else {
                     alertify.error("No se pudo eliminar la imangen");
@@ -415,8 +416,8 @@ function borrarSlider(idImgslider, idSucursal, ruta) {
     });
 }
 
-$("#btnnopublicados").click(function() {
-    $("#divnopublicados").load("buscarNoPublicados.php", function() {
+$("#btnnopublicados").click(function () {
+    $("#divnopublicados").load("buscarNoPublicados.php", function () {
         $("#tdnopublicados").dataTable();
     });
     $("#mdlnopublicados").modal('toggle');
